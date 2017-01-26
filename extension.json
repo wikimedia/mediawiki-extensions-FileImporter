@@ -1,0 +1,20 @@
+{
+  "name": "MoveToCommons",
+  "version": "0.0.1",
+  "author": [
+    "WMDE"
+  ],
+  "url": "https://www.mediawiki.org/wiki/Extension:MoveToCommons",
+  "descriptionmsg": "moveToCommons-desc",
+  "license-name": "GPL-2.0+",
+  "type": "other",
+  "manifest_version": 1,
+  "MessagesDirs": {
+    "TwoColConflict": [
+      "i18n"
+    ]
+  },
+  "AutoloadClasses": {
+    "MoveToCommons\\MoveToCommonsHooks": "src/MoveToCommonsHooks.php"
+  }
+}
