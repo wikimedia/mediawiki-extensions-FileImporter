@@ -4,6 +4,6 @@
       "WMDE"
     ]
   },
-  "moveToCommons": "MoveToCommons",
-  "moveToCommons-desc": "Easy moving of files to Commons"
+  "movetocommons": "MoveToCommons",
+  "movetocommons-desc": "Easy moving of files to Wikimedia Commons"
 }

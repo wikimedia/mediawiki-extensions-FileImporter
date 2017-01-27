@@ -4,6 +4,6 @@
       "WMDE"
     ]
   },
-  "moveToCommons": "MoveToCommons",
-  "moveToCommons-desc": "{{desc|name=MoveToCommons|url=https://www.mediawiki.org/wiki/Extension:MoveToCommons}}"
+  "movetocommons": "MoveToCommons",
+  "movetocommons-desc": "{{desc|name=MoveToCommons|url=https://www.mediawiki.org/wiki/Extension:MoveToCommons}}"
 }

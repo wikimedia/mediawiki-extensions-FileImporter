@@ -5,12 +5,13 @@
     "WMDE"
   ],
   "url": "https://www.mediawiki.org/wiki/Extension:MoveToCommons",
-  "descriptionmsg": "moveToCommons-desc",
+  "namemsg": "movetocommons",
+  "descriptionmsg": "movetocommons-desc",
   "license-name": "GPL-2.0+",
   "type": "other",
   "manifest_version": 1,
   "MessagesDirs": {
-    "TwoColConflict": [
+    "MoveToCommons": [
       "i18n"
     ]
   },
