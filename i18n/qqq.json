@@ -1,9 +1,9 @@
 {
-  "@metadata": {
-    "authors": [
-      "WMDE"
-    ]
-  },
-  "movetocommons": "MoveToCommons",
-  "movetocommons-desc": "{{desc|name=MoveToCommons|url=https://www.mediawiki.org/wiki/Extension:MoveToCommons}}"
+	"@metadata": {
+		"authors": [
+			"WMDE"
+		]
+	},
+	"movetocommons": "MoveToCommons",
+	"movetocommons-desc": "{{desc|name=MoveToCommons|url=https://www.mediawiki.org/wiki/Extension:MoveToCommons}}"
 }
