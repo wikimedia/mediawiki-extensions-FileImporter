@@ -5,5 +5,6 @@
     ]
   },
   "movetocommons": "MoveToCommons",
-  "movetocommons-desc": "Easy moving of files to Wikimedia Commons"
+  "movetocommons-desc": "Easy moving of files to Wikimedia Commons",
+  "movetocommons-specialpage": "Move file to Commons"
 }

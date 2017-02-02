@@ -15,7 +15,11 @@
       "i18n"
     ]
   },
+  "SpecialPages" : {
+    "MoveToCommons": "MoveToCommons\\SpecialMoveToCommons"
+  },
   "AutoloadClasses": {
-    "MoveToCommons\\MoveToCommonsHooks": "src/MoveToCommonsHooks.php"
+    "MoveToCommons\\MoveToCommonsHooks": "src/MoveToCommonsHooks.php",
+    "MoveToCommons\\SpecialMoveToCommons": "src/SpecialMoveToCommons.php"
   }
 }
