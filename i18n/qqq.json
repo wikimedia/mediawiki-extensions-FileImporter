@@ -6,5 +6,10 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "{{desc|name=FileImporter|url=https://www.mediawiki.org/wiki/Extension:FileImporter}}",
-	"fileimporter-specialpage": "Title for the File Import special page"
+	"fileimporter-specialpage": "Title for the File Import special page.",
+	"fileimporter-cantparseurl": "Error message shown on the special page when the URL entered can not be parsed.",
+	"fileimporter-cantimporturl": "Error message shown on the special page when the URL entered can not be imported from.",
+	"fileimporter-exampleprefix": "Prefix for the example URL contained within the URL text box on the special page.",
+	"fileimporter-submit": "Text for the submit button on the special page.",
+	"fileimporter-importfilefromprefix" : "Prefix for the URL being imported from on the special page."
 }

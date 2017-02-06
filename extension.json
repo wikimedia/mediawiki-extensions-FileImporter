@@ -21,5 +21,16 @@
   "AutoloadClasses": {
     "FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
     "FileImporter\\SpecialImportFile": "src/SpecialImportFile.php"
+  },
+  "ResourceModules": {
+    "ext.FileImporter.Special": {
+      "styles": [
+        "modules/ext.FileImporter.Special.css"
+      ]
+    }
+  },
+  "ResourceFileModulePaths": {
+    "localBasePath": "",
+    "remoteExtPath": "FileImporter"
   }
 }
