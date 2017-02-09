@@ -1,6 +1,6 @@
 [gerrit]
 host=gerrit.wikimedia.org
 port=29418
-project=mediawiki/extensions/MoveToCommons.git
+project=mediawiki/extensions/FileImporter.git
 defaultbranch=master
 defaultrebase=0

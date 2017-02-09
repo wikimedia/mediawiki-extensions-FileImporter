@@ -4,7 +4,7 @@
 			"WMDE"
 		]
 	},
-	"movetocommons": "MoveToCommons",
-	"movetocommons-desc": "{{desc|name=MoveToCommons|url=https://www.mediawiki.org/wiki/Extension:MoveToCommons}}",
-	"movetocommons-specialpage": "Title for the Move to Commons special page"
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "{{desc|name=FileImporter|url=https://www.mediawiki.org/wiki/Extension:FileImporter}}",
+	"fileimporter-specialpage": "Title for the File Import special page"
 }

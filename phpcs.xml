@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="MoveToCommons">
+<ruleset name="FileImporter">
     <!-- See https://github.com/wikimedia/mediawiki-tools-codesniffer/blob/master/MediaWiki/ruleset.xml -->
     <rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
         <exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures" />

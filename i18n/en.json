@@ -4,7 +4,7 @@
       "WMDE"
     ]
   },
-  "movetocommons": "MoveToCommons",
-  "movetocommons-desc": "Easy moving of files to Wikimedia Commons",
-  "movetocommons-specialpage": "Move file to Commons"
+  "fileimporter": "FileImporter",
+  "fileimporter-desc": "Easy importing of files from other sites",
+  "fileimporter-specialpage": "Import file"
 }

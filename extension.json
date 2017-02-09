@@ -1,25 +1,25 @@
 {
-  "name": "MoveToCommons",
+  "name": "FileImporter",
   "version": "0.0.1",
   "author": [
     "WMDE"
   ],
-  "url": "https://www.mediawiki.org/wiki/Extension:MoveToCommons",
-  "namemsg": "movetocommons",
-  "descriptionmsg": "movetocommons-desc",
+  "url": "https://www.mediawiki.org/wiki/Extension:FileImporter",
+  "namemsg": "fileimporter",
+  "descriptionmsg": "fileimporter-desc",
   "license-name": "GPL-2.0+",
   "type": "other",
   "manifest_version": 1,
   "MessagesDirs": {
-    "MoveToCommons": [
+    "FileImporter": [
       "i18n"
     ]
   },
   "SpecialPages" : {
-    "MoveToCommons": "MoveToCommons\\SpecialMoveToCommons"
+    "ImportFile": "FileImporter\\SpecialImportFile"
   },
   "AutoloadClasses": {
-    "MoveToCommons\\MoveToCommonsHooks": "src/MoveToCommonsHooks.php",
-    "MoveToCommons\\SpecialMoveToCommons": "src/SpecialMoveToCommons.php"
+    "FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
+    "FileImporter\\SpecialImportFile": "src/SpecialImportFile.php"
   }
 }

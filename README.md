@@ -1,1 +1,1 @@
-# MoveToCommons extension
+# FileImporter extension

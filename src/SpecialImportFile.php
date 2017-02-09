@@ -1,18 +1,18 @@
 <?php
 
-namespace MoveToCommons;
+namespace FileImporter;
 
 use SpecialPage;
 
-class SpecialMoveToCommons extends SpecialPage {
+class SpecialImportFile extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct( 'MoveToCommons' );
+		parent::__construct( 'FileImport' );
 	}
 
 	public function execute( $subPage ) {
 		$out = $this->getOutput();
-		$out->setPageTitle( new \Message( 'movetocommons-specialpage' ) );
+		$out->setPageTitle( new \Message( 'fileimport-specialpage' ) );
 
 		$rawUrl = $out->getRequest()->getVal( 'clientUrl' );
 		$parsedUrl = wfParseUrl( $rawUrl );
