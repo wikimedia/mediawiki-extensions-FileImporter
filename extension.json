@@ -20,8 +20,12 @@
   },
   "AutoloadClasses": {
     "FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
-    "FileImporter\\SpecialImportFile": "src/SpecialImportFile.php"
+    "FileImporter\\SpecialImportFile": "src/SpecialImportFile.php",
+    "FileImporter\\UrlBasedSiteLookup": "src/UrlBasedSiteLookup.php"
   },
+  "ServiceWiringFiles": [
+    "src/ServiceWiring.php"
+  ],
   "ResourceModules": {
     "ext.FileImporter.Special": {
       "styles": [

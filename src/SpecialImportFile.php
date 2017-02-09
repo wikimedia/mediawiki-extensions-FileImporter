@@ -3,6 +3,7 @@
 namespace FileImporter;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use Message;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
@@ -44,7 +45,9 @@ class SpecialImportFile extends SpecialPage {
 	 * @return bool
 	 */
 	private function urlAllowed( array $parsedUrl ) {
-		return strstr( $parsedUrl['host'], '.wikipedia.org' );
+		/** @var UrlBasedSiteLookup $lookup */
+		$lookup = MediaWikiServices::getInstance()->getService( 'FileImporterUrlBasedSiteLookup' );
+		return $lookup->getSite( $parsedUrl ) !== null;
 	}
 
 	private function showUnparsableUrlMessage( $rawUrl ) {
