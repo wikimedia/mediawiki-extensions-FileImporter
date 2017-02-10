@@ -11,5 +11,6 @@
 	"fileimporter-cantimporturl": "Error message shown on the special page when the URL entered can not be imported from.",
 	"fileimporter-exampleprefix": "Prefix for the example URL contained within the URL text box on the special page.",
 	"fileimporter-submit": "Text for the submit button on the special page.",
+	"fileimporter-import": "Text for the import button on the special page.",
 	"fileimporter-importfilefromprefix" : "Prefix for the URL being imported from on the special page."
 }

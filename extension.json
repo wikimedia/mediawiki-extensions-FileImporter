@@ -19,6 +19,8 @@
     "ImportFile": "FileImporter\\SpecialImportFile"
   },
   "AutoloadClasses": {
+    "FileImporter\\ExternalMediaWikiFile": "src/ExternalMediaWikiFile.php",
+    "FileImporter\\Importable": "src/Importable.php",
     "FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
     "FileImporter\\SpecialImportFile": "src/SpecialImportFile.php",
     "FileImporter\\UrlBasedSiteLookup": "src/UrlBasedSiteLookup.php"

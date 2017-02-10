@@ -11,5 +11,6 @@
   "fileimporter-cantimporturl": "Can't import the given URL",
   "fileimporter-exampleprefix": "Example",
   "fileimporter-submit": "Submit",
+  "fileimporter-import": "Import",
   "fileimporter-importfilefromprefix" : "Importing file from"
 }

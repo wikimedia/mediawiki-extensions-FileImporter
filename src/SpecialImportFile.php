@@ -3,6 +3,7 @@
 namespace FileImporter;
 
 use Html;
+use Linker;
 use MediaWiki\MediaWikiServices;
 use Message;
 use OOUI\ButtonInputWidget;
@@ -21,6 +22,7 @@ class SpecialImportFile extends SpecialPage {
 		$out->enableOOUI();
 
 		$rawUrl = $out->getRequest()->getVal( 'clientUrl', '' );
+		$wasPosted = $out->getRequest()->wasPosted();
 
 		if ( !$rawUrl ) {
 			$this->showUrlEntryPage();
@@ -35,8 +37,17 @@ class SpecialImportFile extends SpecialPage {
 			$this->showDisallowedUrlMessage();
 			$this->showUrlEntryPage();
 		} else {
-			$this->showImportPage( $parsedUrl );
+			if ( $wasPosted ) {
+				$this->doImport();
+			} else {
+				$this->showImportPage( $rawUrl );
+			}
 		}
+	}
+
+	private function doImport() {
+		// TODO implement importing
+		$this->getOutput()->addHTML( 'TODO do the import' );
 	}
 
 	/**
@@ -71,8 +82,37 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function showUrlEntryPage() {
+		$this->showInputForm();
+	}
+
+	/**
+	 * @param string $rawUrl
+	 */
+	private function showImportPage( $rawUrl ) {
+		// TODO actually make the correct file?
+		$file = new ExternalMediaWikiFile();
+		$out = $this->getOutput();
+
 		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
-		$this->getOutput()->addHTML(
+		$this->showInputForm( $file->getTargetUrl() );
+
+		$out->addHTML(
+			Html::rawElement(
+				'p',
+				[],
+				( new Message( 'fileimporter-importfilefromprefix' ) )->plain() . ': ' .
+				Linker::makeExternalLink( $file->getTargetUrl(), $file->getTargetUrl() )
+			)
+		);
+
+		$out->addHTML( Html::element( 'p', [], $file->getTitle() ) );
+		$out->addHTML( Linker::makeExternalImage( $file->getImageUrl(), $file->getTitle() ) );
+	}
+
+	private function showInputForm( $clientUrl = null ) {
+		$out = $this->getOutput();
+
+		$out->addHTML(
 			Html::openElement( 'div' ) . Html::openElement(
 				'form',
 				[
@@ -83,9 +123,10 @@ class SpecialImportFile extends SpecialPage {
 				[
 					'name' => 'clientUrl',
 					'classes' => [ 'mw-movtocom-url-text' ],
-					'label' => 'Foo',
 					'autofocus' => true,
 					'required' => true,
+					'type' => 'url',
+					'value' => $clientUrl ? $clientUrl : '',
 					'placeholder' => ( new Message( 'fileimporter-exampleprefix' ) )->plain() .
 						': https://en.wikipedia.org/wiki/File:Berlin_Skyline'
 				]
@@ -96,20 +137,39 @@ class SpecialImportFile extends SpecialPage {
 					'type' => 'submit',
 					'flags' => [ 'primary', 'progressive' ],
 				]
-			) . Html::closeElement( 'form' ) . Html::closeElement( 'div' )
+			) . Html::closeElement( 'form' )
 		);
+
+		if ( $clientUrl ) {
+			$this->showImportForm( $clientUrl );
+		}
+
+		$out->addHTML( Html::closeElement( 'div' ) );
 	}
 
-	/**
-	 * @param string[] $parsedUrl return of wfParseUrl
-	 */
-	private function showImportPage( array $parsedUrl ) {
+	private function showImportForm( $clientUrl ) {
 		$this->getOutput()->addHTML(
-			Html::element(
-				'p',
-				[],
-				( new Message( 'fileimporter-importfilefromprefix' ) )->plain()
-			) . ': ' . implode( '|', $parsedUrl )
+			Html::openElement(
+				'form',
+				[
+					'action' => $this->getPageTitle()->getLocalURL(),
+					'method' => 'POST',
+				]
+			) . Html::element(
+				'input',
+				[
+					'type' => 'hidden',
+					'name' => 'clientUrl',
+					'value' => $clientUrl,
+				]
+			). new ButtonInputWidget(
+				[
+					'classes' => [ 'mw-movtocom-url-import' ],
+					'label' => ( new Message( 'fileimporter-import' ) )->plain(),
+					'type' => 'submit',
+					'flags' => [ 'primary', 'progressive' ],
+				]
+			) . Html::closeElement( 'form' )
 		);
 	}
 
