@@ -19,15 +19,25 @@
 		"ImportFile": "FileImporter\\SpecialImportFile"
 	},
 	"AutoloadClasses": {
-		"FileImporter\\ExternalMediaWikiFile": "src/ExternalMediaWikiFile.php",
-		"FileImporter\\Importable": "src/Importable.php",
+		"FileImporter\\Generic\\DispatchingImporter": "src/Generic/DispatchingImporter.php",
+		"FileImporter\\Generic\\ImportAdjustments": "src/Generic/ImportAdjustments.php",
+		"FileImporter\\Generic\\ImportDetails": "src/Generic/ImportDetails.php",
+		"FileImporter\\Generic\\Importer": "src/Generic/Importer.php",
+		"FileImporter\\Generic\\ImportTargetException": "src/Generic/ImportTargetException.php",
+		"FileImporter\\Generic\\TargetUrl": "src/Generic/TargetUrl.php",
+		"FileImporter\\MediaWiki\\HostBasedSiteTableLookup": "src/MediaWiki/HostBasedSiteTableLookup.php",
+		"FileImporter\\MediaWiki\\MediaWikiImporter": "src/MediaWiki/MediaWikiImporter.php",
 		"FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
-		"FileImporter\\SpecialImportFile": "src/SpecialImportFile.php",
-		"FileImporter\\UrlBasedSiteLookup": "src/UrlBasedSiteLookup.php"
+		"FileImporter\\SpecialImportFile": "src/SpecialImportFile.php"
 	},
 	"ServiceWiringFiles": [
 		"src/ServiceWiring.php"
 	],
+	"config": {
+		"FileImporterImporterServices": [
+			"FileImporterMediaWikiImporter"
+		]
+	},
 	"ResourceModules": {
 		"ext.FileImporter.Special": {
 			"styles": [
