@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Liuxinyu970226"
+		]
+	},
+	"fileimporter": "文件导入器",
+	"fileimporter-desc": "从其他网站轻松导入文件",
+	"fileimporter-specialpage": "导入文件"
+}

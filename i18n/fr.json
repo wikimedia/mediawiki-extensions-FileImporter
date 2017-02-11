@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hashar",
+			"Wladek92"
+		]
+	},
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "Importation facile de fichiers venant d'autres sites",
+	"fileimporter-specialpage": "Importer le fichier"
+}

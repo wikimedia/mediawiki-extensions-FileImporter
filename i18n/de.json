@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Metalhead64"
+		]
+	},
+	"fileimporter": "Dateiimporteur",
+	"fileimporter-desc": "Einfaches Importieren von Dateien von anderen Websites",
+	"fileimporter-specialpage": "Datei importieren"
+}
