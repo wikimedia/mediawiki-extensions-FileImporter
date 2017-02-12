@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"WikiPhoenix"
+		]
+	},
+	"fileimporter": "Filimporterare",
+	"fileimporter-desc": "Enkel importering av filer från andra webbplatser",
+	"fileimporter-specialpage": "Importera fil"
+}

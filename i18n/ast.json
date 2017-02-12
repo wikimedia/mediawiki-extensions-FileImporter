@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Xuacu"
+		]
+	},
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "Importación cenciella de ficheros dende otros sitios",
+	"fileimporter-specialpage": "Importar ficheru"
+}
