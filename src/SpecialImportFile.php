@@ -2,24 +2,37 @@
 
 namespace FileImporter;
 
+use Html;
+use Message;
+use OOUI\ButtonInputWidget;
+use OOUI\TextInputWidget;
 use SpecialPage;
 
 class SpecialImportFile extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct( 'FileImport' );
+		parent::__construct( 'ImportFile' );
 	}
 
 	public function execute( $subPage ) {
 		$out = $this->getOutput();
-		$out->setPageTitle( new \Message( 'fileimport-specialpage' ) );
+		$out->setPageTitle( new Message( 'fileimporter-specialpage' ) );
+		$out->enableOOUI();
 
-		$rawUrl = $out->getRequest()->getVal( 'clientUrl' );
+		$rawUrl = $out->getRequest()->getVal( 'clientUrl', '' );
+
+		if ( !$rawUrl ) {
+			$this->showUrlEntryPage();
+			return;
+		}
+
 		$parsedUrl = wfParseUrl( $rawUrl );
 		if ( $parsedUrl === false ) {
-			$this->showUrlEntryPage( $rawUrl );
+			$this->showUnparsableUrlMessage( $rawUrl );
+			$this->showUrlEntryPage();
 		} elseif ( !$this->urlAllowed( $parsedUrl ) ) {
-			$this->showUrlNotAllowedPage();
+			$this->showDisallowedUrlMessage();
+			$this->showUrlEntryPage();
 		} else {
 			$this->showImportPage( $parsedUrl );
 		}
@@ -31,26 +44,70 @@ class SpecialImportFile extends SpecialPage {
 	 * @return bool
 	 */
 	private function urlAllowed( array $parsedUrl ) {
-		// TODO decide if this URL is allowed. ie, is it a wikimedia project & a mediawiki wiki
-		return true;
+		return strstr( $parsedUrl['host'], '.wikipedia.org' );
 	}
 
-	/**
-	 * @param string $rawUrl
-	 */
-	private function showUrlEntryPage( $rawUrl ) {
-		// TODO show a simple special page containing 1 input box that a URL can be pasted into
+	private function showUnparsableUrlMessage( $rawUrl ) {
+		$this->showWarningMessage(
+			( new Message( 'fileimporter-cantparseurl' ) )->plain() . ': ' . $rawUrl
+		);
 	}
 
-	private function showUrlNotAllowedPage() {
-		// TODO show an error page stating that the URL entered is not allowed for whatever reason!
+	private function showDisallowedUrlMessage() {
+		$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
+	}
+
+	private function showWarningMessage( $message ) {
+		$this->getOutput()->addHTML(
+			Html::rawElement(
+				'div',
+				[ 'class' => 'warningbox' ],
+				Html::element( 'p', [], $message )
+			)
+		);
+	}
+
+	private function showUrlEntryPage() {
+		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
+		$this->getOutput()->addHTML(
+			Html::openElement( 'div' ) . Html::openElement(
+				'form',
+				[
+					'action' => $this->getPageTitle()->getLocalURL(),
+					'method' => 'GET',
+				]
+			) . new TextInputWidget(
+				[
+					'name' => 'clientUrl',
+					'classes' => [ 'mw-movtocom-url-text' ],
+					'label' => 'Foo',
+					'autofocus' => true,
+					'required' => true,
+					'placeholder' => ( new Message( 'fileimporter-exampleprefix' ) )->plain() .
+						': https://en.wikipedia.org/wiki/File:Berlin_Skyline'
+				]
+			) . new ButtonInputWidget(
+				[
+					'classes' => [ 'mw-movtocom-url-submit' ],
+					'label' => ( new Message( 'fileimporter-submit' ) )->plain(),
+					'type' => 'submit',
+					'flags' => [ 'primary', 'progressive' ],
+				]
+			) . Html::closeElement( 'form' ) . Html::closeElement( 'div' )
+		);
 	}
 
 	/**
 	 * @param string[] $parsedUrl return of wfParseUrl
 	 */
 	private function showImportPage( array $parsedUrl ) {
-		// TODO show the details of the import
+		$this->getOutput()->addHTML(
+			Html::element(
+				'p',
+				[],
+				( new Message( 'fileimporter-importfilefromprefix' ) )->plain()
+			) . ': ' . implode( '|', $parsedUrl )
+		);
 	}
 
 }
