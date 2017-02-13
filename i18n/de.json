@@ -6,5 +6,11 @@
 	},
 	"fileimporter": "Dateiimporteur",
 	"fileimporter-desc": "Einfaches Importieren von Dateien von anderen Websites",
-	"fileimporter-specialpage": "Datei importieren"
+	"fileimporter-specialpage": "Datei importieren",
+	"fileimporter-cantparseurl": "Die angegebene URL konnte nicht geparst werden",
+	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
+	"fileimporter-exampleprefix": "Beispiel",
+	"fileimporter-submit": "Absenden",
+	"fileimporter-import": "Importieren",
+	"fileimporter-importfilefromprefix": "Datei importieren von"
 }

@@ -6,5 +6,11 @@
 	},
 	"fileimporter": "Увезувач на податотеки",
 	"fileimporter-desc": "Лесен увоз на податотеки од други места",
-	"fileimporter-specialpage": "Увези податотека"
+	"fileimporter-specialpage": "Увези податотека",
+	"fileimporter-cantparseurl": "Не можам да ја расчленам дадената URL",
+	"fileimporter-cantimporturl": "Не можам да ја увезам дадената URL",
+	"fileimporter-exampleprefix": "Пример",
+	"fileimporter-submit": "Поднеси",
+	"fileimporter-import": "Увези",
+	"fileimporter-importfilefromprefix": "Увоз на податотеката од"
 }

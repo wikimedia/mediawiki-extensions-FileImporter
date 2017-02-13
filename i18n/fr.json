@@ -2,10 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"Hashar",
-			"Wladek92"
+			"Wladek92",
+			"Gomoko"
 		]
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importation facile de fichiers venant d'autres sites",
-	"fileimporter-specialpage": "Importer le fichier"
+	"fileimporter-specialpage": "Importer le fichier",
+	"fileimporter-cantparseurl": "Impossible d’analyser l’URL fournie",
+	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
+	"fileimporter-exampleprefix": "Exemple",
+	"fileimporter-submit": "Soumettre",
+	"fileimporter-importfilefromprefix": "Import du fichier depuis"
 }

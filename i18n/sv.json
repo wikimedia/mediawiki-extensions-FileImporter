@@ -6,5 +6,11 @@
 	},
 	"fileimporter": "Filimporterare",
 	"fileimporter-desc": "Enkel importering av filer från andra webbplatser",
-	"fileimporter-specialpage": "Importera fil"
+	"fileimporter-specialpage": "Importera fil",
+	"fileimporter-cantparseurl": "Kan inte tolka angiven URL",
+	"fileimporter-cantimporturl": "Kan inte importera angiven URL",
+	"fileimporter-exampleprefix": "Exempel",
+	"fileimporter-submit": "Skicka",
+	"fileimporter-import": "Importera",
+	"fileimporter-importfilefromprefix": "Importerar från fil"
 }

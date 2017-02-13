@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrumps"
+		]
+	},
+	"fileimporter-specialpage": "Import pliku",
+	"fileimporter-exampleprefix": "Przykład",
+	"fileimporter-submit": "Wyślij",
+	"fileimporter-importfilefromprefix": "Importowanie pliku z"
+}
