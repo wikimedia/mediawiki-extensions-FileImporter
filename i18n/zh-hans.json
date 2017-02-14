@@ -6,5 +6,11 @@
 	},
 	"fileimporter": "文件导入器",
 	"fileimporter-desc": "从其他网站轻松导入文件",
-	"fileimporter-specialpage": "导入文件"
+	"fileimporter-specialpage": "导入文件",
+	"fileimporter-cantparseurl": "不能解析提供的URL",
+	"fileimporter-cantimporturl": "不能导入提供的URL",
+	"fileimporter-exampleprefix": "示例",
+	"fileimporter-submit": "提交",
+	"fileimporter-import": "导入",
+	"fileimporter-importfilefromprefix": "正在导入表单"
 }

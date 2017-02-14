@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dr. Shikha Jaggi"
+			"Dr. Shikha Jaggi",
+			"Zubairudalhatu"
 		]
 	},
-	"fileimporter": "फ़ाइल आयातक"
+	"fileimporter": "फ़ाइल आयातक",
+	"fileimporter-exampleprefix": "Misali"
 }

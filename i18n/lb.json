@@ -4,5 +4,8 @@
 			"Robby"
 		]
 	},
-	"fileimporter-specialpage": "Fichier importéieren"
+	"fileimporter-specialpage": "Fichier importéieren",
+	"fileimporter-exampleprefix": "Beispill",
+	"fileimporter-submit": "Schécken",
+	"fileimporter-import": "Importéieren"
 }

@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Elias Ahmmad"
+		]
+	},
+	"fileimporter": "ফাইল আমদানিকারক",
+	"fileimporter-desc": "অন্যান্য সাইট থেকে ফাইল সহজে আমদানি",
+	"fileimporter-specialpage": "ফাইল আমদানি",
+	"fileimporter-cantparseurl": "প্রদত্ত URL টি পার্স করা যাবে না",
+	"fileimporter-cantimporturl": "প্রদত্ত URL টি আমদানি করা যাবে না",
+	"fileimporter-exampleprefix": "উদাহরণ",
+	"fileimporter-submit": "জমা দিন",
+	"fileimporter-import": "আমদানি"
+}

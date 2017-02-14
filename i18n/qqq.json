@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"WMDE"
+			"WMDE",
+			"Liuxinyu970226"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -9,8 +10,8 @@
 	"fileimporter-specialpage": "Title for the File Import special page.",
 	"fileimporter-cantparseurl": "Error message shown on the special page when the URL entered can not be parsed.",
 	"fileimporter-cantimporturl": "Error message shown on the special page when the URL entered can not be imported from.",
-	"fileimporter-exampleprefix": "Prefix for the example URL contained within the URL text box on the special page.",
-	"fileimporter-submit": "Text for the submit button on the special page.",
-	"fileimporter-import": "Text for the import button on the special page.",
+	"fileimporter-exampleprefix": "Prefix for the example URL contained within the URL text box on the special page.\n{{Identical|Example}}",
+	"fileimporter-submit": "Text for the submit button on the special page.\n{{Identical|Submit}}",
+	"fileimporter-import": "Text for the import button on the special page.\n{{Identical|Import}}",
 	"fileimporter-importfilefromprefix": "Prefix for the URL being imported from on the special page."
 }

@@ -13,5 +13,6 @@
 	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
 	"fileimporter-exampleprefix": "Exemple",
 	"fileimporter-submit": "Soumettre",
+	"fileimporter-import": "Importer",
 	"fileimporter-importfilefromprefix": "Import du fichier depuis"
 }

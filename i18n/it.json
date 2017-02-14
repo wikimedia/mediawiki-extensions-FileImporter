@@ -4,5 +4,8 @@
 			"Beta16"
 		]
 	},
-	"fileimporter-specialpage": "Importa file"
+	"fileimporter-specialpage": "Importa file",
+	"fileimporter-exampleprefix": "Esempio",
+	"fileimporter-submit": "Invia",
+	"fileimporter-import": "Importa"
 }

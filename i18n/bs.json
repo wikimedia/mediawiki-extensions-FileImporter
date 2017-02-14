@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Srdjan m"
+		]
+	},
+	"fileimporter": "Uvoznik datoteka",
+	"fileimporter-desc": "Lagan uvoz datoteka s drugih sajtova",
+	"fileimporter-specialpage": "Uvoz datoteke",
+	"fileimporter-cantparseurl": "Ne mogu raščlaniti dati URL",
+	"fileimporter-cantimporturl": "Ne mogu uvesti s datog URL-a",
+	"fileimporter-exampleprefix": "Primjer",
+	"fileimporter-submit": "Pošalji",
+	"fileimporter-import": "Uvezi",
+	"fileimporter-importfilefromprefix": "Uvoz datoteke s"
+}
