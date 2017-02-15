@@ -4,8 +4,10 @@
 			"Robby"
 		]
 	},
+	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
 	"fileimporter-specialpage": "Fichier importéieren",
 	"fileimporter-exampleprefix": "Beispill",
 	"fileimporter-submit": "Schécken",
-	"fileimporter-import": "Importéieren"
+	"fileimporter-import": "Importéieren",
+	"fileimporter-importfilefromprefix": "Fichier gëtt importéiert vu(n)"
 }
