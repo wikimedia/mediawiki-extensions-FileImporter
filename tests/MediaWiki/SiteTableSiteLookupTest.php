@@ -2,13 +2,13 @@
 
 namespace FileImporter\MediaWiki\Test;
 
-use FileImporter\MediaWiki\HostBasedSiteTableLookup;
+use FileImporter\MediaWiki\SiteTableSiteLookup;
 use HashSiteStore;
 use MediaWikiSite;
 use PHPUnit_Framework_TestCase;
 use Site;
 
-class HostBasedSiteTableLookupTest extends PHPUnit_Framework_TestCase {
+class SiteTableSiteLookupTest extends PHPUnit_Framework_TestCase {
 
 	private function getSite( $globalId, $domain ) {
 		$mockSite = $this->getMock( Site::class );
@@ -44,7 +44,7 @@ class HostBasedSiteTableLookupTest extends PHPUnit_Framework_TestCase {
 			$this->getSite( 'commonswiki', 'commons.wikimedia.org' ),
 		] );
 
-		$lookup = new HostBasedSiteTableLookup( $hashSiteStore );
+		$lookup = new SiteTableSiteLookup( $hashSiteStore );
 
 		$result = $lookup->getSite( $host );
 		if ( $expected === null ) {
