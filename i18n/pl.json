@@ -4,7 +4,11 @@
 			"Chrumps"
 		]
 	},
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
 	"fileimporter-specialpage": "Import pliku",
+	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
+	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-exampleprefix": "Przykład",
 	"fileimporter-submit": "Wyślij",
 	"fileimporter-import": "Importuj",
