@@ -2,11 +2,15 @@
 
 namespace FileImporter\MediaWiki;
 
+use FileImporter\Generic\Exceptions\HttpRequestException;
+use FileImporter\Generic\Exceptions\ImportException;
+use FileImporter\Generic\FileRevision;
 use FileImporter\Generic\HttpRequestExecutor;
 use FileImporter\Generic\ImportAdjustments;
 use FileImporter\Generic\ImportDetails;
 use FileImporter\Generic\Importer;
 use FileImporter\Generic\TargetUrl;
+use FileImporter\Generic\TextRevision;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -61,35 +65,70 @@ class ApiImporter implements Importer, LoggerAwareInterface {
 	 * @param TargetUrl $targetUrl
 	 *
 	 * @return ImportDetails
+	 * @throws ImportException
 	 */
 	public function getImportDetails( TargetUrl $targetUrl ) {
 		$apiUrl = $this->httpApiLookup->getApiUrl( $targetUrl );
 
-		// TODO catch and do something with exceptions?
-		$imageInfoRequest = $this->httpRequestExecutor->execute(
-			$apiUrl . '?' . http_build_query( $this->getImageInfoParams( $targetUrl ) )
-		);
-		$imageInfoData = json_decode( $imageInfoRequest->getContent(), true );
+		$requestUrl = $apiUrl . '?' . http_build_query( $this->getParams( $targetUrl ) );
+		try {
+			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
+		} catch ( HttpRequestException $e ) {
+			throw new ImportException( 'Failed to retrieve file information from: ' . $requestUrl );
+		}
+		$requestData = json_decode( $imageInfoRequest->getContent(), true );
+		// TODO check if the response has any continuation data. Either continue or die here...
 
-		if ( count( $imageInfoData['query']['pages'] ) !== 1 ) {
-			// TODO log and exception
-			die( 'unexpected number of pages returned?' );
+		if ( count( $requestData['query']['pages'] ) !== 1 ) {
+			// TODO log?
+			throw new ImportException( 'Unexpected number of pages received from the API.' );
 		}
 
-		$pageInfoData = array_pop( $imageInfoData['query']['pages'] );
-		$normalizationData = array_pop( $imageInfoData['query']['normalized'] );
-		$latestImageData = array_pop( $pageInfoData['imageinfo'] );
+		$pageInfoData = array_pop( $requestData['query']['pages'] );
+		$normalizationData = array_pop( $requestData['query']['normalized'] );
+		$imageInfoData = $pageInfoData['imageinfo'];
+		$revisionsData = $pageInfoData['revisions'];
+		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData );
+		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData );
 
 		$importDetails = new ImportDetails(
 			$targetUrl,
 			$normalizationData['to'],
-			$latestImageData['thumburl']
+			$fileRevisions[0]->getField( 'thumburl' ),
+			$textRevisions,
+			$fileRevisions
 		);
 
 		return $importDetails;
 	}
 
-	private function getImageInfoParams( TargetUrl $targetUrl ) {
+	/**
+	 * @param array $imageInfo
+	 *
+	 * @return FileRevision[]
+	 */
+	private function getFileRevisionsFromImageInfo( array $imageInfo ) {
+		$revisions = [];
+		foreach ( $imageInfo as $revisionInfo ) {
+			$revisions[] = new FileRevision( $revisionInfo );
+		}
+		return $revisions;
+	}
+
+	/**
+	 * @param array $revisionsInfo
+	 *
+	 * @return TextRevision[]
+	 */
+	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo ) {
+		$revisions = [];
+		foreach ( $revisionsInfo as $revisionInfo ) {
+			$revisions[] = new TextRevision( $revisionInfo );
+		}
+		return $revisions;
+	}
+
+	private function getParams( TargetUrl $targetUrl ) {
 		$parsed = $targetUrl->getParsedUrl();
 		// TODO what if the url is title=XXX?
 		$bits = explode( '/', $parsed['path'] );
@@ -98,9 +137,10 @@ class ApiImporter implements Importer, LoggerAwareInterface {
 		return [
 			'action' => 'query',
 			'format' => 'json',
-			'prop' => 'imageinfo',
+			'prop' => 'imageinfo|revisions',
 			'titles' => $fullTitle,
 			'iilimit' => '500',
+			'rvlimit' => '500',
 			'iiurlwidth' => '500',
 			'iiprop' => implode(
 				'|',
@@ -126,6 +166,24 @@ class ApiImporter implements Importer, LoggerAwareInterface {
 					'bitdepth',
 					'uploadwarning',
 					'badfile',
+				]
+			),
+			'rvprop' => implode(
+				'|',
+				[
+					// TODO are all of these actually needed?
+					'ids',
+					'flags',
+					'timestamp',
+					'user',
+					'userid',
+					'size',
+					'sha1',
+					'contentmodel',
+					'comment',
+					'parsedcomment',
+					'content',
+					'tags',
 				]
 			),
 		];

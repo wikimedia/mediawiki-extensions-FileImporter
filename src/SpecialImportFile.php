@@ -2,6 +2,7 @@
 
 namespace FileImporter;
 
+use FileImporter\Generic\ImportDetails;
 use FileImporter\Generic\Importer;
 use FileImporter\Generic\TargetUrl;
 use Html;
@@ -26,6 +27,8 @@ class SpecialImportFile extends SpecialPage {
 		$targetUrl = new TargetUrl( $out->getRequest()->getVal( 'clientUrl', '' ) );
 		$wasPosted = $out->getRequest()->wasPosted();
 
+		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
+
 		if ( !$targetUrl->getUrl() ) {
 			$this->showUrlEntryPage();
 			return;
@@ -43,16 +46,18 @@ class SpecialImportFile extends SpecialPage {
 			$this->showDisallowedUrlMessage();
 			$this->showUrlEntryPage();
 		} else {
+			$importDetails = $importer->getImportDetails( $targetUrl );
 			if ( $wasPosted ) {
-				$this->doImport( $importer, $targetUrl );
+				$this->doImport( $importer, $importDetails );
 			} else {
-				$this->showImportPage( $importer, $targetUrl );
+				$this->showImportPage( $importDetails );
 			}
 		}
 	}
 
-	private function doImport( Importer $importer, TargetUrl $targetUrl ) {
+	private function doImport( Importer $importer, ImportDetails $importDetails ) {
 		// TODO implement importing
+		// TODO check token & ImportDetails hash here
 		$this->getOutput()->addHTML( 'TODO do the import' );
 	}
 
@@ -80,12 +85,10 @@ class SpecialImportFile extends SpecialPage {
 		$this->showInputForm();
 	}
 
-	private function showImportPage( Importer $importer, TargetUrl $target ) {
-		$importDetails = $importer->getImportDetails( $target );
+	private function showImportPage( ImportDetails $importDetails ) {
 		$out = $this->getOutput();
-
-		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
 		$this->showInputForm( $importDetails->getTargetUrl() );
+		$this->showImportForm( $importDetails );
 
 		$out->addHTML(
 			Html::rawElement(
@@ -99,7 +102,30 @@ class SpecialImportFile extends SpecialPage {
 			)
 		);
 
-		$out->addHTML( Html::element( 'p', [], $importDetails->getTitleText() ) );
+		$out->addHTML(
+			Html::element(
+				'p',
+				[],
+				( new Message( 'fileimporter-titleprefix' ) )->plain() . ': ' .
+				$importDetails->getTitleText()
+			)
+		);
+		$out->addHTML(
+			Html::element(
+				'p',
+				[],
+				( new Message( 'fileimporter-textrevisionsprefix' ) )->plain() . ': ' .
+					count( $importDetails->getTextRevisions() )
+			)
+		);
+		$out->addHTML(
+			Html::element(
+				'p',
+				[],
+				( new Message( 'fileimporter-filerevisionsprefix' ) )->plain() . ': ' .
+					count( $importDetails->getFileRevisions() )
+			)
+		);
 		$out->addHTML(
 			Linker::makeExternalImage(
 				$importDetails->getImageDisplayUrl(),
@@ -142,14 +168,10 @@ class SpecialImportFile extends SpecialPage {
 			) . Html::closeElement( 'form' )
 		);
 
-		if ( $targetUrl ) {
-			$this->showImportForm( $targetUrl );
-		}
-
 		$out->addHTML( Html::closeElement( 'div' ) );
 	}
 
-	private function showImportForm( TargetUrl $targetUrl ) {
+	private function showImportForm( ImportDetails $importDetails ) {
 		$this->getOutput()->addHTML(
 			Html::openElement(
 				'form',
@@ -162,9 +184,23 @@ class SpecialImportFile extends SpecialPage {
 				[
 					'type' => 'hidden',
 					'name' => 'clientUrl',
-					'value' => $targetUrl->getUrl(),
+					'value' => $importDetails->getTargetUrl()->getUrl(),
 				]
-			). new ButtonInputWidget(
+			) . Html::element(
+				'input',
+				[
+					'type' => 'hidden',
+					'name' => 'importDetailsHash',
+					'value' => $importDetails->getHash(),
+				]
+			) . Html::element(
+				'input',
+				[
+					'type' => 'hidden',
+					'name' => 'token',
+					'value' => $this->getUser()->getEditToken()
+				]
+			) . new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-movtocom-url-import' ],
 					'label' => ( new Message( 'fileimporter-import' ) )->plain(),

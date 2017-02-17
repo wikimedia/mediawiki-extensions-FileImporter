@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"WMDE"
+			"Addshore"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -10,6 +10,9 @@
 	"fileimporter-cantparseurl": "Can't parse the given URL",
 	"fileimporter-cantimporturl": "Can't import the given URL",
 	"fileimporter-exampleprefix": "Example",
+	"fileimporter-textrevisionsprefix": "Text Revisions",
+	"fileimporter-filerevisionsprefix": "File Revisions",
+	"fileimporter-titleprefix": "Title",
 	"fileimporter-submit": "Submit",
 	"fileimporter-import": "Import",
 	"fileimporter-importfilefromprefix": "Importing file from"

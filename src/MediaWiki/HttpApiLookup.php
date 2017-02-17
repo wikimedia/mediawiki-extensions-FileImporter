@@ -4,6 +4,7 @@ namespace FileImporter\MediaWiki;
 
 use DOMDocument;
 use DOMElement;
+use FileImporter\Generic\Exceptions\HttpRequestException;
 use FileImporter\Generic\Exceptions\ImportException;
 use FileImporter\Generic\HttpRequestExecutor;
 use FileImporter\Generic\TargetUrl;
@@ -37,17 +38,22 @@ class HttpApiLookup implements LoggerAwareInterface{
 	 * @throws ImportException
 	 */
 	private function logAndException( $message ) {
-		$this->logger->error( 'Request to get MediaWiki API from TargetUrl failed' );
-		throw new ImportException( 'Request to get MediaWiki API from TargetUrl failed' );
+		$this->logger->error( $message );
+		throw new ImportException( $message );
 	}
 
 	/**
 	 * @param TargetUrl $targetUrl
+	 * @throws ImportException
 	 * @return string URL of api.php or null
 	 */
 	public function getApiUrl( TargetUrl $targetUrl ) {
-		// TODO catch exceptions and do something
-		$req = $this->httpRequestExecutor->execute( $targetUrl->getUrl() );
+		try {
+			$req = $this->httpRequestExecutor->execute( $targetUrl->getUrl() );
+		} catch ( HttpRequestException $e ) {
+			$this->logAndException( 'Failed to discover API location from: ' . $targetUrl->getUrl() );
+			return null; // never reached
+		}
 
 		$document = new DOMDocument();
 
