@@ -2,14 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Dgstranz",
-			"Macofe"
+			"Macofe",
+			"Fitoschido"
 		]
 	},
 	"fileimporter": "Importador de archivos",
 	"fileimporter-desc": "Importación sencilla de archivos de otros sitios",
 	"fileimporter-specialpage": "Importar archivo",
-	"fileimporter-cantparseurl": "No se puede analizar la URL proporcionada",
-	"fileimporter-cantimporturl": "No se puede importar la URL proporcionada",
+	"fileimporter-cantparseurl": "No se puede analizar el URL proporcionado",
+	"fileimporter-cantimporturl": "No se puede importar el URL proporcionado",
 	"fileimporter-exampleprefix": "Ejemplo",
 	"fileimporter-submit": "Enviar",
 	"fileimporter-import": "Importar",
