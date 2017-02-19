@@ -6,5 +6,11 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importación cenciella de ficheros dende otros sitios",
-	"fileimporter-specialpage": "Importar ficheru"
+	"fileimporter-specialpage": "Importar ficheru",
+	"fileimporter-cantparseurl": "Nun puede analizase la URL dada",
+	"fileimporter-cantimporturl": "Nun puede importase la URL dada",
+	"fileimporter-exampleprefix": "Exemplu",
+	"fileimporter-submit": "Unviar",
+	"fileimporter-import": "Importar",
+	"fileimporter-importfilefromprefix": "Importando ficheru de"
 }
