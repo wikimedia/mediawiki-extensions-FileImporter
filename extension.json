@@ -2,7 +2,7 @@
 	"name": "FileImporter",
 	"version": "0.0.1",
 	"author": [
-		"WMDE"
+		"Addshore"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:FileImporter",
 	"namemsg": "fileimporter",
@@ -19,19 +19,20 @@
 		"ImportFile": "FileImporter\\SpecialImportFile"
 	},
 	"AutoloadClasses": {
-		"FileImporter\\Generic\\DispatchingImporter": "src/Generic/DispatchingImporter.php",
+		"FileImporter\\Generic\\DetailRetriever": "src/Generic/DetailRetriever.php",
+		"FileImporter\\Generic\\DispatchingDetailRetriever": "src/Generic/DispatchingDetailRetriever.php",
 		"FileImporter\\Generic\\Exceptions\\HttpRequestException": "src/Generic/Exceptions/HttpRequestException.php",
 		"FileImporter\\Generic\\Exceptions\\ImportException": "src/Generic/Exceptions/ImportException.php",
 		"FileImporter\\Generic\\Exceptions\\ImportTargetException": "src/Generic/Exceptions/ImportTargetException.php",
 		"FileImporter\\Generic\\Exceptions\\InvalidArgumentException": "src/Generic/Exceptions/InvalidArgumentException.php",
-		"FileImporter\\Generic\\ImportAdjustments": "src/Generic/ImportAdjustments.php",
+		"FileImporter\\Generic\\ImportTransformations": "src/Generic/ImportTransformations.php",
 		"FileImporter\\Generic\\ImportDetails": "src/Generic/ImportDetails.php",
 		"FileImporter\\Generic\\Importer": "src/Generic/Importer.php",
 		"FileImporter\\Generic\\HttpRequestExecutor": "src/Generic/HttpRequestExecutor.php",
 		"FileImporter\\Generic\\TargetUrl": "src/Generic/TargetUrl.php",
 		"FileImporter\\Generic\\FileRevision": "src/Generic/FileRevision.php",
 		"FileImporter\\Generic\\TextRevision": "src/Generic/TextRevision.php",
-		"FileImporter\\MediaWiki\\ApiImporter": "src/MediaWiki/ApiImporter.php",
+		"FileImporter\\MediaWiki\\ApiDetailRetriever": "src/MediaWiki/ApiDetailRetriever.php",
 		"FileImporter\\MediaWiki\\HttpApiLookup": "src/MediaWiki/HttpApiLookup.php",
 		"FileImporter\\MediaWiki\\SiteTableSiteLookup": "src/MediaWiki/SiteTableSiteLookup.php",
 		"FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
@@ -41,7 +42,7 @@
 		"src/ServiceWiring.php"
 	],
 	"config": {
-		"FileImporterImporterServices": [
+		"FileImporterDetailRetrieverServices": [
 			"FileImporterMediaWikiApiImporter"
 		]
 	},

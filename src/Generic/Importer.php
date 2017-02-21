@@ -2,32 +2,25 @@
 
 namespace FileImporter\Generic;
 
-use FileImporter\Generic\Exceptions\ImportTargetException;
+use FileImporter\Generic\Exceptions\ImportException;
 
-interface Importer {
-
-	/**
-	 * @param TargetUrl $targetUrl
-	 *
-	 * @return bool
-	 */
-	public function canImport( TargetUrl $targetUrl );
+class Importer {
 
 	/**
-	 * @param TargetUrl $targetUrl
-	 *
-	 * @return ImportDetails
-	 * @throws ImportTargetException if the given target can't be imported by this importer
-	 */
-	public function getImportDetails( TargetUrl $targetUrl );
-
-	/**
-	 * @param TargetUrl $targetUrl
-	 * @param ImportAdjustments $importAdjustments
+	 * @param ImportDetails $importDetails
+	 * @param ImportTransformations $importTransformations transformations to be made to the details
 	 *
 	 * @return bool success
-	 * @throws ImportTargetException if the given target can't be imported by this importer
+	 * @throws ImportException
 	 */
-	public function import( TargetUrl $targetUrl, ImportAdjustments $importAdjustments );
+	public function import(
+		ImportDetails $importDetails,
+		ImportTransformations $importTransformations
+	) {
+		// TODO implement
+		// TODO copy files directly in swift if possible?
+
+		return false;
+	}
 
 }

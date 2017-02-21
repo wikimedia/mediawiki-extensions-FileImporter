@@ -6,16 +6,15 @@ use FileImporter\Generic\Exceptions\HttpRequestException;
 use FileImporter\Generic\Exceptions\ImportException;
 use FileImporter\Generic\FileRevision;
 use FileImporter\Generic\HttpRequestExecutor;
-use FileImporter\Generic\ImportAdjustments;
 use FileImporter\Generic\ImportDetails;
-use FileImporter\Generic\Importer;
+use FileImporter\Generic\DetailRetriever;
 use FileImporter\Generic\TargetUrl;
 use FileImporter\Generic\TextRevision;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class ApiImporter implements Importer, LoggerAwareInterface {
+class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
 	/**
 	 * @var SiteTableSiteLookup
@@ -57,7 +56,7 @@ class ApiImporter implements Importer, LoggerAwareInterface {
 	 *
 	 * @return bool
 	 */
-	public function canImport( TargetUrl $targetUrl ) {
+	public function canGetImportDetails( TargetUrl $targetUrl ) {
 		return $this->siteTableSiteLookup->getSite( $targetUrl->getParsedUrl()['host'] ) !== null;
 	}
 
@@ -77,14 +76,47 @@ class ApiImporter implements Importer, LoggerAwareInterface {
 			throw new ImportException( 'Failed to retrieve file information from: ' . $requestUrl );
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
-		// TODO check if the response has any continuation data. Either continue or die here...
+
+		if ( array_key_exists( 'continue', $requestData ) ) {
+			$this->logger->warning(
+				'API returned continue data',
+				[
+					'targetUrl' => $targetUrl->getUrl(),
+					'requestUrl' => $requestUrl,
+				]
+			);
+			// TODO support continuation
+			throw new ImportException( 'Too many revisions, can not import.' );
+		}
 
 		if ( count( $requestData['query']['pages'] ) !== 1 ) {
-			// TODO log?
-			throw new ImportException( 'Unexpected number of pages received from the API.' );
+			$this->logger->warning(
+				'No pages returned by the API',
+				[
+					'targetUrl' => $targetUrl->getUrl(),
+					'requestUrl' => $requestUrl,
+				]
+			);
+			throw new ImportException( 'No pages returned by the API' );
 		}
 
 		$pageInfoData = array_pop( $requestData['query']['pages'] );
+
+		if ( !array_key_exists( 'imageinfo', $pageInfoData ) ||
+			!array_key_exists( 'revisions', $pageInfoData ) ||
+			count( $pageInfoData['imageinfo'] ) < 1 ||
+			count( $pageInfoData['revisions'] ) < 1
+		) {
+			$this->logger->warning(
+				'Bad image or revision info returned by the API',
+				[
+					'targetUrl' => $targetUrl->getUrl(),
+					'requestUrl' => $requestUrl,
+				]
+			);
+			throw new ImportException( 'Bad image or revision info returned by the API' );
+		}
+
 		$normalizationData = array_pop( $requestData['query']['normalized'] );
 		$imageInfoData = $pageInfoData['imageinfo'];
 		$revisionsData = $pageInfoData['revisions'];
@@ -130,9 +162,14 @@ class ApiImporter implements Importer, LoggerAwareInterface {
 
 	private function getParams( TargetUrl $targetUrl ) {
 		$parsed = $targetUrl->getParsedUrl();
-		// TODO what if the url is title=XXX?
-		$bits = explode( '/', $parsed['path'] );
-		$fullTitle = array_pop( $bits );
+
+		if ( array_key_exists( 'query', $parsed ) && strstr( $parsed['query'], 'title' ) ) {
+			parse_str( $parsed['query'], $bits );
+			$fullTitle = $bits['title'];
+		} else {
+			$bits = explode( '/', $parsed['path'] );
+			$fullTitle = array_pop( $bits );
+		}
 
 		return [
 			'action' => 'query',
@@ -187,17 +224,6 @@ class ApiImporter implements Importer, LoggerAwareInterface {
 				]
 			),
 		];
-	}
-
-	/**
-	 * @param TargetUrl $targetUrl
-	 * @param ImportAdjustments $importAdjustments
-	 *
-	 * @return bool success
-	 */
-	public function import( TargetUrl $targetUrl, ImportAdjustments $importAdjustments ) {
-		// TODO implement
-		return false;
 	}
 
 }

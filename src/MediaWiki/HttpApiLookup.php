@@ -12,6 +12,9 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
+/**
+ * Lookup that can take a MediaWiki site URL and return the URL of the action API.
+ */
 class HttpApiLookup implements LoggerAwareInterface{
 
 	/**

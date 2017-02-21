@@ -5,7 +5,7 @@ namespace FileImporter\Generic\Exceptions;
 use RuntimeException;
 
 /**
- * Generic Import exception
+ * Generic Import exception.
  */
 class ImportException extends RuntimeException{
 

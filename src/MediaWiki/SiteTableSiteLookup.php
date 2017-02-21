@@ -5,6 +5,10 @@ namespace FileImporter\MediaWiki;
 use Site;
 use SiteLookup;
 
+/**
+ * Lookup that can be used to get a Site object from the locally configured sites based on the
+ * hostname.
+ */
 class SiteTableSiteLookup {
 
 	/**
@@ -22,17 +26,36 @@ class SiteTableSiteLookup {
 	}
 
 	/**
-	 * @param string $host e.g. en.wikipedia.org or commons.wikimedia.org
+	 * @param string $host e.g. en.wikipedia.org or commons.m.wikimedia.org
 	 *
 	 * @return Site|null
 	 */
 	public function getSite( $host ) {
-		$site = $this->getSiteFromHostMap( $host );
-		if ( !$site ) {
-			$site = $this->getSiteFromSitesLoop( $host );
+		$hosts = [ $host ];
+
+		// XXX: Wikimedia specific hacks!?
+		if ( strstr( $host, '.m.' ) ) {
+			$hosts[] = str_replace( '.m.', '.', $host );
+		}
+		if ( strstr( $host, '.zero.' ) ) {
+			$hosts[] = str_replace( '.zero.', '.', $host );
 		}
 
-		return $site;
+		foreach ( $hosts as $host ) {
+			$site = $this->getSiteFromHostMap( $host );
+			if ( $site ) {
+				return $site;
+			}
+		}
+
+		foreach ( $hosts as $host ) {
+			$site = $this->getSiteFromSitesLoop( $host );
+			if ( $site ) {
+				return $site;
+			}
+		}
+
+		return null;
 	}
 
 	/**

@@ -2,7 +2,7 @@
 
 namespace FileImporter;
 
-use FileImporter\Generic\DispatchingImporter;
+use FileImporter\Generic\DispatchingDetailRetriever;
 use FileImporter\Generic\HttpRequestExecutor;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
@@ -12,15 +12,15 @@ return [
 
 	// Generic
 
-	'FileImporterDispatchingImporter' => function( MediaWikiServices $services ) {
+	'FileImporterDispatchingDetailRetriever' => function( MediaWikiServices $services ) {
 		$config = $services->getMainConfig();
 
-		$importers = [];
-		foreach ( $config->get( 'FileImporterImporterServices' ) as $serviceName ) {
-			$importers[] = $services->getService( $serviceName );
+		$detailRetrievers = [];
+		foreach ( $config->get( 'FileImporterDetailRetrieverServices' ) as $serviceName ) {
+			$detailRetrievers[] = $services->getService( $serviceName );
 		}
 
-		return new DispatchingImporter( $importers );
+		return new DispatchingDetailRetriever( $detailRetrievers );
 	},
 
 	'FileImporterHttpRequestExecutor' => function( MediaWikiServices $services ) {
@@ -58,7 +58,7 @@ return [
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
-		$service = new \FileImporter\MediaWiki\ApiImporter(
+		$service = new \FileImporter\MediaWiki\ApiDetailRetriever(
 			$siteTableSiteLookup,
 			$httpApiLookup,
 			$httpRequestExecutor

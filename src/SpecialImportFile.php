@@ -2,7 +2,9 @@
 
 namespace FileImporter;
 
+use FileImporter\Generic\ImportTransformations;
 use FileImporter\Generic\ImportDetails;
+use FileImporter\Generic\DetailRetriever;
 use FileImporter\Generic\Importer;
 use FileImporter\Generic\TargetUrl;
 use Html;
@@ -35,30 +37,54 @@ class SpecialImportFile extends SpecialPage {
 		}
 
 		// TODO inject!
-		/** @var Importer $importer */
-		$importer = MediaWikiServices::getInstance()
-			->getService( 'FileImporterDispatchingImporter' );
+		/** @var DetailRetriever $detailRetriever */
+		$detailRetriever = MediaWikiServices::getInstance()
+			->getService( 'FileImporterDispatchingDetailRetriever' );
 
 		if ( !$targetUrl->isParsable() ) {
 			$this->showUnparsableUrlMessage( $targetUrl->getUrl() );
 			$this->showUrlEntryPage();
-		} elseif ( !$importer->canImport( $targetUrl ) ) {
+		} elseif ( !$detailRetriever->canGetImportDetails( $targetUrl ) ) {
 			$this->showDisallowedUrlMessage();
 			$this->showUrlEntryPage();
 		} else {
-			$importDetails = $importer->getImportDetails( $targetUrl );
+			$importDetails = $detailRetriever->getImportDetails( $targetUrl );
 			if ( $wasPosted ) {
-				$this->doImport( $importer, $importDetails );
+				$this->doImport( $importDetails );
 			} else {
 				$this->showImportPage( $importDetails );
 			}
 		}
 	}
 
-	private function doImport( Importer $importer, ImportDetails $importDetails ) {
-		// TODO implement importing
-		// TODO check token & ImportDetails hash here
-		$this->getOutput()->addHTML( 'TODO do the import' );
+	private function doImport( ImportDetails $importDetails ) {
+		$out = $this->getOutput();
+
+		$importDetailsHash = $out->getRequest()->getVal( 'importDetailsHash', '' );
+		$token = $out->getRequest()->getVal( 'token', '' );
+
+		if ( $this->getUser()->getEditToken() !== $token ) {
+			$this->showWarningMessage( 'Incorrect token submitted for import' ); // TODO i18n
+		}
+
+		if ( $importDetails->getHash() !== $importDetailsHash ) {
+			// TODO i18n
+			$this->showWarningMessage( 'Incorrect import details hash submitted for import' );
+		}
+
+		$adjustments = new ImportTransformations(); // TODO populate adjustments based on import form
+
+		// TODO inject?!
+		$importer = new Importer();
+		$result = $importer->import( $importDetails, $adjustments );
+
+		if ( $result ) {
+			// TODO show completion page showing old and new files & other possible actions
+			$this->getOutput()->addHTML( 'Import was a success!' ); // TODO i18n
+		} else {
+			$this->showWarningMessage( 'Import failed' ); // TODO i18n
+		}
+
 	}
 
 	private function showUnparsableUrlMessage( $rawUrl ) {

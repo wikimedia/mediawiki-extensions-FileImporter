@@ -2,6 +2,6 @@
 
 namespace FileImporter\Generic;
 
-class ImportAdjustments {
+class ImportTransformations {
 
 }

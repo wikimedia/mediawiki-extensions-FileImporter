@@ -28,9 +28,11 @@ class SiteTableSiteLookupTest extends PHPUnit_Framework_TestCase {
 		return [
 			'google' => [ 'google.com' ],
 			'commons' => [ 'commons.wikimedia.org', 'commonswiki' ],
-			'enwiki http' => [ 'en.wikipedia.org', 'enwiki' ],
-			'enwiki https' => [ 'en.wikipedia.org', 'enwiki' ],
-			'dewiki index.php' => [ 'de.wikipedia.org', 'dewiki', ],
+			'mobile commons' => [ 'commons.m.wikimedia.org', 'commonswiki' ],
+			'enwiki' => [ 'en.wikipedia.org', 'enwiki' ],
+			'dewiki' => [ 'de.wikipedia.org', 'dewiki', ],
+			'mobile dewiki' => [ 'de.m.wikipedia.org', 'dewiki', ],
+			'zero dewiki' => [ 'de.zero.wikipedia.org', 'dewiki', ],
 		];
 	}
 
