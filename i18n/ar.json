@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aboulouei1"
+			"Aboulouei1",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
 	"fileimporter": "مستورد ملفات",
-	"fileimporter-specialpage": "ملف الإستيراد"
+	"fileimporter-specialpage": "ملف الإستيراد",
+	"fileimporter-exampleprefix": "مثال"
 }
