@@ -12,7 +12,8 @@ class TargetUrlTest extends PHPUnit_Framework_TestCase {
 			[
 				'foooooooo',
 				false,
-				false
+				false,
+				false,
 			],
 			[
 				'https://en.wikipedia.org/wiki/File:Foo.jpg',
@@ -23,6 +24,7 @@ class TargetUrlTest extends PHPUnit_Framework_TestCase {
 					'delimiter' => '://',
 					'path' => '/wiki/File:Foo.jpg',
 				],
+				'en.wikipedia.org',
 			],
 		];
 	}
@@ -30,11 +32,17 @@ class TargetUrlTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideConstruction
 	 */
-	public function testConstruction( $url, $expectedIsParsable, $expectedParsed ) {
+	public function testConstruction(
+		$url,
+		$expectedIsParsable,
+		$expectedParsed,
+		$expectedDomain
+	) {
 		$targetUrl = new TargetUrl( $url );
 		$this->assertEquals( $url, $targetUrl->getUrl() );
 		$this->assertEquals( $expectedParsed, $targetUrl->getParsedUrl() );
 		$this->assertEquals( $expectedIsParsable, $targetUrl->isParsable() );
+		$this->assertEquals( $expectedDomain, $targetUrl->getHost() );
 	}
 
 }

@@ -31,6 +31,7 @@
 		"FileImporter\\Generic\\HttpRequestExecutor": "src/Generic/HttpRequestExecutor.php",
 		"FileImporter\\Generic\\TargetUrl": "src/Generic/TargetUrl.php",
 		"FileImporter\\Generic\\FileRevision": "src/Generic/FileRevision.php",
+		"FileImporter\\Generic\\RevisionModifier": "src/Generic/RevisionModifier.php",
 		"FileImporter\\Generic\\TextRevision": "src/Generic/TextRevision.php",
 		"FileImporter\\MediaWiki\\ApiDetailRetriever": "src/MediaWiki/ApiDetailRetriever.php",
 		"FileImporter\\MediaWiki\\HttpApiLookup": "src/MediaWiki/HttpApiLookup.php",
@@ -44,7 +45,9 @@
 	"config": {
 		"FileImporterDetailRetrieverServices": [
 			"FileImporterMediaWikiApiImporter"
-		]
+		],
+		"FileImporterTextPotentialProblems": [],
+		"FileImporterTextReplacements": []
 	},
 	"ResourceModules": {
 		"ext.FileImporter.Special": {

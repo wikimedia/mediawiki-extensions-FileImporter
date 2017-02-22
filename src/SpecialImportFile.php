@@ -116,6 +116,10 @@ class SpecialImportFile extends SpecialPage {
 		$this->showInputForm( $importDetails->getTargetUrl() );
 		$this->showImportForm( $importDetails );
 
+		// TODO output a version of the text to be modified by the user!
+		// This text should already have the configurable modifications applied & probably a list
+		// of what has been changed / a diff?
+
 		$out->addHTML(
 			Html::rawElement(
 				'p',

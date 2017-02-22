@@ -26,20 +26,12 @@ class SiteTableSiteLookup {
 	}
 
 	/**
-	 * @param string $host e.g. en.wikipedia.org or commons.m.wikimedia.org
+	 * @param string $host e.g. en.wikipedia.org or commons.wikimedia.org
 	 *
 	 * @return Site|null
 	 */
 	public function getSite( $host ) {
 		$hosts = [ $host ];
-
-		// XXX: Wikimedia specific hacks!?
-		if ( strstr( $host, '.m.' ) ) {
-			$hosts[] = str_replace( '.m.', '.', $host );
-		}
-		if ( strstr( $host, '.zero.' ) ) {
-			$hosts[] = str_replace( '.zero.', '.', $host );
-		}
 
 		foreach ( $hosts as $host ) {
 			$site = $this->getSiteFromHostMap( $host );
