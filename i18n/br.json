@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fulup"
+		]
+	},
+	"fileimporter-cantimporturl": "Ne c'haller ket enporzhiañ an URL merket",
+	"fileimporter-exampleprefix": "Skouer",
+	"fileimporter-submit": "Kas",
+	"fileimporter-import": "Enporzhiañ"
+}

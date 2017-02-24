@@ -4,6 +4,9 @@
 			"Redredsonia"
 		]
 	},
+	"fileimporter-specialpage": "Импортировать файл",
+	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-submit": "Отправить",
-	"fileimporter-import": "Импортировать"
+	"fileimporter-import": "Импортировать",
+	"fileimporter-importfilefromprefix": "Импорт файла из"
 }
