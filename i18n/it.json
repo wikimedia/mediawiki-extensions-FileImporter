@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"Redredsonia"
 		]
 	},
 	"fileimporter-specialpage": "Importa file",
 	"fileimporter-exampleprefix": "Esempio",
 	"fileimporter-submit": "Invia",
-	"fileimporter-import": "Importa"
+	"fileimporter-import": "Importa",
+	"fileimporter-importfilefromprefix": "Importazione di file da"
 }
