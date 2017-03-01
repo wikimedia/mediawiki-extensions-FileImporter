@@ -5,5 +5,6 @@
 		]
 	},
 	"fileimporter-exampleprefix": "範例",
-	"fileimporter-submit": "送出"
+	"fileimporter-submit": "送出",
+	"fileimporter-import": "匯入"
 }

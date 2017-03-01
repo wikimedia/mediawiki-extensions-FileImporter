@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Otokoume"
+		]
+	},
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "他のサイトからファイルを容易にインポートする",
+	"fileimporter-specialpage": "ファイルのインポート",
+	"fileimporter-cantparseurl": "指定された URL を解析できません",
+	"fileimporter-cantimporturl": "指定された URL をインポートできません",
+	"fileimporter-exampleprefix": "例",
+	"fileimporter-submit": "送信",
+	"fileimporter-import": "インポート"
+}
