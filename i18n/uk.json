@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piramidion"
+		]
+	},
+	"fileimporter": "Імпортер файлів",
+	"fileimporter-desc": "Легке імпортування файлів з інших сайтів",
+	"fileimporter-specialpage": "Імпортувати файл",
+	"fileimporter-cantparseurl": "Не вдається обробити подану URL-адресу",
+	"fileimporter-cantimporturl": "Не вдається імпортувати з поданої URL-адреси",
+	"fileimporter-exampleprefix": "Приклад",
+	"fileimporter-submit": "Надіслати",
+	"fileimporter-import": "Імпортувати",
+	"fileimporter-importfilefromprefix": "Імпортування файлу з"
+}
