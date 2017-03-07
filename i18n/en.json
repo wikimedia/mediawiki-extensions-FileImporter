@@ -1,16 +1,16 @@
 {
-  "@metadata": {
-    "authors": [
-      "WMDE"
-    ]
-  },
-  "fileimporter": "FileImporter",
-  "fileimporter-desc": "Easy importing of files from other sites",
-  "fileimporter-specialpage": "Import file",
-  "fileimporter-cantparseurl": "Can't parse the given URL",
-  "fileimporter-cantimporturl": "Can't import the given URL",
-  "fileimporter-exampleprefix": "Example",
-  "fileimporter-submit": "Submit",
-  "fileimporter-import": "Import",
-  "fileimporter-importfilefromprefix" : "Importing file from"
+	"@metadata": {
+		"authors": [
+			"WMDE"
+		]
+	},
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "Easy importing of files from other sites",
+	"fileimporter-specialpage": "Import file",
+	"fileimporter-cantparseurl": "Can't parse the given URL",
+	"fileimporter-cantimporturl": "Can't import the given URL",
+	"fileimporter-exampleprefix": "Example",
+	"fileimporter-submit": "Submit",
+	"fileimporter-import": "Import",
+	"fileimporter-importfilefromprefix": "Importing file from"
 }

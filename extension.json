@@ -1,42 +1,42 @@
 {
-  "name": "FileImporter",
-  "version": "0.0.1",
-  "author": [
-    "WMDE"
-  ],
-  "url": "https://www.mediawiki.org/wiki/Extension:FileImporter",
-  "namemsg": "fileimporter",
-  "descriptionmsg": "fileimporter-desc",
-  "license-name": "GPL-2.0+",
-  "type": "other",
-  "manifest_version": 1,
-  "MessagesDirs": {
-    "FileImporter": [
-      "i18n"
-    ]
-  },
-  "SpecialPages" : {
-    "ImportFile": "FileImporter\\SpecialImportFile"
-  },
-  "AutoloadClasses": {
-    "FileImporter\\ExternalMediaWikiFile": "src/ExternalMediaWikiFile.php",
-    "FileImporter\\Importable": "src/Importable.php",
-    "FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
-    "FileImporter\\SpecialImportFile": "src/SpecialImportFile.php",
-    "FileImporter\\UrlBasedSiteLookup": "src/UrlBasedSiteLookup.php"
-  },
-  "ServiceWiringFiles": [
-    "src/ServiceWiring.php"
-  ],
-  "ResourceModules": {
-    "ext.FileImporter.Special": {
-      "styles": [
-        "modules/ext.FileImporter.Special.css"
-      ]
-    }
-  },
-  "ResourceFileModulePaths": {
-    "localBasePath": "",
-    "remoteExtPath": "FileImporter"
-  }
+	"name": "FileImporter",
+	"version": "0.0.1",
+	"author": [
+		"WMDE"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:FileImporter",
+	"namemsg": "fileimporter",
+	"descriptionmsg": "fileimporter-desc",
+	"license-name": "GPL-2.0+",
+	"type": "other",
+	"manifest_version": 1,
+	"MessagesDirs": {
+		"FileImporter": [
+			"i18n"
+		]
+	},
+	"SpecialPages": {
+		"ImportFile": "FileImporter\\SpecialImportFile"
+	},
+	"AutoloadClasses": {
+		"FileImporter\\ExternalMediaWikiFile": "src/ExternalMediaWikiFile.php",
+		"FileImporter\\Importable": "src/Importable.php",
+		"FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
+		"FileImporter\\SpecialImportFile": "src/SpecialImportFile.php",
+		"FileImporter\\UrlBasedSiteLookup": "src/UrlBasedSiteLookup.php"
+	},
+	"ServiceWiringFiles": [
+		"src/ServiceWiring.php"
+	],
+	"ResourceModules": {
+		"ext.FileImporter.Special": {
+			"styles": [
+				"modules/ext.FileImporter.Special.css"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "FileImporter"
+	}
 }
