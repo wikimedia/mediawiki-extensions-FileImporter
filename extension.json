@@ -20,13 +20,17 @@
 	},
 	"AutoloadClasses": {
 		"FileImporter\\Generic\\DispatchingImporter": "src/Generic/DispatchingImporter.php",
+		"FileImporter\\Generic\\Exceptions\\HttpRequestException": "src/Generic/Exceptions/HttpRequestException.php",
+		"FileImporter\\Generic\\Exceptions\\ImportException": "src/Generic/Exceptions/ImportException.php",
+		"FileImporter\\Generic\\Exceptions\\ImportTargetException": "src/Generic/Exceptions/ImportTargetException.php",
 		"FileImporter\\Generic\\ImportAdjustments": "src/Generic/ImportAdjustments.php",
 		"FileImporter\\Generic\\ImportDetails": "src/Generic/ImportDetails.php",
 		"FileImporter\\Generic\\Importer": "src/Generic/Importer.php",
-		"FileImporter\\Generic\\ImportTargetException": "src/Generic/ImportTargetException.php",
+		"FileImporter\\Generic\\HttpRequestExecutor": "src/Generic/HttpRequestExecutor.php",
 		"FileImporter\\Generic\\TargetUrl": "src/Generic/TargetUrl.php",
-		"FileImporter\\MediaWiki\\HostBasedSiteTableLookup": "src/MediaWiki/HostBasedSiteTableLookup.php",
-		"FileImporter\\MediaWiki\\MediaWikiImporter": "src/MediaWiki/MediaWikiImporter.php",
+		"FileImporter\\MediaWiki\\ApiImporter": "src/MediaWiki/ApiImporter.php",
+		"FileImporter\\MediaWiki\\HttpApiLookup": "src/MediaWiki/HttpApiLookup.php",
+		"FileImporter\\MediaWiki\\SiteTableSiteLookup": "src/MediaWiki/SiteTableSiteLookup.php",
 		"FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
 		"FileImporter\\SpecialImportFile": "src/SpecialImportFile.php"
 	},
@@ -35,7 +39,7 @@
 	],
 	"config": {
 		"FileImporterImporterServices": [
-			"FileImporterMediaWikiImporter"
+			"FileImporterMediaWikiApiImporter"
 		]
 	},
 	"ResourceModules": {

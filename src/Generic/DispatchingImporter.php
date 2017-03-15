@@ -2,6 +2,8 @@
 
 namespace FileImporter\Generic;
 
+use FileImporter\Generic\Exceptions\ImportTargetException;
+
 class DispatchingImporter implements Importer {
 
 	/**
