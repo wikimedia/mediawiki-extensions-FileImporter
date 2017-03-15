@@ -2,6 +2,7 @@
 
 namespace FileImporter\MediaWiki;
 
+use FileImporter\Generic\Data\FileRevisions;
 use FileImporter\Generic\Exceptions\HttpRequestException;
 use FileImporter\Generic\Exceptions\ImportException;
 use FileImporter\Generic\Data\FileRevision;
@@ -126,7 +127,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		$importDetails = new ImportDetails(
 			$targetUrl,
 			$normalizationData['to'],
-			$fileRevisions[0]->getField( 'thumburl' ),
+			$fileRevisions->getLatest()->getField( 'thumburl' ),
 			$textRevisions,
 			$fileRevisions
 		);
@@ -137,14 +138,21 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	/**
 	 * @param array $imageInfo
 	 *
-	 * @return FileRevision[]
+	 * @return FileRevisions
 	 */
 	private function getFileRevisionsFromImageInfo( array $imageInfo ) {
 		$revisions = [];
 		foreach ( $imageInfo as $revisionInfo ) {
+			/**
+			 * Convert from API sha1 format to DB sha1 format.
+			 * The conversion can be se inside ApiQueryImageInfo.
+			 *  - API sha1 format is base 16 padded to 40 chars
+			 *  - DB sha1 format is base 36 padded to 31 chars
+			 */
+			$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
 			$revisions[] = new FileRevision( $revisionInfo );
 		}
-		return $revisions;
+		return new FileRevisions( $revisions );
 	}
 
 	/**

@@ -3,10 +3,12 @@
 namespace FileImporter;
 
 use FileImporter\Generic\Services\DispatchingDetailRetriever;
+use FileImporter\Generic\Services\DuplicateFileRevisionChecker;
 use FileImporter\Generic\Services\HttpRequestExecutor;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
+use RepoGroup;
 
 return [
 
@@ -27,6 +29,11 @@ return [
 		$service = new HttpRequestExecutor();
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $service;
+	},
+
+	'FileImporterDuplicateFileRevisionChecker' => function( MediaWikiServices $services ) {
+		$localRepo = RepoGroup::singleton()->getLocalRepo();
+		return new DuplicateFileRevisionChecker( $localRepo );
 	},
 
 	// MediaWiki

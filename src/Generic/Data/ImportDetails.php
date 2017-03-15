@@ -2,9 +2,6 @@
 
 namespace FileImporter\Generic\Data;
 
-use FileImporter\Generic\Data\FileRevision;
-use FileImporter\Generic\Data\TargetUrl;
-use FileImporter\Generic\Data\TextRevision;
 use Wikimedia\Assert\Assert;
 
 class ImportDetails {
@@ -30,7 +27,7 @@ class ImportDetails {
 	private $textRevisions;
 
 	/**
-	 * @var FileRevision[]
+	 * @var FileRevisions
 	 */
 	private $fileRevisions;
 
@@ -39,19 +36,18 @@ class ImportDetails {
 	 * @param string $titleText
 	 * @param string $imageDisplayUrl
 	 * @param TextRevision[] $textRevisions
-	 * @param FileRevision[] $fileRevisions
+	 * @param FileRevisions $fileRevisions
 	 */
 	public function __construct(
 		TargetUrl $targetUrl,
 		$titleText,
 		$imageDisplayUrl,
 		array $textRevisions,
-		array $fileRevisions
+		FileRevisions $fileRevisions
 	) {
 		Assert::parameterType( 'string', $titleText, '$titleText' );
 		Assert::parameterType( 'string', $imageDisplayUrl, '$imageDisplayUrl' );
 		Assert::parameterElementType( TextRevision::class, $textRevisions, '$textRevisions' );
-		Assert::parameterElementType( FileRevision::class, $fileRevisions, '$fileRevisions' );
 
 		$this->targetUrl = $targetUrl;
 		$this->titleText = $titleText;
@@ -94,14 +90,14 @@ class ImportDetails {
 		$hashes = [
 			sha1( $this->targetUrl->getUrl() ),
 			sha1( count( $this->getTextRevisions() ) ),
-			sha1( count( $this->getFileRevisions() ) ),
+			sha1( count( $this->getFileRevisions()->toArray() ) ),
 		];
 
 		foreach ( $this->getTextRevisions() as $textRevision ) {
 			$hashes[] = $textRevision->getField( 'sha1' );
 		}
 
-		foreach ( $this->getFileRevisions() as $fileRevision ) {
+		foreach ( $this->getFileRevisions()->toArray() as $fileRevision ) {
 			$hashes[] = $fileRevision->getField( 'sha1' );
 		}
 

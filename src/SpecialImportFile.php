@@ -2,9 +2,11 @@
 
 namespace FileImporter;
 
+use File;
 use FileImporter\Generic\Data\ImportTransformations;
 use FileImporter\Generic\Data\ImportDetails;
 use FileImporter\Generic\Services\DetailRetriever;
+use FileImporter\Generic\Services\DuplicateFileRevisionChecker;
 use FileImporter\Generic\Services\Importer;
 use FileImporter\Generic\Data\TargetUrl;
 use Html;
@@ -49,7 +51,15 @@ class SpecialImportFile extends SpecialPage {
 			$this->showUrlEntryPage();
 		} else {
 			$importDetails = $detailRetriever->getImportDetails( $targetUrl );
-			if ( $wasPosted ) {
+			/** @var DuplicateFileRevisionChecker $duplicateFileChecker */
+			$duplicateFileChecker = MediaWikiServices::getInstance()
+				->getService( 'FileImporterDuplicateFileRevisionChecker' );
+			$duplicateFiles = $duplicateFileChecker->findDuplicates(
+				$importDetails->getFileRevisions()->getLatest()
+			);
+			if ( !empty( $duplicateFiles ) ) {
+				$this->showDuplicateFilesDetectedMessage( $duplicateFiles );
+			} elseif ( $wasPosted ) {
 				$this->doImport( $importDetails );
 			} else {
 				$this->showImportPage( $importDetails );
@@ -97,6 +107,20 @@ class SpecialImportFile extends SpecialPage {
 		$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
 	}
 
+	/**
+	 * @param File[] $duplicateFiles
+	 */
+	private function showDuplicateFilesDetectedMessage( array $duplicateFiles ) {
+		$this->showWarningMessage(
+			( new Message( 'fileimporter-duplicatefilesdetected' ) )->plain()
+		);
+		$duplicatesMessage = ( new Message( 'fileimporter-duplicatefilesdetected-prefix' ) )->plain();
+		$this->getOutput()->addWikiText( '\'\'\'' . $duplicatesMessage . '\'\'\'' );
+		foreach ( $duplicateFiles as $file ) {
+			$this->getOutput()->addWikiText( '* [[:' . $file->getTitle() . ']]' );
+		}
+	}
+
 	private function showWarningMessage( $message ) {
 		$this->getOutput()->addHTML(
 			Html::rawElement(
@@ -140,6 +164,7 @@ class SpecialImportFile extends SpecialPage {
 				$importDetails->getTitleText()
 			)
 		);
+
 		$out->addHTML(
 			Html::element(
 				'p',
@@ -153,7 +178,7 @@ class SpecialImportFile extends SpecialPage {
 				'p',
 				[],
 				( new Message( 'fileimporter-filerevisionsprefix' ) )->plain() . ': ' .
-					count( $importDetails->getFileRevisions() )
+					count( $importDetails->getFileRevisions()->toArray() )
 			)
 		);
 		$out->addHTML(
