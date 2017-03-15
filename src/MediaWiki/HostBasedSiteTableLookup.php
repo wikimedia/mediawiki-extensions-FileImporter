@@ -1,11 +1,11 @@
 <?php
 
-namespace FileImporter;
+namespace FileImporter\MediaWiki;
 
 use Site;
 use SiteLookup;
 
-class UrlBasedSiteLookup {
+class HostBasedSiteTableLookup {
 
 	/**
 	 * @var SiteLookup
@@ -17,17 +17,15 @@ class UrlBasedSiteLookup {
 	}
 
 	/**
-	 * @param string[] $parsedUrl result of wfParseUrl
+	 * @param string $host e.g. en.wikipedia.org or commons.wikimedia.org
 	 *
 	 * @return Site|null
 	 */
-	public function getSite( array $parsedUrl ) {
-		$requestedDomain = $parsedUrl['host'];
-
+	public function getSite( $host ) {
 		/** @var Site[] $sites */
 		$sites = $this->siteLookup->getSites();
 		foreach ( $sites as $site ) {
-			if ( $site->getDomain() === $requestedDomain ) {
+			if ( $site->getDomain() === $host ) {
 				return $site;
 			}
 		}

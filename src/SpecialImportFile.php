@@ -2,6 +2,8 @@
 
 namespace FileImporter;
 
+use FileImporter\Generic\Importer;
+use FileImporter\Generic\TargetUrl;
 use Html;
 use Linker;
 use MediaWiki\MediaWikiServices;
@@ -21,44 +23,37 @@ class SpecialImportFile extends SpecialPage {
 		$out->setPageTitle( new Message( 'fileimporter-specialpage' ) );
 		$out->enableOOUI();
 
-		$rawUrl = $out->getRequest()->getVal( 'clientUrl', '' );
+		$targetUrl = new TargetUrl( $out->getRequest()->getVal( 'clientUrl', '' ) );
 		$wasPosted = $out->getRequest()->wasPosted();
 
-		if ( !$rawUrl ) {
+		if ( !$targetUrl->getUrl() ) {
 			$this->showUrlEntryPage();
 			return;
 		}
 
-		$parsedUrl = wfParseUrl( $rawUrl );
-		if ( $parsedUrl === false ) {
-			$this->showUnparsableUrlMessage( $rawUrl );
+		// TODO inject!
+		/** @var Importer $importer */
+		$importer = MediaWikiServices::getInstance()
+			->getService( 'FileImporterDispatchingImporter' );
+
+		if ( !$targetUrl->isParsable() ) {
+			$this->showUnparsableUrlMessage( $targetUrl->getUrl() );
 			$this->showUrlEntryPage();
-		} elseif ( !$this->urlAllowed( $parsedUrl ) ) {
+		} elseif ( !$importer->canImport( $targetUrl ) ) {
 			$this->showDisallowedUrlMessage();
 			$this->showUrlEntryPage();
 		} else {
 			if ( $wasPosted ) {
-				$this->doImport();
+				$this->doImport( $importer, $targetUrl );
 			} else {
-				$this->showImportPage( $rawUrl );
+				$this->showImportPage( $importer, $targetUrl );
 			}
 		}
 	}
 
-	private function doImport() {
+	private function doImport( Importer $importer, TargetUrl $targetUrl ) {
 		// TODO implement importing
 		$this->getOutput()->addHTML( 'TODO do the import' );
-	}
-
-	/**
-	 * @param string[] $parsedUrl return of wfParseUrl
-	 *
-	 * @return bool
-	 */
-	private function urlAllowed( array $parsedUrl ) {
-		/** @var UrlBasedSiteLookup $lookup */
-		$lookup = MediaWikiServices::getInstance()->getService( 'FileImporterUrlBasedSiteLookup' );
-		return $lookup->getSite( $parsedUrl ) !== null;
 	}
 
 	private function showUnparsableUrlMessage( $rawUrl ) {
@@ -85,31 +80,38 @@ class SpecialImportFile extends SpecialPage {
 		$this->showInputForm();
 	}
 
-	/**
-	 * @param string $rawUrl
-	 */
-	private function showImportPage( $rawUrl ) {
-		// TODO actually make the correct file?
-		$file = new ExternalMediaWikiFile();
+	private function showImportPage( Importer $importer, TargetUrl $target ) {
+		$importDetails = $importer->getImportDetails( $target );
 		$out = $this->getOutput();
 
 		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
-		$this->showInputForm( $file->getTargetUrl() );
+		$this->showInputForm( $importDetails->getTargetUrl() );
 
 		$out->addHTML(
 			Html::rawElement(
 				'p',
 				[],
 				( new Message( 'fileimporter-importfilefromprefix' ) )->plain() . ': ' .
-				Linker::makeExternalLink( $file->getTargetUrl(), $file->getTargetUrl() )
+				Linker::makeExternalLink(
+					$importDetails->getTargetUrl()->getUrl(),
+					$importDetails->getTargetUrl()->getUrl()
+				)
 			)
 		);
 
-		$out->addHTML( Html::element( 'p', [], $file->getTitle() ) );
-		$out->addHTML( Linker::makeExternalImage( $file->getImageUrl(), $file->getTitle() ) );
+		$out->addHTML( Html::element( 'p', [], $importDetails->getTitleText() ) );
+		$out->addHTML(
+			Linker::makeExternalImage(
+				$importDetails->getImageDisplayUrl(),
+				$importDetails->getTitleText()
+			)
+		);
 	}
 
-	private function showInputForm( $clientUrl = null ) {
+	/**
+	 * @param TargetUrl|null $targetUrl
+	 */
+	private function showInputForm( $targetUrl = null ) {
 		$out = $this->getOutput();
 
 		$out->addHTML(
@@ -126,7 +128,7 @@ class SpecialImportFile extends SpecialPage {
 					'autofocus' => true,
 					'required' => true,
 					'type' => 'url',
-					'value' => $clientUrl ? $clientUrl : '',
+					'value' => $targetUrl ? $targetUrl->getUrl() : '',
 					'placeholder' => ( new Message( 'fileimporter-exampleprefix' ) )->plain() .
 						': https://en.wikipedia.org/wiki/File:Berlin_Skyline'
 				]
@@ -140,14 +142,14 @@ class SpecialImportFile extends SpecialPage {
 			) . Html::closeElement( 'form' )
 		);
 
-		if ( $clientUrl ) {
-			$this->showImportForm( $clientUrl );
+		if ( $targetUrl ) {
+			$this->showImportForm( $targetUrl );
 		}
 
 		$out->addHTML( Html::closeElement( 'div' ) );
 	}
 
-	private function showImportForm( $clientUrl ) {
+	private function showImportForm( TargetUrl $targetUrl ) {
 		$this->getOutput()->addHTML(
 			Html::openElement(
 				'form',
@@ -160,7 +162,7 @@ class SpecialImportFile extends SpecialPage {
 				[
 					'type' => 'hidden',
 					'name' => 'clientUrl',
-					'value' => $clientUrl,
+					'value' => $targetUrl->getUrl(),
 				]
 			). new ButtonInputWidget(
 				[
