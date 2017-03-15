@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Generic;
+namespace FileImporter\Generic\Data;
 
 class TargetUrl {
 

@@ -1,7 +1,10 @@
 <?php
 
-namespace FileImporter\Generic;
+namespace FileImporter\Generic\Data;
 
+use FileImporter\Generic\Data\FileRevision;
+use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Generic\Data\TextRevision;
 use Wikimedia\Assert\Assert;
 
 class ImportDetails {

@@ -2,11 +2,11 @@
 
 namespace FileImporter;
 
-use FileImporter\Generic\ImportTransformations;
-use FileImporter\Generic\ImportDetails;
-use FileImporter\Generic\DetailRetriever;
-use FileImporter\Generic\Importer;
-use FileImporter\Generic\TargetUrl;
+use FileImporter\Generic\Data\ImportTransformations;
+use FileImporter\Generic\Data\ImportDetails;
+use FileImporter\Generic\Services\DetailRetriever;
+use FileImporter\Generic\Services\Importer;
+use FileImporter\Generic\Data\TargetUrl;
 use Html;
 use Linker;
 use MediaWiki\MediaWikiServices;

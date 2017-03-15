@@ -1,7 +1,9 @@
 <?php
 
-namespace FileImporter\Generic;
+namespace FileImporter\Generic\Services;
 
+use FileImporter\Generic\Data\ImportDetails;
+use FileImporter\Generic\Data\ImportTransformations;
 use FileImporter\Generic\Exceptions\ImportException;
 use RepoGroup;
 use UploadFromStash;

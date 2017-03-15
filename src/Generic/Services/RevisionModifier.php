@@ -1,7 +1,8 @@
 <?php
 
-namespace FileImporter\Generic;
+namespace FileImporter\Generic\Services;
 
+use FileImporter\Generic\Data\ImportTransformations;
 use Revision;
 
 /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace FileImporter\Generic\Test;
+namespace FileImporter\Generic\Data\Test;
 
-use FileImporter\Generic\TargetUrl;
+use FileImporter\Generic\Data\TargetUrl;
 use PHPUnit_Framework_TestCase;
 
 class TargetUrlTest extends PHPUnit_Framework_TestCase {

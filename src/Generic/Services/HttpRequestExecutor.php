@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Generic;
+namespace FileImporter\Generic\Services;
 
 use FileImporter\Generic\Exceptions\HttpRequestException;
 use MWException;

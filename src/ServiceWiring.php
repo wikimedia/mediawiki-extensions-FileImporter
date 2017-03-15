@@ -2,8 +2,8 @@
 
 namespace FileImporter;
 
-use FileImporter\Generic\DispatchingDetailRetriever;
-use FileImporter\Generic\HttpRequestExecutor;
+use FileImporter\Generic\Services\DispatchingDetailRetriever;
+use FileImporter\Generic\Services\HttpRequestExecutor;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;

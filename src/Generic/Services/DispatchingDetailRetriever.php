@@ -1,8 +1,10 @@
 <?php
 
-namespace FileImporter\Generic;
+namespace FileImporter\Generic\Services;
 
+use FileImporter\Generic\Data\TargetUrl;
 use FileImporter\Generic\Exceptions\ImportTargetException;
+use FileImporter\Generic\Services\DetailRetriever;
 
 class DispatchingDetailRetriever implements DetailRetriever {
 

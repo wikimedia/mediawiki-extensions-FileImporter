@@ -1,9 +1,9 @@
 <?php
 
-namespace FileImporter\Generic\Test;
+namespace FileImporter\Generic\Services\Test;
 
 use FileImporter\Generic\Exceptions\HttpRequestException;
-use FileImporter\Generic\HttpRequestExecutor;
+use FileImporter\Generic\Services\HttpRequestExecutor;
 use MWHttpRequest;
 use PHPUnit_Framework_TestCase;
 use Psr\Log\LoggerInterface;

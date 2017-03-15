@@ -4,12 +4,12 @@ namespace FileImporter\MediaWiki;
 
 use FileImporter\Generic\Exceptions\HttpRequestException;
 use FileImporter\Generic\Exceptions\ImportException;
-use FileImporter\Generic\FileRevision;
-use FileImporter\Generic\HttpRequestExecutor;
-use FileImporter\Generic\ImportDetails;
-use FileImporter\Generic\DetailRetriever;
-use FileImporter\Generic\TargetUrl;
-use FileImporter\Generic\TextRevision;
+use FileImporter\Generic\Data\FileRevision;
+use FileImporter\Generic\Services\HttpRequestExecutor;
+use FileImporter\Generic\Data\ImportDetails;
+use FileImporter\Generic\Services\DetailRetriever;
+use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Generic\Data\TextRevision;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
