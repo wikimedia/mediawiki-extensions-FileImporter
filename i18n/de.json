@@ -10,6 +10,9 @@
 	"fileimporter-cantparseurl": "Die angegebene URL konnte nicht geparst werden",
 	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
 	"fileimporter-exampleprefix": "Beispiel",
+	"fileimporter-textrevisionsprefix": "Textversionen",
+	"fileimporter-filerevisionsprefix": "Dateiversionen",
+	"fileimporter-titleprefix": "Titel",
 	"fileimporter-submit": "Absenden",
 	"fileimporter-import": "Importieren",
 	"fileimporter-importfilefromprefix": "Datei importieren von"

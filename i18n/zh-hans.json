@@ -10,6 +10,9 @@
 	"fileimporter-cantparseurl": "不能解析提供的URL",
 	"fileimporter-cantimporturl": "不能导入提供的URL",
 	"fileimporter-exampleprefix": "示例",
+	"fileimporter-textrevisionsprefix": "文本修订版本",
+	"fileimporter-filerevisionsprefix": "文件修订版本",
+	"fileimporter-titleprefix": "标题",
 	"fileimporter-submit": "提交",
 	"fileimporter-import": "导入",
 	"fileimporter-importfilefromprefix": "正在导入表单"

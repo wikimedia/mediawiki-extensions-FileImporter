@@ -3,7 +3,8 @@
 		"authors": [
 			"Hashar",
 			"Wladek92",
-			"Gomoko"
+			"Gomoko",
+			"Benoit Rochon"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -12,6 +13,9 @@
 	"fileimporter-cantparseurl": "Impossible d’analyser l’URL fournie",
 	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
 	"fileimporter-exampleprefix": "Exemple",
+	"fileimporter-textrevisionsprefix": "Corrections du texte",
+	"fileimporter-filerevisionsprefix": "Révisions des fichiers",
+	"fileimporter-titleprefix": "Titre",
 	"fileimporter-submit": "Soumettre",
 	"fileimporter-import": "Importer",
 	"fileimporter-importfilefromprefix": "Import du fichier depuis"

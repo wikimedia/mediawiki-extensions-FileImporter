@@ -7,5 +7,6 @@
 	},
 	"fileimporter": "مستورد ملفات",
 	"fileimporter-specialpage": "ملف الإستيراد",
-	"fileimporter-exampleprefix": "مثال"
+	"fileimporter-exampleprefix": "مثال",
+	"fileimporter-titleprefix": "العنوان"
 }
