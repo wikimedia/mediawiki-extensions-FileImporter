@@ -7,6 +7,9 @@
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
 	"fileimporter-specialpage": "Fichier importéieren",
 	"fileimporter-exampleprefix": "Beispill",
+	"fileimporter-textrevisionsprefix": "Versioune vum Text",
+	"fileimporter-filerevisionsprefix": "Versioune vum Fichier",
+	"fileimporter-titleprefix": "Titel",
 	"fileimporter-submit": "Schécken",
 	"fileimporter-import": "Importéieren",
 	"fileimporter-importfilefromprefix": "Fichier gëtt importéiert vu(n)"

@@ -10,6 +10,9 @@
 	"fileimporter-cantparseurl": "Не можам да ја расчленам дадената URL",
 	"fileimporter-cantimporturl": "Не можам да ја увезам дадената URL",
 	"fileimporter-exampleprefix": "Пример",
+	"fileimporter-textrevisionsprefix": "Преработки на текст",
+	"fileimporter-filerevisionsprefix": "Преработки на податотеки",
+	"fileimporter-titleprefix": "Наслов",
 	"fileimporter-submit": "Поднеси",
 	"fileimporter-import": "Увези",
 	"fileimporter-importfilefromprefix": "Увоз на податотеката од"

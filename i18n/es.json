@@ -12,6 +12,9 @@
 	"fileimporter-cantparseurl": "No se puede analizar el URL proporcionado",
 	"fileimporter-cantimporturl": "No se puede importar el URL proporcionado",
 	"fileimporter-exampleprefix": "Ejemplo",
+	"fileimporter-textrevisionsprefix": "Revisiones de texto",
+	"fileimporter-filerevisionsprefix": "Revisiones de archivo",
+	"fileimporter-titleprefix": "Título",
 	"fileimporter-submit": "Enviar",
 	"fileimporter-import": "Importar",
 	"fileimporter-importfilefromprefix": "Importando archivo de"
