@@ -11,6 +11,7 @@
 	"fileimporter-cantparseurl": "প্রদত্ত URLটি পার্স করা যাবে না",
 	"fileimporter-cantimporturl": "প্রদত্ত URLটি আমদানি করা যাবে না",
 	"fileimporter-exampleprefix": "উদাহরণ",
+	"fileimporter-titleprefix": "শিরোনাম",
 	"fileimporter-submit": "জমা দিন",
 	"fileimporter-import": "আমদানি করুন",
 	"fileimporter-importfilefromprefix": "এ থেকে ফাইল আমদানি করা হচ্ছে"

@@ -10,6 +10,7 @@
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-exampleprefix": "Przykład",
+	"fileimporter-titleprefix": "Tytuł",
 	"fileimporter-submit": "Wyślij",
 	"fileimporter-import": "Importuj",
 	"fileimporter-importfilefromprefix": "Importowanie pliku z"

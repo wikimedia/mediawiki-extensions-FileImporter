@@ -10,6 +10,7 @@
 	"fileimporter-cantparseurl": "주어진 URL을 분석할 수 없습니다",
 	"fileimporter-cantimporturl": "주어진 URL을 가져올 수 없습니다",
 	"fileimporter-exampleprefix": "예시",
+	"fileimporter-titleprefix": "제목",
 	"fileimporter-submit": "제출",
 	"fileimporter-import": "가져오기",
 	"fileimporter-importfilefromprefix": "다음 위치에서 파일 가져옴"
