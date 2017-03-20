@@ -15,6 +15,9 @@
 			"i18n"
 		]
 	},
+	"ExtensionMessagesFiles": {
+		"FileImporterAlias": "FileImporter.alias.php"
+	},
 	"SpecialPages": {
 		"ImportFile": "FileImporter\\SpecialImportFile"
 	},
