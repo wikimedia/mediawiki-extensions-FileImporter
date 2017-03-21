@@ -23,6 +23,10 @@ class SpecialImportFile extends SpecialPage {
 		parent::__construct( 'ImportFile' );
 	}
 
+	public function getGroupName() {
+		return 'media';
+	}
+
 	public function execute( $subPage ) {
 		$out = $this->getOutput();
 		$out->setPageTitle( new Message( 'fileimporter-specialpage' ) );
