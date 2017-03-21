@@ -19,7 +19,7 @@
 		"FileImporterAlias": "FileImporter.alias.php"
 	},
 	"SpecialPages": {
-		"ImportFile": "FileImporter\\SpecialImportFile"
+		"FileImporter-SpecialPage": "FileImporter\\SpecialImportFile"
 	},
 	"AutoloadClasses": {
 		"FileImporter\\Generic\\Exceptions\\HttpRequestException": "src/Generic/Exceptions/HttpRequestException.php",

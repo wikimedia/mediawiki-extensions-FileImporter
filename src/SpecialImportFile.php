@@ -20,7 +20,7 @@ use SpecialPage;
 class SpecialImportFile extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct( 'ImportFile' );
+		parent::__construct( 'FileImporter-SpecialPage' );
 	}
 
 	public function getGroupName() {
