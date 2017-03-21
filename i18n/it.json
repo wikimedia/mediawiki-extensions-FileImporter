@@ -6,7 +6,9 @@
 		]
 	},
 	"fileimporter-specialpage": "Importa file",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplicati",
 	"fileimporter-exampleprefix": "Esempio",
+	"fileimporter-titleprefix": "Titolo",
 	"fileimporter-submit": "Invia",
 	"fileimporter-import": "Importa",
 	"fileimporter-importfilefromprefix": "Importa file da"

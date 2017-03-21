@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sfic"
+			"Sfic",
+			"Matma Rex"
 		]
 	},
+	"fileimporter": "फ़ाइल आयातक",
 	"fileimporter-exampleprefix": "उदाहरण",
+	"fileimporter-titleprefix": "शीर्षक",
 	"fileimporter-import": "आयात"
 }

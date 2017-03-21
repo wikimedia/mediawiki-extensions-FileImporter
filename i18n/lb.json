@@ -6,6 +6,7 @@
 	},
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
 	"fileimporter-specialpage": "Fichier importéieren",
+	"fileimporter-duplicatefilesdetected-prefix": "Doublonen",
 	"fileimporter-exampleprefix": "Beispill",
 	"fileimporter-textrevisionsprefix": "Versioune vum Text",
 	"fileimporter-filerevisionsprefix": "Versioune vum Fichier",

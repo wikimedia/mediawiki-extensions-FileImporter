@@ -9,6 +9,8 @@
 	"fileimporter-specialpage": "Datei importieren",
 	"fileimporter-cantparseurl": "Die angegebene URL konnte nicht geparst werden",
 	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
+	"fileimporter-duplicatefilesdetected": "Die Datei, die du derzeit versuchst zu importieren, ist bereits auf diesem Wiki vorhanden.",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplikate",
 	"fileimporter-exampleprefix": "Beispiel",
 	"fileimporter-textrevisionsprefix": "Textversionen",
 	"fileimporter-filerevisionsprefix": "Dateiversionen",

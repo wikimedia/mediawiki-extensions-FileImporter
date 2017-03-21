@@ -9,7 +9,12 @@
 	"fileimporter-specialpage": "Importar ficheru",
 	"fileimporter-cantparseurl": "Nun puede analizase la URL dada",
 	"fileimporter-cantimporturl": "Nun puede importase la URL dada",
+	"fileimporter-duplicatefilesdetected": "El ficheru que tas tentando importar yá esiste nesta wiki.",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplicaos",
 	"fileimporter-exampleprefix": "Exemplu",
+	"fileimporter-textrevisionsprefix": "Revisiones de testu",
+	"fileimporter-filerevisionsprefix": "Revisiones del ficheru",
+	"fileimporter-titleprefix": "Títulu",
 	"fileimporter-submit": "Unviar",
 	"fileimporter-import": "Importar",
 	"fileimporter-importfilefromprefix": "Importando ficheru de"

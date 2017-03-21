@@ -9,6 +9,8 @@
 	"fileimporter-specialpage": "导入文件",
 	"fileimporter-cantparseurl": "不能解析提供的URL",
 	"fileimporter-cantimporturl": "不能导入提供的URL",
+	"fileimporter-duplicatefilesdetected": "您当前正在测试导入的文件已存在于本wiki中。",
+	"fileimporter-duplicatefilesdetected-prefix": "重复",
 	"fileimporter-exampleprefix": "示例",
 	"fileimporter-textrevisionsprefix": "文本修订版本",
 	"fileimporter-filerevisionsprefix": "文件修订版本",
