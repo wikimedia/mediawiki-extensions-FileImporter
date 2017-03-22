@@ -55,19 +55,39 @@ class ImportPreviewPage {
 			[],
 			( new Message( 'fileimporter-previewnote' ) )->parse()
 		) .
-		Html::element(
+		Html::rawElement(
 			'h2',
 			[],
-			$importDetails->getTitleText()
+			$importDetails->getTitleText() .
+			Html::openElement( 'div', [ 'class' => 'mw-importfile-rightAlign' ] ) .
+			new ButtonInputWidget(
+				[
+					'classes' => [ 'mw-importfile-edittitle' ],
+					'label' => ( new Message( 'fileimporter-edittitle' ) )->plain(),
+					'type' => 'submit',
+					'flags' => [ 'progressive' ],
+				]
+			) .
+			Html::closeElement( 'div' )
 		) .
 		Linker::makeExternalImage(
 			$importDetails->getImageDisplayUrl(),
 			$importDetails->getTitleText()
 		) .
-		Html::element(
+		Html::rawElement(
 			'h2',
 			[],
-			( new Message( 'fileimporter-heading-fileinfo' ) )->plain()
+			( new Message( 'fileimporter-heading-fileinfo' ) )->plain() .
+			Html::openElement( 'div', [ 'class' => 'mw-importfile-rightAlign' ] ) .
+			new ButtonInputWidget(
+				[
+					'classes' => [ 'mw-importfile-edittitle' ],
+					'label' => ( new Message( 'fileimporter-editinfo' ) )->plain(),
+					'type' => 'submit',
+					'flags' => [ 'progressive' ],
+				]
+			) .
+			Html::closeElement( 'div' )
 		) .
 		Html::rawElement(
 			'div',
