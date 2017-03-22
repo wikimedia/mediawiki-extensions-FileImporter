@@ -16,6 +16,8 @@
 	"fileimporter-submit": "Submit",
 	"fileimporter-import": "Import",
 	"fileimporter-cancel": "Cancel",
+	"fileimporter-editsummary": "Edit summary:",
+	"fileimporter-editsummary-placeholder": "Only used if you make changes to the import.",
 	"fileimporter-previewnote": "This is a preview of the file to be imported. Please check the page in detail before importing.",
 	"fileimporter-heading-fileinfo": "File info",
 	"fileimporter-heading-filehistory": "File history"
