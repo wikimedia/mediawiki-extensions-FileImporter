@@ -26,7 +26,7 @@ class TextRevision {
 		'comment',
 		'*',
 		// Needed for display on import page
-		'parsedomment',
+		'parsedcomment',
 	];
 
 	/**
@@ -44,10 +44,12 @@ class TextRevision {
 	}
 
 	private function throwExceptionIfMissingFields( array $fields ) {
-		$keys = array_keys( $fields );
-		$expectedKeys = self::$fieldNames;
-		if ( sort( $expectedKeys ) !== sort( $keys ) ) {
-			throw new InvalidArgumentException( __CLASS__ . ': Missing fields on construction' );
+		foreach ( self::$fieldNames as $expectedKey ) {
+			if ( !array_key_exists( $expectedKey, $fields ) ) {
+				throw new InvalidArgumentException(
+					__CLASS__ . ': Missing ' . $expectedKey . ' field on construction'
+				);
+			}
 		}
 	}
 

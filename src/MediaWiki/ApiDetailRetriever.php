@@ -178,6 +178,16 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			 *  - DB sha1 format is base 36 padded to 31 chars
 			 */
 			$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
+			$revisionInfo['bits'] = $revisionInfo['size'];
+			$revisionInfo['user_text'] = $revisionInfo['user'];
+			$revisionInfo['user'] = $revisionInfo['userid'];
+
+			// TODO can we rely on this extmetadata being in the response?
+			$revisionInfo['description'] =
+				$revisionInfo['extmetadata']['ImageDescription']['value'];
+			$revisionInfo['name'] =
+				$revisionInfo['extmetadata']['ObjectName']['value'];
+
 			$revisions[] = new FileRevision( $revisionInfo );
 		}
 		return new FileRevisions( $revisions );
@@ -191,6 +201,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo ) {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
+			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );
 			$revisions[] = new TextRevision( $revisionInfo );
 		}
 		return $revisions;
