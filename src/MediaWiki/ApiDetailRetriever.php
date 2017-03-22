@@ -130,6 +130,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		}
 
 		$pageInfoData = array_pop( $requestData['query']['pages'] );
+		$pageTitle = $pageInfoData['title'];
 
 		if ( !array_key_exists( 'imageinfo', $pageInfoData ) ||
 			!array_key_exists( 'revisions', $pageInfoData ) ||
@@ -149,8 +150,8 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		$normalizationData = array_pop( $requestData['query']['normalized'] );
 		$imageInfoData = $pageInfoData['imageinfo'];
 		$revisionsData = $pageInfoData['revisions'];
-		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData );
-		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData );
+		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
+		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
 
 		$importDetails = new ImportDetails(
 			$targetUrl,
@@ -165,10 +166,11 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
 	/**
 	 * @param array $imageInfo
+	 * @param string $pageTitle
 	 *
 	 * @return FileRevisions
 	 */
-	private function getFileRevisionsFromImageInfo( array $imageInfo ) {
+	private function getFileRevisionsFromImageInfo( array $imageInfo, $pageTitle ) {
 		$revisions = [];
 		foreach ( $imageInfo as $revisionInfo ) {
 			/**
@@ -181,12 +183,8 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			$revisionInfo['bits'] = $revisionInfo['size'];
 			$revisionInfo['user_text'] = $revisionInfo['user'];
 			$revisionInfo['user'] = $revisionInfo['userid'];
-
-			// TODO can we rely on this extmetadata being in the response?
-			$revisionInfo['description'] =
-				$revisionInfo['extmetadata']['ImageDescription']['value'];
-			$revisionInfo['name'] =
-				$revisionInfo['extmetadata']['ObjectName']['value'];
+			$revisionInfo['name'] = $pageTitle;
+			$revisionInfo['description'] = $revisionInfo['comment'];
 
 			$revisions[] = new FileRevision( $revisionInfo );
 		}
@@ -195,13 +193,15 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
 	/**
 	 * @param array $revisionsInfo
+	 * @param string $pageTitle
 	 *
 	 * @return TextRevision[]
 	 */
-	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo ) {
+	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
 			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );
+			$revisionInfo['title'] = $pageTitle;
 			$revisions[] = new TextRevision( $revisionInfo );
 		}
 		return $revisions;

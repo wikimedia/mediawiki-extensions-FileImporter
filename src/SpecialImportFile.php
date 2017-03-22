@@ -89,8 +89,13 @@ class SpecialImportFile extends SpecialPage {
 		$adjustments = new ImportTransformations(); // TODO populate adjustments based on import form
 
 		// TODO inject?!
-		$importer = new Importer();
-		$result = $importer->import( $importDetails, $adjustments );
+		/** @var Importer $importer */
+		$importer = MediaWikiServices::getInstance()->getService( 'FileImporterImporter' );
+		$result = $importer->import(
+			$this->getUser(),
+			$importDetails,
+			$adjustments
+		);
 
 		if ( $result ) {
 			// TODO show completion page showing old and new files & other possible actions
