@@ -10,6 +10,7 @@
 	"fileimporter-specialpage": "ফাইল আমদানি করুন",
 	"fileimporter-cantparseurl": "প্রদত্ত URLটি পার্স করা যাবে না",
 	"fileimporter-cantimporturl": "প্রদত্ত URLটি আমদানি করা যাবে না",
+	"fileimporter-duplicatefilesdetected-prefix": "প্রতিলিপি",
 	"fileimporter-exampleprefix": "উদাহরণ",
 	"fileimporter-titleprefix": "শিরোনাম",
 	"fileimporter-submit": "জমা দিন",

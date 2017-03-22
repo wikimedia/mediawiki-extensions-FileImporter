@@ -9,6 +9,8 @@
 	"fileimporter-specialpage": "Увези податотека",
 	"fileimporter-cantparseurl": "Не можам да ја расчленам дадената URL",
 	"fileimporter-cantimporturl": "Не можам да ја увезам дадената URL",
+	"fileimporter-duplicatefilesdetected": "Податотеката што сакате да ја увезете веќе постои на ова вики.",
+	"fileimporter-duplicatefilesdetected-prefix": "Дупликати",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-textrevisionsprefix": "Преработки на текст",
 	"fileimporter-filerevisionsprefix": "Преработки на податотеки",
