@@ -110,7 +110,7 @@ class SpecialImportFile extends SpecialPage {
 		$importDetailsHash = $out->getRequest()->getVal( 'importDetailsHash', '' );
 		$token = $out->getRequest()->getVal( 'token', '' );
 
-		if ( $this->getUser()->getEditToken() !== $token ) {
+		if ( !$this->getUser()->matchEditToken( $token ) ) {
 			$this->showWarningMessage( 'Incorrect token submitted for import' ); // TODO i18n
 			return false;
 		}
