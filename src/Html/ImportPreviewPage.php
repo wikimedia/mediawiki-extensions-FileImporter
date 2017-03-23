@@ -2,17 +2,13 @@
 
 namespace FileImporter\Html;
 
-use ContentHandler;
 use FileImporter\Generic\Data\ImportDetails;
 use Html;
 use Linker;
 use Message;
-use MWContentSerializationException;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
-use ParserOptions;
 use SpecialPage;
-use Title;
 
 /**
  * Page displaying the preview of the import before it has happened.

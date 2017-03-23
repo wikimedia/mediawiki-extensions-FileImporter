@@ -2,7 +2,6 @@
 
 namespace FileImporter;
 
-use File;
 use FileImporter\Generic\Data\ImportTransformations;
 use FileImporter\Generic\Data\ImportDetails;
 use FileImporter\Generic\Exceptions\ImportException;
@@ -10,6 +9,7 @@ use FileImporter\Generic\Services\DetailRetriever;
 use FileImporter\Generic\Services\DuplicateFileRevisionChecker;
 use FileImporter\Generic\Services\Importer;
 use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\InputFormPage;
 use Html;
@@ -60,19 +60,21 @@ class SpecialImportFile extends SpecialPage {
 		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
 
 		if ( !$targetUrl->getUrl() ) {
-			$this->showUrlEntryPage();
+			$this->showInputForm();
 			return;
 		}
 
 		if ( !$targetUrl->isParsable() ) {
-			$this->showUnparsableUrlMessage( $targetUrl->getUrl() );
-			$this->showUrlEntryPage();
+			$this->showWarningMessage(
+				( new Message( 'fileimporter-cantparseurl' ) )->plain() . ': ' . $targetUrl->getUrl()
+			);
+			$this->showInputForm();
 			return;
 		}
 
 		if ( !$this->detailRetreiver->canGetImportDetails( $targetUrl ) ) {
-			$this->showDisallowedUrlMessage();
-			$this->showUrlEntryPage();
+			$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
+			$this->showInputForm();
 			return;
 		}
 
@@ -83,18 +85,23 @@ class SpecialImportFile extends SpecialPage {
 			$this->showInputForm( $targetUrl );
 			return;
 		}
+
 		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
 			$importDetails->getFileRevisions()->getLatest()
 		);
 		if ( !empty( $duplicateFiles ) ) {
-			$this->showDuplicateFilesDetectedMessage( $duplicateFiles );
+			$out->addHTML( ( new DuplicateFilesPage( $duplicateFiles ) )->getHtml() );
 			return;
 		}
+
 		if ( $wasPosted ) {
-			$this->doImport( $importDetails );
-			return;
+			$importResult = $this->doImport( $importDetails );
+			if ( !$importResult ) {
+				$this->showImportPage( $importDetails );
+			}
+		} else {
+			$this->showImportPage( $importDetails );
 		}
-		$this->showImportPage( $importDetails );
 	}
 
 	private function doImport( ImportDetails $importDetails ) {
@@ -105,11 +112,13 @@ class SpecialImportFile extends SpecialPage {
 
 		if ( $this->getUser()->getEditToken() !== $token ) {
 			$this->showWarningMessage( 'Incorrect token submitted for import' ); // TODO i18n
+			return false;
 		}
 
 		if ( $importDetails->getHash() !== $importDetailsHash ) {
 			// TODO i18n
 			$this->showWarningMessage( 'Incorrect import details hash submitted for import' );
+			return false;
 		}
 
 		$adjustments = new ImportTransformations(); // TODO populate adjustments based on import form
@@ -127,30 +136,7 @@ class SpecialImportFile extends SpecialPage {
 			$this->showWarningMessage( 'Import failed' ); // TODO i18n
 		}
 
-	}
-
-	private function showUnparsableUrlMessage( $rawUrl ) {
-		$this->showWarningMessage(
-			( new Message( 'fileimporter-cantparseurl' ) )->plain() . ': ' . $rawUrl
-		);
-	}
-
-	private function showDisallowedUrlMessage() {
-		$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
-	}
-
-	/**
-	 * @param File[] $duplicateFiles
-	 */
-	private function showDuplicateFilesDetectedMessage( array $duplicateFiles ) {
-		$this->showWarningMessage(
-			( new Message( 'fileimporter-duplicatefilesdetected' ) )->plain()
-		);
-		$duplicatesMessage = ( new Message( 'fileimporter-duplicatefilesdetected-prefix' ) )->plain();
-		$this->getOutput()->addWikiText( '\'\'\'' . $duplicatesMessage . '\'\'\'' );
-		foreach ( $duplicateFiles as $file ) {
-			$this->getOutput()->addWikiText( '* [[:' . $file->getTitle() . ']]' );
-		}
+		return $result;
 	}
 
 	private function showWarningMessage( $message ) {
@@ -161,10 +147,6 @@ class SpecialImportFile extends SpecialPage {
 				Html::element( 'p', [], $message )
 			)
 		);
-	}
-
-	private function showUrlEntryPage() {
-		$this->showInputForm();
 	}
 
 	private function showImportPage( ImportDetails $importDetails ) {
