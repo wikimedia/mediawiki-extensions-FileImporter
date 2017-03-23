@@ -19,15 +19,15 @@ class FileRevision {
 		'height',
 		'metadata',
 		'bits',
-		'media_type',
-		'major_mime',
-		'minor_mime',
+		//'media_type', // needed in the DB but derived from the file itself?
+		//'major_mime', // needed in the DB but derived from the file itself?
+		//'minor_mime', // needed in the DB but derived from the file itself?
 		'description',
 		'user',
 		'user_text',
 		'timestamp',
 		'sha1',
-		'type',
+		//'type', // needed in the DB but derived from the file itself?
 		// Needed for display on import page
 		'thumburl'
 	];
@@ -47,10 +47,12 @@ class FileRevision {
 	}
 
 	private function throwExceptionIfMissingFields( array $fields ) {
-		$keys = array_keys( $fields );
-		$expectedKeys = self::$fieldNames;
-		if ( sort( $expectedKeys ) !== sort( $keys ) ) {
-			throw new InvalidArgumentException( __CLASS__ . ': Missing fields on construction' );
+		foreach ( self::$fieldNames as $expectedKey ) {
+			if ( !array_key_exists( $expectedKey, $fields ) ) {
+				throw new InvalidArgumentException(
+					__CLASS__ . ': Missing ' . $expectedKey . ' field on construction'
+				);
+			}
 		}
 	}
 
