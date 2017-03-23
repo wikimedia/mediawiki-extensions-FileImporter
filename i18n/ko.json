@@ -9,6 +9,8 @@
 	"fileimporter-specialpage": "파일 가져오기",
 	"fileimporter-cantparseurl": "주어진 URL을 분석할 수 없습니다",
 	"fileimporter-cantimporturl": "주어진 URL을 가져올 수 없습니다",
+	"fileimporter-duplicatefilesdetected": "현재 가져오려는 파일은 이 위키에 이미 존재합니다.",
+	"fileimporter-duplicatefilesdetected-prefix": "중복",
 	"fileimporter-exampleprefix": "예시",
 	"fileimporter-titleprefix": "제목",
 	"fileimporter-submit": "제출",
