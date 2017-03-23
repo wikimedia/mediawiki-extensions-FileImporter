@@ -9,6 +9,7 @@ use Message;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
 use SpecialPage;
+use Title;
 
 /**
  * Page displaying the preview of the import before it has happened.
@@ -27,15 +28,23 @@ class ImportPreviewPage {
 	private $importDetails;
 
 	/**
+	 * @var Title
+	 */
+	private $title;
+
+	/**
 	 * @param SpecialPage $specialPage
 	 * @param ImportDetails $importDetails
+	 * @param Title $title
 	 */
 	public function __construct(
 		SpecialPage $specialPage,
-		ImportDetails $importDetails
+		ImportDetails $importDetails,
+		Title $title
 	) {
 		$this->specialPage = $specialPage;
 		$this->importDetails = $importDetails;
+		$this->title = $title;
 	}
 
 	/**
@@ -44,6 +53,12 @@ class ImportPreviewPage {
 	public function getHtml() {
 		$importDetails = $this->importDetails;
 		$targetUrl = $importDetails->getTargetUrl();
+
+		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
+			'clientUrl' => $targetUrl->getUrl(),
+			'intendedTitle' => $this->title->getText(),
+			'importDetailsHash' => $importDetails->getHash(),
+		] ) )->getHtml();
 
 		return
 		Html::element(
@@ -54,8 +69,24 @@ class ImportPreviewPage {
 		Html::rawElement(
 			'h2',
 			[],
-			$importDetails->getTitleText() .
-			Html::openElement( 'div', [ 'class' => 'mw-importfile-rightAlign' ] ) .
+			$this->title->getPrefixedText() .
+			Html::openElement(
+				'form',
+				[
+					'class' => 'mw-importfile-rightAlign',
+					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+					'method' => 'GET',
+				]
+			) .
+			Html::element(
+				'input',
+				[
+					'type' => 'hidden',
+					'name' => 'action',
+					'value' => 'edittitle',
+				]
+			) .
+			$importIdentityFormSnippet .
 			new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-importfile-edittitle' ],
@@ -64,26 +95,42 @@ class ImportPreviewPage {
 					'flags' => [ 'progressive' ],
 				]
 			) .
-			Html::closeElement( 'div' )
+			Html::closeElement( 'form' )
 		) .
 		Linker::makeExternalImage(
 			$importDetails->getImageDisplayUrl(),
-			$importDetails->getTitleText()
+			$this->title->getPrefixedText()
 		) .
 		Html::rawElement(
 			'h2',
 			[],
 			( new Message( 'fileimporter-heading-fileinfo' ) )->plain() .
-			Html::openElement( 'div', [ 'class' => 'mw-importfile-rightAlign' ] ) .
+			Html::openElement(
+				'form',
+				[
+					'class' => 'mw-importfile-rightAlign',
+					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+					'method' => 'GET',
+				]
+			) .
+			Html::element(
+				'input',
+				[
+					'type' => 'hidden',
+					'name' => 'action',
+					'value' => 'editinfo',
+				]
+			) .
+			$importIdentityFormSnippet .
 			new ButtonInputWidget(
 				[
-					'classes' => [ 'mw-importfile-edittitle' ],
+					'classes' => [ 'mw-importfile-editinfo' ],
 					'label' => ( new Message( 'fileimporter-editinfo' ) )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'progressive' ],
 				]
 			) .
-			Html::closeElement( 'div' )
+			Html::closeElement( 'form' )
 		) .
 		Html::rawElement(
 			'div',
@@ -125,22 +172,7 @@ class ImportPreviewPage {
 				'placeholder' => ( new Message( 'fileimporter-editsummary-placeholder' ) )->plain(),
 			]
 		) .
-		Html::element(
-			'input',
-			[
-				'type' => 'hidden',
-				'name' => 'clientUrl',
-				'value' => $targetUrl->getUrl(),
-			]
-		) .
-		Html::element(
-			'input',
-			[
-				'type' => 'hidden',
-				'name' => 'importDetailsHash',
-				'value' => $importDetails->getHash(),
-			]
-		) .
+		$importIdentityFormSnippet .
 		Html::element(
 			'input',
 			[

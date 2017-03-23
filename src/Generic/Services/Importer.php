@@ -58,6 +58,7 @@ class Importer implements LoggerAwareInterface {
 
 	/**
 	 * @param User $user user to use for the import
+	 * @param Title $title target title of the import
 	 * @param ImportDetails $importDetails
 	 * @param ImportTransformations $importTransformations transformations to be made to the details
 	 *
@@ -66,22 +67,25 @@ class Importer implements LoggerAwareInterface {
 	 */
 	public function import(
 		User $user,
+		Title $title,
 		ImportDetails $importDetails,
 		ImportTransformations $importTransformations
 	) {
+		$this->checkTitleFileExtensionsMatch( $title, $importDetails->getPrefixedTitleText() );
+
 		// TODO copy files directly in swift if possible?
 
 		// TODO lookup in CentralAuth to see if users can be maintained on the import
 		// This probably needs some service object to be made to keep things nice and tidy
 
 		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
-		$this->importWikiRevisionFiles( $wikiRevisionFiles );
-		$this->importTextRevisions( $importDetails->getTextRevisions() );
+		$this->importWikiRevisionFiles( $title, $wikiRevisionFiles );
+		$this->importTextRevisions( $title, $importDetails->getTextRevisions() );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
-		$this->createPostImportNullRevision( $importDetails, $user );
+		$this->createPostImportNullRevision( $importDetails, $user, $title );
 
 		// TODO If modifications are needed on the text we need to make 1 new revision!
 		// @see RevisionModifier ?
@@ -90,6 +94,21 @@ class Importer implements LoggerAwareInterface {
 		// delete)?
 
 		return true;
+	}
+
+	/**
+	 * Check to ensure files are not imported with differing file extensions.
+	 *
+	 * @param Title $title
+	 * @param string $prefixedText File:Foo.png
+	 */
+	private function checkTitleFileExtensionsMatch( Title $title, $prefixedText ) {
+		if (
+			pathinfo( $title->getPrefixedText() )['extension'] !==
+			pathinfo( $prefixedText )['extension']
+		) {
+			throw new ImportException( 'Target file extension does not match original file' );
+		}
 	}
 
 	private function getWikiRevisionFiles( ImportDetails $importDetails ) {
@@ -124,8 +143,9 @@ class Importer implements LoggerAwareInterface {
 		return $wikiRevisionFiles;
 	}
 
-	private function importWikiRevisionFiles( array $wikiRevisionFiles ) {
+	private function importWikiRevisionFiles( Title $title, array $wikiRevisionFiles ) {
 		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
+			$wikiRevisionFile->setTitle( $title );
 			$importSuccess = $wikiRevisionFile->importUpload();
 			if ( !$importSuccess ) {
 				// TODO exception & Log
@@ -134,9 +154,10 @@ class Importer implements LoggerAwareInterface {
 		}
 	}
 
-	private function importTextRevisions( TextRevisions $textRevisions ) {
+	private function importTextRevisions( Title $title, TextRevisions $textRevisions ) {
 		foreach ( $textRevisions->toArray() as $textRevision ) {
 			$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $textRevision );
+			$wikiRevision->setTitle( $title );
 			$importSuccess = $wikiRevision->importOldRevision();
 			if ( !$importSuccess ) {
 				// TODO exception & Log
@@ -145,8 +166,11 @@ class Importer implements LoggerAwareInterface {
 		}
 	}
 
-	private function createPostImportNullRevision( ImportDetails $importDetails, User $user ) {
-		$title = Title::newFromText( $importDetails->getTitleText(), NS_FILE );
+	private function createPostImportNullRevision(
+		ImportDetails $importDetails,
+		User $user,
+		Title $title
+	) {
 		$this->nullRevisionCreator->createForLinkTarget(
 			$title->getArticleID(),
 			$user,

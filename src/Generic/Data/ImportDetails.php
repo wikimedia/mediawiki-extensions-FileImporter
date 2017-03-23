@@ -55,7 +55,7 @@ class ImportDetails {
 		$this->fileRevisions = $fileRevisions;
 	}
 
-	public function getTitleText() {
+	public function getPrefixedTitleText() {
 		return $this->titleText;
 	}
 

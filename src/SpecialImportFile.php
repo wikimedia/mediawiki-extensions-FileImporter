@@ -10,10 +10,12 @@ use FileImporter\Generic\Services\DetailRetriever;
 use FileImporter\Generic\Services\DuplicateFileRevisionChecker;
 use FileImporter\Generic\Services\Importer;
 use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Html\ChangeTitleForm;
 use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessPage;
 use FileImporter\Html\InputFormPage;
+use FileImporter\Html\LocalTitleExistsPage;
 use Html;
 use MediaWiki\MediaWikiServices;
 use Message;
@@ -23,6 +25,7 @@ use Title;
 use UploadBase;
 use User;
 use UserBlockedError;
+use WebRequest;
 
 class SpecialImportFile extends SpecialPage {
 
@@ -102,22 +105,7 @@ class SpecialImportFile extends SpecialPage {
 
 		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
 
-		if ( !$targetUrl->getUrl() ) {
-			$this->showInputForm();
-			return;
-		}
-
-		if ( !$targetUrl->isParsable() ) {
-			$this->showWarningMessage(
-				( new Message( 'fileimporter-cantparseurl' ) )->plain() . ': ' . $targetUrl->getUrl()
-			);
-			$this->showInputForm();
-			return;
-		}
-
-		if ( !$this->detailRetreiver->canGetImportDetails( $targetUrl ) ) {
-			$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
-			$this->showInputForm();
+		if ( !$this->processTargetUrl( $targetUrl ) ) {
 			return;
 		}
 
@@ -129,25 +117,132 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
-			$importDetails->getFileRevisions()->getLatest()
-		);
-		if ( !empty( $duplicateFiles ) ) {
-			$out->addHTML( ( new DuplicateFilesPage( $duplicateFiles ) )->getHtml() );
+		$intendedTitle = $this->getIntendedTitle( $importDetails, $this->getRequest() );
+		if ( !$this->processIntendedTitle( $intendedTitle, $targetUrl, $importDetails ) ) {
+			return;
+		}
+
+		if ( !$this->processImportDetails( $importDetails ) ) {
 			return;
 		}
 
 		if ( $wasPosted ) {
-			$importResult = $this->doImport( $importDetails );
-			if ( !$importResult ) {
-				$this->showImportPage( $importDetails );
-			}
+			$this->actuallyExecutePost( $importDetails, $intendedTitle );
 		} else {
-			$this->showImportPage( $importDetails );
+			$this->actuallyExecuteGet( $targetUrl, $importDetails, $intendedTitle );
 		}
 	}
 
-	private function doImport( ImportDetails $importDetails ) {
+	/**
+	 * @param TargetUrl $targetUrl
+	 *
+	 * @return bool should execution continue?
+	 */
+	private function processTargetUrl( TargetUrl $targetUrl ) {
+		if ( !$targetUrl->getUrl() ) {
+			$this->showInputForm();
+			return false;
+		}
+
+		if ( !$targetUrl->isParsable() ) {
+			$this->showWarningMessage(
+				( new Message( 'fileimporter-cantparseurl' ) )->plain() . ': ' . $targetUrl->getUrl()
+			);
+			$this->showInputForm();
+			return false;
+		}
+
+		if ( !$this->detailRetreiver->canGetImportDetails( $targetUrl ) ) {
+			$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
+			$this->showInputForm();
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param Title $intendedTitle
+	 * @param TargetUrl $targetUrl
+	 * @param ImportDetails $importDetails
+	 *
+	 * @return bool should execution continue?
+	 */
+	private function processIntendedTitle(
+		Title $intendedTitle,
+		TargetUrl $targetUrl,
+		ImportDetails $importDetails
+	) {
+		$out = $this->getOutput();
+
+		if ( $intendedTitle->exists() ) {
+			$out->addHTML( ( new LocalTitleExistsPage( $this, $targetUrl, $intendedTitle ) )->getHtml() );
+			return false;
+		}
+
+		if ( $intendedTitle->getPrefixedText() !== $importDetails->getPrefixedTitleText() ) {
+			// TODO check back on source site to see if the new title exists there?
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param ImportDetails $importDetails
+	 *
+	 * @return bool should execution continue?
+	 */
+	private function processImportDetails( ImportDetails $importDetails ) {
+		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
+			$importDetails->getFileRevisions()->getLatest()
+		);
+
+		if ( !empty( $duplicateFiles ) ) {
+			$this->getOutput()->addHTML( ( new DuplicateFilesPage( $duplicateFiles ) )->getHtml() );
+			return false;
+		}
+
+		return true;
+	}
+
+	private function actuallyExecutePost( $importDetails, $intendedTitle ) {
+		$importResult = $this->doImport( $importDetails, $intendedTitle );
+		if ( !$importResult ) {
+			$this->showImportPage( $importDetails, $intendedTitle );
+		}
+	}
+
+	private function actuallyExecuteGet( $targetUrl, $importDetails, $intendedTitle ) {
+		$out = $this->getOutput();
+		$action = $this->getRequest()->getVal( 'action' );
+		if ( $action === 'edittitle' ) {
+			$out->addHTML(
+				( new ChangeTitleForm( $this, $targetUrl, $intendedTitle ) )->getHtml()
+			);
+		} elseif ( $action === 'editinfo' ) {
+			// TODO implement form
+		} else {
+			$this->showImportPage( $importDetails, $intendedTitle );
+		}
+	}
+
+	private function getIntendedTitle( ImportDetails $importDetails, WebRequest $request ) {
+		$intendedFileName = $request->getVal( 'intendedFileName' );
+
+		if ( $intendedFileName ) {
+			$intendedTitleText = $intendedFileName . '.' .
+				pathinfo( $importDetails->getPrefixedTitleText() )['extension'];
+		} else {
+			$intendedTitleText = $request->getVal(
+				'intendedTitle',
+				$importDetails->getPrefixedTitleText()
+			);
+		}
+
+		return Title::newFromText( $intendedTitleText, NS_FILE );
+	}
+
+	private function doImport( ImportDetails $importDetails, Title $intendedTitle ) {
 		$out = $this->getOutput();
 
 		$importDetailsHash = $out->getRequest()->getVal( 'importDetailsHash', '' );
@@ -168,6 +263,7 @@ class SpecialImportFile extends SpecialPage {
 
 		$result = $this->importer->import(
 			$this->getUser(),
+			$intendedTitle,
 			$importDetails,
 			$adjustments
 		);
@@ -176,7 +272,7 @@ class SpecialImportFile extends SpecialPage {
 			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
 			$this->getOutput()->addHTML( ( new ImportSuccessPage(
 				$importDetails->getTargetUrl(),
-				Title::newFromText( $importDetails->getTitleText(), NS_FILE )
+				$intendedTitle
 			) )->getHtml() );
 		} else {
 			$this->showWarningMessage( 'Import failed' ); // TODO i18n
@@ -195,8 +291,11 @@ class SpecialImportFile extends SpecialPage {
 		);
 	}
 
-	private function showImportPage( ImportDetails $importDetails ) {
-		$this->getOutput()->addHTML( ( new ImportPreviewPage( $this, $importDetails ) )->getHtml() );
+	private function showImportPage( ImportDetails $importDetails, $intendedTitle ) {
+		$this->getOutput()->addHTML(
+			( new ImportPreviewPage( $this, $importDetails, $intendedTitle ) )
+				->getHtml()
+		);
 	}
 
 	private function showInputForm( TargetUrl $targetUrl = null ) {
