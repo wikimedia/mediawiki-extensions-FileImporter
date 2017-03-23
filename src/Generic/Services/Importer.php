@@ -112,7 +112,7 @@ class Importer implements LoggerAwareInterface {
 			}
 		}
 
-		foreach ( $importDetails->getTextRevisions() as $textRevision ) {
+		foreach ( $importDetails->getTextRevisions()->toArray() as $textRevision ) {
 			$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $textRevision );
 			$importSuccess = $wikiRevision->importOldRevision();
 			if ( !$importSuccess ) {

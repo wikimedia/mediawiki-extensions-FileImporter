@@ -6,6 +6,12 @@
     margin-bottom: 14px;
 }
 
+.mw-importfile-parsedContent {
+    background-color: #f8f9fa;
+    border: 1px solid #c8ccd1;
+    padding: 1em 1em 1.5em 1em;
+}
+
 .mw-importfile-importOptions {
     background-color: #f8f9fa;
     border: 1px solid #c8ccd1;
