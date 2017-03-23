@@ -57,6 +57,7 @@
 		"src/ServiceWiring.php"
 	],
 	"config": {
+		"FileImporterRequiredRight": "upload",
 		"FileImporterDetailRetrieverServices": [
 			"FileImporterMediaWikiApiImporter"
 		],
