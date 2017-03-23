@@ -58,7 +58,35 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	 * @return bool
 	 */
 	public function canGetImportDetails( TargetUrl $targetUrl ) {
-		return $this->siteTableSiteLookup->getSite( $targetUrl->getParsedUrl()['host'] ) !== null;
+		return $this->siteTableSiteLookup->getSite( $targetUrl->getParsedUrl()['host'] ) !== null &&
+			$this->getTitleFromTargetUrl( $targetUrl ) !== null;
+	}
+
+	/**
+	 * @param TargetUrl $targetUrl
+	 * @return string|null the string title extracted or null on failure
+	 */
+	private function getTitleFromTargetUrl( TargetUrl $targetUrl ) {
+		$parsed = $targetUrl->getParsedUrl();
+		$title = null;
+		$hasQueryAndTitle = null;
+
+		if ( array_key_exists( 'query', $parsed ) ) {
+			parse_str( $parsed['query'], $bits );
+			$hasQueryAndTitle = array_key_exists( 'title', $bits );
+			if ( $hasQueryAndTitle && strlen( $bits['title'] ) > 0 ) {
+				$title = $bits['title'];
+			}
+		}
+
+		if ( !$hasQueryAndTitle && array_key_exists( 'path', $parsed ) ) {
+			$bits = explode( '/', $parsed['path'] );
+			if ( count( $bits ) >= 2 && !empty( $bits[count( $bits ) - 1] ) ) {
+				$title = array_pop( $bits );
+			}
+		}
+
+		return $title;
 	}
 
 	/**
@@ -169,21 +197,11 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	}
 
 	private function getParams( TargetUrl $targetUrl ) {
-		$parsed = $targetUrl->getParsedUrl();
-
-		if ( array_key_exists( 'query', $parsed ) && strstr( $parsed['query'], 'title' ) ) {
-			parse_str( $parsed['query'], $bits );
-			$fullTitle = $bits['title'];
-		} else {
-			$bits = explode( '/', $parsed['path'] );
-			$fullTitle = array_pop( $bits );
-		}
-
 		return [
 			'action' => 'query',
 			'format' => 'json',
 			'prop' => 'imageinfo|revisions',
-			'titles' => $fullTitle,
+			'titles' => $this->getTitleFromTargetUrl( $targetUrl ),
 			'iilimit' => '500',
 			'rvlimit' => '500',
 			'iiurlwidth' => '500',
