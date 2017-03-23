@@ -11,11 +11,13 @@ use FileImporter\Generic\Services\Importer;
 use FileImporter\Generic\Data\TargetUrl;
 use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
+use FileImporter\Html\ImportSuccessPage;
 use FileImporter\Html\InputFormPage;
 use Html;
 use MediaWiki\MediaWikiServices;
 use Message;
 use SpecialPage;
+use Title;
 
 class SpecialImportFile extends SpecialPage {
 
@@ -130,8 +132,11 @@ class SpecialImportFile extends SpecialPage {
 		);
 
 		if ( $result ) {
-			// TODO show completion page showing old and new files & other possible actions
-			$this->getOutput()->addHTML( 'Import was a success!' ); // TODO i18n
+			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
+			$this->getOutput()->addHTML( ( new ImportSuccessPage(
+				$importDetails->getTargetUrl(),
+				Title::newFromText( $importDetails->getTitleText(), NS_FILE )
+			) )->getHtml() );
 		} else {
 			$this->showWarningMessage( 'Import failed' ); // TODO i18n
 		}
