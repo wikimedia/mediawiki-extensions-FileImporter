@@ -12,6 +12,8 @@
 	"fileimporter-duplicatefilesdetected": "현재 가져오려는 파일은 이 위키에 이미 존재합니다.",
 	"fileimporter-duplicatefilesdetected-prefix": "중복",
 	"fileimporter-exampleprefix": "예시",
+	"fileimporter-textrevisionsprefix": "텍스트의 판",
+	"fileimporter-filerevisionsprefix": "파일의 판",
 	"fileimporter-titleprefix": "제목",
 	"fileimporter-submit": "제출",
 	"fileimporter-import": "가져오기",

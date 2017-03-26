@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eitvys200"
+		]
+	},
+	"fileimporter-duplicatefilesdetected": "Failas, kurį bandote importuoti, jau egzistuoja šioje viki.",
+	"fileimporter-duplicatefilesdetected-prefix": "Dublikatai",
+	"fileimporter-titleprefix": "Pavadinimas"
+}
