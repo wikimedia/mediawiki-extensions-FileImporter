@@ -7,9 +7,9 @@
  */
 // @codingStandardsIgnoreFile
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English (English) */
-$specialPageAliases['en'] = array(
-	'ImportFile' => array( 'ImportFile' ),
-);
+$specialPageAliases['en'] = [
+	'FileImporter-SpecialPage' => [ 'ImportFile' ],
+];
