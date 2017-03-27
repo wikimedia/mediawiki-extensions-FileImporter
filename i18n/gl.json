@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Banjo"
+		]
+	},
+	"fileimporter-specialpage": "Importar ficheiro",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplicados",
+	"fileimporter-exampleprefix": "Exemplo",
+	"fileimporter-titleprefix": "Título",
+	"fileimporter-submit": "Enviar",
+	"fileimporter-import": "Importar"
+}
