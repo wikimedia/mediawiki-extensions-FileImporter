@@ -9,7 +9,11 @@
 	"fileimporter-specialpage": "Importera fil",
 	"fileimporter-cantparseurl": "Kan inte tolka angiven URL",
 	"fileimporter-cantimporturl": "Kan inte importera angiven URL",
+	"fileimporter-duplicatefilesdetected-prefix": "Dubbletter",
 	"fileimporter-exampleprefix": "Exempel",
+	"fileimporter-textrevisionsprefix": "Textrevisioner",
+	"fileimporter-filerevisionsprefix": "Filrevisioner",
+	"fileimporter-titleprefix": "Titel",
 	"fileimporter-submit": "Skicka",
 	"fileimporter-import": "Importera",
 	"fileimporter-importfilefromprefix": "Importerar från fil"

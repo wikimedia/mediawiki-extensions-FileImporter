@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"烈羽"
+			"烈羽",
+			"Liuxinyu970226"
 		]
 	},
 	"fileimporter-exampleprefix": "範例",
+	"fileimporter-titleprefix": "標題",
 	"fileimporter-submit": "送出",
 	"fileimporter-import": "匯入"
 }
