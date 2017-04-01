@@ -9,6 +9,7 @@
 	"fileimporter-specialpage": "Importera fil",
 	"fileimporter-cantparseurl": "Kan inte tolka angiven URL",
 	"fileimporter-cantimporturl": "Kan inte importera angiven URL",
+	"fileimporter-duplicatefilesdetected": "Filen du försöker importera finns redan på denna wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dubbletter",
 	"fileimporter-exampleprefix": "Exempel",
 	"fileimporter-textrevisionsprefix": "Textrevisioner",
