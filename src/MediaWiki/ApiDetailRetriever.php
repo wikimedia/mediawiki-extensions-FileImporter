@@ -159,7 +159,6 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			throw new ImportException( 'Bad image or revision info returned by the API' );
 		}
 
-		$normalizationData = array_pop( $requestData['query']['normalized'] );
 		$imageInfoData = $pageInfoData['imageinfo'];
 		$revisionsData = $pageInfoData['revisions'];
 		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
@@ -167,7 +166,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
 		$importDetails = new ImportDetails(
 			$targetUrl,
-			$normalizationData['to'],
+			$pageInfoData['title'],
 			$fileRevisions->getLatest()->getField( 'thumburl' ),
 			$textRevisions,
 			$fileRevisions

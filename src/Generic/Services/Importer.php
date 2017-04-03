@@ -2,16 +2,14 @@
 
 namespace FileImporter\Generic\Services;
 
-use Article;
-use EditPage;
 use FileImporter\Generic\Data\ImportDetails;
 use FileImporter\Generic\Data\ImportTransformations;
+use FileImporter\Generic\Data\TextRevisions;
 use FileImporter\Generic\Exceptions\ImportException;
 use Http;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Revision;
 use TempFSFile;
 use Title;
 use User;
@@ -76,6 +74,25 @@ class Importer implements LoggerAwareInterface {
 		// TODO lookup in CentralAuth to see if users can be maintained on the import
 		// This probably needs some service object to be made to keep things nice and tidy
 
+		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
+		$this->importWikiRevisionFiles( $wikiRevisionFiles );
+		$this->importTextRevisions( $importDetails->getTextRevisions() );
+
+		// TODO do we need to call WikiImporter::finishImportPage??
+		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
+
+		$this->createPostImportNullRevision( $importDetails, $user );
+
+		// TODO If modifications are needed on the text we need to make 1 new revision!
+		// @see RevisionModifier ?
+
+		// TODO think about being able to roll back these changes? / totally remove (not just
+		// delete)?
+
+		return true;
+	}
+
+	private function getWikiRevisionFiles( ImportDetails $importDetails ) {
 		$wikiRevisionFiles = [];
 
 		foreach ( $importDetails->getFileRevisions()->toArray() as $fileRevision ) {
@@ -104,6 +121,10 @@ class Importer implements LoggerAwareInterface {
 			);
 		}
 
+		return $wikiRevisionFiles;
+	}
+
+	private function importWikiRevisionFiles( array $wikiRevisionFiles ) {
 		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
 			$importSuccess = $wikiRevisionFile->importUpload();
 			if ( !$importSuccess ) {
@@ -111,8 +132,10 @@ class Importer implements LoggerAwareInterface {
 				die( 'failed import faile :/' );
 			}
 		}
+	}
 
-		foreach ( $importDetails->getTextRevisions()->toArray() as $textRevision ) {
+	private function importTextRevisions( TextRevisions $textRevisions ) {
+		foreach ( $textRevisions->toArray() as $textRevision ) {
 			$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $textRevision );
 			$importSuccess = $wikiRevision->importOldRevision();
 			if ( !$importSuccess ) {
@@ -120,10 +143,9 @@ class Importer implements LoggerAwareInterface {
 				die( 'failed import text :/' );
 			}
 		}
+	}
 
-		// TODO do we need to call WikiImporter::finishImportPage??
-		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
-
+	private function createPostImportNullRevision( ImportDetails $importDetails, User $user ) {
 		$title = Title::newFromText( $importDetails->getTitleText(), NS_FILE );
 		$this->nullRevisionCreator->createForLinkTarget(
 			$title->getArticleID(),
@@ -131,14 +153,6 @@ class Importer implements LoggerAwareInterface {
 			'Imported from ' . $importDetails->getTargetUrl()->getUrl(), // TODO i18n
 			true
 		);
-
-		// TODO If modifications are needed on the text we need to make 1 new revision!
-		// @see RevisionModifier ?
-
-		// TODO think about being able to roll back these changes? / totally remove (not just
-		// delete)?
-
-		return true;
 	}
 
 }
