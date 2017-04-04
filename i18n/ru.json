@@ -5,6 +5,8 @@
 		]
 	},
 	"fileimporter-specialpage": "Импортировать файл",
+	"fileimporter-duplicatefilesdetected": "Файл, который вы пытаетесь импортировать, уже существует в данном вики-проекте.",
+	"fileimporter-duplicatefilesdetected-prefix": "Дубликаты",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-submit": "Отправить",
 	"fileimporter-import": "Импортировать",
