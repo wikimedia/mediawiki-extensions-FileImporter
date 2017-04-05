@@ -42,6 +42,7 @@
 		"FileImporter\\Generic\\Data\\FileRevisions": "src/Generic/Data/FileRevisions.php",
 		"FileImporter\\Generic\\Data\\TextRevision": "src/Generic/Data/TextRevision.php",
 		"FileImporter\\Generic\\Data\\TextRevisions": "src/Generic/Data/TextRevisions.php",
+		"FileImporter\\Html\\DuplicateFilesPage": "src/Html/DuplicateFilesPage.php",
 		"FileImporter\\Html\\ImportPreviewPage": "src/Html/ImportPreviewPage.php",
 		"FileImporter\\Html\\InputFormPage": "src/Html/InputFormPage.php",
 		"FileImporter\\Html\\TextRevisionSnippet": "src/Html/TextRevisionSnippet.php",
