@@ -12,10 +12,11 @@
 	"fileimporter-duplicatefilesdetected" : "The file you are currently trying to import already exists on this wiki.",
 	"fileimporter-duplicatefilesdetected-prefix" : "Duplicates",
 	"fileimporter-exampleprefix": "Example",
-	"fileimporter-textrevisionsprefix": "Text Revisions",
-	"fileimporter-filerevisionsprefix": "File Revisions",
-	"fileimporter-titleprefix": "Title",
+	"fileimporter-textrevisions": "$1 {{PLURAL:$1|revision|revisions}} of the file will be imported.",
 	"fileimporter-submit": "Submit",
 	"fileimporter-import": "Import",
-	"fileimporter-importfilefromprefix": "Importing file from"
+	"fileimporter-cancel": "Cancel",
+	"fileimporter-previewnote": "This is a preview of the file to be imported. Please check the page in detail before importing.",
+	"fileimporter-heading-fileinfo": "File info",
+	"fileimporter-heading-filehistory": "File history"
 }

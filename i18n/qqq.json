@@ -13,10 +13,11 @@
 	"fileimporter-duplicatefilesdetected": "Error message shown on the special page when the file to be imported has been detected as already existing on the local wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Prefix for the duplicate file that has been found.\n{{Identical|Duplicate}}",
 	"fileimporter-exampleprefix": "Prefix for the example URL contained within the URL text box on the special page.\n{{Identical|Example}}",
-	"fileimporter-textrevisionsprefix": "Prefix for the number of text revisions to be imported on the special page.",
-	"fileimporter-filerevisionsprefix": "Prefix for the number of file revisions to be imported on the special page.",
-	"fileimporter-titleprefix": "Prefix for the title to be imported on the special page.\n{{Identical|Title}}",
+	"fileimporter-textrevisions": "Prefix for the number of text revisions to be imported on the special page.",
 	"fileimporter-submit": "Text for the submit button on the special page.\n{{Identical|Submit}}",
 	"fileimporter-import": "Text for the import button on the special page.\n{{Identical|Import}}",
-	"fileimporter-importfilefromprefix": "Prefix for the URL being imported from on the special page."
+	"fileimporter-cancel": "Text for the cancel button on the special page.",
+	"fileimporter-previewnote": "Note shown at the top of the import page.",
+	"fileimporter-heading-fileinfo": "Heading of the file info on the import page.",
+	"fileimporter-heading-filehistory": "Heading of the file history on the import page."
 }
