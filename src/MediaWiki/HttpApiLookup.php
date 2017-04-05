@@ -54,7 +54,13 @@ class HttpApiLookup implements LoggerAwareInterface{
 		try {
 			$req = $this->httpRequestExecutor->execute( $targetUrl->getUrl() );
 		} catch ( HttpRequestException $e ) {
-			$this->logAndException( 'Failed to discover API location from: ' . $targetUrl->getUrl() );
+			if ( $e->getStatusCode() === 404 ) {
+				$this->logAndException( 'File not found: ' . $targetUrl->getUrl() );
+			}
+			$this->logAndException(
+				'Failed to discover API location from: "' . $targetUrl->getUrl() . '".' .
+				'Got status code ' . $e->getStatusCode() . '.'
+			);
 			return null; // never reached
 		}
 
