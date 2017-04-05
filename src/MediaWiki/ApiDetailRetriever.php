@@ -3,6 +3,7 @@
 namespace FileImporter\MediaWiki;
 
 use FileImporter\Generic\Data\FileRevisions;
+use FileImporter\Generic\Data\TextRevisions;
 use FileImporter\Generic\Exceptions\HttpRequestException;
 use FileImporter\Generic\Exceptions\ImportException;
 use FileImporter\Generic\Data\FileRevision;
@@ -195,7 +196,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	 * @param array $revisionsInfo
 	 * @param string $pageTitle
 	 *
-	 * @return TextRevision[]
+	 * @return TextRevisions
 	 */
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
 		$revisions = [];
@@ -204,7 +205,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			$revisionInfo['title'] = $pageTitle;
 			$revisions[] = new TextRevision( $revisionInfo );
 		}
-		return $revisions;
+		return new TextRevisions( $revisions );
 	}
 
 	private function getParams( TargetUrl $targetUrl ) {

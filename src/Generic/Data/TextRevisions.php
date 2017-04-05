@@ -4,44 +4,44 @@ namespace FileImporter\Generic\Data;
 
 use Wikimedia\Assert\Assert;
 
-class FileRevisions {
+class TextRevisions {
 
 	/**
-	 * @var FileRevision[]
+	 * @var TextRevision[]
 	 */
-	private $fileRevisions;
+	private $textRevisions;
 
 	private $latestKey = null;
 
 	/**
-	 * @param FileRevision[] $fileRevisions
+	 * @param TextRevision[] $textRevisions
 	 */
-	public function __construct( array $fileRevisions ) {
-		Assert::parameterElementType( FileRevision::class, $fileRevisions, '$fileRevisions' );
-		$this->fileRevisions = $fileRevisions;
+	public function __construct( array $textRevisions ) {
+		Assert::parameterElementType( TextRevision::class, $textRevisions, '$textRevisions' );
+		$this->textRevisions = $textRevisions;
 	}
 
 	/**
-	 * @return FileRevision[]
+	 * @return TextRevision[]
 	 */
 	public function toArray() {
-		return $this->fileRevisions;
+		return $this->textRevisions;
 	}
 
 	/**
-	 * @return FileRevision|null
+	 * @return TextRevision|null
 	 */
 	public function getLatest() {
 		if ( $this->latestKey === null ) {
 			$this->calculateLatestKey();
 		}
 
-		return $this->latestKey !== null ? $this->fileRevisions[$this->latestKey] : null;
+		return $this->latestKey !== null ? $this->textRevisions[$this->latestKey] : null;
 	}
 
 	private function calculateLatestKey() {
 		$latestTimestamp = 0;
-		foreach ( $this->fileRevisions as $key => $revision ) {
+		foreach ( $this->textRevisions as $key => $revision ) {
 			$timestamp = strtotime( $revision->getField( 'timestamp' ) );
 			if ( $latestTimestamp < $timestamp ) {
 				$latestTimestamp = $timestamp;

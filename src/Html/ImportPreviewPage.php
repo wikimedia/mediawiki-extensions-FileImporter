@@ -2,13 +2,17 @@
 
 namespace FileImporter\Html;
 
+use ContentHandler;
 use FileImporter\Generic\Data\ImportDetails;
 use Html;
 use Linker;
 use Message;
+use MWContentSerializationException;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
+use ParserOptions;
 use SpecialPage;
+use Title;
 
 /**
  * Page displaying the preview of the import before it has happened.
@@ -65,6 +69,11 @@ class ImportPreviewPage {
 			[],
 			( new Message( 'fileimporter-heading-fileinfo' ) )->plain()
 		) .
+		Html::rawElement(
+			'div',
+			[ 'class' => 'mw-importfile-parsedContent' ],
+			( new TextRevisionSnippet( $importDetails->getTextRevisions()->getLatest() ) )->getHtml()
+		) .
 		Html::element(
 			'h2',
 			[],
@@ -75,7 +84,7 @@ class ImportPreviewPage {
 			[],
 			( new Message(
 				'fileimporter-textrevisions',
-				[ count( $importDetails->getTextRevisions() ) ]
+				[ count( $importDetails->getTextRevisions()->toArray() ) ]
 			) )->parse()
 		) .
 		Html::openElement(

@@ -22,7 +22,7 @@ class ImportDetails {
 	private $imageDisplayUrl;
 
 	/**
-	 * @var TextRevision[]
+	 * @var TextRevisions
 	 */
 	private $textRevisions;
 
@@ -35,19 +35,18 @@ class ImportDetails {
 	 * @param TargetUrl $targetUrl
 	 * @param string $titleText
 	 * @param string $imageDisplayUrl
-	 * @param TextRevision[] $textRevisions
+	 * @param TextRevisions $textRevisions
 	 * @param FileRevisions $fileRevisions
 	 */
 	public function __construct(
 		TargetUrl $targetUrl,
 		$titleText,
 		$imageDisplayUrl,
-		array $textRevisions,
+		TextRevisions $textRevisions,
 		FileRevisions $fileRevisions
 	) {
 		Assert::parameterType( 'string', $titleText, '$titleText' );
 		Assert::parameterType( 'string', $imageDisplayUrl, '$imageDisplayUrl' );
-		Assert::parameterElementType( TextRevision::class, $textRevisions, '$textRevisions' );
 
 		$this->targetUrl = $targetUrl;
 		$this->titleText = $titleText;
@@ -89,11 +88,11 @@ class ImportDetails {
 	public function getHash() {
 		$hashes = [
 			sha1( $this->targetUrl->getUrl() ),
-			sha1( count( $this->getTextRevisions() ) ),
+			sha1( count( $this->getTextRevisions()->toArray() ) ),
 			sha1( count( $this->getFileRevisions()->toArray() ) ),
 		];
 
-		foreach ( $this->getTextRevisions() as $textRevision ) {
+		foreach ( $this->getTextRevisions()->toArray() as $textRevision ) {
 			$hashes[] = $textRevision->getField( 'sha1' );
 		}
 
