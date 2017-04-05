@@ -17,6 +17,8 @@
 	"fileimporter-submit": "Text for the submit button on the special page.\n{{Identical|Submit}}",
 	"fileimporter-import": "Text for the import button on the special page.\n{{Identical|Import}}",
 	"fileimporter-cancel": "Text for the cancel button on the special page.",
+	"fileimporter-editsummary": "Label for the edit summary input box.",
+	"fileimporter-editsummary-placeholder": "Placeholder for the edit summary input box.",
 	"fileimporter-previewnote": "Note shown at the top of the import page.",
 	"fileimporter-heading-fileinfo": "Heading of the file info on the import page.",
 	"fileimporter-heading-filehistory": "Heading of the file history on the import page."

@@ -7,6 +7,7 @@ use Html;
 use Linker;
 use Message;
 use OOUI\ButtonInputWidget;
+use OOUI\TextInputWidget;
 use SpecialPage;
 
 /**
@@ -78,10 +79,25 @@ class ImportPreviewPage {
 			) )->parse()
 		) .
 		Html::openElement(
+			'div',
+			[ 'class' => 'mw-importfile-importOptions' ]
+		) .
+		Html::openElement(
 			'form',
 			[
 				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
 				'method' => 'POST',
+			]
+		) .
+		Html::element(
+			'p',
+			[],
+			( new Message( 'fileimporter-editsummary' ) )->plain()
+		) .
+		new TextInputWidget(
+			[
+				'classes' => [ 'mw-importfile-import-summary' ],
+				'placeholder' => ( new Message( 'fileimporter-editsummary-placeholder' ) )->plain(),
 			]
 		) .
 		Html::element(
@@ -124,7 +140,10 @@ class ImportPreviewPage {
 				'flags' => [ 'progressive' ],
 			]
 		) .
-		Html::closeElement( 'form' );
+		Html::closeElement( 'form' ) .
+		Html::closeElement(
+			'div'
+		);
 	}
 
 }

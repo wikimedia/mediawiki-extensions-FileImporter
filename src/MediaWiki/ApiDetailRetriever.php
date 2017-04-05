@@ -215,7 +215,8 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			'titles' => $this->getTitleFromTargetUrl( $targetUrl ),
 			'iilimit' => '500',
 			'rvlimit' => '500',
-			'iiurlwidth' => '500',
+			'iiurlwidth' => '800',
+			'iiurlheight' => '400',
 			'iiprop' => implode(
 				'|',
 				[
