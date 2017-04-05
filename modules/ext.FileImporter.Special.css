@@ -17,3 +17,12 @@
     border: 1px solid #c8ccd1;
     padding: 1em 1em 1.5em 1em;
 }
+
+.mw-importfile-rightAlign {
+    float: right;
+}
+
+.mw-importfile-edittitle span.oo-ui-labelElement-label {
+    font-size: 1em;
+    font-weight: normal;
+}
