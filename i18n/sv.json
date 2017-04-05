@@ -12,10 +12,6 @@
 	"fileimporter-duplicatefilesdetected": "Filen du försöker importera finns redan på denna wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dubbletter",
 	"fileimporter-exampleprefix": "Exempel",
-	"fileimporter-textrevisionsprefix": "Textrevisioner",
-	"fileimporter-filerevisionsprefix": "Filrevisioner",
-	"fileimporter-titleprefix": "Titel",
 	"fileimporter-submit": "Skicka",
-	"fileimporter-import": "Importera",
-	"fileimporter-importfilefromprefix": "Importerar från fil"
+	"fileimporter-import": "Importera"
 }

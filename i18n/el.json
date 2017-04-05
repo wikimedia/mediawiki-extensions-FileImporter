@@ -4,8 +4,5 @@
 			"GR"
 		]
 	},
-	"fileimporter-duplicatefilesdetected-prefix": "Διπλότυπα",
-	"fileimporter-textrevisionsprefix": "Αναθεωρήσεις κειμένων",
-	"fileimporter-filerevisionsprefix": "Αναθεωρήσεις αρχείων",
-	"fileimporter-titleprefix": "Τίτλος"
+	"fileimporter-duplicatefilesdetected-prefix": "Διπλότυπα"
 }

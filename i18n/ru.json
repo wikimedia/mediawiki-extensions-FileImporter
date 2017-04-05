@@ -9,6 +9,5 @@
 	"fileimporter-duplicatefilesdetected-prefix": "Дубликаты",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-submit": "Отправить",
-	"fileimporter-import": "Импортировать",
-	"fileimporter-importfilefromprefix": "Импорт файла из"
+	"fileimporter-import": "Импортировать"
 }
