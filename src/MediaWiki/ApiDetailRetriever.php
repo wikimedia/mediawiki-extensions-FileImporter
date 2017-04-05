@@ -131,6 +131,17 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		}
 
 		$pageInfoData = array_pop( $requestData['query']['pages'] );
+
+		if ( array_key_exists( 'missing', $pageInfoData ) ) {
+			if (
+				array_key_exists( 'imagerepository', $pageInfoData ) &&
+				$pageInfoData['imagerepository'] == 'shared'
+			) {
+				throw new ImportException( 'Can not import a file from a share repository.' );
+			}
+			throw new ImportException( 'Can not import a missing file.' );
+		}
+
 		$pageTitle = $pageInfoData['title'];
 
 		if ( !array_key_exists( 'imageinfo', $pageInfoData ) ||

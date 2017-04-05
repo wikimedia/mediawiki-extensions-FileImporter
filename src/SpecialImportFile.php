@@ -5,6 +5,7 @@ namespace FileImporter;
 use File;
 use FileImporter\Generic\Data\ImportTransformations;
 use FileImporter\Generic\Data\ImportDetails;
+use FileImporter\Generic\Exceptions\ImportException;
 use FileImporter\Generic\Services\DetailRetriever;
 use FileImporter\Generic\Services\DuplicateFileRevisionChecker;
 use FileImporter\Generic\Services\Importer;
@@ -75,7 +76,13 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		$importDetails = $this->detailRetreiver->getImportDetails( $targetUrl );
+		try {
+			$importDetails = $this->detailRetreiver->getImportDetails( $targetUrl );
+		} catch ( ImportException $e ) {
+			$this->showWarningMessage( $e->getMessage() ); // TODO i18n
+			$this->showInputForm( $targetUrl );
+			return;
+		}
 		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
 			$importDetails->getFileRevisions()->getLatest()
 		);
