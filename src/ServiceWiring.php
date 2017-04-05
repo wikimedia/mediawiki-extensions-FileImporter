@@ -5,10 +5,14 @@ namespace FileImporter;
 use FileImporter\Generic\Services\DispatchingDetailRetriever;
 use FileImporter\Generic\Services\DuplicateFileRevisionChecker;
 use FileImporter\Generic\Services\HttpRequestExecutor;
+use FileImporter\Generic\Services\Importer;
+use FileImporter\Generic\Services\NullRevisionCreator;
+use FileImporter\Generic\Services\WikiRevisionFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
 use RepoGroup;
+use UploadBase;
 
 return [
 
@@ -34,6 +38,27 @@ return [
 	'FileImporterDuplicateFileRevisionChecker' => function( MediaWikiServices $services ) {
 		$localRepo = RepoGroup::singleton()->getLocalRepo();
 		return new DuplicateFileRevisionChecker( $localRepo );
+	},
+
+	'FileImporterImporter' => function( MediaWikiServices $services ) {
+		/** @var WikiRevisionFactory $wikiRevisionFactory */
+		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
+		/** @var NullRevisionCreator $nullRevisionCreator */
+		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
+		$maxUploadSize = UploadBase::getMaxUploadSize( 'import' );
+		return new Importer(
+			$wikiRevisionFactory,
+			$nullRevisionCreator,
+			$maxUploadSize
+		);
+	},
+
+	'FileImporterNullRevisionCreator' => function( MediaWikiServices $services ) {
+		return new NullRevisionCreator( $services->getDBLoadBalancer() );
+	},
+
+	'FileImporterWikiRevisionFactory' => function( MediaWikiServices $services ) {
+		return new WikiRevisionFactory( $services->getMainConfig() );
 	},
 
 	// MediaWiki

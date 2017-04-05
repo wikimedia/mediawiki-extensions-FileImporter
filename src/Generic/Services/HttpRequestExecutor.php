@@ -41,11 +41,12 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 
 	/**
 	 * @param string $url
+	 * @param callable|null $callback
 	 *
 	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
-	public function execute( $url ) {
+	public function execute( $url, $callback = null ) {
 		/** @var MWHttpRequest $request */
 		$request = call_user_func(
 			$this->requestFactoryCallable,
@@ -56,6 +57,8 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 			],
 			__METHOD__
 		);
+
+		$request->setCallback( $callback );
 
 		$status = $request->execute();
 		if ( !$status->isOK() ) {

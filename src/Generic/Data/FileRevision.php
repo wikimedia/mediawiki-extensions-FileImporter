@@ -29,7 +29,9 @@ class FileRevision {
 		'sha1',
 		//'type', // needed in the DB but derived from the file itself?
 		// Needed for display on import page
-		'thumburl'
+		'thumburl',
+		// Needed for HTTP download
+		'url',
 	];
 
 	/**
@@ -43,6 +45,7 @@ class FileRevision {
 	 */
 	public function __construct( array $fields ) {
 		$this->throwExceptionIfMissingFields( $fields );
+		// TODO check sha1 is correct / base36
 		$this->fields = $fields;
 	}
 

@@ -27,6 +27,8 @@ class TextRevision {
 		'*',
 		// Needed for display on import page
 		'parsedcomment',
+		// Needed for import
+		'title',
 	];
 
 	/**
