@@ -42,11 +42,10 @@ class SpecialImportFile extends SpecialPage {
 	private $duplicateFileChecker;
 
 	public function __construct() {
-		parent::__construct( 'FileImporter-SpecialPage' );
 		$services = MediaWikiServices::getInstance();
 		$config = $services->getMainConfig();
 
-		parent::__construct( 'ImportFile', $config->get( 'FileImporterRequiredRight' ) );
+		parent::__construct( 'FileImporter-SpecialPage', $config->get( 'FileImporterRequiredRight' ) );
 
 		// TODO inject services!
 		$this->detailRetreiver = $services->getService( 'FileImporterDispatchingDetailRetriever' );
