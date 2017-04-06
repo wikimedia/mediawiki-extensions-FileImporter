@@ -175,8 +175,6 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			 */
 			$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
 			$revisionInfo['bits'] = $revisionInfo['size'];
-			$revisionInfo['user_text'] = $revisionInfo['user'];
-			$revisionInfo['user'] = $revisionInfo['userid'];
 			$revisionInfo['name'] = $pageTitle;
 			$revisionInfo['description'] = $revisionInfo['comment'];
 
@@ -219,45 +217,26 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			'iiprop' => implode(
 				'|',
 				[
-					// TODO are all of these actually needed?
 					'timestamp',
 					'user',
 					'userid',
 					'comment',
-					'parsedcomment',
 					'canonicaltitle',
 					'url',
 					'size',
-					'dimensions',
 					'sha1',
-					'mime',
-					'thumbmime',
-					'mediatype',
-					'metadata',
-					'commonmetadata',
-					'extmetadata',
-					'archivename',
-					'bitdepth',
-					'uploadwarning',
-					'badfile',
 				]
 			),
 			'rvprop' => implode(
 				'|',
 				[
-					// TODO are all of these actually needed?
-					'ids',
 					'flags',
 					'timestamp',
 					'user',
-					'userid',
-					'size',
 					'sha1',
 					'contentmodel',
 					'comment',
-					'parsedcomment',
 					'content',
-					'tags',
 				]
 			),
 		];
