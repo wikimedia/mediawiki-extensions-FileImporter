@@ -2,6 +2,7 @@
 
 namespace FileImporter;
 
+use ErrorPageError;
 use FileImporter\Generic\Data\ImportTransformations;
 use FileImporter\Generic\Data\ImportDetails;
 use FileImporter\Generic\Exceptions\ImportException;
@@ -16,8 +17,12 @@ use FileImporter\Html\InputFormPage;
 use Html;
 use MediaWiki\MediaWikiServices;
 use Message;
+use PermissionsError;
 use SpecialPage;
 use Title;
+use UploadBase;
+use User;
+use UserBlockedError;
 
 class SpecialImportFile extends SpecialPage {
 
@@ -38,8 +43,10 @@ class SpecialImportFile extends SpecialPage {
 
 	public function __construct() {
 		parent::__construct( 'FileImporter-SpecialPage' );
-
 		$services = MediaWikiServices::getInstance();
+		$config = $services->getMainConfig();
+
+		parent::__construct( 'ImportFile', $config->get( 'FileImporterRequiredRight' ) );
 
 		// TODO inject services!
 		$this->detailRetreiver = $services->getService( 'FileImporterDispatchingDetailRetriever' );
@@ -51,7 +58,42 @@ class SpecialImportFile extends SpecialPage {
 		return 'media';
 	}
 
+	public function userCanExecute( User $user ) {
+		return UploadBase::isEnabled() && parent::userCanExecute( $user );
+	}
+
+	/**
+	 * Checks based on those in SpecialUpload
+	 */
+	private function executeStandardChecks() {
+		# Check uploading enabled
+		if ( !UploadBase::isEnabled() ) {
+			throw new ErrorPageError( 'uploaddisabled', 'uploaddisabledtext' );
+		}
+
+		# Check permissions
+		$user = $this->getUser();
+		$permissionRequired = UploadBase::isAllowed( $user );
+		if ( $permissionRequired !== true ) {
+			throw new PermissionsError( $permissionRequired );
+		}
+
+		# Check blocks
+		if ( $user->isBlocked() ) {
+			throw new UserBlockedError( $user->getBlock() );
+		}
+
+		// Global blocks
+		if ( $user->isBlockedGlobally() ) {
+			throw new UserBlockedError( $user->getGlobalBlock() );
+		}
+
+		# Check whether we actually want to allow changing stuff
+		$this->checkReadOnly();
+	}
+
 	public function execute( $subPage ) {
+		$this->executeStandardChecks();
 		$out = $this->getOutput();
 		$out->setPageTitle( new Message( 'fileimporter-specialpage' ) );
 		$out->enableOOUI();
