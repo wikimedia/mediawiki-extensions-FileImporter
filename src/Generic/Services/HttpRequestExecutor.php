@@ -62,7 +62,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 
 		$status = $request->execute();
 		if ( !$status->isOK() ) {
-			throw new HttpRequestException();
+			throw new HttpRequestException( $status, $request->getStatus() );
 		}
 
 		return $request;
