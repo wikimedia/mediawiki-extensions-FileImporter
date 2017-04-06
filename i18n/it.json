@@ -8,8 +8,13 @@
 	"fileimporter-specialpage": "Importa file",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicati",
 	"fileimporter-exampleprefix": "Esempio",
-	"fileimporter-titleprefix": "Titolo",
+	"fileimporter-textrevisions": "$1 {{PLURAL:$1|versione|versioni}} del file {{PLURAL:$1|sarà importata|saranno importate}}.",
 	"fileimporter-submit": "Invia",
 	"fileimporter-import": "Importa",
-	"fileimporter-importfilefromprefix": "Importa file da"
+	"fileimporter-cancel": "Annulla",
+	"fileimporter-edittitle": "Modifica titolo",
+	"fileimporter-editsummary": "Oggetto della modifica:",
+	"fileimporter-previewnote": "Questa è un'anteprima del file da importare. Controlla la pagina in dettaglio prima di importarlo.",
+	"fileimporter-heading-fileinfo": "Informazioni sul file",
+	"fileimporter-heading-filehistory": "Cronologia del file"
 }

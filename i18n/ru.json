@@ -1,13 +1,19 @@
 {
 	"@metadata": {
 		"authors": [
-			"Redredsonia"
+			"Redredsonia",
+			"Alexey zakharenkov"
 		]
 	},
 	"fileimporter-specialpage": "Импортировать файл",
+	"fileimporter-specialpage-successtitle": "Импорт выполнен успешно",
 	"fileimporter-duplicatefilesdetected": "Файл, который вы пытаетесь импортировать, уже существует в данном вики-проекте.",
 	"fileimporter-duplicatefilesdetected-prefix": "Дубликаты",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-submit": "Отправить",
-	"fileimporter-import": "Импортировать"
+	"fileimporter-import": "Импортировать",
+	"fileimporter-cancel": "Отменить",
+	"fileimporter-edittitle": "Редактировать заголовок",
+	"fileimporter-newtitle": "Новое название:",
+	"fileimporter-heading-filehistory": "История файла"
 }

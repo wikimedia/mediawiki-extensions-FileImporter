@@ -8,5 +8,8 @@
 	"fileimporter": "مستورد ملفات",
 	"fileimporter-specialpage": "ملف الإستيراد",
 	"fileimporter-exampleprefix": "مثال",
-	"fileimporter-titleprefix": "العنوان"
+	"fileimporter-edittitle": "عدل العنوان",
+	"fileimporter-editsummary": "ملخص التعديل:",
+	"fileimporter-heading-fileinfo": "معلومات الملف",
+	"fileimporter-heading-filehistory": "تاريخ الملف"
 }

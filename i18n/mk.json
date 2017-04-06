@@ -12,10 +12,15 @@
 	"fileimporter-duplicatefilesdetected": "Податотеката што сакате да ја увезете веќе постои на ова вики.",
 	"fileimporter-duplicatefilesdetected-prefix": "Дупликати",
 	"fileimporter-exampleprefix": "Пример",
-	"fileimporter-textrevisionsprefix": "Преработки на текст",
-	"fileimporter-filerevisionsprefix": "Преработки на податотеки",
-	"fileimporter-titleprefix": "Наслов",
+	"fileimporter-textrevisions": "Ќе се {{PLURAL:$1|увезе $1 преработка на податотеката|увезат $1 преработки на податотеките}}.",
 	"fileimporter-submit": "Поднеси",
 	"fileimporter-import": "Увези",
-	"fileimporter-importfilefromprefix": "Увоз на податотеката од"
+	"fileimporter-cancel": "Откажи",
+	"fileimporter-edittitle": "Уреди наслов",
+	"fileimporter-editinfo": "Уреди инфо за податотеката",
+	"fileimporter-editsummary": "Опис на уредувањето:",
+	"fileimporter-editsummary-placeholder": "Се користи само кога правите измени во увозот.",
+	"fileimporter-previewnote": "Ова е преглед на податотеката што ќе се увезе. Подробно проверете ја страницата пред увозот.",
+	"fileimporter-heading-fileinfo": "Инфо за податотеката",
+	"fileimporter-heading-filehistory": "Историја на податотеката"
 }

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Addshore",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Robby"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -19,12 +20,12 @@
 	"fileimporter-submit": "Text for the submit button on the special page.\n{{Identical|Submit}}",
 	"fileimporter-resubmit": "Text for the resubmit button on the special page.",
 	"fileimporter-import": "Text for the import button on the special page.\n{{Identical|Import}}",
-	"fileimporter-cancel": "Text for the cancel button on the special page.",
+	"fileimporter-cancel": "Text for the cancel button on the special page.\n{{Identical|Cancel}}",
 	"fileimporter-imported": "Note shown at the top of the successful import page.",
 	"fileimporter-edittitle": "Text for the button allowing a user to edit the file title for import.",
 	"fileimporter-editinfo": "Text for the button allowing a user to edit the file info for import.",
 	"fileimporter-newtitle": "Label for the new title input box.",
-	"fileimporter-editsummary": "Label for the edit summary input box.",
+	"fileimporter-editsummary": "Label for the edit summary input box.\n{{Identical|Edit summary}}",
 	"fileimporter-editsummary-placeholder": "Placeholder for the edit summary input box.",
 	"fileimporter-previewnote": "Note shown at the top of the import page.",
 	"fileimporter-heading-fileinfo": "Heading of the file info on the import page.",

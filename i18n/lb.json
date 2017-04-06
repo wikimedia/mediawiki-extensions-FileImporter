@@ -9,10 +9,15 @@
 	"fileimporter-duplicatefilesdetected": "De Fichier deen dir elo probéiert z'importéiere gëtt et op dëser Wiki schonn.",
 	"fileimporter-duplicatefilesdetected-prefix": "Doublonen",
 	"fileimporter-exampleprefix": "Beispill",
-	"fileimporter-textrevisionsprefix": "Versioune vum Text",
-	"fileimporter-filerevisionsprefix": "Versioune vum Fichier",
-	"fileimporter-titleprefix": "Titel",
+	"fileimporter-textrevisions": "{{PLURAL:$1|Eng Versioun vum Fichier gëtt|$1 Versioune vum Fichier ginn}} importéiert.",
 	"fileimporter-submit": "Schécken",
 	"fileimporter-import": "Importéieren",
-	"fileimporter-importfilefromprefix": "Fichier gëtt importéiert vu(n)"
+	"fileimporter-cancel": "Ofbriechen",
+	"fileimporter-imported": "<strong>\"$1\" gouf op \"$2\" importéiert\"</strong>",
+	"fileimporter-edittitle": "Titel änneren",
+	"fileimporter-editinfo": "Info vum Fichier änneren",
+	"fileimporter-newtitle": "Neien Titel:",
+	"fileimporter-editsummary": "Resumé vun der Ännerung:",
+	"fileimporter-editsummary-placeholder": "Nëmme benotzt wann Dir beim Import Ännerunge maacht.",
+	"fileimporter-heading-filehistory": "Versiounen"
 }

@@ -6,7 +6,8 @@
 		]
 	},
 	"fileimporter-exampleprefix": "範例",
-	"fileimporter-titleprefix": "標題",
 	"fileimporter-submit": "送出",
-	"fileimporter-import": "匯入"
+	"fileimporter-import": "匯入",
+	"fileimporter-cancel": "取消",
+	"fileimporter-heading-fileinfo": "檔案資訊"
 }

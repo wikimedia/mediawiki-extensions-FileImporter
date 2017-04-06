@@ -12,10 +12,15 @@
 	"fileimporter-duplicatefilesdetected": "您当前正在测试导入的文件已存在于本wiki中。",
 	"fileimporter-duplicatefilesdetected-prefix": "重复",
 	"fileimporter-exampleprefix": "示例",
-	"fileimporter-textrevisionsprefix": "文本修订版本",
-	"fileimporter-filerevisionsprefix": "文件修订版本",
-	"fileimporter-titleprefix": "标题",
+	"fileimporter-textrevisions": "文件的$1个{{PLURAL:$1|修订版本}}将被导入。",
 	"fileimporter-submit": "提交",
 	"fileimporter-import": "导入",
-	"fileimporter-importfilefromprefix": "正在导入表单"
+	"fileimporter-cancel": "取消",
+	"fileimporter-edittitle": "编辑标题",
+	"fileimporter-editinfo": "编辑文件信息",
+	"fileimporter-editsummary": "编辑摘要：",
+	"fileimporter-editsummary-placeholder": "只当您对导入做出更改时使用。",
+	"fileimporter-previewnote": "这是待导入文件的预览。请在导入前详细检查页面。",
+	"fileimporter-heading-fileinfo": "文件信息",
+	"fileimporter-heading-filehistory": "文件历史"
 }
