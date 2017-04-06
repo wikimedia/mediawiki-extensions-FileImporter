@@ -211,6 +211,11 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
+			if ( array_key_exists( 'suppressed', $revisionInfo ) ) {
+				// TODO allow importing revisions with suppressed content T162255
+				throw new ImportException( 'Can not import revisions with suppressed content.' );
+			}
+
 			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );
 			$revisionInfo['title'] = $pageTitle;
 			$revisions[] = new TextRevision( $revisionInfo );
