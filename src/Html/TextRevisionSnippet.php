@@ -3,7 +3,7 @@
 namespace FileImporter\Html;
 
 use ContentHandler;
-use FileImporter\Generic\Data\TextRevision;
+use FileImporter\Data\TextRevision;
 use MWContentSerializationException;
 use ParserOptions;
 use Title;

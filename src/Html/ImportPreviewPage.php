@@ -2,7 +2,7 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Generic\Data\ImportDetails;
+use FileImporter\Data\ImportDetails;
 use Html;
 use Linker;
 use Message;
@@ -52,10 +52,10 @@ class ImportPreviewPage {
 	 */
 	public function getHtml() {
 		$importDetails = $this->importDetails;
-		$targetUrl = $importDetails->getTargetUrl();
+		$sourceUrl = $importDetails->getSourceUrl();
 
 		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
-			'clientUrl' => $targetUrl->getUrl(),
+			'clientUrl' => $sourceUrl->getUrl(),
 			'intendedTitle' => $this->title->getText(),
 			'importDetailsHash' => $importDetails->getHash(),
 		] ) )->getHtml();

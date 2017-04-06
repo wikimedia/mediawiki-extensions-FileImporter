@@ -2,7 +2,7 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Data\SourceUrl;
 use Html;
 use MediaWiki\Widget\TitleInputWidget;
 use Message;
@@ -18,18 +18,18 @@ class ChangeTitleForm {
 	private $specialPage;
 
 	/**
-	 * @var TargetUrl
+	 * @var SourceUrl
 	 */
-	private $targetUrl;
+	private $sourceUrl;
 
 	/**
 	 * @var Title
 	 */
 	private $title;
 
-	public function __construct( SpecialPage $specialPage, TargetUrl $targetUrl, Title $title ) {
+	public function __construct( SpecialPage $specialPage, SourceUrl $sourceUrl, Title $title ) {
 		$this->specialPage = $specialPage;
-		$this->targetUrl = $targetUrl;
+		$this->sourceUrl = $sourceUrl;
 		$this->title = $title;
 	}
 
@@ -56,7 +56,7 @@ class ChangeTitleForm {
 			]
 		) .
 		( new ImportIdentityFormSnippet( [
-			'clientUrl' => $this->targetUrl->getUrl(),
+			'clientUrl' => $this->sourceUrl->getUrl(),
 			'importDetailsHash' => $this->specialPage->getRequest()->getVal( 'importDetailsHash' ),
 		] ) )->getHtml() .
 		new ButtonInputWidget(

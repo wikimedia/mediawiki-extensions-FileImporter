@@ -11,6 +11,7 @@
 	"fileimporter-cantparseurl": "Can't parse the given URL",
 	"fileimporter-cantimporturl": "Can't import the given URL",
 	"fileimporter-localtitleexists" : "The title you are currently trying to import to already exists on this wiki.",
+	"fileimporter-sourcetitleexists" : "The title you are currently trying to import to already exists on the source wiki.",
 	"fileimporter-duplicatefilesdetected" : "The file you are currently trying to import already exists on this wiki.",
 	"fileimporter-duplicatefilesdetected-prefix" : "Duplicates",
 	"fileimporter-exampleprefix": "Example",

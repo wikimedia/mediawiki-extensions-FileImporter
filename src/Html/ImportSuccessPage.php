@@ -2,7 +2,7 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Data\SourceUrl;
 use Html;
 use Message;
 use Title;
@@ -10,9 +10,9 @@ use Title;
 class ImportSuccessPage {
 
 	/**
-	 * @var TargetUrl
+	 * @var SourceUrl
 	 */
-	private $targetUrl;
+	private $sourceUrl;
 
 	/**
 	 * @var Title
@@ -20,10 +20,10 @@ class ImportSuccessPage {
 	private $importTitle;
 
 	public function __construct(
-		TargetUrl $targetUrl,
+		SourceUrl $sourceUrl,
 		Title $importTitle
 	) {
-		$this->targetUrl = $targetUrl;
+		$this->sourceUrl = $sourceUrl;
 		$this->importTitle = $importTitle;
 	}
 
@@ -36,8 +36,8 @@ class ImportSuccessPage {
 				[
 					Html::element(
 						'a',
-						[ 'href' => $this->targetUrl->getUrl() ],
-						$this->targetUrl->getUrl()
+						[ 'href' => $this->sourceUrl->getUrl() ],
+						$this->sourceUrl->getUrl()
 					),
 					Html::element(
 						'a',

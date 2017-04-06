@@ -2,26 +2,21 @@
 
 namespace FileImporter\MediaWiki;
 
-use FileImporter\Generic\Data\FileRevisions;
-use FileImporter\Generic\Data\TextRevisions;
-use FileImporter\Generic\Exceptions\HttpRequestException;
-use FileImporter\Generic\Exceptions\ImportException;
-use FileImporter\Generic\Data\FileRevision;
-use FileImporter\Generic\Services\HttpRequestExecutor;
-use FileImporter\Generic\Data\ImportDetails;
-use FileImporter\Generic\Services\DetailRetriever;
-use FileImporter\Generic\Data\TargetUrl;
-use FileImporter\Generic\Data\TextRevision;
+use FileImporter\Data\FileRevision;
+use FileImporter\Data\FileRevisions;
+use FileImporter\Data\ImportDetails;
+use FileImporter\Data\SourceUrl;
+use FileImporter\Data\TextRevision;
+use FileImporter\Data\TextRevisions;
+use FileImporter\Exceptions\HttpRequestException;
+use FileImporter\Exceptions\ImportException;
+use FileImporter\Interfaces\DetailRetriever;
+use FileImporter\Services\HttpRequestExecutor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
-
-	/**
-	 * @var SiteTableSiteLookup
-	 */
-	private $siteTableSiteLookup;
 
 	/**
 	 * @var HttpApiLookup
@@ -39,11 +34,9 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	private $logger;
 
 	public function __construct(
-		SiteTableSiteLookup $siteTableSiteLookup,
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor
 	) {
-		$this->siteTableSiteLookup = $siteTableSiteLookup;
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = new NullLogger();
@@ -54,21 +47,11 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	}
 
 	/**
-	 * @param TargetUrl $targetUrl
-	 *
-	 * @return bool
-	 */
-	public function canGetImportDetails( TargetUrl $targetUrl ) {
-		return $this->siteTableSiteLookup->getSite( $targetUrl->getParsedUrl()['host'] ) !== null &&
-			$this->getTitleFromTargetUrl( $targetUrl ) !== null;
-	}
-
-	/**
-	 * @param TargetUrl $targetUrl
+	 * @param SourceUrl $sourceUrl
 	 * @return string|null the string title extracted or null on failure
 	 */
-	private function getTitleFromTargetUrl( TargetUrl $targetUrl ) {
-		$parsed = $targetUrl->getParsedUrl();
+	private function getTitleFromSourceUrl( SourceUrl $sourceUrl ) {
+		$parsed = $sourceUrl->getParsedUrl();
 		$title = null;
 		$hasQueryAndTitle = null;
 
@@ -91,15 +74,15 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	}
 
 	/**
-	 * @param TargetUrl $targetUrl
+	 * @param SourceUrl $sourceUrl
 	 *
 	 * @return ImportDetails
 	 * @throws ImportException
 	 */
-	public function getImportDetails( TargetUrl $targetUrl ) {
-		$apiUrl = $this->httpApiLookup->getApiUrl( $targetUrl );
+	public function getImportDetails( SourceUrl $sourceUrl ) {
+		$apiUrl = $this->httpApiLookup->getApiUrl( $sourceUrl );
 
-		$requestUrl = $apiUrl . '?' . http_build_query( $this->getParams( $targetUrl ) );
+		$requestUrl = $apiUrl . '?' . http_build_query( $this->getParams( $sourceUrl ) );
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
@@ -111,7 +94,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			$this->logger->warning(
 				'API returned continue data',
 				[
-					'targetUrl' => $targetUrl->getUrl(),
+					'sourceUrl' => $sourceUrl->getUrl(),
 					'requestUrl' => $requestUrl,
 				]
 			);
@@ -123,7 +106,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			$this->logger->warning(
 				'No pages returned by the API',
 				[
-					'targetUrl' => $targetUrl->getUrl(),
+					'sourceUrl' => $sourceUrl->getUrl(),
 					'requestUrl' => $requestUrl,
 				]
 			);
@@ -152,7 +135,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			$this->logger->warning(
 				'Bad image or revision info returned by the API',
 				[
-					'targetUrl' => $targetUrl->getUrl(),
+					'sourceUrl' => $sourceUrl->getUrl(),
 					'requestUrl' => $requestUrl,
 				]
 			);
@@ -165,7 +148,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
 
 		$importDetails = new ImportDetails(
-			$targetUrl,
+			$sourceUrl,
 			$pageInfoData['title'],
 			$fileRevisions->getLatest()->getField( 'thumburl' ),
 			$textRevisions,
@@ -223,12 +206,12 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		return new TextRevisions( $revisions );
 	}
 
-	private function getParams( TargetUrl $targetUrl ) {
+	private function getParams( SourceUrl $sourceUrl ) {
 		return [
 			'action' => 'query',
 			'format' => 'json',
 			'prop' => 'imageinfo|revisions',
-			'titles' => $this->getTitleFromTargetUrl( $targetUrl ),
+			'titles' => $this->getTitleFromSourceUrl( $sourceUrl ),
 			'iilimit' => '500',
 			'rvlimit' => '500',
 			'iiurlwidth' => '800',

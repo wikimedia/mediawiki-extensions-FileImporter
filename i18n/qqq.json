@@ -13,6 +13,7 @@
 	"fileimporter-cantparseurl": "Error message shown on the special page when the URL entered can not be parsed.",
 	"fileimporter-cantimporturl": "Error message shown on the special page when the URL entered can not be imported from.",
 	"fileimporter-localtitleexists": "Error message shown on the special page when the title to be imported to already exists on the local wiki.",
+	"fileimporter-sourcetitleexists": "Error message shown on the special page when the title to be imported to already exists on the source wiki.",
 	"fileimporter-duplicatefilesdetected": "Error message shown on the special page when the file to be imported has been detected as already existing on the local wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Prefix for the duplicate file that has been found.\n{{Identical|Duplicate}}",
 	"fileimporter-exampleprefix": "Prefix for the example URL contained within the URL text box on the special page.\n{{Identical|Example}}",
