@@ -3,7 +3,6 @@
 namespace FileImporter\Generic\Services;
 
 use FileImporter\Generic\Data\ImportDetails;
-use FileImporter\Generic\Data\ImportTransformations;
 use FileImporter\Generic\Data\TextRevisions;
 use FileImporter\Generic\Exceptions\ImportException;
 use Http;
@@ -60,7 +59,6 @@ class Importer implements LoggerAwareInterface {
 	 * @param User $user user to use for the import
 	 * @param Title $title target title of the import
 	 * @param ImportDetails $importDetails
-	 * @param ImportTransformations $importTransformations transformations to be made to the details
 	 *
 	 * @return bool success
 	 * @throws ImportException
@@ -68,8 +66,7 @@ class Importer implements LoggerAwareInterface {
 	public function import(
 		User $user,
 		Title $title,
-		ImportDetails $importDetails,
-		ImportTransformations $importTransformations
+		ImportDetails $importDetails
 	) {
 		$this->checkTitleFileExtensionsMatch( $title, $importDetails->getPrefixedTitleText() );
 
@@ -88,7 +85,6 @@ class Importer implements LoggerAwareInterface {
 		$this->createPostImportNullRevision( $importDetails, $user, $title );
 
 		// TODO If modifications are needed on the text we need to make 1 new revision!
-		// @see RevisionModifier ?
 
 		// TODO think about being able to roll back these changes? / totally remove (not just
 		// delete)?
