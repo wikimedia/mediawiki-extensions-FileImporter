@@ -2,6 +2,7 @@
 
 namespace FileImporter\Html;
 
+use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use Html;
 use Message;
@@ -20,11 +21,10 @@ class ImportSuccessPage {
 	private $importTitle;
 
 	public function __construct(
-		SourceUrl $sourceUrl,
-		Title $importTitle
+		ImportDetails $importDetails
 	) {
-		$this->sourceUrl = $sourceUrl;
-		$this->importTitle = $importTitle;
+		$this->sourceUrl = $importDetails->getSourceUrl();
+		$this->importTitle = $importDetails->getTargetTitle();
 	}
 
 	public function getHtml() {

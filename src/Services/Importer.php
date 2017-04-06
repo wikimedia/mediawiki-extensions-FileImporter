@@ -6,6 +6,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
 use Http;
+use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -57,7 +58,6 @@ class Importer implements LoggerAwareInterface {
 
 	/**
 	 * @param User $user user to use for the import
-	 * @param Title $title target title of the import
 	 * @param ImportDetails $importDetails
 	 *
 	 * @return bool success
@@ -65,10 +65,14 @@ class Importer implements LoggerAwareInterface {
 	 */
 	public function import(
 		User $user,
-		Title $title,
 		ImportDetails $importDetails
 	) {
-		$this->checkTitleFileExtensionsMatch( $title, $importDetails->getPrefixedTitleText() );
+		$targetTitle = $importDetails->getTargetTitle();
+
+		$this->checkTitleFileExtensionsMatch(
+			$targetTitle,
+			$importDetails->getOriginalLinkTarget()
+		);
 
 		// TODO copy files directly in swift if possible?
 
@@ -76,13 +80,13 @@ class Importer implements LoggerAwareInterface {
 		// This probably needs some service object to be made to keep things nice and tidy
 
 		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
-		$this->importWikiRevisionFiles( $title, $wikiRevisionFiles );
-		$this->importTextRevisions( $title, $importDetails->getTextRevisions() );
+		$this->importWikiRevisionFiles( $targetTitle, $wikiRevisionFiles );
+		$this->importTextRevisions( $targetTitle, $importDetails->getTextRevisions() );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
-		$this->createPostImportNullRevision( $importDetails, $user, $title );
+		$this->createPostImportNullRevision( $importDetails, $user );
 
 		// TODO If modifications are needed on the text we need to make 1 new revision!
 
@@ -95,13 +99,16 @@ class Importer implements LoggerAwareInterface {
 	/**
 	 * Check to ensure files are not imported with differing file extensions.
 	 *
-	 * @param Title $title
-	 * @param string $prefixedText File:Foo.png
+	 * @param LinkTarget $linkTargetOne
+	 * @param LinkTarget $linkTargetTwo
 	 */
-	private function checkTitleFileExtensionsMatch( Title $title, $prefixedText ) {
+	private function checkTitleFileExtensionsMatch(
+		LinkTarget $linkTargetOne,
+		LinkTarget $linkTargetTwo
+	) {
 		if (
-			pathinfo( $title->getPrefixedText() )['extension'] !==
-			pathinfo( $prefixedText )['extension']
+			pathinfo( $linkTargetOne->getText() )['extension'] !==
+			pathinfo( $linkTargetTwo->getText() )['extension']
 		) {
 			throw new ImportException( 'Target file extension does not match original file' );
 		}
@@ -164,11 +171,10 @@ class Importer implements LoggerAwareInterface {
 
 	private function createPostImportNullRevision(
 		ImportDetails $importDetails,
-		User $user,
-		Title $title
+		User $user
 	) {
 		$this->nullRevisionCreator->createForLinkTarget(
-			$title->getArticleID(),
+			$importDetails->getTargetTitle()->getArticleID(),
 			$user,
 			'Imported from ' . $importDetails->getSourceUrl()->getUrl(), // TODO i18n
 			true

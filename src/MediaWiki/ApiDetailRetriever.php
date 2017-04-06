@@ -15,6 +15,7 @@ use FileImporter\Services\HttpRequestExecutor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Title;
 
 class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
@@ -149,7 +150,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
 		$importDetails = new ImportDetails(
 			$sourceUrl,
-			$pageInfoData['title'],
+			Title::newFromText( $pageInfoData['title'], NS_FILE ),
 			$fileRevisions->getLatest()->getField( 'thumburl' ),
 			$textRevisions,
 			$fileRevisions

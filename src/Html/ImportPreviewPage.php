@@ -35,16 +35,14 @@ class ImportPreviewPage {
 	/**
 	 * @param SpecialPage $specialPage
 	 * @param ImportDetails $importDetails
-	 * @param Title $title
 	 */
 	public function __construct(
 		SpecialPage $specialPage,
-		ImportDetails $importDetails,
-		Title $title
+		ImportDetails $importDetails
 	) {
 		$this->specialPage = $specialPage;
 		$this->importDetails = $importDetails;
-		$this->title = $title;
+		$this->title = $importDetails->getTargetTitle();
 	}
 
 	/**
@@ -57,7 +55,7 @@ class ImportPreviewPage {
 		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
 			'clientUrl' => $sourceUrl->getUrl(),
 			'intendedTitle' => $this->title->getText(),
-			'importDetailsHash' => $importDetails->getHash(),
+			'importDetailsHash' => $importDetails->getOriginalHash(),
 		] ) )->getHtml();
 
 		return
