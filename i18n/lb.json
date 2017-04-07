@@ -6,6 +6,7 @@
 	},
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
 	"fileimporter-specialpage": "Fichier importéieren",
+	"fileimporter-specialpage-successtitle": "Import ofgeschloss",
 	"fileimporter-duplicatefilesdetected": "De Fichier deen dir elo probéiert z'importéiere gëtt et op dëser Wiki schonn.",
 	"fileimporter-duplicatefilesdetected-prefix": "Doublonen",
 	"fileimporter-exampleprefix": "Beispill",
@@ -19,5 +20,6 @@
 	"fileimporter-newtitle": "Neien Titel:",
 	"fileimporter-editsummary": "Resumé vun der Ännerung:",
 	"fileimporter-editsummary-placeholder": "Nëmme benotzt wann Dir beim Import Ännerunge maacht.",
+	"fileimporter-heading-fileinfo": "Informatioun vum Fichier",
 	"fileimporter-heading-filehistory": "Versiounen"
 }

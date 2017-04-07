@@ -5,13 +5,26 @@
 			"Elisardojm"
 		]
 	},
+	"fileimporter": "Importador de ficheiros",
+	"fileimporter-desc": "Importación sinxela de ficheiros doutros sitios",
 	"fileimporter-specialpage": "Importar ficheiro",
+	"fileimporter-cantparseurl": "Non se pode analizar o URL proporcionado",
+	"fileimporter-cantimporturl": "Non se pode importar o URL proporcionado",
+	"fileimporter-localtitleexists": "O título que está intentado importar xa existe neste wiki.",
+	"fileimporter-duplicatefilesdetected": "O ficheiro que está intentando importar xa existe neste wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicados",
 	"fileimporter-exampleprefix": "Exemplo",
-	"fileimporter-textrevisionsprefix": "Revisións de texto",
-	"fileimporter-filerevisionsprefix": "Revisións de ficheiro",
-	"fileimporter-titleprefix": "Título",
+	"fileimporter-textrevisions": "$1 {{PLURAL:$1|revisión do ficheiro será importada|revisións do ficheiro serán importadas}}.",
 	"fileimporter-submit": "Enviar",
 	"fileimporter-import": "Importar",
-	"fileimporter-importfilefromprefix": "Importando ficheiro de"
+	"fileimporter-cancel": "Cancelar",
+	"fileimporter-imported": "<strong>\"$1\" foi importado a \"$2\"</strong>",
+	"fileimporter-edittitle": "Modificar o título",
+	"fileimporter-editinfo": "Modificar a información do ficheiro",
+	"fileimporter-newtitle": "Novo títuloː",
+	"fileimporter-editsummary": "Modificar o resumoː",
+	"fileimporter-editsummary-placeholder": "Só usado se vostede fai cambios á importación.",
+	"fileimporter-previewnote": "Esta é unha previsualización do ficheiro que vai ser importado. Por favor, revise a páxina en detalle antes de comezar a importalo.",
+	"fileimporter-heading-fileinfo": "Información do ficheiro",
+	"fileimporter-heading-filehistory": "Historial do ficheiro"
 }

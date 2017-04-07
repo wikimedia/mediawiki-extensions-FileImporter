@@ -11,9 +11,12 @@
 	"fileimporter-duplicatefilesdetected-prefix": "Дубликаты",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-submit": "Отправить",
+	"fileimporter-resubmit": "Отправить повторно",
 	"fileimporter-import": "Импортировать",
 	"fileimporter-cancel": "Отменить",
 	"fileimporter-edittitle": "Редактировать заголовок",
 	"fileimporter-newtitle": "Новое название:",
+	"fileimporter-editsummary": "Описание изменений:",
+	"fileimporter-heading-fileinfo": "Информация о файле",
 	"fileimporter-heading-filehistory": "История файла"
 }
