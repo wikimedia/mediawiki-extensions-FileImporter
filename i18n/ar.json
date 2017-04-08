@@ -9,6 +9,8 @@
 	"fileimporter-specialpage": "ملف الإستيراد",
 	"fileimporter-exampleprefix": "مثال",
 	"fileimporter-edittitle": "عدل العنوان",
+	"fileimporter-editinfo": "عدل معلومات الملف",
+	"fileimporter-newtitle": "العنوان الجديد:",
 	"fileimporter-editsummary": "ملخص التعديل:",
 	"fileimporter-heading-fileinfo": "معلومات الملف",
 	"fileimporter-heading-filehistory": "تاريخ الملف"

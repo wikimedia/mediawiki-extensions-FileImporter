@@ -11,6 +11,7 @@
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-exampleprefix": "Przykład",
 	"fileimporter-submit": "Wyślij",
+	"fileimporter-resubmit": "Prześlij ponownie",
 	"fileimporter-import": "Importuj",
 	"fileimporter-cancel": "Anuluj",
 	"fileimporter-editsummary": "Opis zmian:",
