@@ -4,7 +4,17 @@
 			"Eitvys200"
 		]
 	},
+	"fileimporter-specialpage-successtitle": "Importuota sėkmingai",
 	"fileimporter-duplicatefilesdetected": "Failas, kurį bandote importuoti, jau egzistuoja šioje viki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dublikatai",
-	"fileimporter-titleprefix": "Pavadinimas"
+	"fileimporter-resubmit": "Siųsti iš naujo",
+	"fileimporter-cancel": "Atšaukti",
+	"fileimporter-imported": "<strong>„$1“ buvo importuotas į „$2“</strong>",
+	"fileimporter-edittitle": "Redaguoti Pavadinimą",
+	"fileimporter-editinfo": "Redaguoti Failo Informaciją",
+	"fileimporter-newtitle": "Naujas pavadinimas:",
+	"fileimporter-editsummary": "Redaguoti santrauką:",
+	"fileimporter-editsummary-placeholder": "Naudojama tik jei atliekate keitimus importe.",
+	"fileimporter-heading-fileinfo": "Failo informacija",
+	"fileimporter-heading-filehistory": "Failo istorija"
 }
