@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrumps"
+			"Chrumps",
+			"Krottyianock"
 		]
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
 	"fileimporter-specialpage": "Import pliku",
+	"fileimporter-specialpage-successtitle": "Import zakończony sukcesem",
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-exampleprefix": "Przykład",
@@ -14,6 +16,7 @@
 	"fileimporter-resubmit": "Prześlij ponownie",
 	"fileimporter-import": "Importuj",
 	"fileimporter-cancel": "Anuluj",
+	"fileimporter-imported": "<strong>\"$1\" zaimportowano do \"$2\"</strong>",
 	"fileimporter-editsummary": "Opis zmian:",
 	"fileimporter-heading-fileinfo": "Informacje o pliku",
 	"fileimporter-heading-filehistory": "Historia pliku"

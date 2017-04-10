@@ -5,10 +5,12 @@
 		]
 	},
 	"fileimporter-specialpage-successtitle": "Ngimpor geus hasil",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplikat",
 	"fileimporter-resubmit": "Kirim deui",
 	"fileimporter-cancel": "Bolay",
 	"fileimporter-edittitle": "Édit Judul",
 	"fileimporter-editinfo": "Édit info berkas",
+	"fileimporter-newtitle": "Judul anyar:",
 	"fileimporter-editsummary": "Tingkesan édit:",
 	"fileimporter-editsummary-placeholder": "Dipakéna mun Anjeun nyieun parobahan ngimpor hungkul.",
 	"fileimporter-heading-fileinfo": "Info berkas",
