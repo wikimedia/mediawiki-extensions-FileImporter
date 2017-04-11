@@ -3,7 +3,6 @@
 namespace FileImporter;
 
 use ErrorPageError;
-use FileImporter\Generic\Data\ImportTransformations;
 use FileImporter\Generic\Data\ImportDetails;
 use FileImporter\Generic\Exceptions\ImportException;
 use FileImporter\Generic\Services\DetailRetriever;
@@ -259,13 +258,10 @@ class SpecialImportFile extends SpecialPage {
 			return false;
 		}
 
-		$adjustments = new ImportTransformations(); // TODO populate adjustments based on import form
-
 		$result = $this->importer->import(
 			$this->getUser(),
 			$intendedTitle,
-			$importDetails,
-			$adjustments
+			$importDetails
 		);
 
 		if ( $result ) {
