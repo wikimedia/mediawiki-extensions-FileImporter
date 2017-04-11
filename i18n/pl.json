@@ -11,6 +11,8 @@
 	"fileimporter-specialpage-successtitle": "Import zakończony sukcesem",
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
+	"fileimporter-duplicatefilesdetected": "Plik, który właśnie próbujesz zaimportować, już istnieje w tej wiki.",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplikaty",
 	"fileimporter-exampleprefix": "Przykład",
 	"fileimporter-submit": "Wyślij",
 	"fileimporter-resubmit": "Prześlij ponownie",
