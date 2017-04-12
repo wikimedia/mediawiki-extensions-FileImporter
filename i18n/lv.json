@@ -4,5 +4,11 @@
 			"Papuass"
 		]
 	},
-	"fileimporter-exampleprefix": "Piemērs"
+	"fileimporter-exampleprefix": "Piemērs",
+	"fileimporter-resubmit": "Iesniegt atkārtoti",
+	"fileimporter-cancel": "Atcelt",
+	"fileimporter-newtitle": "Jaunais nosaukums:",
+	"fileimporter-editsummary": "Izmaiņu kopsavilkums:",
+	"fileimporter-heading-fileinfo": "Faila informācija",
+	"fileimporter-heading-filehistory": "Faila vēsture"
 }

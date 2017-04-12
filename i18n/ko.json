@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"SeoJeongHo",
-			"Ykhwong"
+			"Ykhwong",
+			"Ellif"
 		]
 	},
 	"fileimporter-desc": "쉽게 다른 사이트에서 파일 가져오기",
@@ -10,11 +11,11 @@
 	"fileimporter-specialpage-successtitle": "가져오기를 성공했습니다",
 	"fileimporter-cantparseurl": "주어진 URL을 분석할 수 없습니다",
 	"fileimporter-cantimporturl": "주어진 URL을 가져올 수 없습니다",
-	"fileimporter-localtitleexists": "지금 가져오려는 제목은 이미 이 위키에 존재합니다.",
+	"fileimporter-localtitleexists": "지금 가져오려는 이름의 문서가 이미 이 위키에 있습니다.",
 	"fileimporter-duplicatefilesdetected": "현재 가져오려는 파일은 이 위키에 이미 존재합니다.",
 	"fileimporter-duplicatefilesdetected-prefix": "중복",
 	"fileimporter-exampleprefix": "예시",
-	"fileimporter-textrevisions": "파일의 $1개의 {{PLURAL:$1|판}}을 가져옵니다.",
+	"fileimporter-textrevisions": "파일 내 {{PLURAL:$1|판}} $1개를 가져옵니다.",
 	"fileimporter-submit": "제출",
 	"fileimporter-resubmit": "다시 제출",
 	"fileimporter-import": "가져오기",
