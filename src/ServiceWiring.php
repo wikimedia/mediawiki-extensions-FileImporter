@@ -50,11 +50,13 @@ return [
 		/** @var NullRevisionCreator $nullRevisionCreator */
 		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
 		$maxUploadSize = UploadBase::getMaxUploadSize( 'import' );
-		return new Importer(
+		$importer = new Importer(
 			$wikiRevisionFactory,
 			$nullRevisionCreator,
 			$maxUploadSize
 		);
+		$importer->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
+		return $importer;
 	},
 
 	'FileImporterNullRevisionCreator' => function( MediaWikiServices $services ) {

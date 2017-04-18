@@ -56,6 +56,7 @@
 		"FileImporter\\Html\\TextRevisionSnippet": "src/Html/TextRevisionSnippet.php",
 		"FileImporter\\MediaWiki\\ApiDetailRetriever": "src/MediaWiki/ApiDetailRetriever.php",
 		"FileImporter\\MediaWiki\\ApiImportTitleChecker": "src/MediaWiki/ApiImportTitleChecker.php",
+		"FileImporter\\MediaWiki\\FileImporterUploadBase": "src/MediaWiki/FileImporterUploadBase.php",
 		"FileImporter\\MediaWiki\\HttpApiLookup": "src/MediaWiki/HttpApiLookup.php",
 		"FileImporter\\MediaWiki\\SiteTableSiteLookup": "src/MediaWiki/SiteTableSiteLookup.php",
 		"FileImporter\\MediaWiki\\SiteTableSourceUrlChecker": "src/MediaWiki/SiteTableSourceUrlChecker.php"

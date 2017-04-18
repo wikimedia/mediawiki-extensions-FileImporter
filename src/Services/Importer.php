@@ -5,6 +5,7 @@ namespace FileImporter\Services;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\MediaWiki\FileImporterUploadBase;
 use Http;
 use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerAwareInterface;
@@ -13,6 +14,7 @@ use Psr\Log\NullLogger;
 use TempFSFile;
 use Title;
 use User;
+use WikiRevision;
 
 class Importer implements LoggerAwareInterface {
 
@@ -67,19 +69,37 @@ class Importer implements LoggerAwareInterface {
 		User $user,
 		ImportDetails $importDetails
 	) {
-		$targetTitle = $importDetails->getTargetTitle();
-
 		$this->checkTitleFileExtensionsMatch(
-			$targetTitle,
+			$importDetails->getTargetTitle(),
 			$importDetails->getOriginalLinkTarget()
 		);
+
+		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
+
+		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
+			$base = new FileImporterUploadBase(
+				$importDetails->getTargetTitle(),
+				$wikiRevisionFile->getFileSrc()
+			);
+			$base->setLogger( $this->logger );
+			if ( !$base->performChecks() ) {
+				return false;
+			}
+		}
+
+		if ( !isset( $base ) ) {
+			$this->logger->error( __METHOD__ . ' no $base found for import.' );
+			return false;
+		}
+
+		// We can assume this will be a Title and not null due to the performChecks calls above
+		$targetTitle = $base->getTitle();
 
 		// TODO copy files directly in swift if possible?
 
 		// TODO lookup in CentralAuth to see if users can be maintained on the import
 		// This probably needs some service object to be made to keep things nice and tidy
 
-		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
 		$this->importWikiRevisionFiles( $targetTitle, $wikiRevisionFiles );
 		$this->importTextRevisions( $targetTitle, $importDetails->getTextRevisions() );
 
@@ -114,6 +134,11 @@ class Importer implements LoggerAwareInterface {
 		}
 	}
 
+	/**
+	 * @param ImportDetails $importDetails
+	 *
+	 * @return WikiRevision[]
+	 */
 	private function getWikiRevisionFiles( ImportDetails $importDetails ) {
 		$wikiRevisionFiles = [];
 
@@ -146,6 +171,10 @@ class Importer implements LoggerAwareInterface {
 		return $wikiRevisionFiles;
 	}
 
+	/**
+	 * @param Title $title
+	 * @param WikiRevision[] $wikiRevisionFiles
+	 */
 	private function importWikiRevisionFiles( Title $title, array $wikiRevisionFiles ) {
 		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
 			$wikiRevisionFile->setTitle( $title );
