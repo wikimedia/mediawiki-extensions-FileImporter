@@ -23,6 +23,7 @@ use Message;
 use PermissionsError;
 use SpecialPage;
 use Title;
+use TitleValue;
 use UploadBase;
 use User;
 use UserBlockedError;
@@ -134,26 +135,21 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		$importTitleChecker = $sourceSite->getImportTitleChecker();
+		$intendedTitleValue = $this->getIntendedTitleValue( $importDetails, $this->getRequest() );
+		$importDetails->setTargetLinkTarget( $intendedTitleValue );
 
-		$intendedTitle = $this->getIntendedTitle( $importDetails, $this->getRequest() );
-		if ( !$this->processIntendedTitle(
-			$intendedTitle,
+		if ( !$this->processImportDetails(
 			$sourceUrl,
 			$importDetails,
-			$importTitleChecker
+			$sourceSite->getImportTitleChecker()
 		) ) {
 			return;
 		}
 
-		if ( !$this->processImportDetails( $importDetails ) ) {
-			return;
-		}
-
 		if ( $out->getRequest()->wasPosted() ) {
-			$this->actuallyExecutePost( $importDetails, $intendedTitle );
+			$this->actuallyExecutePost( $importDetails );
 		} else {
-			$this->actuallyExecuteGet( $sourceUrl, $importDetails, $intendedTitle );
+			$this->actuallyExecuteGet( $sourceUrl, $importDetails );
 		}
 	}
 
@@ -180,26 +176,25 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * @param Title $intendedTitle
 	 * @param SourceUrl $sourceUrl
 	 * @param ImportDetails $importDetails
 	 * @param ImportTitleChecker $importTitleChecker
 	 *
 	 * @return bool should execution continue?
 	 */
-	private function processIntendedTitle(
-		Title $intendedTitle,
+	private function processImportDetails(
 		SourceUrl $sourceUrl,
 		ImportDetails $importDetails,
 		ImportTitleChecker $importTitleChecker
 	) {
 		$out = $this->getOutput();
+		$targetTitle = $importDetails->getTargetTitle();
 
-		if ( $intendedTitle->exists() ) {
+		if ( $targetTitle->exists() ) {
 			$out->addHTML( ( new TitleConflictPage(
 				$this,
 				$sourceUrl,
-				$intendedTitle,
+				$targetTitle,
 				'fileimporter-localtitleexists'
 			) )->getHtml() );
 			return false;
@@ -208,27 +203,18 @@ class SpecialImportFile extends SpecialPage {
 		// Only check remotely if the title has been changed, if it is the same assume this is
 		// okay / intended / other checks have happened.
 		if (
-			$intendedTitle->getPrefixedText() !== $importDetails->getPrefixedTitleText() &&
-			!$importTitleChecker->importAllowed( $sourceUrl, $intendedTitle->getText() )
+			$targetTitle->getText() !== $importDetails->getOriginalLinkTarget()->getText() &&
+			!$importTitleChecker->importAllowed( $sourceUrl, $targetTitle->getText() )
 		) {
 			$out->addHTML( ( new TitleConflictPage(
 				$this,
 				$sourceUrl,
-				$intendedTitle,
+				$targetTitle,
 				'fileimporter-sourcetitleexists'
 			) )->getHtml() );
 			return false;
 		}
 
-		return true;
-	}
-
-	/**
-	 * @param ImportDetails $importDetails
-	 *
-	 * @return bool should execution continue?
-	 */
-	private function processImportDetails( ImportDetails $importDetails ) {
 		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
 			$importDetails->getFileRevisions()->getLatest()
 		);
@@ -241,44 +227,53 @@ class SpecialImportFile extends SpecialPage {
 		return true;
 	}
 
-	private function actuallyExecutePost( $importDetails, $intendedTitle ) {
-		$importResult = $this->doImport( $importDetails, $intendedTitle );
+	private function actuallyExecutePost( $importDetails ) {
+		$importResult = $this->doImport( $importDetails );
 		if ( !$importResult ) {
-			$this->showImportPage( $importDetails, $intendedTitle );
+			$this->showImportPage( $importDetails );
 		}
 	}
 
-	private function actuallyExecuteGet( $sourceUrl, $importDetails, $intendedTitle ) {
+	private function actuallyExecuteGet( $sourceUrl, ImportDetails $importDetails ) {
 		$out = $this->getOutput();
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === 'edittitle' ) {
 			$out->addHTML(
-				( new ChangeTitleForm( $this, $sourceUrl, $intendedTitle ) )->getHtml()
+				( new ChangeTitleForm( $this, $sourceUrl, $importDetails->getTargetTitle() ) )
+					->getHtml()
 			);
 		} elseif ( $action === 'editinfo' ) {
 			// TODO implement form
 		} else {
-			$this->showImportPage( $importDetails, $intendedTitle );
+			$this->showImportPage( $importDetails );
 		}
 	}
 
-	private function getIntendedTitle( ImportDetails $importDetails, WebRequest $request ) {
+	/**
+	 * @param ImportDetails $importDetails
+	 * @param WebRequest $request
+	 *
+	 * @return TitleValue
+	 */
+	private function getIntendedTitleValue( ImportDetails $importDetails, WebRequest $request ) {
 		$intendedFileName = $request->getVal( 'intendedFileName' );
 
 		if ( $intendedFileName ) {
 			$intendedTitleText = $intendedFileName . '.' .
-				pathinfo( $importDetails->getPrefixedTitleText() )['extension'];
-		} else {
-			$intendedTitleText = $request->getVal(
-				'intendedTitle',
-				$importDetails->getPrefixedTitleText()
-			);
+				pathinfo( $importDetails->getOriginalLinkTarget()->getText() )['extension'];
+			return Title::newFromText( $intendedTitleText, NS_FILE );
 		}
 
-		return Title::newFromText( $intendedTitleText, NS_FILE );
+		$intendedTitleText = $request->getVal( 'intendedTitle' );
+
+		if ( $intendedTitleText ) {
+			return Title::newFromText( $intendedTitleText, NS_FILE );
+		}
+
+		return $importDetails->getOriginalLinkTarget();
 	}
 
-	private function doImport( ImportDetails $importDetails, Title $intendedTitle ) {
+	private function doImport( ImportDetails $importDetails ) {
 		$out = $this->getOutput();
 
 		$importDetailsHash = $out->getRequest()->getVal( 'importDetailsHash', '' );
@@ -289,7 +284,7 @@ class SpecialImportFile extends SpecialPage {
 			return false;
 		}
 
-		if ( $importDetails->getHash() !== $importDetailsHash ) {
+		if ( $importDetails->getOriginalHash() !== $importDetailsHash ) {
 			// TODO i18n
 			$this->showWarningMessage( 'Incorrect import details hash submitted for import' );
 			return false;
@@ -297,16 +292,12 @@ class SpecialImportFile extends SpecialPage {
 
 		$result = $this->importer->import(
 			$this->getUser(),
-			$intendedTitle,
 			$importDetails
 		);
 
 		if ( $result ) {
 			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
-			$this->getOutput()->addHTML( ( new ImportSuccessPage(
-				$importDetails->getSourceUrl(),
-				$intendedTitle
-			) )->getHtml() );
+			$this->getOutput()->addHTML( ( new ImportSuccessPage( $importDetails ) )->getHtml() );
 		} else {
 			$this->showWarningMessage( 'Import failed' ); // TODO i18n
 		}
@@ -324,10 +315,9 @@ class SpecialImportFile extends SpecialPage {
 		);
 	}
 
-	private function showImportPage( ImportDetails $importDetails, $intendedTitle ) {
+	private function showImportPage( ImportDetails $importDetails ) {
 		$this->getOutput()->addHTML(
-			( new ImportPreviewPage( $this, $importDetails, $intendedTitle ) )
-				->getHtml()
+			( new ImportPreviewPage( $this, $importDetails ) )->getHtml()
 		);
 	}
 
