@@ -1,0 +1,48 @@
+<?php
+
+namespace FileImporter\Data\Test;
+
+use FileImporter\Data\SourceUrl;
+use PHPUnit_Framework_TestCase;
+
+class SourceUrlTest extends PHPUnit_Framework_TestCase {
+
+	public function provideConstruction() {
+		return [
+			[
+				'foooooooo',
+				false,
+				false,
+				false,
+			],
+			[
+				'https://en.wikipedia.org/wiki/File:Foo.jpg',
+				true,
+				[
+					'scheme' => 'https',
+					'host' => 'en.wikipedia.org',
+					'delimiter' => '://',
+					'path' => '/wiki/File:Foo.jpg',
+				],
+				'en.wikipedia.org',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideConstruction
+	 */
+	public function testConstruction(
+		$url,
+		$expectedIsParsable,
+		$expectedParsed,
+		$expectedDomain
+	) {
+		$sourceUrl = new SourceUrl( $url );
+		$this->assertEquals( $url, $sourceUrl->getUrl() );
+		$this->assertEquals( $expectedParsed, $sourceUrl->getParsedUrl() );
+		$this->assertEquals( $expectedIsParsable, $sourceUrl->isParsable() );
+		$this->assertEquals( $expectedDomain, $sourceUrl->getHost() );
+	}
+
+}

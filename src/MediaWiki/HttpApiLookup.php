@@ -4,16 +4,17 @@ namespace FileImporter\MediaWiki;
 
 use DOMDocument;
 use DOMElement;
-use FileImporter\Generic\Exceptions\HttpRequestException;
-use FileImporter\Generic\Exceptions\ImportException;
-use FileImporter\Generic\Services\HttpRequestExecutor;
-use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Data\SourceUrl;
+use FileImporter\Exceptions\HttpRequestException;
+use FileImporter\Exceptions\ImportException;
+use FileImporter\Services\HttpRequestExecutor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 /**
  * Lookup that can take a MediaWiki site URL and return the URL of the action API.
+ * This service caches APIs that have been found for the lifetime of the object.
  */
 class HttpApiLookup implements LoggerAwareInterface{
 
@@ -26,6 +27,11 @@ class HttpApiLookup implements LoggerAwareInterface{
 	 * @var HttpRequestExecutor
 	 */
 	private $httpRequestExecutor;
+
+	/**
+	 * @var string[] url => apiUrl
+	 */
+	private $resultCache = [];
 
 	public function __construct( HttpRequestExecutor $httpRequestExecutor ) {
 		$this->httpRequestExecutor = $httpRequestExecutor;
@@ -46,19 +52,40 @@ class HttpApiLookup implements LoggerAwareInterface{
 	}
 
 	/**
-	 * @param TargetUrl $targetUrl
+	 * @param SourceUrl $sourceUrl
+	 *
 	 * @throws ImportException
 	 * @return string URL of api.php or null
 	 */
-	public function getApiUrl( TargetUrl $targetUrl ) {
+	public function getApiUrl( SourceUrl $sourceUrl ) {
+		if ( array_key_exists( $sourceUrl->getUrl(), $this->resultCache ) ) {
+			return $this->resultCache[ $sourceUrl->getUrl() ];
+		}
+
+		$api = $this->actuallyGetApiUrl( $sourceUrl );
+		if ( $api ) {
+			$this->resultCache[$sourceUrl->getUrl()] = $api;
+			return $api;
+		}
+
+		$this->logAndException( 'Failed to get MediaWiki API from SourceUrl' );
+		return null; // never reached
+	}
+
+	/**
+	 * @param SourceUrl $sourceUrl
+	 *
+	 * @return string|null
+	 */
+	private function actuallyGetApiUrl( SourceUrl $sourceUrl ) {
 		try {
-			$req = $this->httpRequestExecutor->execute( $targetUrl->getUrl() );
+			$req = $this->httpRequestExecutor->execute( $sourceUrl->getUrl() );
 		} catch ( HttpRequestException $e ) {
 			if ( $e->getStatusCode() === 404 ) {
-				$this->logAndException( 'File not found: ' . $targetUrl->getUrl() );
+				$this->logAndException( 'File not found: ' . $sourceUrl->getUrl() );
 			}
 			$this->logAndException(
-				'Failed to discover API location from: "' . $targetUrl->getUrl() . '".' .
+				'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
 				'Got status code ' . $e->getStatusCode() . '.'
 			);
 			return null; // never reached
@@ -75,12 +102,12 @@ class HttpApiLookup implements LoggerAwareInterface{
 			/** @var DOMElement $element */
 			if ( $element->getAttribute( 'rel' ) === 'EditURI' ) {
 				$editUri = $element->getAttribute( 'href' );
-				return str_replace( '?action=rsd', '', $editUri );
+				$api = str_replace( '?action=rsd', '', $editUri );
+				return $api;
 			}
 		}
 
-		$this->logAndException( 'Failed to get MediaWiki API from TargetUrl' );
-		return null; // never reached
+		return null;
 	}
 
 }

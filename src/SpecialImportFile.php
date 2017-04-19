@@ -3,18 +3,20 @@
 namespace FileImporter;
 
 use ErrorPageError;
-use FileImporter\Generic\Data\ImportDetails;
-use FileImporter\Generic\Exceptions\ImportException;
-use FileImporter\Generic\Services\DetailRetriever;
-use FileImporter\Generic\Services\DuplicateFileRevisionChecker;
-use FileImporter\Generic\Services\Importer;
-use FileImporter\Generic\Data\TargetUrl;
+use FileImporter\Data\ImportDetails;
+use FileImporter\Data\SourceUrl;
+use FileImporter\Exceptions\ImportException;
+use FileImporter\Exceptions\SourceUrlException;
 use FileImporter\Html\ChangeTitleForm;
 use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessPage;
 use FileImporter\Html\InputFormPage;
-use FileImporter\Html\LocalTitleExistsPage;
+use FileImporter\Html\TitleConflictPage;
+use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Services\DuplicateFileRevisionChecker;
+use FileImporter\Services\Importer;
+use FileImporter\Services\SourceSiteLocator;
 use Html;
 use MediaWiki\MediaWikiServices;
 use Message;
@@ -29,9 +31,9 @@ use WebRequest;
 class SpecialImportFile extends SpecialPage {
 
 	/**
-	 * @var DetailRetriever
+	 * @var SourceSiteLocator
 	 */
-	private $detailRetreiver;
+	private $sourceSiteLocator;
 
 	/**
 	 * @var Importer
@@ -50,7 +52,7 @@ class SpecialImportFile extends SpecialPage {
 		parent::__construct( 'FileImporter-SpecialPage', $config->get( 'FileImporterRequiredRight' ) );
 
 		// TODO inject services!
-		$this->detailRetreiver = $services->getService( 'FileImporterDispatchingDetailRetriever' );
+		$this->sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
 		$this->importer = $services->getService( 'FileImporterImporter' );
 		$this->duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
 	}
@@ -98,26 +100,49 @@ class SpecialImportFile extends SpecialPage {
 		$out = $this->getOutput();
 		$out->setPageTitle( new Message( 'fileimporter-specialpage' ) );
 		$out->enableOOUI();
-
-		$targetUrl = new TargetUrl( $out->getRequest()->getVal( 'clientUrl', '' ) );
-		$wasPosted = $out->getRequest()->wasPosted();
-
 		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
 
-		if ( !$this->processTargetUrl( $targetUrl ) ) {
+		$rawClientUrl = $out->getRequest()->getVal( 'clientUrl' );
+
+		// If there is no input then simply show the input form.
+		if ( $rawClientUrl === null ) {
+			$this->showInputForm();
 			return;
 		}
+
+		$sourceUrl = new SourceUrl( $rawClientUrl );
 
 		try {
-			$importDetails = $this->detailRetreiver->getImportDetails( $targetUrl );
-		} catch ( ImportException $e ) {
-			$this->showWarningMessage( $e->getMessage() ); // TODO i18n
-			$this->showInputForm( $targetUrl );
+			$sourceSite = $this->sourceSiteLocator->getSourceSite( $sourceUrl );
+		} catch ( SourceUrlException $e ) {
+			$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
+			$this->showInputForm();
 			return;
 		}
 
+		if ( !$this->processSourceUrl( $sourceUrl ) ) {
+			return;
+		}
+
+		$detailRetriever = $sourceSite->getDetailRetriever();
+
+		try {
+			$importDetails = $detailRetriever->getImportDetails( $sourceUrl );
+		} catch ( ImportException $e ) {
+			$this->showWarningMessage( $e->getMessage() ); // TODO i18n
+			$this->showInputForm( $sourceUrl );
+			return;
+		}
+
+		$importTitleChecker = $sourceSite->getImportTitleChecker();
+
 		$intendedTitle = $this->getIntendedTitle( $importDetails, $this->getRequest() );
-		if ( !$this->processIntendedTitle( $intendedTitle, $targetUrl, $importDetails ) ) {
+		if ( !$this->processIntendedTitle(
+			$intendedTitle,
+			$sourceUrl,
+			$importDetails,
+			$importTitleChecker
+		) ) {
 			return;
 		}
 
@@ -125,34 +150,28 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		if ( $wasPosted ) {
+		if ( $out->getRequest()->wasPosted() ) {
 			$this->actuallyExecutePost( $importDetails, $intendedTitle );
 		} else {
-			$this->actuallyExecuteGet( $targetUrl, $importDetails, $intendedTitle );
+			$this->actuallyExecuteGet( $sourceUrl, $importDetails, $intendedTitle );
 		}
 	}
 
 	/**
-	 * @param TargetUrl $targetUrl
+	 * @param SourceUrl $sourceUrl
 	 *
 	 * @return bool should execution continue?
 	 */
-	private function processTargetUrl( TargetUrl $targetUrl ) {
-		if ( !$targetUrl->getUrl() ) {
+	private function processSourceUrl( SourceUrl $sourceUrl ) {
+		if ( !$sourceUrl->getUrl() ) {
 			$this->showInputForm();
 			return false;
 		}
 
-		if ( !$targetUrl->isParsable() ) {
+		if ( !$sourceUrl->isParsable() ) {
 			$this->showWarningMessage(
-				( new Message( 'fileimporter-cantparseurl' ) )->plain() . ': ' . $targetUrl->getUrl()
+				( new Message( 'fileimporter-cantparseurl' ) )->plain() . ': ' . $sourceUrl->getUrl()
 			);
-			$this->showInputForm();
-			return false;
-		}
-
-		if ( !$this->detailRetreiver->canGetImportDetails( $targetUrl ) ) {
-			$this->showWarningMessage( ( new Message( 'fileimporter-cantimporturl' ) )->plain() );
 			$this->showInputForm();
 			return false;
 		}
@@ -162,25 +181,43 @@ class SpecialImportFile extends SpecialPage {
 
 	/**
 	 * @param Title $intendedTitle
-	 * @param TargetUrl $targetUrl
+	 * @param SourceUrl $sourceUrl
 	 * @param ImportDetails $importDetails
+	 * @param ImportTitleChecker $importTitleChecker
 	 *
 	 * @return bool should execution continue?
 	 */
 	private function processIntendedTitle(
 		Title $intendedTitle,
-		TargetUrl $targetUrl,
-		ImportDetails $importDetails
+		SourceUrl $sourceUrl,
+		ImportDetails $importDetails,
+		ImportTitleChecker $importTitleChecker
 	) {
 		$out = $this->getOutput();
 
 		if ( $intendedTitle->exists() ) {
-			$out->addHTML( ( new LocalTitleExistsPage( $this, $targetUrl, $intendedTitle ) )->getHtml() );
+			$out->addHTML( ( new TitleConflictPage(
+				$this,
+				$sourceUrl,
+				$intendedTitle,
+				'fileimporter-localtitleexists'
+			) )->getHtml() );
 			return false;
 		}
 
-		if ( $intendedTitle->getPrefixedText() !== $importDetails->getPrefixedTitleText() ) {
-			// TODO check back on source site to see if the new title exists there?
+		// Only check remotely if the title has been changed, if it is the same assume this is
+		// okay / intended / other checks have happened.
+		if (
+			$intendedTitle->getPrefixedText() !== $importDetails->getPrefixedTitleText() &&
+			!$importTitleChecker->importAllowed( $sourceUrl, $intendedTitle->getText() )
+		) {
+			$out->addHTML( ( new TitleConflictPage(
+				$this,
+				$sourceUrl,
+				$intendedTitle,
+				'fileimporter-sourcetitleexists'
+			) )->getHtml() );
+			return false;
 		}
 
 		return true;
@@ -211,12 +248,12 @@ class SpecialImportFile extends SpecialPage {
 		}
 	}
 
-	private function actuallyExecuteGet( $targetUrl, $importDetails, $intendedTitle ) {
+	private function actuallyExecuteGet( $sourceUrl, $importDetails, $intendedTitle ) {
 		$out = $this->getOutput();
 		$action = $this->getRequest()->getVal( 'action' );
 		if ( $action === 'edittitle' ) {
 			$out->addHTML(
-				( new ChangeTitleForm( $this, $targetUrl, $intendedTitle ) )->getHtml()
+				( new ChangeTitleForm( $this, $sourceUrl, $intendedTitle ) )->getHtml()
 			);
 		} elseif ( $action === 'editinfo' ) {
 			// TODO implement form
@@ -267,7 +304,7 @@ class SpecialImportFile extends SpecialPage {
 		if ( $result ) {
 			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
 			$this->getOutput()->addHTML( ( new ImportSuccessPage(
-				$importDetails->getTargetUrl(),
+				$importDetails->getSourceUrl(),
 				$intendedTitle
 			) )->getHtml() );
 		} else {
@@ -294,8 +331,8 @@ class SpecialImportFile extends SpecialPage {
 		);
 	}
 
-	private function showInputForm( TargetUrl $targetUrl = null ) {
-		$this->getOutput()->addHTML( ( new InputFormPage( $this, $targetUrl ) )->getHtml() );
+	private function showInputForm( SourceUrl $sourceUrl = null ) {
+		$this->getOutput()->addHTML( ( new InputFormPage( $this, $sourceUrl ) )->getHtml() );
 	}
 
 }
