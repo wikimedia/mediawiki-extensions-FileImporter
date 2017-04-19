@@ -12,22 +12,14 @@ use FileImporter\Exceptions\InvalidArgumentException;
 class TextRevision {
 
 	private static $fieldNames = [
-		// Needed for new DB storage
-		'revid', // needed for parent to link to
-		'parentid',
 		'minor',
 		'user',
-		'userid',
 		'timestamp',
-		'size',
 		'sha1',
 		'contentmodel',
 		'contentformat',
 		'comment',
 		'*',
-		// Needed for display on import page
-		'parsedcomment',
-		// Needed for import
 		'title',
 	];
 

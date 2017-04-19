@@ -12,25 +12,12 @@ use FileImporter\Exceptions\InvalidArgumentException;
 class FileRevision {
 
 	private static $fieldNames = [
-		// Needed for new DB storage
 		'name',
-		'size',
-		'width',
-		'height',
-		'metadata',
-		'bits',
-		//'media_type', // needed in the DB but derived from the file itself?
-		//'major_mime', // needed in the DB but derived from the file itself?
-		//'minor_mime', // needed in the DB but derived from the file itself?
 		'description',
 		'user',
-		'user_text',
 		'timestamp',
 		'sha1',
-		//'type', // needed in the DB but derived from the file itself?
-		// Needed for display on import page
 		'thumburl',
-		// Needed for HTTP download
 		'url',
 	];
 
