@@ -111,7 +111,7 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		$sourceUrl = new SourceUrl( $rawClientUrl );
+		$sourceUrl = new SourceUrl( urldecode( $rawClientUrl ) );
 
 		try {
 			$sourceSite = $this->sourceSiteLocator->getSourceSite( $sourceUrl );
