@@ -10,8 +10,10 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\HttpRequestExecutor;
+use Message;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -87,7 +89,9 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
-			throw new ImportException( 'Failed to retrieve file information from: ' . $requestUrl );
+			throw new LocalizedImportException(
+				new Message( 'fileimporter-api-failedtogetinfo', [ $requestUrl ] )
+			);
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 
@@ -100,7 +104,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 				]
 			);
 			// TODO support continuation
-			throw new ImportException( 'Too many revisions, can not import.' );
+			throw new LocalizedImportException( 'fileimporter-api-toomanyrevisions' );
 		}
 
 		if ( count( $requestData['query']['pages'] ) !== 1 ) {
@@ -111,7 +115,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 					'requestUrl' => $requestUrl,
 				]
 			);
-			throw new ImportException( 'No pages returned by the API' );
+			throw new LocalizedImportException( 'fileimporter-api-nopagesreturned' );
 		}
 
 		$pageInfoData = array_pop( $requestData['query']['pages'] );
@@ -121,9 +125,9 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 				array_key_exists( 'imagerepository', $pageInfoData ) &&
 				$pageInfoData['imagerepository'] == 'shared'
 			) {
-				throw new ImportException( 'Can not import a file from a share repository.' );
+				throw new LocalizedImportException( 'fileimporter-cantimportfromsharedrepo' );
 			}
-			throw new ImportException( 'Can not import a missing file.' );
+			throw new LocalizedImportException( 'fileimporter-cantimportmissingfile' );
 		}
 
 		$pageTitle = $pageInfoData['title'];
@@ -140,7 +144,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 					'requestUrl' => $requestUrl,
 				]
 			);
-			throw new ImportException( 'Bad image or revision info returned by the API' );
+			throw new LocalizedImportException( 'fileimporter-api-badinfo' );
 		}
 
 		$imageInfoData = $pageInfoData['imageinfo'];
@@ -195,7 +199,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		foreach ( $revisionsInfo as $revisionInfo ) {
 			if ( array_key_exists( 'suppressed', $revisionInfo ) ) {
 				// TODO allow importing revisions with suppressed content T162255
-				throw new ImportException( 'Can not import revisions with suppressed content.' );
+				throw new LocalizedImportException( 'fileimporter-cantimportsuppressedcontent' );
 			}
 
 			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );

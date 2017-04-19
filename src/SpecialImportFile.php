@@ -3,6 +3,7 @@
 namespace FileImporter;
 
 use ErrorPageError;
+use Exception;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\ImportException;
@@ -18,6 +19,7 @@ use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Importer;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
+use ILocalizedException;
 use MediaWiki\MediaWikiServices;
 use Message;
 use PermissionsError;
@@ -130,7 +132,7 @@ class SpecialImportFile extends SpecialPage {
 		try {
 			$importDetails = $detailRetriever->getImportDetails( $sourceUrl );
 		} catch ( ImportException $e ) {
-			$this->showWarningMessage( $e->getMessage() ); // TODO i18n
+			$this->showWarningForException( $e );
 			$this->showInputForm( $sourceUrl );
 			return;
 		}
@@ -280,13 +282,12 @@ class SpecialImportFile extends SpecialPage {
 		$token = $out->getRequest()->getVal( 'token', '' );
 
 		if ( !$this->getUser()->matchEditToken( $token ) ) {
-			$this->showWarningMessage( 'Incorrect token submitted for import' ); // TODO i18n
+			$this->showWarningMessage( new Message( 'fileimporter-badtoken' ) );
 			return false;
 		}
 
 		if ( $importDetails->getOriginalHash() !== $importDetailsHash ) {
-			// TODO i18n
-			$this->showWarningMessage( 'Incorrect import details hash submitted for import' );
+			$this->showWarningMessage( new Message( 'fileimporter-badimporthash' ) );
 			return false;
 		}
 
@@ -299,12 +300,23 @@ class SpecialImportFile extends SpecialPage {
 			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
 			$this->getOutput()->addHTML( ( new ImportSuccessPage( $importDetails ) )->getHtml() );
 		} else {
-			$this->showWarningMessage( 'Import failed' ); // TODO i18n
+			$this->showWarningMessage( new Message( 'fileimporter-importfailed' ) );
 		}
 
 		return $result;
 	}
 
+	private function showWarningForException( Exception $e ) {
+		if ( $e instanceof ILocalizedException ) {
+			$this->showWarningMessage( $e->getMessageObject() );
+		} else {
+			$this->showWarningMessage( $e->getMessage() );
+		}
+	}
+
+	/**
+	 * @param string $message
+	 */
 	private function showWarningMessage( $message ) {
 		$this->getOutput()->addHTML(
 			Html::rawElement(

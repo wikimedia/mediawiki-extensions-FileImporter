@@ -33,6 +33,7 @@
 		"FileImporter\\Exceptions\\HttpRequestException": "src/Exceptions/HttpRequestException.php",
 		"FileImporter\\Exceptions\\ImportException": "src/Exceptions/ImportException.php",
 		"FileImporter\\Exceptions\\InvalidArgumentException": "src/Exceptions/InvalidArgumentException.php",
+		"FileImporter\\Exceptions\\LocalizedImportException": "src/Exceptions/LocalizedImportException.php",
 		"FileImporter\\Exceptions\\SourceUrlException": "src/Exceptions/SourceUrlException.php",
 		"FileImporter\\Interfaces\\DetailRetriever": "src/Interfaces/DetailRetriever.php",
 		"FileImporter\\Interfaces\\ImportTitleChecker": "src/Interfaces/ImportTitleChecker.php",
