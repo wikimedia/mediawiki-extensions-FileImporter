@@ -7,6 +7,7 @@
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
 	"fileimporter-specialpage": "Fichier importéieren",
 	"fileimporter-specialpage-successtitle": "Import ofgeschloss",
+	"fileimporter-importfailed": "Den Import huet net funktionéiert",
 	"fileimporter-localtitleexists": "Den Titel deen Dir elo probéiert z'importéieren gëtt et schonn op dëser Wiki.",
 	"fileimporter-duplicatefilesdetected": "De Fichier deen dir elo probéiert z'importéiere gëtt et op dëser Wiki schonn.",
 	"fileimporter-duplicatefilesdetected-prefix": "Doublonen",

@@ -9,6 +9,7 @@
 	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
 	"fileimporter-specialpage": "Import pliku",
 	"fileimporter-specialpage-successtitle": "Import zakończony sukcesem",
+	"fileimporter-importfailed": "Import nieudany",
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-duplicatefilesdetected": "Plik, który właśnie próbujesz zaimportować, już istnieje w tej wiki.",

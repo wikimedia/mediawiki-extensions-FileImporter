@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Beta16",
-			"Redredsonia"
+			"Redredsonia",
+			"Statix64"
 		]
 	},
 	"fileimporter-specialpage": "Importa file",
+	"fileimporter-importfailed": "Importazione fallita",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicati",
 	"fileimporter-exampleprefix": "Esempio",
 	"fileimporter-textrevisions": "$1 {{PLURAL:$1|versione|versioni}} del file {{PLURAL:$1|sarà importata|saranno importate}}.",
@@ -13,6 +15,8 @@
 	"fileimporter-import": "Importa",
 	"fileimporter-cancel": "Annulla",
 	"fileimporter-edittitle": "Modifica titolo",
+	"fileimporter-editinfo": "Modifica informazioni file",
+	"fileimporter-newtitle": "Nuovo titolo:",
 	"fileimporter-editsummary": "Oggetto della modifica:",
 	"fileimporter-previewnote": "Questa è un'anteprima del file da importare. Controlla la pagina in dettaglio prima di importarlo.",
 	"fileimporter-heading-fileinfo": "Informazioni sul file",
