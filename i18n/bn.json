@@ -9,6 +9,7 @@
 	"fileimporter-desc": "অন্যান্য সাইট থেকে ফাইল সহজে আমদানি",
 	"fileimporter-specialpage": "ফাইল আমদানি করুন",
 	"fileimporter-specialpage-successtitle": "আমদানি সফল হয়েছে",
+	"fileimporter-importfailed": "আমদানি ব্যর্থ হয়েছে",
 	"fileimporter-cantparseurl": "প্রদত্ত URLটি পার্স করা যাবে না",
 	"fileimporter-cantimporturl": "প্রদত্ত URLটি আমদানি করা যাবে না",
 	"fileimporter-localtitleexists": "আপনি যে শিরোনামটি বর্তমানে আমদানি করার চেষ্টা করছেন তা ইতিমধ্যেই এই উইকিতে বিদ্যমান।",

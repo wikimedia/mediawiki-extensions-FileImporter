@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Obsuser"
+		]
+	},
+	"fileimporter-importfailed": "Увоз неуспешан",
+	"fileimporter-api-badinfo": "Лоша слика или опис измене враћен API-јем.",
+	"fileimporter-api-failedtogetinfo": "Неуспешно узимање информација о датотеци из: $1",
+	"fileimporter-api-nopagesreturned": "Ниједна страница није враћена даљинским API-јем.",
+	"fileimporter-api-toomanyrevisions": "Превише измена враћено API-јем, увоз није могућ.",
+	"fileimporter-cantimportfromsharedrepo": "Није могућ увоз датотеке из подељеног складишта.",
+	"fileimporter-cantimportmissingfile": "Није могућ увоз датотеке која недостаје.",
+	"fileimporter-cantimportsuppressedcontent": "Није могућ увоз измена са латентним садржајем.",
+	"fileimporter-badtoken": "CSRF токен се не поклапа",
+	"fileimporter-badimporthash": "Увезени хеш се не поклапа. Молимо рестартујте увоз.",
+	"fileimporter-sourcetitleexists": "Наслов који тренутно покушавате да увезете већ постоји на изворној Вики."
+}
