@@ -22,7 +22,7 @@
 	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier manquant.",
 	"fileimporter-cantimportsuppressedcontent": "Impossible d’importer des révisions avec un contenu supprimé.",
 	"fileimporter-badtoken": "Le jeton CSRF ne correspond pas",
-	"fileimporter-badimporthash": "Le hachage de l’import ne correspond pas. Veuillez recommencer.",
+	"fileimporter-badimporthash": "Le hachage de l’import ne correspond pas. Veuillez refaire l'import.",
 	"fileimporter-localtitleexists": "Le titre que vous essayez d’importer existe déjà sur ce wiki.",
 	"fileimporter-sourcetitleexists": "Le titre que vous essayez d’importer existe déjà sur le wiki source.",
 	"fileimporter-duplicatefilesdetected": "Le fichier que vous essayez d’importer existe déjà sur ce wiki.",
