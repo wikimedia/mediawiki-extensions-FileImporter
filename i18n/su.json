@@ -1,10 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Uchup19"
+			"Uchup19",
+			"Dipusparaga"
 		]
 	},
 	"fileimporter-specialpage-successtitle": "Ngimpor geus hasil",
+	"fileimporter-importfailed": "Ngimpor gagal",
+	"fileimporter-cantimportmissingfile": "Teu bisa ngimpor berkas nu leungit",
+	"fileimporter-cantimportsuppressedcontent": "Teu bisa ngimpor parobahan kalayan eusi nu nyamuni",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplikat",
 	"fileimporter-resubmit": "Kirim deui",
 	"fileimporter-cancel": "Bolay",
