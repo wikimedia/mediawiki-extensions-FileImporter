@@ -64,86 +64,72 @@ class ImportPreviewPage {
 			[],
 			( new Message( 'fileimporter-previewnote' ) )->parse()
 		) .
-		Html::rawElement(
-			'div',
-			[ 'class' => 'mw-importfile-header' ],
-			Html::element(
-				'h2',
-				[
-					'class' => 'mw-importfile-header-title',
-					'id' => 'mw-importfile-header-title'
-				],
-				$this->title->getPrefixedText()
-			) .
-			Html::openElement(
-				'form',
-				[
-					'class' => 'mw-importfile-rightAlign',
-					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-					'method' => 'GET',
-				]
-			) .
-			Html::element(
-				'input',
-				[
-					'type' => 'hidden',
-					'name' => 'action',
-					'value' => 'edittitle',
-				]
-			) .
-			$importIdentityFormSnippet .
-			new ButtonInputWidget(
-				[
-					'classes' => [ 'mw-importfile-edit-button' ],
-					'label' => ( new Message( 'fileimporter-edittitle' ) )->plain(),
-					'type' => 'submit',
-					'flags' => [ 'progressive' ],
-				]
-			) .
-			Html::closeElement( 'form' )
+		Html::element(
+			'h2',
+			[],
+			$this->title->getPrefixedText()
 		) .
+		Html::openElement(
+			'form',
+			[
+				'class' => 'mw-importfile-rightAlign',
+				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+				'method' => 'GET',
+			]
+		) .
+		Html::element(
+			'input',
+			[
+				'type' => 'hidden',
+				'name' => 'action',
+				'value' => 'edittitle',
+			]
+		) .
+		$importIdentityFormSnippet .
+		new ButtonInputWidget(
+			[
+				'classes' => [ 'mw-importfile-edit-button' ],
+				'label' => ( new Message( 'fileimporter-edittitle' ) )->plain(),
+				'type' => 'submit',
+				'flags' => [ 'progressive' ],
+			]
+		) .
+		Html::closeElement( 'form' ) .
 		Linker::makeExternalImage(
 			$importDetails->getImageDisplayUrl(),
 			$this->title->getPrefixedText()
 		) .
-		Html::rawElement(
-			'div',
-			[ 'class' => 'mw-importfile-header' ],
-			Html::element(
-				'h2',
-				[
-					'class' => 'mw-importfile-header-title',
-					'id' => 'mw-importfile-header-title'
-				],
-				( new Message( 'fileimporter-heading-fileinfo' ) )->plain()
-			).
-			Html::openElement(
-				'form',
-				[
-					'class' => 'mw-importfile-rightAlign',
-					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-					'method' => 'GET',
-				]
-			) .
-			Html::element(
-				'input',
-				[
-					'type' => 'hidden',
-					'name' => 'action',
-					'value' => 'editinfo',
-				]
-			) .
-			$importIdentityFormSnippet .
-			new ButtonInputWidget(
-				[
-					'classes' => [ 'mw-importfile-edit-button' ],
-					'label' => ( new Message( 'fileimporter-editinfo' ) )->plain(),
-					'type' => 'submit',
-					'flags' => [ 'progressive' ],
-				]
-			) .
-			Html::closeElement( 'form' )
-		).
+		Html::element(
+			'h2',
+			[],
+			( new Message( 'fileimporter-heading-fileinfo' ) )->plain()
+		) .
+		Html::openElement(
+			'form',
+			[
+				'class' => 'mw-importfile-rightAlign',
+				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+				'method' => 'GET',
+			]
+		) .
+		Html::element(
+			'input',
+			[
+				'type' => 'hidden',
+				'name' => 'action',
+				'value' => 'editinfo',
+			]
+		) .
+		$importIdentityFormSnippet .
+		new ButtonInputWidget(
+			[
+				'classes' => [ 'mw-importfile-edit-button' ],
+				'label' => ( new Message( 'fileimporter-editinfo' ) )->plain(),
+				'type' => 'submit',
+				'flags' => [ 'progressive' ],
+			]
+		) .
+		Html::closeElement( 'form' ) .
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-parsedContent' ],
