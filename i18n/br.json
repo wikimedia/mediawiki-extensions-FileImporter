@@ -1,11 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fulup"
+			"Fulup",
+			"Y-M D"
 		]
 	},
 	"fileimporter-cantimporturl": "Ne c'haller ket enporzhiañ an URL merket",
 	"fileimporter-exampleprefix": "Skouer",
 	"fileimporter-submit": "Kas",
-	"fileimporter-import": "Enporzhiañ"
+	"fileimporter-resubmit": "Kas en-dro",
+	"fileimporter-import": "Enporzhiañ",
+	"fileimporter-cancel": "Nullañ",
+	"fileimporter-newtitle": "Titl nevez :",
+	"fileimporter-heading-filehistory": "Istor ar restr"
 }
