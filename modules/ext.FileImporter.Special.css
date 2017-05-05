@@ -26,7 +26,7 @@
     float: right;
 }
 
-.mw-importfile-edittitle span.oo-ui-labelElement-label {
-    font-size: 1em;
-    font-weight: normal;
+.mw-importfile-edit-button span.oo-ui-labelElement-label {
+    font-family: sans-serif;
+    font-size: 0.875em;
 }
