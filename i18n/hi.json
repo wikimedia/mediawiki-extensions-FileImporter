@@ -7,6 +7,9 @@
 	},
 	"fileimporter": "फ़ाइल आयातक",
 	"fileimporter-exampleprefix": "उदाहरण",
-	"fileimporter-titleprefix": "शीर्षक",
-	"fileimporter-import": "आयात"
+	"fileimporter-import": "आयात",
+	"fileimporter-cancel": "रद्द करें",
+	"fileimporter-newtitle": "नया शीर्षक:",
+	"fileimporter-editsummary": "संपादन सारांश",
+	"fileimporter-heading-filehistory": "फ़ाइल का इतिहास"
 }
