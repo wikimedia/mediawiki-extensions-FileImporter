@@ -203,7 +203,8 @@ class Importer implements LoggerAwareInterface {
 		User $user
 	) {
 		$this->nullRevisionCreator->createForLinkTarget(
-			$importDetails->getTargetTitle()->getArticleID(),
+			// T164729 GAID_FOR_UPDATE needed to select for a write
+			$importDetails->getTargetTitle()->getArticleID( Title::GAID_FOR_UPDATE ),
 			$user,
 			'Imported from ' . $importDetails->getSourceUrl()->getUrl(), // TODO i18n
 			true
