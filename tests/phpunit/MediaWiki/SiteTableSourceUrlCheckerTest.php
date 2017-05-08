@@ -27,12 +27,6 @@ class SiteTableSourceUrlCheckerTest extends PHPUnit_Framework_TestCase {
 
 	public function provideCheckSourceUrl() {
 		return [
-			// CanGetImportDetails = false
-			'bad target & no known sites' => [
-				new SourceUrl( 'foo' ),
-				[],
-				false
-			],
 			'bad target & known site' => [
 				new SourceUrl( 'http://en.wikipedia.org' ),
 				[

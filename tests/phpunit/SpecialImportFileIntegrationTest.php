@@ -94,7 +94,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				null,
 				function ( $html ) {
 					$this->assertInitialInputFormPreset( $html );
-					$this->assertWarningBox( $html, 'Can\'t import the given URL' );
+					$this->assertWarningBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
 				}
 			],
 			'Bad file' => [
@@ -121,7 +121,12 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					$this->assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
-						'Chicken In Snow.JPG'
+						'Chicken In Snow'
+					);
+					$this->assertTagExistsWithTextContents(
+						$html,
+						'h2',
+						'Chicken In Snow'
 					);
 				}
 			],
@@ -137,11 +142,26 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					$this->assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
-						'Chicken In Snow CHANGED.JPG'
+						'Chicken In Snow CHANGED'
+					);
+					$this->assertTagExistsWithTextContents(
+						$html,
+						'h2',
+						'Chicken In Snow CHANGED'
 					);
 				}
 			],
 		];
+	}
+
+	private function assertTagExistsWithTextContents( $html, $tagName, $value ) {
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild( both(
+				withTagName( $tagName ) )
+				->andAlso( havingTextContents( $value ) )
+			) ) )
+		);
 	}
 
 	private function assertInitialInputFormPreset( $html ) {
@@ -178,7 +198,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		);
 	}
 
-	private function assertPreviewPage( $html, $clientUrl, $intendedTitle ) {
+	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {
 		assertThat(
 			$html,
 			is( htmlPiece( havingChild(
@@ -186,7 +206,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					->andAlso( withAttribute( 'action' ) )
 					->andAlso( withAttribute( 'method' )->havingValue( 'POST' ) )
 					->andAlso( havingChild( $this->thatIsHiddenInputField( 'clientUrl', $clientUrl ) ) )
-					->andAlso( havingChild( $this->thatIsHiddenInputField( 'intendedTitle', $intendedTitle ) ) )
+					->andAlso(
+						havingChild( $this->thatIsHiddenInputField( 'intendedFileName', $intendedFileName ) )
+					)
 					->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'importDetailsHash' ) ) )
 					->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'token' ) ) )
 					->andAlso( havingChild(

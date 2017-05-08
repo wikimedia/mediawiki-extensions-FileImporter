@@ -3,18 +3,27 @@
 namespace FileImporter\Data\Test;
 
 use FileImporter\Data\SourceUrl;
+use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 
 class SourceUrlTest extends PHPUnit_Framework_TestCase {
 
-	public function provideConstruction() {
+	public function provideInvalidConstruction() {
 		return [
-			[
-				'foooooooo',
-				false,
-				false,
-				false,
-			],
+			[ 'foooooooo' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideInvalidConstruction
+	 */
+	public function testInvalidConstruction( $input ) {
+		$this->setExpectedException( InvalidArgumentException::class );
+		new SourceUrl( $input );
+	}
+
+	public function provideValidConstruction() {
+		return [
 			[
 				'https://en.wikipedia.org/wiki/File:Foo.jpg',
 				true,
@@ -30,9 +39,9 @@ class SourceUrlTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider provideConstruction
+	 * @dataProvider provideValidConstruction
 	 */
-	public function testConstruction(
+	public function testValidConstruction(
 		$url,
 		$expectedIsParsable,
 		$expectedParsed,

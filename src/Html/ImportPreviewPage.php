@@ -2,14 +2,13 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Data\ImportDetails;
+use FileImporter\Data\ImportPlan;
 use Html;
 use Linker;
 use Message;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
 use SpecialPage;
-use Title;
 
 /**
  * Page displaying the preview of the import before it has happened.
@@ -23,39 +22,34 @@ class ImportPreviewPage {
 	private $specialPage;
 
 	/**
-	 * @var ImportDetails
+	 * @var ImportPlan
 	 */
-	private $importDetails;
-
-	/**
-	 * @var Title
-	 */
-	private $title;
+	private $importPlan;
 
 	/**
 	 * @param SpecialPage $specialPage
-	 * @param ImportDetails $importDetails
+	 * @param ImportPlan $importPlan
 	 */
 	public function __construct(
 		SpecialPage $specialPage,
-		ImportDetails $importDetails
+		ImportPlan $importPlan
 	) {
 		$this->specialPage = $specialPage;
-		$this->importDetails = $importDetails;
-		$this->title = $importDetails->getTargetTitle();
+		$this->importPlan = $importPlan;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getHtml() {
-		$importDetails = $this->importDetails;
-		$sourceUrl = $importDetails->getSourceUrl();
+		$details = $this->importPlan->getDetails();
+		$request = $this->importPlan->getRequest();
+		$title = $this->importPlan->getTitle();
 
 		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
-			'clientUrl' => $sourceUrl->getUrl(),
-			'intendedTitle' => $this->title->getText(),
-			'importDetailsHash' => $importDetails->getOriginalHash(),
+			'clientUrl' => $request->getUrl(),
+			'intendedFileName' => $this->importPlan->getFileName(),
+			'importDetailsHash' => $details->getOriginalHash(),
 		] ) )->getHtml();
 
 		return
@@ -67,7 +61,7 @@ class ImportPreviewPage {
 		Html::element(
 			'h2',
 			[],
-			$this->title->getPrefixedText()
+			$this->importPlan->getFileName()
 		) .
 		Html::openElement(
 			'form',
@@ -96,8 +90,8 @@ class ImportPreviewPage {
 		) .
 		Html::closeElement( 'form' ) .
 		Linker::makeExternalImage(
-			$importDetails->getImageDisplayUrl(),
-			$this->title->getPrefixedText()
+			$details->getImageDisplayUrl(),
+			$title->getPrefixedText()
 		) .
 		Html::element(
 			'h2',
@@ -133,7 +127,7 @@ class ImportPreviewPage {
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-parsedContent' ],
-			( new TextRevisionSnippet( $importDetails->getTextRevisions()->getLatest() ) )->getHtml()
+			( new TextRevisionSnippet( $details->getTextRevisions()->getLatest() ) )->getHtml()
 		) .
 		Html::element(
 			'h2',
@@ -145,7 +139,7 @@ class ImportPreviewPage {
 			[],
 			( new Message(
 				'fileimporter-textrevisions',
-				[ count( $importDetails->getTextRevisions()->toArray() ) ]
+				[ count( $details->getTextRevisions()->toArray() ) ]
 			) )->parse()
 		) .
 		Html::openElement(

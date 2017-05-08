@@ -2,11 +2,10 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Data\SourceUrl;
+use FileImporter\Data\ImportPlan;
 use Html;
 use Message;
 use SpecialPage;
-use Title;
 
 class TitleConflictPage {
 
@@ -16,35 +15,27 @@ class TitleConflictPage {
 	private $specialPage;
 
 	/**
-	 * @var SourceUrl
-	 */
-	private $sourceUrl;
-
-	/**
-	 * @var Title
-	 */
-	private $title;
-
-	/**
 	 * @var string
 	 */
 	private $warningMessage;
 
 	/**
+	 * @var ImportPlan
+	 */
+	private $plan;
+
+	/**
 	 * @param SpecialPage $specialPage
-	 * @param SourceUrl $sourceUrl
-	 * @param Title $title
+	 * @param ImportPlan $plan
 	 * @param string $warningMessage
 	 */
 	public function __construct(
 		SpecialPage $specialPage,
-		SourceUrl $sourceUrl,
-		Title $title,
+		ImportPlan $plan,
 		$warningMessage
 	) {
 		$this->specialPage = $specialPage;
-		$this->sourceUrl = $sourceUrl;
-		$this->title = $title;
+		$this->plan = $plan;
 		$this->warningMessage = $warningMessage;
 	}
 
@@ -56,8 +47,7 @@ class TitleConflictPage {
 		) .
 		( new ChangeTitleForm(
 			$this->specialPage,
-			$this->sourceUrl,
-			$this->title
+			$this->plan
 		) )->getHtml();
 	}
 

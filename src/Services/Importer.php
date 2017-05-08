@@ -3,6 +3,7 @@
 namespace FileImporter\Services;
 
 use FileImporter\Data\ImportDetails;
+use FileImporter\Data\ImportPlan;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\MediaWiki\FileImporterUploadBase;
@@ -60,27 +61,27 @@ class Importer implements LoggerAwareInterface {
 
 	/**
 	 * @param User $user user to use for the import
-	 * @param ImportDetails $importDetails
+	 * @param ImportPlan $importPlan
 	 *
 	 * @return bool success
 	 * @throws ImportException
 	 */
 	public function import(
 		User $user,
-		ImportDetails $importDetails
+		ImportPlan $importPlan
 	) {
+		$importDetails = $importPlan->getDetails();
+		$title = $importPlan->getTitle();
+
 		$this->checkTitleFileExtensionsMatch(
-			$importDetails->getTargetTitle(),
-			$importDetails->getOriginalLinkTarget()
+			$importDetails->getSourceLinkTarget(),
+			$title
 		);
 
 		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
 
 		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
-			$base = new FileImporterUploadBase(
-				$importDetails->getTargetTitle(),
-				$wikiRevisionFile->getFileSrc()
-			);
+			$base = new FileImporterUploadBase( $title, $wikiRevisionFile->getFileSrc() );
 			$base->setLogger( $this->logger );
 			if ( !$base->performChecks() ) {
 				return false;
@@ -93,20 +94,20 @@ class Importer implements LoggerAwareInterface {
 		}
 
 		// We can assume this will be a Title and not null due to the performChecks calls above
-		$targetTitle = $base->getTitle();
+		$title = $base->getTitle();
 
 		// TODO copy files directly in swift if possible?
 
 		// TODO lookup in CentralAuth to see if users can be maintained on the import
 		// This probably needs some service object to be made to keep things nice and tidy
 
-		$this->importWikiRevisionFiles( $targetTitle, $wikiRevisionFiles );
-		$this->importTextRevisions( $targetTitle, $importDetails->getTextRevisions() );
+		$this->importWikiRevisionFiles( $title, $wikiRevisionFiles );
+		$this->importTextRevisions( $title, $importDetails->getTextRevisions() );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
-		$this->createPostImportNullRevision( $importDetails, $user );
+		$this->createPostImportNullRevision( $importPlan, $user );
 
 		// TODO If modifications are needed on the text we need to make 1 new revision!
 
@@ -118,6 +119,8 @@ class Importer implements LoggerAwareInterface {
 
 	/**
 	 * Check to ensure files are not imported with differing file extensions.
+	 *
+	 * @todo this should probably live somewhere else
 	 *
 	 * @param LinkTarget $linkTargetOne
 	 * @param LinkTarget $linkTargetTwo
@@ -199,14 +202,14 @@ class Importer implements LoggerAwareInterface {
 	}
 
 	private function createPostImportNullRevision(
-		ImportDetails $importDetails,
+		ImportPlan $importPlan,
 		User $user
 	) {
 		$this->nullRevisionCreator->createForLinkTarget(
 			// T164729 GAID_FOR_UPDATE needed to select for a write
-			$importDetails->getTargetTitle()->getArticleID( Title::GAID_FOR_UPDATE ),
+			$importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE ),
 			$user,
-			'Imported from ' . $importDetails->getSourceUrl()->getUrl(), // TODO i18n
+			'Imported from ' . $importPlan->getRequest()->getUrl(), // TODO i18n
 			true
 		);
 	}

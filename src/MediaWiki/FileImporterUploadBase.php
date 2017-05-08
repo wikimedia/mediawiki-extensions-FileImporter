@@ -43,8 +43,10 @@ class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface 
 		$checkSuccess = $title !== null && $fileVerification === true;
 
 		if ( !$checkSuccess ) {
+			// TODO throw a more informative exception?
 			$logContext = [
 				'title' => $title,
+				'mTitleError' => $this->mTitleError,
 				'fileVerification' => $fileVerification,
 			];
 			$this->logger->info(
