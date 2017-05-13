@@ -6,6 +6,8 @@
 		]
 	},
 	"fileimporter": "फ़ाइल आयातक",
+	"fileimporter-importfailed": "आयात विफल हुआ",
+	"fileimporter-cantimportmissingfile": "लापता फ़ाइल को आयात नहीं कर सकते",
 	"fileimporter-exampleprefix": "उदाहरण",
 	"fileimporter-import": "आयात",
 	"fileimporter-cancel": "रद्द करें",
