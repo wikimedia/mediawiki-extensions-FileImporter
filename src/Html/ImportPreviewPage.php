@@ -87,7 +87,7 @@ class ImportPreviewPage {
 			$importIdentityFormSnippet .
 			new ButtonInputWidget(
 				[
-					'classes' => [ 'mw-importfile-edittitle' ],
+					'classes' => [ 'mw-importfile-edit-button' ],
 					'label' => ( new Message( 'fileimporter-edittitle' ) )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'progressive' ],
@@ -122,7 +122,7 @@ class ImportPreviewPage {
 			$importIdentityFormSnippet .
 			new ButtonInputWidget(
 				[
-					'classes' => [ 'mw-importfile-editinfo' ],
+					'classes' => [ 'mw-importfile-edit-button' ],
 					'label' => ( new Message( 'fileimporter-editinfo' ) )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'progressive' ],
