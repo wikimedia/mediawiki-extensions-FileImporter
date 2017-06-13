@@ -39,6 +39,11 @@ class ImportDetails {
 	private $targetLinkTarget = null;
 
 	/**
+	 * @var Title|null
+	 */
+	private $targetTitle = null;
+
+	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param LinkTarget $linkTarget
 	 * @param string $imageDisplayUrl
@@ -96,7 +101,10 @@ class ImportDetails {
 	 * @return Title
 	 */
 	public function getTargetTitle() {
-		return Title::newFromLinkTarget( $this->getTargetLinkTarget() );
+		if ( $this->targetTitle === null ) {
+			$this->targetTitle = Title::newFromLinkTarget( $this->getTargetLinkTarget() );
+		}
+		return $this->targetTitle;
 	}
 
 	/**
