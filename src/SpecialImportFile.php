@@ -190,8 +190,17 @@ class SpecialImportFile extends SpecialPage {
 		ImportTitleChecker $importTitleChecker
 	) {
 		$out = $this->getOutput();
-		$targetTitle = $importDetails->getTargetTitle();
 
+		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
+			$importDetails->getFileRevisions()->getLatest()
+		);
+
+		if ( !empty( $duplicateFiles ) ) {
+			$out->addHTML( ( new DuplicateFilesPage( $duplicateFiles ) )->getHtml() );
+			return false;
+		}
+
+		$targetTitle = $importDetails->getTargetTitle();
 		if ( $targetTitle->exists() ) {
 			$out->addHTML( ( new TitleConflictPage(
 				$this,
@@ -214,15 +223,6 @@ class SpecialImportFile extends SpecialPage {
 				$targetTitle,
 				'fileimporter-sourcetitleexists'
 			) )->getHtml() );
-			return false;
-		}
-
-		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
-			$importDetails->getFileRevisions()->getLatest()
-		);
-
-		if ( !empty( $duplicateFiles ) ) {
-			$this->getOutput()->addHTML( ( new DuplicateFilesPage( $duplicateFiles ) )->getHtml() );
 			return false;
 		}
 
