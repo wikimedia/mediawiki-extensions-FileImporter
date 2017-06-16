@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"fileimporter": "Importador de ficheiros",
+	"fileimporter-desc": "Importação fácil de ficheiros de outros sites",
+	"fileimporter-specialpage": "Importar ficheiro",
+	"fileimporter-specialpage-successtitle": "Importação terminada",
+	"fileimporter-importfailed": "A importação falhou",
+	"fileimporter-api-badinfo": "A API devolveu informação incorreta da imagem ou revisão.",
+	"fileimporter-api-failedtogetinfo": "Não foi possível obter informação do ficheiro de: $1",
+	"fileimporter-api-nopagesreturned": "A API remota não devolveu nenhuma página.",
+	"fileimporter-api-toomanyrevisions": "A API devolveu demasiadas revisões, não é possível fazer a importação.",
+	"fileimporter-cantparseurl": "Não é possível analisar o URL fornecido.",
+	"fileimporter-cantimporturl": "Não é possível importar o URL fornecido.",
+	"fileimporter-cantimportfromsharedrepo": "Não é possível importar um ficheiro de um repositório partilhado.",
+	"fileimporter-cantimportmissingfile": "Não é possível importar um ficheiro em falta.",
+	"fileimporter-cantimportsuppressedcontent": "Não é possível importar revisões com conteúdo suprimido.",
+	"fileimporter-badtoken": "A chave CSFR não corresponde",
+	"fileimporter-badimporthash": "A chave de importação não corresponde. Reinicie a importação, por favor.",
+	"fileimporter-localtitleexists": "O título para o qual está a tentar importar conteúdo já existe nesta wiki.",
+	"fileimporter-sourcetitleexists": "O título para o qual está a tentar importar conteúdo já existe na wiki de origem.",
+	"fileimporter-duplicatefilesdetected": "O ficheiro que está a tentar importar já existe nesta wiki.",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplicados",
+	"fileimporter-exampleprefix": "Exemplo",
+	"fileimporter-textrevisions": "{{PLURAL:$1|Será importada $1 revisão|Serão importadas $1 revisões}} do ficheiro.",
+	"fileimporter-submit": "Enviar",
+	"fileimporter-resubmit": "Voltar a enviar",
+	"fileimporter-import": "Importar",
+	"fileimporter-cancel": "Cancelar",
+	"fileimporter-imported": "<strong>\"$1\" foi importado para \"$2\"</strong>",
+	"fileimporter-edittitle": "Editar título",
+	"fileimporter-editinfo": "Editar informação do ficheiro",
+	"fileimporter-newtitle": "Título novo:",
+	"fileimporter-editsummary": "Resumo da edição:",
+	"fileimporter-editsummary-placeholder": "Só será usado se fizer alterações à importação.",
+	"fileimporter-previewnote": "Esta é uma antevisão do ficheiro que será importado. Verifique a página em detalhe antes de iniciar a importação, por favor.",
+	"fileimporter-heading-fileinfo": "Informação do ficheiro",
+	"fileimporter-heading-filehistory": "Histórico do ficheiro"
+}
