@@ -197,9 +197,35 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
-			if ( array_key_exists( 'suppressed', $revisionInfo ) ) {
-				// TODO allow importing revisions with suppressed content T162255
-				throw new LocalizedImportException( 'fileimporter-cantimportsuppressedcontent' );
+
+			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
+				$revisionInfo['user'] = '0.0.0.0';
+			}
+
+			if ( array_key_exists( 'texthidden', $revisionInfo ) ) {
+				$revisionInfo['*'] = (
+					new Message( 'fileimporter-revision-removed-text' )
+				)->plain();
+			}
+
+			if ( array_key_exists( 'sha1hidden', $revisionInfo ) ) {
+				$revisionInfo['sha1'] = \Wikimedia\base_convert(
+					sha1( $revisionInfo['*'] ), 16, 36, 31
+				);
+			}
+
+			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
+				$revisionInfo['comment'] = (
+					new Message( 'fileimporter-revision-removed-comment' )
+				)->plain();
+			}
+
+			if ( !array_key_exists( 'contentmodel', $revisionInfo ) ) {
+				$revisionInfo['contentmodel'] = CONTENT_MODEL_WIKITEXT;
+			}
+
+			if ( !array_key_exists( 'contentformat', $revisionInfo ) ) {
+				$revisionInfo['contentformat'] = CONTENT_FORMAT_WIKITEXT;
 			}
 
 			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );
