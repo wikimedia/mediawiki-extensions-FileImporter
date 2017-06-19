@@ -17,7 +17,6 @@
 	"fileimporter-cantimporturl": "Не можам да ја увезам дадената URL",
 	"fileimporter-cantimportfromsharedrepo": "Не можам да увезам податотека од заедничко складиште.",
 	"fileimporter-cantimportmissingfile": "Не можам да увезам отсутна податотека.",
-	"fileimporter-cantimportsuppressedcontent": "Не можам да увезам преработки со притаена содржина.",
 	"fileimporter-badtoken": "CSRF-шифрата не одговара",
 	"fileimporter-badimporthash": "Увозната тараба не одговара. Почнете го увозот одново.",
 	"fileimporter-localtitleexists": "Насловот што сакате да го увезете веќе постои на ова вики.",
@@ -38,5 +37,7 @@
 	"fileimporter-editsummary-placeholder": "Се користи само кога правите измени во увозот.",
 	"fileimporter-previewnote": "Ова е преглед на податотеката што ќе се увезе. Подробно проверете ја страницата пред увозот.",
 	"fileimporter-heading-fileinfo": "Инфо за податотеката",
-	"fileimporter-heading-filehistory": "Историја на податотеката"
+	"fileimporter-heading-filehistory": "Историја на податотеката",
+	"fileimporter-revision-removed-text": "Притаениот текст е отстранет од Увозникот на податотеки.",
+	"fileimporter-revision-removed-comment": "Притаениот коментар е отстранет од Увозникот на податотеки."
 }

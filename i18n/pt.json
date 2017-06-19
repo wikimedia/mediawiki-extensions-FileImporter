@@ -17,7 +17,6 @@
 	"fileimporter-cantimporturl": "Não é possível importar o URL fornecido.",
 	"fileimporter-cantimportfromsharedrepo": "Não é possível importar um ficheiro de um repositório partilhado.",
 	"fileimporter-cantimportmissingfile": "Não é possível importar um ficheiro em falta.",
-	"fileimporter-cantimportsuppressedcontent": "Não é possível importar revisões com conteúdo suprimido.",
 	"fileimporter-badtoken": "A chave CSFR não corresponde",
 	"fileimporter-badimporthash": "A chave de importação não corresponde. Reinicie a importação, por favor.",
 	"fileimporter-localtitleexists": "O título para o qual está a tentar importar conteúdo já existe nesta wiki.",
@@ -38,5 +37,7 @@
 	"fileimporter-editsummary-placeholder": "Só será usado se fizer alterações à importação.",
 	"fileimporter-previewnote": "Esta é uma antevisão do ficheiro que será importado. Verifique a página em detalhe antes de iniciar a importação, por favor.",
 	"fileimporter-heading-fileinfo": "Informação do ficheiro",
-	"fileimporter-heading-filehistory": "Histórico do ficheiro"
+	"fileimporter-heading-filehistory": "Histórico do ficheiro",
+	"fileimporter-revision-removed-text": "Texto suprimido foi removido pelo importador de ficheiros.",
+	"fileimporter-revision-removed-comment": "Comentário suprimido foi removido pelo importador de ficheiros."
 }

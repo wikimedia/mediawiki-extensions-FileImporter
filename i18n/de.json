@@ -17,7 +17,6 @@
 	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
 	"fileimporter-cantimportfromsharedrepo": "Es kann keine Datei von einem gemeinsamen Repositorium importiert werden",
 	"fileimporter-cantimportmissingfile": "Eine fehlende Datei kann nicht importiert werden.",
-	"fileimporter-cantimportsuppressedcontent": "Versionen mit unterdrücktem Inhalt können nicht importiert werden.",
 	"fileimporter-badtoken": "Der CSRF-Token stimmt nicht überein",
 	"fileimporter-badimporthash": "Die Prüfsumme des Imports stimmt nicht überein. Bitte starte den Importvorgang neu.",
 	"fileimporter-localtitleexists": "Der Titel, den du derzeit versuchst zu importieren, ist bereits auf diesem Wiki vorhanden.",
@@ -38,5 +37,7 @@
 	"fileimporter-editsummary-placeholder": "Wird nur verwendet, wenn du Änderungen am Import durchführst.",
 	"fileimporter-previewnote": "Dies ist eine Vorschau der Datei, die importiert wird. Bitte kontrolliere die Seite genau, bevor du die Datei importierst.",
 	"fileimporter-heading-fileinfo": "Dateiinfo",
-	"fileimporter-heading-filehistory": "Dateiversionen"
+	"fileimporter-heading-filehistory": "Dateiversionen",
+	"fileimporter-revision-removed-text": "Durch den Dateiimporter entfernter unterdrückter Text.",
+	"fileimporter-revision-removed-comment": "Durch den Dateiimporter entfernter unterdrückter Kommentar."
 }
