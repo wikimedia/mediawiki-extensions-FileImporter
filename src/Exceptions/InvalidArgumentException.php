@@ -2,6 +2,6 @@
 
 namespace FileImporter\Exceptions;
 
-class InvalidArgumentException extends \InvalidArgumentException{
+class InvalidArgumentException extends \InvalidArgumentException {
 
 }

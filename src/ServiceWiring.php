@@ -22,7 +22,7 @@ return [
 
 	// Generic
 
-	'FileImporterSourceSiteLocator' => function( MediaWikiServices $services ) {
+	'FileImporterSourceSiteLocator' => function ( MediaWikiServices $services ) {
 		$config = $services->getMainConfig();
 
 		$sourceSites = [];
@@ -33,18 +33,18 @@ return [
 		return new SourceSiteLocator( $sourceSites );
 	},
 
-	'FileImporterHttpRequestExecutor' => function( MediaWikiServices $services ) {
+	'FileImporterHttpRequestExecutor' => function ( MediaWikiServices $services ) {
 		$service = new HttpRequestExecutor();
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $service;
 	},
 
-	'FileImporterDuplicateFileRevisionChecker' => function( MediaWikiServices $services ) {
+	'FileImporterDuplicateFileRevisionChecker' => function ( MediaWikiServices $services ) {
 		$localRepo = RepoGroup::singleton()->getLocalRepo();
 		return new DuplicateFileRevisionChecker( $localRepo );
 	},
 
-	'FileImporterImporter' => function( MediaWikiServices $services ) {
+	'FileImporterImporter' => function ( MediaWikiServices $services ) {
 		/** @var WikiRevisionFactory $wikiRevisionFactory */
 		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
 		/** @var NullRevisionCreator $nullRevisionCreator */
@@ -59,17 +59,17 @@ return [
 		return $importer;
 	},
 
-	'FileImporterNullRevisionCreator' => function( MediaWikiServices $services ) {
+	'FileImporterNullRevisionCreator' => function ( MediaWikiServices $services ) {
 		return new NullRevisionCreator( $services->getDBLoadBalancer() );
 	},
 
-	'FileImporterWikiRevisionFactory' => function( MediaWikiServices $services ) {
+	'FileImporterWikiRevisionFactory' => function ( MediaWikiServices $services ) {
 		return new WikiRevisionFactory( $services->getMainConfig() );
 	},
 
 	// MediaWiki
 
-	'FileImporterMediaWikiHttpApiLookup' => function( MediaWikiServices $services ) {
+	'FileImporterMediaWikiHttpApiLookup' => function ( MediaWikiServices $services ) {
 		/** @var HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
@@ -80,13 +80,13 @@ return [
 		return $service;
 	},
 
-	'FileImporterMediaWikiSiteTableSiteLookup' => function( MediaWikiServices $services ) {
+	'FileImporterMediaWikiSiteTableSiteLookup' => function ( MediaWikiServices $services ) {
 		return new \FileImporter\MediaWiki\SiteTableSiteLookup( $services->getSiteLookup() );
 	},
 
 	// Importers
 
-	'FileImporterSitesTableMediaWikiSite' => function( MediaWikiServices $services ) {
+	'FileImporterSitesTableMediaWikiSite' => function ( MediaWikiServices $services ) {
 		/**
 		 * @var SiteTableSiteLookup $siteTableLookup
 		 * @var HttpApiLookup $httpApiLookup

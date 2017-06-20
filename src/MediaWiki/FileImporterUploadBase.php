@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use UploadBase;
 
-class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface{
+class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface {
 
 	/**
 	 * @var LoggerInterface

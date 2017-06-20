@@ -7,6 +7,6 @@ use RuntimeException;
 /**
  * Generic Import exception.
  */
-class ImportException extends RuntimeException{
+class ImportException extends RuntimeException {
 
 }

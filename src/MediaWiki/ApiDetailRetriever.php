@@ -197,7 +197,6 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
-
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
 				$revisionInfo['user'] = '0.0.0.0';
 			}

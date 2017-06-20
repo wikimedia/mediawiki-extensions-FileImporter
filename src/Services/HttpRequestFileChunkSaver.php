@@ -10,7 +10,7 @@ use RuntimeException;
 /**
  * TODO this could end up in core? and used by UploadFromUrl?
  */
-class HttpRequestFileChunkSaver implements LoggerAwareInterface{
+class HttpRequestFileChunkSaver implements LoggerAwareInterface {
 
 	/**
 	 * @var string

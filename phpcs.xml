@@ -4,6 +4,9 @@
     <rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
         <exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures" />
         <exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
+        <exclude name="MediaWiki.Commenting.FunctionComment.MissingParamComment" />
+        <exclude name="MediaWiki.Commenting.FunctionComment.MissingParamTag" />
+        <exclude name="MediaWiki.FunctionComment.Missing.Public" />
     </rule>
 
     <rule ref="Generic.Files.InlineHTML" />

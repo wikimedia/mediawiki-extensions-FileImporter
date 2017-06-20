@@ -12,7 +12,7 @@ use Throwable;
  * Logic has been taken form core class LocalizedException
  * @todo move logic to a trait in core and use it from there?
  */
-class LocalizedImportException extends ImportException implements ILocalizedException{
+class LocalizedImportException extends ImportException implements ILocalizedException {
 
 	/** @var string|array|MessageSpecifier */
 	protected $messageSpec;

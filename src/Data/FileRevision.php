@@ -57,7 +57,6 @@ class FileRevision {
 			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested' );
 		}
 		return $this->fields[$name];
-
 	}
 
 }
