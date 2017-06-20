@@ -17,7 +17,6 @@
 	"fileimporter-cantimporturl": "不能导入提供的URL",
 	"fileimporter-cantimportfromsharedrepo": "不能从共享存储库导入文件。",
 	"fileimporter-cantimportmissingfile": "不能导入丢失的文件。",
-	"fileimporter-cantimportsuppressedcontent": "不能导入有被屏蔽内容的修订版本。",
 	"fileimporter-badtoken": "CSRF令牌不匹配",
 	"fileimporter-badimporthash": "导入哈希值不匹配。请重新开始导入。",
 	"fileimporter-localtitleexists": "您当前正在尝试导入的标题已在该wiki存在。",
@@ -38,5 +37,7 @@
 	"fileimporter-editsummary-placeholder": "只当您对导入做出更改时使用。",
 	"fileimporter-previewnote": "这是待导入文件的预览。请在导入前详细检查页面。",
 	"fileimporter-heading-fileinfo": "文件信息",
-	"fileimporter-heading-filehistory": "文件历史"
+	"fileimporter-heading-filehistory": "文件历史",
+	"fileimporter-revision-removed-text": "由文件导入器移除的已屏蔽文本。",
+	"fileimporter-revision-removed-comment": "由文件导入器移除的已屏蔽评论。"
 }
