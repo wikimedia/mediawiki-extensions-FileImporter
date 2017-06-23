@@ -15,6 +15,8 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 	}
 
 	public function providePerformChecks() {
+		$this->skipTestIfImageFunctionsMissing();
+
 		return [
 			// Title checks
 			'fileNameTooLongValidJPEG' =>
@@ -38,6 +40,16 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 		$base = new FileImporterUploadBase( new TitleValue( NS_FILE, $targetTitle ), $tempPath );
 		$this->assertEquals( $expected, $base->performChecks() );
 		unlink( $tempPath ); // delete the file that we created post test
+	}
+
+	private function skipTestIfImageFunctionsMissing() {
+		if (
+			!function_exists( 'imagejpeg' ) ||
+			!function_exists( 'imagepng' ) ||
+			!function_exists( 'imagegif' )
+		) {
+			$this->markTestSkipped( 'image* functions required for this test.' );
+		}
 	}
 
 	/**
