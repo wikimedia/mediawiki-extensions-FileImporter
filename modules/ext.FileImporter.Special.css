@@ -22,11 +22,27 @@
     padding: 1em 1em 1.5em 1em;
 }
 
-.mw-importfile-rightAlign {
-    float: right;
+.mw-importfile-header {
+    margin: 1em 0 0.25em 0;
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #a2a9b1;
+    overflow: auto;
+    position: relative;
 }
 
-.mw-importfile-edit-button span.oo-ui-labelElement-label {
-    font-family: sans-serif;
-    font-size: 0.875em;
+.mw-importfile-header-title {
+    display: inline-block;
+    position: absolute;
+    border: none;
+    bottom: 0;
+}
+
+#mw-importfile-header-title {
+    margin: 0;
+}
+
+.mw-importfile-rightAlign {
+    position: relative;
+    bottom: 0;
+    float: right;
 }

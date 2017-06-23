@@ -65,9 +65,16 @@ class ImportPreviewPage {
 			( new Message( 'fileimporter-previewnote' ) )->parse()
 		) .
 		Html::rawElement(
-			'h2',
-			[],
-			$this->title->getPrefixedText() .
+			'div',
+			[ 'class' => 'mw-importfile-header' ],
+			Html::element(
+				'h2',
+				[
+					'class' => 'mw-importfile-header-title',
+					'id' => 'mw-importfile-header-title'
+				],
+				$this->title->getPrefixedText()
+			) .
 			Html::openElement(
 				'form',
 				[
@@ -100,9 +107,16 @@ class ImportPreviewPage {
 			$this->title->getPrefixedText()
 		) .
 		Html::rawElement(
-			'h2',
-			[],
-			( new Message( 'fileimporter-heading-fileinfo' ) )->plain() .
+			'div',
+			[ 'class' => 'mw-importfile-header' ],
+			Html::element(
+				'h2',
+				[
+					'class' => 'mw-importfile-header-title',
+					'id' => 'mw-importfile-header-title'
+				],
+				( new Message( 'fileimporter-heading-fileinfo' ) )->plain()
+			).
 			Html::openElement(
 				'form',
 				[
@@ -129,7 +143,7 @@ class ImportPreviewPage {
 				]
 			) .
 			Html::closeElement( 'form' )
-		) .
+		).
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-parsedContent' ],
