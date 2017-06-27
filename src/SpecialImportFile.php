@@ -47,11 +47,17 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	private $importPlanFactory;
 
+	private $config;
+
 	public function __construct() {
 		$services = MediaWikiServices::getInstance();
-		$config = $services->getMainConfig();
+		$this->config = $services->getMainConfig();
 
-		parent::__construct( 'FileImporter-SpecialPage', $config->get( 'FileImporterRequiredRight' ) );
+		parent::__construct(
+			'FileImporter-SpecialPage',
+			$this->config->get( 'FileImporterRequiredRight' ),
+			!$this->config->get( 'FileImporterInBeta' )
+		);
 
 		// TODO inject services!
 		$this->sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
@@ -231,8 +237,9 @@ class SpecialImportFile extends SpecialPage {
 			Html::rawElement(
 				'div',
 				[ 'class' => 'warningbox' ],
-				Html::element( 'p', [], $message )
-			)
+				Html::rawElement( 'p', [], $message )
+			) .
+			Html::rawElement( 'br' )
 		);
 	}
 
@@ -243,6 +250,10 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function showInputForm( SourceUrl $sourceUrl = null ) {
+		if ( $this->config->get( 'FileImporterInBeta' ) ) {
+			$this->showWarningMessage( ( new Message( 'fileimporter-in-beta' ) )->parse() );
+		}
+
 		$this->getOutput()->addHTML( ( new InputFormPage( $this, $sourceUrl ) )->getHtml() );
 	}
 

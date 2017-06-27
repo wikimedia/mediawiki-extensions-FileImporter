@@ -47,5 +47,6 @@
 	"fileimporter-heading-fileinfo": "Heading of the file info on the import page.",
 	"fileimporter-heading-filehistory": "Heading of the file history on the import page.",
 	"fileimporter-revision-removed-text": "Text inserted if the original text is suppressed.",
-	"fileimporter-revision-removed-comment": "Text inserted as a revision comment if the original comment is suppressed."
+	"fileimporter-revision-removed-comment": "Text inserted as a revision comment if the original comment is suppressed.",
+	"fileimporter-in-beta": "Text shown when the special page is loaded warning the user that the extension is in beta."
 }
