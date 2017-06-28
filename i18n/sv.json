@@ -9,11 +9,17 @@
 	"fileimporter-specialpage": "Importera fil",
 	"fileimporter-specialpage-successtitle": "Importering slutfördes",
 	"fileimporter-importfailed": "Importering misslyckades",
+	"fileimporter-api-badinfo": "Trasig bild eller sidversionsinfo returnerades av API:et.",
+	"fileimporter-api-failedtogetinfo": "Misslyckades att hämta filinformation från: $1",
+	"fileimporter-api-nopagesreturned": "Inga sidor returnerades av fjärr-API:et.",
+	"fileimporter-api-toomanyrevisions": "För många sidversioner returnerades av API:et. Kunde inte importera.",
 	"fileimporter-cantparseurl": "Kan inte tolka angiven URL",
 	"fileimporter-cantimporturl": "Kan inte importera angiven URL",
 	"fileimporter-cantimportmissingfile": "Kan inte importera en saknad fil.",
-	"fileimporter-cantimportsuppressedcontent": "Kan inte importera versioner med censurerat innehåll.",
+	"fileimporter-badtoken": "CSRF-nyckel matchar inte",
+	"fileimporter-badimporthash": "Importeringshash matchar inte. Starta om importeringen.",
 	"fileimporter-localtitleexists": "Titeln du försöker importera finns redan på denna wiki.",
+	"fileimporter-sourcetitleexists": "Titeln du försöker importera finns redan på källwikin.",
 	"fileimporter-duplicatefilesdetected": "Filen du försöker importera finns redan på denna wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dubbletter",
 	"fileimporter-exampleprefix": "Exempel",
@@ -30,5 +36,7 @@
 	"fileimporter-editsummary-placeholder": "Används endast om du gör ändringar i importeringen.",
 	"fileimporter-previewnote": "Detta är en förhandsgranskning av filen att importera. Kontrollera sidan i detalj innan du importerar.",
 	"fileimporter-heading-fileinfo": "Filinfo",
-	"fileimporter-heading-filehistory": "Filhistorik"
+	"fileimporter-heading-filehistory": "Filhistorik",
+	"fileimporter-revision-removed-text": "Censurerad text togs bort av FileImporter.",
+	"fileimporter-revision-removed-comment": "Censurerad kommentar togs bort av FileImporter."
 }
