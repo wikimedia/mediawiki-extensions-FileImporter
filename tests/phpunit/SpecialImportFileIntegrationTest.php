@@ -194,7 +194,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			is( htmlPiece( havingChild(
 						both( withTagName( 'form' ) )
 							->andAlso( withAttribute( 'action' ) )
-							->andAlso( withAttribute( 'method' )->havingValue( 'GET' ) )
+							->andAlso( withAttribute( 'method' )->havingValue( 'POST' ) )
 							->andAlso( havingChild(
 									both( withTagName( 'input' ) )
 										->andAlso( withAttribute( 'type' )->havingValue( 'url' ) )
@@ -235,6 +235,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					)
 					->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'importDetailsHash' ) ) )
 					->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'token' ) ) )
+					->andAlso( havingChild( $this->thatIsHiddenInputField( 'action', 'submit' ) ) )
 					->andAlso( havingChild(
 						both( withTagName( 'button' ) )
 							->andAlso( withAttribute( 'type' )->havingValue( 'submit' ) )

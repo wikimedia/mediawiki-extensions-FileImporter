@@ -46,7 +46,7 @@ class InputFormPage {
 			'form',
 			[
 				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-				'method' => 'GET',
+				'method' => 'POST',
 			]
 		) .
 			new TextInputWidget(

@@ -22,7 +22,6 @@ use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
 use ILocalizedException;
-use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 use Message;
 use PermissionsError;
@@ -122,22 +121,21 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		if ( $this->getRequest()->wasPosted() ) {
-			if ( !$this->doImport( $importPlan ) ) {
-				$this->showImportPage( $importPlan );
-			}
-		} else {
-			switch ( $this->getRequest()->getVal( 'action' ) ) {
-				case 'edittitle':
-					$out->addHTML(
-						( new ChangeTitleForm( $this, $importPlan ) )->getHtml()
-					);
-					break;
-				case 'editinfo':
-					// TODO implement
-				default:
+		switch ( $this->getRequest()->getVal( 'action' ) ) {
+			case 'submit':
+				if ( !$this->doImport( $importPlan ) ) {
 					$this->showImportPage( $importPlan );
-			}
+				}
+				break;
+			case 'edittitle':
+				$out->addHTML(
+					( new ChangeTitleForm( $this, $importPlan ) )->getHtml()
+				);
+				break;
+			case 'editinfo':
+				// TODO implement
+			default:
+				$this->showImportPage( $importPlan );
 		}
 	}
 

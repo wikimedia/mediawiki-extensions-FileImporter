@@ -31,7 +31,7 @@ class ChangeTitleForm {
 			'form',
 			[
 				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-				'method' => 'GET',
+				'method' => 'POST',
 			]
 		) .
 		Html::element(
