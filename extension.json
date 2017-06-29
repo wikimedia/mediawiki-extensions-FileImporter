@@ -64,6 +64,7 @@
 		"FileImporter\\MediaWiki\\FileImporterUploadBase": "src/MediaWiki/FileImporterUploadBase.php",
 		"FileImporter\\MediaWiki\\HttpApiLookup": "src/MediaWiki/HttpApiLookup.php",
 		"FileImporter\\MediaWiki\\SiteTableSiteLookup": "src/MediaWiki/SiteTableSiteLookup.php",
+		"FileImporter\\MediaWiki\\OpenSourceUrlChecker": "src/MediaWiki/OpenSourceUrlChecker.php",
 		"FileImporter\\MediaWiki\\SiteTableSourceUrlChecker": "src/MediaWiki/SiteTableSourceUrlChecker.php"
 	},
 	"ServiceWiringFiles": [
