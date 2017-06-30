@@ -6,8 +6,10 @@ use FileImporter\Exceptions\LocalizedImportException;
 use InvalidArgumentException;
 use Message;
 use Wikimedia\Assert\Assert;
-use Wikimedia\Assert\ParameterTypeException;
 
+/**
+ * Alterations to be made usually provided by a user.
+ */
 class ImportRequest {
 
 	/**

@@ -2,7 +2,7 @@
 
 namespace FileImporter\MediaWiki\Test;
 
-use FileImporter\MediaWiki\FileImporterUploadBase;
+use FileImporter\Services\FileImporterUploadBase;
 use MediaWikiTestCase;
 use TitleValue;
 

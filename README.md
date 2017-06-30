@@ -14,11 +14,27 @@ The **FileImporterSourceSiteServices** setting allows extensions and modificatio
 The default setting only allows files to be imported from sites that are in the sites table.
 Using the "FileImporterAnyMediaWikiSite" service here would allow you to import files from any site.
 
+#### Process Walkthrough
 
-#### Major TODOs
-
- - Special page design / UI layout
- - Find a way to present possible problems to the user
- - Present a diff of the changes made to a page when importing (if changes are made)
- - Actually do the Import
- - Decide on the need for the ImportTransformations object, as adjustments should mainly be configurable (seen above) maybe all that is needed here is a final version of the modified text?
+1) The user enters the extension on the special page,
+   either with a source URL as a URL parameter in the request,
+   or the user will be presented with an input field to enter the URL.
+    - The special page requires:
+      - the right as configured in wgFileImporterRequiredRight to operate.
+      - the rights required to be able to upload files.
+      - uploads to be enabled on the site.
+      - the user to not be blocked locally or globally.
+2) When a SourceUrl is submitted to the special page the SourceSiteLocator service is used to find a SourceSite service which can handle the SourceUrl.
+      - SourceSite services are composed of various other services.
+      - Multiple SourceSite services can be enabled at once (see config above) and the default can also be removed.
+      - The SourceSiteLocator service is used to find a SourceSite service which can handle the SourceUrl of the ImportPlan.
+4) An ImportPlan is then constructed using any requested modifications made by the user in an ImportRequest object
+   and the details retrieved from the SourceSite in an ImportDetails object.
+5) The ImportPlan is then validated using the ImportPlanValidator which performs various checks such as:
+      - Checking if the target title is available on wiki
+      - Checking to see if the file already exists on wiki
+      - etc.
+6) An ImportPreviewPage is then displayed to the user where they can make various changes.
+   These changes essentially change the ImportRequest object of the ImportPlan.
+7) On import, after hash and token checks, the ImportPlan and current User are given to the Importer to import the file.
+   For Importer specifics please see the docs of the Importer class.

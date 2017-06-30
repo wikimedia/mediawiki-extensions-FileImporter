@@ -4,7 +4,7 @@ namespace FileImporter\Test;
 
 use FauxRequest;
 use FileImporter\Exceptions\HttpRequestException;
-use FileImporter\MediaWiki\SiteTableSiteLookup;
+use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use HashSiteStore;

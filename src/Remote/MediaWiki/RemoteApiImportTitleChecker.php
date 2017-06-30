@@ -1,11 +1,12 @@
 <?php
 
-namespace FileImporter\MediaWiki;
+namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\HttpRequestExecutor;
 
 class RemoteApiImportTitleChecker implements ImportTitleChecker {
@@ -23,14 +24,14 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 	/**
 	 * @param SourceUrl $sourceUrl
-	 * @param string $titleString Foo.jpg or Berlin.png (NOT namespace prefixed)
+	 * @param string $intendedTitleString Foo.jpg or Berlin.png (NOT namespace prefixed)
 	 *
 	 * @return bool is the import allowed
 	 */
-	public function importAllowed( SourceUrl $sourceUrl, $titleString ) {
+	public function importAllowed( SourceUrl $sourceUrl, $intendedTitleString ) {
 		$api = $this->httpApiLookup->getApiUrl( $sourceUrl );
 
-		$requestUrl = $api . '?' . http_build_query( $this->getParams( $titleString ) );
+		$requestUrl = $api . '?' . http_build_query( $this->getParams( $intendedTitleString ) );
 
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );

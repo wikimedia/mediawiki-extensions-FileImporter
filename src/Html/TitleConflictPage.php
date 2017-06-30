@@ -7,6 +7,9 @@ use Html;
 use Message;
 use SpecialPage;
 
+/**
+ * Html showing a title conflict error and ChangeTitleForm
+ */
 class TitleConflictPage {
 
 	/**

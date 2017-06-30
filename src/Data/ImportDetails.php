@@ -5,6 +5,9 @@ namespace FileImporter\Data;
 use MediaWiki\Linker\LinkTarget;
 use Wikimedia\Assert\Assert;
 
+/**
+ * Contains the details from the source site for the import.
+ */
 class ImportDetails {
 
 	/**

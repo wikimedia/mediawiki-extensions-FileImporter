@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\MediaWiki;
+namespace FileImporter\Services;
 
 use LogicException;
 use MediaWiki\Linker\LinkTarget;

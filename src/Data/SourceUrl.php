@@ -20,8 +20,8 @@ class SourceUrl {
 	private $parsed;
 
 	/**
-	 * @param string $url
-	 * @throws InvalidArgumentException when url is not parsable
+	 * @param string $url For example, https://en.wikipedia.org/wiki/File:Foo.JPG
+	 * @throws InvalidArgumentException When $url is not parsable
 	 */
 	public function __construct( $url ) {
 		$this->url = $url;
@@ -31,14 +31,15 @@ class SourceUrl {
 	}
 
 	/**
-	 * @return string
+	 * @return string The raw URL
 	 */
 	public function getUrl() {
 		return $this->url;
 	}
 
 	/**
-	 * @return string[]|false false if the URL is not parsable
+	 * @return string[]|false Parsed URL array provided by wfParseUrl
+	 *                        false if the URL is not parsable
 	 */
 	public function getParsedUrl() {
 		if ( $this->parsed === null ) {
@@ -55,7 +56,8 @@ class SourceUrl {
 	}
 
 	/**
-	 * @return string|bool false if the URL is not parsable
+	 * @return string|bool The host, for example "en.wikipedia.org"
+	 *                     false if the URL is not parsable
 	 */
 	public function getHost() {
 		// TODO configurable host normalization? Using configurable regexes?

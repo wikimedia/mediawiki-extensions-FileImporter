@@ -8,6 +8,9 @@ use MWContentSerializationException;
 use ParserOptions;
 use Title;
 
+/**
+ * Html of parsed wikitext
+ */
 class TextRevisionSnippet {
 
 	/**

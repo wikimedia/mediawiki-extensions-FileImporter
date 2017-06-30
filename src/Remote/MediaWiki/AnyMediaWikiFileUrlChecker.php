@@ -1,11 +1,14 @@
 <?php
 
-namespace FileImporter\MediaWiki;
+namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\SourceUrlChecker;
 
-class OpenSourceUrlChecker implements SourceUrlChecker {
+/**
+ * This SourceUrlChecker implementation will allow any file from any mediawiki website.
+ */
+class AnyMediaWikiFileUrlChecker implements SourceUrlChecker {
 
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
 		return $this->getTitleFromSourceUrl( $sourceUrl ) !== null;

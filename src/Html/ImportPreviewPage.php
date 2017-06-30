@@ -12,7 +12,6 @@ use SpecialPage;
 
 /**
  * Page displaying the preview of the import before it has happened.
- * TODO This page can be used to make alterations
  */
 class ImportPreviewPage {
 

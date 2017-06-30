@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\MediaWiki;
+namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;

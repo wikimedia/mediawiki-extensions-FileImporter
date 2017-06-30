@@ -3,8 +3,8 @@
 namespace FileImporter\MediaWiki\Test;
 
 use FileImporter\Data\SourceUrl;
-use FileImporter\MediaWiki\SiteTableSiteLookup;
-use FileImporter\MediaWiki\SiteTableSourceUrlChecker;
+use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
+use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
 use HashSiteStore;
 use PHPUnit_Framework_TestCase;
 use Site;

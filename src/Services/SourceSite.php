@@ -7,6 +7,9 @@ use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Interfaces\SourceUrlChecker;
 
+/**
+ * A SourceSite object is composed of services which can import files from configurable URLs.
+ */
 class SourceSite {
 
 	private $sourceUrlChecker;

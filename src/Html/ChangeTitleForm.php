@@ -9,6 +9,9 @@ use Message;
 use OOUI\ButtonInputWidget;
 use SpecialPage;
 
+/**
+ * Form allowing the user to select a new title.
+ */
 class ChangeTitleForm {
 
 	/**

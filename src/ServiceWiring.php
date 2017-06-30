@@ -2,20 +2,14 @@
 
 namespace FileImporter;
 
-use FileImporter\MediaWiki\HttpApiLookup;
-use FileImporter\MediaWiki\OpenSourceUrlChecker;
-use FileImporter\MediaWiki\SiteTableSiteLookup;
-use FileImporter\MediaWiki\SiteTableSourceUrlChecker;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\HttpRequestExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\NullRevisionCreator;
-use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
-use Psr\Log\LoggerInterface;
 use RepoGroup;
 use UploadBase;
 
@@ -74,7 +68,7 @@ return [
 		/** @var HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
-		$service = new \FileImporter\MediaWiki\HttpApiLookup(
+		$service = new Remote\MediaWiki\HttpApiLookup(
 			$httpRequestExecutor
 		);
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
@@ -82,68 +76,7 @@ return [
 	},
 
 	'FileImporterMediaWikiSiteTableSiteLookup' => function ( MediaWikiServices $services ) {
-		return new \FileImporter\MediaWiki\SiteTableSiteLookup( $services->getSiteLookup() );
+		return new Remote\MediaWiki\SiteTableSiteLookup( $services->getSiteLookup() );
 	},
-
-	// Importers
-
-	'FileImporterSitesTableMediaWikiSite' => function ( MediaWikiServices $services ) {
-		/**
-		 * @var SiteTableSiteLookup $siteTableLookup
-		 * @var HttpApiLookup $httpApiLookup
-		 * @var HttpRequestExecutor $httpRequestExecutor
-		 */
-		$siteTableLookup = $services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' );
-		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-
-		$detailRetriever = new \FileImporter\MediaWiki\ApiDetailRetriever(
-			$httpApiLookup,
-			$httpRequestExecutor
-		);
-		$detailRetriever->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-
-		// TODO SiteTableSourceUrlChecker here should have a logger....
-		// TODO ApiImportTitleChecker here should have a logger....
-
-		$site = new SourceSite(
-			new SiteTableSourceUrlChecker( $siteTableLookup ),
-			$detailRetriever,
-			new \FileImporter\MediaWiki\RemoteApiImportTitleChecker(
-				$httpApiLookup,
-				$httpRequestExecutor
-			)
-		);
-
-		return $site;
-	},
-
-	'FileImporterAnyMediaWikiSite' => function ( MediaWikiServices $services ) {
-		/**
-		 * @var HttpApiLookup $httpApiLookup
-		 * @var HttpRequestExecutor $httpRequestExecutor
-		 */
-		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-
-		$detailRetriever = new \FileImporter\MediaWiki\ApiDetailRetriever(
-			$httpApiLookup,
-			$httpRequestExecutor
-		);
-		$detailRetriever->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-
-		// TODO ApiImportTitleChecker here should have a logger....
-
-		$site = new SourceSite(
-			new OpenSourceUrlChecker(),
-			$detailRetriever,
-			new \FileImporter\MediaWiki\RemoteApiImportTitleChecker(
-				$httpApiLookup,
-				$httpRequestExecutor
-			)
-		);
-
-		return $site;
-	}
 
 ];

@@ -8,6 +8,9 @@ use Html;
 use Message;
 use Title;
 
+/**
+ * Page displaying a successful import.
+ */
 class ImportSuccessPage {
 
 	/**

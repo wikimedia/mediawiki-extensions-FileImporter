@@ -6,6 +6,9 @@ use File;
 use Html;
 use Message;
 
+/**
+ * Html showing a list of duplicate files.
+ */
 class DuplicateFilesPage {
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\MediaWiki;
+namespace FileImporter\Remote\MediaWiki;
 
 use Site;
 use SiteLookup;

@@ -1,10 +1,14 @@
 <?php
 
-namespace FileImporter\MediaWiki;
+namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\SourceUrlChecker;
 
+/**
+ * This SourceUrlChecker implementation will allow files from mediawiki websites that are contained
+ * in the sites table.
+ */
 class SiteTableSourceUrlChecker implements SourceUrlChecker {
 
 	private $siteTableSiteLookup;

@@ -2,7 +2,7 @@
 
 namespace FileImporter\MediaWiki\Test;
 
-use FileImporter\MediaWiki\SiteTableSiteLookup;
+use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use HashSiteStore;
 use MediaWikiSite;
 use PHPUnit_Framework_TestCase;

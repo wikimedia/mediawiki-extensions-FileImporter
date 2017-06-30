@@ -44,6 +44,7 @@
 		"FileImporter\\Interfaces\\ImportTitleChecker": "src/Interfaces/ImportTitleChecker.php",
 		"FileImporter\\Interfaces\\SourceUrlChecker": "src/Interfaces/SourceUrlChecker.php",
 		"FileImporter\\Services\\DuplicateFileRevisionChecker": "src/Services/DuplicateFileRevisionChecker.php",
+		"FileImporter\\Services\\FileImporterUploadBase": "src/Services/FileImporterUploadBase.php",
 		"FileImporter\\Services\\HttpRequestExecutor": "src/Services/HttpRequestExecutor.php",
 		"FileImporter\\Services\\HttpRequestFileChunkSaver": "src/Services/HttpRequestFileChunkSaver.php",
 		"FileImporter\\Services\\Importer": "src/Services/Importer.php",
@@ -60,16 +61,16 @@
 		"FileImporter\\Html\\InputFormPage": "src/Html/InputFormPage.php",
 		"FileImporter\\Html\\TitleConflictPage": "src/Html/TitleConflictPage.php",
 		"FileImporter\\Html\\TextRevisionSnippet": "src/Html/TextRevisionSnippet.php",
-		"FileImporter\\MediaWiki\\ApiDetailRetriever": "src/MediaWiki/ApiDetailRetriever.php",
-		"FileImporter\\MediaWiki\\FileImporterUploadBase": "src/MediaWiki/FileImporterUploadBase.php",
-		"FileImporter\\MediaWiki\\HttpApiLookup": "src/MediaWiki/HttpApiLookup.php",
-		"FileImporter\\MediaWiki\\RemoteApiImportTitleChecker": "src/MediaWiki/RemoteApiImportTitleChecker.php",
-		"FileImporter\\MediaWiki\\SiteTableSiteLookup": "src/MediaWiki/SiteTableSiteLookup.php",
-		"FileImporter\\MediaWiki\\OpenSourceUrlChecker": "src/MediaWiki/OpenSourceUrlChecker.php",
-		"FileImporter\\MediaWiki\\SiteTableSourceUrlChecker": "src/MediaWiki/SiteTableSourceUrlChecker.php"
+		"FileImporter\\Remote\\MediaWiki\\ApiDetailRetriever": "src/Remote/MediaWiki/ApiDetailRetriever.php",
+		"FileImporter\\Remote\\MediaWiki\\HttpApiLookup": "src/Remote/MediaWiki/HttpApiLookup.php",
+		"FileImporter\\Remote\\MediaWiki\\RemoteApiImportTitleChecker": "src/Remote/MediaWiki/RemoteApiImportTitleChecker.php",
+		"FileImporter\\Remote\\MediaWiki\\SiteTableSiteLookup": "src/Remote/MediaWiki/SiteTableSiteLookup.php",
+		"FileImporter\\Remote\\MediaWiki\\AnyMediaWikiFileUrlChecker": "src/Remote/MediaWiki/AnyMediaWikiFileUrlChecker.php",
+		"FileImporter\\Remote\\MediaWiki\\SiteTableSourceUrlChecker": "src/Remote/MediaWiki/SiteTableSourceUrlChecker.php"
 	},
 	"ServiceWiringFiles": [
-		"src/ServiceWiring.php"
+		"src/ServiceWiring.php",
+		"src/Remote/MediaWiki/SiteWiring.php"
 	],
 	"config": {
 		"FileImporterRequiredRight": "upload",

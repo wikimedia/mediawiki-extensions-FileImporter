@@ -4,6 +4,9 @@ namespace FileImporter\Html;
 
 use Html;
 
+/**
+ * Collection of input elements that are used to persist the request from page load to page load.
+ */
 class ImportIdentityFormSnippet {
 
 	/**

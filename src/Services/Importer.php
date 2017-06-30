@@ -6,7 +6,6 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
-use FileImporter\MediaWiki\FileImporterUploadBase;
 use Http;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -16,6 +15,9 @@ use Title;
 use User;
 use WikiRevision;
 
+/**
+ * Performs an import of a file to the local wiki based on an ImportPlan object for a given User.
+ */
 class Importer implements LoggerAwareInterface {
 
 	/**
