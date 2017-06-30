@@ -109,7 +109,7 @@ return [
 		$site = new SourceSite(
 			new SiteTableSourceUrlChecker( $siteTableLookup ),
 			$detailRetriever,
-			new \FileImporter\MediaWiki\ApiImportTitleChecker(
+			new \FileImporter\MediaWiki\RemoteApiImportTitleChecker(
 				$httpApiLookup,
 				$httpRequestExecutor
 			)
@@ -137,7 +137,7 @@ return [
 		$site = new SourceSite(
 			new OpenSourceUrlChecker(),
 			$detailRetriever,
-			new \FileImporter\MediaWiki\ApiImportTitleChecker(
+			new \FileImporter\MediaWiki\RemoteApiImportTitleChecker(
 				$httpApiLookup,
 				$httpRequestExecutor
 			)

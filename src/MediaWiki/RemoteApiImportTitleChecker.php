@@ -8,7 +8,7 @@ use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\HttpRequestExecutor;
 
-class ApiImportTitleChecker implements ImportTitleChecker {
+class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 	private $httpApiLookup;
 	private $httpRequestExecutor;
