@@ -20,7 +20,6 @@
 	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
 	"fileimporter-cantimportfromsharedrepo": "Impossible d’importer un fichier depuis un répertoire partagé.",
 	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier manquant.",
-	"fileimporter-cantimportsuppressedcontent": "Impossible d’importer des révisions avec un contenu supprimé.",
 	"fileimporter-badtoken": "Le jeton CSRF ne correspond pas",
 	"fileimporter-badimporthash": "Le hachage de l’import ne correspond pas. Veuillez refaire l'import.",
 	"fileimporter-localtitleexists": "Le titre que vous essayez d’importer existe déjà sur ce wiki.",
@@ -41,5 +40,7 @@
 	"fileimporter-editsummary-placeholder": "Utilisé seulement si vous avez fait des modifications à l’importation.",
 	"fileimporter-previewnote": "Ceci est un aperçu du fichier à importer. Veuillez vérifier la page en détail avant de l’importer.",
 	"fileimporter-heading-fileinfo": "Information du fichier",
-	"fileimporter-heading-filehistory": "Historique du fichier"
+	"fileimporter-heading-filehistory": "Historique du fichier",
+	"fileimporter-revision-removed-text": "Texte supprimé effacé par FileImporter.",
+	"fileimporter-revision-removed-comment": "Commentaire supprimé effacé par FileImporter."
 }
