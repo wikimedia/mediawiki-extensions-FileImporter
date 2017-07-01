@@ -2,11 +2,10 @@
 <ruleset name="FileImporter">
 	<!-- See https://github.com/wikimedia/mediawiki-tools-codesniffer/blob/master/MediaWiki/ruleset.xml -->
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures" />
-		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamComment" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamTag" />
-		<exclude name="MediaWiki.FunctionComment.Missing.Public" />
+		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
+		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 	</rule>
 
 	<rule ref="Generic.Files.InlineHTML" />

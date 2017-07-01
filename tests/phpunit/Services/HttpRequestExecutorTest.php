@@ -25,7 +25,6 @@ class HttpRequestExecutorTest extends PHPUnit_Framework_TestCase {
 		$executor = new HttpRequestExecutor();
 		$factoryOverride = function ( $url, $options = null, $caller = __METHOD__ )
 			use ( $testUrl, $expectedResult ) {
-
 			$this->assertEquals( $testUrl, $url );
 			$this->assertArrayHasKey( 'logger', $options );
 			$this->assertArrayHasKey( 'followRedirects', $options );
