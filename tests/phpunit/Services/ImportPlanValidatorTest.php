@@ -114,16 +114,26 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 
 	public function provideValidate() {
 		$emptyPlan = $this->getMockImportPlan();
-		return [
-			'Valid Plan' => [
+
+		$allowedFileTitles = [
+			'Regular name' => 'SourceName.JPG',
+			'Multiple extensions are allowed' => 'SourceName.JPG.JPG',
+			'Change of extension case is allowed' => 'SourceName.jpg',
+		];
+		$validTests = [];
+		foreach ( $allowedFileTitles as $description => $titleString ) {
+			$validTests["Valid Plan - '$titleString' ($description)"] = [
 				null,
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG', false ),
-					$this->getMockTitle( 'SourceName.JPG', false )
+					$this->getMockTitle( $titleString, false )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
 				$this->getMockImportTitleChecker( 1, true )
-			],
+			];
+		}
+
+		$invalidTests = [
 			'Invalid, duplicate file found' => [
 				new DuplicateFilesException( [ 'someFile' ] ),
 				$this->getMockImportPlan(
@@ -155,7 +165,7 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				new TitleException( 'Target file extension does not match original file' ),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG', false ),
-					$this->getMockTitle( 'SourceName.jpg', false )
+					$this->getMockTitle( 'SourceName.PNG', false )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
 				$this->getMockImportTitleChecker( 1, true )
@@ -179,6 +189,8 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockImportTitleChecker( 0, true )
 			],
 		];
+
+		return $validTests + $invalidTests;
 	}
 
 	/**

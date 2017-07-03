@@ -62,7 +62,10 @@ class ImportPlanValidator {
 		}
 
 		// Check to ensure files are not imported with differing file extensions.
-		if ( $sourcePathInfo['extension'] !== $plannedPathInfo['extension'] ) {
+		if (
+			strtolower( $sourcePathInfo['extension'] ) !==
+			strtolower( $plannedPathInfo['extension'] )
+		) {
 			throw new TitleException( 'Target file extension does not match original file' );
 		}
 	}
