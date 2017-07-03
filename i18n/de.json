@@ -13,7 +13,7 @@
 	"fileimporter-api-failedtogetinfo": "Die Dateiinformationen von $1 konnten nicht abgerufen werden.",
 	"fileimporter-api-nopagesreturned": "Es wurden keine Seiten von der Remote-API zurückgegeben.",
 	"fileimporter-api-toomanyrevisions": "Von der API wurden zu viele Versionen zurückgegeben. Import nicht möglich.",
-	"fileimporter-cantparseurl": "Die angegebene URL konnte nicht geparst werden",
+	"fileimporter-cantparseurl": "Die angegebene URL $1 konnte nicht geparst werden",
 	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
 	"fileimporter-cantimportfromsharedrepo": "Es kann keine Datei von einem gemeinsamen Repositorium importiert werden",
 	"fileimporter-cantimportmissingfile": "Eine fehlende Datei kann nicht importiert werden.",
