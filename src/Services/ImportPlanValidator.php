@@ -42,11 +42,19 @@ class ImportPlanValidator {
 	 */
 	public function validate( ImportPlan $importPlan ) {
 		// Checks the extension doesn't provide easy ways to fix
+		$this->runFileTitleCheck( $importPlan );
 		$this->runFileExtensionCheck( $importPlan );
 		$this->runDuplicateFilesCheck( $importPlan );
 		// Checks that can be fixed in the extension
 		$this->runLocalTitleConflictCheck( $importPlan );
 		$this->runRemoteTitleConflictCheck( $importPlan );
+	}
+
+	private function runFileTitleCheck( ImportPlan $importPlan ) {
+		$plannedTitleText = $importPlan->getTitle()->getText();
+		if ( $plannedTitleText != wfStripIllegalFilenameChars( $plannedTitleText ) ) {
+			throw new TitleException( 'The target filename is invalid' );
+		}
 	}
 
 	private function runFileExtensionCheck( ImportPlan $importPlan ) {
