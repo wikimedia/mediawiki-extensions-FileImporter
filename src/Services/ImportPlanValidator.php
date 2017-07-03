@@ -46,7 +46,7 @@ class ImportPlanValidator {
 
 		$targetTitle = $plan->getTitle();
 		if ( $targetTitle->exists() ) {
-			throw new TitleConflictException( TitleConflictException::LOCAL_TITLE );
+			throw new TitleConflictException( $plan, TitleConflictException::LOCAL_TITLE );
 		}
 
 		// Only check remotely if the title has been changed, if it is the same assume this is
@@ -55,7 +55,7 @@ class ImportPlanValidator {
 			$targetTitle->getText() !== $details->getSourceLinkTarget()->getText() &&
 			!$this->importTitleChecker->importAllowed( $request->getUrl(), $targetTitle->getText() )
 		) {
-			throw new TitleConflictException( TitleConflictException::REMOTE_TITLE );
+			throw new TitleConflictException( $plan, TitleConflictException::REMOTE_TITLE );
 		}
 	}
 
