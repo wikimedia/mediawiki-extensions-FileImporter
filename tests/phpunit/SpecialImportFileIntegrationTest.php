@@ -40,6 +40,12 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 
 		$this->setMwGlobals( 'wgEnableUploads', true );
 
+		// Test the special page with a default config
+		$this->setMwGlobals(
+			'wgFileImporterSourceSiteServices',
+				[ 'FileImporterSitesTableMediaWikiSite' ]
+		);
+
 		$commonsSite = $this->getMockSite( 'commonswiki', 'commons.wikimedia.org' );
 		$hashSiteStore = new HashSiteStore( [ $commonsSite ] );
 		$siteTableSiteLookup = new SiteTableSiteLookup( $hashSiteStore );

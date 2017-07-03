@@ -10,19 +10,10 @@ Please also see the FileExporter extension which provides a link on the file pag
 
 #### Config
 
-The **FileImporterDetailRetrieverServices** setting allows extensions and modifications to the services that retrieve detials for imports.
-This means that an extension could, for example, add a service allowing importing of files from Flickr.
-It also means that setup specific retrievers can be added / defaults can be replaced.
+The **FileImporterSourceSiteServices** setting allows extensions and modifications to the services that retrieve details for imports.
+The default setting only allows files to be imported from sites that are in the sites table.
+Using the "FileImporterAnyMediaWikiSite" service here would allow you to import files from any site.
 
-The **FileImporterTextPotentialProblems** setting allows for a per domain list of text to be disallowed during imports.
-For the Wikimedia usecase this could disallow imports to Commons of Files on enwiki that include the {{Non-free logo template.
-
-TODO is this going to be regex? Example: https://raw.githubusercontent.com/atlight/ForTheCommonGood/master/ForTheCommonGood/en.wikipedia.wiki
-
-The **FileImporterTextReplacements** setting allows for per domain switching of text.
-For the Wikimedia usecase this could include switching the {{PD-self}} template with the {{PD-user}} template.
-
-TODO is this going to be regex? Example: https://raw.githubusercontent.com/atlight/ForTheCommonGood/master/ForTheCommonGood/en.wikipedia.wiki
 
 #### Major TODOs
 

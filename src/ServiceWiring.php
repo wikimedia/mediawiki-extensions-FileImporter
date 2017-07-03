@@ -3,6 +3,7 @@
 namespace FileImporter;
 
 use FileImporter\MediaWiki\HttpApiLookup;
+use FileImporter\MediaWiki\OpenSourceUrlChecker;
 use FileImporter\MediaWiki\SiteTableSiteLookup;
 use FileImporter\MediaWiki\SiteTableSourceUrlChecker;
 use FileImporter\Services\DuplicateFileRevisionChecker;
@@ -107,6 +108,34 @@ return [
 
 		$site = new SourceSite(
 			new SiteTableSourceUrlChecker( $siteTableLookup ),
+			$detailRetriever,
+			new \FileImporter\MediaWiki\ApiImportTitleChecker(
+				$httpApiLookup,
+				$httpRequestExecutor
+			)
+		);
+
+		return $site;
+	},
+
+	'FileImporterAnyMediaWikiSite' => function ( MediaWikiServices $services ) {
+		/**
+		 * @var HttpApiLookup $httpApiLookup
+		 * @var HttpRequestExecutor $httpRequestExecutor
+		 */
+		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+
+		$detailRetriever = new \FileImporter\MediaWiki\ApiDetailRetriever(
+			$httpApiLookup,
+			$httpRequestExecutor
+		);
+		$detailRetriever->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
+
+		// TODO ApiImportTitleChecker here should have a logger....
+
+		$site = new SourceSite(
+			new OpenSourceUrlChecker(),
 			$detailRetriever,
 			new \FileImporter\MediaWiki\ApiImportTitleChecker(
 				$httpApiLookup,
