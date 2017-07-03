@@ -10,7 +10,7 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\DuplicateFilesException;
-use FileImporter\Exceptions\TitleConflictException;
+use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\DuplicateFileRevisionChecker;
@@ -144,7 +144,10 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockImportTitleChecker( 0, true )
 			],
 			'Invalid, title exists on target site' => [
-				new TitleConflictException( $emptyPlan, 'Title conflict detected' ),
+				new RecoverableTitleException(
+					'fileimporter-localtitleexists',
+					$emptyPlan
+				),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG', true ),
 					$this->getMockTitle( 'SourceName.JPG', false )
@@ -153,7 +156,10 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockImportTitleChecker( 0, true )
 			],
 			'Invalid, title exists on source site' => [
-				new TitleConflictException( $emptyPlan, 'Title conflict detected' ),
+				new RecoverableTitleException(
+					'fileimporter-sourcetitleexists',
+					$emptyPlan
+				),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG', false ),
 					$this->getMockTitle( 'SourceName.JPG', false )
@@ -171,7 +177,7 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockImportTitleChecker( 1, true )
 			],
 			'Invalid, No Extension on planned name' => [
-				new TitleException( 'The target filename is invalid' ),
+				new TitleException( 'Planned file name does not have an extension' ),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG/Foo', false ),
 					$this->getMockTitle( 'SourceName.jpg', false )
@@ -189,12 +195,15 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockImportTitleChecker( 0, true )
 			],
 			'Invalid, Bad title (includes another namespace)' => [
-				new TitleException( 'The target filename is invalid' ),
+				new RecoverableTitleException(
+					'fileimporter-illegalfilenamechars',
+					$emptyPlan
+				),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'Talk:FinalName.JPG', false ),
 					$this->getMockTitle( 'SourceName.JPG', false )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
+				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
 				$this->getMockImportTitleChecker( 0, true )
 			],
 		];

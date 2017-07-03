@@ -21,6 +21,7 @@
 	"fileimporter-badimporthash": "Import hash does not match. Please restart the import.",
 	"fileimporter-localtitleexists" : "The title you are currently trying to import to already exists on this wiki.",
 	"fileimporter-sourcetitleexists" : "The title you are currently trying to import to already exists on the source wiki.",
+	"fileimporter-illegalfilenamechars" : "The title you are currently trying to import to contains invalid filename characters.",
 	"fileimporter-duplicatefilesdetected" : "The file you are currently trying to import already exists on this wiki.",
 	"fileimporter-duplicatefilesdetected-prefix" : "Duplicates",
 	"fileimporter-exampleprefix": "Example",
