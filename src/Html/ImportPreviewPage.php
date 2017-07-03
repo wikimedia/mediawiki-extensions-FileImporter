@@ -68,7 +68,7 @@ class ImportPreviewPage {
 			[
 				'class' => 'mw-importfile-rightAlign',
 				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-				'method' => 'GET',
+				'method' => 'POST',
 			]
 		) .
 		Html::element(
@@ -103,7 +103,7 @@ class ImportPreviewPage {
 			[
 				'class' => 'mw-importfile-rightAlign',
 				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-				'method' => 'GET',
+				'method' => 'POST',
 			]
 		) .
 		Html::element(
@@ -171,6 +171,14 @@ class ImportPreviewPage {
 				'type' => 'hidden',
 				'name' => 'token',
 				'value' => $this->specialPage->getUser()->getEditToken()
+			]
+		) .
+		Html::element(
+			'input',
+			[
+				'type' => 'hidden',
+				'name' => 'action',
+				'value' => 'submit',
 			]
 		) .
 		new ButtonInputWidget(
