@@ -25,20 +25,20 @@ class TitleConflictPage {
 	/**
 	 * @var ImportPlan
 	 */
-	private $plan;
+	private $importPlan;
 
 	/**
 	 * @param SpecialPage $specialPage
-	 * @param ImportPlan $plan
+	 * @param ImportPlan $importPlan
 	 * @param string $warningMessage
 	 */
 	public function __construct(
 		SpecialPage $specialPage,
-		ImportPlan $plan,
+		ImportPlan $importPlan,
 		$warningMessage
 	) {
 		$this->specialPage = $specialPage;
-		$this->plan = $plan;
+		$this->importPlan = $importPlan;
 		$this->warningMessage = $warningMessage;
 	}
 
@@ -50,7 +50,7 @@ class TitleConflictPage {
 		) .
 		( new ChangeTitleForm(
 			$this->specialPage,
-			$this->plan
+			$this->importPlan
 		) )->getHtml();
 	}
 

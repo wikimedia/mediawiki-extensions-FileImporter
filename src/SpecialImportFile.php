@@ -105,11 +105,9 @@ class SpecialImportFile extends SpecialPage {
 
 	public function execute( $subPage ) {
 		$this->executeStandardChecks();
-		$out = $this->getOutput();
-		$request = $this->getRequest();
 		$this->setupPage();
 
-		if ( $request->getVal( 'clientUrl' ) === null ) {
+		if ( $this->getRequest()->getVal( 'clientUrl' ) === null ) {
 			$this->showInputForm();
 			return;
 		}
@@ -128,7 +126,7 @@ class SpecialImportFile extends SpecialPage {
 				}
 				break;
 			case 'edittitle':
-				$out->addHTML(
+				$this->getOutput()->addHTML(
 					( new ChangeTitleForm( $this, $importPlan ) )->getHtml()
 				);
 				break;
@@ -163,7 +161,7 @@ class SpecialImportFile extends SpecialPage {
 			}
 			$this->getOutput()->addHTML( ( new TitleConflictPage(
 				$this,
-				$exception->getPlan(),
+				$exception->getImportPlan(),
 				$titleConflictMessage
 			) )->getHtml() );
 			return;
@@ -225,7 +223,7 @@ class SpecialImportFile extends SpecialPage {
 
 		if ( $result ) {
 			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
-			$this->getOutput()->addHTML( ( new ImportSuccessPage( $importPlan ) )->getHtml() );
+			$out->addHTML( ( new ImportSuccessPage( $importPlan ) )->getHtml() );
 		} else {
 			$this->showWarningMessage( new Message( 'fileimporter-importfailed' ) );
 		}

@@ -22,11 +22,11 @@ class ChangeTitleForm {
 	/**
 	 * @var ImportPlan
 	 */
-	private $plan;
+	private $importPlan;
 
-	public function __construct( SpecialPage $specialPage, ImportPlan $plan ) {
+	public function __construct( SpecialPage $specialPage, ImportPlan $importPlan ) {
 		$this->specialPage = $specialPage;
-		$this->plan = $plan;
+		$this->importPlan = $importPlan;
 	}
 
 	public function getHtml() {
@@ -45,14 +45,14 @@ class ChangeTitleForm {
 		new TitleInputWidget(
 			[
 				'name' => 'intendedFileName',
-				'value' => $this->plan->getFileName(),
+				'value' => $this->importPlan->getFileName(),
 				'classes' => [ 'mw-importfile-import-newtitle' ],
 				'placeholder' => ( new Message( 'fileimporter-editsummary-placeholder' ) )->plain(),
 				'suggestions' => false,
 			]
 		) .
 		( new ImportIdentityFormSnippet( [
-			'clientUrl' => $this->plan->getRequest()->getUrl(),
+			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
 			'importDetailsHash' => $this->specialPage->getRequest()->getVal( 'importDetailsHash' ),
 		] ) )->getHtml() .
 		new ButtonInputWidget(

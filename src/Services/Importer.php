@@ -72,12 +72,12 @@ class Importer implements LoggerAwareInterface {
 		ImportPlan $importPlan
 	) {
 		$importDetails = $importPlan->getDetails();
-		$title = $importPlan->getTitle();
+		$plannedTitle = $importPlan->getTitle();
 
 		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
 
 		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
-			$base = new FileImporterUploadBase( $title, $wikiRevisionFile->getFileSrc() );
+			$base = new FileImporterUploadBase( $plannedTitle, $wikiRevisionFile->getFileSrc() );
 			$base->setLogger( $this->logger );
 			if ( !$base->performChecks() ) {
 				return false;
@@ -90,15 +90,15 @@ class Importer implements LoggerAwareInterface {
 		}
 
 		// We can assume this will be a Title and not null due to the performChecks calls above
-		$title = $base->getTitle();
+		$uploadBaseTitle = $base->getTitle();
 
 		// TODO copy files directly in swift if possible?
 
 		// TODO lookup in CentralAuth to see if users can be maintained on the import
 		// This probably needs some service object to be made to keep things nice and tidy
 
-		$this->importWikiRevisionFiles( $title, $wikiRevisionFiles );
-		$this->importTextRevisions( $title, $importDetails->getTextRevisions() );
+		$this->importWikiRevisionFiles( $uploadBaseTitle, $wikiRevisionFiles );
+		$this->importTextRevisions( $uploadBaseTitle, $importDetails->getTextRevisions() );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it

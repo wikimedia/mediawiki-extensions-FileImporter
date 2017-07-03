@@ -9,23 +9,23 @@ class TitleConflictException extends ImportException {
 	const LOCAL_TITLE = 1;
 	const REMOTE_TITLE = 2;
 
-	private $plan;
+	private $importPlan;
 	private $conflictType;
 
 	/**
 	 * TitleConflictException constructor.
 	 *
-	 * @param ImportPlan $plan
+	 * @param ImportPlan $importPlan
 	 * @param int $conflictType Either LOCAL_TITLE or REMOTE_TITLE
 	 */
-	public function __construct( ImportPlan $plan, $conflictType ) {
-		$this->plan = $plan;
+	public function __construct( ImportPlan $importPlan, $conflictType ) {
+		$this->importPlan = $importPlan;
 		$this->conflictType = $conflictType;
 		parent::__construct( 'Title conflict detected' );
 	}
 
-	public function getPlan() {
-		return $this->plan;
+	public function getImportPlan() {
+		return $this->importPlan;
 	}
 
 	/**
