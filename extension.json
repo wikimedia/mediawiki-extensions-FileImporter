@@ -38,6 +38,7 @@
 		"FileImporter\\Exceptions\\InvalidArgumentException": "src/Exceptions/InvalidArgumentException.php",
 		"FileImporter\\Exceptions\\LocalizedImportException": "src/Exceptions/LocalizedImportException.php",
 		"FileImporter\\Exceptions\\SourceUrlException": "src/Exceptions/SourceUrlException.php",
+		"FileImporter\\Exceptions\\TitleException": "src/Exceptions/TitleException.php",
 		"FileImporter\\Exceptions\\TitleConflictException": "src/Exceptions/TitleConflictException.php",
 		"FileImporter\\Interfaces\\DetailRetriever": "src/Interfaces/DetailRetriever.php",
 		"FileImporter\\Interfaces\\ImportTitleChecker": "src/Interfaces/ImportTitleChecker.php",
@@ -60,9 +61,9 @@
 		"FileImporter\\Html\\TitleConflictPage": "src/Html/TitleConflictPage.php",
 		"FileImporter\\Html\\TextRevisionSnippet": "src/Html/TextRevisionSnippet.php",
 		"FileImporter\\MediaWiki\\ApiDetailRetriever": "src/MediaWiki/ApiDetailRetriever.php",
-		"FileImporter\\MediaWiki\\ApiImportTitleChecker": "src/MediaWiki/ApiImportTitleChecker.php",
 		"FileImporter\\MediaWiki\\FileImporterUploadBase": "src/MediaWiki/FileImporterUploadBase.php",
 		"FileImporter\\MediaWiki\\HttpApiLookup": "src/MediaWiki/HttpApiLookup.php",
+		"FileImporter\\MediaWiki\\RemoteApiImportTitleChecker": "src/MediaWiki/RemoteApiImportTitleChecker.php",
 		"FileImporter\\MediaWiki\\SiteTableSiteLookup": "src/MediaWiki/SiteTableSiteLookup.php",
 		"FileImporter\\MediaWiki\\OpenSourceUrlChecker": "src/MediaWiki/OpenSourceUrlChecker.php",
 		"FileImporter\\MediaWiki\\SiteTableSourceUrlChecker": "src/MediaWiki/SiteTableSourceUrlChecker.php"

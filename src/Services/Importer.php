@@ -8,7 +8,6 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\MediaWiki\FileImporterUploadBase;
 use Http;
-use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -61,7 +60,7 @@ class Importer implements LoggerAwareInterface {
 
 	/**
 	 * @param User $user user to use for the import
-	 * @param ImportPlan $importPlan
+	 * @param ImportPlan $importPlan A valid ImportPlan object.
 	 *
 	 * @return bool success
 	 * @throws ImportException
@@ -72,11 +71,6 @@ class Importer implements LoggerAwareInterface {
 	) {
 		$importDetails = $importPlan->getDetails();
 		$title = $importPlan->getTitle();
-
-		$this->checkTitleFileExtensionsMatch(
-			$importDetails->getSourceLinkTarget(),
-			$title
-		);
 
 		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
 
@@ -115,26 +109,6 @@ class Importer implements LoggerAwareInterface {
 		// delete)?
 
 		return true;
-	}
-
-	/**
-	 * Check to ensure files are not imported with differing file extensions.
-	 *
-	 * @todo this should probably live somewhere else
-	 *
-	 * @param LinkTarget $linkTargetOne
-	 * @param LinkTarget $linkTargetTwo
-	 */
-	private function checkTitleFileExtensionsMatch(
-		LinkTarget $linkTargetOne,
-		LinkTarget $linkTargetTwo
-	) {
-		if (
-			pathinfo( $linkTargetOne->getText() )['extension'] !==
-			pathinfo( $linkTargetTwo->getText() )['extension']
-		) {
-			throw new ImportException( 'Target file extension does not match original file' );
-		}
 	}
 
 	/**
