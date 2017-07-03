@@ -3,7 +3,9 @@
 namespace FileImporter\Test;
 
 use FauxRequest;
+use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\MediaWiki\SiteTableSiteLookup;
+use FileImporter\Services\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use HashSiteStore;
 use PermissionsError;
@@ -19,6 +21,19 @@ use WebResponse;
  * @group Database
  */
 class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
+
+	private static $hasAccessToCommons;
+
+	public static function setUpBeforeClass() {
+		parent::setUpBeforeClass();
+		try {
+			$requestExecutor = new HttpRequestExecutor();
+			$requestExecutor->execute( 'https://commons.wikimedia.org' );
+			self::$hasAccessToCommons = true;
+		} catch ( HttpRequestException $e ) {
+			self::$hasAccessToCommons = false;
+		}
+	}
 
 	public function setUp() {
 		parent::setUp();
@@ -109,7 +124,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						$html,
 						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar'
 					);
-				}
+				},
+				true
 			],
 			'Good file' => [
 				new FauxRequest( [
@@ -128,7 +144,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'h2',
 						'Chicken In Snow'
 					);
-				}
+				},
+				true
 			],
 			'Good file & Good target title' => [
 				new FauxRequest( [
@@ -149,7 +166,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'h2',
 						'Chicken In Snow CHANGED'
 					);
-				}
+				},
+				true
 			],
 		];
 	}
@@ -240,8 +258,12 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$request,
 		$userOrBool,
 		$expectedExceptionDetails = null,
-		$htmlAssertionCallable
+		$htmlAssertionCallable,
+		$requiresAccessToCommons = false
 	) {
+		if ( $requiresAccessToCommons && !self::$hasAccessToCommons ) {
+			$this->markTestSkipped( 'This test requires http access to https://commons.wikimedia.org' );
+		}
 		if ( $expectedExceptionDetails ) {
 			$this->setExpectedException(
 				$expectedExceptionDetails['name'],
