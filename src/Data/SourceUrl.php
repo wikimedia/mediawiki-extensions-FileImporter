@@ -2,6 +2,8 @@
 
 namespace FileImporter\Data;
 
+use InvalidArgumentException;
+
 /**
  * Class representing the URL passed into the extension for importing.
  */
@@ -19,9 +21,13 @@ class SourceUrl {
 
 	/**
 	 * @param string $url
+	 * @throws InvalidArgumentException when url is not parsable
 	 */
 	public function __construct( $url ) {
 		$this->url = $url;
+		if ( !$this->isParsable() ) {
+			throw new InvalidArgumentException( '$url is not parsable' );
+		}
 	}
 
 	/**
@@ -58,6 +64,10 @@ class SourceUrl {
 			return $this->parsed['host'];
 		}
 		return false;
+	}
+
+	public function __toString() {
+		return $this->url;
 	}
 
 }

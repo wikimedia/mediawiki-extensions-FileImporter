@@ -3,7 +3,6 @@
 namespace FileImporter\Data;
 
 use MediaWiki\Linker\LinkTarget;
-use Title;
 use Wikimedia\Assert\Assert;
 
 class ImportDetails {
@@ -16,7 +15,7 @@ class ImportDetails {
 	/**
 	 * @var LinkTarget
 	 */
-	private $linkTarget;
+	private $sourceLinkTarget;
 
 	/**
 	 * @var string
@@ -34,25 +33,15 @@ class ImportDetails {
 	private $fileRevisions;
 
 	/**
-	 * @var LinkTarget|null
-	 */
-	private $targetLinkTarget = null;
-
-	/**
-	 * @var Title|null
-	 */
-	private $targetTitle = null;
-
-	/**
 	 * @param SourceUrl $sourceUrl
-	 * @param LinkTarget $linkTarget
+	 * @param LinkTarget $sourceLinkTarget
 	 * @param string $imageDisplayUrl
 	 * @param TextRevisions $textRevisions
 	 * @param FileRevisions $fileRevisions
 	 */
 	public function __construct(
 		SourceUrl $sourceUrl,
-		LinkTarget $linkTarget,
+		LinkTarget $sourceLinkTarget,
 		$imageDisplayUrl,
 		TextRevisions $textRevisions,
 		FileRevisions $fileRevisions
@@ -60,14 +49,28 @@ class ImportDetails {
 		Assert::parameterType( 'string', $imageDisplayUrl, '$imageDisplayUrl' );
 
 		$this->sourceUrl = $sourceUrl;
-		$this->linkTarget = $linkTarget;
+		$this->sourceLinkTarget = $sourceLinkTarget;
 		$this->imageDisplayUrl = $imageDisplayUrl;
 		$this->textRevisions = $textRevisions;
 		$this->fileRevisions = $fileRevisions;
 	}
 
-	public function getOriginalLinkTarget() {
-		return $this->linkTarget;
+	public function getSourceLinkTarget() {
+		return $this->sourceLinkTarget;
+	}
+
+	/**
+	 * @return string File extension. Example: 'png'
+	 */
+	public function getSourceFileExtension() {
+		return pathinfo( $this->sourceLinkTarget->getText() )['extension'];
+	}
+
+	/**
+	 * @return string Filename with no namespace prefix or file extension. Example: 'Berlin'
+	 */
+	public function getSourceFileName() {
+		return pathinfo( $this->sourceLinkTarget->getText() )['filename'];
 	}
 
 	public function getImageDisplayUrl() {
@@ -87,27 +90,6 @@ class ImportDetails {
 	}
 
 	/**
-	 * @return LinkTarget
-	 */
-	public function getTargetLinkTarget() {
-		return $this->targetLinkTarget !== null ? $this->targetLinkTarget : $this->linkTarget;
-	}
-
-	public function setTargetLinkTarget( LinkTarget $linkTarget ) {
-		$this->targetLinkTarget = $linkTarget;
-	}
-
-	/**
-	 * @return Title
-	 */
-	public function getTargetTitle() {
-		if ( $this->targetTitle === null ) {
-			$this->targetTitle = Title::newFromLinkTarget( $this->getTargetLinkTarget() );
-		}
-		return $this->targetTitle;
-	}
-
-	/**
 	 * Returns a string hash based on the initial value of the object. The string must not exceed
 	 * 255 bytes (255 ASCII characters or less when it contains Unicode characters that
 	 * need to be UTF-8 encoded) to allow using indexes on all database systems.
@@ -120,7 +102,7 @@ class ImportDetails {
 	 */
 	public function getOriginalHash() {
 		$hashes = [
-			sha1( $this->linkTarget->getText() ),
+			sha1( $this->sourceLinkTarget->getText() ),
 			sha1( $this->sourceUrl->getUrl() ),
 			sha1( count( $this->getTextRevisions()->toArray() ) ),
 			sha1( count( $this->getFileRevisions()->toArray() ) ),

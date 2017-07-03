@@ -2,13 +2,12 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Data\SourceUrl;
+use FileImporter\Data\ImportPlan;
 use Html;
 use MediaWiki\Widget\TitleInputWidget;
 use Message;
 use OOUI\ButtonInputWidget;
 use SpecialPage;
-use Title;
 
 class ChangeTitleForm {
 
@@ -18,19 +17,13 @@ class ChangeTitleForm {
 	private $specialPage;
 
 	/**
-	 * @var SourceUrl
+	 * @var ImportPlan
 	 */
-	private $sourceUrl;
+	private $plan;
 
-	/**
-	 * @var Title
-	 */
-	private $title;
-
-	public function __construct( SpecialPage $specialPage, SourceUrl $sourceUrl, Title $title ) {
+	public function __construct( SpecialPage $specialPage, ImportPlan $plan ) {
 		$this->specialPage = $specialPage;
-		$this->sourceUrl = $sourceUrl;
-		$this->title = $title;
+		$this->plan = $plan;
 	}
 
 	public function getHtml() {
@@ -49,14 +42,14 @@ class ChangeTitleForm {
 		new TitleInputWidget(
 			[
 				'name' => 'intendedFileName',
-				'value' => pathinfo( $this->title->getText() )['filename'],
+				'value' => $this->plan->getFileName(),
 				'classes' => [ 'mw-importfile-import-newtitle' ],
 				'placeholder' => ( new Message( 'fileimporter-editsummary-placeholder' ) )->plain(),
 				'suggestions' => false,
 			]
 		) .
 		( new ImportIdentityFormSnippet( [
-			'clientUrl' => $this->sourceUrl->getUrl(),
+			'clientUrl' => $this->plan->getRequest()->getUrl(),
 			'importDetailsHash' => $this->specialPage->getRequest()->getVal( 'importDetailsHash' ),
 		] ) )->getHtml() .
 		new ButtonInputWidget(

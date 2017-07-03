@@ -13,14 +13,14 @@ class ImportIdentityFormSnippet {
 
 	private static $identityKeys = [
 		'clientUrl',
-		'intendedTitle',
+		'intendedFileName',
 		'importDetailsHash',
 	];
 
 	/**
 	 * @param string[] $identityParts Keys:
 	 *     - clientUrl, as initial input by the user
-	 *     - intendedTitle, either generated from the client URL or passed by the user
+	 *     - intendedFileName, either generated from the client URL or passed by the user
 	 *     - importDetailsHash, generated from the first import request, to ensure we know what
 	 *                          we are importing
 	 */
