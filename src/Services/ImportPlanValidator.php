@@ -42,19 +42,27 @@ class ImportPlanValidator {
 	 */
 	public function validate( ImportPlan $importPlan ) {
 		// Checks the extension doesn't provide easy ways to fix
+		$this->runFileExtensionCheck( $importPlan );
 		$this->runDuplicateFilesCheck( $importPlan );
 		// Checks that can be fixed in the extension
 		$this->runLocalTitleConflictCheck( $importPlan );
 		$this->runRemoteTitleConflictCheck( $importPlan );
-		$this->runTitleCheck( $importPlan );
 	}
 
-	private function runTitleCheck( ImportPlan $importPlan ) {
+	private function runFileExtensionCheck( ImportPlan $importPlan ) {
+		$sourcePathInfo = pathinfo( $importPlan->getDetails()->getSourceLinkTarget()->getText() );
+		$plannedPathInfo = pathinfo( $importPlan->getTitle()->getText() );
+
+		// Check that both the source and planned titles have extensions
+		if ( !array_key_exists( 'extension', $sourcePathInfo ) ) {
+			throw new TitleException( 'Source file name does not have an extension' );
+		}
+		if ( !array_key_exists( 'extension', $plannedPathInfo ) ) {
+			throw new TitleException( 'Planned file name does not have an extension' );
+		}
+
 		// Check to ensure files are not imported with differing file extensions.
-		if (
-			pathinfo( $importPlan->getTitle()->getText() )['extension'] !==
-			pathinfo( $importPlan->getDetails()->getSourceLinkTarget()->getText() )['extension']
-		) {
+		if ( $sourcePathInfo['extension'] !== $plannedPathInfo['extension'] ) {
 			throw new TitleException( 'Target file extension does not match original file' );
 		}
 	}

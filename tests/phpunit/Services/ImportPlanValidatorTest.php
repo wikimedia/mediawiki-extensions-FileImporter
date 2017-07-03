@@ -160,6 +160,24 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
 				$this->getMockImportTitleChecker( 1, true )
 			],
+			'Invalid, Sub pages should not be allowed (No Extension on plan)' => [
+				new TitleException( 'Planned file name does not have an extension' ),
+				$this->getMockImportPlan(
+					$this->getMockTitle( 'FinalName.JPG/Foo', false ),
+					$this->getMockTitle( 'SourceName.jpg', false )
+				),
+				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
+				$this->getMockImportTitleChecker( 0, true )
+			],
+			'Invalid, Sub pages should not be allowed (No Extension on source)' => [
+				new TitleException( 'Source file name does not have an extension' ),
+				$this->getMockImportPlan(
+					$this->getMockTitle( 'FinalName.JPG', false ),
+					$this->getMockTitle( 'SourceName.jpg/Foo', false )
+				),
+				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
+				$this->getMockImportTitleChecker( 0, true )
+			],
 		];
 	}
 
