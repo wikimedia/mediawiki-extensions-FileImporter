@@ -45,7 +45,7 @@ class RecoverableTitleExceptionPage {
 			[ 'class' => 'warningbox' ],
 			Html::element( 'p', [], ( $this->getMessageString() ) )
 		) .
-		( new ChangeTitleForm(
+		( new ChangeFileNameForm(
 			$this->specialPage,
 			$this->exception->getImportPlan()
 		) )->getHtml();

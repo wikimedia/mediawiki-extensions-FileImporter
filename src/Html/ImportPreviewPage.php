@@ -60,7 +60,7 @@ class ImportPreviewPage {
 		Html::element(
 			'h2',
 			[],
-			$this->importPlan->getFileName()
+			$this->importPlan->getTitle()->getText()
 		) .
 		Html::openElement(
 			'form',

@@ -69,8 +69,18 @@ class ImportPlan {
 		return $this->title;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFileName() {
 		return pathinfo( $this->getTitle()->getText() )['filename'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFileExtension() {
+		return pathinfo( $this->getTitle()->getText() )['extension'];
 	}
 
 }
