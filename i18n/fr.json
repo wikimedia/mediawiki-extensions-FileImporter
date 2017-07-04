@@ -16,7 +16,7 @@
 	"fileimporter-api-failedtogetinfo": "Impossible de récupérer l’information du fichier de : $1",
 	"fileimporter-api-nopagesreturned": "Aucune page renvoyée par l’API distante.",
 	"fileimporter-api-toomanyrevisions": "Trop de révisions renvoyée par l’API, impossible d’importer.",
-	"fileimporter-cantparseurl": "Impossible d’analyser l’URL fournie",
+	"fileimporter-cantparseurl": "Impossible d’analyser l’URL fournie : $1",
 	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
 	"fileimporter-cantimportfromsharedrepo": "Impossible d’importer un fichier depuis un répertoire partagé.",
 	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier manquant.",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Umeaboy"
 		]
 	},
 	"fileimporter": "Filimporterare",
@@ -13,7 +14,7 @@
 	"fileimporter-api-failedtogetinfo": "Misslyckades att hämta filinformation från: $1",
 	"fileimporter-api-nopagesreturned": "Inga sidor returnerades av fjärr-API:et.",
 	"fileimporter-api-toomanyrevisions": "För många sidversioner returnerades av API:et. Kunde inte importera.",
-	"fileimporter-cantparseurl": "Kan inte tolka angiven URL",
+	"fileimporter-cantparseurl": "Kan inte tolka den givna webbadressen: $1",
 	"fileimporter-cantimporturl": "Kan inte importera angiven URL",
 	"fileimporter-cantimportmissingfile": "Kan inte importera en saknad fil.",
 	"fileimporter-badtoken": "CSRF-nyckel matchar inte",
