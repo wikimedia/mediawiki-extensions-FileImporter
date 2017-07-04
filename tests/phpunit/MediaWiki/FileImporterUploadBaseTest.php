@@ -5,6 +5,7 @@ namespace FileImporter\MediaWiki\Test;
 use FileImporter\Services\FileImporterUploadBase;
 use MediaWikiTestCase;
 use TitleValue;
+use UploadBase;
 
 class FileImporterUploadBaseTest extends MediaWikiTestCase {
 
@@ -14,15 +15,27 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 		$this->setMwGlobals( 'wgFileBlacklist', [ 'jpg' ] );
 	}
 
-	public function providePerformChecks() {
+	public function providePerformTitleChecks() {
+		return [
+			'fileNameTooLongValidJPEG' =>
+				[ str_repeat( 'a', 237 ) .  '.jpg', UploadBase::FILENAME_TOO_LONG ],
+			'disallowedFileExtensionValidJPEG' =>
+				[ 'Foo.jpg', UploadBase::FILETYPE_BADTYPE ],
+		];
+	}
+
+	/**
+	 * @dataProvider providePerformTitleChecks
+	 */
+	public function testPerformTitleChecks( $targetTitle, $expected ) {
+		$base = new FileImporterUploadBase( new TitleValue( NS_FILE, $targetTitle ), '' );
+		$this->assertEquals( $expected, $base->performTitleChecks() );
+	}
+
+	public function providePerformFileChecks() {
 		$this->skipTestIfImageFunctionsMissing();
 
 		return [
-			// Title checks
-			'fileNameTooLongValidJPEG' =>
-				[ str_repeat( 'a', 237 ) .  '.jpg', $this->getGetImagePath( 'imagejpeg' ), false ],
-			'disallowedFileExtensionValidJPEG' =>
-				[ 'Foo.jpg', $this->getGetImagePath( 'imagejpeg' ), false ],
 			// File vs title checks
 			'validPNG' => [ 'Foo.png', $this->getGetImagePath( 'imagepng' ), true ],
 			'validGIF' => [ 'Foo.gif', $this->getGetImagePath( 'imagegif' ), true ],
@@ -34,11 +47,11 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 	}
 
 	/**
-	 * @dataProvider providePerformChecks
+	 * @dataProvider providePerformFileChecks
 	 */
-	public function testPerformChecks( $targetTitle, $tempPath, $expected ) {
+	public function testPerformFileChecks( $targetTitle, $tempPath, $expected ) {
 		$base = new FileImporterUploadBase( new TitleValue( NS_FILE, $targetTitle ), $tempPath );
-		$this->assertEquals( $expected, $base->performChecks() );
+		$this->assertEquals( $expected, $base->performFileChecks() );
 		unlink( $tempPath ); // delete the file that we created post test
 	}
 

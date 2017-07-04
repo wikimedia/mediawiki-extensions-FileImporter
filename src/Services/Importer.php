@@ -79,7 +79,7 @@ class Importer implements LoggerAwareInterface {
 		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
 			$base = new FileImporterUploadBase( $plannedTitle, $wikiRevisionFile->getFileSrc() );
 			$base->setLogger( $this->logger );
-			if ( !$base->performChecks() ) {
+			if ( !$base->performFileChecks() ) {
 				return false;
 			}
 		}
