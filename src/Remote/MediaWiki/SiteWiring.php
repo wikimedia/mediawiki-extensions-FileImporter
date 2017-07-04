@@ -12,6 +12,25 @@ use MediaWiki\MediaWikiServices;
 
 return [
 
+	// General services
+
+	'FileImporterMediaWikiHttpApiLookup' => function ( MediaWikiServices $services ) {
+		/** @var HttpRequestExecutor $httpRequestExecutor */
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+
+		$service = new Remote\MediaWiki\HttpApiLookup(
+			$httpRequestExecutor
+		);
+		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
+		return $service;
+	},
+
+	'FileImporterMediaWikiSiteTableSiteLookup' => function ( MediaWikiServices $services ) {
+		return new Remote\MediaWiki\SiteTableSiteLookup( $services->getSiteLookup() );
+	},
+
+	// SourceSite services
+
 	/**
 	 * This SourceSite service allows importing from remote MediaWiki sites that are defined
 	 * in the local wikis sites table.

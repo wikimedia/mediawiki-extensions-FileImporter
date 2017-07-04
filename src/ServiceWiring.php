@@ -16,8 +16,6 @@ use UploadBase;
 
 return [
 
-	// Generic
-
 	'FileImporterSourceSiteLocator' => function ( MediaWikiServices $services ) {
 		$config = $services->getMainConfig();
 
@@ -70,23 +68,6 @@ return [
 		$duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
 		$factory = new ImportPlanFactory( $sourceSiteLocator, $duplicateFileChecker );
 		return $factory;
-	},
-
-	// MediaWiki
-
-	'FileImporterMediaWikiHttpApiLookup' => function ( MediaWikiServices $services ) {
-		/** @var HttpRequestExecutor $httpRequestExecutor */
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-
-		$service = new Remote\MediaWiki\HttpApiLookup(
-			$httpRequestExecutor
-		);
-		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-		return $service;
-	},
-
-	'FileImporterMediaWikiSiteTableSiteLookup' => function ( MediaWikiServices $services ) {
-		return new Remote\MediaWiki\SiteTableSiteLookup( $services->getSiteLookup() );
 	},
 
 ];
