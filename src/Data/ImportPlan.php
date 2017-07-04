@@ -27,6 +27,13 @@ class ImportPlan {
 	 */
 	private $title = null;
 
+	/**
+	 * ImportPlan constructor, should not be constructed directly in production code.
+	 * Use an ImportPlanFactory instance.
+	 *
+	 * @param ImportRequest $request
+	 * @param ImportDetails $details
+	 */
 	public function __construct( ImportRequest $request, ImportDetails $details ) {
 		$this->request = $request;
 		$this->details = $details;
