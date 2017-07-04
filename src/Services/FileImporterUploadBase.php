@@ -8,6 +8,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use UploadBase;
+use WebRequest;
 
 class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface {
 
@@ -65,6 +66,8 @@ class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface 
 
 	/**
 	 * Should never be used but must be implemented for UploadBase
+	 *
+	 * @param WebRequest &$request
 	 */
 	public function initializeFromRequest( &$request ) {
 		throw new LogicException( 'Should never be called.' );

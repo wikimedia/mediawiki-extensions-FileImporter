@@ -103,6 +103,9 @@ class SpecialImportFile extends SpecialPage {
 		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
 	}
 
+	/**
+	 * @param string|null $subPage
+	 */
 	public function execute( $subPage ) {
 		$this->executeStandardChecks();
 		$this->setupPage();
