@@ -1,9 +1,9 @@
 <?php
 
-namespace FileImporter\Services\Test;
+namespace FileImporter\Services\Test\Http;
 
 use FileImporter\Exceptions\HttpRequestException;
-use FileImporter\Services\HttpRequestExecutor;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use MWHttpRequest;
 use PHPUnit_Framework_TestCase;
 use Psr\Log\LoggerInterface;
@@ -30,7 +30,7 @@ class HttpRequestExecutorTest extends PHPUnit_Framework_TestCase {
 			$this->assertArrayHasKey( 'followRedirects', $options );
 			$this->assertInstanceOf( LoggerInterface::class, $options['logger'] );
 			$this->assertTrue( $options['followRedirects'] );
-			$this->assertEquals( $caller, HttpRequestExecutor::class . '::execute' );
+			$this->assertEquals( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
 
 			$request = $this->getMockBuilder( MWHttpRequest::class )
 				->disableOriginalConstructor()

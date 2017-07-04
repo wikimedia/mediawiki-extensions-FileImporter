@@ -3,7 +3,7 @@
 namespace FileImporter;
 
 use FileImporter\Services\DuplicateFileRevisionChecker;
-use FileImporter\Services\HttpRequestExecutor;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\NullRevisionCreator;
@@ -28,7 +28,8 @@ return [
 	},
 
 	'FileImporterHttpRequestExecutor' => function ( MediaWikiServices $services ) {
-		$service = new HttpRequestExecutor();
+		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
+		$service = new HttpRequestExecutor( $maxFileSize );
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $service;
 	},
@@ -43,11 +44,12 @@ return [
 		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
 		/** @var NullRevisionCreator $nullRevisionCreator */
 		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
-		$maxUploadSize = UploadBase::getMaxUploadSize( 'import' );
+		/** @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor */
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		$importer = new Importer(
 			$wikiRevisionFactory,
 			$nullRevisionCreator,
-			$maxUploadSize
+			$httpRequestExecutor
 		);
 		$importer->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $importer;

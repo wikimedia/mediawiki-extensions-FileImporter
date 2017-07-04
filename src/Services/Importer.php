@@ -6,6 +6,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use Http;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -31,9 +32,9 @@ class Importer implements LoggerAwareInterface {
 	private $nullRevisionCreator;
 
 	/**
-	 * @var int
+	 * @var HttpRequestExecutor
 	 */
-	private $maxUploadSize;
+	private $httpRequestExecutor;
 
 	/**
 	 * @var LoggerInterface
@@ -43,16 +44,16 @@ class Importer implements LoggerAwareInterface {
 	/**
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param NullRevisionCreator $nullRevisionCreator
-	 * @param int $maxUploadSize
+	 * @param HttpRequestExecutor $httpRequestExecutor
 	 */
 	public function __construct(
 		WikiRevisionFactory $wikiRevisionFactory,
 		NullRevisionCreator $nullRevisionCreator,
-		$maxUploadSize
+		HttpRequestExecutor $httpRequestExecutor
 	) {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->nullRevisionCreator = $nullRevisionCreator;
-		$this->maxUploadSize = $maxUploadSize;
+		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = new NullLogger();
 	}
 
@@ -131,14 +132,7 @@ class Importer implements LoggerAwareInterface {
 			$tmpFile = TempFSFile::factory( 'fileimporter_', '', wfTempDir() );
 			$tmpFile->bind( $this );
 
-			$chunkSaver = new HttpRequestFileChunkSaver( $tmpFile->getPath(), $this->maxUploadSize );
-			$chunkSaver->setLogger( $this->logger );
-
-			// TODO proxy? $wgCopyUploadProxy ?
-			// TODO timeout $wgCopyUploadTimeout ?
-			$httpRequestExecutor = new HttpRequestExecutor();
-			$httpRequestExecutor->setLogger( $this->logger );
-			$httpRequestExecutor->execute( $fileUrl, [ $chunkSaver, 'saveFileChunk' ] );
+			$this->httpRequestExecutor->executeAndSave( $fileUrl, $tmpFile->getPath() );
 
 			$wikiRevisionFiles[] = $this->wikiRevisionFactory->newFromFileRevision(
 				$fileRevision,

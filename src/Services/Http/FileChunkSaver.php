@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services;
+namespace FileImporter\Services\Http;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -8,9 +8,12 @@ use Psr\Log\NullLogger;
 use RuntimeException;
 
 /**
+ * This should not be used directly.
+ * Please see HttpRequestExecutor::executeAndSave
+ *
  * TODO this could end up in core? and used by UploadFromUrl?
  */
-class HttpRequestFileChunkSaver implements LoggerAwareInterface {
+class FileChunkSaver implements LoggerAwareInterface {
 
 	/**
 	 * @var string

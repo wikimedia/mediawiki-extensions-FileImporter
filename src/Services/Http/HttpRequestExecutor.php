@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services;
+namespace FileImporter\Services\Http;
 
 use FileImporter\Exceptions\HttpRequestException;
 use MWException;
@@ -21,9 +21,18 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 */
 	private $requestFactoryCallable;
 
-	public function __construct() {
+	/**
+	 * @var int|null
+	 */
+	private $maxFileSize;
+
+	/**
+	 * @param int|null $maxFileSize in bytes
+	 */
+	public function __construct( $maxFileSize = null ) {
 		$this->requestFactoryCallable = [ MWHttpRequest::class, 'factory' ];
 		$this->logger = new NullLogger();
+		$this->maxFileSize = $maxFileSize;
 	}
 
 	public function setLogger( LoggerInterface $logger ) {
@@ -41,12 +50,35 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 
 	/**
 	 * @param string $url
+	 *
+	 * @return MWHttpRequest
+	 */
+	public function execute( $url ) {
+		return $this->executeWithCallback( $url );
+	}
+
+	/**
+	 * @param string $url
+	 * @param string $filePath
+	 *
+	 * @return MWHttpRequest
+	 */
+	public function executeAndSave( $url, $filePath ) {
+		$chunkSaver = new FileChunkSaver( $filePath, $this->maxFileSize );
+		$chunkSaver->setLogger( $this->logger );
+		return $this->executeWithCallback( $url, [ $chunkSaver, 'saveFileChunk' ] );
+	}
+
+	/**
+	 * TODO proxy? $wgCopyUploadProxy ?
+	 * TODO timeout $wgCopyUploadTimeout ?
+	 *
+	 * @param string $url
 	 * @param callable|null $callback
 	 *
 	 * @return MWHttpRequest
-	 * @throws HttpRequestException
 	 */
-	public function execute( $url, $callback = null ) {
+	public function executeWithCallback( $url, $callback = null ) {
 		/** @var MWHttpRequest $request */
 		$request = call_user_func(
 			$this->requestFactoryCallable,

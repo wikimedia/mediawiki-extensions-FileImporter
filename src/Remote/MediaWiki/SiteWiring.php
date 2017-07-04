@@ -5,7 +5,7 @@ namespace FileImporter;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
-use FileImporter\Services\HttpRequestExecutor;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\SourceSite;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
@@ -15,7 +15,7 @@ return [
 	// General services
 
 	'FileImporterMediaWikiHttpApiLookup' => function ( MediaWikiServices $services ) {
-		/** @var HttpRequestExecutor $httpRequestExecutor */
+		/** @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
 		$service = new Remote\MediaWiki\HttpApiLookup(
@@ -39,7 +39,7 @@ return [
 		/**
 		 * @var SiteTableSiteLookup $siteTableLookup
 		 * @var \FileImporter\Remote\MediaWiki\HttpApiLookup $httpApiLookup
-		 * @var HttpRequestExecutor $httpRequestExecutor
+		 * @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor
 		 */
 		$siteTableLookup = $services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' );
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );

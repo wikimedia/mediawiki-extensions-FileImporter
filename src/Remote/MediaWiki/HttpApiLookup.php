@@ -7,7 +7,7 @@ use DOMElement;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
-use FileImporter\Services\HttpRequestExecutor;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -24,7 +24,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 	private $logger;
 
 	/**
-	 * @var HttpRequestExecutor
+	 * @var \FileImporter\Services\Http\HttpRequestExecutor
 	 */
 	private $httpRequestExecutor;
 
