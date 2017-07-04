@@ -7,6 +7,8 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use Http;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -37,6 +39,11 @@ class Importer implements LoggerAwareInterface {
 	private $httpRequestExecutor;
 
 	/**
+	 * @var UploadBaseFactory
+	 */
+	private $uploadBaseFactory;
+
+	/**
 	 * @var LoggerInterface
 	 */
 	private $logger;
@@ -45,15 +52,18 @@ class Importer implements LoggerAwareInterface {
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param NullRevisionCreator $nullRevisionCreator
 	 * @param HttpRequestExecutor $httpRequestExecutor
+	 * @param UploadBaseFactory $uploadBaseFactory
 	 */
 	public function __construct(
 		WikiRevisionFactory $wikiRevisionFactory,
 		NullRevisionCreator $nullRevisionCreator,
-		HttpRequestExecutor $httpRequestExecutor
+		HttpRequestExecutor $httpRequestExecutor,
+		UploadBaseFactory $uploadBaseFactory
 	) {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->nullRevisionCreator = $nullRevisionCreator;
 		$this->httpRequestExecutor = $httpRequestExecutor;
+		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->logger = new NullLogger();
 	}
 
@@ -78,9 +88,11 @@ class Importer implements LoggerAwareInterface {
 		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
 
 		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
-			$base = new FileImporterUploadBase( $plannedTitle, $wikiRevisionFile->getFileSrc() );
-			$base->setLogger( $this->logger );
-			if ( !$base->performFileChecks() ) {
+			$base = $this->uploadBaseFactory->newValidatingUploadBase(
+				$plannedTitle,
+				$wikiRevisionFile->getFileSrc()
+			);
+			if ( !$base->validateFile() ) {
 				return false;
 			}
 		}

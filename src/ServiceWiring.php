@@ -8,6 +8,7 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\SourceSiteLocator;
+use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
@@ -44,12 +45,15 @@ return [
 		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
 		/** @var NullRevisionCreator $nullRevisionCreator */
 		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
-		/** @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor */
+		/** @var HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+		/** @var UploadBaseFactory $uploadBaseFactory */
+		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
 		$importer = new Importer(
 			$wikiRevisionFactory,
 			$nullRevisionCreator,
-			$httpRequestExecutor
+			$httpRequestExecutor,
+			$uploadBaseFactory
 		);
 		$importer->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $importer;
@@ -68,8 +72,18 @@ return [
 		$sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
 		/** @var DuplicateFileRevisionChecker $duplicateFileChecker */
 		$duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
-		$factory = new ImportPlanFactory( $sourceSiteLocator, $duplicateFileChecker );
+		/** @var UploadBaseFactory $uploadBaseFactory */
+		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
+		$factory = new ImportPlanFactory(
+			$sourceSiteLocator,
+			$duplicateFileChecker,
+			$uploadBaseFactory
+		);
 		return $factory;
+	},
+
+	'FileImporterUploadBaseFactory' => function ( MediaWikiServices $services ) {
+		return new UploadBaseFactory( LoggerFactory::getInstance( 'FileImporter' ) );
 	},
 
 ];

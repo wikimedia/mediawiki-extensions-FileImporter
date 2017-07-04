@@ -2,8 +2,9 @@
 
 namespace FileImporter\MediaWiki\Test;
 
-use FileImporter\Services\FileImporterUploadBase;
+use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWikiTestCase;
+use Psr\Log\NullLogger;
 use TitleValue;
 use UploadBase;
 
@@ -28,8 +29,12 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 	 * @dataProvider providePerformTitleChecks
 	 */
 	public function testPerformTitleChecks( $targetTitle, $expected ) {
-		$base = new FileImporterUploadBase( new TitleValue( NS_FILE, $targetTitle ), '' );
-		$this->assertEquals( $expected, $base->performTitleChecks() );
+		$base = new ValidatingUploadBase(
+			new NullLogger(),
+			new TitleValue( NS_FILE, $targetTitle ),
+			''
+		);
+		$this->assertEquals( $expected, $base->validateTitle() );
 	}
 
 	public function providePerformFileChecks() {
@@ -50,8 +55,12 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 	 * @dataProvider providePerformFileChecks
 	 */
 	public function testPerformFileChecks( $targetTitle, $tempPath, $expected ) {
-		$base = new FileImporterUploadBase( new TitleValue( NS_FILE, $targetTitle ), $tempPath );
-		$this->assertEquals( $expected, $base->performFileChecks() );
+		$base = new ValidatingUploadBase(
+			new NullLogger(),
+			new TitleValue( NS_FILE, $targetTitle ),
+				$tempPath
+		);
+		$this->assertEquals( $expected, $base->validateFile() );
 		unlink( $tempPath ); // delete the file that we created post test
 	}
 

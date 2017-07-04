@@ -5,19 +5,23 @@ namespace FileImporter\Services;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
+use FileImporter\Services\UploadBase\UploadBaseFactory;
 use Flow\Import\ImportException;
 
 class ImportPlanFactory {
 
 	private $sourceSiteLocator;
 	private $duplicateFileRevisionChecker;
+	private $uploadBaseFactory;
 
 	public function __construct(
 		SourceSiteLocator $sourceSiteLocator,
-		DuplicateFileRevisionChecker $duplicateFileRevisionChecker
+		DuplicateFileRevisionChecker $duplicateFileRevisionChecker,
+		UploadBaseFactory $uploadBaseFactory
 	) {
 		$this->sourceSiteLocator = $sourceSiteLocator;
 		$this->duplicateFileRevisionChecker = $duplicateFileRevisionChecker;
+		$this->uploadBaseFactory = $uploadBaseFactory;
 	}
 
 	/**
@@ -33,7 +37,8 @@ class ImportPlanFactory {
 
 		$planValidator = new ImportPlanValidator(
 			$this->duplicateFileRevisionChecker,
-			$sourceSite->getImportTitleChecker()
+			$sourceSite->getImportTitleChecker(),
+			$this->uploadBaseFactory
 		);
 		$planValidator->validate( $importPlan );
 

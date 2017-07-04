@@ -1,16 +1,19 @@
 <?php
 
-namespace FileImporter\Services;
+namespace FileImporter\Services\UploadBase;
 
 use LogicException;
 use MediaWiki\Linker\LinkTarget;
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use UploadBase;
 use WebRequest;
 
-class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface {
+/**
+ * This class extends the MediaWiki UploadBase class in order to perform validation
+ * that is normally carried out as part of the upload process.
+ * Ideally MediaWiki core would be refactored so that this could more easily be accessed.
+ */
+class ValidatingUploadBase extends UploadBase {
 
 	/**
 	 * @var LoggerInterface
@@ -18,27 +21,28 @@ class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface 
 	private $logger;
 
 	/**
+	 * @param LoggerInterface $logger
 	 * @param LinkTarget $targetTitle
 	 * @param string $tempPath
 	 */
-	public function __construct( LinkTarget $targetTitle, $tempPath ) {
+	public function __construct(
+		LoggerInterface $logger,
+		LinkTarget $targetTitle,
+		$tempPath
+	) {
 		$this->initializePathInfo(
 			$targetTitle->getText(),
 			$tempPath,
 			null,
 			false
 		);
-		$this->logger = new NullLogger();
-	}
-
-	public function setLogger( LoggerInterface $logger ) {
 		$this->logger = $logger;
 	}
 
 	/**
-	 * @return bool|int check success or integer error code
+	 * @return bool|int True if the title is valid, or int error code from UploadBase::getTitle if not
 	 */
-	public function performTitleChecks() {
+	public function validateTitle() {
 		if ( $this->getTitle() === null ) {
 			return $this->mTitleError;
 		}
@@ -47,9 +51,9 @@ class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface 
 	}
 
 	/**
-	 * @return bool were the checks successful & can we upload this file?
+	 * @return bool Is the file valid?
 	 */
-	public function performFileChecks() {
+	public function validateFile() {
 		$fileVerification = $this->verifyFile();
 
 		if ( $fileVerification !== true ) {

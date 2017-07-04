@@ -15,9 +15,12 @@ use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\ImportPlanValidator;
+use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 use Title;
+use UploadBase;
 
 class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 
@@ -109,6 +112,25 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 			->willReturn(
 				$this->getMockImportRequest()
 			);
+		return $mock;
+	}
+
+	private function getMockUploadBaseFactory( UploadBase $uploadBase ) {
+		$mock = $this->getMock( UploadBaseFactory::class, [], [], '', false );
+		$mock->expects( $this->any() )
+			->method( 'newValidatingUploadBase' )
+			->will( $this->returnValue( $uploadBase ) );
+		return $mock;
+	}
+
+	private function getMockValidatingUploadBase( $validTitle = true, $validFile = true ) {
+		$mock = $this->getMock( ValidatingUploadBase::class, [], [], '', false );
+		$mock->expects( $this->any() )
+			->method( 'validateTitle' )
+			->will( $this->returnValue( $validTitle ) );
+		$mock->expects( $this->any() )
+			->method( 'validateFile' )
+			->will( $this->returnValue( $validFile ) );
 		return $mock;
 	}
 
@@ -216,7 +238,8 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 					$this->getMockTitle( 'SourceName.JPG', false )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
-				$this->getMockImportTitleChecker( 0, true )
+				$this->getMockImportTitleChecker( 0, true ),
+				$this->getMockValidatingUploadBase( UploadBase::FILENAME_TOO_LONG, true )
 			],
 		];
 
@@ -229,13 +252,28 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 	 * @param ImportPlan $plan
 	 * @param DuplicateFileRevisionChecker $duplicateChecker
 	 * @param ImportTitleChecker $titleChecker
+	 * @param ValidatingUploadBase|null $validatingUploadBase
 	 */
-	public function testValidate( $expected, $plan, $duplicateChecker, $titleChecker ) {
+	public function testValidate(
+		$expected,
+			$plan,
+			$duplicateChecker,
+			$titleChecker,
+			$validatingUploadBase = null
+	) {
+		if ( $validatingUploadBase === null ) {
+			$validatingUploadBase = $this->getMockValidatingUploadBase();
+		}
+
 		if ( $expected !== null ) {
 			$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
 		}
 
-		$validator = new ImportPlanValidator( $duplicateChecker, $titleChecker );
+		$validator = new ImportPlanValidator(
+			$duplicateChecker,
+			$titleChecker,
+			$this->getMockUploadBaseFactory( $validatingUploadBase )
+		);
 		$validator->validate( $plan );
 
 		if ( $expected === null ) {

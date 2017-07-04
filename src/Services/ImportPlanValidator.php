@@ -7,6 +7,7 @@ use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Services\UploadBase\UploadBaseFactory;
 use UploadBase;
 
 class ImportPlanValidator {
@@ -21,12 +22,19 @@ class ImportPlanValidator {
 	 */
 	private $importTitleChecker;
 
+	/**
+	 * @var UploadBaseFactory
+	 */
+	private $uploadBaseFactory;
+
 	public function __construct(
 		DuplicateFileRevisionChecker $duplicateFileChecker,
-		ImportTitleChecker $importTitleChecker
+		ImportTitleChecker $importTitleChecker,
+		UploadBaseFactory $uploadBaseFactory
 	) {
 		$this->duplicateFileChecker = $duplicateFileChecker;
 		$this->importTitleChecker = $importTitleChecker;
+		$this->uploadBaseFactory = $uploadBaseFactory;
 	}
 
 	/**
@@ -61,8 +69,12 @@ class ImportPlanValidator {
 			);
 		}
 
-		$base = new FileImporterUploadBase( $importPlan->getTitle(), '' );
-		$titleCheckResult = $base->performTitleChecks();
+		$base = $this->uploadBaseFactory->newValidatingUploadBase(
+			$importPlan->getTitle(),
+			''
+		);
+
+		$titleCheckResult = $base->validateTitle();
 		if ( $titleCheckResult !== true ) {
 			switch ( $titleCheckResult ) {
 				case UploadBase::ILLEGAL_FILENAME:
