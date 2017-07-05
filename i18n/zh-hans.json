@@ -32,7 +32,6 @@
 	"fileimporter-imported": "<strong>“$1”已经导入至“$2”</strong>",
 	"fileimporter-edittitle": "编辑标题",
 	"fileimporter-editinfo": "编辑文件信息",
-	"fileimporter-newtitle": "新标题：",
 	"fileimporter-editsummary": "编辑摘要：",
 	"fileimporter-editsummary-placeholder": "只当您对导入做出更改时使用。",
 	"fileimporter-previewnote": "这是待导入文件的预览。请在导入前详细检查页面。",

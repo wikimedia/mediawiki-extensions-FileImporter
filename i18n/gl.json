@@ -31,7 +31,6 @@
 	"fileimporter-imported": "<strong>\"$1\" foi importado a \"$2\"</strong>",
 	"fileimporter-edittitle": "Modificar o título",
 	"fileimporter-editinfo": "Modificar a información do ficheiro",
-	"fileimporter-newtitle": "Novo títuloː",
 	"fileimporter-editsummary": "Modificar o resumoː",
 	"fileimporter-editsummary-placeholder": "Só usado se vostede fai cambios á importación.",
 	"fileimporter-previewnote": "Esta é unha previsualización do ficheiro que vai ser importado. Por favor, revise a páxina en detalle antes de comezar a importalo.",

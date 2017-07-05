@@ -5,6 +5,7 @@
 		]
 	},
 	"fileimporter-specialpage-successtitle": "Importuota sėkmingai",
+	"fileimporter-illegalfilenamechars": "Pavadinimas, kurį bandote importuoti, turi negalimų simbolių failo pavadinime.",
 	"fileimporter-duplicatefilesdetected": "Failas, kurį bandote importuoti, jau egzistuoja šioje viki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dublikatai",
 	"fileimporter-resubmit": "Siųsti iš naujo",
@@ -12,7 +13,9 @@
 	"fileimporter-imported": "<strong>„$1“ buvo importuotas į „$2“</strong>",
 	"fileimporter-edittitle": "Redaguoti Pavadinimą",
 	"fileimporter-editinfo": "Redaguoti Failo Informaciją",
-	"fileimporter-newtitle": "Naujas pavadinimas:",
+	"fileimporter-extensionlabel": "Failo plėtinis:",
+	"fileimporter-newfilename": "Naujas failo pavadinimas:",
+	"fileimporter-newfilename-placeholder": "Kažkoks Failo Pavadinimas",
 	"fileimporter-editsummary": "Redaguoti santrauką:",
 	"fileimporter-editsummary-placeholder": "Naudojama tik jei atliekate keitimus importe.",
 	"fileimporter-heading-fileinfo": "Failo informacija",

@@ -32,7 +32,6 @@
 	"fileimporter-imported": "<strong>\"$1\" har importerats till \"$2\"</strong>",
 	"fileimporter-edittitle": "Redigera titel",
 	"fileimporter-editinfo": "Redigera filinfo",
-	"fileimporter-newtitle": "Ny titel:",
 	"fileimporter-editsummary": "Redigeringssammanfattning:",
 	"fileimporter-editsummary-placeholder": "Används endast om du gör ändringar i importeringen.",
 	"fileimporter-previewnote": "Detta är en förhandsgranskning av filen att importera. Kontrollera sidan i detalj innan du importerar.",

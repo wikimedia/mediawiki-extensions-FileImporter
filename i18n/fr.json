@@ -35,7 +35,6 @@
 	"fileimporter-imported": "<strong>« $1 » a été importé dans « $2 »</strong>",
 	"fileimporter-edittitle": "Modifier le titre",
 	"fileimporter-editinfo": "Modifier l’information du fichier",
-	"fileimporter-newtitle": "Nouveau titre :",
 	"fileimporter-editsummary": "Modifier le résumé :",
 	"fileimporter-editsummary-placeholder": "Utilisé seulement si vous avez fait des modifications à l’importation.",
 	"fileimporter-previewnote": "Ceci est un aperçu du fichier à importer. Veuillez vérifier la page en détail avant de l’importer.",
