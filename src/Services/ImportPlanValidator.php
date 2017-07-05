@@ -4,7 +4,7 @@ namespace FileImporter\Services;
 
 use FileImporter\Data\ImportPlan;
 use FileImporter\Exceptions\DuplicateFilesException;
-use FileImporter\Exceptions\TitleConflictException;
+use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 
@@ -37,15 +37,16 @@ class ImportPlanValidator {
 	 *
 	 * @param ImportPlan $importPlan The plan to be validated
 	 *
-	 * @throws DuplicateFilesException When a file with the same hash is detected
-	 * @throws TitleConflictException When either a local or remote title conflict was detected
+	 * @throws TitleException When there is a problem with the planned title (can't be fixed easily).
+	 * @throws DuplicateFilesException When a file with the same hash is detected locally..
+	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
 	public function validate( ImportPlan $importPlan ) {
 		// Checks the extension doesn't provide easy ways to fix
-		$this->runFileTitleCheck( $importPlan );
 		$this->runFileExtensionCheck( $importPlan );
 		$this->runDuplicateFilesCheck( $importPlan );
 		// Checks that can be fixed in the extension
+		$this->runFileTitleCheck( $importPlan );
 		$this->runLocalTitleConflictCheck( $importPlan );
 		$this->runRemoteTitleConflictCheck( $importPlan );
 	}
@@ -53,7 +54,10 @@ class ImportPlanValidator {
 	private function runFileTitleCheck( ImportPlan $importPlan ) {
 		$plannedTitleText = $importPlan->getTitle()->getText();
 		if ( $plannedTitleText != wfStripIllegalFilenameChars( $plannedTitleText ) ) {
-			throw new TitleException( 'The target filename is invalid' );
+			throw new RecoverableTitleException(
+				'fileimporter-illegalfilenamechars',
+				$importPlan
+			);
 		}
 	}
 
@@ -89,7 +93,10 @@ class ImportPlanValidator {
 
 	private function runLocalTitleConflictCheck( ImportPlan $importPlan ) {
 		if ( $importPlan->getTitle()->exists() ) {
-			throw new TitleConflictException( $importPlan, TitleConflictException::LOCAL_TITLE );
+			throw new RecoverableTitleException(
+				'fileimporter-localtitleexists',
+				$importPlan
+			);
 		}
 	}
 
@@ -104,7 +111,10 @@ class ImportPlanValidator {
 			$title->getText() !== $details->getSourceLinkTarget()->getText() &&
 			!$this->importTitleChecker->importAllowed( $request->getUrl(), $title->getText() )
 		) {
-			throw new TitleConflictException( $importPlan, TitleConflictException::REMOTE_TITLE );
+			throw new RecoverableTitleException(
+				'fileimporter-sourcetitleexists',
+				$importPlan
+			);
 		}
 	}
 

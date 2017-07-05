@@ -9,13 +9,14 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
-use FileImporter\Exceptions\TitleConflictException;
+use FileImporter\Exceptions\RecoverableTitleException;
+use FileImporter\Exceptions\TitleException;
 use FileImporter\Html\ChangeTitleForm;
 use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessPage;
 use FileImporter\Html\InputFormPage;
-use FileImporter\Html\TitleConflictPage;
+use FileImporter\Html\RecoverableTitleExceptionPage;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanValidator;
@@ -148,21 +149,10 @@ class SpecialImportFile extends SpecialPage {
 				return;
 		}
 
-		if ( $exception instanceof TitleConflictException ) {
-			switch ( $exception->getType() ) {
-				case TitleConflictException::LOCAL_TITLE:
-					$titleConflictMessage = 'fileimporter-localtitleexists';
-					break;
-				case TitleConflictException::REMOTE_TITLE:
-					$titleConflictMessage = 'fileimporter-sourcetitleexists';
-					break;
-				default:
-					throw $exception;
-			}
-			$this->getOutput()->addHTML( ( new TitleConflictPage(
+		if ( $exception instanceof RecoverableTitleException ) {
+			$this->getOutput()->addHTML( ( new RecoverableTitleExceptionPage(
 				$this,
-				$exception->getImportPlan(),
-				$titleConflictMessage
+				$exception
 			) )->getHtml() );
 			return;
 		}
@@ -172,7 +162,7 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * @throws DuplicateFilesException|TitleConflictException|ImportException
+	 * @throws ImportException
 	 * @return ImportPlan
 	 */
 	private function getImportPlan() {
