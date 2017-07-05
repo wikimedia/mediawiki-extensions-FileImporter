@@ -148,7 +148,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					$this->assertTagExistsWithTextContents(
 						$html,
 						'h2',
-						'Chicken In Snow'
+						'Chicken In Snow.JPG'
 					);
 				},
 				true
@@ -170,7 +170,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					$this->assertTagExistsWithTextContents(
 						$html,
 						'h2',
-						'Chicken In Snow CHANGED'
+						'Chicken In Snow CHANGED.JPG'
 					);
 				},
 				true

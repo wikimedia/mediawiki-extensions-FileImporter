@@ -11,7 +11,7 @@ use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
-use FileImporter\Html\ChangeTitleForm;
+use FileImporter\Html\ChangeFileNameForm;
 use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessPage;
@@ -128,7 +128,7 @@ class SpecialImportFile extends SpecialPage {
 				break;
 			case 'edittitle':
 				$this->getOutput()->addHTML(
-					( new ChangeTitleForm( $this, $importPlan ) )->getHtml()
+					( new ChangeFileNameForm( $this, $importPlan ) )->getHtml()
 				);
 				break;
 			case 'editinfo':

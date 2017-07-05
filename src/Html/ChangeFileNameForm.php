@@ -4,15 +4,15 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use Html;
-use MediaWiki\Widget\TitleInputWidget;
 use Message;
 use OOUI\ButtonInputWidget;
+use OOUI\TextInputWidget;
 use SpecialPage;
 
 /**
- * Form allowing the user to select a new title.
+ * Form allowing the user to select a new file name.
  */
-class ChangeTitleForm {
+class ChangeFileNameForm {
 
 	/**
 	 * @var SpecialPage
@@ -40,16 +40,26 @@ class ChangeTitleForm {
 		Html::element(
 			'p',
 			[],
-			( new Message( 'fileimporter-newtitle' ) )->plain()
+			( new Message( 'fileimporter-newfilename' ) )->plain()
 		) .
-		new TitleInputWidget(
+		new TextInputWidget(
 			[
 				'name' => 'intendedFileName',
 				'value' => $this->importPlan->getFileName(),
 				'classes' => [ 'mw-importfile-import-newtitle' ],
-				'placeholder' => ( new Message( 'fileimporter-editsummary-placeholder' ) )->plain(),
+				'placeholder' => ( new Message( 'fileimporter-newfilename-placeholder' ) )->plain(),
 				'suggestions' => false,
+				'autofocus' => true,
+				'required' => true,
 			]
+		) .
+		// TODO allow changing the case of the file extension
+		Html::element(
+			'p',
+			[],
+			( new Message( 'fileimporter-extensionlabel' ) )->plain() .
+			' ' .
+			$this->importPlan->getFileExtension()
 		) .
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
