@@ -5,6 +5,7 @@ namespace FileImporter;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\HttpRequestExecutor;
 use FileImporter\Services\Importer;
+use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\WikiRevisionFactory;
@@ -60,6 +61,15 @@ return [
 
 	'FileImporterWikiRevisionFactory' => function ( MediaWikiServices $services ) {
 		return new WikiRevisionFactory( $services->getMainConfig() );
+	},
+
+	'FileImporterImportPlanFactory' => function ( MediaWikiServices $services ) {
+		/** @var SourceSiteLocator $sourceSiteLocator */
+		$sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
+		/** @var DuplicateFileRevisionChecker $duplicateFileChecker */
+		$duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
+		$factory = new ImportPlanFactory( $sourceSiteLocator, $duplicateFileChecker );
+		return $factory;
 	},
 
 	// MediaWiki

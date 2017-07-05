@@ -10,7 +10,6 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
-use FileImporter\Exceptions\TitleException;
 use FileImporter\Html\ChangeFileNameForm;
 use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
@@ -19,7 +18,7 @@ use FileImporter\Html\InputFormPage;
 use FileImporter\Html\RecoverableTitleExceptionPage;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Importer;
-use FileImporter\Services\ImportPlanValidator;
+use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
 use ILocalizedException;
@@ -44,9 +43,9 @@ class SpecialImportFile extends SpecialPage {
 	private $importer;
 
 	/**
-	 * @var DuplicateFileRevisionChecker
+	 * @var ImportPlanFactory
 	 */
-	private $duplicateFileChecker;
+	private $importPlanFactory;
 
 	public function __construct() {
 		$services = MediaWikiServices::getInstance();
@@ -57,7 +56,7 @@ class SpecialImportFile extends SpecialPage {
 		// TODO inject services!
 		$this->sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
 		$this->importer = $services->getService( 'FileImporterImporter' );
-		$this->duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
+		$this->importPlanFactory = $services->getService( 'FileImporterImportPlanFactory' );
 	}
 
 	public function getGroupName() {
@@ -178,15 +177,7 @@ class SpecialImportFile extends SpecialPage {
 		$detailRetriever = $sourceSite->getDetailRetriever();
 		$importDetails = $detailRetriever->getImportDetails( $url );
 
-		$importPlan = new ImportPlan( $importRequest, $importDetails );
-
-		$planValidator = new ImportPlanValidator(
-			$this->duplicateFileChecker,
-			$sourceSite->getImportTitleChecker()
-		);
-		$planValidator->validate( $importPlan );
-
-		return $importPlan;
+		return $this->importPlanFactory->newPlan( $importRequest, $importDetails );
 	}
 
 	private function doImport( ImportPlan $importPlan ) {
