@@ -17,10 +17,4 @@ interface ImportOperation {
 	 */
 	public function commit();
 
-	/**
-	 * Rollback this operation to persistent storage.
-	 * @return bool success
-	 */
-	public function rollback();
-
 }

@@ -68,20 +68,4 @@ class ImportOperations implements ImportOperation {
 		return true;
 	}
 
-	/**
-	 * Rollback this operation to persistent storage.
-	 * @return bool success
-	 */
-	public function rollback() {
-		$this->throwExceptionOnBadState( self::COMMIT_RUN );
-		$this->state = self::ROLLBACK_RUN;
-		foreach ( $this->importOperations as $importOperation ) {
-			if ( !$importOperation->rollback() ) {
-				// TODO log?
-				return false;
-			}
-		}
-		return true;
-	}
-
 }

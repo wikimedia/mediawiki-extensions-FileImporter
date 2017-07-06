@@ -96,13 +96,4 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		return $this->wikiRevision->importUpload();
 	}
 
-	/**
-	 * Rollback this operation to persistent storage.
-	 * @return bool success
-	 */
-	public function rollback() {
-		// TODO: Implement rollback() method.
-		return false;
-	}
-
 }

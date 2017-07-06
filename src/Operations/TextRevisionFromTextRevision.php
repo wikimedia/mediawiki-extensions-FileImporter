@@ -60,13 +60,4 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		return $this->wikiRevision->importOldRevision();
 	}
 
-	/**
-	 * Rollback this operation to persistent storage.
-	 * @return bool success
-	 */
-	public function rollback() {
-		// TODO: Implement rollback() method.
-		return false;
-	}
-
 }

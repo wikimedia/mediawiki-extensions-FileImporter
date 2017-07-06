@@ -86,6 +86,18 @@ class Importer implements LoggerAwareInterface {
 
 		// TODO the type of ImportOperation created should be decided somewhere
 
+		/**
+		 * Text revisions should be added first. See T147451.
+		 * This ensures that the page entry is created and if something fails it can thus be deleted.
+		 */
+		foreach ( $importDetails->getTextRevisions()->toArray() as $textRevision ) {
+			$importOperations->add( new TextRevisionFromTextRevision(
+				$plannedTitle,
+				$textRevision,
+				$this->wikiRevisionFactory
+			) );
+		}
+
 		foreach ( $importDetails->getFileRevisions()->toArray() as $fileRevision ) {
 			$importOperations->add( new FileRevisionFromRemoteUrl(
 				$plannedTitle,
@@ -96,14 +108,6 @@ class Importer implements LoggerAwareInterface {
 			) );
 		}
 
-		foreach ( $importDetails->getTextRevisions()->toArray() as $textRevision ) {
-			$importOperations->add( new TextRevisionFromTextRevision(
-				$plannedTitle,
-				$textRevision,
-				$this->wikiRevisionFactory
-			) );
-		}
-
 		if ( !$importOperations->prepare() ) {
 			$this->logger->error( 'Failed to prepare operations.' );
 			throw new RuntimeException( 'Failed to prepare operations.' );
@@ -111,13 +115,7 @@ class Importer implements LoggerAwareInterface {
 
 		if ( !$importOperations->commit() ) {
 			$this->logger->error( 'Failed to commit operations.' );
-			if ( !$importOperations->rollback() ) {
-				$this->logger->critical( 'Failed to rollback operations.' );
-				throw new RuntimeException( 'Failed to commit and rollback operations.' );
-			} else {
-				$this->logger->info( 'Successfully rolled back operations' );
-				throw new RuntimeException( 'Failed to commit operations, but rolled back successfully!' );
-			}
+			throw new RuntimeException( 'Failed to commit operations.' );
 		}
 
 		// TODO the below should be an ImportOperation
