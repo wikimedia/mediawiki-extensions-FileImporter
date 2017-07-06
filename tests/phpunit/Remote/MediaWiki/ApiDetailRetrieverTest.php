@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Test\Remote\MediaWiki;
+namespace FileImporter\Remote\MediaWiki\Test;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\LocalizedImportException;
