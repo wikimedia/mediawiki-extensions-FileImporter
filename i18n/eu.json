@@ -1,14 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Subi"
+			"Subi",
+			"Mikel Ibaiba"
 		]
 	},
 	"fileimporter-resubmit": "Berriz bidali",
 	"fileimporter-cancel": "Utzi",
 	"fileimporter-edittitle": "Aldatu izenburua",
 	"fileimporter-editinfo": "Aldatu fitxategiaren informazioa",
-	"fileimporter-newtitle": "Izenburu berria:",
+	"fileimporter-extensionlabel": "Fitxategi-luzapena:",
+	"fileimporter-newfilename": "Fitxategiaren izen berria:",
 	"fileimporter-editsummary": "Aldaketaren laburpena:",
 	"fileimporter-heading-filehistory": "Fitxategiaren historia"
 }
