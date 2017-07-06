@@ -206,6 +206,18 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
 				$this->getMockImportTitleChecker( 0, true )
 			],
+			'Invalid, Bad title (too long)' => [
+				new RecoverableTitleException(
+					'fileimporter-filenameerror-toolong',
+					$emptyPlan
+				),
+				$this->getMockImportPlan(
+					$this->getMockTitle( str_repeat( 'a', 242 ) . '.JPG', false ),
+					$this->getMockTitle( 'SourceName.JPG', false )
+				),
+				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
+				$this->getMockImportTitleChecker( 0, true )
+			],
 		];
 
 		return $validTests + $invalidTests;

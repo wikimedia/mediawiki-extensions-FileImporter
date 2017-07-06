@@ -7,6 +7,7 @@ use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
+use UploadBase;
 
 class ImportPlanValidator {
 
@@ -58,6 +59,23 @@ class ImportPlanValidator {
 				'fileimporter-illegalfilenamechars',
 				$importPlan
 			);
+		}
+
+		$base = new FileImporterUploadBase( $importPlan->getTitle(), '' );
+		$titleCheckResult = $base->performTitleChecks();
+		if ( $titleCheckResult !== true ) {
+			switch ( $titleCheckResult ) {
+				case UploadBase::ILLEGAL_FILENAME:
+					$errorMessage = 'fileimporter-filenameerror-illegal';
+					break;
+				case UploadBase::FILENAME_TOO_LONG:
+					$errorMessage = 'fileimporter-filenameerror-toolong';
+					break;
+				default:
+					$errorMessage = 'fileimporter-filenameerror-default';
+					break;
+			}
+			throw new RecoverableTitleException( $errorMessage, $importPlan );
 		}
 	}
 

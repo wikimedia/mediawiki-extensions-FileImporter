@@ -35,26 +35,32 @@ class FileImporterUploadBase extends UploadBase implements LoggerAwareInterface 
 	}
 
 	/**
+	 * @return bool|int check success or integer error code
+	 */
+	public function performTitleChecks() {
+		if ( $this->getTitle() === null ) {
+			return $this->mTitleError;
+		}
+
+		return true;
+	}
+
+	/**
 	 * @return bool were the checks successful & can we upload this file?
 	 */
-	public function performChecks() {
-		$title = $this->getTitle();
+	public function performFileChecks() {
 		$fileVerification = $this->verifyFile();
-		$checkSuccess = $title !== null && $fileVerification === true;
 
-		if ( !$checkSuccess ) {
+		if ( $fileVerification !== true ) {
 			// TODO throw a more informative exception?
-			$logContext = [
-				'title' => $title,
-				'mTitleError' => $this->mTitleError,
-				'fileVerification' => $fileVerification,
-			];
+			$logContext = [ 'fileVerification' => $fileVerification, ];
 			$this->logger->info(
 				__METHOD__ . ' checks failed: ' . json_encode( $logContext ), $logContext
 			);
+			return false;
 		}
 
-		return $checkSuccess;
+		return true;
 	}
 
 	/**
