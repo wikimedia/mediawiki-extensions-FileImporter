@@ -23,6 +23,8 @@
 	"fileimporter-badtoken": "Le jeton CSRF ne correspond pas",
 	"fileimporter-badimporthash": "Le hachage de l’import ne correspond pas. Veuillez refaire l'import.",
 	"fileimporter-filenameerror-default": "Il y a un problème non reconnu avec le nom de votre fichier.",
+	"fileimporter-filenameerror-illegal": "Le nom du fichier que vous essayez actuellement d'importer est invalide.",
+	"fileimporter-filenameerror-toolong": "Le nom du fichier que vous essayez actuellement d'importer est trop long.",
 	"fileimporter-localtitleexists": "Le titre que vous essayez d’importer existe déjà sur ce wiki.",
 	"fileimporter-sourcetitleexists": "Le titre que vous essayez d’importer existe déjà sur le wiki source.",
 	"fileimporter-illegalfilenamechars": "Le titre que vous essayez actuellement d'importer contient des caractères illégaux dans le nom de fichier.",

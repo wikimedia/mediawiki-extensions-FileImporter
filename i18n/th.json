@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ans"
+		]
+	},
+	"fileimporter-filenameerror-illegal": "ชื่อไฟล์ที่คุณกำลังพยายามนำเข้าไปนั้น ไม่ถูกต้อง",
+	"fileimporter-filenameerror-toolong": "ชื่อไฟล์ที่คุณกำลังพยายามนำเข้าไปนั้น ยาวเกินไป",
+	"fileimporter-illegalfilenamechars": "ชื่อหัวข้อที่คุณกำลังพยายามนำเข้าไปนั้น มีตัวอกษรที่ไม่ถูกต้องของชื่อไฟล์",
+	"fileimporter-extensionlabel": "นามสกุลไฟล์:",
+	"fileimporter-newfilename": "ชื่อไฟล์ใหม่:",
+	"fileimporter-newfilename-placeholder": "ชื่อไฟล์สักชื่อหนึ่ง"
+}
