@@ -13,7 +13,6 @@
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-cantimportmissingfile": "Nie można zaimportować brakującego pliku.",
-	"fileimporter-cantimportsuppressedcontent": "Nie można zaimportować wersji z ukrytą treścią.",
 	"fileimporter-duplicatefilesdetected": "Plik, który właśnie próbujesz zaimportować, już istnieje w tej wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplikaty",
 	"fileimporter-exampleprefix": "Przykład",
@@ -23,7 +22,8 @@
 	"fileimporter-import": "Importuj",
 	"fileimporter-cancel": "Anuluj",
 	"fileimporter-imported": "<strong>\"$1\" zaimportowano do \"$2\"</strong>",
-	"fileimporter-newtitle": "Nowy tytuł:",
+	"fileimporter-extensionlabel": "Rozszerzenie pliku:",
+	"fileimporter-newfilename": "Nowa nazwa pliku:",
 	"fileimporter-editsummary": "Opis zmian:",
 	"fileimporter-heading-fileinfo": "Informacje o pliku",
 	"fileimporter-heading-filehistory": "Historia pliku"

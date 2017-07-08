@@ -13,6 +13,7 @@
 	"fileimporter-filenameerror-illegal": "Den Numm vum Fichier deen Dir elo probéiert z'importéieren ass net valabel.",
 	"fileimporter-filenameerror-toolong": "Den Numm vum Fichier deen Dir elo probéiert z'importéieren ass ze laang.",
 	"fileimporter-localtitleexists": "Den Titel deen Dir elo probéiert z'importéieren gëtt et schonn op dëser Wiki.",
+	"fileimporter-illegalfilenamechars": "Den Titel deen Dir elo probéiert z'importéieren huet net valabel Zeechen am Numm vum Fichier.",
 	"fileimporter-duplicatefilesdetected": "De Fichier deen dir elo probéiert z'importéiere gëtt et op dëser Wiki schonn.",
 	"fileimporter-duplicatefilesdetected-prefix": "Doublonen",
 	"fileimporter-exampleprefix": "Beispill",
