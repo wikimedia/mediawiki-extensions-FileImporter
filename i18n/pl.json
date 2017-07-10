@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Chrumps",
-			"Krottyianock"
+			"Krottyianock",
+			"InternerowyGołąb"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -13,6 +14,9 @@
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-cantimportmissingfile": "Nie można zaimportować brakującego pliku.",
+	"fileimporter-filenameerror-default": "Wystąpił nieznany błąd twojej nazwy pliku",
+	"fileimporter-filenameerror-illegal": "Nazwa pliku, które próbujesz zaimportować jest niedozwolona.",
+	"fileimporter-filenameerror-toolong": "Nazwa pliku, które próbujesz zaimportować jest zbyt długa.",
 	"fileimporter-duplicatefilesdetected": "Plik, który właśnie próbujesz zaimportować, już istnieje w tej wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplikaty",
 	"fileimporter-exampleprefix": "Przykład",

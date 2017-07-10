@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Meliganai"
+		]
+	},
+	"fileimporter-filenameerror-default": "Vyskytl se neznámý problém s názvem Vašeho souboru.",
+	"fileimporter-filenameerror-illegal": "Název souboru, který se právě snažíte importovat, není platný.",
+	"fileimporter-filenameerror-toolong": "Název souboru, který se právě snažíte importovat, je příliš dlouhý.",
+	"fileimporter-illegalfilenamechars": "Název, který se právě snažíte importovat, obsahuje neplatné znaky.",
+	"fileimporter-extensionlabel": "Rozšíření souboru:",
+	"fileimporter-newfilename": "Nový název souboru:",
+	"fileimporter-newfilename-placeholder": "Nějaký název souboru"
+}
