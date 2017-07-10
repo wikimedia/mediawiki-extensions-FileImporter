@@ -2,21 +2,19 @@
 
 namespace FileImporter\Services;
 
-use FileImporter\Data\ImportDetails;
+use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
-use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Operations\FileRevisionFromRemoteUrl;
+use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
-use FileImporter\Services\UploadBase\ValidatingUploadBase;
-use Http;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use TempFSFile;
+use RuntimeException;
 use Title;
 use User;
-use WikiRevision;
 
 /**
  * Performs an import of a file to the local wiki based on an ImportPlan object for a given User.
@@ -84,103 +82,53 @@ class Importer implements LoggerAwareInterface {
 	) {
 		$importDetails = $importPlan->getDetails();
 		$plannedTitle = $importPlan->getTitle();
+		$importOperations = new ImportOperations();
 
-		$wikiRevisionFiles = $this->getWikiRevisionFiles( $importDetails );
+		// TODO the type of ImportOperation created should be decided somewhere
 
-		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
-			$base = $this->uploadBaseFactory->newValidatingUploadBase(
+		foreach ( $importDetails->getFileRevisions()->toArray() as $fileRevision ) {
+			$importOperations->add( new FileRevisionFromRemoteUrl(
 				$plannedTitle,
-				$wikiRevisionFile->getFileSrc()
-			);
-			if ( !$base->validateFile() ) {
-				return false;
+				$fileRevision,
+				$this->httpRequestExecutor,
+				$this->wikiRevisionFactory,
+				$this->uploadBaseFactory
+			) );
+		}
+
+		foreach ( $importDetails->getTextRevisions()->toArray() as $textRevision ) {
+			$importOperations->add( new TextRevisionFromTextRevision(
+				$plannedTitle,
+				$textRevision,
+				$this->wikiRevisionFactory
+			) );
+		}
+
+		if ( !$importOperations->prepare() ) {
+			$this->logger->error( 'Failed to prepare operations.' );
+			throw new RuntimeException( 'Failed to prepare operations.' );
+		}
+
+		if ( !$importOperations->commit() ) {
+			$this->logger->error( 'Failed to commit operations.' );
+			if ( !$importOperations->rollback() ) {
+				$this->logger->critical( 'Failed to rollback operations.' );
+				throw new RuntimeException( 'Failed to commit and rollback operations.' );
+			} else {
+				$this->logger->info( 'Successfully rolled back operations' );
+				throw new RuntimeException( 'Failed to commit operations, but rolled back successfully!' );
 			}
 		}
 
-		if ( !isset( $base ) ) {
-			$this->logger->error( __METHOD__ . ' no $base found for import.' );
-			return false;
-		}
-
-		// We can assume this will be a Title and not null due to the performChecks calls above
-		$uploadBaseTitle = $base->getTitle();
-
-		// TODO copy files directly in swift if possible?
-
-		// TODO lookup in CentralAuth to see if users can be maintained on the import
-		// This probably needs some service object to be made to keep things nice and tidy
-
-		$this->importWikiRevisionFiles( $uploadBaseTitle, $wikiRevisionFiles );
-		$this->importTextRevisions( $uploadBaseTitle, $importDetails->getTextRevisions() );
+		// TODO the below should be an ImportOperation
+		$this->createPostImportNullRevision( $importPlan, $user );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
-		$this->createPostImportNullRevision( $importPlan, $user );
-
 		// TODO If modifications are needed on the text we need to make 1 new revision!
 
-		// TODO think about being able to roll back these changes? / totally remove (not just
-		// delete)?
-
 		return true;
-	}
-
-	/**
-	 * @param ImportDetails $importDetails
-	 *
-	 * @return WikiRevision[]
-	 */
-	private function getWikiRevisionFiles( ImportDetails $importDetails ) {
-		$wikiRevisionFiles = [];
-
-		foreach ( $importDetails->getFileRevisions()->toArray() as $fileRevision ) {
-			$fileUrl = $fileRevision->getField( 'url' );
-			if ( !Http::isValidURI( $fileUrl ) ) {
-				// TODO exception?
-				die( 'oh noes, bad uri' );
-			}
-
-			$tmpFile = TempFSFile::factory( 'fileimporter_', '', wfTempDir() );
-			$tmpFile->bind( $this );
-
-			$this->httpRequestExecutor->executeAndSave( $fileUrl, $tmpFile->getPath() );
-
-			$wikiRevisionFiles[] = $this->wikiRevisionFactory->newFromFileRevision(
-				$fileRevision,
-				$tmpFile->getPath(),
-				true
-			);
-		}
-
-		return $wikiRevisionFiles;
-	}
-
-	/**
-	 * @param Title $title
-	 * @param WikiRevision[] $wikiRevisionFiles
-	 */
-	private function importWikiRevisionFiles( Title $title, array $wikiRevisionFiles ) {
-		foreach ( $wikiRevisionFiles as $wikiRevisionFile ) {
-			$wikiRevisionFile->setTitle( $title );
-			$importSuccess = $wikiRevisionFile->importUpload();
-			if ( !$importSuccess ) {
-				// TODO exception & Log
-				die( 'failed import faile :/' );
-			}
-		}
-	}
-
-	private function importTextRevisions( Title $title, TextRevisions $textRevisions ) {
-		foreach ( $textRevisions->toArray() as $textRevision ) {
-			$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $textRevision );
-			$wikiRevision->setTitle( $title );
-			$importSuccess = $wikiRevision->importOldRevision();
-			if ( !$importSuccess ) {
-				// TODO exception & Log
-				die( 'failed import text :/' );
-			}
-		}
 	}
 
 	private function createPostImportNullRevision(
