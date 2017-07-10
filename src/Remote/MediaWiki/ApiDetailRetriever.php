@@ -152,9 +152,12 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
 		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
 
+		$splitTitle = explode( ':', $pageInfoData['title'] );
+		$titleAfterColon = array_pop( $splitTitle );
+
 		$importDetails = new ImportDetails(
 			$sourceUrl,
-			Title::newFromText( $pageInfoData['title'], NS_FILE ),
+			Title::newFromText( $titleAfterColon, NS_FILE ),
 			$fileRevisions->getLatest()->getField( 'thumburl' ),
 			$textRevisions,
 			$fileRevisions
