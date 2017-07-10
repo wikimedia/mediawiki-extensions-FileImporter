@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services\Test\Http;
+namespace FileImporter\Services\Http\Test;
 
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Services\Http\HttpRequestExecutor;
