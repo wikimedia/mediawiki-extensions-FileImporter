@@ -9,6 +9,7 @@ use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use MalformedTitleException;
+use Message;
 use UploadBase;
 
 class ImportPlanValidator {
@@ -65,6 +66,17 @@ class ImportPlanValidator {
 	private function runBasicTitleCheck( ImportPlan $importPlan ) {
 		try {
 			$importPlan->getTitle();
+			if ( $importPlan->getRequest()->getIntendedName() !== null &&
+				$importPlan->getFileName() !== $importPlan->getRequest()->getIntendedName()
+			) {
+				throw new RecoverableTitleException(
+					new Message(
+						'fileimporter-filenameerror-automaticchanges',
+						[ $importPlan->getFileName() ]
+					),
+					$importPlan
+				);
+			}
 		} catch ( MalformedTitleException $e ) {
 			throw new RecoverableTitleException(
 				$e->getMessageObject(),

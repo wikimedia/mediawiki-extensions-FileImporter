@@ -22,6 +22,7 @@
 	"fileimporter-filenameerror-default" : "There is an unknown issue with your filename.",
 	"fileimporter-filenameerror-illegal" : "The file name you are currently trying to import to is invalid.",
 	"fileimporter-filenameerror-toolong" : "The file name you are currently trying to import to is too long.",
+	"fileimporter-filenameerror-automaticchanges" : "The file name you are currently trying to import to will be automatically changed to \"$1\" due to the use of invalid characters.",
 	"fileimporter-localtitleexists" : "The title you are currently trying to import to already exists on this wiki.",
 	"fileimporter-sourcetitleexists" : "The title you are currently trying to import to already exists on the source wiki.",
 	"fileimporter-illegalfilenamechars" : "The title you are currently trying to import to contains invalid filename characters.",

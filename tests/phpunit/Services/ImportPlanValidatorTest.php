@@ -18,6 +18,7 @@ use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MalformedTitleException;
+use Message;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 use Title;
@@ -47,9 +48,15 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 	 */
 	private function getMockDuplicateFileRevisionChecker( $callCount = 0, $arrayElements = 0 ) {
 		$mock = $this->getMock( DuplicateFileRevisionChecker::class, [], [], '', false );
+		if ( $arrayElements === 0 ) {
+			// PHP 5.5 and below can't handle array_fill with the number of elements as 0
+			$returnValue = [];
+		} else {
+			$returnValue = array_fill( 0, $arrayElements, 'value' );
+		}
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'findDuplicates' )
-			->willReturn( array_fill( 0, $arrayElements, 'value' ) );
+			->willReturn( $returnValue );
 		return $mock;
 	}
 
@@ -305,6 +312,29 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 		if ( $expected === null ) {
 			$this->assertTrue( true );
 		}
+	}
+
+	public function testValidateFailsWhenCoreChangesTheName() {
+		$mockRequest = $this->getMockImportRequest();
+		$mockRequest->expects( $this->atLeastOnce() )
+			->method( 'getIntendedName' )
+			->willReturn( 'Before#After' );
+		$mockDetails = $this->getMockImportDetails( Title::newFromText( 'SourceTitle', NS_FILE ) );
+
+		$importPlan = new ImportPlan( $mockRequest, $mockDetails );
+
+		$expected = new RecoverableTitleException(
+			new Message( 'fileimporter-filenameerror-automaticchanges', [ 'Before' ] ),
+			$this->getMockImportPlan()
+		);
+		$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
+
+		$validator = new ImportPlanValidator(
+			$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
+			$this->getMockImportTitleChecker( 0, true ),
+			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() )
+		);
+		$validator->validate( $importPlan );
 	}
 
 }

@@ -97,7 +97,7 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getFileExtension() {
-		return pathinfo( $this->getTitleText() )['extension'];
+		return $this->details->getSourceFileExtension();
 	}
 
 }
