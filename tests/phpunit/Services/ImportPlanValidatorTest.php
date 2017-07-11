@@ -17,6 +17,7 @@ use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
+use MalformedTitleException;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 use Title;
@@ -97,11 +98,22 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 		return $mock;
 	}
 
-	private function getMockImportPlan( Title $planTitle = null, Title $sourceTitle = null ) {
+	private function getMockImportPlan(
+		Title $planTitle = null,
+		Title $sourceTitle = null,
+		$getTitleFails = false
+	) {
 		$mock = $this->getMock( ImportPlan::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getTitle' )
-			->willReturn( $planTitle );
+		if ( !$getTitleFails ) {
+			$mock->expects( $this->any() )
+				->method( 'getTitle' )
+				->willReturn( $planTitle );
+		} else {
+			$mock->expects( $this->any() )
+				->method( 'getTitle' )
+				->willThrowException( new MalformedTitleException( 'mockexception' ) );
+		}
+
 		$mock->expects( $this->any() )
 			->method( 'getDetails' )
 			->willReturn(
@@ -228,7 +240,7 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
 				$this->getMockImportTitleChecker( 0, true )
 			],
-			'Invalid, Bad title (too long)' => [
+			'Invalid, Bad filename (too long)' => [
 				new RecoverableTitleException(
 					'fileimporter-filenameerror-toolong',
 					$emptyPlan
@@ -240,6 +252,20 @@ class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
 				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
 				$this->getMockImportTitleChecker( 0, true ),
 				$this->getMockValidatingUploadBase( UploadBase::FILENAME_TOO_LONG, true )
+			],
+			'Invalid, Bad characters "<", getTitle throws MalformedTitleException' => [
+				new RecoverableTitleException(
+					'mockexception',
+					$emptyPlan
+				),
+				$this->getMockImportPlan(
+					$this->getMockTitle( 'Name<Name.JPG', false ),
+					$this->getMockTitle( 'SourceName.JPG', false ),
+					true
+				),
+				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
+				$this->getMockImportTitleChecker( 0, true ),
+				$this->getMockValidatingUploadBase( true, true )
 			],
 		];
 

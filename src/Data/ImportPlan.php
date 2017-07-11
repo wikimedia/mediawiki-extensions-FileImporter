@@ -2,6 +2,8 @@
 
 namespace FileImporter\Data;
 
+use MalformedTitleException;
+use MediaWiki\MediaWikiServices;
 use RuntimeException;
 use Title;
 
@@ -53,20 +55,28 @@ class ImportPlan {
 		return $this->details;
 	}
 
+	public function getTitleText() {
+		if ( $this->title === null ) {
+			$intendedFileName = $this->request->getIntendedName();
+			if ( $intendedFileName ) {
+				return $intendedFileName . '.' . $this->details->getSourceFileExtension();
+			} else {
+				return $this->details->getSourceLinkTarget()->getText();
+			}
+		}
+		return $this->title->getText();
+	}
+
 	/**
+	 * @throws MalformedTitleException if title parsing failed
+	 * @throws RuntimeException if Title::newFromLinkTarget returned null when given a TitleValue
 	 * @return Title
 	 */
 	public function getTitle() {
 		if ( $this->title === null ) {
-			$intendedFileName = $this->request->getIntendedName();
-
-			if ( $intendedFileName ) {
-				$fileExtension = $this->details->getSourceFileExtension();
-				$intendedTitleText = $intendedFileName . '.' . $fileExtension;
-				$this->title = Title::newFromText( $intendedTitleText, NS_FILE );
-			} else {
-				$this->title = Title::newFromLinkTarget( $this->details->getSourceLinkTarget() );
-			}
+			$titleParser = MediaWikiServices::getInstance()->getTitleParser();
+			$titleValue = $titleParser->parseTitle( $this->getTitleText(), NS_FILE );
+			$this->title = Title::newFromLinkTarget( $titleValue );
 
 			if ( $this->title === null ) {
 				throw new RuntimeException( __METHOD__ . ' failed to get a Title object.' );
@@ -80,14 +90,14 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getFileName() {
-		return pathinfo( $this->getTitle()->getText() )['filename'];
+		return pathinfo( $this->getTitleText() )['filename'];
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getFileExtension() {
-		return pathinfo( $this->getTitle()->getText() )['extension'];
+		return pathinfo( $this->getTitleText() )['extension'];
 	}
 
 }
