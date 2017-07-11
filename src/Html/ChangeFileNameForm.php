@@ -30,6 +30,12 @@ class ChangeFileNameForm {
 	}
 
 	public function getHtml() {
+		// Try showing the user provided value first if present
+		$filenameValue = $this->importPlan->getRequest()->getIntendedName();
+		if ( $filenameValue === null ) {
+			$filenameValue = $this->importPlan->getTitleText();
+		}
+
 		return Html::openElement(
 			'form',
 			[
@@ -45,7 +51,7 @@ class ChangeFileNameForm {
 		new TextInputWidget(
 			[
 				'name' => 'intendedFileName',
-				'value' => $this->importPlan->getFileName(),
+				'value' => $filenameValue,
 				'classes' => [ 'mw-importfile-import-newtitle' ],
 				'placeholder' => ( new Message( 'fileimporter-newfilename-placeholder' ) )->plain(),
 				'suggestions' => false,
