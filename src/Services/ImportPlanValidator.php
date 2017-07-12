@@ -8,6 +8,7 @@ use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use MalformedTitleException;
 use UploadBase;
 
 class ImportPlanValidator {
@@ -51,6 +52,7 @@ class ImportPlanValidator {
 	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
 	public function validate( ImportPlan $importPlan ) {
+		$this->runBasicTitleCheck( $importPlan );
 		// Checks the extension doesn't provide easy ways to fix
 		$this->runFileExtensionCheck( $importPlan );
 		$this->runDuplicateFilesCheck( $importPlan );
@@ -58,6 +60,17 @@ class ImportPlanValidator {
 		$this->runFileTitleCheck( $importPlan );
 		$this->runLocalTitleConflictCheck( $importPlan );
 		$this->runRemoteTitleConflictCheck( $importPlan );
+	}
+
+	private function runBasicTitleCheck( ImportPlan $importPlan ) {
+		try {
+			$importPlan->getTitle();
+		} catch ( MalformedTitleException $e ) {
+			throw new RecoverableTitleException(
+				$e->getMessageObject(),
+				$importPlan
+			);
+		}
 	}
 
 	private function runFileTitleCheck( ImportPlan $importPlan ) {
