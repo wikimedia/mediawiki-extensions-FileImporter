@@ -2,6 +2,7 @@
 
 namespace FileImporter\Exceptions;
 
+use MWHttpRequest;
 use StatusValue;
 
 /**
@@ -10,15 +11,15 @@ use StatusValue;
 class HttpRequestException extends ImportException {
 
 	private $statusValue;
-	private $statusCode;
+	private $httpRequest;
 
 	/**
 	 * @param StatusValue $statusValue
-	 * @param int $statusCode
+	 * @param MWHttpRequest $httpRequest
 	 */
-	public function __construct( StatusValue $statusValue, $statusCode ) {
+	public function __construct( StatusValue $statusValue, MWHttpRequest $httpRequest ) {
 		$this->statusValue = $statusValue;
-		$this->statusCode = $statusCode;
+		$this->httpRequest = $httpRequest;
 		parent::__construct();
 	}
 
@@ -26,8 +27,8 @@ class HttpRequestException extends ImportException {
 		return $this->statusValue;
 	}
 
-	public function getStatusCode() {
-		return $this->statusCode;
+	public function getHttpRequest() {
+		return $this->httpRequest;
 	}
 
 }

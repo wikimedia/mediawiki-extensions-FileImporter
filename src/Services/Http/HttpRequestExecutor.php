@@ -51,6 +51,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	/**
 	 * @param string $url
 	 *
+	 * @throws HttpRequestException
 	 * @return MWHttpRequest
 	 */
 	public function execute( $url ) {
@@ -61,6 +62,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @param string $url
 	 * @param string $filePath
 	 *
+	 * @throws HttpRequestException
 	 * @return MWHttpRequest
 	 */
 	public function executeAndSave( $url, $filePath ) {
@@ -76,6 +78,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @param string $url
 	 * @param callable|null $callback
 	 *
+	 * @throws HttpRequestException
 	 * @return MWHttpRequest
 	 */
 	public function executeWithCallback( $url, $callback = null ) {
@@ -94,7 +97,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 
 		$status = $request->execute();
 		if ( !$status->isOK() ) {
-			throw new HttpRequestException( $status, $request->getStatus() );
+			throw new HttpRequestException( $status, $request );
 		}
 
 		return $request;
