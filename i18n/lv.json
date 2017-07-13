@@ -9,6 +9,7 @@
 	"fileimporter-cancel": "Atcelt",
 	"fileimporter-extensionlabel": "Faila paplašinājums:",
 	"fileimporter-newfilename": "Jaunais faila nosaukums:",
+	"fileimporter-newfilename-placeholder": "Kāds faila nosaukums",
 	"fileimporter-editsummary": "Izmaiņu kopsavilkums:",
 	"fileimporter-heading-fileinfo": "Faila informācija",
 	"fileimporter-heading-filehistory": "Faila vēsture"
