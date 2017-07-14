@@ -11,7 +11,7 @@
 	"fileimporter-specialpage": "Import pliku",
 	"fileimporter-specialpage-successtitle": "Import zakończony sukcesem",
 	"fileimporter-importfailed": "Import nieudany",
-	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL",
+	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL: $1",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-cantimportmissingfile": "Nie można zaimportować brakującego pliku.",
 	"fileimporter-filenameerror-default": "Wystąpił nieznany błąd twojej nazwy pliku",
