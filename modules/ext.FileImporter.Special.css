@@ -30,15 +30,12 @@
     position: relative;
 }
 
-.mw-importfile-header-title {
+.mw-body-content .mw-importfile-header-title {
     display: inline-block;
     position: absolute;
     border: none;
     bottom: 0;
-}
-
-#mw-importfile-header-title {
-    margin: 0;
+    margin: 0
 }
 
 .mw-importfile-rightAlign {
