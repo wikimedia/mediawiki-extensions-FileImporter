@@ -1,45 +1,45 @@
 .mw-fileimporter-url-text {
-    margin-bottom: 14px;
+	margin-bottom: 14px;
 }
 
 .mw-importfile-import-summary {
-    margin-bottom: 14px;
+	margin-bottom: 14px;
 }
 
 .mw-importfile-import-newtitle {
-    margin-bottom: 14px;
+	margin-bottom: 14px;
 }
 
 .mw-importfile-parsedContent {
-    background-color: #f8f9fa;
-    border: 1px solid #c8ccd1;
-    padding: 1em 1em 1.5em 1em;
+	background-color: #f8f9fa;
+	border: 1px solid #c8ccd1;
+	padding: 1em 1em 1.5em 1em;
 }
 
 .mw-importfile-importOptions {
-    background-color: #f8f9fa;
-    border: 1px solid #c8ccd1;
-    padding: 1em 1em 1.5em 1em;
+	background-color: #f8f9fa;
+	border: 1px solid #c8ccd1;
+	padding: 1em 1em 1.5em 1em;
 }
 
 .mw-importfile-header {
-    margin: 1em 0 0.25em 0;
-    padding-bottom: 0.2em;
-    border-bottom: 1px solid #a2a9b1;
-    overflow: auto;
-    position: relative;
+	margin: 1em 0 0.25em 0;
+	padding-bottom: 0.2em;
+	border-bottom: 1px solid #a2a9b1;
+	overflow: auto;
+	position: relative;
 }
 
 .mw-body-content .mw-importfile-header-title {
-    display: inline-block;
-    position: absolute;
-    border: none;
-    bottom: 0;
-    margin: 0
+	display: inline-block;
+	position: absolute;
+	border: 0;
+	bottom: 0;
+	margin: 0;
 }
 
 .mw-importfile-rightAlign {
-    position: relative;
-    bottom: 0;
-    float: right;
+	position: relative;
+	bottom: 0;
+	float: right;
 }
