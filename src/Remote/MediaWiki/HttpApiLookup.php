@@ -44,10 +44,11 @@ class HttpApiLookup implements LoggerAwareInterface {
 
 	/**
 	 * @param string $message
+	 * @param array $context
 	 * @throws ImportException
 	 */
-	private function logAndException( $message ) {
-		$this->logger->error( $message );
+	private function logAndException( $message, $context = [] ) {
+		$this->logger->error( $message, $context );
 		throw new ImportException( $message );
 	}
 
@@ -81,12 +82,18 @@ class HttpApiLookup implements LoggerAwareInterface {
 		try {
 			$req = $this->httpRequestExecutor->execute( $sourceUrl->getUrl() );
 		} catch ( HttpRequestException $e ) {
-			if ( $e->getStatusCode() === 404 ) {
+			$statusCode = $e->getHttpRequest()->getStatus();
+			if ( $statusCode === 404 ) {
 				$this->logAndException( 'File not found: ' . $sourceUrl->getUrl() );
 			}
 			$this->logAndException(
 				'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
-				'Got status code ' . $e->getStatusCode() . '.'
+				' Status code ' . $statusCode . ', ' . $e->getMessage(),
+				[
+					'statuscode' => $statusCode,
+					'previousmessage' => $e->getMessage(),
+					'response' => $e->getHttpRequest()->getContent(),
+				]
 			);
 			return null; // never reached
 		}
