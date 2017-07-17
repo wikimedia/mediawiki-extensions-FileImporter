@@ -9,7 +9,7 @@
 	"fileimporter": "Importador de archivos",
 	"fileimporter-desc": "Importación sencilla de archivos de otros sitios",
 	"fileimporter-specialpage": "Importar archivo",
-	"fileimporter-cantparseurl": "No se puede analizar el URL proporcionado",
+	"fileimporter-cantparseurl": "No se puede analizar el URL proporcionado: $1",
 	"fileimporter-cantimporturl": "No se puede importar el URL proporcionado",
 	"fileimporter-filenameerror-default": "Hay un problema desconocido con tu nombre de archivo.",
 	"fileimporter-filenameerror-illegal": "El nombre del archivo que estás intentando importar actualmente no es válido.",

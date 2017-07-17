@@ -5,12 +5,17 @@
 			"Mikel Ibaiba"
 		]
 	},
+	"fileimporter-filenameerror-default": "Ezagutzen ez den arazo bat dago zure artxiboaren izenarekin.",
+	"fileimporter-filenameerror-illegal": "Inportatzen ari zaren artxiboaren izenak ez du balio.",
+	"fileimporter-filenameerror-toolong": "Inportatzen ari zaren artxiboaren izena luzeegia da.",
+	"fileimporter-illegalfilenamechars": "Inportatzen ari zaren artxiboaren izenak balio ez duten karaktereak ditu.",
 	"fileimporter-resubmit": "Berriz bidali",
 	"fileimporter-cancel": "Utzi",
 	"fileimporter-edittitle": "Aldatu izenburua",
 	"fileimporter-editinfo": "Aldatu fitxategiaren informazioa",
 	"fileimporter-extensionlabel": "Fitxategi-luzapena:",
 	"fileimporter-newfilename": "Fitxategiaren izen berria:",
+	"fileimporter-newfilename-placeholder": "Atxibo batzuen izena",
 	"fileimporter-editsummary": "Aldaketaren laburpena:",
 	"fileimporter-heading-filehistory": "Fitxategiaren historia"
 }
