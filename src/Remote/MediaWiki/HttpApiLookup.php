@@ -86,6 +86,12 @@ class HttpApiLookup implements LoggerAwareInterface {
 			if ( $statusCode === 404 ) {
 				$this->logAndException( 'File not found: ' . $sourceUrl->getUrl() );
 			}
+			if ( $e->getStatusValue()->hasMessage( 'http-timed-out' ) ) {
+				$this->logAndException(
+					'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
+					' Connection timed out.'
+				);
+			}
 			$this->logAndException(
 				'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
 				' Status code ' . $statusCode . ', ' . $e->getMessage(),
