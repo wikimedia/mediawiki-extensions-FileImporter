@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Emem.calist"
+		]
+	},
+	"fileimporter-filenameerror-default": "Mukhang hindi matatanggap ang 'filename' na nakasaad. Medyo tagilid ka ('pre/'teh), Siguraduhin mo munang walang kamukhang kopya o nadoble ang nagamit. Palitan mo nang 'filename' baka umubra.",
+	"fileimporter-filenameerror-illegal": "Mukhang Mali ang 'file name' na inimport. Manigurado ka muna ..",
+	"fileimporter-illegalfilenamechars": "Wag mo kasing gaguhin ang 'filename', kita mo 'invalid' tuloy.. Yung mga nakatakdang alpabeto lang. Marunong ka ba ng alpabeto?! Paturo ka!"
+}
