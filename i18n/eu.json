@@ -5,6 +5,7 @@
 			"Mikel Ibaiba"
 		]
 	},
+	"fileimporter-cantparseurl": "Ezin da emandako URL-a aztertu: $1",
 	"fileimporter-filenameerror-default": "Ezagutzen ez den arazo bat dago zure artxiboaren izenarekin.",
 	"fileimporter-filenameerror-illegal": "Inportatzen ari zaren artxiboaren izenak ez du balio.",
 	"fileimporter-filenameerror-toolong": "Inportatzen ari zaren artxiboaren izena luzeegia da.",
