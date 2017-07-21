@@ -81,6 +81,8 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			true
 		);
 
+		$this->wikiRevision->setTitle( $this->plannedTitle );
+
 		$base = $this->uploadBaseFactory->newValidatingUploadBase(
 			$this->plannedTitle,
 			$this->wikiRevision->getFileSrc()
