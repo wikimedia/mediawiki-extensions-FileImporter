@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion"
+			"Piramidion",
+			"SimondR"
 		]
 	},
 	"fileimporter": "Імпортер файлів",
 	"fileimporter-desc": "Легке імпортування файлів з інших сайтів",
 	"fileimporter-specialpage": "Імпортувати файл",
 	"fileimporter-specialpage-successtitle": "Імпорт виконано",
-	"fileimporter-cantparseurl": "Не вдається обробити подану URL-адресу",
+	"fileimporter-cantparseurl": "Не вдається обробити подану URL-адресу: $1",
 	"fileimporter-cantimporturl": "Не вдається імпортувати з поданої URL-адреси",
 	"fileimporter-localtitleexists": "Назва, на яку Ви зараз намагаєтесь імпортувати, вже існує в цій вікі.",
 	"fileimporter-duplicatefilesdetected": "Файл, який Ви зараз намагаєтесь імпортувати, вже існує в цій вікі.",
@@ -22,7 +23,8 @@
 	"fileimporter-imported": "<strong>«$1» імпортовано на «$2»</strong>",
 	"fileimporter-edittitle": "Редагувати назву",
 	"fileimporter-editinfo": "Редагувати інформацію про файл",
-	"fileimporter-newtitle": "Нова назва:",
+	"fileimporter-extensionlabel": "Розширення файлу:",
+	"fileimporter-newfilename": "Нова назва файлу:",
 	"fileimporter-editsummary": "Опис редагування:",
 	"fileimporter-editsummary-placeholder": "Використовується лише якщо Ви вносите зміни в імпорт.",
 	"fileimporter-previewnote": "Це — попередній перегляд файлу, який має бути імпортований. Будь ласка, уважно перегляньте сторінку, перед тим як імпортувати.",
