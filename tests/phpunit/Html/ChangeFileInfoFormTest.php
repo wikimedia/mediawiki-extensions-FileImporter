@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase;
 use SpecialPage;
 use Title;
 
-class ChangeFileNameFormTest extends PHPUnit_Framework_TestCase {
+class ChangeFileInfoFormTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -68,19 +68,18 @@ class ChangeFileNameFormTest extends PHPUnit_Framework_TestCase {
 
 	public function provideTestTextDisplayedInInputBox() {
 		return [
-			[ 'Foo', 'Foo' ],
-			[ 'Foooo/Barr', 'Foooo/Barr' ],
+			[ 'Some Input Text', 'Some Input Text' ],
 		];
 	}
 
 	/**
 	 * @dataProvider provideTestTextDisplayedInInputBox
-	 * @param string $userInputName
+	 * @param string $userInput
 	 * @param string $expectedInputText
 	 */
-	public function testTextDisplayedInInputBox( $userInputName, $expectedInputText ) {
+	public function testTextDisplayedInInputBox( $userInput, $expectedInputText ) {
 		$importPlan = new ImportPlan(
-			new ImportRequest( 'http://goog', $userInputName, '' ),
+			new ImportRequest( 'http://goog', 'Foo', $userInput ),
 			$this->getMockImportDetails()
 		);
 		$form = new ChangeFileNameForm( $this->getMockSpecialPage(), $importPlan );
@@ -89,7 +88,7 @@ class ChangeFileNameFormTest extends PHPUnit_Framework_TestCase {
 			$form->getHtml(),
 			is( htmlPiece( havingChild(
 				both( withTagName( 'input' ) )
-					->andAlso( withAttribute( 'name' )->havingValue( 'intendedFileName' ) )
+					->andAlso( withAttribute( 'name' )->havingValue( 'intendedWikiText' ) )
 					->andAlso( withAttribute( 'value' )->havingValue( $expectedInputText ) )
 			) ) )
 		);

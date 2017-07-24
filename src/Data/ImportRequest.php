@@ -28,8 +28,6 @@ class ImportRequest {
 	private $intendedText;
 
 	/**
-	 * ImportRequest constructor.
-	 *
 	 * @param string $url
 	 * @param string|null $intendedName null for no intended change
 	 * @param string|null $intendedText null for no intended change

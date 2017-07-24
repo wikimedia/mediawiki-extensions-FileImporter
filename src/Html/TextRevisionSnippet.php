@@ -18,18 +18,37 @@ class TextRevisionSnippet {
 	 */
 	private $textRevision;
 
-	public function __construct( TextRevision $textRevision ) {
+	/**
+	 * @var string|null
+	 */
+	private $intendedWikiText;
+
+	/**
+	 * @param TextRevision $textRevision Latest test revision
+	 * @param string|null $intendedWikiText This will override the text provided in the TextRevision
+	 */
+	public function __construct( TextRevision $textRevision, $intendedWikiText ) {
 		$this->textRevision = $textRevision;
+		$this->intendedWikiText = $intendedWikiText;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
 		$textRevision = $this->textRevision;
 		$title = Title::newFromText( $textRevision->getField( 'title' ), NS_FILE );
 
+		if ( $this->intendedWikiText === null ) {
+			$text = $textRevision->getField( '*' );
+		} else {
+			$text = $this->intendedWikiText;
+		}
+
 		$content = null;
 		try {
 			$content = ContentHandler::makeContent(
-				$textRevision->getField( '*' ),
+				$text,
 				$title,
 				$textRevision->getField( 'contentmodel' ),
 				$textRevision->getField( 'contentformat' )

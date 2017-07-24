@@ -12,6 +12,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Revision;
 use RuntimeException;
 use Title;
 use User;
@@ -119,7 +120,9 @@ class Importer implements LoggerAwareInterface {
 		}
 
 		// TODO the below should be an ImportOperation
-		$this->createPostImportNullRevision( $importPlan, $user );
+		$articleIdForUpdate = $this->getArticleIdForUpdate( $importPlan );
+		$this->createPostImportNullRevision( $importPlan, $articleIdForUpdate, $user );
+		$this->createPostImportEdit( $importPlan, $articleIdForUpdate, $user );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
@@ -129,17 +132,58 @@ class Importer implements LoggerAwareInterface {
 		return true;
 	}
 
+	/**
+	 * T164729 GAID_FOR_UPDATE needed to select for a write
+	 *
+	 * @param ImportPlan $importPlan
+	 *
+	 * @return int
+	 */
+	private function getArticleIdForUpdate( ImportPlan $importPlan ) {
+		return $importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE );
+	}
+
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param int $articleIdForUpdate
+	 * @param User $user
+	 */
 	private function createPostImportNullRevision(
 		ImportPlan $importPlan,
+		$articleIdForUpdate,
 		User $user
 	) {
 		$this->nullRevisionCreator->createForLinkTarget(
-			// T164729 GAID_FOR_UPDATE needed to select for a write
-			$importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE ),
+			$articleIdForUpdate,
 			$user,
 			'Imported from ' . $importPlan->getRequest()->getUrl(), // TODO i18n
 			true
 		);
+	}
+
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param int $articleIdForUpdate
+	 * @param User $user
+	 */
+	private function createPostImportEdit(
+		ImportPlan $importPlan,
+		$articleIdForUpdate,
+		User $user
+	) {
+		$page = \WikiPage::newFromID( $articleIdForUpdate );
+		$editResult = $page->doEditContent(
+			new \WikitextContent( $importPlan->getFileInfoText() ),
+			// TODO i18n / user provided edit summary
+			'User edit on import',
+			EDIT_UPDATE,
+			false,
+			$user
+		);
+
+		if ( !$editResult->isOK() ) {
+			throw new RuntimeException( 'Failed to create user edit' );
+		}
 	}
 
 }
