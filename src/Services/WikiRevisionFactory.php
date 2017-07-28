@@ -33,7 +33,10 @@ class WikiRevisionFactory {
 	 */
 	public function newFromFileRevision( FileRevision $fileRevision, $src, $isTemp ) {
 		$revision = $this->getWikiRevision();
-		$revision->setTitle( Title::newFromText( $fileRevision->getField( 'name' ), NS_FILE ) );
+		$revision->setTitle( Title::newFromText(
+			$this->removeNamespaceFromString( $fileRevision->getField( 'name' ) ),
+			NS_FILE )
+		);
 		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
 		$revision->setFileSrc( $src, $isTemp );
 		$revision->setSha1Base36( $fileRevision->getField( 'sha1' ) );
@@ -43,9 +46,17 @@ class WikiRevisionFactory {
 		return $revision;
 	}
 
+	/**
+	 * @param TextRevision $textRevision
+	 *
+	 * @return WikiRevision
+	 */
 	public function newFromTextRevision( TextRevision $textRevision ) {
 		$revision = $this->getWikiRevision();
-		$revision->setTitle( Title::newFromText( $textRevision->getField( 'title' ), NS_FILE ) );
+		$revision->setTitle( Title::newFromText(
+			$this->removeNamespaceFromString( $textRevision->getField( 'title' ) ),
+			NS_FILE )
+		);
 		$revision->setTimestamp( $textRevision->getField( 'timestamp' ) );
 		$revision->setSha1Base36( $textRevision->getField( 'sha1' ) );
 		$revision->setUsername( $textRevision->getField( 'user' ) );
@@ -56,6 +67,16 @@ class WikiRevisionFactory {
 		$revision->setText( $textRevision->getField( '*' ) );
 
 		return $revision;
+	}
+
+	/**
+	 * @param string $title
+	 *
+	 * @return string
+	 */
+	private function removeNamespaceFromString( $title ) {
+		$splitTitle = explode( ':', $title );
+		return array_pop( $splitTitle );
 	}
 
 }
