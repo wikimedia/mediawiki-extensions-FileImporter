@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "'Nu mode facile de 'mbortà le file da otre site",
+	"fileimporter-specialpage": "'Mborte file",
+	"fileimporter-specialpage-successtitle": "'Mbortazione apposte",
+	"fileimporter-importfailed": "'Mbortazione fallite"
+}
