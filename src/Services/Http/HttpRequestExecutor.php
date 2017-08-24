@@ -22,17 +22,24 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	private $requestFactoryCallable;
 
 	/**
+	 * @var int|bool
+	 */
+	private $timeout;
+
+	/**
 	 * @var int|null
 	 */
 	private $maxFileSize;
 
 	/**
+	 * @param int|bool $timeout of http requests in seconds, false for default
 	 * @param int|null $maxFileSize in bytes
 	 */
-	public function __construct( $maxFileSize = null ) {
+	public function __construct( $timeout = false, $maxFileSize = null ) {
 		$this->requestFactoryCallable = [ MWHttpRequest::class, 'factory' ];
 		$this->logger = new NullLogger();
 		$this->maxFileSize = $maxFileSize;
+		$this->timeout = $timeout;
 	}
 
 	public function setLogger( LoggerInterface $logger ) {
@@ -73,7 +80,6 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 
 	/**
 	 * TODO proxy? $wgCopyUploadProxy ?
-	 * TODO timeout $wgCopyUploadTimeout ?
 	 *
 	 * @param string $url
 	 * @param callable|null $callback
@@ -82,14 +88,19 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @return MWHttpRequest
 	 */
 	public function executeWithCallback( $url, $callback = null ) {
+		$options = [
+			'logger' => $this->logger,
+			'followRedirects' => true,
+		];
+		if ( $this->timeout !== false ) {
+			$options['timeout'] = $this->timeout;
+		}
+
 		/** @var MWHttpRequest $request */
 		$request = call_user_func(
 			$this->requestFactoryCallable,
 			$url,
-			[
-				'logger' => $this->logger,
-				'followRedirects' => true,
-			],
+			$options,
 			__METHOD__
 		);
 

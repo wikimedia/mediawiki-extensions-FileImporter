@@ -22,7 +22,7 @@ class HttpRequestExecutorTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider provideTestExecute
 	 */
 	public function testExecute( $testUrl, $expectedResult ) {
-		$executor = new HttpRequestExecutor();
+		$executor = new HttpRequestExecutor( 10 );
 		$factoryOverride = function ( $url, $options = null, $caller = __METHOD__ )
 			use ( $testUrl, $expectedResult ) {
 			$this->assertEquals( $testUrl, $url );

@@ -29,8 +29,12 @@ return [
 	},
 
 	'FileImporterHttpRequestExecutor' => function ( MediaWikiServices $services ) {
+		$timeout = $services->getMainConfig()->get( 'CopyUploadTimeout' );
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
-		$service = new HttpRequestExecutor( $maxFileSize );
+		$service = new HttpRequestExecutor(
+			$timeout,
+			$maxFileSize
+		);
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $service;
 	},
