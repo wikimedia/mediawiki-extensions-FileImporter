@@ -82,6 +82,7 @@
 	],
 	"config": {
 		"FileImporterRequiredRight": "upload",
+		"FileImporterInBeta": true,
 		"FileImporterSourceSiteServices": [
 			"FileImporterSitesTableMediaWikiSite"
 		],
