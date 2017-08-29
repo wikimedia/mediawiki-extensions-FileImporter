@@ -30,6 +30,11 @@ class ImportPlan {
 	private $title = null;
 
 	/**
+	 * @var string|null
+	 */
+	private $fileInfoText = null;
+
+	/**
 	 * ImportPlan constructor, should not be constructed directly in production code.
 	 * Use an ImportPlanFactory instance.
 	 *
@@ -98,6 +103,19 @@ class ImportPlan {
 	 */
 	public function getFileExtension() {
 		return $this->details->getSourceFileExtension();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFileInfoText() {
+		if ( $this->fileInfoText === null ) {
+			$intendedWikiText = $this->request->getIntendedText();
+			if ( $intendedWikiText ) {
+				return $intendedWikiText;
+			}
+		}
+		return $this->getDetails()->getTextRevisions()->getLatest()->getField( '*' );
 	}
 
 }

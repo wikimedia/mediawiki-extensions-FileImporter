@@ -48,6 +48,7 @@ class ImportPreviewPage {
 		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
 			'clientUrl' => $request->getUrl(),
 			'intendedFileName' => $this->importPlan->getFileName(),
+			'intendedWikiText' => $this->importPlan->getFileInfoText(),
 			'importDetailsHash' => $details->getOriginalHash(),
 		] ) )->getHtml();
 
@@ -137,7 +138,10 @@ class ImportPreviewPage {
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-parsedContent' ],
-			( new TextRevisionSnippet( $details->getTextRevisions()->getLatest() ) )->getHtml()
+			( new TextRevisionSnippet(
+				$details->getTextRevisions()->getLatest(),
+				$this->importPlan->getFileInfoText()
+			) )->getHtml()
 		) .
 		Html::element(
 			'h2',

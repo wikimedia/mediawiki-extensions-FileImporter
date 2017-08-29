@@ -10,6 +10,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
+use FileImporter\Html\ChangeFileInfoForm;
 use FileImporter\Html\ChangeFileNameForm;
 use FileImporter\Html\DuplicateFilesPage;
 use FileImporter\Html\ImportPreviewPage;
@@ -26,6 +27,7 @@ use MediaWiki\MediaWikiServices;
 use Message;
 use PermissionsError;
 use SpecialPage;
+use StringUtils;
 use UploadBase;
 use User;
 use UserBlockedError;
@@ -134,7 +136,10 @@ class SpecialImportFile extends SpecialPage {
 				);
 				break;
 			case 'editinfo':
-				// TODO implement
+				$this->getOutput()->addHTML(
+					( new ChangeFileInfoForm( $this, $importPlan ) )->getHtml()
+				);
+				break;
 			default:
 				$this->showImportPage( $importPlan );
 		}
@@ -168,10 +173,20 @@ class SpecialImportFile extends SpecialPage {
 	 * @return ImportPlan
 	 */
 	private function getImportPlan() {
+		$intendedWikiText = $this->getRequest()->getVal( 'intendedWikiText' );
+
+		/**
+		 * The below could be turned on with refactoring @ https://gerrit.wikimedia.org/r/#/c/373867/
+		 * But a patch also exists to remove this code https://gerrit.wikimedia.org/r/#/c/138840/
+		 */
+		// if ( !$this->getRequest()->isUnicodeCompliantBrowser() ) {
+		// $intendedWikiText = StringUtils::unmakeSafeForUtf8Editing( $intendedWikiText );
+		// }
+
 		$importRequest = new ImportRequest(
 			$this->getRequest()->getVal( 'clientUrl' ),
 			$this->getRequest()->getVal( 'intendedFileName' ),
-			null
+			$intendedWikiText
 		);
 
 		$url = $importRequest->getUrl();
