@@ -22,6 +22,7 @@
 	"fileimporter-filenameerror-default": "Es gibt ein unbekanntes Problem mit deinem Dateinamen.",
 	"fileimporter-filenameerror-illegal": "Der Dateiname, den du derzeit versuchst zu importieren, ist ungültig.",
 	"fileimporter-filenameerror-toolong": "Der Dateiname, den du derzeit versuchst zu importieren, ist zu lang.",
+	"fileimporter-filenameerror-automaticchanges": "Der Dateiname, den du derzeit versuchst zu importieren, wird aufgrund der Verwendung ungültiger Zeichen automatisch in „$1“ geändert.",
 	"fileimporter-localtitleexists": "Der Titel, den du derzeit versuchst zu importieren, ist bereits auf diesem Wiki vorhanden.",
 	"fileimporter-sourcetitleexists": "Der Titel, den du derzeit versuchst zu importieren, ist bereits im Quellwiki vorhanden.",
 	"fileimporter-illegalfilenamechars": "Der Titel, den du derzeit versuchst zu importieren, enthält ungültige Zeichen im Dateinamen.",
@@ -45,5 +46,6 @@
 	"fileimporter-heading-fileinfo": "Dateiinfo",
 	"fileimporter-heading-filehistory": "Dateiversionen",
 	"fileimporter-revision-removed-text": "Durch den Dateiimporter entfernter unterdrückter Text.",
-	"fileimporter-revision-removed-comment": "Durch den Dateiimporter entfernter unterdrückter Kommentar."
+	"fileimporter-revision-removed-comment": "Durch den Dateiimporter entfernter unterdrückter Kommentar.",
+	"fileimporter-in-beta": "Der Dateiimport befindet sich im Betamodus: Wir haben ihn ausführlich getestet, er könnte jedoch noch einige Probleme haben. Falls du Probleme bemerkst, [//www.mediawiki.org/wiki/Extension_talk:FileImporter melde sie bitte auf unserer Hilfeseite] – im Idealfall mit einer Schritt-für-Schritt-Anleitung, um das Problem zu reproduzieren, so dass wir ihn verstehen und beheben können."
 }
