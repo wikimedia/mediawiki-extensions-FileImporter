@@ -22,6 +22,7 @@
 	"fileimporter-filenameerror-default": "Há um problema desconhecido com o nome do seu ficheiro.",
 	"fileimporter-filenameerror-illegal": "O nome de ficheiro para o qual está a tentar importar é inválido.",
 	"fileimporter-filenameerror-toolong": "O nome de ficheiro para o qual está a tentar importar é demasiado longo.",
+	"fileimporter-filenameerror-automaticchanges": "O nome de ficheiro para o qual está a tentar importar será automaticamente alterado para \"$1\" devido à utilização de caracteres inválidos.",
 	"fileimporter-localtitleexists": "O título para o qual está a tentar importar conteúdo já existe nesta wiki.",
 	"fileimporter-sourcetitleexists": "O título para o qual está a tentar importar conteúdo já existe na wiki de origem.",
 	"fileimporter-illegalfilenamechars": "O título para o qual está a tentar importar contém caracteres que são inválidos em nomes de ficheiros.",
@@ -45,5 +46,6 @@
 	"fileimporter-heading-fileinfo": "Informação do ficheiro",
 	"fileimporter-heading-filehistory": "Histórico do ficheiro",
 	"fileimporter-revision-removed-text": "Texto suprimido foi removido pelo importador de ficheiros.",
-	"fileimporter-revision-removed-comment": "Comentário suprimido foi removido pelo importador de ficheiros."
+	"fileimporter-revision-removed-comment": "Comentário suprimido foi removido pelo importador de ficheiros.",
+	"fileimporter-in-beta": "A importação de ficheiros está em modo beta: foi cuidadosamente testada mas ainda pode conter defeitos. Se encontrar problemas, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter reporte-os na nossa página de ajuda] - idealmente, com a descrição dos passos necessários para reproduzir o problema, para podermos compreendê-lo e resolvê-lo."
 }

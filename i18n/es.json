@@ -14,6 +14,7 @@
 	"fileimporter-filenameerror-default": "Hay un problema desconocido con tu nombre de archivo.",
 	"fileimporter-filenameerror-illegal": "El nombre del archivo que estás intentando importar actualmente no es válido.",
 	"fileimporter-filenameerror-toolong": "El nombre del archivo que estás intentando importar actualmente es demasiado largo.",
+	"fileimporter-filenameerror-automaticchanges": "El nombre del archivo que estás intentando importar se modificará automáticamente a «$1» debido al uso de caracteres no válidos.",
 	"fileimporter-illegalfilenamechars": "El título que estas intentando importar actualmente contiene caracteres no válidos para nombres de archivos.",
 	"fileimporter-duplicatefilesdetected": "El archivo que estás intentando importar ya existe en este wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicados",

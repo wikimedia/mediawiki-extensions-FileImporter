@@ -46,5 +46,6 @@
 	"fileimporter-heading-fileinfo": "文件信息",
 	"fileimporter-heading-filehistory": "文件历史",
 	"fileimporter-revision-removed-text": "由文件导入器移除的已屏蔽文本。",
-	"fileimporter-revision-removed-comment": "由文件导入器移除的已屏蔽评论。"
+	"fileimporter-revision-removed-comment": "由文件导入器移除的已屏蔽评论。",
+	"fileimporter-in-beta": "文件导入处于测试阶段：我们已经仔细地测试了相关功能，但可能仍然存在一些问题。如果您遇到问题，请[//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter 在我们的帮助页面报告它们]——尽可能地一步步说明如何重现问题，这样我们可以理解并修复它。"
 }
