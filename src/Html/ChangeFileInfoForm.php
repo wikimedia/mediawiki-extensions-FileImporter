@@ -53,6 +53,7 @@ class ChangeFileInfoForm {
 				'label' => ( new Message( 'fileimporter-submit' ) )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
+				'tabIndex' => 2,
 			]
 		) .
 		Html::closeElement( 'form' );
