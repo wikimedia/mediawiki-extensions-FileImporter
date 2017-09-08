@@ -28,20 +28,28 @@ class ImportRequest {
 	private $intendedText;
 
 	/**
+	 * @var null|string
+	 */
+	private $intendedSummary;
+
+	/**
 	 * @param string $url
 	 * @param string|null $intendedName null for no intended change
 	 * @param string|null $intendedText null for no intended change
+	 * @param string|null $intendedSummary null for no intended change
 	 *
 	 * @throws InvalidArgumentException|LocalizedImportException
 	 */
 	public function __construct(
 		$url,
 		$intendedName = null,
-		$intendedText = null
+		$intendedText = null,
+		$intendedSummary = null
 	) {
 		Assert::parameterType( 'string', $url, '$url' );
 		Assert::parameterType( 'string|null', $intendedName, '$intendedName' );
 		Assert::parameterType( 'string|null', $intendedText, '$intendedText' );
+		Assert::parameterType( 'string|null', $intendedSummary, '$intendedSummary' );
 
 		try {
 			$this->url = new SourceUrl( urldecode( $url ) );
@@ -50,11 +58,14 @@ class ImportRequest {
 		}
 
 		if ( $intendedText !== null ) {
-			$intendedText = $this->removeTrailingWhitspaces( $intendedText );
+			$intendedText = $this->removeCarriageReturns(
+				$this->removeTrailingWhitespaces( $intendedText )
+			);
 		}
 
 		$this->intendedName = $intendedName;
 		$this->intendedText = $intendedText;
+		$this->intendedSummary = $intendedSummary;
 	}
 
 	/**
@@ -79,11 +90,26 @@ class ImportRequest {
 	}
 
 	/**
+	 * @return null|string
+	 */
+	public function getIntendedSummary() {
+		return $this->intendedSummary;
+	}
+
+	/**
 	 * @param string $text
 	 * @return string
 	 */
-	private function removeTrailingWhitspaces( $text ) {
+	private function removeTrailingWhitespaces( $text ) {
 		return rtrim( $text );
+	}
+
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	private function removeCarriageReturns( $text ) {
+		return str_replace( "\r", '', $text );
 	}
 
 }
