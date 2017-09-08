@@ -4,6 +4,7 @@ namespace FileImporter\Services;
 
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
+use MediaWiki\MediaWikiServices;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
@@ -27,11 +28,6 @@ class Importer implements LoggerAwareInterface {
 	private $wikiRevisionFactory;
 
 	/**
-	 * @var NullRevisionCreator
-	 */
-	private $nullRevisionCreator;
-
-	/**
 	 * @var HttpRequestExecutor
 	 */
 	private $httpRequestExecutor;
@@ -48,18 +44,15 @@ class Importer implements LoggerAwareInterface {
 
 	/**
 	 * @param WikiRevisionFactory $wikiRevisionFactory
-	 * @param NullRevisionCreator $nullRevisionCreator
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param UploadBaseFactory $uploadBaseFactory
 	 */
 	public function __construct(
 		WikiRevisionFactory $wikiRevisionFactory,
-		NullRevisionCreator $nullRevisionCreator,
 		HttpRequestExecutor $httpRequestExecutor,
 		UploadBaseFactory $uploadBaseFactory
 	) {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
-		$this->nullRevisionCreator = $nullRevisionCreator;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->logger = new NullLogger();
@@ -120,7 +113,7 @@ class Importer implements LoggerAwareInterface {
 
 		// TODO the below should be an ImportOperation
 		$articleIdForUpdate = $this->getArticleIdForUpdate( $importPlan );
-		$this->createPostImportNullRevision( $importPlan, $articleIdForUpdate, $user );
+		$this->createPostImportRevision( $importPlan, $articleIdForUpdate, $user );
 		$this->createPostImportEdit( $importPlan, $articleIdForUpdate, $user );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
@@ -147,17 +140,27 @@ class Importer implements LoggerAwareInterface {
 	 * @param int $articleIdForUpdate
 	 * @param User $user
 	 */
-	private function createPostImportNullRevision(
+	private function createPostImportRevision(
 		ImportPlan $importPlan,
 		$articleIdForUpdate,
 		User $user
 	) {
-		$this->nullRevisionCreator->createForLinkTarget(
-			$articleIdForUpdate,
-			$user,
-			'Imported from ' . $importPlan->getRequest()->getUrl(), // TODO i18n
-			true
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$page = \WikiPage::newFromID( $articleIdForUpdate );
+		$editResult = $page->doEditContent(
+			new \WikitextContent( $importPlan->getInitialFileInfoText() ),
+			wfMsgReplaceArgs(
+				$config->get( 'FileImporterCommentForPostImportRevision' ),
+				[ $importPlan->getRequest()->getUrl() ]
+			),
+			EDIT_MINOR,
+			false,
+			$user
 		);
+
+		if ( !$editResult->isOK() ) {
+			throw new RuntimeException( 'Failed to create import edit' );
+		}
 	}
 
 	/**

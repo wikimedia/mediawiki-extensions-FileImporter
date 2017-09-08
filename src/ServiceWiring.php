@@ -10,7 +10,6 @@ use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
-use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\SourceUrlNormalizer;
@@ -58,24 +57,17 @@ return [
 	'FileImporterImporter' => function ( MediaWikiServices $services ) {
 		/** @var WikiRevisionFactory $wikiRevisionFactory */
 		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
-		/** @var NullRevisionCreator $nullRevisionCreator */
-		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
 		/** @var HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		/** @var UploadBaseFactory $uploadBaseFactory */
 		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
 		$importer = new Importer(
 			$wikiRevisionFactory,
-			$nullRevisionCreator,
 			$httpRequestExecutor,
 			$uploadBaseFactory
 		);
 		$importer->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $importer;
-	},
-
-	'FileImporterNullRevisionCreator' => function ( MediaWikiServices $services ) {
-		return new NullRevisionCreator( $services->getDBLoadBalancer() );
 	},
 
 	'FileImporterWikiRevisionFactory' => function ( MediaWikiServices $services ) {

@@ -55,7 +55,6 @@
 		"FileImporter\\Services\\Importer": "src/Services/Importer.php",
 		"FileImporter\\Services\\ImportPlanFactory": "src/Services/ImportPlanFactory.php",
 		"FileImporter\\Services\\ImportPlanValidator": "src/Services/ImportPlanValidator.php",
-		"FileImporter\\Services\\NullRevisionCreator": "src/Services/NullRevisionCreator.php",
 		"FileImporter\\Services\\SourceSite": "src/Services/SourceSite.php",
 		"FileImporter\\Services\\SourceSiteLocator": "src/Services/SourceSiteLocator.php",
 		"FileImporter\\Services\\SourceUrlNormalizer": "src/Services/SourceUrlNormalizer.php",
@@ -87,7 +86,11 @@
 		"FileImporterSourceSiteServices": [],
 		"FileImporterTextPotentialProblems": [],
 		"FileImporterTextReplacements": [],
-		"FileImporterAccountForSuppressedUsername": "FileImporterSuppressed"
+		"FileImporterAccountForSuppressedUsername": "FileImporterSuppressed",
+		"@FileImporterCommentForPostImportRevision": "Text used for the edit summary of a post import revision.",
+		"FileImporterCommentForPostImportRevision": "Imported with FileImporter from $1",
+		"@FileImporterTextForPostImportRevision": "Text added to the top of the imported page's wikitext",
+		"FileImporterTextForPostImportRevision": "<!--This file was moved here using FileImporter from $1-->\n"
 	},
 	"ResourceModules": {
 		"ext.FileImporter.Special": {

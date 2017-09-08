@@ -122,15 +122,28 @@ class ImportPlan {
 				return $intendedWikiText;
 			}
 		}
-		return $this->getDetails()->getTextRevisions()->getLatest()->getField( '*' );
+		return $this->getInitialFileInfoText();
+	}
+
+	/**
+	 * Appends a marker to the beginning of the original File Info Text indicating that
+	 * it was imported using FileImporter
+	 *
+	 * @return string
+	 */
+	public function getInitialFileInfoText() {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		return wfMsgReplaceArgs(
+			$config->get( 'FileImporterTextForPostImportRevision' ), [ $this->request->getUrl() ]
+			) . $this->details->getTextRevisions()->getLatest()->getField( '*' );
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function wasFileInfoTextChanged() {
-		return $this->getFileInfoText() !== $this->getDetails()->getTextRevisions()->getLatest()
-				->getField( '*' );
+		return $this->getFileInfoText() !== $this->getInitialFileInfoText();
 	}
 
 }
