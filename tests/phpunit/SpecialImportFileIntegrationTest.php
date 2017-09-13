@@ -40,12 +40,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 
 		$this->setMwGlobals( 'wgEnableUploads', true );
 
-		// Test the special page with a default config
-		$this->setMwGlobals(
-			'wgFileImporterSourceSiteServices',
-				[ 'FileImporterSitesTableMediaWikiSite' ]
-		);
-
 		$commonsSite = $this->getMockSite( 'commonswiki', 'commons.wikimedia.org' );
 		$hashSiteStore = new HashSiteStore( [ $commonsSite ] );
 		$siteTableSiteLookup = new SiteTableSiteLookup( $hashSiteStore );
@@ -105,7 +99,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				function ( $html ) {
 					$this->assertInitialInputFormPreset( $html );
 					$this->assertWarningBox( $html, 'Can\'t import the given URL' );
-				}
+				},
+				[ 'FileImporter-WikimediaSitesTableSite' ]
 			],
 			'Bad domain (malformed?)' => [
 				new FauxRequest( [
@@ -131,6 +126,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar'
 					);
 				},
+				[],
 				true
 			],
 			'Good file' => [
@@ -151,6 +147,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'Chicken In Snow.JPG'
 					);
 				},
+				[],
 				true
 			],
 			'Good file & Good target title' => [
@@ -173,6 +170,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'Chicken In Snow CHANGED.JPG'
 					);
 				},
+				[],
 				true
 			],
 		];
@@ -266,11 +264,20 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$userOrBool,
 		$expectedExceptionDetails = null,
 		$htmlAssertionCallable,
+		$sourceSiteServicesOverride = [],
 		$requiresAccessToCommons = false
 	) {
 		if ( $requiresAccessToCommons && !self::$hasAccessToCommons ) {
 			$this->markTestSkipped( 'This test requires http access to https://commons.wikimedia.org' );
 		}
+
+		if ( !empty( $sourceSiteServicesOverride ) ) {
+			$this->setMwGlobals(
+				'wgFileImporterSourceSiteServices',
+				$sourceSiteServicesOverride
+			);
+		}
+
 		if ( $expectedExceptionDetails ) {
 			$this->setExpectedException(
 				$expectedExceptionDetails['name'],
