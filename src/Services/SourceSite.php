@@ -15,15 +15,18 @@ class SourceSite {
 	private $sourceUrlChecker;
 	private $detailRetriever;
 	private $importTitleChecker;
+	private $sourceUrlNormalizer;
 
 	public function __construct(
 		SourceUrlChecker $sourceUrlChecker,
 		DetailRetriever $detailRetriever,
-		ImportTitleChecker $importTitleChecker
+		ImportTitleChecker $importTitleChecker,
+		SourceUrlNormalizer $sourceUrlNormalizer
 	) {
 		$this->sourceUrlChecker = $sourceUrlChecker;
 		$this->detailRetriever = $detailRetriever;
 		$this->importTitleChecker = $importTitleChecker;
+		$this->sourceUrlNormalizer = $sourceUrlNormalizer;
 	}
 
 	/**
@@ -33,6 +36,15 @@ class SourceSite {
 	 */
 	public function isSourceSiteFor( SourceUrl $sourceUrl ) {
 		return $this->sourceUrlChecker->checkSourceUrl( $sourceUrl );
+	}
+
+	/**
+	 * @param SourceUrl $sourceUrl
+	 *
+	 * @return SourceUrl
+	 */
+	public function normalizeUrl( SourceUrl $sourceUrl ) {
+		return $this->sourceUrlNormalizer->normalize( $sourceUrl );
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace FileImporter;
 
+use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
@@ -12,6 +13,7 @@ use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
+use FileImporter\Services\SourceUrlNormalizer;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Logger\LoggerFactory;
@@ -125,7 +127,10 @@ return [
 			$detailRetriever,
 			new Remote\MediaWiki\RemoteApiImportTitleChecker(
 				$httpApiLookup, $httpRequestExecutor
-			)
+			),
+			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
+				return new SourceUrl( str_replace( '..GOAT..', '', $sourceUrl->getUrl() ) );
+			} )
 		);
 
 		return $site;
@@ -135,7 +140,6 @@ return [
 	 * This configuration example is setup to handle the wikimedia style setup.
 	 * This only allows importing files from sites in the sites table.
 	 * TODO move files on disk not over http
-	 * TODO normalize domains such as en.m.wikipedia.org
 	 */
 	'FileImporter-WikimediaSitesTableSite' => function ( MediaWikiServices $services ) {
 		/**
@@ -160,7 +164,10 @@ return [
 			$detailRetriever,
 			new Remote\MediaWiki\RemoteApiImportTitleChecker(
 				$httpApiLookup, $httpRequestExecutor
-			)
+			),
+			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
+				return new SourceUrl( str_replace( '.m.', '.', $sourceUrl->getUrl() ) );
+			} )
 		);
 
 		return $site;

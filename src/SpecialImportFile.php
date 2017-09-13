@@ -195,6 +195,7 @@ class SpecialImportFile extends SpecialPage {
 
 		$url = $importRequest->getUrl();
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importRequest->getUrl() );
+		$url = $sourceSite->normalizeUrl( $url );
 
 		$detailRetriever = $sourceSite->getDetailRetriever();
 		$importDetails = $detailRetriever->getImportDetails( $url );

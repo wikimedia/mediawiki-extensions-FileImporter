@@ -58,6 +58,7 @@
 		"FileImporter\\Services\\NullRevisionCreator": "src/Services/NullRevisionCreator.php",
 		"FileImporter\\Services\\SourceSite": "src/Services/SourceSite.php",
 		"FileImporter\\Services\\SourceSiteLocator": "src/Services/SourceSiteLocator.php",
+		"FileImporter\\Services\\SourceUrlNormalizer": "src/Services/SourceUrlNormalizer.php",
 		"FileImporter\\Services\\WikiRevisionFactory": "src/Services/WikiRevisionFactory.php",
 		"FileImporter\\Html\\ChangeFileInfoForm": "src/Html/ChangeFileInfoForm.php",
 		"FileImporter\\Html\\ChangeFileNameForm": "src/Html/ChangeFileNameForm.php",
