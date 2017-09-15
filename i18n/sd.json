@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Indus Asia"
+			"Indus Asia",
+			"Mehtab ahmed"
 		]
 	},
 	"fileimporter-duplicatefilesdetected-prefix": "ورجاءَ (ڊپليڪيٽس)",
-	"fileimporter-filerevisionsprefix": "فائيل جي پرک (نظرثاني)",
-	"fileimporter-titleprefix": "عنوان"
+	"fileimporter-exampleprefix": "مثال"
 }
