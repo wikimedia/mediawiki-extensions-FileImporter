@@ -22,6 +22,7 @@
 		"FileImporter-SpecialPage": "FileImporter\\SpecialImportFile"
 	},
 	"AutoloadClasses": {
+		"FileImporter\\FileImporterHooks": "src/FileImporterHooks.php",
 		"FileImporter\\SpecialImportFile": "src/SpecialImportFile.php",
 		"FileImporter\\Data\\FileRevision": "src/Data/FileRevision.php",
 		"FileImporter\\Data\\FileRevisions": "src/Data/FileRevisions.php",
@@ -85,7 +86,8 @@
 		"FileImporterInBeta": true,
 		"FileImporterSourceSiteServices": [],
 		"FileImporterTextPotentialProblems": [],
-		"FileImporterTextReplacements": []
+		"FileImporterTextReplacements": [],
+		"FileImporterAccountForSuppressedUsername": "FileImporterSuppressed"
 	},
 	"ResourceModules": {
 		"ext.FileImporter.Special": {
@@ -97,5 +99,10 @@
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
 		"remoteExtPath": "FileImporter"
+	},
+	"Hooks": {
+		"UserGetReservedNames": [
+			"FileImporter\\FileImporterHooks::onUserGetReservedNames"
+		]
 	}
 }

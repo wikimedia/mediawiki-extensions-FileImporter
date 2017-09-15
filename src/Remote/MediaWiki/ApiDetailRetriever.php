@@ -173,8 +173,22 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	 * @return FileRevisions
 	 */
 	private function getFileRevisionsFromImageInfo( array $imageInfo, $pageTitle ) {
+		global $wgFileImporterAccountForSuppressedUsername;
+
 		$revisions = [];
 		foreach ( $imageInfo as $revisionInfo ) {
+			if ( array_key_exists( 'filehidden', $revisionInfo ) ) {
+				throw new LocalizedImportException( 'fileimporter-cantimportfilehidden' );
+			}
+
+			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
+				$revisionInfo['user'] = $wgFileImporterAccountForSuppressedUsername;
+			}
+
+			if ( array_key_exists( 'sha1hidden', $revisionInfo ) ) {
+				$revisionInfo['sha1'] = sha1( $revisionInfo['*'] );
+			}
+
 			/**
 			 * Convert from API sha1 format to DB sha1 format.
 			 * The conversion can be se inside ApiQueryImageInfo.
@@ -182,6 +196,13 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			 *  - DB sha1 format is base 36 padded to 31 chars
 			 */
 			$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
+
+			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
+				$revisionInfo['comment'] = (
+					new Message( 'fileimporter-revision-removed-comment' )
+				)->plain();
+			}
+
 			$revisionInfo['bits'] = $revisionInfo['size'];
 			$revisionInfo['name'] = $pageTitle;
 			$revisionInfo['description'] = $revisionInfo['comment'];
@@ -198,10 +219,12 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	 * @return TextRevisions
 	 */
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
+		global $wgFileImporterAccountForSuppressedUsername;
+
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
-				$revisionInfo['user'] = '0.0.0.0';
+				$revisionInfo['user'] = $wgFileImporterAccountForSuppressedUsername;
 			}
 
 			if ( array_key_exists( 'texthidden', $revisionInfo ) ) {

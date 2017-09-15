@@ -19,6 +19,7 @@
 	"fileimporter-cantimporturl": "Error message shown on the special page when the URL entered can not be imported from.",
 	"fileimporter-cantimportfromsharedrepo": "Error message when the file import target comes from a shared or remote repository.",
 	"fileimporter-cantimportmissingfile": "Error message when the file import target is missing.",
+	"fileimporter-cantimportfilehidden": "Error message when the file contains at least one revision with a suppressed file.",
 	"fileimporter-badtoken": "Error message shown on the special page when the CSRF token for the request does not match the expected token.",
 	"fileimporter-badimporthash": "Error message shown on the special page when the import hash for the request does not match the expected hash.",
 	"fileimporter-filenameerror-default": "Error message shown on the special page when the file name to be imported to has an issue we have no special handling for.",
