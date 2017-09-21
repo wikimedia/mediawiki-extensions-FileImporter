@@ -49,6 +49,10 @@ class ImportRequest {
 			throw new LocalizedImportException( new Message( 'fileimporter-cantparseurl', [ $url ] ) );
 		}
 
+		if ( $intendedText !== null ) {
+			$intendedText = $this->removeTrailingWhitspaces( $intendedText );
+		}
+
 		$this->intendedName = $intendedName;
 		$this->intendedText = $intendedText;
 	}
@@ -72,6 +76,14 @@ class ImportRequest {
 	 */
 	public function getIntendedText() {
 		return $this->intendedText;
+	}
+
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	private function removeTrailingWhitspaces( $text ) {
+		return rtrim( $text );
 	}
 
 }
