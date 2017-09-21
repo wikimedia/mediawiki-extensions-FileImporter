@@ -5,6 +5,8 @@ namespace FileImporter\Html;
 use FileImporter\Data\ImportPlan;
 use Html;
 use Message;
+use OOUI\FieldLayout;
+use OOUI\FieldsetLayout;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
 use SpecialPage;
@@ -43,22 +45,25 @@ class ChangeFileNameForm {
 				'method' => 'POST',
 			]
 		) .
-		Html::element(
-			'p',
-			[],
-			( new Message( 'fileimporter-newfilename' ) )->plain()
-		) .
-		new TextInputWidget(
-			[
-				'name' => 'intendedFileName',
-				'value' => $filenameValue,
-				'classes' => [ 'mw-importfile-import-newtitle' ],
-				'placeholder' => ( new Message( 'fileimporter-newfilename-placeholder' ) )->plain(),
-				'suggestions' => false,
-				'autofocus' => true,
-				'required' => true,
-			]
-		) .
+		( new FieldsetLayout( [
+			'items' => [ new FieldLayout(
+				new TextInputWidget(
+					[
+						'name' => 'intendedFileName',
+						'value' => $filenameValue,
+						'classes' => [ 'mw-importfile-import-newtitle' ],
+						'placeholder' => ( new Message( 'fileimporter-newfilename-placeholder' ) )->plain(),
+						'suggestions' => false,
+						'autofocus' => true,
+						'required' => true,
+					]
+				),
+				[
+					'align' => 'top',
+					'label' => ( new Message( 'fileimporter-newfilename' ) )->plain(),
+				]
+			) ]
+		] ) ) .
 		// TODO allow changing the case of the file extension
 		Html::element(
 			'p',
