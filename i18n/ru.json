@@ -2,11 +2,19 @@
 	"@metadata": {
 		"authors": [
 			"Redredsonia",
-			"Alexey zakharenkov"
+			"Alexey zakharenkov",
+			"Okras"
 		]
 	},
+	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
 	"fileimporter-specialpage": "Импортировать файл",
 	"fileimporter-specialpage-successtitle": "Импорт выполнен успешно",
+	"fileimporter-importfailed": "Ошибка импортирования",
+	"fileimporter-api-failedtogetinfo": "Не удалось получить информацию о файле из: $1",
+	"fileimporter-cantimporturl": "Невозможно импортировать данный URL-адрес",
+	"fileimporter-cantimportfromsharedrepo": "Невозможно импортировать файл из общего хранилища.",
+	"fileimporter-cantimportmissingfile": "Не удаётся импортировать отсутствующий файл.",
+	"fileimporter-badtoken": "CSRF-токен не совпадает",
 	"fileimporter-duplicatefilesdetected": "Файл, который вы пытаетесь импортировать, уже существует в данном вики-проекте.",
 	"fileimporter-duplicatefilesdetected-prefix": "Дубликаты",
 	"fileimporter-exampleprefix": "Пример",
@@ -15,7 +23,8 @@
 	"fileimporter-import": "Импортировать",
 	"fileimporter-cancel": "Отменить",
 	"fileimporter-edittitle": "Редактировать заголовок",
-	"fileimporter-newtitle": "Новое название:",
+	"fileimporter-extensionlabel": "Расширение файла:",
+	"fileimporter-newfilename": "Новое имя файла:",
 	"fileimporter-editsummary": "Описание изменений:",
 	"fileimporter-heading-fileinfo": "Информация о файле",
 	"fileimporter-heading-filehistory": "История файла"
