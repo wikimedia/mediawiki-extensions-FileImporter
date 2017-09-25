@@ -5,7 +5,6 @@ namespace FileImporter\Services;
 use Config;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
-use InvalidArgumentException;
 use Title;
 use WikiRevision;
 

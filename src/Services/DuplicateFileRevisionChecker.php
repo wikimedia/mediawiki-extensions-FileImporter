@@ -5,7 +5,6 @@ namespace FileImporter\Services;
 use File;
 use FileImporter\Data\FileRevision;
 use LocalRepo;
-use Wikimedia\Assert\Assert;
 
 /**
  * Class that can be used to check if a FileRevision already exists on the current wiki.

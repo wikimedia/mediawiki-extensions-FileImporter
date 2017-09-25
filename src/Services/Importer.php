@@ -12,7 +12,6 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Revision;
 use RuntimeException;
 use Title;
 use User;

@@ -5,7 +5,6 @@ namespace FileImporter\Html;
 use EditPage;
 use Html;
 use SpecialPage;
-use StringUtils;
 
 class WikiTextEditor {
 

@@ -6,7 +6,6 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportTitleChecker;
-use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 
 class RemoteApiImportTitleChecker implements ImportTitleChecker {
