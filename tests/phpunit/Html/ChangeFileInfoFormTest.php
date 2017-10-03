@@ -69,6 +69,7 @@ class ChangeFileInfoFormTest extends PHPUnit_Framework_TestCase {
 	public function provideTestTextDisplayedInInputBox() {
 		return [
 			[ 'Some Input Text', 'Some Input Text' ],
+			[ 'Some Input Text ', 'Some Input Text' ],
 		];
 	}
 
