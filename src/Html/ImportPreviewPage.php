@@ -44,6 +44,8 @@ class ImportPreviewPage {
 		$details = $this->importPlan->getDetails();
 		$request = $this->importPlan->getRequest();
 		$title = $this->importPlan->getTitle();
+		$wasEdited = $this->importPlan->wasFileNameChanged() ||
+			$this->importPlan->wasFileInfoTextChanged();
 
 		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
 			'clientUrl' => $request->getUrl(),
@@ -134,7 +136,7 @@ class ImportPreviewPage {
 				]
 			) .
 			Html::closeElement( 'form' )
-		).
+		) .
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-parsedContent' ],
@@ -174,8 +176,10 @@ class ImportPreviewPage {
 		) .
 		new TextInputWidget(
 			[
+				'name' => 'intendedRevisionSummary',
 				'classes' => [ 'mw-importfile-import-summary' ],
 				'placeholder' => ( new Message( 'fileimporter-editsummary-placeholder' ) )->plain(),
+				'disabled' => !$wasEdited,
 			]
 		) .
 		$importIdentityFormSnippet .

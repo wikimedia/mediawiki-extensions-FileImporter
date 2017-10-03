@@ -173,8 +173,7 @@ class Importer implements LoggerAwareInterface {
 		$page = \WikiPage::newFromID( $articleIdForUpdate );
 		$editResult = $page->doEditContent(
 			new \WikitextContent( $importPlan->getFileInfoText() ),
-			// TODO i18n / user provided edit summary
-			'User edit on import',
+			$importPlan->getRequest()->getIntendedSummary(),
 			EDIT_UPDATE,
 			false,
 			$user
