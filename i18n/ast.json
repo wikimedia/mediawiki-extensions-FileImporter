@@ -22,6 +22,7 @@
 	"fileimporter-filenameerror-default": "Hai un problema desconocíu col nome del ficheru.",
 	"fileimporter-filenameerror-illegal": "El nome de ficheru al que tas tentando importar ye inválidu.",
 	"fileimporter-filenameerror-toolong": "El nome de ficheru al que tas tentando importar ye demasiao largu.",
+	"fileimporter-filenameerror-automaticchanges": "El nome del ficheru que tas tentando importar cambiaráse automáticamente a «$1» porque usa caráuteres non válidos.",
 	"fileimporter-localtitleexists": "El títulu que tas tentando importar yá existe nesta wiki.",
 	"fileimporter-sourcetitleexists": "El títulu al que tas tentando importar yá existe na wiki d'orixe.",
 	"fileimporter-illegalfilenamechars": "El títulu al que tas tentando importar contien caráuteres inválidos nel nome de ficheru.",
