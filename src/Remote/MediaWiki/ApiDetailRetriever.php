@@ -21,6 +21,8 @@ use Title;
 
 class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
+	const MAX_REVISIONS = 1000;
+
 	/**
 	 * @var HttpApiLookup
 	 */
@@ -77,15 +79,24 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
+	 * @param $apiUrl
+	 * @param array $params
 	 *
-	 * @return ImportDetails
+	 * @return string
+	 */
+	private function getRequestUrl( $apiUrl, array $params ) {
+		return $apiUrl . '?' . http_build_query( $params );
+	}
+
+	/**
+	 * @param string $apiUrl
+	 * @param array $params
+	 *
+	 * @return array
 	 * @throws ImportException
 	 */
-	public function getImportDetails( SourceUrl $sourceUrl ) {
-		$apiUrl = $this->httpApiLookup->getApiUrl( $sourceUrl );
-
-		$requestUrl = $apiUrl . '?' . http_build_query( $this->getParams( $sourceUrl ) );
+	private function sendAPIRequest( $apiUrl, array $params ) {
+		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
@@ -94,18 +105,24 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 			);
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
+		return $requestData;
+	}
 
-		if ( array_key_exists( 'continue', $requestData ) ) {
-			$this->logger->warning(
-				'API returned continue data',
-				[
-					'sourceUrl' => $sourceUrl->getUrl(),
-					'requestUrl' => $requestUrl,
-				]
-			);
-			// TODO support continuation
-			throw new LocalizedImportException( 'fileimporter-api-toomanyrevisions' );
-		}
+	/**
+	 * @param SourceUrl $sourceUrl
+	 *
+	 * @return ImportDetails
+	 * @throws ImportException
+	 */
+	public function getImportDetails( SourceUrl $sourceUrl ) {
+		$apiUrl = $this->httpApiLookup->getApiUrl( $sourceUrl );
+
+		$params = $this->getBaseParams( $sourceUrl );
+		$params = $this->addFileRevisionsToParams( $params );
+		$params = $this->addTextRevisionsToParams( $params );
+
+		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
+		$requestData = $this->sendAPIRequest( $apiUrl, $params );
 
 		if ( count( $requestData['query']['pages'] ) !== 1 ) {
 			$this->logger->warning(
@@ -132,10 +149,13 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
 		$pageTitle = $pageInfoData['title'];
 
+		$fileRevCount = count( $pageInfoData['imageinfo'] );
+		$textRevCount = count( $pageInfoData['revisions'] );
+
 		if ( !array_key_exists( 'imageinfo', $pageInfoData ) ||
 			!array_key_exists( 'revisions', $pageInfoData ) ||
-			count( $pageInfoData['imageinfo'] ) < 1 ||
-			count( $pageInfoData['revisions'] ) < 1
+			$fileRevCount < 1 ||
+			$textRevCount < 1
 		) {
 			$this->logger->warning(
 				'Bad image or revision info returned by the API',
@@ -145,6 +165,10 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 				]
 			);
 			throw new LocalizedImportException( 'fileimporter-api-badinfo' );
+		}
+
+		while ( array_key_exists( 'continue', $requestData ) ) {
+			$this->getMoreRevisions( $sourceUrl, $apiUrl, $requestData, $pageInfoData );
 		}
 
 		$imageInfoData = $pageInfoData['imageinfo'];
@@ -164,6 +188,64 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		);
 
 		return $importDetails;
+	}
+
+	/**
+	 * Fetches the next set of revisions unless the number of revisions
+	 * exceeds the max revisions limit
+	 *
+	 * @param SourceUrl $sourceUrl
+	 * @param $apiUrl
+	 * @param $requestData
+	 * @param $pageInfoData
+	 *
+	 * @throws ImportException
+	 */
+	private function getMoreRevisions( SourceUrl $sourceUrl, $apiUrl, &$requestData,
+										&$pageInfoData ) {
+		$rvContinue = array_key_exists( 'rvcontinue', $requestData['continue'] ) ?
+			$requestData['continue']['rvcontinue'] : null;
+
+		$iiStart = array_key_exists( 'iistart', $requestData['continue'] ) ?
+			$requestData['continue']['iistart'] : null;
+
+		$params = $this->getBaseParams( $sourceUrl );
+
+		if ( $iiStart ) {
+			$params = $this->addFileRevisionsToParams( $params, $iiStart );
+		}
+
+		if ( $rvContinue ) {
+			$params = $this->addTextRevisionsToParams( $params, $rvContinue );
+		}
+
+		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
+		$requestData = $this->sendAPIRequest( $apiUrl, $params );
+
+		$newPageInfoData = array_pop( $requestData['query']['pages'] );
+
+		if ( array_key_exists( 'revisions', $newPageInfoData ) ) {
+			$pageInfoData['revisions'] =
+				array_merge( $pageInfoData['revisions'], $newPageInfoData['revisions'] );
+		}
+
+		if ( array_key_exists( 'imageinfo', $newPageInfoData ) ) {
+			$pageInfoData['imageinfo'] =
+				array_merge( $pageInfoData['imageinfo'], $newPageInfoData['imageinfo'] );
+		}
+
+		if ( count( $pageInfoData['revisions'] ) > self::MAX_REVISIONS ||
+			count( $pageInfoData['imageinfo'] ) > self::MAX_REVISIONS ) {
+			$this->logger->warning(
+				'Too many revisions were being fetched',
+				[
+					'sourceUrl' => $sourceUrl->getUrl(),
+					'requestUrl' => $requestUrl,
+				]
+			);
+
+			throw new LocalizedImportException( 'fileimporter-api-toomanyrevisions' );
+		}
 	}
 
 	/**
@@ -260,14 +342,70 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		return new TextRevisions( $revisions );
 	}
 
-	private function getParams( SourceUrl $sourceUrl ) {
+	/**
+	 * Build params base
+	 *
+	 * @param SourceUrl $sourceUrl
+	 * @return array
+	 */
+	private function getBaseParams( SourceUrl $sourceUrl ) {
 		return [
 			'action' => 'query',
 			'format' => 'json',
-			'prop' => 'imageinfo|revisions',
 			'titles' => $this->getTitleFromSourceUrl( $sourceUrl ),
-			'iilimit' => '500',
+			'prop' => ''
+		];
+	}
+
+	/**
+	 * Adds to params base the properties for getting Text Revisions
+	 *
+	 * @param array $params
+	 * @param null $rvContinue
+	 *
+	 * @return array
+	 */
+	private function addTextRevisionsToParams( $params, $rvContinue = null ) {
+		$params['prop'] .= ( $params['prop'] ) ? "|revisions" : "revisions";
+
+		if ( $rvContinue ) {
+			$params['rvcontinue'] = $rvContinue;
+		}
+
+		return $params + [
 			'rvlimit' => '500',
+			'rvprop' => implode(
+				'|',
+				[
+					'flags',
+					'timestamp',
+					'user',
+					'sha1',
+					'contentmodel',
+					'comment',
+					'content',
+				]
+			)
+		];
+	}
+
+	/**
+	 * Adds to params base the properties for getting File Revisions
+	 *
+	 * @param array $params
+	 * @param null $iiStart
+	 *
+	 * @return array
+	 */
+	private function addFileRevisionsToParams( $params, $iiStart = null ) {
+		$params['prop'] .= ( $params['prop'] ) ? "|imageinfo" : "imageinfo";
+
+		if ( $iiStart ) {
+			$params['iistart'] = $iiStart;
+		}
+
+		return $params + [
+			'iilimit' => '500',
 			'iiurlwidth' => '800',
 			'iiurlheight' => '400',
 			'iiprop' => implode(
@@ -282,19 +420,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 					'size',
 					'sha1',
 				]
-			),
-			'rvprop' => implode(
-				'|',
-				[
-					'flags',
-					'timestamp',
-					'user',
-					'sha1',
-					'contentmodel',
-					'comment',
-					'content',
-				]
-			),
+			)
 		];
 	}
 

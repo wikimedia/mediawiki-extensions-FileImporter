@@ -16,10 +16,6 @@ class ApiDetailRetrieverTest extends PHPUnit_Framework_TestCase {
 	public function provideTestInvalidResponse() {
 		return [
 			[
-				[ 'continue' => '' ],
-				new LocalizedImportException( 'fileimporter-api-toomanyrevisions' ),
-			],
-			[
 				[ 'query' => [ 'pages' => [] ] ],
 				new LocalizedImportException( 'fileimporter-api-nopagesreturned' ),
 			],
@@ -148,11 +144,10 @@ class ApiDetailRetrieverTest extends PHPUnit_Framework_TestCase {
 	}
 
 	private function getExpectedExecuteRequestUrl( $titleString ) {
-		return 'APIURL?action=query&format=json&prop=imageinfo%7Crevisions' .
-			'&titles=' . urlencode( $titleString ) .
-			'&iilimit=500&rvlimit=500&iiurlwidth=800&iiurlheight=400' .
-			'&iiprop=timestamp%7Cuser%7Cuserid%7Ccomment%7Ccanonicaltitle%7Curl%7Csize%7Csha1' .
-			'&rvprop=flags%7Ctimestamp%7Cuser%7Csha1%7Ccontentmodel%7Ccomment%7Ccontent';
+		return 'APIURL?action=query&format=json&titles=' . urlencode( $titleString ) .
+				'&prop=imageinfo%7Crevisions&iilimit=500&iiurlwidth=800&iiurlheight=400'.
+				'&iiprop=timestamp%7Cuser%7Cuserid%7Ccomment%7Ccanonicaltitle%7Curl%7Csize%7Csha1' .
+				'&rvlimit=500&rvprop=flags%7Ctimestamp%7Cuser%7Csha1%7Ccontentmodel%7Ccomment%7Ccontent';
 	}
 
 	private function getMockMWHttpRequest( $content ) {
