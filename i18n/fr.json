@@ -21,6 +21,7 @@
 	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
 	"fileimporter-cantimportfromsharedrepo": "Impossible d’importer un fichier depuis un répertoire partagé.",
 	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier manquant.",
+	"fileimporter-cantimportfilehidden": "Impossible d’importer le fichier parce qu’au moins une de ses révisions contient un fichier supprimé.",
 	"fileimporter-badtoken": "Le jeton CSRF ne correspond pas",
 	"fileimporter-badimporthash": "Le hachage de l’import ne correspond pas. Veuillez refaire l'import.",
 	"fileimporter-filenameerror-default": "Il y a un problème non reconnu avec le nom de votre fichier.",

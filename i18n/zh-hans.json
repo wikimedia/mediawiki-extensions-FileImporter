@@ -17,6 +17,7 @@
 	"fileimporter-cantimporturl": "不能导入提供的URL",
 	"fileimporter-cantimportfromsharedrepo": "不能从共享存储库导入文件。",
 	"fileimporter-cantimportmissingfile": "不能导入丢失的文件。",
+	"fileimporter-cantimportfilehidden": "不能导入文件，因为至少一个修订版本包含被屏蔽的文件。",
 	"fileimporter-badtoken": "CSRF令牌不匹配",
 	"fileimporter-badimporthash": "导入哈希值不匹配。请重新开始导入。",
 	"fileimporter-filenameerror-default": "在您的文件名中存在未知问题。",
