@@ -17,6 +17,7 @@
 	"fileimporter-cantimporturl": "Não é possível importar o URL fornecido.",
 	"fileimporter-cantimportfromsharedrepo": "Não é possível importar um ficheiro de um repositório partilhado.",
 	"fileimporter-cantimportmissingfile": "Não é possível importar um ficheiro em falta.",
+	"fileimporter-cantimportfilehidden": "Não é possível importar o ficheiro porque pelo menos uma das suas revisões contém um ficheiro suprimido.",
 	"fileimporter-badtoken": "A chave CSFR não corresponde",
 	"fileimporter-badimporthash": "A chave de importação não corresponde. Reinicie a importação, por favor.",
 	"fileimporter-filenameerror-default": "Há um problema desconhecido com o nome do seu ficheiro.",
