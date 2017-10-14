@@ -11,6 +11,7 @@
 	"fileimporter-specialpage": "Importar archivo",
 	"fileimporter-cantparseurl": "No se puede analizar el URL proporcionado: $1",
 	"fileimporter-cantimporturl": "No se puede importar el URL proporcionado",
+	"fileimporter-cantimportfilehidden": "No se puede importar el archivo debido a que una de sus revisiones fue suprimida.",
 	"fileimporter-filenameerror-default": "Hay un problema desconocido con tu nombre de archivo.",
 	"fileimporter-filenameerror-illegal": "El nombre del archivo que estás intentando importar actualmente no es válido.",
 	"fileimporter-filenameerror-toolong": "El nombre del archivo que estás intentando importar actualmente es demasiado largo.",
