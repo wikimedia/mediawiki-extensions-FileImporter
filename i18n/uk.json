@@ -18,6 +18,7 @@
 	"fileimporter-cantimporturl": "Не вдається імпортувати з поданої URL-адреси",
 	"fileimporter-cantimportfromsharedrepo": "Неможливо імпортувати файл зі спільного репозиторію.",
 	"fileimporter-cantimportmissingfile": "Неможливо імпортувати відсутній файл.",
+	"fileimporter-cantimportfilehidden": "Неможливо імпортувати файл, оскільки принаймні одна з його версій містить прихований файл.",
 	"fileimporter-badtoken": "CSRF-токен не збігається",
 	"fileimporter-badimporthash": "Імпортний хеш не збігається. Будь ласка, розпочніть імпортування заново.",
 	"fileimporter-filenameerror-default": "З Вашою назвою файлу сталася невідома помилка.",
