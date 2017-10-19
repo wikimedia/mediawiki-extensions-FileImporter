@@ -2,6 +2,7 @@
 
 namespace FileImporter;
 
+use FileImporter\Remote\MediaWiki\CentralAuthTokenProvider;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 
@@ -26,6 +27,34 @@ return [
 			$services->getSiteLookup(),
 			LoggerFactory::getInstance( 'FileImporter' )
 		);
+	},
+
+	'FileImporterMediaWikiRemoteApiRequestExecutor' => function ( MediaWikiServices $services ) {
+		/** @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor */
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+
+		$httpApiLookup = new Remote\MediaWiki\HttpApiLookup(
+			$httpRequestExecutor
+		);
+
+		$service = new Remote\MediaWiki\RemoteApiRequestExecutor(
+			$httpApiLookup,
+			$httpRequestExecutor,
+			new CentralAuthTokenProvider()
+		);
+		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
+		return $service;
+	},
+
+	'FileImporterMediaWikiRemoteApiActionExecutor' => function ( MediaWikiServices $services ) {
+		/** @var \FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor $remoteApiRequestExecutor */
+		$remoteApiRequestExecutor = $services->getService( 'FileImporterMediaWikiRemoteApiRequestExecutor'
+ );
+
+		$service = new Remote\MediaWiki\RemoteApiActionExecutor(
+			$remoteApiRequestExecutor
+		);
+		return $service;
 	},
 
 ];

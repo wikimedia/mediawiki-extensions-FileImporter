@@ -256,6 +256,9 @@ class SpecialImportFile extends SpecialPage {
 		$importPlan->setActionStats(
 			json_decode( $webRequest->getVal( 'actionStats', '[]' ), true )
 		);
+		$importPlan->setAutomateSourceWikiCleanUp(
+			$webRequest->getBool( 'automateSourceWikiCleanup' )
+		);
 
 		return $importPlan;
 	}
@@ -341,7 +344,6 @@ class SpecialImportFile extends SpecialPage {
 		$postImportHandler = $this->sourceSiteLocator->getSourceSite( $sourceSite )
 			->getPostImportHandler();
 
-		// TODO handle errors
 		return $postImportHandler->execute( $importPlan, $this->getUser() );
 	}
 

@@ -2,7 +2,10 @@
 
 namespace FileImporter;
 
+use ExtensionRegistry;
+use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
 use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
+use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Remote\NullPrefixLookup;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
@@ -162,8 +165,23 @@ return [
 		$logger = LoggerFactory::getInstance( 'FileImporter' );
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 
+		/** @var RemoteApiActionExecutor $remoteApiActionExecutor */
+		$remoteApiActionExecutor = $services->getService(
+			'FileImporterMediaWikiRemoteApiActionExecutor'
+		);
+
 		/** @var WikidataTemplateLookup $templateLookup */
 		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
+
+		$postImportHandler =
+			ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
+			$services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' ) ?
+				new CentralAuthPostImportHandler(
+					$remoteApiActionExecutor,
+					$templateLookup,
+					$logger
+				) :
+				new NowCommonsHelperPostImportHandler( $templateLookup );
 
 		$site = new SourceSite(
 			new AnyMediaWikiFileUrlChecker(),
@@ -180,7 +198,7 @@ return [
 			),
 			new WikimediaSourceUrlNormalizer(),
 			new NullPrefixLookup(),
-			new NowCommonsHelperPostImportHandler( $templateLookup )
+			$postImportHandler
 		);
 
 		return $site;
@@ -200,8 +218,23 @@ return [
 		$logger = LoggerFactory::getInstance( 'FileImporter' );
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 
+		/** @var RemoteApiActionExecutor $remoteApiActionExecutor */
+		$remoteApiActionExecutor = $services->getService(
+			'FileImporterMediaWikiRemoteApiActionExecutor'
+		);
+
 		/** @var WikidataTemplateLookup $templateLookup */
 		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
+
+		$postImportHandler =
+			ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
+			$services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' ) ?
+				new CentralAuthPostImportHandler(
+					$remoteApiActionExecutor,
+					$templateLookup,
+					$logger
+				) :
+				new NowCommonsHelperPostImportHandler( $templateLookup );
 
 		$site = new SourceSite(
 			new SiteTableSourceUrlChecker(
@@ -224,7 +257,7 @@ return [
 				$services->getInterwikiLookup(),
 				$logger
 			),
-			new NowCommonsHelperPostImportHandler( $templateLookup )
+			$postImportHandler
 		);
 
 		return $site;

@@ -52,6 +52,11 @@ class ImportPlan {
 	private $actionStats = [];
 
 	/**
+	 * @var bool
+	 */
+	private $automateSourceWikiCleanUp = true;
+
+	/**
 	 * ImportPlan constructor, should not be constructed directly in production code.
 	 * Use an ImportPlanFactory instance.
 	 *
@@ -175,6 +180,20 @@ class ImportPlan {
 	 */
 	public function setNumberOfTemplateReplacements( $replacements ) {
 		$this->numberOfTemplateReplacements = $replacements;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getAutomateSourceWikiCleanUp() {
+		return $this->automateSourceWikiCleanUp;
+	}
+
+	/**
+	 * @param bool $bool
+	 */
+	public function setAutomateSourceWikiCleanUp( $bool ) {
+		$this->automateSourceWikiCleanUp = $bool;
 	}
 
 	/**

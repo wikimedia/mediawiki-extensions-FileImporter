@@ -39,6 +39,7 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 			'intendedFileName' => $importPlan->getFileName(),
 			'actionStats' => json_encode( $importPlan->getActionStats() ),
 			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
+			'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
