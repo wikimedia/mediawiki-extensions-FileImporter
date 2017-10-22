@@ -9,8 +9,8 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
-use OOUI\MediaWikiTheme;
 use OOUI\Theme;
+use OOUI\WikimediaUITheme;
 use PHPUnit_Framework_TestCase;
 use SpecialPage;
 use Title;
@@ -19,7 +19,7 @@ class ChangeFileNameFormTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new MediaWikiTheme );
+		Theme::setSingleton( new WikimediaUITheme() );
 	}
 
 	private function getMockSpecialPage() {
