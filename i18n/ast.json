@@ -17,6 +17,7 @@
 	"fileimporter-cantimporturl": "Nun puede importase la URL dada",
 	"fileimporter-cantimportfromsharedrepo": "Nun puede importase un ficheru d'un atroxamientu compartíu.",
 	"fileimporter-cantimportmissingfile": "Nun puede importase un ficheru que nun existe.",
+	"fileimporter-cantimportfilehidden": "Nun pudo importase'l ficheru porque polo menos una de les revisiones contien un ficheru suprimíu.",
 	"fileimporter-badtoken": "El pase CSRF nun concasa",
 	"fileimporter-badimporthash": "El hash de la importación nun concasa. Reanicia la importación.",
 	"fileimporter-filenameerror-default": "Hai un problema desconocíu col nome del ficheru.",
@@ -46,5 +47,6 @@
 	"fileimporter-heading-fileinfo": "Información del ficheru",
 	"fileimporter-heading-filehistory": "Historial del ficheru",
 	"fileimporter-revision-removed-text": "Testu suprimíu desaniciáu por FileImporter.",
-	"fileimporter-revision-removed-comment": "Comentariu suprimíu desaniciáu por FileImporter."
+	"fileimporter-revision-removed-comment": "Comentariu suprimíu desaniciáu por FileImporter.",
+	"fileimporter-in-beta": "La importación de ficheros ta en mou beta: Probñamosla con procuru, pero inda podría dar dellos problemes. Si t'alcuentres dalgunu, por favor, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter informa d'ellos na páxina d'ayuda] (idealmente n'inglés, con una manera pasu a pasu pa reproducir el problema), pa que podamos entendelo ya igualo."
 }
