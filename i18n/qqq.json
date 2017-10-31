@@ -3,10 +3,11 @@
 		"authors": [
 			"Addshore",
 			"Liuxinyu970226",
-			"Robby"
+			"Robby",
+			"Umherirrender"
 		]
 	},
-	"fileimporter": "FileImporter",
+	"fileimporter": "{{name}}",
 	"fileimporter-desc": "{{desc|name=FileImporter|url=https://www.mediawiki.org/wiki/Extension:FileImporter}}",
 	"fileimporter-specialpage": "Title for the File Import special page.",
 	"fileimporter-specialpage-successtitle": "Title for the File Import special page upon successful import of a file.",
