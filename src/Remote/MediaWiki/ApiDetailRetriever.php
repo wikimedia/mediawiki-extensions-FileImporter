@@ -89,14 +89,12 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 	}
 
 	/**
-	 * @param string $apiUrl
-	 * @param array $params
+	 * @param string $requestUrl
 	 *
 	 * @return array
 	 * @throws ImportException
 	 */
-	private function sendAPIRequest( $apiUrl, array $params ) {
-		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
+	private function sendAPIRequest( $requestUrl ) {
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
@@ -122,7 +120,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		$params = $this->addTextRevisionsToParams( $params );
 
 		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
-		$requestData = $this->sendAPIRequest( $apiUrl, $params );
+		$requestData = $this->sendAPIRequest( $requestUrl );
 
 		if ( count( $requestData['query']['pages'] ) !== 1 ) {
 			$this->logger->warning(
@@ -220,7 +218,7 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 		}
 
 		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
-		$requestData = $this->sendAPIRequest( $apiUrl, $params );
+		$requestData = $this->sendAPIRequest( $requestUrl );
 
 		$newPageInfoData = array_pop( $requestData['query']['pages'] );
 
