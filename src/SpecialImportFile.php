@@ -22,9 +22,11 @@ use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
 use ILocalizedException;
+use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use Message;
 use PermissionsError;
+use Psr\Log\LoggerInterface;
 use SpecialPage;
 use UploadBase;
 use User;
@@ -47,6 +49,11 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	private $importPlanFactory;
 
+	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
 	private $config;
 
 	public function __construct() {
@@ -63,6 +70,7 @@ class SpecialImportFile extends SpecialPage {
 		$this->sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
 		$this->importer = $services->getService( 'FileImporterImporter' );
 		$this->importPlanFactory = $services->getService( 'FileImporterImportPlanFactory' );
+		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
 	}
 
 	public function getGroupName() {
@@ -121,9 +129,12 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
+		$clientUrl = $this->getRequest()->getVal( 'clientUrl' );
 		try {
+			$this->logger->info( 'Getting ImportPlan for URL: ' . $clientUrl );
 			$importPlan = $this->getImportPlan();
 		} catch ( ImportException $exception ) {
+			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
 			$this->handleImportException( $exception );
 			return;
 		}

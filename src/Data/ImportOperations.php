@@ -45,7 +45,6 @@ class ImportOperations implements ImportOperation {
 		$this->state = self::PREPARE_RUN;
 		foreach ( $this->importOperations as $importOperation ) {
 			if ( !$importOperation->prepare() ) {
-				// TODO log?
 				return false;
 			}
 		}
@@ -61,7 +60,6 @@ class ImportOperations implements ImportOperation {
 		$this->state = self::COMMIT_RUN;
 		foreach ( $this->importOperations as $importOperation ) {
 			if ( !$importOperation->commit() ) {
-				// TODO log?
 				return false;
 			}
 		}

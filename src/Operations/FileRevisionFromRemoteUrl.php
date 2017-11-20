@@ -8,6 +8,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use Http;
+use Psr\Log\LoggerInterface;
 use TempFSFile;
 use Title;
 use WikiRevision;
@@ -40,6 +41,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	private $uploadBaseFactory;
 
 	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
+	/**
 	 * @var WikiRevision|null
 	 */
 	private $wikiRevision;
@@ -49,13 +55,15 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		FileRevision $fileRevision,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
-		UploadBaseFactory $uploadBaseFactory
+		UploadBaseFactory $uploadBaseFactory,
+		LoggerInterface $logger
 	) {
 		$this->plannedTitle = $plannedTitle;
 		$this->fileRevision = $fileRevision;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->uploadBaseFactory = $uploadBaseFactory;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -87,7 +95,17 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			$this->plannedTitle,
 			$this->wikiRevision->getFileSrc()
 		);
-		return $base->validateTitle() === true && $base->validateFile() === true;
+
+		$result = $base->validateTitle() === true && $base->validateFile() === true;
+
+		if ( !$result ) {
+			$this->logger->error(
+				__METHOD__ . ' failed to prepare.',
+				$this->fileRevision->getFields()
+			);
+		}
+
+		return $result;
 	}
 
 	/**
@@ -95,7 +113,16 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @return bool success
 	 */
 	public function commit() {
-		return $this->wikiRevision->importUpload();
+		$result = $this->wikiRevision->importUpload();
+
+		if ( !$result ) {
+			$this->logger->error(
+				__METHOD__ . ' failed to commit.',
+				$this->fileRevision->getFields()
+			);
+		}
+
+		return $result;
 	}
 
 }

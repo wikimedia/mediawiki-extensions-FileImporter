@@ -10,9 +10,7 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use RuntimeException;
 use Title;
 use User;
@@ -21,7 +19,7 @@ use WikiPage;
 /**
  * Performs an import of a file to the local wiki based on an ImportPlan object for a given User.
  */
-class Importer implements LoggerAwareInterface {
+class Importer {
 
 	/**
 	 * @var WikiRevisionFactory
@@ -43,23 +41,15 @@ class Importer implements LoggerAwareInterface {
 	 */
 	private $logger;
 
-	/**
-	 * @param WikiRevisionFactory $wikiRevisionFactory
-	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param UploadBaseFactory $uploadBaseFactory
-	 */
 	public function __construct(
 		WikiRevisionFactory $wikiRevisionFactory,
 		HttpRequestExecutor $httpRequestExecutor,
-		UploadBaseFactory $uploadBaseFactory
+		UploadBaseFactory $uploadBaseFactory,
+		LoggerInterface $logger
 	) {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->uploadBaseFactory = $uploadBaseFactory;
-		$this->logger = new NullLogger();
-	}
-
-	public function setLogger( LoggerInterface $logger ) {
 		$this->logger = $logger;
 	}
 
@@ -80,6 +70,8 @@ class Importer implements LoggerAwareInterface {
 
 		// TODO the type of ImportOperation created should be decided somewhere
 
+		$this->logger->info( __METHOD__ . ' started' );
+
 		/**
 		 * Text revisions should be added first. See T147451.
 		 * This ensures that the page entry is created and if something fails it can thus be deleted.
@@ -88,7 +80,8 @@ class Importer implements LoggerAwareInterface {
 			$importOperations->add( new TextRevisionFromTextRevision(
 				$plannedTitle,
 				$textRevision,
-				$this->wikiRevisionFactory
+				$this->wikiRevisionFactory,
+				$this->logger
 			) );
 		}
 
@@ -98,19 +91,24 @@ class Importer implements LoggerAwareInterface {
 				$fileRevision,
 				$this->httpRequestExecutor,
 				$this->wikiRevisionFactory,
-				$this->uploadBaseFactory
+				$this->uploadBaseFactory,
+				$this->logger
 			) );
 		}
 
+		$this->logger->info( __METHOD__ . ' ImportOperations built.' );
+
 		if ( !$importOperations->prepare() ) {
-			$this->logger->error( 'Failed to prepare operations.' );
+			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
 			throw new RuntimeException( 'Failed to prepare operations.' );
 		}
+		$this->logger->info( __METHOD__ . ' operations prepared.' );
 
 		if ( !$importOperations->commit() ) {
-			$this->logger->error( 'Failed to commit operations.' );
+			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
 			throw new RuntimeException( 'Failed to commit operations.' );
 		}
+		$this->logger->info( __METHOD__ . ' operations committed.' );
 
 		// TODO the below should be an ImportOperation
 		$articleIdForUpdate = $this->getArticleIdForUpdate( $importPlan );
@@ -165,7 +163,8 @@ class Importer implements LoggerAwareInterface {
 		);
 
 		if ( !$editResult->isOK() ) {
-			throw new RuntimeException( 'Failed to create import edit' );
+			$this->logger->error( __METHOD__ . ' Failed to create import revision.' );
+			throw new RuntimeException( 'Failed to create import revision' );
 		}
 	}
 
@@ -189,6 +188,7 @@ class Importer implements LoggerAwareInterface {
 		);
 
 		if ( !$editResult->isOK() ) {
+			$this->logger->error( __METHOD__ . ' Failed to create user edit.' );
 			throw new RuntimeException( 'Failed to create user edit' );
 		}
 	}

@@ -14,12 +14,10 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Message;
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use Title;
 
-class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
+class ApiDetailRetriever implements DetailRetriever {
 
 	const MAX_REVISIONS = 1000;
 
@@ -40,14 +38,11 @@ class ApiDetailRetriever implements DetailRetriever, LoggerAwareInterface {
 
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
-		HttpRequestExecutor $httpRequestExecutor
+		HttpRequestExecutor $httpRequestExecutor,
+		LoggerInterface $logger
 	) {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->logger = new NullLogger();
-	}
-
-	public function setLogger( LoggerInterface $logger ) {
 		$this->logger = $logger;
 	}
 

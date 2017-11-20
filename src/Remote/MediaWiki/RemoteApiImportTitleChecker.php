@@ -7,18 +7,22 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use Psr\Log\LoggerInterface;
 
 class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 	private $httpApiLookup;
 	private $httpRequestExecutor;
+	private $logger;
 
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
-		HttpRequestExecutor $httpRequestExecutor
+		HttpRequestExecutor $httpRequestExecutor,
+		LoggerInterface $logger
 	) {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -35,11 +39,24 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
+			$this->logger->error(
+				__METHOD__ . ' failed to check title state from: ' . $requestUrl,
+				[
+					'url' => $e->getHttpRequest()->getFinalUrl(),
+					'content' => $e->getHttpRequest()->getContent(),
+					'errors' => $e->getStatusValue()->getErrors(),
+				]
+			);
 			throw new ImportException( 'Failed to check title state from: ' . $requestUrl );
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 
-		return array_key_exists( '-1', $requestData['query']['pages'] );
+		$result = array_key_exists( '-1', $requestData['query']['pages'] );
+		if ( !$result ) {
+			$this->logger->error( __METHOD__ . ' failed, could not find pages query key in result.' );
+		}
+
+		return $result;
 	}
 
 	private function getParams( $titleString ) {

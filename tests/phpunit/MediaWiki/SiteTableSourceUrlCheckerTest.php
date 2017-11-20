@@ -7,6 +7,7 @@ use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
 use HashSiteStore;
 use PHPUnit_Framework_TestCase;
+use Psr\Log\NullLogger;
 use Site;
 
 class SiteTableSourceUrlCheckerTest extends PHPUnit_Framework_TestCase {
@@ -21,7 +22,8 @@ class SiteTableSourceUrlCheckerTest extends PHPUnit_Framework_TestCase {
 		}
 
 		return new SiteTableSourceUrlChecker(
-			new SiteTableSiteLookup( new HashSiteStore( $sites ) )
+			new SiteTableSiteLookup( new HashSiteStore( $sites ) ),
+			new NullLogger()
 		);
 	}
 

@@ -4,6 +4,7 @@ namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\SourceUrlChecker;
+use Psr\Log\LoggerInterface;
 
 /**
  * This SourceUrlChecker implementation will allow files from mediawiki websites that are contained
@@ -13,15 +14,35 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 
 	private $siteTableSiteLookup;
 
+	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
 	public function __construct(
-		SiteTableSiteLookup $siteTableSiteLookup
+		SiteTableSiteLookup $siteTableSiteLookup,
+		LoggerInterface $logger
 	) {
 		$this->siteTableSiteLookup = $siteTableSiteLookup;
+		$this->logger = $logger;
 	}
 
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
-		return $this->siteTableSiteLookup->getSite( $sourceUrl->getParsedUrl()['host'] ) !== null &&
-		$this->getTitleFromSourceUrl( $sourceUrl ) !== null;
+		$site = $this->siteTableSiteLookup->getSite( $sourceUrl->getParsedUrl()['host'] );
+
+		if ( $site === null ) {
+			$this->logger->error( __METHOD__ . ' failed site check for URL: ' . $sourceUrl->getUrl() );
+			return false;
+		}
+
+		$titleString = $this->getTitleFromSourceUrl( $sourceUrl );
+
+		if ( $titleString === null ) {
+			$this->logger->error( __METHOD__ . ' failed title check for URL: ' . $sourceUrl->getUrl() );
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

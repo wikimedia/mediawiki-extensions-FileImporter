@@ -64,9 +64,9 @@ return [
 		$importer = new Importer(
 			$wikiRevisionFactory,
 			$httpRequestExecutor,
-			$uploadBaseFactory
+			$uploadBaseFactory,
+			LoggerFactory::getInstance( 'FileImporter' )
 		);
-		$importer->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $importer;
 	},
 
@@ -106,19 +106,19 @@ return [
 		 */
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-
-		$detailRetriever = new Remote\MediaWiki\ApiDetailRetriever(
-			$httpApiLookup, $httpRequestExecutor
-		);
-		$detailRetriever->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-
-		// TODO ApiImportTitleChecker here should have a logger....
+		$logger = LoggerFactory::getInstance( 'FileImporter' );
 
 		$site = new SourceSite(
 			new AnyMediaWikiFileUrlChecker(),
-			$detailRetriever,
+			new Remote\MediaWiki\ApiDetailRetriever(
+				$httpApiLookup,
+				$httpRequestExecutor,
+				$logger
+			),
 			new Remote\MediaWiki\RemoteApiImportTitleChecker(
-				$httpApiLookup, $httpRequestExecutor
+				$httpApiLookup,
+				$httpRequestExecutor,
+				$logger
 			),
 			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
 				return new SourceUrl( str_replace( '..GOAT..', '', $sourceUrl->getUrl() ) );
@@ -142,20 +142,22 @@ return [
 		$siteTableLookup = $services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' );
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-
-		$detailRetriever = new Remote\MediaWiki\ApiDetailRetriever(
-			$httpApiLookup, $httpRequestExecutor
-		);
-		$detailRetriever->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-
-		// TODO SiteTableSourceUrlChecker here should have a logger....
-		// TODO ApiImportTitleChecker here should have a logger....
+		$logger = LoggerFactory::getInstance( 'FileImporter' );
 
 		$site = new SourceSite(
-			new SiteTableSourceUrlChecker( $siteTableLookup ),
-			$detailRetriever,
+			new SiteTableSourceUrlChecker(
+				$siteTableLookup,
+				$logger
+			),
+			new Remote\MediaWiki\ApiDetailRetriever(
+				$httpApiLookup,
+				$httpRequestExecutor,
+				$logger
+			),
 			new Remote\MediaWiki\RemoteApiImportTitleChecker(
-				$httpApiLookup, $httpRequestExecutor
+				$httpApiLookup,
+				$httpRequestExecutor,
+				$logger
 			),
 			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
 				return new SourceUrl( str_replace( '.m.', '.', $sourceUrl->getUrl() ) );

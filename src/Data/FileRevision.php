@@ -59,4 +59,11 @@ class FileRevision {
 		return $this->fields[$name];
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getFields() {
+		return $this->fields;
+	}
+
 }

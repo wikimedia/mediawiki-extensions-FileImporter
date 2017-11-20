@@ -10,6 +10,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use MWHttpRequest;
 use PHPUnit_Framework_TestCase;
 use Exception;
+use Psr\Log\NullLogger;
 
 class ApiDetailRetrieverTest extends PHPUnit_Framework_TestCase {
 
@@ -36,7 +37,8 @@ class ApiDetailRetrieverTest extends PHPUnit_Framework_TestCase {
 	public function testInvalidResponse( $content, Exception $expected ) {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
-			$this->getMockHttpRequestExecutor( 'File:Foo.jpg', json_encode( $content ) )
+			$this->getMockHttpRequestExecutor( 'File:Foo.jpg', json_encode( $content ) ),
+			new NullLogger()
 		);
 
 		$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
@@ -113,7 +115,8 @@ class ApiDetailRetrieverTest extends PHPUnit_Framework_TestCase {
 	public function testValidResponse( $sourceUrl, $titleString, $content, $expected ) {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
-			$this->getMockHttpRequestExecutor( $titleString, $content )
+			$this->getMockHttpRequestExecutor( $titleString, $content ),
+			new NullLogger()
 		);
 		$importDetails = $service->getImportDetails( $sourceUrl );
 
