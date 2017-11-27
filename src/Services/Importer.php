@@ -16,6 +16,7 @@ use Psr\Log\NullLogger;
 use RuntimeException;
 use Title;
 use User;
+use WikiPage;
 
 /**
  * Performs an import of a file to the local wiki based on an ImportPlan object for a given User.
@@ -146,7 +147,12 @@ class Importer implements LoggerAwareInterface {
 		User $user
 	) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$page = \WikiPage::newFromID( $articleIdForUpdate );
+		$page = WikiPage::newFromID( $articleIdForUpdate );
+		if ( $page === null ) {
+			throw new RuntimeException(
+				'Failed to get wikipedia to create import edit with id: ' . $articleIdForUpdate
+			);
+		}
 		$editResult = $page->doEditContent(
 			new \WikitextContent( $importPlan->getInitialFileInfoText() ),
 			wfMsgReplaceArgs(
@@ -173,7 +179,7 @@ class Importer implements LoggerAwareInterface {
 		$articleIdForUpdate,
 		User $user
 	) {
-		$page = \WikiPage::newFromID( $articleIdForUpdate );
+		$page = WikiPage::newFromID( $articleIdForUpdate );
 		$editResult = $page->doEditContent(
 			new \WikitextContent( $importPlan->getFileInfoText() ),
 			$importPlan->getRequest()->getIntendedSummary(),
