@@ -145,10 +145,14 @@ class Importer {
 		User $user
 	) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$page = WikiPage::newFromID( $articleIdForUpdate );
+		/**
+		 * Pass fromdbmaster as the page has only just been created and in
+		 * multi db setups slaves will have lag.
+		 */
+		$page = WikiPage::newFromID( $articleIdForUpdate, 'fromdbmaster' );
 		if ( $page === null ) {
 			throw new RuntimeException(
-				'Failed to get wikipedia to create import edit with id: ' . $articleIdForUpdate
+				'Failed to get wikipedia to create import edit with page id: ' . $articleIdForUpdate
 			);
 		}
 		$editResult = $page->doEditContent(
