@@ -60,17 +60,13 @@ class TextRevisionSnippet {
 		$parseResult = $content->getParserOutput(
 			$title,
 			null,
-			$this->getParserOptions(),
+			new ParserOptions(),
 			true
 		);
 
-		return $parseResult->getText();
-	}
-
-	private function getParserOptions() {
-		$parserOptions = new ParserOptions();
-		$parserOptions->setEditSection( false );
-		return $parserOptions;
+		return $parseResult->getText(
+			[ 'enableSectionEditLinks' => false ]
+		);
 	}
 
 }
