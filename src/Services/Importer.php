@@ -111,9 +111,9 @@ class Importer {
 		$this->logger->info( __METHOD__ . ' operations committed.' );
 
 		// TODO the below should be an ImportOperation
-		$articleIdForUpdate = $this->getArticleIdForUpdate( $importPlan );
-		$this->createPostImportRevision( $importPlan, $articleIdForUpdate, $user );
-		$this->createPostImportEdit( $importPlan, $articleIdForUpdate, $user );
+		$page = $this->getPageFromImportPlan( $importPlan );
+		$this->createPostImportRevision( $importPlan, $page, $user );
+		$this->createPostImportEdit( $importPlan, $page, $user );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
@@ -124,37 +124,44 @@ class Importer {
 	}
 
 	/**
-	 * T164729 GAID_FOR_UPDATE needed to select for a write
-	 *
 	 * @param ImportPlan $importPlan
 	 *
-	 * @return int
+	 * @throws RuntimeException
+	 * @return WikiPage
 	 */
-	private function getArticleIdForUpdate( ImportPlan $importPlan ) {
-		return $importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE );
-	}
-
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param int $articleIdForUpdate
-	 * @param User $user
-	 */
-	private function createPostImportRevision(
-		ImportPlan $importPlan,
-		$articleIdForUpdate,
-		User $user
-	) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
+	private function getPageFromImportPlan( ImportPlan $importPlan ) {
 		/**
-		 * Pass fromdbmaster as the page has only just been created and in
+		 * T164729 GAID_FOR_UPDATE needed to select for a write
+		 * T181391 Pass fromdbmaster as the page has only just been created and in
 		 * multi db setups slaves will have lag.
 		 */
-		$page = WikiPage::newFromID( $articleIdForUpdate, 'fromdbmaster' );
+		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE );
+		$page = WikiPage::newFromID(
+			$articleIdForUpdate,
+			'fromdbmaster'
+		);
+
 		if ( $page === null ) {
 			throw new RuntimeException(
 				'Failed to get wikipedia to create import edit with page id: ' . $articleIdForUpdate
 			);
 		}
+
+		return $page;
+	}
+
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param WikiPage $page
+	 * @param User $user
+	 */
+	private function createPostImportRevision(
+		ImportPlan $importPlan,
+		WikiPage $page,
+		User $user
+	) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
 		$editResult = $page->doEditContent(
 			new \WikitextContent( $importPlan->getInitialFileInfoText() ),
 			wfMsgReplaceArgs(
@@ -174,15 +181,14 @@ class Importer {
 
 	/**
 	 * @param ImportPlan $importPlan
-	 * @param int $articleIdForUpdate
+	 * @param WikiPage $page
 	 * @param User $user
 	 */
 	private function createPostImportEdit(
 		ImportPlan $importPlan,
-		$articleIdForUpdate,
+		WikiPage $page,
 		User $user
 	) {
-		$page = WikiPage::newFromID( $articleIdForUpdate );
 		$editResult = $page->doEditContent(
 			new \WikitextContent( $importPlan->getFileInfoText() ),
 			$importPlan->getRequest()->getIntendedSummary(),
