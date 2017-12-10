@@ -1,10 +1,28 @@
 {
 	"@metadata": {
 		"authors": [
-			"Uziel302"
+			"Uziel302",
+			"Amire80"
 		]
 	},
-	"fileimporter-textrevisionsprefix": "גרסאות הטקסט",
-	"fileimporter-filerevisionsprefix": "גרסאות הקובץ",
-	"fileimporter-titleprefix": "כותרת"
+	"fileimporter-desc": "ייבוא קל של קבצים מאתרים אחרים",
+	"fileimporter-specialpage": "ייבוא קובץ",
+	"fileimporter-specialpage-successtitle": "הייבוא הצליח",
+	"fileimporter-importfailed": "הייבוא נכשל",
+	"fileimporter-duplicatefilesdetected-prefix": "כפולים",
+	"fileimporter-exampleprefix": "דוגמה",
+	"fileimporter-textrevisions": "{{PLURAL:$1|תיובא גרסה אחת|תיובאנה $1 גרסאות}} של הקובץ.",
+	"fileimporter-submit": "שליחה",
+	"fileimporter-resubmit": "שליחה חוזרת",
+	"fileimporter-import": "ייבוא",
+	"fileimporter-cancel": "ביטול",
+	"fileimporter-imported": "<strong>הדף \"$1\" יובא לשם \"$2\"</strong>",
+	"fileimporter-edittitle": "עריכת כותרת",
+	"fileimporter-editinfo": "עריכת מידע על הקובץ",
+	"fileimporter-extensionlabel": "סיומת קובץ:",
+	"fileimporter-newfilename": "שם קובץ חדש:",
+	"fileimporter-newfilename-placeholder": "שם קובץ כלשהו",
+	"fileimporter-editsummary": "עריכת תקציר:",
+	"fileimporter-editsummary-placeholder": "משמש רק בעת עשיית שינויים לייבוא.",
+	"fileimporter-previewnote": "זוהי תצוגה מקדימה של קובץ שייובא. נא לבדוק את הדף לפרטי פרטים לפני ייבוא."
 }
