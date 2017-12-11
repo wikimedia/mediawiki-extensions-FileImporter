@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Banjo",
-			"Elisardojm"
+			"Elisardojm",
+			"Amire80"
 		]
 	},
 	"fileimporter": "Importador de ficheiros",
@@ -11,7 +12,7 @@
 	"fileimporter-specialpage-successtitle": "Importación correcta",
 	"fileimporter-importfailed": "Fallou a importación",
 	"fileimporter-api-badinfo": "Mala imaxe ou información de revisión devolta pola API.",
-	"fileimporter-api-failedtogetinfo": "Erro ó recuperar a información de ficheiro deː $1",
+	"fileimporter-api-failedtogetinfo": "Erro ó recuperar a información de ficheiro de: $1",
 	"fileimporter-api-nopagesreturned": "Non se devolveron páxinas pola API remota.",
 	"fileimporter-api-toomanyrevisions": "Demasiadas revisións devoltas pola API, non se pode importar.",
 	"fileimporter-cantparseurl": "Non se pode analizar o URL proporcionadoː $1",
