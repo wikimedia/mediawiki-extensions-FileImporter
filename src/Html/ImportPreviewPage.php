@@ -54,8 +54,7 @@ class ImportPreviewPage {
 			'importDetailsHash' => $details->getOriginalHash(),
 		] ) )->getHtml();
 
-		return
-		Html::element(
+		return Html::element(
 			'p',
 			[],
 			( new Message( 'fileimporter-previewnote' ) )->parse()

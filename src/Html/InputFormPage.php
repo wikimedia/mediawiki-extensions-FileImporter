@@ -40,8 +40,7 @@ class InputFormPage {
 	 * @return string
 	 */
 	public function getHtml() {
-		return
-			Html::openElement( 'div' ) .
+		return Html::openElement( 'div' ) .
 			Html::openElement(
 			'form',
 			[
