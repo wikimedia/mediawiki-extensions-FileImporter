@@ -9,6 +9,8 @@
 	"fileimporter": "Importador de archivos",
 	"fileimporter-desc": "Importación sencilla de archivos de otros sitios",
 	"fileimporter-specialpage": "Importar archivo",
+	"fileimporter-specialpage-successtitle": "Importación realizada correctamente",
+	"fileimporter-importfailed": "Falló la importación",
 	"fileimporter-cantparseurl": "No se puede analizar el URL proporcionado: $1",
 	"fileimporter-cantimporturl": "No se puede importar el URL proporcionado",
 	"fileimporter-cantimportfilehidden": "No se puede importar el archivo debido a que una de sus revisiones fue suprimida.",
