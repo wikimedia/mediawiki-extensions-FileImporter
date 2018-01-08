@@ -16,10 +16,10 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use Message;
 use Psr\Log\LoggerInterface;
 use Title;
+use MediaWiki\MediaWikiServices;
+use ConfigException;
 
 class ApiDetailRetriever implements DetailRetriever {
-
-	const MAX_REVISIONS = 1000;
 
 	/**
 	 * @var HttpApiLookup
@@ -41,6 +41,21 @@ class ApiDetailRetriever implements DetailRetriever {
 	 */
 	private $maxBytes;
 
+	/**
+	 * @var int
+	 */
+	private $maxRevisions;
+
+	/**
+	 * ApiDetailRetriever constructor.
+	 *
+	 * @param HttpApiLookup $httpApiLookup
+	 * @param HttpRequestExecutor $httpRequestExecutor
+	 * @param LoggerInterface $logger
+	 * @param int $maxBytes
+	 *
+	 * @throws ConfigException
+	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
@@ -51,6 +66,8 @@ class ApiDetailRetriever implements DetailRetriever {
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = $logger;
 		$this->maxBytes = $maxBytes;
+		$services = MediaWikiServices::getInstance();
+		$this->maxRevisions = (int)$services->getMainConfig()->get( 'FileImporterMaxRevisions' );
 	}
 
 	/**
@@ -167,6 +184,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			throw new LocalizedImportException( 'fileimporter-api-badinfo' );
 		}
 
+		$this->checkRevisionCount( $sourceUrl, $requestUrl, $pageInfoData );
+
 		while ( array_key_exists( 'continue', $requestData ) ) {
 			$this->getMoreRevisions( $sourceUrl, $apiUrl, $requestData, $pageInfoData );
 		}
@@ -234,8 +253,22 @@ class ApiDetailRetriever implements DetailRetriever {
 				array_merge( $pageInfoData['imageinfo'], $newPageInfoData['imageinfo'] );
 		}
 
-		if ( count( $pageInfoData['revisions'] ) > self::MAX_REVISIONS ||
-			count( $pageInfoData['imageinfo'] ) > self::MAX_REVISIONS ) {
+		$this->checkRevisionCount( $sourceUrl, $requestUrl, $pageInfoData );
+	}
+
+	/**
+	 * Throws an exception if the number of revisions to be imported exceeds
+	 * the maximum revision limit
+	 *
+	 * @param SourceUrl $sourceUrl
+	 * @param $requestUrl
+	 * @param $pageInfoData
+	 *
+	 * @throws LocalizedImportException
+	 */
+	private function checkRevisionCount( SourceUrl $sourceUrl, $requestUrl, $pageInfoData ) {
+		if ( count( $pageInfoData['revisions'] ) > $this->maxRevisions ||
+			count( $pageInfoData['imageinfo'] ) > $this->maxRevisions ) {
 			$this->logger->warning(
 				'Too many revisions were being fetched',
 				[
