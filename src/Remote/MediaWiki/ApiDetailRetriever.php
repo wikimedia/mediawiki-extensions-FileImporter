@@ -296,6 +296,10 @@ class ApiDetailRetriever implements DetailRetriever {
 				throw new LocalizedImportException( 'fileimporter-cantimportfilehidden' );
 			}
 
+			if ( array_key_exists( 'filemissing', $revisionInfo ) ) {
+				throw new LocalizedImportException( 'fileimporter-filemissinginrevision' );
+			}
+
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
 				$revisionInfo['user'] = $wgFileImporterAccountForSuppressedUsername;
 			}

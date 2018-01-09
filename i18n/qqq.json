@@ -52,5 +52,6 @@
 	"fileimporter-revision-removed-text": "Text inserted if the original text is suppressed.",
 	"fileimporter-revision-removed-comment": "Text inserted as a revision comment if the original comment is suppressed.",
 	"fileimporter-in-beta": "Text shown when the special page is loaded warning the user that the extension is in beta.",
+	"fileimporter-filemissinginrevision": "Error message shown when the file contains at least one revision with a missing image file.",
 	"fileimporter-filetoolarge": "Text shown when a user tries to upload a file (or file revision) which exceeds the maximum file size limit."
 }
