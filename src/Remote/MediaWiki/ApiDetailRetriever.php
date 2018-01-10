@@ -36,14 +36,21 @@ class ApiDetailRetriever implements DetailRetriever {
 	 */
 	private $logger;
 
+	/**
+	 * @var int|null
+	 */
+	private $maxBytes;
+
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+		$maxBytes = null
 	) {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = $logger;
+		$this->maxBytes = $maxBytes;
 	}
 
 	/**
@@ -262,6 +269,12 @@ class ApiDetailRetriever implements DetailRetriever {
 
 			if ( array_key_exists( 'sha1hidden', $revisionInfo ) ) {
 				$revisionInfo['sha1'] = sha1( $revisionInfo['*'] );
+			}
+
+			if ( array_key_exists( 'size', $revisionInfo ) && $this->maxBytes !== null ) {
+				if ( $revisionInfo['size'] > $this->maxBytes ) {
+					throw new LocalizedImportException( 'fileimporter-filetoolarge' );
+				}
 			}
 
 			/**

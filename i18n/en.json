@@ -48,5 +48,6 @@
 	"fileimporter-heading-filehistory": "File history",
 	"fileimporter-revision-removed-text": "Suppressed text removed by FileImporter.",
 	"fileimporter-revision-removed-comment": "Suppressed comment removed by FileImporter.",
-	"fileimporter-in-beta": "File import is in beta mode: We tested it carefully but it still might have some problems. If you encounter problems, please [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter report them on our help page] - ideally with a step by step way to reproduce the problem, so we can understand and fix it."
+	"fileimporter-in-beta": "File import is in beta mode: We tested it carefully but it still might have some problems. If you encounter problems, please [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter report them on our help page] - ideally with a step by step way to reproduce the problem, so we can understand and fix it.",
+	"fileimporter-filetoolarge": "The file you are currently trying to import exceeds the maximum file size limit."
 }
