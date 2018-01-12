@@ -3,7 +3,8 @@
 		"authors": [
 			"Redredsonia",
 			"Alexey zakharenkov",
-			"Okras"
+			"Okras",
+			"Edible Melon"
 		]
 	},
 	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
@@ -27,5 +28,6 @@
 	"fileimporter-newfilename": "Новое имя файла:",
 	"fileimporter-editsummary": "Описание изменений:",
 	"fileimporter-heading-fileinfo": "Информация о файле",
-	"fileimporter-heading-filehistory": "История файла"
+	"fileimporter-heading-filehistory": "История файла",
+	"fileimporter-filetoolarge": "Файл, который вы сейчас пытаетесь загрузить, превосходит максимальный размер файла."
 }
