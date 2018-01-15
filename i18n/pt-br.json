@@ -48,5 +48,6 @@
 	"fileimporter-heading-filehistory": "Histórico do arquivo",
 	"fileimporter-revision-removed-text": "Texto suprimido foi removido pelo importador de arquivos.",
 	"fileimporter-revision-removed-comment": "Comentário suprimido foi removido pelo importador de arquivos.",
-	"fileimporter-in-beta": "A importação de arquivos está em modo beta: foi cuidadosamente testada mas ainda pode conter defeitos. Se encontrar problemas, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter reporte-os na nossa página de ajuda] - idealmente, com a descrição dos passos necessários para reproduzir o problema, para podermos compreendê-lo e resolvê-lo."
+	"fileimporter-in-beta": "A importação de arquivos está em modo beta: foi cuidadosamente testada mas ainda pode conter defeitos. Se encontrar problemas, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter reporte-os na nossa página de ajuda] - idealmente, com a descrição dos passos necessários para reproduzir o problema, para podermos compreendê-lo e resolvê-lo.",
+	"fileimporter-filetoolarge": "O arquivo que está a tentar importar excede o limite do tamanho máximo de um arquivo."
 }
