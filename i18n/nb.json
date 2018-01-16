@@ -48,5 +48,6 @@
 	"fileimporter-heading-filehistory": "Filhistorikk",
 	"fileimporter-revision-removed-text": "Undertrykt tekst fjernet av FileImporter.",
 	"fileimporter-revision-removed-comment": "Undertrykt kommentar fjernet av FileImporter.",
-	"fileimporter-in-beta": "Filimportering er i betamodus: Vi har testet det nøye, men det kan fortsatt være noen problemer med det. Om du oppdager problemer, rapporter dem gjerne [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter på hjelpesida vår] – helst med en gjennomgang steg for steg av hvordan problemet oppstår, så vi kan forstå problemet og fikse det."
+	"fileimporter-in-beta": "Filimportering er i betamodus: Vi har testet det nøye, men det kan fortsatt være noen problemer med det. Om du oppdager problemer, rapporter dem gjerne [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter på hjelpesida vår] – helst med en gjennomgang steg for steg av hvordan problemet oppstår, så vi kan forstå problemet og fikse det.",
+	"fileimporter-filetoolarge": "Fila du prøver å importere overskrider den maksimale filstørrelsen."
 }
