@@ -31,5 +31,6 @@
 	"fileimporter-newfilename": "Nowa nazwa pliku:",
 	"fileimporter-editsummary": "Opis zmian:",
 	"fileimporter-heading-fileinfo": "Informacje o pliku",
-	"fileimporter-heading-filehistory": "Historia pliku"
+	"fileimporter-heading-filehistory": "Historia pliku",
+	"fileimporter-filetoolarge": "Plik, który próbujesz zaimportować, przekracza maksymalny limit rozmiaru pliku."
 }
