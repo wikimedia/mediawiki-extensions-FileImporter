@@ -49,5 +49,6 @@
 	"fileimporter-revision-removed-text": "Durch den Dateiimporter entfernter unterdrückter Text.",
 	"fileimporter-revision-removed-comment": "Durch den Dateiimporter entfernter unterdrückter Kommentar.",
 	"fileimporter-in-beta": "Der Dateiimport befindet sich im Betamodus: Wir haben ihn ausführlich getestet, er könnte jedoch noch einige Probleme haben. Falls du Probleme bemerkst, [//www.mediawiki.org/wiki/Extension_talk:FileImporter melde sie bitte auf unserer Hilfeseite] – im Idealfall mit einer Schritt-für-Schritt-Anleitung, um das Problem zu reproduzieren, so dass wir ihn verstehen und beheben können.",
+	"fileimporter-filemissinginrevision": "Die Datei konnte nicht importiert werden, da bei einer oder mehreren Versionen das dazugehörige Bild fehlt.",
 	"fileimporter-filetoolarge": "Die Datei, die du derzeit versuchst zu importieren, überschreitet die maximale Dateigröße."
 }
