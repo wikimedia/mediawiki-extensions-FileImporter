@@ -96,9 +96,9 @@ class HttpApiLookup implements LoggerAwareInterface {
 				'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
 				' Status code ' . $statusCode . ', ' . $e->getMessage(),
 				[
-					'statuscode' => $statusCode,
-					'previousmessage' => $e->getMessage(),
-					'response' => $e->getHttpRequest()->getContent(),
+					'statusCode' => $statusCode,
+					'previousMessage' => $e->getMessage(),
+					'responseContent' => $e->getHttpRequest()->getContent(),
 				]
 			);
 			return null; // never reached

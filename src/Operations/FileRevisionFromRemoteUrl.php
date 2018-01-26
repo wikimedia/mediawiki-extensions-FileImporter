@@ -101,7 +101,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		if ( !$result ) {
 			$this->logger->error(
 				__METHOD__ . ' failed to prepare.',
-				$this->fileRevision->getFields()
+				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
 		}
 
@@ -118,7 +118,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		if ( !$result ) {
 			$this->logger->error(
 				__METHOD__ . ' failed to commit.',
-				$this->fileRevision->getFields()
+				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
 		}
 

@@ -70,7 +70,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		if ( !$result ) {
 			$this->logger->error(
 				__METHOD__ . ' failed to commit.',
-				$this->textRevision->getFields()
+				[ 'textRevision-getFields' => $this->textRevision->getFields() ]
 			);
 		}
 
