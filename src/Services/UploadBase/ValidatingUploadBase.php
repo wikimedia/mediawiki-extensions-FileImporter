@@ -57,10 +57,8 @@ class ValidatingUploadBase extends UploadBase {
 		$fileVerification = $this->verifyFile();
 
 		if ( $fileVerification !== true ) {
-			// TODO throw a more informative exception?
-			$logContext = [ 'fileVerification' => $fileVerification, ];
 			$this->logger->info(
-				__METHOD__ . ' checks failed: ' . json_encode( $logContext ), $logContext
+				__METHOD__ . ' checks failed', [ 'fileVerification' => $fileVerification ]
 			);
 			return false;
 		}
