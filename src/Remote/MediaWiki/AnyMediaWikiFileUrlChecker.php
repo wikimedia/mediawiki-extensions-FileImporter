@@ -21,25 +21,22 @@ class AnyMediaWikiFileUrlChecker implements SourceUrlChecker {
 	 */
 	private function getTitleFromSourceUrl( SourceUrl $sourceUrl ) {
 		$parsed = $sourceUrl->getParsedUrl();
-		$title = null;
-		$hasQueryAndTitle = null;
 
 		if ( array_key_exists( 'query', $parsed ) ) {
 			parse_str( $parsed['query'], $bits );
-			$hasQueryAndTitle = array_key_exists( 'title', $bits );
-			if ( $hasQueryAndTitle && strlen( $bits['title'] ) > 0 ) {
-				$title = $bits['title'];
+			if ( array_key_exists( 'title', $bits ) && strlen( $bits['title'] ) > 0 ) {
+				return $bits['title'];
 			}
 		}
 
-		if ( !$hasQueryAndTitle && array_key_exists( 'path', $parsed ) ) {
+		if ( array_key_exists( 'path', $parsed ) ) {
 			$bits = explode( '/', $parsed['path'] );
 			if ( count( $bits ) >= 2 && !empty( $bits[count( $bits ) - 1] ) ) {
-				$title = array_pop( $bits );
+				return array_pop( $bits );
 			}
 		}
 
-		return $title;
+		return null;
 	}
 
 }
