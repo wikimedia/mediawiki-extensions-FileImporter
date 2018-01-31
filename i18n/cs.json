@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Meliganai"
+			"Meliganai",
+			"Ilimanaq29"
 		]
 	},
 	"fileimporter-filenameerror-default": "Vyskytl se neznámý problém s názvem Vašeho souboru.",
@@ -10,5 +11,6 @@
 	"fileimporter-illegalfilenamechars": "Název, který se právě snažíte importovat, obsahuje neplatné znaky.",
 	"fileimporter-extensionlabel": "Rozšíření souboru:",
 	"fileimporter-newfilename": "Nový název souboru:",
-	"fileimporter-newfilename-placeholder": "Nějaký název souboru"
+	"fileimporter-newfilename-placeholder": "Nějaký název souboru",
+	"fileimporter-filemissinginrevision": "Nelze načíst soubor kvůli tomu, protože ani jedna z jeho revizí nemá platný soubor."
 }
