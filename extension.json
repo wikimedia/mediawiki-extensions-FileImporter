@@ -74,7 +74,8 @@
 		"FileImporter\\Remote\\MediaWiki\\RemoteApiImportTitleChecker": "src/Remote/MediaWiki/RemoteApiImportTitleChecker.php",
 		"FileImporter\\Remote\\MediaWiki\\SiteTableSiteLookup": "src/Remote/MediaWiki/SiteTableSiteLookup.php",
 		"FileImporter\\Remote\\MediaWiki\\AnyMediaWikiFileUrlChecker": "src/Remote/MediaWiki/AnyMediaWikiFileUrlChecker.php",
-		"FileImporter\\Remote\\MediaWiki\\SiteTableSourceUrlChecker": "src/Remote/MediaWiki/SiteTableSourceUrlChecker.php"
+		"FileImporter\\Remote\\MediaWiki\\SiteTableSourceUrlChecker": "src/Remote/MediaWiki/SiteTableSourceUrlChecker.php",
+		"FileImporter\\Remote\\MediaWiki\\WhitelistDomainFileUrlChecker": "src/Remote/MediaWiki/WhitelistDomainFileUrlChecker.php"
 	},
 	"ServiceWiringFiles": [
 		"src/ServiceWiring.php",

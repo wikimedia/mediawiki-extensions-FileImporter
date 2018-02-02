@@ -10,6 +10,10 @@ use FileImporter\Data\SourceUrl;
  */
 interface SourceUrlChecker {
 
+	/**
+	 * @param SourceUrl $sourceUrl
+	 * @return bool true if valid SourceUrl, false if not
+	 */
 	public function checkSourceUrl( SourceUrl $sourceUrl );
 
 }
