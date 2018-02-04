@@ -26,9 +26,9 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	private $requestFactoryCallable;
 
 	/**
-	 * @var int|false
+	 * @var array
 	 */
-	private $timeout;
+	private $httpOptions;
 
 	/**
 	 * @var int
@@ -36,14 +36,18 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	private $maxFileSize;
 
 	/**
-	 * @param int|false $timeout of http requests in seconds, false for default
+	 * @param array $httpOptions in the following format:
+	 * [
+	 *     'proxy' => string|false,
+	 *     'timeout' => int|false Timeout of HTTP requests in seconds, false for default,
+	 * ]
 	 * @param int $maxFileSize in bytes
 	 */
-	public function __construct( $timeout, $maxFileSize ) {
+	public function __construct( array $httpOptions, $maxFileSize ) {
 		$this->requestFactoryCallable = [ MWHttpRequest::class, 'factory' ];
 		$this->logger = new NullLogger();
 		$this->maxFileSize = $maxFileSize;
-		$this->timeout = $timeout;
+		$this->httpOptions = $httpOptions;
 	}
 
 	public function setLogger( LoggerInterface $logger ) {
@@ -83,8 +87,6 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * TODO proxy? $wgCopyUploadProxy ?
-	 *
 	 * @param string $url
 	 * @param callable|null $callback
 	 *
@@ -96,8 +98,11 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 			'logger' => $this->logger,
 			'followRedirects' => true,
 		];
-		if ( $this->timeout !== false ) {
-			$options['timeout'] = $this->timeout;
+		if ( !empty( $this->httpOptions['proxy'] ) ) {
+			$options['proxy'] = $this->httpOptions['proxy'];
+		}
+		if ( isset( $this->httpOptions['timeout'] ) && $this->httpOptions['timeout'] !== false ) {
+			$options['timeout'] = $this->httpOptions['timeout'];
 		}
 
 		/** @var MWHttpRequest $request */

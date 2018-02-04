@@ -45,10 +45,13 @@ return [
 	},
 
 	'FileImporterHttpRequestExecutor' => function ( MediaWikiServices $services ) {
-		$timeout = $services->getMainConfig()->get( 'CopyUploadTimeout' );
+		$config = $services->getMainConfig();
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 		$service = new HttpRequestExecutor(
-			$timeout,
+			[
+				'proxy' => $config->get( 'CopyUploadProxy' ),
+				'timeout' => $config->get( 'CopyUploadTimeout' ),
+			],
 			$maxFileSize
 		);
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );

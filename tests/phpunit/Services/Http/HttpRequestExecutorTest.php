@@ -30,7 +30,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideTestExecute
 	 */
 	public function testExecute( $testUrl, $expectedResult ) {
-		$executor = new HttpRequestExecutor( 0, 0 );
+		$executor = new HttpRequestExecutor( [], 0 );
 		$factoryOverride = function ( $url, $options = null, $caller = __METHOD__ )
 			use ( $testUrl, $expectedResult ) {
 			$this->assertSame( $testUrl, $url );

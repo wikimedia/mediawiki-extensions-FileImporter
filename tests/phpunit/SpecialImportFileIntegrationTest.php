@@ -40,7 +40,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	public static function setUpBeforeClass() {
 		parent::setUpBeforeClass();
 		try {
-			$requestExecutor = new HttpRequestExecutor( 0, 0 );
+			$requestExecutor = new HttpRequestExecutor( [], 0 );
 			$requestExecutor->execute( 'https://commons.wikimedia.org' );
 			self::$hasAccessToCommons = true;
 		} catch ( HttpRequestException $e ) {
