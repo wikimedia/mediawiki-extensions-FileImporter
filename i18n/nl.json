@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98"
+		]
+	},
+	"fileimporter-exampleprefix": "Voorbeeld",
+	"fileimporter-textrevisions": "$1 {{PLURAL:$1|versie|versies}} van dit bestand zullen worden geïmporteerd.",
+	"fileimporter-import": "Importeren",
+	"fileimporter-cancel": "Annuleren"
+}
