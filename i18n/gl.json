@@ -19,10 +19,13 @@
 	"fileimporter-cantimporturl": "Non se pode importar o URL proporcionado",
 	"fileimporter-cantimportfromsharedrepo": "Non se pode importar un ficheiro dun repositorio compartido.",
 	"fileimporter-cantimportmissingfile": "Non se pode importar un ficheiro que non existe.",
+	"fileimporter-cantimportfilehidden": "Non se pode importar o ficheiro debido a que unha das súas revisión contén un ficheiro suprimido.",
 	"fileimporter-badtoken": "O identificador CSRF non se corresponde",
+	"fileimporter-badimporthash": "A clave de importación non coincide. Por favor, reinicie a importación.",
 	"fileimporter-filenameerror-default": "Hai un problema descoñecido co nome do seu ficheiro.",
 	"fileimporter-filenameerror-illegal": "O nome do ficheiro cara o que está intentando importar non é válido.",
 	"fileimporter-filenameerror-toolong": "O nome de ficheiro cara o que está intentando importar é demasiado longo.",
+	"fileimporter-filenameerror-automaticchanges": "O nome do ficheiro que está intentando importar modificarase automaticamente a «$1» debido ó uso de caracteres non válidos.",
 	"fileimporter-localtitleexists": "O título que está intentado importar xa existe neste wiki.",
 	"fileimporter-sourcetitleexists": "O título cara o que está intentando importar xa existe na wiki fonte.",
 	"fileimporter-illegalfilenamechars": "O título cara o que está intentando importar contén caracteres non válidos no nome de ficheiro.",
@@ -46,5 +49,7 @@
 	"fileimporter-heading-fileinfo": "Información do ficheiro",
 	"fileimporter-heading-filehistory": "Historial do ficheiro",
 	"fileimporter-revision-removed-text": "Texto suprimido eliminado por FileImporter.",
-	"fileimporter-revision-removed-comment": "Comentario suprimido eliminado por FileImporter."
+	"fileimporter-revision-removed-comment": "Comentario suprimido eliminado por FileImporter.",
+	"fileimporter-filemissinginrevision": "Non se pode importar o ficheiro porque polo menos a unha das súas revisións fáltalle o ficheiro de imaxe.",
+	"fileimporter-filetoolarge": "O ficheiro que está intentando importar excede o límite do tamaño máximo dun ficheiro."
 }
