@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Meliganai",
-			"Ilimanaq29"
+			"Ilimanaq29",
+			"Matěj Suchánek"
 		]
 	},
 	"fileimporter-filenameerror-default": "Vyskytl se neznámý problém s názvem Vašeho souboru.",
@@ -12,5 +13,5 @@
 	"fileimporter-extensionlabel": "Rozšíření souboru:",
 	"fileimporter-newfilename": "Nový název souboru:",
 	"fileimporter-newfilename-placeholder": "Nějaký název souboru",
-	"fileimporter-filemissinginrevision": "Nelze načíst soubor kvůli tomu, protože ani jedna z jeho revizí nemá platný soubor."
+	"fileimporter-filemissinginrevision": "Nelze importovat soubor, protože nejméně jedné jeho revizi chybí platný soubor s obrázkem."
 }
