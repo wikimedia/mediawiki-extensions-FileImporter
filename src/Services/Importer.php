@@ -143,7 +143,7 @@ class Importer {
 
 		if ( $page === null ) {
 			throw new RuntimeException(
-				'Failed to get wikipedia to create import edit with page id: ' . $articleIdForUpdate
+				'Failed to create import edit with page id: ' . $articleIdForUpdate
 			);
 		}
 
