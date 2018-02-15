@@ -6,10 +6,9 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
 use TitleValue;
 
-class ImportPlanTest extends PHPUnit_Framework_TestCase {
+class ImportPlanTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @return PHPUnit_Framework_MockObject_MockObject|ImportRequest

@@ -6,11 +6,10 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
 use HashSiteStore;
-use PHPUnit_Framework_TestCase;
 use Psr\Log\NullLogger;
 use Site;
 
-class SiteTableSourceUrlCheckerTest extends PHPUnit_Framework_TestCase {
+class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	private function getSiteTableSourceUrlChecker( $knownSites = [] ) {
 		$sites = [];

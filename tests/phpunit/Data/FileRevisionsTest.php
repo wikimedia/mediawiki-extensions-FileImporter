@@ -4,9 +4,8 @@ namespace FileImporter\Data\Test;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
-use PHPUnit_Framework_TestCase;
 
-class FileRevisionsTest extends PHPUnit_Framework_TestCase {
+class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 
 	private function getMockFileRevision( $timestamp ) {
 		$mock = $this->getMockBuilder( FileRevision::class )

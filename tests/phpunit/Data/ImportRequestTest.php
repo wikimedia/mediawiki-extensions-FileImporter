@@ -3,9 +3,8 @@
 namespace FileImporter\Data\Test;
 
 use FileImporter\Data\ImportRequest;
-use PHPUnit_Framework_TestCase;
 
-class ImportRequestTest extends PHPUnit_Framework_TestCase {
+class ImportRequestTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestRemoveTrailingWhitespacesInText() {
 		return [

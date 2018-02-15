@@ -4,9 +4,8 @@ namespace FileImporter\Data\Test;
 
 use FileImporter\Data\SourceUrl;
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
 
-class SourceUrlTest extends PHPUnit_Framework_TestCase {
+class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideInvalidConstruction() {
 		return [

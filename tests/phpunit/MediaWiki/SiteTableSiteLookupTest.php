@@ -5,10 +5,9 @@ namespace FileImporter\MediaWiki\Test;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use HashSiteStore;
 use MediaWikiSite;
-use PHPUnit_Framework_TestCase;
 use Site;
 
-class SiteTableSiteLookupTest extends PHPUnit_Framework_TestCase {
+class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 	private function getSite( $globalId, $domain ) {
 		$mockSite = $this->getMock( Site::class );

@@ -4,12 +4,11 @@ namespace FileImporter\MediaWiki\Test;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker;
-use PHPUnit_Framework_TestCase;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker
  */
-class WhitelistDomainFileUrlCheckerTest extends PHPUnit_Framework_TestCase {
+class WhitelistDomainFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestCheck() {
 		return [

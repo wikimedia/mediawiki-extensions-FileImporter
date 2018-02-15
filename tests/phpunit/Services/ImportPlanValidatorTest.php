@@ -20,11 +20,10 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MalformedTitleException;
 use Message;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
 use Title;
 use UploadBase;
 
-class ImportPlanValidatorTest extends PHPUnit_Framework_TestCase {
+class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param int $callCount

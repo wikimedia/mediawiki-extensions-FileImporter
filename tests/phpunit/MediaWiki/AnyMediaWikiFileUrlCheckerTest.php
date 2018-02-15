@@ -4,12 +4,11 @@ namespace FileImporter\MediaWiki\Test;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
-use PHPUnit_Framework_TestCase;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker
  */
-class AnyMediaWikiFileUrlCheckerTest extends PHPUnit_Framework_TestCase {
+class AnyMediaWikiFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestCheck() {
 		return [

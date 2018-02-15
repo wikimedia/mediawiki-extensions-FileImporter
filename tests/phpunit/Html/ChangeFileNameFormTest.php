@@ -11,11 +11,10 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
-use PHPUnit_Framework_TestCase;
 use SpecialPage;
 use Title;
 
-class ChangeFileNameFormTest extends PHPUnit_Framework_TestCase {
+class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function setUp() {
 		parent::setUp();

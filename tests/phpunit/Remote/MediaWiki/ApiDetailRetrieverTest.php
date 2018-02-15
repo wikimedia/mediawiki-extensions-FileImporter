@@ -8,11 +8,10 @@ use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MWHttpRequest;
-use PHPUnit_Framework_TestCase;
 use Exception;
 use Psr\Log\NullLogger;
 
-class ApiDetailRetrieverTest extends PHPUnit_Framework_TestCase {
+class ApiDetailRetrieverTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestInvalidResponse() {
 		return [
