@@ -4,6 +4,9 @@ namespace FileImporter\Data\Test;
 
 use FileImporter\Data\ImportRequest;
 
+/**
+ * @covers \FileImporter\Data\ImportRequest
+ */
 class ImportRequestTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestRemoveTrailingWhitespacesInText() {

@@ -16,6 +16,8 @@ use User;
 use WebResponse;
 
 /**
+ * @covers \FileImporter\SpecialImportFile
+ *
  * This test makes some calls to https://commons.wikimedia.org
  *
  * @group Database

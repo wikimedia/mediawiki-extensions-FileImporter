@@ -7,6 +7,9 @@ use HashSiteStore;
 use MediaWikiSite;
 use Site;
 
+/**
+ * @covers \FileImporter\Remote\MediaWiki\SiteTableSiteLookup
+ */
 class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 	private function getSite( $globalId, $domain ) {

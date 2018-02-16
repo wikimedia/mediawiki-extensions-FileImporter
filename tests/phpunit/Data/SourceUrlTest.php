@@ -5,6 +5,9 @@ namespace FileImporter\Data\Test;
 use FileImporter\Data\SourceUrl;
 use InvalidArgumentException;
 
+/**
+ * @covers \FileImporter\Data\SourceUrl
+ */
 class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideInvalidConstruction() {

@@ -8,12 +8,19 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
-use FileImporter\Html\ChangeFileNameForm;
+use FileImporter\Html\ChangeFileInfoForm;
+use IContextSource;
+use Language;
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
+use OutputPage;
 use SpecialPage;
 use Title;
+use User;
 
+/**
+ * @covers \FileImporter\Html\ChangeFileInfoForm
+ */
 class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function setUp() {
@@ -21,14 +28,25 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 		Theme::setSingleton( new WikimediaUITheme() );
 	}
 
+	/**
+	 * @return SpecialPage
+	 */
 	private function getMockSpecialPage() {
 		$mock = $this->getMock( SpecialPage::class, [], [], '', false );
 		$mock->expects( $this->any() )
 			->method( 'getPageTitle' )
 			->will( $this->returnValue( Title::newFromText( 'SomeTitle' ) ) );
+		$mock->method( 'getContext' )
+			->willReturn( $this->getMock( IContextSource::class ) );
 		$mock->expects( $this->any() )
 			->method( 'getRequest' )
 			->will( $this->returnValue( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) ) );
+		$mock->method( 'getOutput' )
+			->willReturn( $this->getMock( OutputPage::class, [], [], '', false ) );
+		$mock->method( 'getUser' )
+			->willReturn( $this->getMock( User::class, [], [], '', false ) );
+		$mock->method( 'getLanguage' )
+			->willReturn( $this->getMock( Language::class, [], [], '', false ) );
 		return $mock;
 	}
 
@@ -67,8 +85,8 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestTextDisplayedInInputBox() {
 		return [
-			[ 'Some Input Text', 'Some Input Text' ],
-			[ 'Some Input Text ', 'Some Input Text' ],
+			[ 'Some Input Text', "Some Input Text\n" ],
+			[ 'Some Input Text ', "Some Input Text\n" ],
 		];
 	}
 
@@ -82,14 +100,14 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 			new ImportRequest( 'http://goog', 'Foo', $userInput ),
 			$this->getMockImportDetails()
 		);
-		$form = new ChangeFileNameForm( $this->getMockSpecialPage(), $importPlan );
+		$form = new ChangeFileInfoForm( $this->getMockSpecialPage(), $importPlan );
 
 		assertThat(
 			$form->getHtml(),
 			is( htmlPiece( havingChild(
-				both( withTagName( 'input' ) )
+				both( withTagName( 'textarea' ) )
 					->andAlso( withAttribute( 'name' )->havingValue( 'intendedWikiText' ) )
-					->andAlso( withAttribute( 'value' )->havingValue( $expectedInputText ) )
+					->andAlso( havingTextContents( $expectedInputText ) )
 			) ) )
 		);
 		// Avoid marking as a risky test

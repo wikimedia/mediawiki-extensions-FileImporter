@@ -8,6 +8,9 @@ use Psr\Log\NullLogger;
 use TitleValue;
 use UploadBase;
 
+/**
+ * @covers \FileImporter\Services\UploadBase\ValidatingUploadBase
+ */
 class FileImporterUploadBaseTest extends MediaWikiTestCase {
 
 	public function setUp() {
