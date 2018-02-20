@@ -70,11 +70,9 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 */
 	private function getMockTitle( $text, $exists ) {
 		$mock = $this->getMock( Title::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getText' )
+		$mock->method( 'getText' )
 			->willReturn( $text );
-		$mock->expects( $this->any() )
-			->method( 'exists' )
+		$mock->method( 'exists' )
 			->willReturn( $exists );
 		return $mock;
 	}
@@ -82,27 +80,23 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	private function getMockFileRevisions() {
 		$mock = $this->getMock( FileRevisions::class, [], [], '', false );
 		$mockFileRevision = $this->getMock( FileRevision::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getLatest' )
+		$mock->method( 'getLatest' )
 			->willReturn( $mockFileRevision );
 		return $mock;
 	}
 
 	private function getMockImportDetails( Title $sourceTitle = null ) {
 		$mock = $this->getMock( ImportDetails::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getSourceLinkTarget' )
+		$mock->method( 'getSourceLinkTarget' )
 			->willReturn( $sourceTitle );
-		$mock->expects( $this->any() )
-			->method( 'getFileRevisions' )
+		$mock->method( 'getFileRevisions' )
 			->willReturn( $this->getMockFileRevisions() );
 		return $mock;
 	}
 
 	private function getMockImportRequest() {
 		$mock = $this->getMock( ImportRequest::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getUrl' )
+		$mock->method( 'getUrl' )
 			->willReturn( new SourceUrl( 'http://test.test' ) );
 		return $mock;
 	}
@@ -114,22 +108,18 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	) {
 		$mock = $this->getMock( ImportPlan::class, [], [], '', false );
 		if ( !$getTitleFails ) {
-			$mock->expects( $this->any() )
-				->method( 'getTitle' )
+			$mock->method( 'getTitle' )
 				->willReturn( $planTitle );
 		} else {
-			$mock->expects( $this->any() )
-				->method( 'getTitle' )
+			$mock->method( 'getTitle' )
 				->willThrowException( new MalformedTitleException( 'mockexception' ) );
 		}
 
-		$mock->expects( $this->any() )
-			->method( 'getDetails' )
+		$mock->method( 'getDetails' )
 			->willReturn(
 				$this->getMockImportDetails( $sourceTitle )
 			);
-		$mock->expects( $this->any() )
-			->method( 'getRequest' )
+		$mock->method( 'getRequest' )
 			->willReturn(
 				$this->getMockImportRequest()
 			);
@@ -138,19 +128,16 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 
 	private function getMockUploadBaseFactory( UploadBase $uploadBase ) {
 		$mock = $this->getMock( UploadBaseFactory::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'newValidatingUploadBase' )
+		$mock->method( 'newValidatingUploadBase' )
 			->will( $this->returnValue( $uploadBase ) );
 		return $mock;
 	}
 
 	private function getMockValidatingUploadBase( $validTitle = true, $validFile = true ) {
 		$mock = $this->getMock( ValidatingUploadBase::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'validateTitle' )
+		$mock->method( 'validateTitle' )
 			->will( $this->returnValue( $validTitle ) );
-		$mock->expects( $this->any() )
-			->method( 'validateFile' )
+		$mock->method( 'validateFile' )
 			->will( $this->returnValue( $validFile ) );
 		return $mock;
 	}

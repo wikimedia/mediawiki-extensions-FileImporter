@@ -29,11 +29,9 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	 */
 	private function getMockSpecialPage() {
 		$mock = $this->getMock( SpecialPage::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getPageTitle' )
+		$mock->method( 'getPageTitle' )
 			->will( $this->returnValue( Title::newFromText( 'SomeTitle' ) ) );
-		$mock->expects( $this->any() )
-			->method( 'getRequest' )
+		$mock->method( 'getRequest' )
 			->will( $this->returnValue( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) ) );
 		return $mock;
 	}
@@ -43,8 +41,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	 */
 	private function getMockImportDetails() {
 		$mock = $this->getMock( ImportDetails::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getTextRevisions' )
+		$mock->method( 'getTextRevisions' )
 			->will( $this->returnValue( $this->getMockTextRevisions() ) );
 		return $mock;
 	}
@@ -54,8 +51,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	 */
 	private function getMockTextRevisions() {
 		$mock = $this->getMock( TextRevisions::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getLatest' )
+		$mock->method( 'getLatest' )
 			->will( $this->returnValue( $this->getMockTextRevision() ) );
 		return $mock;
 	}
@@ -65,8 +61,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	 */
 	private function getMockTextRevision() {
 		$mock = $this->getMock( TextRevision::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getField' )
+		$mock->method( 'getField' )
 			->will( $this->returnValue( '' ) );
 		return $mock;
 	}

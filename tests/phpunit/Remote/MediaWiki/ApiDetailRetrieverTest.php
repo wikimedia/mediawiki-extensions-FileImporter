@@ -157,8 +157,7 @@ class ApiDetailRetrieverTest extends \PHPUnit\Framework\TestCase {
 
 	private function getMockMWHttpRequest( $content ) {
 		$mock = $this->getMock( MWHttpRequest::class, [], [], '', false );
-		$mock->expects( $this->any() )
-			->method( 'getContent' )
+		$mock->method( 'getContent' )
 			->will( $this->returnValue( $content ) );
 		return $mock;
 	}

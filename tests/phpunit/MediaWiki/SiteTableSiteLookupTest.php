@@ -14,14 +14,11 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 	private function getSite( $globalId, $domain ) {
 		$mockSite = $this->getMock( Site::class );
-		$mockSite->expects( $this->any() )
-			->method( 'getGlobalId' )
+		$mockSite->method( 'getGlobalId' )
 			->will( $this->returnValue( $globalId ) );
-		$mockSite->expects( $this->any() )
-			->method( 'getDomain' )
+		$mockSite->method( 'getDomain' )
 			->will( $this->returnValue( $domain ) );
-		$mockSite->expects( $this->any() )
-			->method( 'getNavigationIds' )
+		$mockSite->method( 'getNavigationIds' )
 			->will( $this->returnValue( [] ) );
 		return $mockSite;
 	}

@@ -14,8 +14,7 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 		$mock = $this->getMockBuilder( FileRevision::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$mock->expects( $this->any() )
-			->method( 'getField' )
+		$mock->method( 'getField' )
 			->with( 'timestamp' )
 			->will( $this->returnValue( $timestamp ) );
 		return $mock;
