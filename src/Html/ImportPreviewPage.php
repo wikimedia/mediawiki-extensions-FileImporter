@@ -46,6 +46,8 @@ class ImportPreviewPage {
 		$title = $this->importPlan->getTitle();
 		$wasEdited = $this->importPlan->wasFileNameChanged() ||
 			$this->importPlan->wasFileInfoTextChanged();
+		$textRevisionsCount = count( $details->getTextRevisions()->toArray() );
+		$fileRevisionsCount = count( $details->getFileRevisions()->toArray() );
 
 		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
 			'clientUrl' => $request->getUrl(),
@@ -153,8 +155,11 @@ class ImportPreviewPage {
 			'p',
 			[],
 			( new Message(
-				'fileimporter-textrevisions',
-				[ count( $details->getTextRevisions()->toArray() ) ]
+				'fileimporter-filerevisions',
+				[
+					$fileRevisionsCount,
+					$fileRevisionsCount,
+				]
 			) )->parse()
 		) .
 		Html::openElement(
@@ -181,6 +186,17 @@ class ImportPreviewPage {
 				'disabled' => !$wasEdited,
 			]
 		) .
+			Html::element(
+				'p',
+				[],
+				( new Message(
+					'fileimporter-textrevisions',
+					[
+						$textRevisionsCount,
+						$textRevisionsCount,
+					]
+				) )->parse()
+			) .
 		$importIdentityFormSnippet .
 		Html::element(
 			'input',
