@@ -8,6 +8,9 @@ use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Status;
 
+/**
+ * @covers \FileImporter\Services\Http\HttpRequestExecutor
+ */
 class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestExecute() {

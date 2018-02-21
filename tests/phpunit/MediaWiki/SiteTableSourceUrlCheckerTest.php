@@ -9,6 +9,9 @@ use HashSiteStore;
 use Psr\Log\NullLogger;
 use Site;
 
+/**
+ * @covers \FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker
+ */
 class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	private function getSiteTableSourceUrlChecker( $knownSites = [] ) {

@@ -11,6 +11,9 @@ use MWHttpRequest;
 use Exception;
 use Psr\Log\NullLogger;
 
+/**
+ * @covers \FileImporter\Remote\MediaWiki\ApiDetailRetriever
+ */
 class ApiDetailRetrieverTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestInvalidResponse() {

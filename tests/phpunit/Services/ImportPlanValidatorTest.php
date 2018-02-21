@@ -23,6 +23,9 @@ use PHPUnit_Framework_MockObject_MockObject;
 use Title;
 use UploadBase;
 
+/**
+ * @covers \FileImporter\Services\ImportPlanValidator
+ */
 class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 
 	/**

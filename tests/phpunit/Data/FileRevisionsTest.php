@@ -5,6 +5,9 @@ namespace FileImporter\Data\Test;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 
+/**
+ * @covers \FileImporter\Data\FileRevisions
+ */
 class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 
 	private function getMockFileRevision( $timestamp ) {

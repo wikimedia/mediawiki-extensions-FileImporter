@@ -14,6 +14,9 @@ use OOUI\WikimediaUITheme;
 use SpecialPage;
 use Title;
 
+/**
+ * @covers \FileImporter\Html\ChangeFileNameForm
+ */
 class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function setUp() {
@@ -21,6 +24,9 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 		Theme::setSingleton( new WikimediaUITheme() );
 	}
 
+	/**
+	 * @return SpecialPage
+	 */
 	private function getMockSpecialPage() {
 		$mock = $this->getMock( SpecialPage::class, [], [], '', false );
 		$mock->expects( $this->any() )
