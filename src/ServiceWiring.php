@@ -15,6 +15,8 @@ use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\SourceUrlNormalizer;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
+use ImportableOldRevisionImporter;
+use ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use RepoGroup;
@@ -61,11 +63,27 @@ return [
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		/** @var UploadBaseFactory $uploadBaseFactory */
 		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
+
+		$logger = LoggerFactory::getInstance( 'FileImporter' );
+
+		// Construct custom core service objects so that we can inject our own Logger
+		$uploadRevisionImporter = new ImportableUploadRevisionImporter(
+			$services->getMainConfig()->get( 'EnableUploads' ),
+			$logger
+		);
+		$oldRevisionImporter = new ImportableOldRevisionImporter(
+			true,
+			$logger,
+			$services->getDBLoadBalancer()
+		);
+
 		$importer = new Importer(
 			$wikiRevisionFactory,
 			$httpRequestExecutor,
 			$uploadBaseFactory,
-			LoggerFactory::getInstance( 'FileImporter' )
+			$oldRevisionImporter,
+			$uploadRevisionImporter,
+			$logger
 		);
 		return $importer;
 	},

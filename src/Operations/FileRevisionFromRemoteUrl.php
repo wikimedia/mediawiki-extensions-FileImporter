@@ -11,6 +11,7 @@ use Http;
 use Psr\Log\LoggerInterface;
 use TempFSFile;
 use Title;
+use UploadRevisionImporter;
 use WikiRevision;
 
 class FileRevisionFromRemoteUrl implements ImportOperation {
@@ -50,12 +51,18 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 */
 	private $wikiRevision;
 
+	/**
+	 * @var UploadRevisionImporter
+	 */
+	private $importer;
+
 	public function __construct(
 		Title $plannedTitle,
 		FileRevision $fileRevision,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
 		UploadBaseFactory $uploadBaseFactory,
+		UploadRevisionImporter $importer,
 		LoggerInterface $logger
 	) {
 		$this->plannedTitle = $plannedTitle;
@@ -63,6 +70,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->uploadBaseFactory = $uploadBaseFactory;
+		$this->importer = $importer;
 		$this->logger = $logger;
 	}
 
@@ -113,16 +121,16 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @return bool success
 	 */
 	public function commit() {
-		$result = $this->wikiRevision->importUpload();
+		$result = $this->importer->import( $this->wikiRevision );
 
-		if ( !$result ) {
+		if ( !$result->isGood() ) {
 			$this->logger->error(
 				__METHOD__ . ' failed to commit.',
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
 		}
 
-		return $result;
+		return $result->isGood();
 	}
 
 }

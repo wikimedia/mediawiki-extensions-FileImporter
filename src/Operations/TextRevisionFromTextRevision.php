@@ -5,6 +5,7 @@ namespace FileImporter\Operations;
 use FileImporter\Data\TextRevision;
 use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\WikiRevisionFactory;
+use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Title;
 use WikiRevision;
@@ -36,15 +37,22 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 */
 	private $wikiRevision;
 
+	/**
+	 * @var OldRevisionImporter
+	 */
+	private $importer;
+
 	public function __construct(
 		Title $plannedTitle,
 		TextRevision $textRevision,
 		WikiRevisionFactory $wikiRevisionFactory,
+		OldRevisionImporter $importer,
 		LoggerInterface $logger
 	) {
 		$this->plannedTitle = $plannedTitle;
 		$this->textRevision = $textRevision;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
+		$this->importer = $importer;
 		$this->logger = $logger;
 	}
 
@@ -65,7 +73,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * @return bool success
 	 */
 	public function commit() {
-		$result = $this->wikiRevision->importOldRevision();
+		$result = $this->importer->import( $this->wikiRevision );
 
 		if ( !$result ) {
 			$this->logger->error(

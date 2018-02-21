@@ -10,9 +10,11 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Title;
+use UploadRevisionImporter;
 use User;
 use WikiPage;
 
@@ -41,15 +43,29 @@ class Importer {
 	 */
 	private $logger;
 
+	/**
+	 * @var OldRevisionImporter
+	 */
+	private $oldRevisionImporter;
+
+	/**
+	 * @var UploadRevisionImporter
+	 */
+	private $uploadRevisionImporter;
+
 	public function __construct(
 		WikiRevisionFactory $wikiRevisionFactory,
 		HttpRequestExecutor $httpRequestExecutor,
 		UploadBaseFactory $uploadBaseFactory,
+		OldRevisionImporter $oldRevisionImporter,
+		UploadRevisionImporter $uploadRevisionImporter,
 		LoggerInterface $logger
 	) {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->uploadBaseFactory = $uploadBaseFactory;
+		$this->oldRevisionImporter = $oldRevisionImporter;
+		$this->uploadRevisionImporter = $uploadRevisionImporter;
 		$this->logger = $logger;
 	}
 
@@ -81,6 +97,7 @@ class Importer {
 				$plannedTitle,
 				$textRevision,
 				$this->wikiRevisionFactory,
+				$this->oldRevisionImporter,
 				$this->logger
 			) );
 		}
@@ -92,6 +109,7 @@ class Importer {
 				$this->httpRequestExecutor,
 				$this->wikiRevisionFactory,
 				$this->uploadBaseFactory,
+				$this->uploadRevisionImporter,
 				$this->logger
 			) );
 		}
