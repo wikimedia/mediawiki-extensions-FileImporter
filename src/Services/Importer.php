@@ -2,8 +2,10 @@
 
 namespace FileImporter\Services;
 
+use Exception;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Operations\FileRevisionFromRemoteUrl;
@@ -53,12 +55,18 @@ class Importer {
 	 */
 	private $uploadRevisionImporter;
 
+	/**
+	 * @var StatsdDataFactoryInterface
+	 */
+	private $stats;
+
 	public function __construct(
 		WikiRevisionFactory $wikiRevisionFactory,
 		HttpRequestExecutor $httpRequestExecutor,
 		UploadBaseFactory $uploadBaseFactory,
 		OldRevisionImporter $oldRevisionImporter,
 		UploadRevisionImporter $uploadRevisionImporter,
+		StatsdDataFactoryInterface $statsdDataFactory,
 		LoggerInterface $logger
 	) {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
@@ -66,6 +74,7 @@ class Importer {
 		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->oldRevisionImporter = $oldRevisionImporter;
 		$this->uploadRevisionImporter = $uploadRevisionImporter;
+		$this->stats = $statsdDataFactory;
 		$this->logger = $logger;
 	}
 
@@ -74,25 +83,55 @@ class Importer {
 	 * @param ImportPlan $importPlan A valid ImportPlan object.
 	 *
 	 * @return bool success
-	 * @throws ImportException
+	 * @throws ImportException|RuntimeException
 	 */
 	public function import(
 		User $user,
 		ImportPlan $importPlan
 	) {
+		try {
+			$result = $this->importInternal( $user, $importPlan );
+			$this->stats->increment( 'FileImporter.import.result.success' );
+			return $result;
+		} catch ( Exception $e ) {
+			// Catch all exception and re throw them after counting them
+			$this->stats->increment( 'FileImporter.import.result.exception' );
+			throw $e;
+		}
+	}
+
+	/**
+	 * @param User $user user to use for the import
+	 * @param ImportPlan $importPlan A valid ImportPlan object.
+	 *
+	 * @return bool success
+	 * @throws ImportException|RuntimeException
+	 */
+	private function importInternal(
+		User $user,
+		ImportPlan $importPlan
+	) {
+		$importStart = microtime( true );
+		$this->logger->info( __METHOD__ . ' started' );
+
 		$importDetails = $importPlan->getDetails();
 		$plannedTitle = $importPlan->getTitle();
 		$importOperations = new ImportOperations();
 
-		// TODO the type of ImportOperation created should be decided somewhere
+		$textRevisions = $importDetails->getTextRevisions()->toArray();
+		$fileRevisions = $importDetails->getFileRevisions()->toArray();
 
-		$this->logger->info( __METHOD__ . ' started' );
+		$this->stats->gauge( 'FileImporter.import.details.textRevisions', count( $textRevisions ) );
+		$this->stats->gauge( 'FileImporter.import.details.fileRevisions', count( $fileRevisions ) );
+
+		// TODO the type of ImportOperation created should be decided somewhere
 
 		/**
 		 * Text revisions should be added first. See T147451.
 		 * This ensures that the page entry is created and if something fails it can thus be deleted.
 		 */
-		foreach ( $importDetails->getTextRevisions()->toArray() as $textRevision ) {
+		$operationBuildingStart = microtime( true );
+		foreach ( $textRevisions as $textRevision ) {
 			$importOperations->add( new TextRevisionFromTextRevision(
 				$plannedTitle,
 				$textRevision,
@@ -102,7 +141,13 @@ class Importer {
 			) );
 		}
 
-		foreach ( $importDetails->getFileRevisions()->toArray() as $fileRevision ) {
+		$totalFileSizes = 0;
+		foreach ( $fileRevisions as $fileRevision ) {
+			$totalFileSizes += $fileRevision->getField( 'size' );
+			$this->stats->gauge(
+				'FileImporter.import.details.individualFileSizes',
+				$fileRevision->getField( 'size' )
+			);
 			$importOperations->add( new FileRevisionFromRemoteUrl(
 				$plannedTitle,
 				$fileRevision,
@@ -113,30 +158,58 @@ class Importer {
 				$this->logger
 			) );
 		}
+		$this->stats->gauge(
+			'FileImporter.import.details.totalFileSizes',
+			$totalFileSizes
+		);
+		$this->stats->timing(
+			'FileImporter.import.timing.buildOperations',
+			microtime( true ) - $operationBuildingStart
+		);
 
 		$this->logger->info( __METHOD__ . ' ImportOperations built.' );
 
+		$operationPrepareStart = microtime( true );
 		if ( !$importOperations->prepare() ) {
 			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
 			throw new RuntimeException( 'Failed to prepare operations.' );
 		}
 		$this->logger->info( __METHOD__ . ' operations prepared.' );
+		$this->stats->timing(
+			'FileImporter.import.timing.prepareOperations',
+			microtime( true ) - $operationPrepareStart
+		);
 
+		$operationCommitStart = microtime( true );
 		if ( !$importOperations->commit() ) {
 			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
 			throw new RuntimeException( 'Failed to commit operations.' );
 		}
 		$this->logger->info( __METHOD__ . ' operations committed.' );
+		$this->stats->timing(
+			'FileImporter.import.timing.commitOperations',
+			microtime( true ) - $operationCommitStart
+		);
 
 		// TODO the below should be an ImportOperation
+		$miscActionsStart = microtime( true );
 		$page = $this->getPageFromImportPlan( $importPlan );
 		$this->createPostImportRevision( $importPlan, $page, $user );
 		$this->createPostImportEdit( $importPlan, $page, $user );
+		$this->stats->timing(
+			'FileImporter.import.timing.miscActions',
+			microtime( true ) - $miscActionsStart
+		);
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
 		// TODO If modifications are needed on the text we need to make 1 new revision!
+
+		$this->stats->timing(
+			'FileImporter.import.timing.wholeImport',
+			microtime( true ) - $importStart
+		);
 
 		return true;
 	}

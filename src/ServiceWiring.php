@@ -83,6 +83,7 @@ return [
 			$uploadBaseFactory,
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
+			$services->getStatsdDataFactory(),
 			$logger
 		);
 		return $importer;

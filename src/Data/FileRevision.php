@@ -17,6 +17,7 @@ class FileRevision {
 		'user',
 		'timestamp',
 		'sha1',
+		'size',
 		'thumburl',
 		'url',
 	];
