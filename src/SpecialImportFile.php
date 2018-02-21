@@ -22,6 +22,7 @@ use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
 use ILocalizedException;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use Message;
@@ -54,6 +55,11 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	private $logger;
 
+	/**
+	 * @var StatsdDataFactoryInterface
+	 */
+	private $stats;
+
 	private $config;
 
 	public function __construct() {
@@ -71,6 +77,7 @@ class SpecialImportFile extends SpecialPage {
 		$this->importer = $services->getService( 'FileImporterImporter' );
 		$this->importPlanFactory = $services->getService( 'FileImporterImportPlanFactory' );
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
+		$this->stats = $services->getStatsdDataFactory();
 	}
 
 	public function getGroupName() {
@@ -124,12 +131,22 @@ class SpecialImportFile extends SpecialPage {
 		$this->executeStandardChecks();
 		$this->setupPage();
 
-		if ( $this->getRequest()->getVal( 'clientUrl' ) === null ) {
+		// Note: executions by users that don't have the rights to view the page etc will not be
+		// shown in this metric as executeStandardChecks will have already kicked them out,
+		$this->stats->increment( 'FileImporter.specialPage.execute.total' );
+		// The importSource url parameter is added to requests from the FileExporter extension.
+		if ( $this->getRequest()->getVal( 'importSource' ) === 'FileExporter' ) {
+			$this->stats->increment( 'FileImporter.specialPage.execute.fromFileExporter' );
+		}
+
+		$clientUrl = $this->getRequest()->getVal( 'clientUrl' );
+
+		if ( $clientUrl === null ) {
+			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
 			$this->showInputForm();
 			return;
 		}
 
-		$clientUrl = $this->getRequest()->getVal( 'clientUrl' );
 		try {
 			$this->logger->info( 'Getting ImportPlan for URL: ' . $clientUrl );
 			$importPlan = $this->getImportPlan();

@@ -18,6 +18,16 @@
 
 #### Metrics
 
+##### Special Page Loading
+
+* **{PREFIX}.specialPage.execute.total** - Number of special page loads.
+  * This does not include special page loads where the user was not allowed to view the page due to permissions.
+* **{PREFIX}.specialPage.execute.fromFileExporter** - Number of special page loads that appear to come from a FileExporter extension.
+  * This should be taken with a pinch of salt as people can refresh the page or send their link to another user and multiple hits will occur here.
+* **{PREFIX}.specialPage.execute.noClientUrl** - Number of special page loads where no client url has been provided.
+
+##### Importing
+
 * **{PREFIX}.import.result.success.{AGGREGATION}** - Imports that resulted in success
 * **{PREFIX}.import.result.exception.{AGGREGATION}** - Imports that resulted in an exception
 
