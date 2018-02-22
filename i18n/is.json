@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sveinn í Felli"
+		]
+	},
+	"fileimporter-specialpage": "Flytja inn skrá",
+	"fileimporter-specialpage-successtitle": "Innflutningur tókst",
+	"fileimporter-importfailed": "Innflutningur mistókst",
+	"fileimporter-duplicatefilesdetected-prefix": "Tvítekningar",
+	"fileimporter-exampleprefix": "Dæmi",
+	"fileimporter-submit": "Senda",
+	"fileimporter-import": "Flytja inn",
+	"fileimporter-cancel": "Hætta við",
+	"fileimporter-edittitle": "Breyta titli",
+	"fileimporter-extensionlabel": "Skráarending:",
+	"fileimporter-newfilename": "Nýtt skráarheiti",
+	"fileimporter-editsummary": "Breytingarágrip:",
+	"fileimporter-heading-fileinfo": "Upplýsingar um skrá",
+	"fileimporter-heading-filehistory": "Breytingaskrá skjals"
+}
