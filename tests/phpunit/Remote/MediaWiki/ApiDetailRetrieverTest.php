@@ -7,14 +7,118 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWikiTestCase;
 use MWHttpRequest;
 use Exception;
 use Psr\Log\NullLogger;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\ApiDetailRetriever
  */
-class ApiDetailRetrieverTest extends \PHPUnit\Framework\TestCase {
+class ApiDetailRetrieverTest extends MediaWikiTestCase {
+
+//
+
+	public function testCheckMaxRevisionAggregatedBytes_setMax() {
+		$this->setMwGlobals( [ 'wgFileImporterMaxAggregatedBytes' => 9 ] );
+		$apiRetriever = new ApiDetailRetriever(
+			$this->getMock( HttpApiLookup::class, [], [], '', false ),
+			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
+			new NullLogger()
+		);
+
+		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+
+		$this->setExpectedException( get_class(
+			new LocalizedImportException( 'fileimporter-filetoolarge' ) )
+		);
+		$apiRetriever->checkMaxRevisionAggregatedBytes( [ 'imageinfo' => [ [ 'size' => 1000 ] ] ] );
+
+		$this->assertTrue( true );
+	}
+
+	public function provideTestCheckMaxRevisionAggregatedBytes_passes() {
+		return [
+			[
+				[ 'imageinfo' => [ [ 'size' => 1 ] ] ]
+			],
+			[
+				[
+					'imageinfo' => [
+						[
+							'size' => 249999999
+						],
+						[
+							'size' => 1
+						]
+					]
+				]
+			],
+			[
+				[ 'imageinfo' => [ [ 'size' => 250000000 ] ] ]
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideTestCheckMaxRevisionAggregatedBytes_passes
+	 */
+	public function testCheckMaxRevisionAggregatedBytes_passes( $input ) {
+		$apiRetriever = new ApiDetailRetriever(
+			$this->getMock( HttpApiLookup::class, [], [], '', false ),
+			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
+			new NullLogger()
+		);
+
+		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+
+		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
+
+		$this->assertTrue( true );
+	}
+
+	public function provideTestCheckMaxRevisionAggregatedBytes_fails() {
+		return [
+			[
+				[
+					'imageinfo' => [
+						[
+							'size' => 249999999
+						],
+						[
+							'size' => 2
+						]
+					]
+				]
+			],
+			[
+				[ 'imageinfo' => [ [ 'size' => 250000001 ] ] ]
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideTestCheckMaxRevisionAggregatedBytes_fails
+	 */
+
+	public function testCheckMaxRevisionAggregatedBytes_fails( $input ) {
+		$apiRetriever = new ApiDetailRetriever(
+			$this->getMock( HttpApiLookup::class, [], [], '', false ),
+			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
+			new NullLogger()
+		);
+
+		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+
+		$this->setExpectedException( get_class(
+			new LocalizedImportException( 'fileimporter-filetoolarge' ) )
+		);
+
+		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
+
+		$this->assertTrue( true );
+	}
 
 	public function provideTestInvalidResponse() {
 		return [
