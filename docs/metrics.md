@@ -26,6 +26,10 @@
   * This should be taken with a pinch of salt as people can refresh the page or send their link to another user and multiple hits will occur here.
 * **{PREFIX}.specialPage.execute.noClientUrl** - Number of special page loads where no client url has been provided.
 
+* **{PREFIX}.specialPage.execute.fail.userPermissionsError** - Number of special page loads where the user can not view the special page due to not having the correct permissions.
+* **{PREFIX}.specialPage.execute.fail.userBlocked** - Number of special page loads where the user can not view the special page due to being blocked on the wiki.
+* **{PREFIX}.specialPage.execute.fail.userGloballyBlocked** - Number of special page loads where the user can not view the special page due to being globally blocked.
+
 ##### Importing
 
 * **{PREFIX}.import.result.success.{AGGREGATION}** - Imports that resulted in success

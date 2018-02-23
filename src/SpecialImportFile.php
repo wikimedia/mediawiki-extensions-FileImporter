@@ -101,16 +101,19 @@ class SpecialImportFile extends SpecialPage {
 		$user = $this->getUser();
 		$permissionRequired = UploadBase::isAllowed( $user );
 		if ( $permissionRequired !== true ) {
+			$this->stats->increment( 'FileImporter.specialPage.execute.fail.userPermissionsError' );
 			throw new PermissionsError( $permissionRequired );
 		}
 
 		# Check blocks
 		if ( $user->isBlocked() ) {
+			$this->stats->increment( 'FileImporter.specialPage.execute.fail.userBlocked' );
 			throw new UserBlockedError( $user->getBlock() );
 		}
 
 		// Global blocks
 		if ( $user->isBlockedGlobally() ) {
+			$this->stats->increment( 'FileImporter.specialPage.execute.fail.userGloballyBlocked' );
 			throw new UserBlockedError( $user->getGlobalBlock() );
 		}
 
