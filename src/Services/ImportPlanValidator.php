@@ -122,10 +122,10 @@ class ImportPlanValidator {
 
 		// Check that both the source and planned titles have extensions
 		if ( !array_key_exists( 'extension', $sourcePathInfo ) ) {
-			throw new TitleException( 'Source file name does not have an extension' );
+			throw new TitleException( 'fileimporter-filenameerror-nosourceextension' );
 		}
 		if ( !array_key_exists( 'extension', $plannedPathInfo ) ) {
-			throw new TitleException( 'Planned file name does not have an extension' );
+			throw new TitleException( 'fileimporter-filenameerror-noplannedextension' );
 		}
 
 		// Check to ensure files are not imported with differing file extensions.
@@ -133,7 +133,7 @@ class ImportPlanValidator {
 			strtolower( $sourcePathInfo['extension'] ) !==
 			strtolower( $plannedPathInfo['extension'] )
 		) {
-			throw new TitleException( 'Target file extension does not match original file' );
+			throw new TitleException( 'fileimporter-filenameerror-missmatchextension' );
 		}
 	}
 
