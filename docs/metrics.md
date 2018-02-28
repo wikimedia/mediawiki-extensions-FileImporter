@@ -20,17 +20,17 @@
 
 ##### Special Page Loading
 
-* **{PREFIX}.specialPage.execute.total** - Number of special page loads.
+* **{PREFIX}.specialPage.execute.total.{AGGREGATION}** - Number of special page loads.
   * This does not include special page loads where the user was not allowed to view the page due to permissions.
-* **{PREFIX}.specialPage.execute.fromFileExporter** - Number of special page loads that appear to come from a FileExporter extension.
+* **{PREFIX}.specialPage.execute.fromFileExporter.{AGGREGATION}** - Number of special page loads that appear to come from a FileExporter extension.
   * This should be taken with a pinch of salt as people can refresh the page or send their link to another user and multiple hits will occur here.
-* **{PREFIX}.specialPage.execute.noClientUrl** - Number of special page loads where no client url has been provided.
+* **{PREFIX}.specialPage.execute.noClientUrl.{AGGREGATION}** - Number of special page loads where no client url has been provided.
 
-* **{PREFIX}.specialPage.execute.fail.userPermissionsError** - Number of special page loads where the user can not view the special page due to not having the correct permissions.
-* **{PREFIX}.specialPage.execute.fail.userBlocked** - Number of special page loads where the user can not view the special page due to being blocked on the wiki.
-* **{PREFIX}.specialPage.execute.fail.userGloballyBlocked** - Number of special page loads where the user can not view the special page due to being globally blocked.
-* **{PREFIX}.specialPage.execute.fail.plan.total** - Number of special page loads the import plan creation failed, this could be due to any number of reasons (bad title, filetype, missing revs etc.)
-* **{PREFIX}.specialPage.execute.fail.plan.total.byType.{FAILTYPE}** - Number of special page loads the import plan creation failed on split by type of failure.
+* **{PREFIX}.specialPage.execute.fail.userPermissionsError.{AGGREGATION}** - Number of special page loads where the user can not view the special page due to not having the correct permissions.
+* **{PREFIX}.specialPage.execute.fail.userBlocked.{AGGREGATION}** - Number of special page loads where the user can not view the special page due to being blocked on the wiki.
+* **{PREFIX}.specialPage.execute.fail.userGloballyBlocked.{AGGREGATION}** - Number of special page loads where the user can not view the special page due to being globally blocked.
+* **{PREFIX}.specialPage.execute.fail.plan.total.{AGGREGATION}** - Number of special page loads the import plan creation failed, this could be due to any number of reasons (bad title, filetype, missing revs etc.)
+* **{PREFIX}.specialPage.execute.fail.plan.total.byType.{FAILTYPE}.{AGGREGATION}** - Number of special page loads the import plan creation failed on split by type of failure.
   * The {FAILTYPE} will be the suffix of the i18n message used for the exception in case of translatable exceptions. These can be looked up in the en.json file in this repo. eg. 'filenameerror-toolong'
   * The {FAILTYPE} will be the short exception name in case of non translatable exceptions. eg. 'DuplicateFilesException'
 
