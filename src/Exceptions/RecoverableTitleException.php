@@ -9,7 +9,7 @@ use MessageSpecifier;
  * Exception thrown when an import has an issue with the planned title that can be
  * resolved by the user.
  */
-class RecoverableTitleException extends LocalizedImportException {
+class RecoverableTitleException extends TitleException {
 
 	/**
 	 * @var ImportPlan

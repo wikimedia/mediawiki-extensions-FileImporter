@@ -198,7 +198,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 				$this->getMockImportTitleChecker( 1, false )
 			],
 			'Invalid, file extension has changed' => [
-				new TitleException( 'Target file extension does not match original file' ),
+				new TitleException( 'fileimporter-filenameerror-missmatchextension' ),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG', false ),
 					$this->getMockTitle( 'SourceName.PNG', false )
@@ -207,7 +207,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 				$this->getMockImportTitleChecker( 1, true )
 			],
 			'Invalid, No Extension on planned name' => [
-				new TitleException( 'Planned file name does not have an extension' ),
+				new TitleException( 'fileimporter-filenameerror-noplannedextension' ),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG/Foo', false ),
 					$this->getMockTitle( 'SourceName.jpg', false )
@@ -216,7 +216,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 				$this->getMockImportTitleChecker( 0, true )
 			],
 			'Invalid, No Extension on source name' => [
-				new TitleException( 'Source file name does not have an extension' ),
+				new TitleException( 'fileimporter-filenameerror-nosourceextension' ),
 				$this->getMockImportPlan(
 					$this->getMockTitle( 'FinalName.JPG', false ),
 					$this->getMockTitle( 'SourceName.jpg/Foo', false )
