@@ -9,6 +9,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Html\ChangeFileInfoForm;
 use FileImporter\Html\ChangeFileNameForm;
@@ -155,6 +156,7 @@ class SpecialImportFile extends SpecialPage {
 			$importPlan = $this->getImportPlan();
 		} catch ( ImportException $exception ) {
 			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
+			$this->incrementFailedImportPlanStats( $exception );
 			$this->handleImportException( $exception );
 			return;
 		}
@@ -178,6 +180,17 @@ class SpecialImportFile extends SpecialPage {
 			default:
 				$this->showImportPage( $importPlan );
 		}
+	}
+
+	private function incrementFailedImportPlanStats( Exception $exception ) {
+		if ( $exception instanceof LocalizedImportException ) {
+			$messageKey = $exception->getMessageObject()->getKey();
+			$statKey = str_replace( 'fileimporter-', '', $messageKey );
+		} else {
+			$statKey = substr( strrchr( get_class( $exception ), '\\' ), 1 );
+		}
+		$this->stats->increment( 'FileImporter.specialPage.execute.fail.plan.total' );
+		$this->stats->increment( 'FileImporter.specialPage.execute.fail.plan.byType.' . $statKey );
 	}
 
 	/**
