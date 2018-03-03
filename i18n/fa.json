@@ -1,10 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Arash.pt"
+			"Arash.pt",
+			"Reza1615"
 		]
 	},
+	"fileimporter-importfailed": "درون‌ریزی ناموفق بود",
 	"fileimporter-exampleprefix": "مثال",
 	"fileimporter-submit": "ثبت",
-	"fileimporter-import": "درون‌ریزی"
+	"fileimporter-import": "درون‌ریزی",
+	"fileimporter-cancel": "انصراف",
+	"fileimporter-editsummary": "خلاصهٔ ویرایش:",
+	"fileimporter-heading-filehistory": "تاریخچهٔ پرونده"
 }

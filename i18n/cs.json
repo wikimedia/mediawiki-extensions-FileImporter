@@ -9,6 +9,7 @@
 	"fileimporter-filenameerror-default": "Vyskytl se neznámý problém s názvem Vašeho souboru.",
 	"fileimporter-filenameerror-illegal": "Název souboru, který se právě snažíte importovat, není platný.",
 	"fileimporter-filenameerror-toolong": "Název souboru, který se právě snažíte importovat, je příliš dlouhý.",
+	"fileimporter-filenameerror-missmatchextension": "Cílové rozšíření souboru se neshoduje s rozšířením originálního souboru.",
 	"fileimporter-illegalfilenamechars": "Název, který se právě snažíte importovat, obsahuje neplatné znaky.",
 	"fileimporter-extensionlabel": "Rozšíření souboru:",
 	"fileimporter-newfilename": "Nový název souboru:",
