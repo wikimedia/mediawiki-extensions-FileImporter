@@ -22,6 +22,8 @@
 	"fileimporter-filenameerror-default": "Det är ett okänt fel med ditt filnamn.",
 	"fileimporter-filenameerror-illegal": "Filnamnet du försöker importera är ogiltigt.",
 	"fileimporter-filenameerror-toolong": "Filnamnet du försöker importera är för långt.",
+	"fileimporter-filenameerror-nosourceextension": "Källfilens namn har inte en filändelse.",
+	"fileimporter-filenameerror-noplannedextension": "Det planerade filnamnet har inte en filändelse.",
 	"fileimporter-localtitleexists": "Titeln du försöker importera finns redan på denna wiki.",
 	"fileimporter-sourcetitleexists": "Titeln du försöker importera finns redan på källwikin.",
 	"fileimporter-illegalfilenamechars": "Titeln du försöker importera innehåller ogiltiga tecken i filnamnet.",
