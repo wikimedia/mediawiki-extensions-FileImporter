@@ -47,6 +47,14 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $maxRevisions;
 
 	/**
+	* @var int
+	*/
+	private $maxAggregatedBytes;
+
+	const MAXREVISIONS = 100;
+	const MAXAGGREGATEDBYTES = 250000000;
+
+	/**
 	 * ApiDetailRetriever constructor.
 	 *
 	 * @param HttpApiLookup $httpApiLookup
@@ -68,6 +76,8 @@ class ApiDetailRetriever implements DetailRetriever {
 		$this->maxBytes = $maxBytes;
 		$services = MediaWikiServices::getInstance();
 		$this->maxRevisions = (int)$services->getMainConfig()->get( 'FileImporterMaxRevisions' );
+		$this->maxAggregatedBytes =
+			(int)$services->getMainConfig()->get( 'FileImporterMaxAggregatedBytes' );
 	}
 
 	/**
@@ -185,6 +195,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 
 		$this->checkRevisionCount( $sourceUrl, $requestUrl, $pageInfoData );
+		$this->checkMaxRevisionAggregatedBytes( $pageInfoData );
 
 		while ( array_key_exists( 'continue', $requestData ) ) {
 			$this->getMoreRevisions( $sourceUrl, $apiUrl, $requestData, $pageInfoData );
@@ -254,6 +265,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 
 		$this->checkRevisionCount( $sourceUrl, $requestUrl, $pageInfoData );
+		$this->checkMaxRevisionAggregatedBytes( $pageInfoData );
 	}
 
 	/**
@@ -268,7 +280,9 @@ class ApiDetailRetriever implements DetailRetriever {
 	 */
 	private function checkRevisionCount( SourceUrl $sourceUrl, $requestUrl, $pageInfoData ) {
 		if ( count( $pageInfoData['revisions'] ) > $this->maxRevisions ||
-			count( $pageInfoData['imageinfo'] ) > $this->maxRevisions ) {
+			count( $pageInfoData['imageinfo'] ) > $this->maxRevisions ||
+			count( $pageInfoData['revisions'] ) > static::MAXREVISIONS ||
+			count( $pageInfoData['imageinfo'] ) > static::MAXREVISIONS ) {
 			$this->logger->warning(
 				'Too many revisions were being fetched',
 				[
@@ -278,6 +292,17 @@ class ApiDetailRetriever implements DetailRetriever {
 			);
 
 			throw new LocalizedImportException( 'fileimporter-api-toomanyrevisions' );
+		}
+	}
+
+	private function checkMaxRevisionAggregatedBytes( $pageInfoData ) {
+		$aggregatedFileBytes = 0;
+		foreach ( $pageInfoData['imageinfo'] as $fileVersion ) {
+			$aggregatedFileBytes += $fileVersion['size'];
+			if ( $aggregatedFileBytes > $this->maxAggregatedBytes ||
+				$aggregatedFileBytes > static::MAXAGGREGATEDBYTES ) {
+				throw new LocalizedImportException( 'fileimporter-filetoolarge' );
+			}
 		}
 	}
 
