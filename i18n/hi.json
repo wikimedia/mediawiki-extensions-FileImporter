@@ -3,12 +3,14 @@
 		"authors": [
 			"Sfic",
 			"Matma Rex",
-			"Bhatakati aatma"
+			"Bhatakati aatma",
+			"Smtchahal"
 		]
 	},
 	"fileimporter": "फ़ाइल आयातक",
 	"fileimporter-importfailed": "आयात विफल हुआ",
 	"fileimporter-cantimportmissingfile": "लापता फ़ाइल को आयात नहीं कर सकते",
+	"fileimporter-filenameerror-missmatchextension": "लक्ष्य फ़ाइल एक्सटेंशन मूल फ़ाइल एक्सटेंशन से मेल नहीं खाती।",
 	"fileimporter-exampleprefix": "उदाहरण",
 	"fileimporter-import": "आयात",
 	"fileimporter-cancel": "रद्द करें",
