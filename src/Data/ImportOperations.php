@@ -2,6 +2,7 @@
 
 namespace FileImporter\Data;
 
+use FileImporter\Exceptions\ValidationException;
 use FileImporter\Interfaces\ImportOperation;
 use RuntimeException;
 
@@ -58,6 +59,7 @@ class ImportOperations implements ImportOperation {
 	/**
 	 * Method to validate prepared content that should be committed.
 	 * @return bool success
+	 * @throws ValidationException
 	 */
 	public function validate() {
 		$this->throwExceptionOnBadState( self::PREPARE_RUN );

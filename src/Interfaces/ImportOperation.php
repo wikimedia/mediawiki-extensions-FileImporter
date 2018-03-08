@@ -2,10 +2,13 @@
 
 namespace FileImporter\Interfaces;
 
+use FileImporter\Exceptions\ValidationException;
+
 /**
  * @license GPL-2.0-or-later
  * @author Addshore
  */
+
 interface ImportOperation {
 
 	/**
@@ -17,6 +20,7 @@ interface ImportOperation {
 	/**
 	 * Method to validate prepared data that should be committed.
 	 * @return bool success
+	 * @throws ValidationException Failing validation can trigger specific error texts
 	 */
 	public function validate();
 

@@ -3,6 +3,8 @@
 namespace FileImporter\Operations;
 
 use FileImporter\Data\FileRevision;
+use FileImporter\Data\TextRevision;
+use FileImporter\Exceptions\ValidationException;
 use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
@@ -13,6 +15,7 @@ use Psr\Log\LoggerInterface;
 use TempFSFile;
 use Title;
 use UploadRevisionImporter;
+use User;
 use WikiRevision;
 
 /**
@@ -25,6 +28,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @var Title
 	 */
 	private $plannedTitle;
+
+	/**
+	 * @var User user performing the import
+	 */
+	private $user;
 
 	/**
 	 * @var FileRevision
@@ -57,6 +65,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	private $wikiRevision;
 
 	/**
+	 * @var TextRevision|null
+	 */
+	private $textRevision = null;
+
+	/**
 	 * @var ValidatingUploadBase|null
 	 */
 	private $uploadBase = null;
@@ -68,7 +81,9 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 	public function __construct(
 		Title $plannedTitle,
+		User $user,
 		FileRevision $fileRevision,
+		TextRevision $textRevision,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
 		UploadBaseFactory $uploadBaseFactory,
@@ -76,7 +91,9 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		LoggerInterface $logger
 	) {
 		$this->plannedTitle = $plannedTitle;
+		$this->user = $user;
 		$this->fileRevision = $fileRevision;
+		$this->textRevision = $textRevision;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->uploadBaseFactory = $uploadBaseFactory;
@@ -119,6 +136,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	/**
 	 * Method to validate prepared data that should be committed.
 	 * @return bool success
+	 * @throws ValidationException
 	 */
 	public function validate() {
 		$result = $this->uploadBase->validateTitle() === true &&
@@ -129,6 +147,15 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 				__METHOD__ . ' failed to validate.',
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
+		}
+
+		$uploadValidationStatus = $this->uploadBase->validateUpload(
+			$this->user,
+			$this->textRevision
+		);
+
+		if ( !$uploadValidationStatus->isGood() ) {
+			throw new ValidationException( $uploadValidationStatus->getWikiText() );
 		}
 
 		return $result;
@@ -150,5 +177,4 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 		return $result->isGood();
 	}
-
 }

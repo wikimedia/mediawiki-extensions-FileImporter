@@ -4,11 +4,13 @@ namespace FileImporter\Operations;
 
 use FileImporter\Data\TextRevision;
 use FileImporter\Interfaces\ImportOperation;
+use FileImporter\Services\TextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
-use Title;
 use WikiRevision;
+use Title;
+use User;
 
 /**
  * @license GPL-2.0-or-later
@@ -20,6 +22,11 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * @var Title
 	 */
 	private $plannedTitle;
+
+	/**
+	 * @var User user performing the import
+	 */
+	private $user;
 
 	/**
 	 * @var TextRevision
@@ -46,17 +53,26 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 */
 	private $importer;
 
+	/**
+	 * @var TextRevisionValidator
+	 */
+	private $textRevisionValidator;
+
 	public function __construct(
 		Title $plannedTitle,
+		User $user,
 		TextRevision $textRevision,
 		WikiRevisionFactory $wikiRevisionFactory,
 		OldRevisionImporter $importer,
+		TextRevisionValidator $textRevisionValidator,
 		LoggerInterface $logger
 	) {
 		$this->plannedTitle = $plannedTitle;
+		$this->user = $user;
 		$this->textRevision = $textRevision;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->importer = $importer;
+		$this->textRevisionValidator = $textRevisionValidator;
 		$this->logger = $logger;
 	}
 
@@ -67,6 +83,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	public function prepare() {
 		$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $this->textRevision );
 		$wikiRevision->setTitle( $this->plannedTitle );
+
 		$this->wikiRevision = $wikiRevision;
 
 		return true;
@@ -77,6 +94,14 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * @return bool success
 	 */
 	public function validate() {
+		$this->textRevisionValidator->validate(
+			$this->plannedTitle,
+			$this->user,
+			$this->wikiRevision->getContent(),
+			$this->wikiRevision->getComment(),
+			$this->wikiRevision->getMinor()
+		);
+
 		return true;
 	}
 

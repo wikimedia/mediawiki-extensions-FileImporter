@@ -11,6 +11,7 @@ use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
+use FileImporter\Exceptions\ValidationException;
 use FileImporter\Html\ChangeFileInfoForm;
 use FileImporter\Html\ChangeFileNameForm;
 use FileImporter\Html\DuplicateFilesPage;
@@ -275,10 +276,15 @@ class SpecialImportFile extends SpecialPage {
 			return false;
 		}
 
-		$result = $this->importer->import(
-			$this->getUser(),
-			$importPlan
-		);
+		try {
+			$result = $this->importer->import(
+				$this->getUser(),
+				$importPlan
+			);
+		} catch ( ValidationException $exception ) {
+			$this->showWarningForException( $exception );
+			return false;
+		}
 
 		if ( $result ) {
 			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
