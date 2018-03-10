@@ -2,14 +2,33 @@
 	"@metadata": {
 		"authors": [
 			"Arash.pt",
-			"Reza1615"
+			"Reza1615",
+			"Ladsgroup"
 		]
 	},
+	"fileimporter": "درون‌ریز پرونده",
+	"fileimporter-desc": "درون‌ریزی آسان پرونده از دیگر وب‌گاه‌ها",
+	"fileimporter-specialpage": "درون‌ریزی پرونده",
+	"fileimporter-specialpage-successtitle": "درون‌ریزی با موفقیت انجام شد",
 	"fileimporter-importfailed": "درون‌ریزی ناموفق بود",
+	"fileimporter-api-failedtogetinfo": "خطا در دریافت اطلاعات پرونده از: $1",
+	"fileimporter-api-toomanyrevisions": "تعداد زیادی نسخه از طرف API برگردانده شد، امکان درون‌ریزی نیست.",
+	"fileimporter-cantimporturl": "امکان درون‌ریزی نشانی اینترنتی داده شده نیست.",
+	"fileimporter-cantimportfromsharedrepo": "امکان درون‌ریزی از یک مخزن مشترک وجود ندارد",
+	"fileimporter-cantimportmissingfile": "نمی‌توان یک پرونده ناموجود را درون‌ریزی کرد",
+	"fileimporter-badtoken": "بلیط‌های CSRF یکی نیست",
+	"fileimporter-filenameerror-default": "یک مشکل ناشناخته با نام پرونده شما وجود دارد.",
+	"fileimporter-duplicatefilesdetected-prefix": "تکراری‌ها",
 	"fileimporter-exampleprefix": "مثال",
 	"fileimporter-submit": "ثبت",
+	"fileimporter-resubmit": "فرستادن دوباره",
 	"fileimporter-import": "درون‌ریزی",
 	"fileimporter-cancel": "انصراف",
+	"fileimporter-edittitle": "ویرایش عنوان",
+	"fileimporter-editinfo": "ویرایش اطلاعات پرونده",
+	"fileimporter-extensionlabel": "نوع پرونده:",
+	"fileimporter-newfilename": "عنوان پرونده جدید:",
 	"fileimporter-editsummary": "خلاصهٔ ویرایش:",
+	"fileimporter-heading-fileinfo": "اطلاعات پرونده",
 	"fileimporter-heading-filehistory": "تاریخچهٔ پرونده"
 }
