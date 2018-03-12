@@ -442,6 +442,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		return $params + [
 			'rvlimit' => '500',
+			'rvdir' => 'newer',
 			'rvprop' => implode(
 				'|',
 				[
