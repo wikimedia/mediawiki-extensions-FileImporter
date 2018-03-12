@@ -5,8 +5,8 @@ namespace FileImporter\Services;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
+use FileImporter\Exceptions\ImportException;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
-use Flow\Import\ImportException;
 
 class ImportPlanFactory {
 
