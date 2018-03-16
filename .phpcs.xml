@@ -1,37 +1,9 @@
 <?xml version="1.0"?>
-<ruleset name="FileImporter">
-	<!-- See https://github.com/wikimedia/mediawiki-tools-codesniffer/blob/master/MediaWiki/ruleset.xml -->
+<ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamComment" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
-	</rule>
-
-	<rule ref="Generic.Files.InlineHTML" />
-	<rule ref="Generic.Files.OneInterfacePerFile" />
-	<rule ref="Generic.Files.OneTraitPerFile" />
-	<rule ref="Generic.Metrics.CyclomaticComplexity" />
-	<rule ref="Generic.Metrics.NestingLevel" />
-
-	<rule ref="PSR1">
-		<exclude name="PSR1.Files.SideEffects" />
-	</rule>
-	<rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
-		<!-- Exclude test methods like "testGivenInvalidInput_methodThrowsException". -->
-		<exclude-pattern>/tests/phpunit/*Test\.php</exclude-pattern>
-	</rule>
-
-	<rule ref="PSR2.Files" />
-
-	<rule ref="Squiz.Classes.DuplicateProperty" />
-	<rule ref="Squiz.ControlStructures.ControlSignature" />
-	<rule ref="Squiz.Functions.FunctionDuplicateArgument" />
-	<rule ref="Squiz.Functions.GlobalFunction" />
-	<rule ref="Squiz.Scope" />
-	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
-		<properties>
-			<property name="spacing" value="1" />
-		</properties>
 	</rule>
 
 	<file>.</file>
