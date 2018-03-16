@@ -5,6 +5,10 @@ namespace FileImporter\Data;
 use FileImporter\Interfaces\ImportOperation;
 use RuntimeException;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class ImportOperations implements ImportOperation {
 
 	/**

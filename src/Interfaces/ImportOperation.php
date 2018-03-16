@@ -2,6 +2,10 @@
 
 namespace FileImporter\Interfaces;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 interface ImportOperation {
 
 	/**

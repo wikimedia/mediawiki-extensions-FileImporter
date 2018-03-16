@@ -6,6 +6,10 @@ use EditPage;
 use Html;
 use SpecialPage;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Christoph Jauera <christoph.jauera@wikimedia.de>
+ */
 class WikiTextEditor {
 
 	/**

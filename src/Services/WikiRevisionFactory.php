@@ -8,6 +8,10 @@ use FileImporter\Data\TextRevision;
 use Title;
 use WikiRevision;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class WikiRevisionFactory {
 
 	/**

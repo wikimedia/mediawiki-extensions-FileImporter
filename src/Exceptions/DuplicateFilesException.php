@@ -4,6 +4,10 @@ namespace FileImporter\Exceptions;
 
 use File;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class DuplicateFilesException extends ImportException {
 
 	private $files;

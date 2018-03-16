@@ -19,6 +19,10 @@ use Title;
 use MediaWiki\MediaWikiServices;
 use ConfigException;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class ApiDetailRetriever implements DetailRetriever {
 
 	/**

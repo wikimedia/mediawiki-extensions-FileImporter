@@ -10,6 +10,10 @@ use Psr\Log\LoggerInterface;
 use Title;
 use WikiRevision;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class TextRevisionFromTextRevision implements ImportOperation {
 
 	/**
