@@ -9,6 +9,10 @@ use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 	private $httpApiLookup;

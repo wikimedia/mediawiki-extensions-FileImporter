@@ -12,6 +12,10 @@ use MalformedTitleException;
 use Message;
 use UploadBase;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class ImportPlanValidator {
 
 	/**

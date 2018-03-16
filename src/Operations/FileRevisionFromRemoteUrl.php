@@ -14,6 +14,10 @@ use Title;
 use UploadRevisionImporter;
 use WikiRevision;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class FileRevisionFromRemoteUrl implements ImportOperation {
 
 	/**

@@ -8,6 +8,10 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class ImportPlanFactory {
 
 	private $sourceSiteLocator;

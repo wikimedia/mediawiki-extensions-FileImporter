@@ -2,6 +2,10 @@
 
 namespace FileImporter;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Andrew Kostka
+ */
 class FileImporterHooks {
 
 	/**

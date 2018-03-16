@@ -34,6 +34,10 @@ use UploadBase;
 use User;
 use UserBlockedError;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class SpecialImportFile extends SpecialPage {
 
 	/**

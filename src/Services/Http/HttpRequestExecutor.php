@@ -9,6 +9,10 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class HttpRequestExecutor implements LoggerAwareInterface {
 
 	/**

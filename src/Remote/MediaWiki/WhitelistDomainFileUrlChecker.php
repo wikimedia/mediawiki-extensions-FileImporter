@@ -4,6 +4,10 @@ namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class WhitelistDomainFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 
 	/**

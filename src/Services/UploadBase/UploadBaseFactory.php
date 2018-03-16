@@ -5,6 +5,10 @@ namespace FileImporter\Services\UploadBase;
 use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ */
 class UploadBaseFactory {
 
 	/**
