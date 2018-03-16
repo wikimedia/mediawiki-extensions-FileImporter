@@ -60,6 +60,9 @@ class ImportPlan {
 		return $this->details;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getTitleText() {
 		if ( $this->title === null ) {
 			$intendedFileName = $this->request->getIntendedName();

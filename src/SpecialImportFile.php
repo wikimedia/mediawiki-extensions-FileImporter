@@ -81,10 +81,16 @@ class SpecialImportFile extends SpecialPage {
 		$this->stats = $services->getStatsdDataFactory();
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getGroupName() {
 		return 'media';
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function userCanExecute( User $user ) {
 		return UploadBase::isEnabled() && parent::userCanExecute( $user );
 	}

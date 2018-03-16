@@ -7,14 +7,20 @@ use FileImporter\Data\SourceUrl;
 class WhitelistDomainFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	private $whiteListDomains;
 
+	/**
+	 * @param string[] $whitelistDomains
+	 */
 	public function __construct( array $whitelistDomains ) {
 		$this->whiteListDomains = $whitelistDomains;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
 		if ( !$sourceUrl->isParsable() ) {
 			return false;

@@ -10,6 +10,9 @@ use FileImporter\Interfaces\SourceUrlChecker;
  */
 class AnyMediaWikiFileUrlChecker implements SourceUrlChecker {
 
+	/**
+	 * @inheritDoc
+	 */
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
 		return $this->getTitleFromSourceUrl( $sourceUrl ) !== null;
 	}

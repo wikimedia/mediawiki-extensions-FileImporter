@@ -75,6 +75,9 @@ class ValidatingUploadBase extends UploadBase {
 		throw new LogicException( 'Should never be called.' );
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getSourceType() {
 		return 'file';
 	}

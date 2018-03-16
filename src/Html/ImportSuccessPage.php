@@ -30,6 +30,9 @@ class ImportSuccessPage {
 		$this->importTitle = $importPlan->getTitle();
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
 		return Html::rawElement(
 			'span',

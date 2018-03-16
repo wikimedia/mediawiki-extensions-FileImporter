@@ -31,6 +31,9 @@ class ChangeFileNameForm {
 		$this->importPlan = $importPlan;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
 		// Try showing the user provided value first if present
 		$filenameValue = $this->importPlan->getRequest()->getIntendedName();
