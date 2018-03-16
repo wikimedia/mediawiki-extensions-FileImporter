@@ -23,8 +23,8 @@ class ImportOperations implements ImportOperation {
 
 	const BUILDING = 0;
 	const PREPARE_RUN = 1;
-	const COMMIT_RUN = 2;
-	const ROLLBACK_RUN = 3;
+	const VALIDATE_RUN = 2;
+	const COMMIT_RUN = 3;
 
 	public function add( ImportOperation $importOperation ) {
 		$this->importOperations[] = $importOperation;
@@ -41,7 +41,6 @@ class ImportOperations implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * For example, this could make API calls and validate data.
 	 * @return bool success
 	 */
 	public function prepare() {
@@ -52,6 +51,23 @@ class ImportOperations implements ImportOperation {
 				return false;
 			}
 		}
+
+		return true;
+	}
+
+	/**
+	 * Method to validate prepared content that should be committed.
+	 * @return bool success
+	 */
+	public function validate() {
+		$this->throwExceptionOnBadState( self::PREPARE_RUN );
+		$this->state = self::VALIDATE_RUN;
+		foreach ( $this->importOperations as $importOperation ) {
+			if ( !$importOperation->validate() ) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -60,7 +76,7 @@ class ImportOperations implements ImportOperation {
 	 * @return bool success
 	 */
 	public function commit() {
-		$this->throwExceptionOnBadState( self::PREPARE_RUN );
+		$this->throwExceptionOnBadState( self::VALIDATE_RUN );
 		$this->state = self::COMMIT_RUN;
 		foreach ( $this->importOperations as $importOperation ) {
 			if ( !$importOperation->commit() ) {

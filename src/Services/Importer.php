@@ -183,6 +183,17 @@ class Importer {
 			microtime( true ) - $operationPrepareStart
 		);
 
+		$operationValidateStart = microtime( true );
+		if ( !$importOperations->validate() ) {
+			$this->logger->error( __METHOD__ . 'Failed to validate operations.' );
+			throw new RuntimeException( 'Failed to validate operations.' );
+		}
+		$this->logger->info( __METHOD__ . ' operations validated.' );
+		$this->stats->timing(
+			'FileImporter.import.timing.validateOperations',
+			microtime( true ) - $operationValidateStart
+		);
+
 		$operationCommitStart = microtime( true );
 		if ( !$importOperations->commit() ) {
 			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );

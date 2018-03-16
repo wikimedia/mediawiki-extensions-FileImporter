@@ -41,7 +41,8 @@
 
 * **{PREFIX}.import.timing.wholeImport.{AGGREGATION}** - Time (ms) spent processing the whole import (includes all sub times below).
 * **{PREFIX}.import.timing.buildOperations.{AGGREGATION}** - Time (ms) spent building the operations needed for import.
-* **{PREFIX}.import.timing.prepareOperations.{AGGREGATION}** - Time (ms) spent preparing and checking the operations needed for import.
+* **{PREFIX}.import.timing.prepareOperations.{AGGREGATION}** - Time (ms) spent preparing the content that should be imported.
+* **{PREFIX}.import.timing.validateOperations.{AGGREGATION}** - Time (ms) spent validating the content that should be imported.
 * **{PREFIX}.import.timing.commitOperations.{AGGREGATION}** - Time (ms) spent committing the operations needed for import.
 * **{PREFIX}.import.timing.miscActions.{AGGREGATION}** - Time (ms) spent on other miscellaneous write actions, such as creation of further edits / revisions.
 

@@ -62,13 +62,21 @@ class TextRevisionFromTextRevision implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * For example, this could make API calls and validate data.
 	 * @return bool success
 	 */
 	public function prepare() {
 		$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $this->textRevision );
 		$wikiRevision->setTitle( $this->plannedTitle );
 		$this->wikiRevision = $wikiRevision;
+
+		return true;
+	}
+
+	/**
+	 * Method to validate prepared data that should be committed.
+	 * @return bool success
+	 */
+	public function validate() {
 		return true;
 	}
 
