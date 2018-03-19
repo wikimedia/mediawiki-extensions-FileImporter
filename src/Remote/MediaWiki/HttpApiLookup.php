@@ -15,6 +15,9 @@ use Psr\Log\NullLogger;
 /**
  * Lookup that can take a MediaWiki site URL and return the URL of the action API.
  * This service caches APIs that have been found for the lifetime of the object.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class HttpApiLookup implements LoggerAwareInterface {
 

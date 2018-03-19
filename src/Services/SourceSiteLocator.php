@@ -7,6 +7,9 @@ use FileImporter\Exceptions\SourceUrlException;
 
 /**
  * SourceSiteLocator for getting a SourceSite service which can handle a given URL.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SourceSiteLocator {
 

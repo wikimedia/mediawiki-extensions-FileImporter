@@ -12,6 +12,9 @@ use WebRequest;
  * This class extends the MediaWiki UploadBase class in order to perform validation
  * that is normally carried out as part of the upload process.
  * Ideally MediaWiki core would be refactored so that this could more easily be accessed.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ValidatingUploadBase extends UploadBase {
 

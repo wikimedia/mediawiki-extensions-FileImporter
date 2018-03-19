@@ -5,7 +5,8 @@ namespace FileImporter\Exceptions;
 use RuntimeException;
 
 /**
- * Generic Import exception.
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportException extends RuntimeException {
 

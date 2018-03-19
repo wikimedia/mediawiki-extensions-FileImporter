@@ -11,6 +11,9 @@ use SpecialPage;
 
 /**
  * Page displaying a form for entering a URL to start an import.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class InputFormPage {
 

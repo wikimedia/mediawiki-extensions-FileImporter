@@ -11,6 +11,9 @@ use Title;
  * Planned import.
  * Data from the source site can be found in the ImportDetails object and the user requested changes
  * can be found in the ImportRequest object.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportPlan {
 

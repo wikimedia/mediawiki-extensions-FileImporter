@@ -10,6 +10,9 @@ use Title;
 
 /**
  * Page displaying a successful import.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportSuccessPage {
 

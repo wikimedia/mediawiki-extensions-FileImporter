@@ -9,6 +9,9 @@ use Wikimedia\Assert\Assert;
 
 /**
  * Alterations to be made usually provided by a user.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportRequest {
 

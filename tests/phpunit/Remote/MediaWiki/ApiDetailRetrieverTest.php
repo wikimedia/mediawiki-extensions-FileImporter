@@ -15,10 +15,11 @@ use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\ApiDetailRetriever
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ApiDetailRetrieverTest extends MediaWikiTestCase {
-
-//
 
 	public function testCheckMaxRevisionAggregatedBytes_setMax() {
 		$this->setMwGlobals( [ 'wgFileImporterMaxAggregatedBytes' => 9 ] );

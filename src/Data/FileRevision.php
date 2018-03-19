@@ -8,6 +8,9 @@ use FileImporter\Exceptions\InvalidArgumentException;
  * This class represents a single revision of a files, as recognized by MediaWiki.
  * This data can all be retrieved from the API or the Database and can be used to copy
  * the exact revision onto another site.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class FileRevision {
 

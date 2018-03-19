@@ -7,6 +7,9 @@ use Wikimedia\Assert\Assert;
 
 /**
  * Contains the details from the source site for the import.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportDetails {
 

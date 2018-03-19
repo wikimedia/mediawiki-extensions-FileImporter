@@ -20,6 +20,9 @@ use User;
 
 /**
  * @covers \FileImporter\Html\ChangeFileInfoForm
+ *
+ * @license GPL-2.0-or-later
+ * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 

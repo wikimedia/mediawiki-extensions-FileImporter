@@ -8,6 +8,9 @@ use SiteLookup;
 /**
  * Lookup that can be used to get a Site object from the locally configured sites based on the
  * hostname.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SiteTableSiteLookup {
 

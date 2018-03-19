@@ -8,6 +8,9 @@ use Message;
 
 /**
  * Html showing a list of duplicate files.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class DuplicateFilesPage {
 

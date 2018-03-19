@@ -9,6 +9,9 @@ use LocalRepo;
 /**
  * Class that can be used to check if a FileRevision already exists on the current wiki.
  * Only current / latest and non deleted files are checked.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class DuplicateFileRevisionChecker {
 

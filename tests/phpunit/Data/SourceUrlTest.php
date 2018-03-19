@@ -7,6 +7,9 @@ use InvalidArgumentException;
 
 /**
  * @covers \FileImporter\Data\SourceUrl
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 

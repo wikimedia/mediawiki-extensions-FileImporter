@@ -7,6 +7,9 @@ use FileImporter\Data\FileRevisions;
 
 /**
  * @covers \FileImporter\Data\FileRevisions
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 

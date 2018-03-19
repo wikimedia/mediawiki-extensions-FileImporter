@@ -9,6 +9,9 @@ use Psr\Log\LoggerInterface;
 /**
  * This SourceUrlChecker implementation will allow files from mediawiki websites that are contained
  * in the sites table.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SiteTableSourceUrlChecker implements SourceUrlChecker {
 

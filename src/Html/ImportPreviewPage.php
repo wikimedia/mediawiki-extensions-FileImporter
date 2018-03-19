@@ -12,6 +12,9 @@ use SpecialPage;
 
 /**
  * Page displaying the preview of the import before it has happened.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportPreviewPage {
 

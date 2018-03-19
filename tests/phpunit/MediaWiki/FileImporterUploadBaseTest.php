@@ -10,6 +10,9 @@ use UploadBase;
 
 /**
  * @covers \FileImporter\Services\UploadBase\ValidatingUploadBase
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class FileImporterUploadBaseTest extends MediaWikiTestCase {
 
