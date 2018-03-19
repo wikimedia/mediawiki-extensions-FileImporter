@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Status;
 
 /**
+ * @covers \FileImporter\Services\Http\FileChunkSaver
  * @covers \FileImporter\Services\Http\HttpRequestExecutor
  */
 class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
