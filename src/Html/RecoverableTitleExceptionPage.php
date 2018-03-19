@@ -8,6 +8,9 @@ use SpecialPage;
 
 /**
  * Html showing an error and the ChangeTitleForm
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class RecoverableTitleExceptionPage {
 

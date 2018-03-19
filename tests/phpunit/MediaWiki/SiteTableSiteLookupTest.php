@@ -9,6 +9,9 @@ use Site;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\SiteTableSiteLookup
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 

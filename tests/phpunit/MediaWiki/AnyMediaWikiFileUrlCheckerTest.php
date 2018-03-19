@@ -7,6 +7,9 @@ use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class AnyMediaWikiFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 

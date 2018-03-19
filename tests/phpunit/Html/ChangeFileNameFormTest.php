@@ -16,6 +16,9 @@ use Title;
 
 /**
  * @covers \FileImporter\Html\ChangeFileNameForm
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 

@@ -7,6 +7,9 @@ use StatusValue;
 
 /**
  * Thrown in cases where a HttpRequest has failed.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class HttpRequestException extends ImportException {
 

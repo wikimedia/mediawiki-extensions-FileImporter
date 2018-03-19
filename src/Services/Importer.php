@@ -22,6 +22,9 @@ use WikiPage;
 
 /**
  * Performs an import of a file to the local wiki based on an ImportPlan object for a given User.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class Importer {
 

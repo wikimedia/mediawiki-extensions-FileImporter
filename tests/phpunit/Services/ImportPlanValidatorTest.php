@@ -25,6 +25,9 @@ use UploadBase;
 
 /**
  * @covers \FileImporter\Services\ImportPlanValidator
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 

@@ -9,6 +9,9 @@ use FileImporter\Interfaces\SourceUrlChecker;
 
 /**
  * A SourceSite object is composed of services which can import files from configurable URLs.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SourceSite {
 

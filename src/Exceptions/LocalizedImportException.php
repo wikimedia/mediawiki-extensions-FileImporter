@@ -11,6 +11,9 @@ use Throwable;
 /**
  * Logic has been taken form core class LocalizedException
  * @todo move logic to a trait in core and use it from there?
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class LocalizedImportException extends ImportException implements ILocalizedException {
 

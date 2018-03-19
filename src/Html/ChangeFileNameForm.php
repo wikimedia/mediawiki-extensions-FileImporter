@@ -13,6 +13,9 @@ use SpecialPage;
 
 /**
  * Form allowing the user to select a new file name.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ChangeFileNameForm {
 

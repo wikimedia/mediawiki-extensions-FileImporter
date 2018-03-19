@@ -26,6 +26,9 @@ use WebResponse;
  * This test makes some calls to https://commons.wikimedia.org
  *
  * @group Database
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 

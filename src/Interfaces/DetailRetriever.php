@@ -9,6 +9,9 @@ use FileImporter\Exceptions\SourceUrlException;
 /**
  * This interface creates ImportDetails objects from a SourceUrl.
  * This usually means making requests to the site hosting the SourceUrl to get data.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 interface DetailRetriever {
 

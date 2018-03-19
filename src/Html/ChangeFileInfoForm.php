@@ -10,6 +10,9 @@ use SpecialPage;
 
 /**
  * Form allowing the user to change the file info text.
+ *
+ * @license GPL-2.0-or-later
+ * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class ChangeFileInfoForm {
 

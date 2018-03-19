@@ -7,6 +7,9 @@ use FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class WhitelistDomainFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 

@@ -12,6 +12,9 @@ use RuntimeException;
  * Please see HttpRequestExecutor::executeAndSave
  *
  * TODO this could end up in core? and used by UploadFromUrl?
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class FileChunkSaver implements LoggerAwareInterface {
 

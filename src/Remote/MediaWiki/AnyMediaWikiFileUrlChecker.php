@@ -7,6 +7,9 @@ use FileImporter\Interfaces\SourceUrlChecker;
 
 /**
  * This SourceUrlChecker implementation will allow any file from any mediawiki website.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class AnyMediaWikiFileUrlChecker implements SourceUrlChecker {
 

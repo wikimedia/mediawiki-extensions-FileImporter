@@ -10,6 +10,9 @@ use TitleValue;
 
 /**
  * @covers \FileImporter\Data\ImportPlan
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportPlanTest extends \PHPUnit\Framework\TestCase {
 

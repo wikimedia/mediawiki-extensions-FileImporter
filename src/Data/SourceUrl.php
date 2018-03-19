@@ -6,6 +6,9 @@ use InvalidArgumentException;
 
 /**
  * Class representing the URL passed into the extension for importing.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SourceUrl {
 

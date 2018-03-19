@@ -6,6 +6,9 @@ use Html;
 
 /**
  * Collection of input elements that are used to persist the request from page load to page load.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class ImportIdentityFormSnippet {
 

@@ -11,6 +11,9 @@ use Site;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
  */
 class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
