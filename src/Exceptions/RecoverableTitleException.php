@@ -8,6 +8,11 @@ use MessageSpecifier;
 /**
  * Exception thrown when an import has an issue with the planned title that can be
  * resolved by the user.
+ *
+ * @license GPL-2.0-or-later
+ * @author Addshore
+ *
+ * @codeCoverageIgnore
  */
 class RecoverableTitleException extends TitleException {
 
@@ -22,6 +27,7 @@ class RecoverableTitleException extends TitleException {
 	 */
 	public function __construct( $messageSpec, ImportPlan $importPlan ) {
 		$this->importPlan = $importPlan;
+
 		parent::__construct( $messageSpec );
 	}
 
