@@ -7,6 +7,8 @@ use File;
 /**
  * @license GPL-2.0-or-later
  * @author Addshore
+ *
+ * @codeCoverageIgnore
  */
 class DuplicateFilesException extends ImportException {
 
@@ -17,6 +19,7 @@ class DuplicateFilesException extends ImportException {
 	 */
 	public function __construct( array $duplicateFiles ) {
 		$this->files = $duplicateFiles;
+
 		parent::__construct();
 	}
 

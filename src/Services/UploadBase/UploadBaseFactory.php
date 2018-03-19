@@ -8,6 +8,8 @@ use Psr\Log\LoggerInterface;
 /**
  * @license GPL-2.0-or-later
  * @author Addshore
+ *
+ * @codeCoverageIgnore
  */
 class UploadBaseFactory {
 
@@ -27,8 +29,7 @@ class UploadBaseFactory {
 	 * @return ValidatingUploadBase
 	 */
 	public function newValidatingUploadBase( LinkTarget $targetTitle, $tempPath ) {
-		$base = new ValidatingUploadBase( $this->logger, $targetTitle, $tempPath );
-		return $base;
+		return new ValidatingUploadBase( $this->logger, $targetTitle, $tempPath );
 	}
 
 }
