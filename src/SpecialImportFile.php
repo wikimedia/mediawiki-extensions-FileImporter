@@ -281,8 +281,9 @@ class SpecialImportFile extends SpecialPage {
 		);
 
 		if ( $result ) {
-			$out->setPageTitle( new Message( 'fileimporter-specialpage-successtitle' ) );
-			$out->addHTML( ( new ImportSuccessPage( $importPlan ) )->getHtml() );
+			$successPage = new ImportSuccessPage( $importPlan );
+			$out->setPageTitle( $successPage->getPageTitle() );
+			$out->addHTML( $successPage->getHtml() );
 		} else {
 			$this->showWarningMessage( new Message( 'fileimporter-importfailed' ) );
 		}

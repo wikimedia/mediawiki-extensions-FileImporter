@@ -4,6 +4,8 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
+use MediaWiki\MediaWikiServices;
+use OOUI\ButtonWidget;
 use Html;
 use Message;
 use Title;
@@ -36,25 +38,47 @@ class ImportSuccessPage {
 	/**
 	 * @return string
 	 */
+	public function getPageTitle() {
+		return $this->importTitle->getPrefixedText();
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$siteName = $config->get( 'Sitename' );
+
 		return Html::rawElement(
-			'span',
-			[],
+			'div',
+			[ 'class' => 'mw-importfile-success-banner successbox' ],
 			( new Message(
-				'fileimporter-imported',
+				'fileimporter-imported-success-banner',
 				[
-					Html::element(
-						'a',
-						[ 'href' => $this->sourceUrl->getUrl() ],
-						$this->sourceUrl->getUrl()
-					),
+					$siteName,
 					Html::element(
 						'a',
 						[ 'href' => $this->importTitle->getInternalURL() ],
 						$this->importTitle->getPrefixedText()
-					) ]
+					)
+				]
 			) )->plain()
+		) .
+		Html::rawElement(
+			'p',
+			[],
+			( new Message(
+				'fileimporter-imported-change-template',
+				[ $siteName ]
+			) )->plain()
+		) .
+		new ButtonWidget(
+			[
+				'classes' => [ 'mw-importfile-add-template-button' ],
+				'label' => ( new Message( 'fileimporter-add-template-button' ) )->plain(),
+				'href' => $this->sourceUrl->getUrl(),
+				'flags' => [ 'primary', 'progressive' ],
+			]
 		);
 	}
-
 }
