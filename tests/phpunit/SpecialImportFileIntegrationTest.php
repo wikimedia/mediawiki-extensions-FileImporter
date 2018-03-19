@@ -16,6 +16,11 @@ use User;
 use WebResponse;
 
 /**
+ * @covers \FileImporter\Html\DuplicateFilesPage
+ * @covers \FileImporter\Html\ImportPreviewPage
+ * @covers \FileImporter\Html\ImportSuccessPage
+ * @covers \FileImporter\Html\InputFormPage
+ * @covers \FileImporter\Html\RecoverableTitleExceptionPage
  * @covers \FileImporter\SpecialImportFile
  *
  * This test makes some calls to https://commons.wikimedia.org
