@@ -233,6 +233,11 @@ class ImportPreviewPage {
 				'flags' => [ 'progressive' ],
 			]
 		) .
+		Html::element(
+			'span',
+			[],
+			( new Message( 'fileimporter-import-wait' ) )->plain()
+		) .
 		Html::closeElement( 'form' ) .
 		Html::closeElement(
 			'div'
