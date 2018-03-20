@@ -28,6 +28,9 @@ class DuplicateFilesPage {
 		$this->files = $files;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
 		$duplicateFilesList = '';
 		$duplicatesMessage = ( new Message( 'fileimporter-duplicatefilesdetected-prefix' ) )->plain();

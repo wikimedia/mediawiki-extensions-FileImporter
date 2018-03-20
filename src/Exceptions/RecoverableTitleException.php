@@ -31,6 +31,9 @@ class RecoverableTitleException extends TitleException {
 		parent::__construct( $messageSpec );
 	}
 
+	/**
+	 * @return ImportPlan
+	 */
 	public function getImportPlan() {
 		return $this->importPlan;
 	}

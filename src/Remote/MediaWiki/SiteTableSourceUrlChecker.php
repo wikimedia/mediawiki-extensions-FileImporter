@@ -30,6 +30,9 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 		$this->logger = $logger;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
 		$site = $this->siteTableSiteLookup->getSite( $sourceUrl->getParsedUrl()['host'] );
 

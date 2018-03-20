@@ -35,6 +35,9 @@ class ImportIdentityFormSnippet {
 		$this->identityParts = $identityParts;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
 		$html = '';
 

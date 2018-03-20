@@ -31,6 +31,9 @@ class ChangeFileInfoForm {
 		$this->importPlan = $importPlan;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
 		// Try showing the user provided value first if present
 		$wikiTextValue = $this->importPlan->getRequest()->getIntendedText();

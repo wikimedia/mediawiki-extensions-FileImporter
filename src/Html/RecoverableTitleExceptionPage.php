@@ -36,12 +36,18 @@ class RecoverableTitleExceptionPage {
 		$this->exception = $exception;
 	}
 
+	/**
+	 * @return string
+	 */
 	private function getMessageString() {
 		return $this->exception
 			->getMessageObject()
 			->plain();
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHtml() {
 		return Html::rawElement(
 			'div',

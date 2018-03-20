@@ -21,12 +21,17 @@ class WikiTextEditor {
 		$this->specialPage = $specialPage;
 	}
 
-	public function getHtml( $text ) {
+	/**
+	 * @param string $wikitext
+	 *
+	 * @return string
+	 */
+	public function getHtml( $wikitext ) {
 		$this->loadModules();
 		$this->runEditFormInitialHook();
 
 		return EditPage::getEditToolbar() .
-			$this->buildEditor( $text );
+			$this->buildEditor( $wikitext );
 	}
 
 	/**
@@ -39,7 +44,7 @@ class WikiTextEditor {
 
 	/**
 	 * Run EditPage::showEditForm:initial hook mainly for the WikiEditor toolbar
-	 * See WikiEditorHooks::editPageShowEditFormInitial
+	 * @see WikiEditorHooks::editPageShowEditFormInitial
 	 * Triggering the hook means we don't have special handling for any extensions.
 	 */
 	private function runEditFormInitialHook() {
@@ -56,7 +61,11 @@ class WikiTextEditor {
 	}
 
 	/**
-	 * Build editor HTML see EditPage->showTextbox()
+	 * @see EditPage::showTextbox
+	 *
+	 * @param string $wikitext
+	 *
+	 * @return string HTML
 	 */
 	private function buildEditor( $wikitext ) {
 		$class = 'mw-editfont-' . $this->specialPage->getUser()->getOption( 'editfont' );
@@ -86,7 +95,11 @@ class WikiTextEditor {
 	}
 
 	/**
-	 * Build editor HTML see EditPage->addNewLineAtEnd()
+	 * @see EditPage::addNewLineAtEnd
+	 *
+	 * @param string $wikitext
+	 *
+	 * @return string
 	 */
 	private function addNewLineAtEnd( $wikitext ) {
 		if ( strval( $wikitext ) !== '' ) {

@@ -23,6 +23,9 @@ class DuplicateFilesException extends ImportException {
 		parent::__construct();
 	}
 
+	/**
+	 * @return File[]
+	 */
 	public function getFiles() {
 		return $this->files;
 	}
