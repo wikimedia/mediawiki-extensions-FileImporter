@@ -56,5 +56,6 @@
 	"fileimporter-revision-removed-comment": "تمت إزالة التعليق المخفي بواسطة مستورد الملفات.",
 	"fileimporter-in-beta": "استيراد الملفات في الوضع التجريبي: اختبرناها بعناية ولكن ربما لا تزال تواجه بعض المشكلات، إذا واجهتك مشاكل، فيُرجَى [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter report them on our help page]، بشكل مثالي مع طريقة خطوة بخطوة لإعادة إنتاج المشكلة; حتى نستطيع فهمها واصلاحها.",
 	"fileimporter-filemissinginrevision": "لا يمكن استيراد الملف لأن إحدى مراجعاته على الأقل تفتقر إلى ملف صورة.",
-	"fileimporter-filetoolarge": "يتجاوز الملف الذي تحاول استيراده حاليًا الحد الأقصى لحجم الملف."
+	"fileimporter-filetoolarge": "يتجاوز الملف الذي تحاول استيراده حاليًا الحد الأقصى لحجم الملف.",
+	"fileimporter-import-wait": "قد يستغرق الاستيراد بضع دقائق."
 }

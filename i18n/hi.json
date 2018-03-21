@@ -4,7 +4,8 @@
 			"Sfic",
 			"Matma Rex",
 			"Bhatakati aatma",
-			"Smtchahal"
+			"Smtchahal",
+			"Sachinkatiyar"
 		]
 	},
 	"fileimporter": "फ़ाइल आयातक",
@@ -16,5 +17,6 @@
 	"fileimporter-cancel": "रद्द करें",
 	"fileimporter-editsummary": "संपादन सारांश",
 	"fileimporter-heading-filehistory": "फ़ाइल का इतिहास",
-	"fileimporter-filemissinginrevision": "संचिका आयात नहीं की जा सकती क्योंकि उसके कम से कम एक संशोधन में कोई चित्र संचिका नहीं है।"
+	"fileimporter-filemissinginrevision": "संचिका आयात नहीं की जा सकती क्योंकि उसके कम से कम एक संशोधन में कोई चित्र संचिका नहीं है।",
+	"fileimporter-import-wait": "आयात में कुछ मिनट लग सकते हैं।"
 }

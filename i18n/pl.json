@@ -3,7 +3,8 @@
 		"authors": [
 			"Chrumps",
 			"Krottyianock",
-			"InternerowyGołąb"
+			"InternerowyGołąb",
+			"DeRudySoulStorm"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -34,5 +35,6 @@
 	"fileimporter-editsummary": "Opis zmian:",
 	"fileimporter-heading-fileinfo": "Informacje o pliku",
 	"fileimporter-heading-filehistory": "Historia pliku",
-	"fileimporter-filetoolarge": "Plik, który próbujesz zaimportować, przekracza maksymalny limit rozmiaru pliku."
+	"fileimporter-filetoolarge": "Plik, który próbujesz zaimportować, przekracza maksymalny limit rozmiaru pliku.",
+	"fileimporter-import-wait": "Importowanie może potrwać kilka minut."
 }
