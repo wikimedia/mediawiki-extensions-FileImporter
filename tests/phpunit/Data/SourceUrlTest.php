@@ -31,7 +31,6 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				'https://en.wikipedia.org/wiki/File:Foo.jpg',
-				true,
 				[
 					'scheme' => 'https',
 					'host' => 'en.wikipedia.org',
@@ -48,14 +47,12 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testValidConstruction(
 		$url,
-		$expectedIsParsable,
 		$expectedParsed,
 		$expectedDomain
 	) {
 		$sourceUrl = new SourceUrl( $url );
 		$this->assertEquals( $url, $sourceUrl->getUrl() );
 		$this->assertEquals( $expectedParsed, $sourceUrl->getParsedUrl() );
-		$this->assertEquals( $expectedIsParsable, $sourceUrl->isParsable() );
 		$this->assertEquals( $expectedDomain, $sourceUrl->getHost() );
 	}
 

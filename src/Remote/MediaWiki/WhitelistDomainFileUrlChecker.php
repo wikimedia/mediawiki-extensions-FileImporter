@@ -26,10 +26,6 @@ class WhitelistDomainFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 	 * @inheritDoc
 	 */
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
-		if ( !$sourceUrl->isParsable() ) {
-			return false;
-		}
-
 		$parsedUrl = $sourceUrl->getParsedUrl();
 		foreach ( $this->whiteListDomains as $whiteListDomain ) {
 			$whiteListDomainLength = strlen( $whiteListDomain );
