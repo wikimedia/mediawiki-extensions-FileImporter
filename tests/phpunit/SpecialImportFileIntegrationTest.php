@@ -13,6 +13,7 @@ use Site;
 use SpecialPage;
 use SpecialPageTestBase;
 use User;
+use WebRequest;
 use WebResponse;
 
 /**
@@ -58,6 +59,12 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$this->tablesUsed[] = 'user_groups';
 	}
 
+	/**
+	 * @param string $globalId
+	 * @param string $domain
+	 *
+	 * @return Site
+	 */
 	private function getMockSite( $globalId, $domain ) {
 		$mockSite = $this->getMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
@@ -268,11 +275,11 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 * @dataProvider provideTestData
 	 */
 	public function testSpecialPageExecutionWithVariousInputs(
-		$request,
+		WebRequest $request,
 		$userOrBool,
 		$expectedExceptionDetails = null,
 		$htmlAssertionCallable,
-		$sourceSiteServicesOverride = [],
+		array $sourceSiteServicesOverride = [],
 		$requiresAccessToCommons = false
 	) {
 		if ( $requiresAccessToCommons && !self::$hasAccessToCommons ) {
