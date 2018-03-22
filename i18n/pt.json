@@ -55,5 +55,6 @@
 	"fileimporter-revision-removed-comment": "Comentário suprimido foi removido pelo importador de ficheiros.",
 	"fileimporter-in-beta": "A importação de ficheiros está em modo beta: foi cuidadosamente testada mas ainda pode conter defeitos. Se encontrar problemas, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter reporte-os na nossa página de ajuda] - idealmente, com a descrição dos passos necessários para reproduzir o problema, para podermos compreendê-lo e resolvê-lo.",
 	"fileimporter-filemissinginrevision": "Não é possível importar o ficheiro porque pelo menos uma das suas revisões não contém um ficheiro de imagem.",
-	"fileimporter-filetoolarge": "O ficheiro que está a tentar importar excede o limite do tamanho máximo de um ficheiro."
+	"fileimporter-filetoolarge": "O ficheiro que está a tentar importar excede o limite do tamanho máximo de um ficheiro.",
+	"fileimporter-import-wait": "A importação pode demorar alguns minutos."
 }

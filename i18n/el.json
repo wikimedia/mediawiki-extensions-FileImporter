@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"GR"
+			"GR",
+			"Nikosgranturismogt"
 		]
 	},
-	"fileimporter-duplicatefilesdetected-prefix": "Διπλότυπα"
+	"fileimporter-duplicatefilesdetected-prefix": "Διπλότυπα",
+	"fileimporter-import-wait": "Η εισαγωγή μπορεί να πάρει λίγα λεπτά."
 }
