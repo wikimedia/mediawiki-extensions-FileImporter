@@ -44,5 +44,6 @@
 	"fileimporter-heading-fileinfo": "Información del archivo",
 	"fileimporter-heading-filehistory": "Historial del archivo",
 	"fileimporter-filemissinginrevision": "No se puede importar el archivo porque a al menos una de sus revisiones le falta el archivo de imagen.",
-	"fileimporter-filetoolarge": "El archivo que estás intentando cargar excede el límite de tamaño máximo."
+	"fileimporter-filetoolarge": "El archivo que estás intentando cargar excede el límite de tamaño máximo.",
+	"fileimporter-import-wait": "La importación puede demorar unos minutos."
 }
