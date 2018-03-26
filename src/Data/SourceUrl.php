@@ -18,7 +18,7 @@ class SourceUrl {
 	private $url;
 
 	/**
-	 * @var string[]|null|bool
+	 * @var string[]
 	 */
 	private $parsed;
 
@@ -28,7 +28,8 @@ class SourceUrl {
 	 */
 	public function __construct( $url ) {
 		$this->url = $url;
-		if ( !$this->isParsable() ) {
+		$this->parsed = wfParseUrl( $url );
+		if ( !$this->parsed ) {
 			throw new InvalidArgumentException( '$url is not parsable' );
 		}
 	}
@@ -41,34 +42,19 @@ class SourceUrl {
 	}
 
 	/**
-	 * @return string[]|false Parsed URL array provided by wfParseUrl
-	 *                        false if the URL is not parsable
+	 * @return string[] Parsed URL array provided by wfParseUrl
 	 */
 	public function getParsedUrl() {
-		if ( $this->parsed === null ) {
-			$this->parsed = wfParseUrl( $this->url );
-		}
 		return $this->parsed;
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function isParsable() {
-		return (bool)$this->getParsedUrl();
-	}
-
-	/**
-	 * @return string|bool The host, for example "en.wikipedia.org"
-	 *                     false if the URL is not parsable
+	 * @return string The host, for example "en.wikipedia.org"
 	 */
 	public function getHost() {
 		// TODO configurable host normalization? Using configurable regexes?
 		// For Wikimedia this will enabled normalizing of .m. and .zero. in hosts
-		if ( $this->isParsable() ) {
-			return $this->parsed['host'];
-		}
-		return false;
+		return $this->parsed['host'];
 	}
 
 	public function __toString() {
