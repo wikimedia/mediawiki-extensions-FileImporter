@@ -6,6 +6,7 @@ use FileImporter\Data\FileRevision;
 use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use Http;
 use Psr\Log\LoggerInterface;
@@ -56,6 +57,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	private $wikiRevision;
 
 	/**
+	 * @var ValidatingUploadBase|null
+	 */
+	private $uploadBase = null;
+
+	/**
 	 * @var UploadRevisionImporter
 	 */
 	private $importer;
@@ -80,7 +86,6 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * For example, this could make API calls and validate data.
 	 * @return bool success
 	 */
 	public function prepare() {
@@ -103,16 +108,25 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 		$this->wikiRevision->setTitle( $this->plannedTitle );
 
-		$base = $this->uploadBaseFactory->newValidatingUploadBase(
+		$this->uploadBase = $this->uploadBaseFactory->newValidatingUploadBase(
 			$this->plannedTitle,
 			$this->wikiRevision->getFileSrc()
 		);
 
-		$result = $base->validateTitle() === true && $base->validateFile() === true;
+		return true;
+	}
+
+	/**
+	 * Method to validate prepared data that should be committed.
+	 * @return bool success
+	 */
+	public function validate() {
+		$result = $this->uploadBase->validateTitle() === true &&
+			$this->uploadBase->validateFile() === true;
 
 		if ( !$result ) {
 			$this->logger->error(
-				__METHOD__ . ' failed to prepare.',
+				__METHOD__ . ' failed to validate.',
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
 		}
