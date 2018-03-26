@@ -13,6 +13,7 @@ use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\SourceUrlNormalizer;
+use FileImporter\Services\TextRevisionValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
@@ -83,6 +84,7 @@ return [
 			$uploadBaseFactory,
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
+			new TextRevisionValidator(),
 			$services->getStatsdDataFactory(),
 			$logger
 		);

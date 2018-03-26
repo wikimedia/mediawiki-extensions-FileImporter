@@ -59,6 +59,11 @@ class Importer {
 	private $uploadRevisionImporter;
 
 	/**
+	 * @var TextRevisionValidator
+	 */
+	private $textRevisionValidator;
+
+	/**
 	 * @var StatsdDataFactoryInterface
 	 */
 	private $stats;
@@ -69,6 +74,7 @@ class Importer {
 		UploadBaseFactory $uploadBaseFactory,
 		OldRevisionImporter $oldRevisionImporter,
 		UploadRevisionImporter $uploadRevisionImporter,
+		TextRevisionValidator $textRevisionValidator,
 		StatsdDataFactoryInterface $statsdDataFactory,
 		LoggerInterface $logger
 	) {
@@ -77,6 +83,7 @@ class Importer {
 		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->oldRevisionImporter = $oldRevisionImporter;
 		$this->uploadRevisionImporter = $uploadRevisionImporter;
+		$this->textRevisionValidator = $textRevisionValidator;
 		$this->stats = $statsdDataFactory;
 		$this->logger = $logger;
 	}
@@ -127,6 +134,11 @@ class Importer {
 		$this->stats->gauge( 'FileImporter.import.details.textRevisions', count( $textRevisions ) );
 		$this->stats->gauge( 'FileImporter.import.details.fileRevisions', count( $fileRevisions ) );
 
+		$this->validateFileInfoText(
+			$user,
+			$importPlan
+		);
+
 		// TODO the type of ImportOperation created should be decided somewhere
 
 		/**
@@ -137,14 +149,17 @@ class Importer {
 		foreach ( $textRevisions as $textRevision ) {
 			$importOperations->add( new TextRevisionFromTextRevision(
 				$plannedTitle,
+				$user,
 				$textRevision,
 				$this->wikiRevisionFactory,
 				$this->oldRevisionImporter,
+				$this->textRevisionValidator,
 				$this->logger
 			) );
 		}
 
 		$totalFileSizes = 0;
+		$initialTextRevision = $textRevisions[0];
 		foreach ( $fileRevisions as $fileRevision ) {
 			$totalFileSizes += $fileRevision->getField( 'size' );
 			$this->stats->gauge(
@@ -153,13 +168,18 @@ class Importer {
 			);
 			$importOperations->add( new FileRevisionFromRemoteUrl(
 				$plannedTitle,
+				$user,
 				$fileRevision,
+				$initialTextRevision,
 				$this->httpRequestExecutor,
 				$this->wikiRevisionFactory,
 				$this->uploadBaseFactory,
 				$this->uploadRevisionImporter,
 				$this->logger
 			) );
+
+			// only include the initial text revision in the first upload
+			$initialTextRevision = null;
 		}
 		$this->stats->gauge(
 			'FileImporter.import.details.totalFileSizes',
@@ -226,6 +246,23 @@ class Importer {
 		);
 
 		return true;
+	}
+
+	/**
+	 * @param User $user
+	 * @param ImportPlan $importPlan
+	 */
+	private function validateFileInfoText(
+		User $user,
+		ImportPlan $importPlan
+	) {
+		$this->textRevisionValidator->validate(
+			$importPlan->getTitle(),
+			$user,
+			new \WikitextContent( $importPlan->getFileInfoText() ),
+			$importPlan->getRequest()->getIntendedSummary(),
+			false
+		);
 	}
 
 	/**

@@ -2,10 +2,14 @@
 
 namespace FileImporter\Services\UploadBase;
 
+use FileImporter\Data\TextRevision;
+use Hooks;
 use LogicException;
 use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerInterface;
+use Status;
 use UploadBase;
+use User;
 use WebRequest;
 
 /**
@@ -67,6 +71,42 @@ class ValidatingUploadBase extends UploadBase {
 		}
 
 		return true;
+	}
+
+	/**
+	 * @param User $user user performing the import
+	 * @param TextRevision $textRevision optional text revision to validate the upload with
+	 * @return Status
+	 */
+	public function validateUpload( User $user, TextRevision $textRevision = null ) {
+		$error = null;
+
+		if ( $textRevision === null ) {
+			Hooks::run( 'UploadStashFile', [
+				$this,
+				$user,
+				$this->mFileProps,
+				&$error
+			] );
+		} else {
+			Hooks::run( 'UploadVerifyUpload', [
+				$this,
+				$user,
+				$this->mFileProps,
+				$textRevision->getField( 'comment' ),
+				$textRevision->getField( '*' ),
+				&$error
+			] );
+		}
+
+		if ( $error ) {
+			if ( !is_array( $error ) ) {
+				$error = [ $error ];
+			}
+			return call_user_func_array( [ Status::class, 'newFatal' ], $error );
+		}
+
+		return Status::newGood();
 	}
 
 	/**
