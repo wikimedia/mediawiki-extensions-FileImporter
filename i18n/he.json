@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Uziel302",
-			"Amire80"
+			"Amire80",
+			"Guycn2"
 		]
 	},
+	"fileimporter": "מייצא קבצים",
 	"fileimporter-desc": "ייבוא קל של קבצים מאתרים אחרים",
 	"fileimporter-specialpage": "ייבוא קובץ",
 	"fileimporter-specialpage-successtitle": "הייבוא הצליח",
@@ -53,5 +55,6 @@
 	"fileimporter-revision-removed-comment": "תקציר מועלם הוסר על־ידי מייבא הקבצים.",
 	"fileimporter-in-beta": "ייבוא הקבצים במצב בטא: אנחנו בדקנו אותו בתשומת לב, אבל ייתכן שעדיין יש בו בעיות מסוימות. אם מצאת בעיות, אנא [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter דווחו אותן בדף העזרה שלנו], ויהיה מושלם אם תספקו צעדים לשחזור הבעיה, כדי שנוכל להבין ולתקן אותה.",
 	"fileimporter-filemissinginrevision": "לא ניתן לייבא את הקובץ כי לפחות לאחת מהגרסאות שלו חסר קובץ תמונה.",
-	"fileimporter-filetoolarge": "הקובץ שניסית לייבא חורג ממגבלת גודל הקובץ."
+	"fileimporter-filetoolarge": "הקובץ שניסית לייבא חורג ממגבלת גודל הקובץ.",
+	"fileimporter-import-wait": "הייבוא עשוי לקחת מספר דקות."
 }
