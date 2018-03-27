@@ -105,7 +105,7 @@ class ImportPreviewPage {
 			$details->getImageDisplayUrl(),
 			$title->getPrefixedText()
 		) .
-		Html::rawelement(
+		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-header' ],
 			Html::element(
