@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"Patio"
 		]
 	},
 	"fileimporter-exampleprefix": "Voorbeeld",
 	"fileimporter-textrevisions": "$1 {{PLURAL:$1|versie|versies}} van dit bestand zullen worden geïmporteerd.",
 	"fileimporter-import": "Importeren",
-	"fileimporter-cancel": "Annuleren"
+	"fileimporter-cancel": "Annuleren",
+	"fileimporter-import-wait": "De invoer zal enkele minuten duren."
 }
