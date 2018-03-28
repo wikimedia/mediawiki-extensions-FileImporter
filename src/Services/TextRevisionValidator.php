@@ -59,7 +59,7 @@ class TextRevisionValidator {
 		] );
 
 		if ( !$status->isGood() ) {
-			throw new ValidationException( $status->getWikiText() );
+			throw new ValidationException( $status->getHTML() );
 		}
 	}
 }

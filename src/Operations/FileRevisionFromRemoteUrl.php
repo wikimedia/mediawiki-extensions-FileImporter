@@ -155,7 +155,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		);
 
 		if ( !$uploadValidationStatus->isGood() ) {
-			throw new ValidationException( $uploadValidationStatus->getWikiText() );
+			throw new ValidationException( $uploadValidationStatus->getHTML() );
 		}
 
 		return $result;
