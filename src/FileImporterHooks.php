@@ -14,7 +14,7 @@ class FileImporterHooks {
 	 *
 	 * @param string[] &$reservedUsernames
 	 */
-	public static function onUserGetReservedNames( &$reservedUsernames ) {
+	public static function onUserGetReservedNames( array &$reservedUsernames ) {
 		global $wgFileImporterAccountForSuppressedUsername;
 		$reservedUsernames[] = $wgFileImporterAccountForSuppressedUsername;
 	}
