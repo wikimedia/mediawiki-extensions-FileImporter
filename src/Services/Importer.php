@@ -59,7 +59,7 @@ class Importer {
 	private $uploadRevisionImporter;
 
 	/**
-	 * @var TextRevisionValidator
+	 * @var FileTextRevisionValidator
 	 */
 	private $textRevisionValidator;
 
@@ -74,7 +74,7 @@ class Importer {
 		UploadBaseFactory $uploadBaseFactory,
 		OldRevisionImporter $oldRevisionImporter,
 		UploadRevisionImporter $uploadRevisionImporter,
-		TextRevisionValidator $textRevisionValidator,
+		FileTextRevisionValidator $textRevisionValidator,
 		StatsdDataFactoryInterface $statsdDataFactory,
 		LoggerInterface $logger
 	) {
