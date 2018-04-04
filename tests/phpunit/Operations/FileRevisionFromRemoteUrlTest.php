@@ -52,13 +52,32 @@ class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
+	public function testFileRevisionFromRemoteUrlPrepareWithBrokenUrl() {
+		$fileRevisionFromRemoteUrl = new FileRevisionFromRemoteUrl(
+			Title::newFromText( 'Test' ),
+			User::newFromName( 'TestUser' ),
+			$this->newMockFileRevision(),
+			null,
+			$this->newMockHttpRequestExecutor(),
+			$this->newMockWikiRevisionFactory(),
+			$this->newMockUploadBaseFactory(),
+			$this->newUploadRevisionImporter(),
+			new NullLogger()
+		);
+
+		$this->assertFalse( $fileRevisionFromRemoteUrl->prepare() );
+	}
+
 	/**
 	 * @return FileRevision
 	 */
 	private function newMockFileRevision() {
-		return $this->getMockBuilder( FileRevision::class )
+		$mock = $this->getMockBuilder( FileRevision::class )
 			->disableOriginalConstructor()
 			->getMock();
+		$mock->method( 'getField' )
+			->will( $this->returnValue( 'NOURL' ) );
+		return $mock;
 	}
 
 	/**
