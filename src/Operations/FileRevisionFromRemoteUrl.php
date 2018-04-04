@@ -67,7 +67,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	/**
 	 * @var TextRevision|null
 	 */
-	private $textRevision = null;
+	private $textRevision;
 
 	/**
 	 * @var ValidatingUploadBase|null
@@ -79,11 +79,22 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 */
 	private $importer;
 
+	/**
+	 * @param Title $plannedTitle
+	 * @param User $user
+	 * @param FileRevision $fileRevision
+	 * @param TextRevision|null $textRevision
+	 * @param HttpRequestExecutor $httpRequestExecutor
+	 * @param WikiRevisionFactory $wikiRevisionFactory
+	 * @param UploadBaseFactory $uploadBaseFactory
+	 * @param UploadRevisionImporter $importer
+	 * @param LoggerInterface $logger
+	 */
 	public function __construct(
 		Title $plannedTitle,
 		User $user,
 		FileRevision $fileRevision,
-		TextRevision $textRevision,
+		TextRevision $textRevision = null,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
 		UploadBaseFactory $uploadBaseFactory,
