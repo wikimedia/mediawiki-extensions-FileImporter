@@ -229,11 +229,13 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$apiRetriever = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutorWithExpectedRequest(
-				$expected[ 'url' ], json_encode( $apiResponse )
+				$expected[ 'url' ],
+				json_encode( $apiResponse )
 			),
 			new NullLogger()
 		);
 
+		/** @var ApiDetailRetriever $apiRetriever */
 		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
 
 		call_user_func_array(
@@ -246,7 +248,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 			]
 		);
 
-		$this->assertArrayEquals( $existingData[ 'pageInfoData' ], $expected[ 'data' ] );
+		$this->assertArrayNotHasKey( 'continue', $existingData['requestData'] );
+		$this->assertSame( $expected[ 'data' ], $existingData['pageInfoData'] );
 	}
 
 	public function provideTestInvalidResponse() {
