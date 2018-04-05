@@ -132,16 +132,16 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	private function getMockUploadBaseFactory( UploadBase $uploadBase ) {
 		$mock = $this->getMock( UploadBaseFactory::class, [], [], '', false );
 		$mock->method( 'newValidatingUploadBase' )
-			->will( $this->returnValue( $uploadBase ) );
+			->willReturn( $uploadBase );
 		return $mock;
 	}
 
 	private function getMockValidatingUploadBase( $validTitle = true, $validFile = true ) {
 		$mock = $this->getMock( ValidatingUploadBase::class, [], [], '', false );
 		$mock->method( 'validateTitle' )
-			->will( $this->returnValue( $validTitle ) );
+			->willReturn( $validTitle );
 		$mock->method( 'validateFile' )
-			->will( $this->returnValue( $validFile ) );
+			->willReturn( $validFile );
 		return $mock;
 	}
 

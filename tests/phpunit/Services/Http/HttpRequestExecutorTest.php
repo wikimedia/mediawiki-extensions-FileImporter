@@ -46,10 +46,10 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 				$status->fatal( 'SomeFatal' );
 			} else {
 				$request->method( 'getContent' )
-					->will( $this->returnValue( $expectedResult ) );
+					->willReturn( $expectedResult );
 			}
 			$request->method( 'execute' )
-				->will( $this->returnValue( $status ) );
+				->willReturn( $status );
 
 			return $request;
 		};

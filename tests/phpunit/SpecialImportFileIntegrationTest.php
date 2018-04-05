@@ -68,11 +68,11 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	private function getMockSite( $globalId, $domain ) {
 		$mockSite = $this->getMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
-			->will( $this->returnValue( $globalId ) );
+			->willReturn( $globalId );
 		$mockSite->method( 'getDomain' )
-			->will( $this->returnValue( $domain ) );
+			->willReturn( $domain );
 		$mockSite->method( 'getNavigationIds' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 		return $mockSite;
 	}
 

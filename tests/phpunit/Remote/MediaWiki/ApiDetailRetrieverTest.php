@@ -399,7 +399,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	private function getMockHttpApiLookup() {
 		$mock = $this->getMock( HttpApiLookup::class, [], [], '', false );
 		$mock->method( 'getApiUrl' )
-			->will( $this->returnValue( 'APIURL' ) );
+			->willReturn( 'APIURL' );
 		return $mock;
 	}
 
@@ -430,7 +430,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$mock->expects( $this->once() )
 			->method( 'execute' )
 			->with( $expectedRequestString )
-			->will( $this->returnValue( $this->getMockMWHttpRequest( $content ) ) );
+			->willReturn( $this->getMockMWHttpRequest( $content ) );
 		return $mock;
 	}
 
@@ -455,7 +455,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	private function getMockMWHttpRequest( $content ) {
 		$mock = $this->getMock( MWHttpRequest::class, [], [], '', false );
 		$mock->method( 'getContent' )
-			->will( $this->returnValue( $content ) );
+			->willReturn( $content );
 		return $mock;
 	}
 

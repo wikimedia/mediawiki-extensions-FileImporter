@@ -19,7 +19,7 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 			->getMock();
 		$mock->method( 'getField' )
 			->with( 'timestamp' )
-			->will( $this->returnValue( $timestamp ) );
+			->willReturn( $timestamp );
 		return $mock;
 	}
 
