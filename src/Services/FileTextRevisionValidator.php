@@ -5,7 +5,6 @@ namespace FileImporter\Services;
 use Content;
 use DerivativeContext;
 use FauxRequest;
-use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\ValidationException;
 use Hooks;
 use IContextSource;
@@ -39,6 +38,8 @@ class FileTextRevisionValidator {
 	 * @param Content $content
 	 * @param string $summary
 	 * @param bool $minor
+	 *
+	 * @throws ValidationException
 	 */
 	public function validate(
 		Title $title,
@@ -48,7 +49,7 @@ class FileTextRevisionValidator {
 		$minor
 	) {
 		if ( $title->getNamespace() !== NS_FILE ) {
-			throw new ImportException( 'Wrong text revision namespace given.' );
+			throw new ValidationException( 'Wrong text revision namespace given.' );
 		}
 
 		$status = Status::newGood();

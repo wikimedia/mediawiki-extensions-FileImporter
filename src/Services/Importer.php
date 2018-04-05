@@ -5,6 +5,7 @@ namespace FileImporter\Services;
 use Exception;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
+use FileImporter\Exceptions\ValidationException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
 use FileImporter\Exceptions\ImportException;
@@ -251,6 +252,8 @@ class Importer {
 	/**
 	 * @param User $user
 	 * @param ImportPlan $importPlan
+	 *
+	 * @throws ValidationException
 	 */
 	private function validateFileInfoText(
 		User $user,
