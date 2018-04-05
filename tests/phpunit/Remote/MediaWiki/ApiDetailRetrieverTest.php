@@ -23,20 +23,13 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 
 	public function testCheckMaxRevisionAggregatedBytes_setMax() {
 		$this->setMwGlobals( [ 'wgFileImporterMaxAggregatedBytes' => 9 ] );
-		$apiRetriever = new ApiDetailRetriever(
-			$this->getMock( HttpApiLookup::class, [], [], '', false ),
-			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
-			new NullLogger()
-		);
 
-		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+		$apiRetriever = $this->newInstance();
 
 		$this->setExpectedException( get_class(
 			new LocalizedImportException( 'fileimporter-filetoolarge' ) )
 		);
 		$apiRetriever->checkMaxRevisionAggregatedBytes( [ 'imageinfo' => [ [ 'size' => 1000 ] ] ] );
-
-		$this->assertTrue( true );
 	}
 
 	public function provideTestCheckMaxRevisionAggregatedBytes_passes() {
@@ -65,18 +58,12 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideTestCheckMaxRevisionAggregatedBytes_passes
 	 */
-	public function testCheckMaxRevisionAggregatedBytes_passes( $input ) {
-		$apiRetriever = new ApiDetailRetriever(
-			$this->getMock( HttpApiLookup::class, [], [], '', false ),
-			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
-			new NullLogger()
-		);
-
-		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+	public function testCheckMaxRevisionAggregatedBytes_passes( array $input ) {
+		$apiRetriever = $this->newInstance();
 
 		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
 
-		$this->assertTrue( true );
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function provideTestCheckMaxRevisionAggregatedBytes_fails() {
@@ -102,22 +89,14 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideTestCheckMaxRevisionAggregatedBytes_fails
 	 */
-	public function testCheckMaxRevisionAggregatedBytes_fails( $input ) {
-		$apiRetriever = new ApiDetailRetriever(
-			$this->getMock( HttpApiLookup::class, [], [], '', false ),
-			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
-			new NullLogger()
-		);
-
-		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+	public function testCheckMaxRevisionAggregatedBytes_fails( array $input ) {
+		$apiRetriever = $this->newInstance();
 
 		$this->setExpectedException( get_class(
 			new LocalizedImportException( 'fileimporter-filetoolarge' ) )
 		);
 
 		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
-
-		$this->assertTrue( true );
 	}
 
 	public function provideCheckRevisionCount_fails() {
@@ -140,14 +119,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideCheckRevisionCount_fails
 	 */
-	public function testCheckRevisionCount_fails( $input ) {
-		$apiRetriever = new ApiDetailRetriever(
-			$this->getMock( HttpApiLookup::class, [], [], '', false ),
-			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
-			new NullLogger()
-		);
-
-		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+	public function testCheckRevisionCount_fails( array $input ) {
+		$apiRetriever = $this->newInstance();
 
 		$this->setExpectedException( get_class(
 				new LocalizedImportException( 'fileimporter-api-toomanyrevisions' ) )
@@ -158,8 +131,6 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 			"",
 			$input
 		);
-
-		$this->assertTrue( true );
 	}
 
 	public function provideCheckRevisionCount_passes() {
@@ -182,14 +153,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideCheckRevisionCount_passes
 	 */
-	public function testCheckRevisionCount_passes( $input ) {
-		$apiRetriever = new ApiDetailRetriever(
-			$this->getMock( HttpApiLookup::class, [], [], '', false ),
-			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
-			new NullLogger()
-		);
-
-		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+	public function testCheckRevisionCount_passes( array $input ) {
+		$apiRetriever = $this->newInstance();
 
 		$apiRetriever->checkRevisionCount(
 			$this->getMock( SourceUrl::class, [], [], '', false ),
@@ -197,7 +162,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 			$input
 		);
 
-		$this->assertTrue( true );
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function provideGetMoreRevisions_passes() {
@@ -268,9 +233,9 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideGetMoreRevisions_passes
 	 */
-	public function testGetMoreRevisions( $existingData, $apiResponse, $expected ) {
+	public function testGetMoreRevisions( array $existingData, array $apiResponse, array $expected ) {
 		$apiRetriever = new ApiDetailRetriever(
-			$this->getMock( HttpApiLookup::class, [], [], '', false ),
+			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutorWithExpectedRequest(
 				$expected[ 'url' ], json_encode( $apiResponse )
 			),
@@ -312,7 +277,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideTestInvalidResponse
 	 */
-	public function testInvalidResponse( $content, Exception $expected ) {
+	public function testInvalidResponse( array $content, Exception $expected ) {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( 'File:Foo.jpg', json_encode( $content ) ),
@@ -349,6 +314,11 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		];
 	}
 
+	/**
+	 * @param string $titleString
+	 *
+	 * @return array[]
+	 */
 	private function getFullRequestContent( $titleString ) {
 		return [
 			'query' => [
@@ -390,7 +360,12 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideTestValidResponse
 	 */
-	public function testValidResponse( $sourceUrl, $titleString, $content, $expected ) {
+	public function testValidResponse(
+		SourceUrl $sourceUrl,
+		$titleString,
+		$content,
+		array $expected
+	) {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( $titleString, $content ),
@@ -407,25 +382,50 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$this->assertEquals( NS_FILE, $importDetails->getSourceLinkTarget()->getNamespace() );
 	}
 
+	/**
+	 * @return ApiDetailRetriever
+	 */
+	private function newInstance() {
+		return TestingAccessWrapper::newFromObject( new ApiDetailRetriever(
+			$this->getMockHttpApiLookup(),
+			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
+			new NullLogger()
+		) );
+	}
+
+	/**
+	 * @return HttpApiLookup
+	 */
 	private function getMockHttpApiLookup() {
 		$mock = $this->getMock( HttpApiLookup::class, [], [], '', false );
-		$mock->expects( $this->once() )
-			->method( 'getApiUrl' )
+		$mock->method( 'getApiUrl' )
 			->will( $this->returnValue( 'APIURL' ) );
 		return $mock;
 	}
 
+	/**
+	 * @param string $titleString
+	 * @param string $content
+	 *
+	 * @return HttpRequestExecutor
+	 */
 	private function getMockHttpRequestExecutor( $titleString, $content ) {
-		$mock = $this->getMock( HttpRequestExecutor::class, [], [], '', false );
-		$mock->expects( $this->once() )
-			->method( 'execute' )
-			->with( $this->getExpectedExecuteRequestUrl( $titleString ) )
-			->will( $this->returnValue( $this->getMockMWHttpRequest( $content ) ) );
-		return $mock;
+		return $this->getMockHttpRequestExecutorWithExpectedRequest(
+			$this->getExpectedExecuteRequestUrl( $titleString ),
+			$content
+		);
 	}
 
+	/**
+	 * @param string $expectedRequestString
+	 * @param string $content
+	 *
+	 * @return HttpRequestExecutor
+	 */
 	private function getMockHttpRequestExecutorWithExpectedRequest(
-		$expectedRequestString, $content ) {
+		$expectedRequestString,
+		$content
+	) {
 		$mock = $this->getMock( HttpRequestExecutor::class, [], [], '', false );
 		$mock->expects( $this->once() )
 			->method( 'execute' )
@@ -434,6 +434,11 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		return $mock;
 	}
 
+	/**
+	 * @param string $titleString
+	 *
+	 * @return string
+	 */
 	private function getExpectedExecuteRequestUrl( $titleString ) {
 		return 'APIURL?action=query&format=json&titles=' . urlencode( $titleString ) .
 				'&prop=imageinfo%7Crevisions&iilimit=500&iiurlwidth=800&iiurlheight=400'.
@@ -442,6 +447,11 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 				'Ccomment%7Ccontent';
 	}
 
+	/**
+	 * @param string $content
+	 *
+	 * @return MWHttpRequest
+	 */
 	private function getMockMWHttpRequest( $content ) {
 		$mock = $this->getMock( MWHttpRequest::class, [], [], '', false );
 		$mock->method( 'getContent' )
