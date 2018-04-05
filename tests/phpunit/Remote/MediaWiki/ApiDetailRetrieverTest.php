@@ -21,9 +21,16 @@ use Wikimedia\TestingAccessWrapper;
  */
 class ApiDetailRetrieverTest extends MediaWikiTestCase {
 
-	public function testCheckMaxRevisionAggregatedBytes_setMax() {
-		$this->setMwGlobals( [ 'wgFileImporterMaxAggregatedBytes' => 9 ] );
+	protected function setUp() {
+		parent::setUp();
 
+		$this->setMwGlobals( [
+			'wgFileImporterMaxRevisions' => 4,
+			'wgFileImporterMaxAggregatedBytes' => 9,
+		] );
+	}
+
+	public function testCheckMaxRevisionAggregatedBytes_setMax() {
 		$apiRetriever = $this->newInstance();
 
 		$this->setExpectedException( get_class(
@@ -34,23 +41,19 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 
 	public function provideTestCheckMaxRevisionAggregatedBytes_passes() {
 		return [
-			[
+			'one byte' => [
 				[ 'imageinfo' => [ [ 'size' => 1 ] ] ]
 			],
-			[
+			'multiple revisions, exactly at the limit' => [
 				[
 					'imageinfo' => [
-						[
-							'size' => 249999999
-						],
-						[
-							'size' => 1
-						]
+						[ 'size' => 8 ],
+						[ 'size' => 1 ],
 					]
 				]
 			],
-			[
-				[ 'imageinfo' => [ [ 'size' => 250000000 ] ] ]
+			'one revision, exactly at the limit' => [
+				[ 'imageinfo' => [ [ 'size' => 9 ] ] ]
 			],
 		];
 	}
@@ -68,20 +71,16 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 
 	public function provideTestCheckMaxRevisionAggregatedBytes_fails() {
 		return [
-			[
+			'small sizes, to large when added' => [
 				[
 					'imageinfo' => [
-						[
-							'size' => 249999999
-						],
-						[
-							'size' => 2
-						]
+						[ 'size' => 8 ],
+						[ 'size' => 2 ],
 					]
 				]
 			],
-			[
-				[ 'imageinfo' => [ [ 'size' => 250000001 ] ] ]
+			'one large revision' => [
+				[ 'imageinfo' => [ [ 'size' => 10 ] ] ]
 			],
 		];
 	}
@@ -92,25 +91,23 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	public function testCheckMaxRevisionAggregatedBytes_fails( array $input ) {
 		$apiRetriever = $this->newInstance();
 
-		$this->setExpectedException( get_class(
-			new LocalizedImportException( 'fileimporter-filetoolarge' ) )
-		);
+		$this->setExpectedException( LocalizedImportException::class );
 
 		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
 	}
 
 	public function provideCheckRevisionCount_fails() {
 		return [
-			[
+			'to many image revisions' => [
 				[
-					'imageinfo' => array_fill( 0, 110, null ),
-					'revisions' => array_fill( 0, 100, null )
+					'imageinfo' => array_fill( 0, 5, null ),
+					'revisions' => array_fill( 0, 4, null ),
 				]
 			],
-			[
+			'to many text revisions' => [
 				[
-					'imageinfo' => array_fill( 0, 105, null ),
-					'revisions' => array_fill( 0, 105, null )
+					'imageinfo' => array_fill( 0, 4, null ),
+					'revisions' => array_fill( 0, 5, null ),
 				]
 			]
 		];
@@ -135,16 +132,16 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 
 	public function provideCheckRevisionCount_passes() {
 		return [
-			[
+			'no revisions' => [
 				[
-					'imageinfo' => array_fill( 0, 100, null ),
-					'revisions' => array_fill( 0, 100, null )
+					'imageinfo' => [],
+					'revisions' => [],
 				]
 			],
-			[
+			'maximum number of revisions' => [
 				[
-					'imageinfo' => array_fill( 0, 95, null ),
-					'revisions' => array_fill( 0, 10, null )
+					'imageinfo' => array_fill( 0, 4, null ),
+					'revisions' => array_fill( 0, 4, null ),
 				]
 			]
 		];
