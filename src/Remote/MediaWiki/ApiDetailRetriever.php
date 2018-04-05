@@ -59,12 +59,10 @@ class ApiDetailRetriever implements DetailRetriever {
 	const MAXAGGREGATEDBYTES = 250000000;
 
 	/**
-	 * ApiDetailRetriever constructor.
-	 *
 	 * @param HttpApiLookup $httpApiLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param LoggerInterface $logger
-	 * @param int $maxBytes
+	 * @param int|null $maxBytes
 	 *
 	 * @throws ConfigException
 	 */
@@ -112,7 +110,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * @param $apiUrl
+	 * @param string $apiUrl
 	 * @param array $params
 	 *
 	 * @return string
@@ -229,14 +227,18 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * exceeds the max revisions limit
 	 *
 	 * @param SourceUrl $sourceUrl
-	 * @param $apiUrl
-	 * @param $requestData
-	 * @param $pageInfoData
+	 * @param string $apiUrl
+	 * @param array &$requestData
+	 * @param array &$pageInfoData
 	 *
 	 * @throws ImportException
 	 */
-	private function getMoreRevisions( SourceUrl $sourceUrl, $apiUrl, &$requestData,
-										&$pageInfoData ) {
+	private function getMoreRevisions(
+		SourceUrl $sourceUrl,
+		$apiUrl,
+		array &$requestData,
+		array &$pageInfoData
+	) {
 		$rvContinue = array_key_exists( 'rvcontinue', $requestData['continue'] ) ?
 			$requestData['continue']['rvcontinue'] : null;
 
@@ -277,12 +279,12 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * the maximum revision limit
 	 *
 	 * @param SourceUrl $sourceUrl
-	 * @param $requestUrl
-	 * @param $pageInfoData
+	 * @param string $requestUrl
+	 * @param array $pageInfoData
 	 *
 	 * @throws LocalizedImportException
 	 */
-	private function checkRevisionCount( SourceUrl $sourceUrl, $requestUrl, $pageInfoData ) {
+	private function checkRevisionCount( SourceUrl $sourceUrl, $requestUrl, array $pageInfoData ) {
 		if ( count( $pageInfoData['revisions'] ) > $this->maxRevisions ||
 			count( $pageInfoData['imageinfo'] ) > $this->maxRevisions ||
 			count( $pageInfoData['revisions'] ) > static::MAXREVISIONS ||
@@ -433,11 +435,11 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * Adds to params base the properties for getting Text Revisions
 	 *
 	 * @param array $params
-	 * @param null $rvContinue
+	 * @param string|null $rvContinue
 	 *
 	 * @return array
 	 */
-	private function addTextRevisionsToParams( $params, $rvContinue = null ) {
+	private function addTextRevisionsToParams( array $params, $rvContinue = null ) {
 		$params['prop'] .= ( $params['prop'] ) ? "|revisions" : "revisions";
 
 		if ( $rvContinue ) {
@@ -466,11 +468,11 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * Adds to params base the properties for getting File Revisions
 	 *
 	 * @param array $params
-	 * @param null $iiStart
+	 * @param string|null $iiStart
 	 *
 	 * @return array
 	 */
-	private function addFileRevisionsToParams( $params, $iiStart = null ) {
+	private function addFileRevisionsToParams( array $params, $iiStart = null ) {
 		$params['prop'] .= ( $params['prop'] ) ? "|imageinfo" : "imageinfo";
 
 		if ( $iiStart ) {
