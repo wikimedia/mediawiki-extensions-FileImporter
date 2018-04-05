@@ -159,9 +159,50 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 
 	public function provideGetMoreRevisions_passes() {
 		return [
-			[
+			'1st request continues' => [
 				'existingData' => [
-					'sourceUrl' => new SourceUrl( 'http://en.wikipedia.org/wiki/File:Foo.jpg' ),
+					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/Foo' ),
+					'apiUrl' => 'APIURL',
+					'requestData' => [
+						'continue' => []
+					],
+					'pageInfoData' => [
+						'imageinfo' => [],
+						'revisions' => []
+					],
+				],
+				'apiResponse' => [
+					'query' => [
+						'pages' => [
+							[
+								'imageinfo' => [
+									[ 'size' => 1 ],
+								],
+								'revisions' => [
+									[ 'comment' => 'textRev1' ],
+								]
+							]
+						]
+					],
+					'continue' => 'CONTINUE'
+				],
+				'expected' => [
+					'url' => 'APIURL?action=query&format=json&titles=Foo&prop=',
+					'data' => [
+						'imageinfo' => [
+							[ 'size' => 1 ],
+						],
+						'revisions' => [
+							[ 'comment' => 'textRev1' ],
+						]
+					],
+					'continue' => 'CONTINUE'
+				]
+			],
+
+			'2nd request does not continue' => [
+				'existingData' => [
+					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/File:Foo.jpg' ),
 					'apiUrl' => 'APIURL',
 					'requestData' => [
 						'continue' => [
@@ -172,8 +213,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 					],
 					'pageInfoData' => [
 						'imageinfo' => [
-							[ 'comment' => 'imageRev1', 'size' => '0' ],
-							[ 'comment' => 'imageRev2', 'size' => '0' ]
+							[ 'size' => 0 ],
+							[ 'size' => 1 ]
 						],
 						'revisions' => [
 							[ 'comment' => 'textRev1' ],
@@ -186,8 +227,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 						'pages' => [
 							[
 								'imageinfo' => [
-									[ 'comment' => 'imageRev3', 'size' => '0' ],
-									[ 'comment' => 'imageRev4', 'size' => '0' ]
+									[ 'size' => 2 ],
+									[ 'size' => 3 ]
 								],
 								'revisions' => [
 									[ 'comment' => 'textRev3' ],
@@ -205,10 +246,10 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 						'%7Ctimestamp%7Cuser%7Csha1%7Ccontentmodel%7Ccomment%7Ccontent',
 					'data' => [
 						'imageinfo' => [
-							[ 'comment' => 'imageRev1', 'size' => '0' ],
-							[ 'comment' => 'imageRev2', 'size' => '0' ],
-							[ 'comment' => 'imageRev3', 'size' => '0' ],
-							[ 'comment' => 'imageRev4', 'size' => '0' ]
+							[ 'size' => 0 ],
+							[ 'size' => 1 ],
+							[ 'size' => 2 ],
+							[ 'size' => 3 ]
 						],
 						'revisions' => [
 							[ 'comment' => 'textRev1' ],
@@ -216,7 +257,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 							[ 'comment' => 'textRev3' ],
 							[ 'comment' => 'textRev4' ]
 						]
-					]
+					],
+					'continue' => false
 				]
 			]
 		];
@@ -241,15 +283,19 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		call_user_func_array(
 			[ $apiRetriever, 'getMoreRevisions' ],
 			[
-				$existingData[ 'sourceUrl' ],
-				$existingData[ 'apiUrl' ],
-				&$existingData[ 'requestData' ],
-				&$existingData[ 'pageInfoData' ]
+				$existingData['sourceUrl'],
+				$existingData['apiUrl'],
+				&$existingData['requestData'],
+				&$existingData['pageInfoData']
 			]
 		);
 
-		$this->assertArrayNotHasKey( 'continue', $existingData['requestData'] );
-		$this->assertSame( $expected[ 'data' ], $existingData['pageInfoData'] );
+		if ( $expected['continue'] ) {
+			$this->assertSame( $expected['continue'], $existingData['requestData']['continue'] );
+		} else {
+			$this->assertArrayNotHasKey( 'continue', $existingData['requestData'] );
+		}
+		$this->assertSame( $expected['data'], $existingData['pageInfoData'] );
 	}
 
 	public function provideTestInvalidResponse() {
