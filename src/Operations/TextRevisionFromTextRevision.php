@@ -4,7 +4,7 @@ namespace FileImporter\Operations;
 
 use FileImporter\Data\TextRevision;
 use FileImporter\Interfaces\ImportOperation;
-use FileImporter\Services\TextRevisionValidator;
+use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
@@ -54,7 +54,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	private $importer;
 
 	/**
-	 * @var TextRevisionValidator
+	 * @var FileTextRevisionValidator
 	 */
 	private $textRevisionValidator;
 
@@ -64,7 +64,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		TextRevision $textRevision,
 		WikiRevisionFactory $wikiRevisionFactory,
 		OldRevisionImporter $importer,
-		TextRevisionValidator $textRevisionValidator,
+		FileTextRevisionValidator $textRevisionValidator,
 		LoggerInterface $logger
 	) {
 		$this->plannedTitle = $plannedTitle;
