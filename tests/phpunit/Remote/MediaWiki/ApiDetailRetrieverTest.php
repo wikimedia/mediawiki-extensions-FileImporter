@@ -102,7 +102,6 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideTestCheckMaxRevisionAggregatedBytes_fails
 	 */
-
 	public function testCheckMaxRevisionAggregatedBytes_fails( $input ) {
 		$apiRetriever = new ApiDetailRetriever(
 			$this->getMock( HttpApiLookup::class, [], [], '', false ),
@@ -119,6 +118,178 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
 
 		$this->assertTrue( true );
+	}
+
+	public function provideCheckRevisionCount_fails() {
+		return [
+			[
+				[
+					'imageinfo' => array_fill( 0, 110, null ),
+					'revisions' => array_fill( 0, 100, null )
+				]
+			],
+			[
+				[
+					'imageinfo' => array_fill( 0, 105, null ),
+					'revisions' => array_fill( 0, 105, null )
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider provideCheckRevisionCount_fails
+	 */
+	public function testCheckRevisionCount_fails( $input ) {
+		$apiRetriever = new ApiDetailRetriever(
+			$this->getMock( HttpApiLookup::class, [], [], '', false ),
+			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
+			new NullLogger()
+		);
+
+		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+
+		$this->setExpectedException( get_class(
+				new LocalizedImportException( 'fileimporter-api-toomanyrevisions' ) )
+		);
+
+		$apiRetriever->checkRevisionCount(
+			$this->getMock( SourceUrl::class, [], [], '', false ),
+			"",
+			$input
+		);
+
+		$this->assertTrue( true );
+	}
+
+	public function provideCheckRevisionCount_passes() {
+		return [
+			[
+				[
+					'imageinfo' => array_fill( 0, 100, null ),
+					'revisions' => array_fill( 0, 100, null )
+				]
+			],
+			[
+				[
+					'imageinfo' => array_fill( 0, 95, null ),
+					'revisions' => array_fill( 0, 10, null )
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider provideCheckRevisionCount_passes
+	 */
+	public function testCheckRevisionCount_passes( $input ) {
+		$apiRetriever = new ApiDetailRetriever(
+			$this->getMock( HttpApiLookup::class, [], [], '', false ),
+			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
+			new NullLogger()
+		);
+
+		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+
+		$apiRetriever->checkRevisionCount(
+			$this->getMock( SourceUrl::class, [], [], '', false ),
+			"",
+			$input
+		);
+
+		$this->assertTrue( true );
+	}
+
+	public function provideGetMoreRevisions_passes() {
+		return [
+			[
+				'existingData' => [
+					'sourceUrl' => new SourceUrl( 'http://en.wikipedia.org/wiki/File:Foo.jpg' ),
+					'apiUrl' => 'APIURL',
+					'requestData' => [
+						'continue' => [
+							'rvcontinue' => 'rvContinueHere',
+							'iistart' => 'iiStartHere',
+							'continue' => 'revisions||imageinfo'
+						]
+					],
+					'pageInfoData' => [
+						'imageinfo' => [
+							[ 'comment' => 'imageRev1', 'size' => '0' ],
+							[ 'comment' => 'imageRev2', 'size' => '0' ]
+						],
+						'revisions' => [
+							[ 'comment' => 'textRev1' ],
+							[ 'comment' => 'textRev2' ]
+						]
+					]
+				],
+				'apiResponse' => [
+					'query' => [
+						'pages' => [
+							[
+								'imageinfo' => [
+									[ 'comment' => 'imageRev3', 'size' => '0' ],
+									[ 'comment' => 'imageRev4', 'size' => '0' ]
+								],
+								'revisions' => [
+									[ 'comment' => 'textRev3' ],
+									[ 'comment' => 'textRev4' ]
+								]
+							]
+						]
+					]
+				],
+				'expected' => [
+					'url' => 'APIURL?action=query&format=json&titles=File%3AFoo.jpg' .
+						'&prop=imageinfo%7Crevisions&iistart=iiStartHere&iilimit=500&iiurlwidth=800&iiurlheight=400' .
+						'&iiprop=timestamp%7Cuser%7Cuserid%7Ccomment%7Ccanonicaltitle%7Curl%7Csize%7Csha1' .
+						'&rvcontinue=rvContinueHere&rvlimit=500&rvdir=newer&rvprop=flags' .
+						'%7Ctimestamp%7Cuser%7Csha1%7Ccontentmodel%7Ccomment%7Ccontent',
+					'data' => [
+						'imageinfo' => [
+							[ 'comment' => 'imageRev1', 'size' => '0' ],
+							[ 'comment' => 'imageRev2', 'size' => '0' ],
+							[ 'comment' => 'imageRev3', 'size' => '0' ],
+							[ 'comment' => 'imageRev4', 'size' => '0' ]
+						],
+						'revisions' => [
+							[ 'comment' => 'textRev1' ],
+							[ 'comment' => 'textRev2' ],
+							[ 'comment' => 'textRev3' ],
+							[ 'comment' => 'textRev4' ]
+						]
+					]
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider provideGetMoreRevisions_passes
+	 */
+	public function testGetMoreRevisions( $existingData, $apiResponse, $expected ) {
+		$apiRetriever = new ApiDetailRetriever(
+			$this->getMock( HttpApiLookup::class, [], [], '', false ),
+			$this->getMockHttpRequestExecutorWithExpectedRequest(
+				$expected[ 'url' ], json_encode( $apiResponse )
+			),
+			new NullLogger()
+		);
+
+		$apiRetriever = TestingAccessWrapper::newFromObject( $apiRetriever );
+
+		call_user_func_array(
+			[ $apiRetriever, 'getMoreRevisions' ],
+			[
+				$existingData[ 'sourceUrl' ],
+				$existingData[ 'apiUrl' ],
+				&$existingData[ 'requestData' ],
+				&$existingData[ 'pageInfoData' ]
+			]
+		);
+
+		$this->assertArrayEquals( $existingData[ 'pageInfoData' ], $expected[ 'data' ] );
 	}
 
 	public function provideTestInvalidResponse() {
@@ -249,6 +420,16 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$mock->expects( $this->once() )
 			->method( 'execute' )
 			->with( $this->getExpectedExecuteRequestUrl( $titleString ) )
+			->will( $this->returnValue( $this->getMockMWHttpRequest( $content ) ) );
+		return $mock;
+	}
+
+	private function getMockHttpRequestExecutorWithExpectedRequest(
+		$expectedRequestString, $content ) {
+		$mock = $this->getMock( HttpRequestExecutor::class, [], [], '', false );
+		$mock->expects( $this->once() )
+			->method( 'execute' )
+			->with( $expectedRequestString )
 			->will( $this->returnValue( $this->getMockMWHttpRequest( $content ) ) );
 		return $mock;
 	}
