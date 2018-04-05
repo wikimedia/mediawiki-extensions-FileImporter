@@ -2,7 +2,6 @@
 
 namespace FileImporter\Services\Test;
 
-use Exception;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -10,6 +9,7 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\DuplicateFilesException;
+use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
@@ -18,7 +18,6 @@ use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MalformedTitleException;
-use Message;
 use PHPUnit_Framework_MockObject_MockObject;
 use Title;
 use UploadBase;
@@ -273,18 +272,13 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @dataProvider provideValidate
-	 * @param Exception|null $expected
-	 * @param ImportPlan $plan
-	 * @param DuplicateFileRevisionChecker $duplicateChecker
-	 * @param ImportTitleChecker $titleChecker
-	 * @param ValidatingUploadBase|null $validatingUploadBase
 	 */
 	public function testValidate(
-		$expected,
-			$plan,
-			$duplicateChecker,
-			$titleChecker,
-			$validatingUploadBase = null
+		ImportException $expected = null,
+		ImportPlan $plan,
+		DuplicateFileRevisionChecker $duplicateChecker,
+		ImportTitleChecker $titleChecker,
+		ValidatingUploadBase $validatingUploadBase = null
 	) {
 		if ( $validatingUploadBase === null ) {
 			$validatingUploadBase = $this->getMockValidatingUploadBase();
@@ -302,7 +296,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 		$validator->validate( $plan );
 
 		if ( $expected === null ) {
-			$this->assertTrue( true );
+			$this->addToAssertionCount( 1 );
 		}
 	}
 
@@ -315,11 +309,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 
 		$importPlan = new ImportPlan( $mockRequest, $mockDetails );
 
-		$expected = new RecoverableTitleException(
-			new Message( 'fileimporter-filenameerror-automaticchanges', [ 'Before' ] ),
-			$this->getMockImportPlan()
-		);
-		$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
+		$this->setExpectedException( RecoverableTitleException::class, '"Before"' );
 
 		$validator = new ImportPlanValidator(
 			$this->getMockDuplicateFileRevisionChecker( 0, 0 ),

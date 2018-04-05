@@ -9,7 +9,6 @@ use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWikiTestCase;
 use MWHttpRequest;
-use Exception;
 use Psr\Log\NullLogger;
 use Wikimedia\TestingAccessWrapper;
 
@@ -33,9 +32,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	public function testCheckMaxRevisionAggregatedBytes_setMax() {
 		$apiRetriever = $this->newInstance();
 
-		$this->setExpectedException( get_class(
-			new LocalizedImportException( 'fileimporter-filetoolarge' ) )
-		);
+		$this->setExpectedException( LocalizedImportException::class );
 		$apiRetriever->checkMaxRevisionAggregatedBytes( [ 'imageinfo' => [ [ 'size' => 1000 ] ] ] );
 	}
 
@@ -119,9 +116,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	public function testCheckRevisionCount_fails( array $input ) {
 		$apiRetriever = $this->newInstance();
 
-		$this->setExpectedException( get_class(
-				new LocalizedImportException( 'fileimporter-api-toomanyrevisions' ) )
-		);
+		$this->setExpectedException( LocalizedImportException::class );
 
 		$apiRetriever->checkRevisionCount(
 			$this->getMock( SourceUrl::class, [], [], '', false ),
@@ -274,7 +269,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideTestInvalidResponse
 	 */
-	public function testInvalidResponse( array $content, Exception $expected ) {
+	public function testInvalidResponse( array $content, LocalizedImportException $expected ) {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( 'File:Foo.jpg', json_encode( $content ) ),

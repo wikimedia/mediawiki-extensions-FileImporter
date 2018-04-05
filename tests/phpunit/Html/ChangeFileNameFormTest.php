@@ -97,7 +97,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 			) ) )
 		);
 		// Avoid marking as a risky test
-		$this->assertTrue( true );
+		$this->addToAssertionCount( 1 );
 	}
 
 }
