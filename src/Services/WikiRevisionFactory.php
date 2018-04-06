@@ -30,18 +30,17 @@ class WikiRevisionFactory {
 	/**
 	 * @param FileRevision $fileRevision
 	 * @param string $src
-	 * @param bool $isTemp
 	 *
 	 * @return WikiRevision
 	 */
-	public function newFromFileRevision( FileRevision $fileRevision, $src, $isTemp ) {
+	public function newFromFileRevision( FileRevision $fileRevision, $src ) {
 		$revision = $this->getWikiRevision();
 		$revision->setTitle( Title::newFromText(
 			$this->removeNamespaceFromString( $fileRevision->getField( 'name' ) ),
 			NS_FILE )
 		);
 		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
-		$revision->setFileSrc( $src, $isTemp );
+		$revision->setFileSrc( $src, true );
 		$revision->setSha1Base36( $fileRevision->getField( 'sha1' ) );
 		$revision->setUsername( $fileRevision->getField( 'user' ) );
 		$revision->setComment( $fileRevision->getField( 'description' ) );
