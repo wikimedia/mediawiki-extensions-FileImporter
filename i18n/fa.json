@@ -3,7 +3,8 @@
 		"authors": [
 			"Arash.pt",
 			"Reza1615",
-			"Ladsgroup"
+			"Ladsgroup",
+			"Arash"
 		]
 	},
 	"fileimporter": "درون‌ریز پرونده",
@@ -19,6 +20,7 @@
 	"fileimporter-cantimporturl": "امکان درون‌ریزی نشانی اینترنتی داده شده نیست.",
 	"fileimporter-cantimportfromsharedrepo": "امکان درون‌ریزی از یک مخزن مشترک وجود ندارد",
 	"fileimporter-cantimportmissingfile": "نمی‌توان یک پرونده ناموجود را درون‌ریزی کرد",
+	"fileimporter-cantimportfilehidden": "نمی‌توان فایل را درون‌ریزی کرد، به این دلیل که دستِ‌کم یکی از تجدید نظرهای فایل شامل فایلی متوقف‌شده است.",
 	"fileimporter-badtoken": "بلیط‌های CSRF یکی نیست",
 	"fileimporter-filenameerror-default": "یک مشکل ناشناخته با نام پرونده شما وجود دارد.",
 	"fileimporter-filenameerror-toolong": "نام پرونده‌ای که می‌خواهید درون‌ریزی کنید بیش از حد بلند است.",
