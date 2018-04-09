@@ -130,8 +130,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 		$this->wikiRevision = $this->wikiRevisionFactory->newFromFileRevision(
 			$this->fileRevision,
-			$tmpFile->getPath(),
-			true
+			$tmpFile->getPath()
 		);
 
 		$this->wikiRevision->setTitle( $this->plannedTitle );
