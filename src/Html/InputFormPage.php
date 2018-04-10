@@ -2,6 +2,7 @@
 
 namespace FileImporter\Html;
 
+use EditPage;
 use Html;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
@@ -26,6 +27,7 @@ class InputFormPage extends SpecialPageHtmlFragment {
 					'method' => 'POST',
 				]
 			) .
+			Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK ) .
 			( new HelpBanner( $this ) )->getHtml() .
 			new TextInputWidget(
 				[

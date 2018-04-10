@@ -2,6 +2,7 @@
 
 namespace FileImporter\Html;
 
+use EditPage;
 use ExtensionRegistry;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Services\CategoryExtractor;
@@ -58,6 +59,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'method' => 'POST',
 			]
 		) .
+		Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK ) .
 		( new HelpBanner( $this ) )->getHtml() .
 		Html::rawElement( 'p', [], $this->msg( 'fileimporter-previewnote' )->parse() ) .
 		Html::rawElement(

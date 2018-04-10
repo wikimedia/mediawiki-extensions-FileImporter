@@ -3,6 +3,7 @@
 namespace FileImporter;
 
 use Config;
+use EditPage;
 use ErrorPageError;
 use Exception;
 use FileImporter\Data\ImportPlan;
@@ -116,11 +117,16 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * Checks based on those in SpecialUpload
+	 * Checks based on those in EditPage and SpecialUpload
 	 *
 	 * @throws ErrorPageError when one of the checks failed
 	 */
 	private function executeStandardChecks() {
+		$unicodeCheck = $this->getRequest()->getText( 'wpUnicodeCheck' );
+		if ( $unicodeCheck && $unicodeCheck !== EditPage::UNICODE_CHECK ) {
+			throw new ErrorPageError( 'errorpagetitle', 'unicode-support-fail' );
+		}
+
 		# Check uploading enabled
 		if ( !UploadBase::isEnabled() ) {
 			$this->logErrorStats( self::ERROR_UPLOAD_DISABLED, false );

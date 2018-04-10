@@ -77,13 +77,6 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 		$class = 'mw-editfont-' . $userOptionsLookup->getOption( $this->getUser(), 'editfont' );
 		$pageLang = $this->getLanguage();
 
-		/**
-		 * The below could be turned on with refactoring @ https://gerrit.wikimedia.org/r/#/c/373867/
-		 * But a patch also exists to remove this code https://gerrit.wikimedia.org/r/#/c/138840/
-		 */
-		// if ( !$this->isUnicodeCompliantBrowser() ) {
-		// $wikitext = StringUtils::makeSafeForUtf8Editing( $wikitext );
-		// }
 		$wikitext = $this->addNewLineAtEnd( $wikitext );
 
 		$attributes = [
