@@ -102,7 +102,7 @@
 	"ResourceModules": {
 		"ext.FileImporter.Special": {
 			"styles": [
-				"modules/ext.FileImporter.Special.css"
+				"modules/ext.FileImporter.Special.less"
 			]
 		}
 	},

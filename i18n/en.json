@@ -7,7 +7,6 @@
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Easy importing of files from other sites",
 	"fileimporter-specialpage": "Import file",
-	"fileimporter-specialpage-successtitle": "Import succeeded",
 	"fileimporter-importfailed": "Import failed",
 	"fileimporter-api-badinfo": "Bad image or revision info returned by the API.",
 	"fileimporter-api-failedtogetinfo": "Failed to retrieve file information from: $1",
@@ -39,7 +38,6 @@
 	"fileimporter-resubmit": "Resubmit",
 	"fileimporter-import": "Import",
 	"fileimporter-cancel": "Cancel",
-	"fileimporter-imported": "<strong>\"$1\" has been imported to \"$2\"</strong>",
 	"fileimporter-edittitle": "Edit Title",
 	"fileimporter-editinfo": "Edit File Info",
 	"fileimporter-extensionlabel": "File extension:",
@@ -55,5 +53,8 @@
 	"fileimporter-in-beta": "File import is in beta mode: We tested it carefully but it still might have some problems. If you encounter problems, please [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter report them on our help page] - ideally with a step by step way to reproduce the problem, so we can understand and fix it.",
 	"fileimporter-filemissinginrevision": "Can't import file because at least one of its revisions is missing an image file.",
 	"fileimporter-filetoolarge": "The file you are currently trying to import exceeds the maximum file size limit.",
-	"fileimporter-import-wait": "The import may take a few minutes."
+	"fileimporter-import-wait": "The import may take a few minutes.",
+	"fileimporter-imported-success-banner": "This file has been successfully imported to $1. Click the following link to view the file: $2",
+	"fileimporter-imported-change-template": "We kindly ask that you return to the original file and do the following:<br/>1) Remove any template suggesting that this file should be copied to $1.<br/>2) Add a template declaring that this file is now available on $1.<br/>Thank you very much!",
+	"fileimporter-add-template-button": "Return to original file"
 }
