@@ -58,7 +58,7 @@
 	"fileimporter-filemissinginrevision": "Error message shown when the file contains at least one revision with a missing image file.",
 	"fileimporter-filetoolarge": "Text shown when a user tries to upload a file (or file revision) which exceeds the maximum file size limit.",
 	"fileimporter-import-wait": "Text shown during the file preview informing the user that the import may take a few minutes.",
-	"fileimporter-imported-success-banner": "Text shown when an import was completed successfully which includes a link to the file's new location.\n\nParameters:\n* $1 - Name of the local project.\n* $2 - Internal link to the file info page of the imported file.",
-	"fileimporter-imported-change-template": "Text shown on the success screen asking the user to go back and replace the old \"commons ready\" template with a \"now on commons\" template.\n\nParameters:\n* $1 - Name of the local project.",
+	"fileimporter-imported-success-banner": "Text shown when an import was completed successfully which includes a link to the file's new location.\n\nParameters:\n* $1 - Internal link to the file info page of the imported file.",
+	"fileimporter-imported-change-template": "Text shown on the success screen asking the user to go back and replace the old \"commons ready\" template with a \"now on commons\" template.",
 	"fileimporter-add-template-button": "Text for the button on the success screen requesting that the user changes the template. The button links back to the original file."
 }

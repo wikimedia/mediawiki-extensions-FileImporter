@@ -54,7 +54,7 @@
 	"fileimporter-filemissinginrevision": "Can't import file because at least one of its revisions is missing an image file.",
 	"fileimporter-filetoolarge": "The file you are currently trying to import exceeds the maximum file size limit.",
 	"fileimporter-import-wait": "The import may take a few minutes.",
-	"fileimporter-imported-success-banner": "This file has been successfully imported to $1. Click the following link to view the file: $2",
-	"fileimporter-imported-change-template": "We kindly ask that you return to the original file and do the following:<br/>1) Remove any template suggesting that this file should be copied to $1.<br/>2) Add a template declaring that this file is now available on $1.<br/>Thank you very much!",
+	"fileimporter-imported-success-banner": "This file has been successfully imported to {{SITENAME}}. Click the following link to view the file: $1",
+	"fileimporter-imported-change-template": "We kindly ask that you return to the original file and do the following:\n# Remove any template suggesting that this file should be copied to {{SITENAME}}.\n# Add a template declaring that this file is now available on {{SITENAME}}.\nThank you very much!",
 	"fileimporter-add-template-button": "Return to original file"
 }
