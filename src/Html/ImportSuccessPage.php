@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
-use MediaWiki\MediaWikiServices;
 use OOUI\ButtonWidget;
 use Html;
 use Message;
@@ -46,31 +45,24 @@ class ImportSuccessPage {
 	 * @return string
 	 */
 	public function getHtml() {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$siteName = $config->get( 'Sitename' );
-
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-success-banner successbox' ],
 			( new Message(
 				'fileimporter-imported-success-banner',
 				[
-					$siteName,
 					Html::element(
 						'a',
 						[ 'href' => $this->importTitle->getInternalURL() ],
 						$this->importTitle->getPrefixedText()
 					)
 				]
-			) )->plain()
+			) )->text()
 		) .
 		Html::rawElement(
 			'p',
 			[],
-			( new Message(
-				'fileimporter-imported-change-template',
-				[ $siteName ]
-			) )->plain()
+			( new Message( 'fileimporter-imported-change-template' ) )->parse()
 		) .
 		new ButtonWidget(
 			[
