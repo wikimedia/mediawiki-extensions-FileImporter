@@ -11,8 +11,6 @@ use MessageSpecifier;
  *
  * @license GPL-2.0-or-later
  * @author Addshore
- *
- * @codeCoverageIgnore
  */
 class RecoverableTitleException extends TitleException {
 
