@@ -1,3 +1,5 @@
+@import 'mediawiki.ui/variables';
+
 .mw-fileimporter-url-text {
 	margin-bottom: 14px;
 }
@@ -11,21 +13,21 @@
 }
 
 .mw-importfile-parsedContent {
-	background-color: #f8f9fa;
-	border: 1px solid #c8ccd1;
+	background-color: @colorGray15;
+	border: 1px solid @colorGray12;
 	padding: 1em 1em 1.5em 1em;
 }
 
 .mw-importfile-importOptions {
-	background-color: #f8f9fa;
-	border: 1px solid #c8ccd1;
+	background-color: @colorGray15;
+	border: 1px solid @colorGray12;
 	padding: 1em 1em 1.5em 1em;
 }
 
 .mw-importfile-header {
 	margin: 1em 0 0.25em 0;
 	padding-bottom: 0.2em;
-	border-bottom: 1px solid #a2a9b1;
+	border-bottom: 1px solid @colorGray10;
 	overflow: auto;
 	position: relative;
 }
@@ -50,7 +52,7 @@
 
 .mw-importfile-error-banner.errorbox {
 	display: block;
-	border: 1px solid #d33;
+	border: 1px solid @colorDestructive;
 }
 
 .mw-importfile-success-banner.successbox {
