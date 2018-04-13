@@ -9,7 +9,6 @@
 	"fileimporter": "מייבא קבצים",
 	"fileimporter-desc": "ייבוא קל של קבצים מאתרים אחרים",
 	"fileimporter-specialpage": "ייבוא קובץ",
-	"fileimporter-specialpage-successtitle": "הייבוא הצליח",
 	"fileimporter-importfailed": "הייבוא נכשל",
 	"fileimporter-api-badinfo": "מידע גרוע על תמונה או על גרסה הוחזר על־ידי ה־API.",
 	"fileimporter-api-failedtogetinfo": "נכשל אחזור נותני קובץ מ־: $1",
@@ -40,7 +39,6 @@
 	"fileimporter-resubmit": "שליחה חוזרת",
 	"fileimporter-import": "ייבוא",
 	"fileimporter-cancel": "ביטול",
-	"fileimporter-imported": "<strong>הדף \"$1\" יובא לשם \"$2\"</strong>",
 	"fileimporter-edittitle": "עריכת כותרת",
 	"fileimporter-editinfo": "עריכת מידע על הקובץ",
 	"fileimporter-extensionlabel": "סיומת קובץ:",
@@ -56,5 +54,8 @@
 	"fileimporter-in-beta": "ייבוא הקבצים במצב בטא: אנחנו בדקנו אותו בתשומת לב, אבל ייתכן שעדיין יש בו בעיות מסוימות. אם מצאת בעיות, אנא [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter דווחו אותן בדף העזרה שלנו], ויהיה מושלם אם תספקו צעדים לשחזור הבעיה, כדי שנוכל להבין ולתקן אותה.",
 	"fileimporter-filemissinginrevision": "לא ניתן לייבא את הקובץ כי לפחות לאחת מהגרסאות שלו חסר קובץ תמונה.",
 	"fileimporter-filetoolarge": "הקובץ שניסית לייבא חורג ממגבלת גודל הקובץ.",
-	"fileimporter-import-wait": "הייבוא עשוי לקחת מספר דקות."
+	"fileimporter-import-wait": "הייבוא עשוי לקחת מספר דקות.",
+	"fileimporter-imported-success-banner": "קובץ זה יובא בהצלחה ל{{GRAMMAR:תחילית|{{SITENAME}}}}. ניתן להציג את הקובץ באמצעות לחיצה על הקישור הבא: $1",
+	"fileimporter-imported-change-template": "אנו מבקשים ממך לחזור לקובץ המקורי ולעשות את הדברים הבאים:\n# להסיר כל תבנית שמציעה להעתיק את הקובץ הזה ל{{GRAMMAR:תחילית|{{SITENAME}}}}.\n# להוסיף תבנית המודיעה שהקובץ הזה זמין עכשיו ב{{GRAMMAR:תחילית|{{SITENAME}}}}.\nתודה רבה!",
+	"fileimporter-add-template-button": "חזרה לקובץ המקורי"
 }

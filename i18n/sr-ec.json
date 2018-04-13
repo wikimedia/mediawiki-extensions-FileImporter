@@ -4,7 +4,6 @@
 			"Obsuser"
 		]
 	},
-	"fileimporter-specialpage-successtitle": "Увоз успешан",
 	"fileimporter-importfailed": "Увоз неуспешан",
 	"fileimporter-api-badinfo": "Лоша слика или опис измене враћен API-јем.",
 	"fileimporter-api-failedtogetinfo": "Неуспешно узимање информација о датотеци из: $1",
@@ -21,7 +20,6 @@
 	"fileimporter-textrevisions": "$1 {{PLURAL:$1|измена|измене|измена}} датотеке ће да {{PLURAL:$1|буде увезена|буду увезене|буде увезено}}.",
 	"fileimporter-resubmit": "Поново пошаљи",
 	"fileimporter-cancel": "Откажи",
-	"fileimporter-imported": "<strong>Страница „$1” је увезена на наслов „$2”</strong>",
 	"fileimporter-edittitle": "Уреди наслов",
 	"fileimporter-editinfo": "Уреди Опис датотеке",
 	"fileimporter-editsummary": "Опис измене:",

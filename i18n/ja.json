@@ -8,7 +8,6 @@
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "他のサイトからファイルを容易にインポートする",
 	"fileimporter-specialpage": "ファイルのインポート",
-	"fileimporter-specialpage-successtitle": "インポートしました",
 	"fileimporter-importfailed": "インポートに失敗しました",
 	"fileimporter-api-badinfo": "画像または版情報が正しくありません。",
 	"fileimporter-cantparseurl": "指定された URL: $1 を解析できません",

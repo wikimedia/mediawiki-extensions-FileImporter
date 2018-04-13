@@ -7,7 +7,6 @@
 	"fileimporter": "Dateiimporteur",
 	"fileimporter-desc": "Einfaches Importieren von Dateien von anderen Websites",
 	"fileimporter-specialpage": "Datei importieren",
-	"fileimporter-specialpage-successtitle": "Import erfolgreich",
 	"fileimporter-importfailed": "Import fehlgeschlagen",
 	"fileimporter-api-badinfo": "Von der API wurde ein ungültiges Bild oder ungültige Versionsinformationen zurückgegeben.",
 	"fileimporter-api-failedtogetinfo": "Die Dateiinformationen von $1 konnten nicht abgerufen werden.",
@@ -39,7 +38,6 @@
 	"fileimporter-resubmit": "Erneut senden",
 	"fileimporter-import": "Importieren",
 	"fileimporter-cancel": "Abbrechen",
-	"fileimporter-imported": "<strong>„$1“ wurde nach „$2“ importiert</strong>",
 	"fileimporter-edittitle": "Titel bearbeiten",
 	"fileimporter-editinfo": "Dateiinfo bearbeiten",
 	"fileimporter-extensionlabel": "Dateierweiterung:",
@@ -55,5 +53,8 @@
 	"fileimporter-in-beta": "Der Dateiimport befindet sich im Betamodus: Wir haben ihn ausführlich getestet, er könnte jedoch noch einige Probleme haben. Falls du Probleme bemerkst, [//www.mediawiki.org/wiki/Extension_talk:FileImporter melde sie bitte auf unserer Hilfeseite] – im Idealfall mit einer Schritt-für-Schritt-Anleitung, um das Problem zu reproduzieren, so dass wir ihn verstehen und beheben können.",
 	"fileimporter-filemissinginrevision": "Die Datei konnte nicht importiert werden, da bei einer oder mehreren Versionen das dazugehörige Bild fehlt.",
 	"fileimporter-filetoolarge": "Die Datei, die du derzeit versuchst zu importieren, überschreitet die maximale Dateigröße.",
-	"fileimporter-import-wait": "Der Import kann einige Minuten in Anspruch nehmen."
+	"fileimporter-import-wait": "Der Import kann einige Minuten in Anspruch nehmen.",
+	"fileimporter-imported-success-banner": "Diese Datei wurde erfolgreich in {{SITENAME}} importiert. Klicke auf den folgenden Link, um die Datei anzusehen: $1",
+	"fileimporter-imported-change-template": "Wir bitten dich, dass du zur Originaldatei zurückkehrst und das Folgende unternimmst:\n# Entferne alle Vorlagen, die vorschlagen, dass diese Datei nach {{SITENAME}} kopiert werden soll.\n# Ergänze eine Vorlage, die erklärt, dass diese Datei jetzt auf {{SITENAME}} verfügbar ist.\nVielen Dank!",
+	"fileimporter-add-template-button": "Zurück zur Originaldatei"
 }

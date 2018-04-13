@@ -7,7 +7,6 @@
 	"fileimporter": "Увезувач на податотеки",
 	"fileimporter-desc": "Лесен увоз на податотеки од други места",
 	"fileimporter-specialpage": "Увези податотека",
-	"fileimporter-specialpage-successtitle": "Увозот успеа",
 	"fileimporter-importfailed": "Увозот не успеа",
 	"fileimporter-api-badinfo": "Извршникот даде неправилни информации за слиакта или преработката.",
 	"fileimporter-api-failedtogetinfo": "Не успеав да преземам податотечни информации од: $1",
@@ -39,7 +38,6 @@
 	"fileimporter-resubmit": "Поднеси пак",
 	"fileimporter-import": "Увези",
 	"fileimporter-cancel": "Откажи",
-	"fileimporter-imported": "<strong>„$1“ е увезен во „$2“</strong>",
 	"fileimporter-edittitle": "Уреди наслов",
 	"fileimporter-editinfo": "Уреди инфо за податотеката",
 	"fileimporter-extensionlabel": "Податотечна наставка:",
@@ -55,5 +53,8 @@
 	"fileimporter-in-beta": "Увозот на податотеки е во бета-режим: Внимателно ги направивме сите проби, но сепак може да има некои проблеми. Ако наидете на проблеми, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter пријавете ги на помошната страница] — по можност со секоја од постапките што го предизвикале проблемот, за да можеме да увидиме за што точно се работи и да го исправиме.",
 	"fileimporter-filemissinginrevision": "Не можам да ја увезам податотеката бидејќи барем една од нејзините преработки нема слика.",
 	"fileimporter-filetoolarge": "Податотеката што сакате да ја извезете ја надминува величинската граница.",
-	"fileimporter-import-wait": "Увозот може да потрае неколку минути."
+	"fileimporter-import-wait": "Увозот може да потрае неколку минути.",
+	"fileimporter-imported-success-banner": "Податотеката е успешно увезена во {{SITENAME}}. Можете да ја видите на следнава врска: $1",
+	"fileimporter-imported-change-template": "Би ве замолиле да се вратите на изворната податотека и да го направите следново:\n# Остранете го шаблонот кој вели дека податотеката треба да се прекопира на {{SITENAME}}.\n# Ставете шаблон кој кажува дека податотеката сега е достапна на {{SITENAME}}.\nВи благодариме!",
+	"fileimporter-add-template-button": "Назад на изворната податотека"
 }

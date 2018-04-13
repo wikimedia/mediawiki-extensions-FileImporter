@@ -4,13 +4,11 @@
 			"Eitvys200"
 		]
 	},
-	"fileimporter-specialpage-successtitle": "Importuota sėkmingai",
 	"fileimporter-illegalfilenamechars": "Pavadinimas, kurį bandote importuoti, turi negalimų simbolių failo pavadinime.",
 	"fileimporter-duplicatefilesdetected": "Failas, kurį bandote importuoti, jau egzistuoja šioje viki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dublikatai",
 	"fileimporter-resubmit": "Siųsti iš naujo",
 	"fileimporter-cancel": "Atšaukti",
-	"fileimporter-imported": "<strong>„$1“ buvo importuotas į „$2“</strong>",
 	"fileimporter-edittitle": "Redaguoti Pavadinimą",
 	"fileimporter-editinfo": "Redaguoti Failo Informaciją",
 	"fileimporter-extensionlabel": "Failo plėtinis:",

@@ -10,7 +10,6 @@
 	"fileimporter": "درون‌ریز پرونده",
 	"fileimporter-desc": "درون‌ریزی آسان پرونده از دیگر وب‌گاه‌ها",
 	"fileimporter-specialpage": "درون‌ریزی پرونده",
-	"fileimporter-specialpage-successtitle": "درون‌ریزی با موفقیت انجام شد",
 	"fileimporter-importfailed": "درون‌ریزی ناموفق بود",
 	"fileimporter-api-badinfo": "API اطلاعات بد یا تصویر بد برگرداند",
 	"fileimporter-api-failedtogetinfo": "خطا در دریافت اطلاعات پرونده از: $1",

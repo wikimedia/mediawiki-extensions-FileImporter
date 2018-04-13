@@ -9,7 +9,6 @@
 	},
 	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
 	"fileimporter-specialpage": "Импортировать файл",
-	"fileimporter-specialpage-successtitle": "Импорт выполнен успешно",
 	"fileimporter-importfailed": "Ошибка импортирования",
 	"fileimporter-api-failedtogetinfo": "Не удалось получить информацию о файле из: $1",
 	"fileimporter-cantimporturl": "Невозможно импортировать данный URL-адрес",

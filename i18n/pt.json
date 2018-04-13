@@ -8,7 +8,6 @@
 	"fileimporter": "Importador de ficheiros",
 	"fileimporter-desc": "Importação fácil de ficheiros de outros sítios",
 	"fileimporter-specialpage": "Importar ficheiro",
-	"fileimporter-specialpage-successtitle": "Importação terminada",
 	"fileimporter-importfailed": "A importação falhou",
 	"fileimporter-api-badinfo": "A API devolveu informação incorreta da imagem ou revisão.",
 	"fileimporter-api-failedtogetinfo": "Não foi possível obter informação do ficheiro de: $1",
@@ -40,7 +39,6 @@
 	"fileimporter-resubmit": "Voltar a enviar",
 	"fileimporter-import": "Importar",
 	"fileimporter-cancel": "Cancelar",
-	"fileimporter-imported": "<strong>\"$1\" foi importado para \"$2\"</strong>",
 	"fileimporter-edittitle": "Editar título",
 	"fileimporter-editinfo": "Editar informação do ficheiro",
 	"fileimporter-extensionlabel": "Extensão do ficheiro:",
@@ -56,5 +54,8 @@
 	"fileimporter-in-beta": "A importação de ficheiros está em modo beta: foi cuidadosamente testada mas ainda pode conter defeitos. Se encontrar problemas, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter reporte-os na nossa página de ajuda] - idealmente, com a descrição dos passos necessários para reproduzir o problema, para podermos compreendê-lo e resolvê-lo.",
 	"fileimporter-filemissinginrevision": "Não é possível importar o ficheiro porque pelo menos uma das suas revisões não contém um ficheiro de imagem.",
 	"fileimporter-filetoolarge": "O ficheiro que está a tentar importar excede o limite do tamanho máximo de um ficheiro.",
-	"fileimporter-import-wait": "A importação pode demorar alguns minutos."
+	"fileimporter-import-wait": "A importação pode demorar alguns minutos.",
+	"fileimporter-imported-success-banner": "O ficheiro foi importado para a wiki {{SITENAME}}. Para vê-lo, clique a seguinte hiperligação: $1",
+	"fileimporter-imported-change-template": "Volte ao ficheiro original e faça o seguinte, por favor:\n# Remova todas as predefinições que sugerem que este ficheiro deve ser copiado para a wiki {{SITENAME}}.\n# Adicione uma predefinição que declare que este ficheiro está agora disponível na wiki {{SITENAME}}.\nMuito obrigado!",
+	"fileimporter-add-template-button": "Voltar ao ficheiro original"
 }
