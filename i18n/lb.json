@@ -30,5 +30,6 @@
 	"fileimporter-editsummary-placeholder": "Nëmme benotzt wann Dir beim Import Ännerunge maacht.",
 	"fileimporter-heading-fileinfo": "Informatioun vum Fichier",
 	"fileimporter-heading-filehistory": "Versiounen",
-	"fileimporter-import-wait": "Den Import kann e puer Minutten daueren."
+	"fileimporter-import-wait": "Den Import kann e puer Minutten daueren.",
+	"fileimporter-add-template-button": "Zréck op den Originalfichier"
 }

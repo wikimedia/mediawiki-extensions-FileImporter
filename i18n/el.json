@@ -6,5 +6,7 @@
 		]
 	},
 	"fileimporter-duplicatefilesdetected-prefix": "Διπλότυπα",
-	"fileimporter-import-wait": "Η εισαγωγή μπορεί να πάρει λίγα λεπτά."
+	"fileimporter-import-wait": "Η εισαγωγή μπορεί να πάρει λίγα λεπτά.",
+	"fileimporter-imported-success-banner": "Το αρχείο έχει εισαχθεί επιτυχώς στο {{SITENAME}}. Κάντε κλικ στον ακόλουθο σύνδεσμο για να δείτε το αρχείο: $1",
+	"fileimporter-add-template-button": "Επιστροφή στο αρχικό αρχείο"
 }
