@@ -6,6 +6,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\SourceUrlException;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
+use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Services\SourceSiteLocator
@@ -14,6 +15,7 @@ use FileImporter\Services\SourceSiteLocator;
  * @author Thiemo Kreuz
  */
 class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function testNoSitesGiven() {
 		$url = new SourceUrl( '//wikimedia.de' );

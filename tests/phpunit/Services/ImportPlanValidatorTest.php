@@ -18,6 +18,7 @@ use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MalformedTitleException;
+use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_MockObject;
 use Title;
 use UploadBase;
@@ -29,6 +30,7 @@ use UploadBase;
  * @author Addshore
  */
 class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @param int $callCount
@@ -205,8 +207,8 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 					$this->getMockTitle( 'FinalName.JPG', false ),
 					$this->getMockTitle( 'SourceName.PNG', false )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
-				$this->getMockImportTitleChecker( 1, true )
+				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
+				$this->getMockImportTitleChecker( 0, true )
 			],
 			'Invalid, No Extension on planned name' => [
 				new TitleException( 'fileimporter-filenameerror-noplannedextension' ),

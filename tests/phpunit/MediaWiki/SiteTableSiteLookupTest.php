@@ -5,6 +5,7 @@ namespace FileImporter\MediaWiki\Test;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use HashSiteStore;
 use MediaWikiSite;
+use PHPUnit4And6Compat;
 use Site;
 
 /**
@@ -14,6 +15,7 @@ use Site;
  * @author Addshore
  */
 class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	private function getSite( $globalId, $domain ) {
 		$mockSite = $this->getMock( Site::class );

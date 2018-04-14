@@ -5,6 +5,7 @@ namespace FileImporter\Services\Http\Test;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MWHttpRequest;
+use PHPUnit4And6Compat;
 use Psr\Log\LoggerInterface;
 use Status;
 
@@ -16,6 +17,7 @@ use Status;
  * @author Addshore
  */
 class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function provideTestExecute() {
 		return [
