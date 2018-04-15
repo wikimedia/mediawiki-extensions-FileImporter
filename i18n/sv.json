@@ -54,5 +54,6 @@
 	"fileimporter-in-beta": "Filimporteraren är i betaläge: Vi har testat den noggrant men den kanske fortfarande har några problem. Om du stöter på problem, var god [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter rapportera dem på vår hjälpsida] - ideellt med beskrivning som steg för steg beskriver hur man återger problemet, så vi kan förstå och åtgärda det.",
 	"fileimporter-filemissinginrevision": "Kan inte importera fil eftersom minst en av dess sidversioner saknar en bildfil.",
 	"fileimporter-filetoolarge": "Filen du försöker importera överstrider gränsen för maximal filstorlek.",
-	"fileimporter-import-wait": "Importeringen kan ta några minuter."
+	"fileimporter-import-wait": "Importeringen kan ta några minuter.",
+	"fileimporter-add-template-button": "Återvänd till originalfilen"
 }
