@@ -22,10 +22,10 @@ class LocalizedImportExceptionTest extends MediaWikiTestCase {
 	}
 
 	public function testGetMessageObject() {
-		$ex = new LocalizedImportException( 'fileimporter-filetoolarge' );
+		$ex = new LocalizedImportException( [ 'fileimporter-filetoolarge', 1 ] );
 
-		$expectedMessage = new Message( 'fileimporter-filetoolarge', [], Language::factory( 'en' ) );
-		$this->assertSame( $expectedMessage->plain(), $ex->getMessage() );
+		$expectedMessage = new Message( 'fileimporter-filetoolarge', [ 1 ], Language::factory( 'en' ) );
+		$this->assertSame( $expectedMessage->text(), $ex->getMessage() );
 		$this->assertSame( 'qqx', $ex->getMessageObject()->getLanguage()->getCode() );
 	}
 

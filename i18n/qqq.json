@@ -56,7 +56,7 @@
 	"fileimporter-revision-removed-comment": "Text inserted as a revision comment if the original comment is suppressed.",
 	"fileimporter-in-beta": "Text shown when the special page is loaded warning the user that the extension is in beta.",
 	"fileimporter-filemissinginrevision": "Error message shown when the file contains at least one revision with a missing image file.",
-	"fileimporter-filetoolarge": "Text shown when a user tries to upload a file (or file revision) which exceeds the maximum file size limit.",
+	"fileimporter-filetoolarge": "Text shown when a user tries to import a file with a history of one or more file versions that exceed the maximum file size limit.\n\nParameters:\n* $1 - Number of file revisions to be imported.",
 	"fileimporter-import-wait": "Text shown during the file preview informing the user that the import may take a few minutes.",
 	"fileimporter-imported-success-banner": "Text shown when an import was completed successfully which includes a link to the file's new location.\n\nParameters:\n* $1 - Internal link to the file info page of the imported file.",
 	"fileimporter-imported-change-template": "Text shown on the success screen asking the user to go back and replace the old \"commons ready\" template with a \"now on commons\" template.",
