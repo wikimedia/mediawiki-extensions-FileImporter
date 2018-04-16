@@ -38,7 +38,7 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 	 * @return SpecialPage
 	 */
 	private function getMockSpecialPage() {
-		$mock = $this->getMock( SpecialPage::class, [], [], '', false );
+		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( 'SomeTitle' ) );
 		$mock->method( 'getContext' )
@@ -46,11 +46,11 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 		$mock->method( 'getRequest' )
 			->willReturn( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) );
 		$mock->method( 'getOutput' )
-			->willReturn( $this->getMock( OutputPage::class, [], [], '', false ) );
+			->willReturn( $this->createMock( OutputPage::class ) );
 		$mock->method( 'getUser' )
-			->willReturn( $this->getMock( User::class, [], [], '', false ) );
+			->willReturn( $this->createMock( User::class ) );
 		$mock->method( 'getLanguage' )
-			->willReturn( $this->getMock( Language::class, [], [], '', false ) );
+			->willReturn( $this->createMock( Language::class ) );
 		return $mock;
 	}
 
@@ -58,7 +58,7 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 	 * @return ImportDetails
 	 */
 	private function getMockImportDetails() {
-		$mock = $this->getMock( ImportDetails::class, [], [], '', false );
+		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions() );
 		return $mock;
@@ -68,7 +68,7 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 	 * @return TextRevisions
 	 */
 	private function getMockTextRevisions() {
-		$mock = $this->getMock( TextRevisions::class, [], [], '', false );
+		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $this->getMockTextRevision() );
 		return $mock;
@@ -78,7 +78,7 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 	 * @return TextRevision
 	 */
 	private function getMockTextRevision() {
-		$mock = $this->getMock( TextRevision::class, [], [], '', false );
+		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturn( '' );
 		return $mock;
