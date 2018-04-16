@@ -30,6 +30,12 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 		return $mock;
 	}
 
+	public function testToArray() {
+		$revisions = [ $this->getMockFileRevision( '2012-11-18T13:19:01Z' ) ];
+		$instance = new FileRevisions( $revisions );
+		$this->assertSame( $revisions, $instance->toArray() );
+	}
+
 	public function provideGetLatest() {
 		$firstFileRevision = $this->getMockFileRevision( '2013-11-18T13:19:01Z' );
 		$secondFileRevision = $this->getMockFileRevision( '2014-11-18T13:19:01Z' );
