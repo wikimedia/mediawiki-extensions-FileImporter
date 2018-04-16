@@ -119,7 +119,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$this->setExpectedException( LocalizedImportException::class );
 
 		$apiRetriever->checkRevisionCount(
-			$this->getMock( SourceUrl::class, [], [], '', false ),
+			$this->createMock( SourceUrl::class ),
 			"",
 			$input
 		);
@@ -149,7 +149,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$apiRetriever = $this->newInstance();
 
 		$apiRetriever->checkRevisionCount(
-			$this->getMock( SourceUrl::class, [], [], '', false ),
+			$this->createMock( SourceUrl::class ),
 			"",
 			$input
 		);
@@ -429,7 +429,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	private function newInstance() {
 		return TestingAccessWrapper::newFromObject( new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
-			$this->getMock( HttpRequestExecutor::class, [], [], '', false ),
+			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger()
 		) );
 	}
@@ -438,7 +438,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	 * @return HttpApiLookup
 	 */
 	private function getMockHttpApiLookup() {
-		$mock = $this->getMock( HttpApiLookup::class, [], [], '', false );
+		$mock = $this->createMock( HttpApiLookup::class );
 		$mock->method( 'getApiUrl' )
 			->willReturn( 'APIURL' );
 		return $mock;
@@ -467,7 +467,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$expectedRequestString,
 		$content
 	) {
-		$mock = $this->getMock( HttpRequestExecutor::class, [], [], '', false );
+		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->expects( $this->once() )
 			->method( 'execute' )
 			->with( $expectedRequestString )
@@ -494,7 +494,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	 * @return MWHttpRequest
 	 */
 	private function getMockMWHttpRequest( $content ) {
-		$mock = $this->getMock( MWHttpRequest::class, [], [], '', false );
+		$mock = $this->createMock( MWHttpRequest::class );
 		$mock->method( 'getContent' )
 			->willReturn( $content );
 		return $mock;

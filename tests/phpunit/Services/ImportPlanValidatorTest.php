@@ -39,7 +39,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return ImportTitleChecker
 	 */
 	private function getMockImportTitleChecker( $callCount = 0, $allowed = null ) {
-		$mock = $this->getMock( ImportTitleChecker::class, [], [], '', false );
+		$mock = $this->createMock( ImportTitleChecker::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'importAllowed' )
 			->willReturn( $allowed );
@@ -53,7 +53,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return DuplicateFileRevisionChecker
 	 */
 	private function getMockDuplicateFileRevisionChecker( $callCount = 0, $arrayElements = 0 ) {
-		$mock = $this->getMock( DuplicateFileRevisionChecker::class, [], [], '', false );
+		$mock = $this->createMock( DuplicateFileRevisionChecker::class );
 		if ( $arrayElements === 0 ) {
 			// PHP 5.5 and below can't handle array_fill with the number of elements as 0
 			$returnValue = [];
@@ -73,7 +73,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return Title
 	 */
 	private function getMockTitle( $text, $exists ) {
-		$mock = $this->getMock( Title::class, [], [], '', false );
+		$mock = $this->createMock( Title::class );
 		$mock->method( 'getText' )
 			->willReturn( $text );
 		$mock->method( 'exists' )
@@ -85,8 +85,8 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return FileRevisions
 	 */
 	private function getMockFileRevisions() {
-		$mock = $this->getMock( FileRevisions::class, [], [], '', false );
-		$mockFileRevision = $this->getMock( FileRevision::class, [], [], '', false );
+		$mock = $this->createMock( FileRevisions::class );
+		$mockFileRevision = $this->createMock( FileRevision::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $mockFileRevision );
 		return $mock;
@@ -98,7 +98,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return ImportDetails
 	 */
 	private function getMockImportDetails( Title $sourceTitle = null ) {
-		$mock = $this->getMock( ImportDetails::class, [], [], '', false );
+		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getSourceLinkTarget' )
 			->willReturn( $sourceTitle );
 		$mock->method( 'getFileRevisions' )
@@ -110,7 +110,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return PHPUnit_Framework_MockObject_MockObject|ImportRequest
 	 */
 	private function getMockImportRequest() {
-		$mock = $this->getMock( ImportRequest::class, [], [], '', false );
+		$mock = $this->createMock( ImportRequest::class );
 		$mock->method( 'getUrl' )
 			->willReturn( new SourceUrl( 'http://test.test' ) );
 		return $mock;
@@ -128,7 +128,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 		Title $sourceTitle = null,
 		$getTitleFails = false
 	) {
-		$mock = $this->getMock( ImportPlan::class, [], [], '', false );
+		$mock = $this->createMock( ImportPlan::class );
 		if ( !$getTitleFails ) {
 			$mock->method( 'getTitle' )
 				->willReturn( $planTitle );
@@ -154,7 +154,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return UploadBaseFactory
 	 */
 	private function getMockUploadBaseFactory( UploadBase $uploadBase ) {
-		$mock = $this->getMock( UploadBaseFactory::class, [], [], '', false );
+		$mock = $this->createMock( UploadBaseFactory::class );
 		$mock->method( 'newValidatingUploadBase' )
 			->willReturn( $uploadBase );
 		return $mock;
@@ -167,7 +167,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return ValidatingUploadBase
 	 */
 	private function getMockValidatingUploadBase( $validTitle = true, $validFile = true ) {
-		$mock = $this->getMock( ValidatingUploadBase::class, [], [], '', false );
+		$mock = $this->createMock( ValidatingUploadBase::class );
 		$mock->method( 'validateTitle' )
 			->willReturn( $validTitle );
 		$mock->method( 'validateFile' )

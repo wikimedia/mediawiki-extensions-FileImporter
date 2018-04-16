@@ -22,14 +22,14 @@ class ImportPlanTest extends \PHPUnit\Framework\TestCase {
 	 * @return PHPUnit_Framework_MockObject_MockObject|ImportRequest
 	 */
 	private function getMockRequest() {
-		return $this->getMock( ImportRequest::class, [], [], '', false );
+		return $this->createMock( ImportRequest::class );
 	}
 
 	/**
 	 * @return PHPUnit_Framework_MockObject_MockObject|ImportDetails
 	 */
 	private function getMockDetails() {
-		return $this->getMock( ImportDetails::class, [], [], '', false );
+		return $this->createMock( ImportDetails::class );
 	}
 
 	public function testConstruction() {
