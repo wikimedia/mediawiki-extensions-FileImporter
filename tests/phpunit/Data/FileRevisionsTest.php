@@ -15,6 +15,11 @@ use PHPUnit4And6Compat;
 class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnit4And6Compat;
 
+	/**
+	 * @param string $timestamp
+	 *
+	 * @return FileRevision
+	 */
 	private function getMockFileRevision( $timestamp ) {
 		$mock = $this->getMockBuilder( FileRevision::class )
 			->disableOriginalConstructor()

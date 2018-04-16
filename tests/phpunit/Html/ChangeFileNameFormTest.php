@@ -42,7 +42,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|ImportDetails
+	 * @return ImportDetails
 	 */
 	private function getMockImportDetails() {
 		$mock = $this->getMock( ImportDetails::class, [], [], '', false );
@@ -52,7 +52,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|TextRevisions
+	 * @return TextRevisions
 	 */
 	private function getMockTextRevisions() {
 		$mock = $this->getMock( TextRevisions::class, [], [], '', false );
@@ -62,7 +62,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|TextRevision
+	 * @return TextRevision
 	 */
 	private function getMockTextRevision() {
 		$mock = $this->getMock( TextRevision::class, [], [], '', false );

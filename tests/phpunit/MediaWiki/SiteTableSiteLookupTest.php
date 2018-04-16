@@ -17,6 +17,12 @@ use Site;
 class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnit4And6Compat;
 
+	/**
+	 * @param string $globalId
+	 * @param string $domain
+	 *
+	 * @return Site
+	 */
 	private function getSite( $globalId, $domain ) {
 		$mockSite = $this->getMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
