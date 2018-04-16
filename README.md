@@ -21,6 +21,12 @@ The **FileImporterSourceSiteServices** setting allows extensions and modificatio
 The default setting only allows files to be imported from sites that are in the sites table.
 Using the "FileImporterAnyMediaWikiSite" service here would allow you to import files from any site.
 
+**FileImporterMaxRevisions** specifies the maximum number of revisions (file or text) a file can
+have in order to be imported. Default is 100.
+
+**FileImporterMaxAggregatedBytes** specifies the maximum aggregated size of versions a file can have
+in order to be imported. Default is 250 MB.
+
 #### Process Walkthrough
 
 1) The user enters the extension on the special page,
