@@ -11,6 +11,7 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
+use PHPUnit4And6Compat;
 use SpecialPage;
 use Title;
 
@@ -21,6 +22,7 @@ use Title;
  * @author Addshore
  */
 class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function setUp() {
 		parent::setUp();

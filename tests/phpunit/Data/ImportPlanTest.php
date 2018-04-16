@@ -5,6 +5,7 @@ namespace FileImporter\Data\Test;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
+use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_MockObject;
 use TitleValue;
 
@@ -15,6 +16,7 @@ use TitleValue;
  * @author Addshore
  */
 class ImportPlanTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @return PHPUnit_Framework_MockObject_MockObject|ImportRequest

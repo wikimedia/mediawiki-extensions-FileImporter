@@ -4,6 +4,7 @@ namespace FileImporter\Data\Test;
 
 use FileImporter\Data\SourceUrl;
 use InvalidArgumentException;
+use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Data\SourceUrl
@@ -12,6 +13,7 @@ use InvalidArgumentException;
  * @author Addshore
  */
 class SourceUrlTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function provideInvalidConstruction() {
 		return [

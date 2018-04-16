@@ -14,6 +14,7 @@ use Language;
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
 use OutputPage;
+use PHPUnit4And6Compat;
 use SpecialPage;
 use Title;
 use User;
@@ -26,6 +27,7 @@ use User;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function setUp() {
 		parent::setUp();
