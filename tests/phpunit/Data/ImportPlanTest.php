@@ -6,7 +6,6 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use PHPUnit4And6Compat;
-use PHPUnit_Framework_MockObject_MockObject;
 use TitleValue;
 
 /**
@@ -18,23 +17,9 @@ use TitleValue;
 class ImportPlanTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnit4And6Compat;
 
-	/**
-	 * @return PHPUnit_Framework_MockObject_MockObject|ImportRequest
-	 */
-	private function getMockRequest() {
-		return $this->createMock( ImportRequest::class );
-	}
-
-	/**
-	 * @return PHPUnit_Framework_MockObject_MockObject|ImportDetails
-	 */
-	private function getMockDetails() {
-		return $this->createMock( ImportDetails::class );
-	}
-
 	public function testConstruction() {
-		$request = $this->getMockRequest();
-		$details = $this->getMockDetails();
+		$request = $this->createMock( ImportRequest::class );
+		$details = $this->createMock( ImportDetails::class );
 
 		$plan = new ImportPlan( $request, $details );
 
@@ -43,13 +28,12 @@ class ImportPlanTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetTitleAndFileNameFromInitialTitle() {
-		$request = $this->getMockRequest();
-		$details = $this->getMockDetails();
-
+		$request = $this->createMock( ImportRequest::class );
 		$request->expects( $this->once() )
 			->method( 'getIntendedName' )
 			->willReturn( null );
 
+		$details = $this->createMock( ImportDetails::class );
 		$details->expects( $this->once() )
 			->method( 'getSourceLinkTarget' )
 			->willReturn( new TitleValue( NS_FILE, 'TestFileName.EXT' ) );
@@ -62,13 +46,12 @@ class ImportPlanTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetTitleAndFileNameFromIntendedName() {
-		$request = $this->getMockRequest();
-		$details = $this->getMockDetails();
-
+		$request = $this->createMock( ImportRequest::class );
 		$request->expects( $this->once() )
 			->method( 'getIntendedName' )
 			->willReturn( 'TestIntendedName' );
 
+		$details = $this->createMock( ImportDetails::class );
 		$details->expects( $this->once() )
 			->method( 'getSourceFileExtension' )
 			->willReturn( 'EXT' );
