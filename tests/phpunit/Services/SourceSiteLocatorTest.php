@@ -48,9 +48,7 @@ class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
 	 * @return SourceSite
 	 */
 	private function newSourceSite( $isSourceSite ) {
-		$site = $this->getMockBuilder( SourceSite::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$site = $this->createMock( SourceSite::class );
 		$site->method( 'normalizeUrl' )
 			->willReturnArgument( 0 );
 		$site->method( 'isSourceSiteFor' )

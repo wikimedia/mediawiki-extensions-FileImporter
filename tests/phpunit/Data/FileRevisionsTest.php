@@ -21,9 +21,7 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 	 * @return FileRevision
 	 */
 	private function getMockFileRevision( $timestamp ) {
-		$mock = $this->getMockBuilder( FileRevision::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$mock = $this->createMock( FileRevision::class );
 		$mock->method( 'getField' )
 			->with( 'timestamp' )
 			->willReturn( $timestamp );

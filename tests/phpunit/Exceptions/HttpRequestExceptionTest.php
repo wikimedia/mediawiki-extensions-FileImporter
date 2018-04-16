@@ -3,6 +3,7 @@
 namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Exceptions\HttpRequestException;
+use PHPUnit4And6Compat;
 use MWHttpRequest;
 use StatusValue;
 
@@ -13,12 +14,11 @@ use StatusValue;
  * @author Thiemo Kreuz
  */
 class HttpRequestExceptionTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function testException() {
 		$statusValue = new StatusValue();
-		$httpRequest = $this->getMockBuilder( MWHttpRequest::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$httpRequest = $this->createMock( MWHttpRequest::class );
 
 		$ex = new HttpRequestException( $statusValue, $httpRequest );
 

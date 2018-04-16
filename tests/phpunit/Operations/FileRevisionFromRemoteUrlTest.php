@@ -11,6 +11,7 @@ use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use Psr\Log\NullLogger;
 use MediaWikiTestCase;
+use PHPUnit4And6Compat;
 use Title;
 use User;
 
@@ -21,15 +22,12 @@ use User;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
+	use PHPUnit4And6Compat;
 
 	public function provideTestNewFileRevisionFromRemoteUrl() {
 		return [
-			[
-				null
-			],
-			[
-				$this->newMockTextRevision()
-			],
+			[ null ],
+			[ $this->createMock( TextRevision::class ) ],
 		];
 	}
 
@@ -42,9 +40,9 @@ class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
 			User::newFromName( 'TestUser' ),
 			$this->newMockFileRevision(),
 			$textRevision,
-			$this->newMockHttpRequestExecutor(),
-			$this->newMockWikiRevisionFactory(),
-			$this->newMockUploadBaseFactory(),
+			$this->createMock( HttpRequestExecutor::class ),
+			$this->createMock( WikiRevisionFactory::class ),
+			$this->createMock( UploadBaseFactory::class ),
 			$this->newUploadRevisionImporter(),
 			new NullLogger()
 		);
@@ -58,9 +56,9 @@ class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
 			User::newFromName( 'TestUser' ),
 			$this->newMockFileRevision(),
 			null,
-			$this->newMockHttpRequestExecutor(),
-			$this->newMockWikiRevisionFactory(),
-			$this->newMockUploadBaseFactory(),
+			$this->createMock( HttpRequestExecutor::class ),
+			$this->createMock( WikiRevisionFactory::class ),
+			$this->createMock( UploadBaseFactory::class ),
 			$this->newUploadRevisionImporter(),
 			new NullLogger()
 		);
@@ -72,21 +70,10 @@ class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
 	 * @return FileRevision
 	 */
 	private function newMockFileRevision() {
-		$mock = $this->getMockBuilder( FileRevision::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$mock = $this->createMock( FileRevision::class );
 		$mock->method( 'getField' )
 			->will( $this->returnValue( 'NOURL' ) );
 		return $mock;
-	}
-
-	/**
-	 * @return TextRevision
-	 */
-	private function newMockTextRevision() {
-		return $this->getMockBuilder( TextRevision::class )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 	/**
@@ -99,30 +86,4 @@ class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
 		);
 	}
 
-	/**
-	 * @return UploadBaseFactory
-	 */
-	private function newMockUploadBaseFactory() {
-		return $this->getMockBuilder( UploadBaseFactory::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	/**
-	 * @return WikiRevisionFactory
-	 */
-	private function newMockWikiRevisionFactory() {
-		return $this->getMockBuilder( WikiRevisionFactory::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	/**
-	 * @return HttpRequestExecutor
-	 */
-	private function newMockHttpRequestExecutor() {
-		return $this->getMockBuilder( HttpRequestExecutor::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
 }

@@ -40,9 +40,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			$this->assertTrue( $options['followRedirects'] );
 			$this->assertEquals( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
 
-			$request = $this->getMockBuilder( MWHttpRequest::class )
-				->disableOriginalConstructor()
-				->getMock();
+			$request = $this->createMock( MWHttpRequest::class );
 			$status = Status::newGood();
 			if ( !$expectedResult ) {
 				$status->fatal( 'SomeFatal' );
