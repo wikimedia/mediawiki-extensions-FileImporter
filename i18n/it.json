@@ -25,5 +25,6 @@
 	"fileimporter-editsummary": "Oggetto della modifica:",
 	"fileimporter-previewnote": "Questa è un'anteprima del file da importare. Controlla la pagina in dettaglio prima di importarlo.",
 	"fileimporter-heading-fileinfo": "Informazioni sul file",
-	"fileimporter-heading-filehistory": "Cronologia del file"
+	"fileimporter-heading-filehistory": "Cronologia del file",
+	"fileimporter-add-template-button": "Ritorna al file originale"
 }
