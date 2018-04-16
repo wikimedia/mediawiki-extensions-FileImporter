@@ -17,7 +17,7 @@ use WebRequest;
 use WebResponse;
 
 /**
- * @covers \FileImporter\Html\DuplicateFilesPage
+ * @covers \FileImporter\Html\DuplicateFilesErrorPage
  * @covers \FileImporter\Html\ImportPreviewPage
  * @covers \FileImporter\Html\ImportSuccessPage
  * @covers \FileImporter\Html\InputFormPage
@@ -94,7 +94,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					'name' => PermissionsError::class,
 					'message' => 'The action you have requested is limited to users in one of the groups',
 				],
-				function (){
+				function () {
 				}
 			],
 			'Uploader, Expect input form' => [
@@ -112,7 +112,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertInitialInputFormPreset( $html );
 					$this->assertWarningBox( $html, 'Can\'t import the given URL' );
 				},
 				[ 'FileImporter-WikimediaSitesTableSite' ]
@@ -124,7 +123,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertInitialInputFormPreset( $html );
 					$this->assertWarningBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
 				}
 			],
@@ -135,7 +133,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertInitialInputFormPreset( $html );
 					$this->assertWarningBox(
 						$html,
 						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar'
@@ -227,10 +224,10 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'div' ) )
-					->andAlso( withClass( 'warningbox' ) )
+					->andAlso( withClass( 'errorbox' ) )
 					->andAlso( havingChild(
 						both( withTagName( 'p' ) )
-							->andAlso( havingTextContents( $text ) )
+							->andAlso( havingTextContents( startsWith( $text ) ) )
 					) )
 			) ) )
 		);

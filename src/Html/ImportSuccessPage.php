@@ -67,7 +67,7 @@ class ImportSuccessPage {
 		new ButtonWidget(
 			[
 				'classes' => [ 'mw-importfile-add-template-button' ],
-				'label' => ( new Message( 'fileimporter-add-template-button' ) )->plain(),
+				'label' => ( new Message( 'fileimporter-go-to-original-file-button' ) )->plain(),
 				'href' => $this->sourceUrl->getUrl(),
 				'flags' => [ 'primary', 'progressive' ],
 			]
