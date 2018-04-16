@@ -20,7 +20,7 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return FileRevision
 	 */
-	private function getMockFileRevision( $timestamp ) {
+	private function newFileRevision( $timestamp = '' ) {
 		$mock = $this->createMock( FileRevision::class );
 		$mock->method( 'getField' )
 			->with( 'timestamp' )
@@ -29,15 +29,16 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testToArray() {
-		$revisions = [ $this->getMockFileRevision( '2012-11-18T13:19:01Z' ) ];
+		$revisions = [ $this->newFileRevision() ];
 		$instance = new FileRevisions( $revisions );
 		$this->assertSame( $revisions, $instance->toArray() );
 	}
 
 	public function provideGetLatest() {
-		$firstFileRevision = $this->getMockFileRevision( '2013-11-18T13:19:01Z' );
-		$secondFileRevision = $this->getMockFileRevision( '2014-11-18T13:19:01Z' );
-		$thirdFileRevision = $this->getMockFileRevision( '2015-11-18T13:19:01Z' );
+		$firstFileRevision = $this->newFileRevision( '2013-11-18T13:19:01Z' );
+		$secondFileRevision = $this->newFileRevision( '2014-11-18T13:19:01Z' );
+		$thirdFileRevision = $this->newFileRevision( '2015-11-18T13:19:01Z' );
+
 		return [
 			[ [], null ],
 			[ [ $firstFileRevision ], $firstFileRevision ],
