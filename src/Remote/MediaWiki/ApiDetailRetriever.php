@@ -307,7 +307,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			$aggregatedFileBytes += $fileVersion['size'];
 			if ( $aggregatedFileBytes > $this->maxAggregatedBytes ||
 				$aggregatedFileBytes > static::MAXAGGREGATEDBYTES ) {
-				throw new LocalizedImportException( 'fileimporter-filetoolarge' );
+				$versions = count( $pageInfoData['imageinfo'] );
+				throw new LocalizedImportException( [ 'fileimporter-filetoolarge', $versions ] );
 			}
 		}
 	}
@@ -341,7 +342,8 @@ class ApiDetailRetriever implements DetailRetriever {
 
 			if ( array_key_exists( 'size', $revisionInfo ) && $this->maxBytes !== null ) {
 				if ( $revisionInfo['size'] > $this->maxBytes ) {
-					throw new LocalizedImportException( 'fileimporter-filetoolarge' );
+					$versions = count( $imageInfo );
+					throw new LocalizedImportException( [ 'fileimporter-filetoolarge', $versions ] );
 				}
 			}
 
