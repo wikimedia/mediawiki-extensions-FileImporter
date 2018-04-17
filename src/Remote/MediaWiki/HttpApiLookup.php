@@ -48,18 +48,19 @@ class HttpApiLookup implements LoggerAwareInterface {
 	/**
 	 * @param string $message
 	 * @param array $context
-	 * @throws ImportException
+	 *
+	 * @return ImportException
 	 */
-	private function logAndException( $message, $context = [] ) {
+	private function loggedError( $message, array $context = [] ) {
 		$this->logger->error( $message, $context );
-		throw new ImportException( $message );
+		return new ImportException( $message );
 	}
 
 	/**
 	 * @param SourceUrl $sourceUrl
 	 *
 	 * @throws ImportException
-	 * @return string URL of api.php or null
+	 * @return string URL of api.php
 	 */
 	public function getApiUrl( SourceUrl $sourceUrl ) {
 		if ( array_key_exists( $sourceUrl->getUrl(), $this->resultCache ) ) {
@@ -72,8 +73,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 			return $api;
 		}
 
-		$this->logAndException( 'Failed to get MediaWiki API from SourceUrl' );
-		return null; // never reached
+		throw $this->loggedError( 'Failed to get MediaWiki API from SourceUrl' );
 	}
 
 	/**
@@ -87,15 +87,15 @@ class HttpApiLookup implements LoggerAwareInterface {
 		} catch ( HttpRequestException $e ) {
 			$statusCode = $e->getHttpRequest()->getStatus();
 			if ( $statusCode === 404 ) {
-				$this->logAndException( 'File not found: ' . $sourceUrl->getUrl() );
+				throw $this->loggedError( 'File not found: ' . $sourceUrl->getUrl() );
 			}
 			if ( $e->getStatusValue()->hasMessage( 'http-timed-out' ) ) {
-				$this->logAndException(
+				throw $this->loggedError(
 					'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
 					' Connection timed out.'
 				);
 			}
-			$this->logAndException(
+			throw $this->loggedError(
 				'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
 				' Status code ' . $statusCode . ', ' . $e->getMessage(),
 				[
@@ -104,7 +104,6 @@ class HttpApiLookup implements LoggerAwareInterface {
 					'responseContent' => $e->getHttpRequest()->getContent(),
 				]
 			);
-			return null; // never reached
 		}
 
 		$document = new DOMDocument();

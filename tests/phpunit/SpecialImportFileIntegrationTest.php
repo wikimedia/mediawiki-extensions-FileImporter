@@ -169,7 +169,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				new FauxRequest( [
 					'clientUrl' => 'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 					'intendedFileName' => 'Chicken In Snow CHANGED',
-					'importDetailsHash' => 'SomeHash',// XXX: This is currently not checked?
+					// XXX: This is currently not checked?
+					'importDetailsHash' => 'SomeHash',
 				] ),
 				true,
 				null,

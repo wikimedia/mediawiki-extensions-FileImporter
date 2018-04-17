@@ -67,7 +67,8 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 				$tempPath
 		);
 		$this->assertEquals( $expected, $base->validateFile() );
-		unlink( $tempPath ); // delete the file that we created post test
+		// Delete the file that we created post test
+		unlink( $tempPath );
 	}
 
 	private function skipTestIfImageFunctionsMissing() {
