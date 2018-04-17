@@ -52,7 +52,7 @@
 	"fileimporter-revision-removed-comment": "Durch den Dateiimporter entfernter unterdrückter Kommentar.",
 	"fileimporter-in-beta": "Der Dateiimport befindet sich im Betamodus: Wir haben ihn ausführlich getestet, er könnte jedoch noch einige Probleme haben. Falls du Probleme bemerkst, [//www.mediawiki.org/wiki/Extension_talk:FileImporter melde sie bitte auf unserer Hilfeseite] – im Idealfall mit einer Schritt-für-Schritt-Anleitung, um das Problem zu reproduzieren, so dass wir ihn verstehen und beheben können.",
 	"fileimporter-filemissinginrevision": "Die Datei konnte nicht importiert werden, da bei einer oder mehreren Versionen das dazugehörige Bild fehlt.",
-	"fileimporter-filetoolarge": "Die Datei, die du derzeit versuchst zu importieren, überschreitet die maximale Dateigröße.",
+	"fileimporter-filetoolarge": "Die {{PLURAL:$1|Dateiversion|$1 Dateiversionen}}, die du derzeit versuchst zu importieren, {{PLURAL:$1|überschreitet|überschreiten}} die Dateigrößengrenze, die der Import verarbeiten kann.",
 	"fileimporter-import-wait": "Der Import kann einige Minuten in Anspruch nehmen.",
 	"fileimporter-imported-success-banner": "Diese Datei wurde erfolgreich in {{SITENAME}} importiert. Klicke auf den folgenden Link, um die Datei anzusehen: $1",
 	"fileimporter-imported-change-template": "Wir bitten dich, dass du zur Originaldatei zurückkehrst und das Folgende unternimmst:\n# Entferne alle Vorlagen, die vorschlagen, dass diese Datei nach {{SITENAME}} kopiert werden soll.\n# Ergänze eine Vorlage, die erklärt, dass diese Datei jetzt auf {{SITENAME}} verfügbar ist.\nVielen Dank!",
