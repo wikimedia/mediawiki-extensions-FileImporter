@@ -52,7 +52,7 @@
 	"fileimporter-revision-removed-comment": "由文件导入器移除的已屏蔽评论。",
 	"fileimporter-in-beta": "文件导入处于测试阶段：我们已经仔细地测试了相关功能，但可能仍然存在一些问题。如果您遇到问题，请[//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter 在我们的帮助页面报告它们]——尽可能地一步步说明如何重现问题，这样我们可以理解并修复它。",
 	"fileimporter-filemissinginrevision": "不能导入文件，因为至少一个修订版本缺少图片文件。",
-	"fileimporter-filetoolarge": "您当前正尝试导入的文件超过了文件大小上限。",
+	"fileimporter-filetoolarge": "您当前正尝试导入的{{PLURAL:$1|文件|$1个文件版本}}超过了导入可以处理的文件大小限制。",
 	"fileimporter-import-wait": "导入可能需要数分钟。",
 	"fileimporter-imported-success-banner": "此文件已成功导入至{{SITENAME}}。点击以下链接以查看文件：$1",
 	"fileimporter-imported-change-template": "我们恳请您返回原始文件，并做以下操作：\n# 移除任何建议此文件应复制到{{SITENAME}}的模板。\n# 添加说明此文件现已在{{SITENAME}}可用的模板。\n非常感谢您的理解！",
