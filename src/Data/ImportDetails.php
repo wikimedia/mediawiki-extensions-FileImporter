@@ -61,6 +61,9 @@ class ImportDetails {
 		$this->fileRevisions = $fileRevisions;
 	}
 
+	/**
+	 * @return LinkTarget
+	 */
 	public function getSourceLinkTarget() {
 		return $this->sourceLinkTarget;
 	}
@@ -79,18 +82,30 @@ class ImportDetails {
 		return pathinfo( $this->sourceLinkTarget->getText() )['filename'];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getImageDisplayUrl() {
 		return $this->imageDisplayUrl;
 	}
 
+	/**
+	 * @return SourceUrl
+	 */
 	public function getSourceUrl() {
 		return $this->sourceUrl;
 	}
 
+	/**
+	 * @return TextRevisions
+	 */
 	public function getTextRevisions() {
 		return $this->textRevisions;
 	}
 
+	/**
+	 * @return FileRevisions
+	 */
 	public function getFileRevisions() {
 		return $this->fileRevisions;
 	}
