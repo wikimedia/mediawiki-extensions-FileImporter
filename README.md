@@ -22,10 +22,12 @@ The default setting only allows files to be imported from sites that are in the 
 Using the "FileImporterAnyMediaWikiSite" service here would allow you to import files from any site.
 
 **FileImporterMaxRevisions** specifies the maximum number of revisions (file or text) a file can
-have in order to be imported. Default is 100.
+have in order to be imported. This is restricted to a hard-coded default of 100, which can be
+lowered via configuration, but not raised.
 
 **FileImporterMaxAggregatedBytes** specifies the maximum aggregated size of versions a file can have
-in order to be imported. Default is 250 MB.
+in order to be imported. This is restricted to a hard-coded default of 250 MB, which can be lowered
+via configuration, but not raised.
 
 #### Process Walkthrough
 
