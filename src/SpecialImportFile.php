@@ -256,7 +256,7 @@ class SpecialImportFile extends SpecialPage {
 		$detailRetriever = $sourceSite->getDetailRetriever();
 		$importDetails = $detailRetriever->getImportDetails( $url );
 
-		return $this->importPlanFactory->newPlan( $importRequest, $importDetails );
+		return $this->importPlanFactory->newPlan( $importRequest, $importDetails, $this->getUser() );
 	}
 
 	private function doImport( ImportPlan $importPlan ) {

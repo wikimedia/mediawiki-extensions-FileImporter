@@ -11,6 +11,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use MalformedTitleException;
 use Message;
 use UploadBase;
+use User;
 
 /**
  * @license GPL-2.0-or-later
@@ -51,13 +52,15 @@ class ImportPlanValidator {
 	 * be easily fixed.
 	 *
 	 * @param ImportPlan $importPlan The plan to be validated
+	 * @param User $user User that executes the import
 	 *
 	 * @throws TitleException When there is a problem with the planned title (can't be fixed easily).
 	 * @throws DuplicateFilesException When a file with the same hash is detected locally..
 	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
-	public function validate( ImportPlan $importPlan ) {
+	public function validate( ImportPlan $importPlan, User $user ) {
 		$this->runBasicTitleCheck( $importPlan );
+		$this->runPermissionTitleChecks( $importPlan, $user );
 		// Checks the extension doesn't provide easy ways to fix
 		$this->runFileExtensionCheck( $importPlan );
 		$this->runDuplicateFilesCheck( $importPlan );
@@ -84,6 +87,20 @@ class ImportPlanValidator {
 		} catch ( MalformedTitleException $e ) {
 			throw new RecoverableTitleException(
 				$e->getMessageObject(),
+				$importPlan
+			);
+		}
+	}
+
+	private function runPermissionTitleChecks( ImportPlan $importPlan, User $user ) {
+		$permErrors = $importPlan->getTitle()->getUserPermissionsErrors(
+			'upload',
+			$user
+
+		);
+		if ( !empty( $permErrors ) ) {
+			throw new RecoverableTitleException(
+				Message::newFromSpecifier( $permErrors[0] ),
 				$importPlan
 			);
 		}
