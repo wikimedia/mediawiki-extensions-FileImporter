@@ -37,6 +37,13 @@ class FileRevisionTest extends \PHPUnit\Framework\TestCase {
 		}
 	}
 
+	public function testGetNonExistingField() {
+		$instance = new FileRevision( array_flip( self::$requiredFieldNames ) );
+
+		$this->setExpectedException( InvalidArgumentException::class );
+		$instance->getField( 'invalid' );
+	}
+
 	public function provideMissingField() {
 		foreach ( self::$requiredFieldNames as $field ) {
 			$fields = array_flip( self::$requiredFieldNames );

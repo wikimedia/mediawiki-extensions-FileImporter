@@ -41,12 +41,11 @@ class FileRevision {
 	}
 
 	private function throwExceptionIfMissingFields( array $fields ) {
-		foreach ( self::$fieldNames as $expectedKey ) {
-			if ( !array_key_exists( $expectedKey, $fields ) ) {
-				throw new InvalidArgumentException(
-					__CLASS__ . ': Missing ' . $expectedKey . ' field on construction'
-				);
-			}
+		$diff = array_diff_key( array_flip( self::$fieldNames ), $fields );
+		if ( $diff !== [] ) {
+			throw new InvalidArgumentException(
+				__CLASS__ . ': Missing ' . key( $diff ) . ' field on construction'
+			);
 		}
 	}
 
