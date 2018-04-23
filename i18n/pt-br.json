@@ -52,7 +52,7 @@
 	"fileimporter-revision-removed-comment": "Comentário suprimido foi removido pelo importador de arquivos.",
 	"fileimporter-in-beta": "A importação de arquivos está em modo beta: foi cuidadosamente testada mas ainda pode conter defeitos. Se encontrar problemas, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter reporte-os na nossa página de ajuda] - idealmente, com a descrição dos passos necessários para reproduzir o problema, para podermos compreendê-lo e resolvê-lo.",
 	"fileimporter-filemissinginrevision": "Não é possível importar arquivo porque pelo menos uma das suas revisões está faltando um arquivo de imagem.",
-	"fileimporter-filetoolarge": "O arquivo que está a tentar importar excede o limite do tamanho máximo de um arquivo.",
+	"fileimporter-filetoolarge": "{{PLURAL:$1|O |As $1 versões do}} arquivo que está a tentar importar {{PLURAL:$1|excede|excedem}} o limite de tamanho que a importação consegue tratar.",
 	"fileimporter-import-wait": "A importação pode demorar alguns minutos.",
 	"fileimporter-imported-success-banner": "O ficheiro foi importado para a wiki {{SITENAME}}. Para vê-lo, clique a seguinte hiperligação: $1",
 	"fileimporter-imported-change-template": "Volte ao arquivo original e faça o seguinte, por favor:\n# Remova todas as predefinições que sugerem que este arquivo deve ser copiado para a wiki {{SITENAME}}.\n# Adicione uma predefinição que declare que este arquivo está agora disponível na wiki {{SITENAME}}.\nMuito obrigado!",
