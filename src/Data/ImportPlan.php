@@ -124,7 +124,7 @@ class ImportPlan {
 	public function getFileInfoText() {
 		if ( $this->fileInfoText === null ) {
 			$intendedWikiText = $this->request->getIntendedText();
-			if ( $intendedWikiText ) {
+			if ( $intendedWikiText !== null ) {
 				return $intendedWikiText;
 			}
 		}

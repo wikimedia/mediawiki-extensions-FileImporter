@@ -5,6 +5,8 @@ namespace FileImporter\Data\Test;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
+use FileImporter\Data\TextRevision;
+use FileImporter\Data\TextRevisions;
 use PHPUnit4And6Compat;
 use TitleValue;
 
@@ -14,7 +16,7 @@ use TitleValue;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ImportPlanTest extends \PHPUnit\Framework\TestCase {
+class ImportPlanTest extends \MediaWikiTestCase {
 	use PHPUnit4And6Compat;
 
 	public function testConstruction() {
@@ -61,6 +63,44 @@ class ImportPlanTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( NS_FILE, $plan->getTitle()->getNamespace() );
 		$this->assertEquals( 'TestIntendedName.EXT', $plan->getTitle()->getText() );
 		$this->assertEquals( 'TestIntendedName', $plan->getFileName() );
+	}
+
+	public function provideGetFileInfoText() {
+		return [
+			[ 'Some Text', null, 'Some Text' ],
+			[ 'Some Text', 'Some Other Text', 'Some Other Text' ],
+			[ 'Some Text', '', '' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideGetFileInfoText
+	 * @param string $originalText
+	 * @param string $intendedText
+	 * @param string $expectedText
+	 */
+	public function testGetFileInfoText( $originalText, $intendedText, $expectedText ) {
+		$this->setMwGlobals( 'wgFileImporterTextForPostImportRevision', '' );
+
+		$request = $this->createMock( ImportRequest::class );
+		$request->expects( $this->once() )
+			->method( 'getIntendedText' )
+			->willReturn( $intendedText );
+
+		$textRevision = $this->createMock( TextRevision::class );
+		$textRevision->method( 'getField' )
+			->willReturn( $originalText );
+
+		$textRevisions = $this->createMock( TextRevisions::class );
+		$textRevisions->method( 'getLatest' )
+			->willReturn( $textRevision );
+
+		$details = $this->createMock( ImportDetails::class );
+		$details->method( 'getTextRevisions' )
+			->willReturn( $textRevisions );
+
+		$plan = new ImportPlan( $request, $details );
+		$this->assertEquals( $expectedText, $plan->getFileInfoText() );
 	}
 
 }
