@@ -47,8 +47,6 @@ class ImportPreviewPage {
 		$details = $this->importPlan->getDetails();
 		$request = $this->importPlan->getRequest();
 		$title = $this->importPlan->getTitle();
-		$wasEdited = $this->importPlan->wasFileNameChanged() ||
-			$this->importPlan->wasFileInfoTextChanged();
 		$textRevisionsCount = count( $details->getTextRevisions()->toArray() );
 		$fileRevisionsCount = count( $details->getFileRevisions()->toArray() );
 
@@ -176,30 +174,18 @@ class ImportPreviewPage {
 				'method' => 'POST',
 			]
 		) .
+			( $this->wasEdited() ? $this->buildEditSummaryHtml() : '' ).
 		Html::element(
 			'p',
 			[],
-			( new Message( 'fileimporter-editsummary' ) )->plain()
+			( new Message(
+				'fileimporter-textrevisions',
+				[
+					$textRevisionsCount,
+					$textRevisionsCount,
+				]
+			) )->parse()
 		) .
-		new TextInputWidget(
-			[
-				'name' => 'intendedRevisionSummary',
-				'classes' => [ 'mw-importfile-import-summary' ],
-				'placeholder' => ( new Message( 'fileimporter-editsummary-placeholder' ) )->plain(),
-				'disabled' => !$wasEdited,
-			]
-		) .
-			Html::element(
-				'p',
-				[],
-				( new Message(
-					'fileimporter-textrevisions',
-					[
-						$textRevisionsCount,
-						$textRevisionsCount,
-					]
-				) )->parse()
-			) .
 		$importIdentityFormSnippet .
 		Html::element(
 			'input',
@@ -242,6 +228,25 @@ class ImportPreviewPage {
 		Html::closeElement(
 			'div'
 		);
+	}
+
+	private function buildEditSummaryHtml() {
+		return Html::element(
+			'p',
+			[],
+			( new Message( 'fileimporter-editsummary' ) )->plain()
+		) .
+		new TextInputWidget(
+			[
+				'name' => 'intendedRevisionSummary',
+				'classes' => [ 'mw-importfile-import-summary' ],
+			]
+		);
+	}
+
+	private function wasEdited() {
+		return $this->importPlan->wasFileNameChanged() ||
+			$this->importPlan->wasFileInfoTextChanged();
 	}
 
 }
