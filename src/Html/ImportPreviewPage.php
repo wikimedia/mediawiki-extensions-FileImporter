@@ -45,17 +45,10 @@ class ImportPreviewPage {
 	 */
 	public function getHtml() {
 		$details = $this->importPlan->getDetails();
-		$request = $this->importPlan->getRequest();
 		$title = $this->importPlan->getTitle();
 		$textRevisionsCount = count( $details->getTextRevisions()->toArray() );
 		$fileRevisionsCount = count( $details->getFileRevisions()->toArray() );
-
-		$importIdentityFormSnippet = ( new ImportIdentityFormSnippet( [
-			'clientUrl' => $request->getUrl(),
-			'intendedFileName' => $this->importPlan->getFileName(),
-			'intendedWikiText' => $this->importPlan->getFileInfoText(),
-			'importDetailsHash' => $details->getOriginalHash(),
-		] ) )->getHtml();
+		$importIdentityFormSnippet = $this->buildImportIdentityFormSnippet();
 
 		return Html::element(
 			'p',
@@ -242,6 +235,15 @@ class ImportPreviewPage {
 				'classes' => [ 'mw-importfile-import-summary' ],
 			]
 		);
+	}
+
+	private function buildImportIdentityFormSnippet() {
+		return ( new ImportIdentityFormSnippet( [
+			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
+			'intendedFileName' => $this->importPlan->getFileName(),
+			'intendedWikiText' => $this->importPlan->getFileInfoText(),
+			'importDetailsHash' => $this->importPlan->getDetails()->getOriginalHash(),
+		] ) )->getHtml();
 	}
 
 	private function wasEdited() {
