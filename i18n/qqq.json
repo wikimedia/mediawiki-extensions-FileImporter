@@ -48,7 +48,6 @@
 	"fileimporter-newfilename": "Label for the new file name input box.",
 	"fileimporter-newfilename-placeholder": "Placeholder for the file name input box.",
 	"fileimporter-editsummary": "Label for the edit summary input box.\n{{Identical|Edit summary}}",
-	"fileimporter-editsummary-placeholder": "Placeholder for the edit summary input box.",
 	"fileimporter-previewnote": "Note shown at the top of the import page.",
 	"fileimporter-heading-fileinfo": "Heading of the file info on the import page.",
 	"fileimporter-heading-filehistory": "Heading of the file history on the import page.",
