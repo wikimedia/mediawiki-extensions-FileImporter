@@ -45,7 +45,6 @@
 	"fileimporter-newfilename": "Nytt filnamn:",
 	"fileimporter-newfilename-placeholder": "Vissa filnamn",
 	"fileimporter-editsummary": "Redigeringssammanfattning:",
-	"fileimporter-editsummary-placeholder": "Används endast om du gör ändringar i importeringen.",
 	"fileimporter-previewnote": "Detta är en förhandsgranskning av filen att importera. Kontrollera sidan i detalj innan du importerar.",
 	"fileimporter-heading-fileinfo": "Filinfo",
 	"fileimporter-heading-filehistory": "Filhistorik",

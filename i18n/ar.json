@@ -46,7 +46,6 @@
 	"fileimporter-newfilename": "اسم الملف الجديد:",
 	"fileimporter-newfilename-placeholder": "اسم الملف العادي",
 	"fileimporter-editsummary": "ملخص التعديل:",
-	"fileimporter-editsummary-placeholder": "يُستخدم فقط في حالة إجراء تغييرات على الاستيراد.",
 	"fileimporter-previewnote": "هذه معاينة للملف المراد استيراده، يُرجَى التحقق من الصفحة بالتفصيل قبل الاستيراد.",
 	"fileimporter-heading-fileinfo": "معلومات الملف",
 	"fileimporter-heading-filehistory": "تاريخ الملف",

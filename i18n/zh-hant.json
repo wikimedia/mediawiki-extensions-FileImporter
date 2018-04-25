@@ -42,7 +42,6 @@
 	"fileimporter-newfilename": "新的檔案名稱：",
 	"fileimporter-newfilename-placeholder": "一些檔案名稱",
 	"fileimporter-editsummary": "編輯摘要：",
-	"fileimporter-editsummary-placeholder": "僅能在您對匯入做出更改時使用。",
 	"fileimporter-previewnote": "這是要被匯入檔案的預覽。在匯入之前請詳細地檢查頁面。",
 	"fileimporter-heading-fileinfo": "檔案資訊",
 	"fileimporter-heading-filehistory": "檔案歷史",

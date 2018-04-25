@@ -15,7 +15,6 @@
 	"fileimporter-newfilename": "Naujas failo pavadinimas:",
 	"fileimporter-newfilename-placeholder": "Kažkoks Failo Pavadinimas",
 	"fileimporter-editsummary": "Redaguoti santrauką:",
-	"fileimporter-editsummary-placeholder": "Naudojama tik jei atliekate keitimus importe.",
 	"fileimporter-heading-fileinfo": "Failo informacija",
 	"fileimporter-heading-filehistory": "Failo istorija"
 }

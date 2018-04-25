@@ -44,7 +44,6 @@
 	"fileimporter-newfilename": "Neuer Dateiname:",
 	"fileimporter-newfilename-placeholder": "Irgendein Dateiname",
 	"fileimporter-editsummary": "Bearbeitungszusammenfassung:",
-	"fileimporter-editsummary-placeholder": "Wird nur verwendet, wenn du Änderungen am Import durchführst.",
 	"fileimporter-previewnote": "Dies ist eine Vorschau der Datei, die importiert wird. Bitte kontrolliere die Seite genau, bevor du die Datei importierst.",
 	"fileimporter-heading-fileinfo": "Dateiinfo",
 	"fileimporter-heading-filehistory": "Dateiversionen",

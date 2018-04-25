@@ -41,7 +41,6 @@
 	"fileimporter-newfilename": "Нова назва файлу:",
 	"fileimporter-newfilename-placeholder": "Якась Назва Файлу",
 	"fileimporter-editsummary": "Опис редагування:",
-	"fileimporter-editsummary-placeholder": "Використовується лише якщо Ви вносите зміни в імпорт.",
 	"fileimporter-previewnote": "Це — попередній перегляд файлу, який має бути імпортований. Будь ласка, уважно перегляньте сторінку, перед тим як імпортувати.",
 	"fileimporter-heading-fileinfo": "Інформація про файл",
 	"fileimporter-heading-filehistory": "Історія файлу",

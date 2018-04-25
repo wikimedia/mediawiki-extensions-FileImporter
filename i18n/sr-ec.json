@@ -23,7 +23,6 @@
 	"fileimporter-edittitle": "Уреди наслов",
 	"fileimporter-editinfo": "Уреди Опис датотеке",
 	"fileimporter-editsummary": "Опис измене:",
-	"fileimporter-editsummary-placeholder": "Користи се само ако се унесу измене у код увоза.",
 	"fileimporter-previewnote": "Ово је претпреглед датотеке за увоз. Молимо проверите страницу детаљено пре увоза.",
 	"fileimporter-heading-fileinfo": "Информације о датотеци",
 	"fileimporter-heading-filehistory": "Историја датотеке"

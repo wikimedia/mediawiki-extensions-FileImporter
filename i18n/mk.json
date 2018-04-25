@@ -44,7 +44,6 @@
 	"fileimporter-newfilename": "Ново име на податотеката:",
 	"fileimporter-newfilename-placeholder": "Некое податотечно име",
 	"fileimporter-editsummary": "Опис на уредувањето:",
-	"fileimporter-editsummary-placeholder": "Се користи само кога правите измени во увозот.",
 	"fileimporter-previewnote": "Ова е преглед на податотеката што ќе се увезе. Подробно проверете ја страницата пред увозот.",
 	"fileimporter-heading-fileinfo": "Инфо за податотеката",
 	"fileimporter-heading-filehistory": "Историја на податотеката",
