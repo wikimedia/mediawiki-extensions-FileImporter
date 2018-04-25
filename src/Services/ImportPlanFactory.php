@@ -7,6 +7,7 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use User;
 
 /**
  * @license GPL-2.0-or-later
@@ -31,11 +32,12 @@ class ImportPlanFactory {
 	/**
 	 * @param ImportRequest $importRequest
 	 * @param ImportDetails $importDetails
+	 * @param User $user
 	 *
 	 * @throws ImportException
 	 * @return ImportPlan A valid ImportPlan
 	 */
-	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails ) {
+	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
 		$importPlan = new ImportPlan( $importRequest, $importDetails );
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importDetails->getSourceUrl() );
 
@@ -44,7 +46,7 @@ class ImportPlanFactory {
 			$sourceSite->getImportTitleChecker(),
 			$this->uploadBaseFactory
 		);
-		$planValidator->validate( $importPlan );
+		$planValidator->validate( $importPlan, $user );
 
 		return $importPlan;
 	}

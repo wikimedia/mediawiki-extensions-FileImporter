@@ -22,6 +22,7 @@ use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_MockObject;
 use Title;
 use UploadBase;
+use User;
 
 /**
  * @covers \FileImporter\Services\ImportPlanValidator
@@ -69,15 +70,18 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @param string $text
 	 * @param bool $exists
+	 * @param array $error = []
 	 *
 	 * @return Title
 	 */
-	private function getMockTitle( $text, $exists ) {
+	private function getMockTitle( $text, $exists, $error = [] ) {
 		$mock = $this->createMock( Title::class );
 		$mock->method( 'getText' )
 			->willReturn( $text );
 		$mock->method( 'exists' )
 			->willReturn( $exists );
+		$mock->method( 'getUserPermissionsErrors' )
+			->willReturn( $error );
 		return $mock;
 	}
 
@@ -324,7 +328,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 			$titleChecker,
 			$this->getMockUploadBaseFactory( $validatingUploadBase )
 		);
-		$validator->validate( $plan );
+		$validator->validate( $plan, User::newFromName( 'TestUser' ) );
 
 		if ( $expected === null ) {
 			$this->addToAssertionCount( 1 );
@@ -347,7 +351,27 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 			$this->getMockImportTitleChecker( 0, true ),
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() )
 		);
-		$validator->validate( $importPlan );
+		$validator->validate( $importPlan, User::newFromName( 'TestUser' ) );
+	}
+
+	public function testValidateFailsOnFailingTitlePermissionCheck() {
+		$mockRequest = $this->getMockImportRequest();
+		$mockTitle = $this->getMockTitle( 'Title', true, [ 'error' ] );
+		$mockDetails = $this->getMockImportDetails( $mockTitle );
+
+		$importPlan = new ImportPlan( $mockRequest, $mockDetails );
+
+		$this->setExpectedException(
+			RecoverableTitleException::class,
+			'The action you have requested is limited to users in one of the groups'
+		);
+
+		$validator = new ImportPlanValidator(
+			$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
+			$this->getMockImportTitleChecker( 0, true ),
+			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() )
+		);
+		$validator->validate( $importPlan, User::newFromName( 'TestUser' ) );
 	}
 
 }
