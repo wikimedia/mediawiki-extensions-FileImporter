@@ -42,7 +42,7 @@ class RecoverableTitleExceptionPage {
 	private function getMessageString() {
 		return $this->exception
 			->getMessageObject()
-			->plain();
+			->parse();
 	}
 
 	/**
@@ -52,7 +52,7 @@ class RecoverableTitleExceptionPage {
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'warningbox' ],
-			Html::element( 'p', [], ( $this->getMessageString() ) )
+			Html::rawElement( 'p', [], ( $this->getMessageString() ) )
 		) .
 		( new ChangeFileNameForm(
 			$this->specialPage,
