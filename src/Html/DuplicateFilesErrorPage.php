@@ -5,6 +5,7 @@ namespace FileImporter\Html;
 use File;
 use Html;
 use Message;
+use OOUI\ButtonWidget;
 
 /**
  * Html showing a list of duplicate files.
@@ -12,7 +13,7 @@ use Message;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class DuplicateFilesPage {
+class DuplicateFilesErrorPage {
 
 	/**
 	 * @var File[]
@@ -20,12 +21,17 @@ class DuplicateFilesPage {
 	private $files;
 
 	/**
-	 * @param File[] $files
+	 * @var string|null
 	 */
-	public function __construct(
-		array $files
-	) {
+	private $url;
+
+	/**
+	 * @param File[] $files
+	 * @param string|null $url
+	 */
+	public function __construct( array $files, $url ) {
 		$this->files = $files;
+		$this->url = $url;
 	}
 
 	/**
@@ -53,12 +59,26 @@ class DuplicateFilesPage {
 		}
 		$duplicateFilesList .= Html::closeElement( 'ul' );
 
-		return Html::rawElement(
-			'div',
-			[ 'class' => 'warningbox' ],
-			Html::element( 'p', [], ( new Message( 'fileimporter-duplicatefilesdetected' ) )->plain() )
-		) .
-		$duplicateFilesList;
+		$output = Html::rawElement(
+				'div',
+				[ 'class' => 'mw-importfile-error-banner errorbox' ],
+				Html::element( 'p', [], ( new Message( 'fileimporter-duplicatefilesdetected' ) )->plain() )
+			);
+
+		$output .= $duplicateFilesList;
+
+		if ( $this->url !== null ) {
+			$output .= new ButtonWidget(
+				[
+					'label' => ( new Message( 'fileimporter-go-to-original-file-button' ) )->plain(),
+					'href' => $this->url,
+					'classes' => [ 'mw-importfile-error-back-button' ],
+					'flags' => [ 'primary', 'progressive' ]
+				]
+			);
+		}
+
+		return $output;
 	}
 
 }

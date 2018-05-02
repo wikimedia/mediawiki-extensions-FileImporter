@@ -12,9 +12,10 @@ use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\ValidationException;
+use FileImporter\Html\ErrorPage;
 use FileImporter\Html\ChangeFileInfoForm;
 use FileImporter\Html\ChangeFileNameForm;
-use FileImporter\Html\DuplicateFilesPage;
+use FileImporter\Html\DuplicateFilesErrorPage;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessPage;
 use FileImporter\Html\InputFormPage;
@@ -143,8 +144,9 @@ class SpecialImportFile extends SpecialPage {
 	 * @param string|null $subPage
 	 */
 	public function execute( $subPage ) {
-		$this->executeStandardChecks();
 		$this->setupPage();
+		$clientUrl = $this->getRequest()->getVal( 'clientUrl' );
+		$this->executeStandardChecks();
 
 		// Note: executions by users that don't have the rights to view the page etc will not be
 		// shown in this metric as executeStandardChecks will have already kicked them out,
@@ -153,8 +155,6 @@ class SpecialImportFile extends SpecialPage {
 		if ( $this->getRequest()->getVal( 'importSource' ) === 'FileExporter' ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.fromFileExporter' );
 		}
-
-		$clientUrl = $this->getRequest()->getVal( 'clientUrl' );
 
 		if ( $clientUrl === null ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
@@ -168,7 +168,7 @@ class SpecialImportFile extends SpecialPage {
 		} catch ( ImportException $exception ) {
 			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
 			$this->incrementFailedImportPlanStats( $exception );
-			$this->handleImportException( $exception );
+			$this->handleImportException( $exception, $clientUrl );
 			return;
 		}
 
@@ -206,11 +206,13 @@ class SpecialImportFile extends SpecialPage {
 
 	/**
 	 * @param ImportException $exception
+	 * @param string $url
 	 */
-	private function handleImportException( ImportException $exception ) {
+	private function handleImportException( ImportException $exception, $url ) {
 		if ( $exception instanceof DuplicateFilesException ) {
-				$this->getOutput()->addHTML( ( new DuplicateFilesPage(
-					$exception->getFiles()
+				$this->getOutput()->addHTML( ( new DuplicateFilesErrorPage(
+					$exception->getFiles(),
+					$url
 				) )->getHtml() );
 				return;
 		}
@@ -223,8 +225,9 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		$this->showWarningForException( $exception );
-		$this->showInputForm();
+		$this->getOutput()->addHTML(
+			( new ErrorPage( $this->getWarningMessage( $exception ), $url ) )->getHtml()
+		);
 	}
 
 	/**
@@ -282,7 +285,7 @@ class SpecialImportFile extends SpecialPage {
 				$importPlan
 			);
 		} catch ( ValidationException $exception ) {
-			$this->showWarningForException( $exception );
+			$this->showWarningMessage( $this->getWarningMessage( $exception ) );
 			return false;
 		}
 
@@ -297,11 +300,16 @@ class SpecialImportFile extends SpecialPage {
 		return $result;
 	}
 
-	private function showWarningForException( Exception $e ) {
+	/**
+	 * @param Exception $e
+	 *
+	 * @return string
+	 */
+	private function getWarningMessage( Exception $e ) {
 		if ( $e instanceof ILocalizedException ) {
-			$this->showWarningMessage( $e->getMessageObject() );
+			return $e->getMessageObject()->parse();
 		} else {
-			$this->showWarningMessage( $e->getMessage() );
+			return $e->getMessage();
 		}
 	}
 
