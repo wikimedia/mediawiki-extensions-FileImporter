@@ -22,7 +22,7 @@
 	"fileimporter-filenameerror-default": "There is an unknown issue with your filename.",
 	"fileimporter-filenameerror-illegal": "The file name you are currently trying to import to is invalid.",
 	"fileimporter-filenameerror-toolong": "The file name you are currently trying to import to is too long.",
-	"fileimporter-filenameerror-automaticchanges": "The file name you are currently trying to import to will be automatically changed to \"$1\" due to the use of invalid characters.",
+	"fileimporter-filenameerror-automaticchanges": "The file name was automatically changed from \"$1\" to \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "The source file name does not have an extension.",
 	"fileimporter-filenameerror-noplannedextension": "The planned file name does not have an extension.",
 	"fileimporter-filenameerror-missmatchextension": "Target file extension does not match the extension of the original file.",

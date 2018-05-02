@@ -73,21 +73,20 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestTextDisplayedInInputBox() {
 		return [
-			[ 'Loo', null, 'Loo' ],
-			[ 'Loo', 'Foo', 'Foo' ],
-			[ 'Loo', 'Foooo/Barr', 'Foooo/Barr' ],
+			[ 'Loo', 'Loo' ],
+			[ 'Foooo/Barr', 'Foooo/Barr' ],
 		];
 	}
 
 	/**
 	 * @dataProvider provideTestTextDisplayedInInputBox
-	 * @param string $userInputName
+	 * @param string $fileName
 	 * @param string $expectedInputText
 	 */
-	public function testTextDisplayedInInputBox( $fileName, $userInputName, $expectedInputText ) {
+	public function testTextDisplayedInInputBox( $fileName, $expectedInputText ) {
 		$importPlan = $this->createMock( ImportPlan::class );
 		$importPlan->method( 'getRequest' )
-			->willReturn( new ImportRequest( 'http://goog', $userInputName, '' ) );
+			->willReturn( new ImportRequest( 'http://goog', '', '' ) );
 		$importPlan->method( 'getDetails' )
 			->willReturn( $this->getMockImportDetails() );
 		$importPlan->method( 'getFileName' )

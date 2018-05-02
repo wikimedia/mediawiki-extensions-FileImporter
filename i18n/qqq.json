@@ -26,7 +26,7 @@
 	"fileimporter-filenameerror-default": "Error message for cases where when the file name to be imported to has an issue we have no special handling for.",
 	"fileimporter-filenameerror-illegal": "Error message for cases where when the file name to be imported to is reported as invalid by MediaWiki.",
 	"fileimporter-filenameerror-toolong": "Error message for cases where when the file name to be imported to is reported as too long by MediaWiki.",
-	"fileimporter-filenameerror-automaticchanges": "Error message for cases where when the file name will be automatically changed by MediaWiki due to having invalid characters.",
+	"fileimporter-filenameerror-automaticchanges": "Error message for cases where when the file name will be automatically changed by MediaWiki due to having invalid characters.\n\nParameters:\n* $1 - the original file name\n* $2 - the automatically corrected file name",
 	"fileimporter-filenameerror-nosourceextension": "Error message for cases where the file provided by the user does not have a file extension.",
 	"fileimporter-filenameerror-noplannedextension": "Error message for cases where the planned import name provided by the user does not have a file extension.",
 	"fileimporter-filenameerror-missmatchextension": "Error message for cases where the original and planned importer name file extensions do not match.",
