@@ -36,5 +36,5 @@
 	"fileimporter-heading-filehistory": "Historia pliku",
 	"fileimporter-filetoolarge": "Plik, który próbujesz zaimportować, przekracza maksymalny limit rozmiaru pliku.",
 	"fileimporter-import-wait": "Importowanie może potrwać kilka minut.",
-	"fileimporter-add-template-button": "Powróć do oryginalnego pliku"
+	"fileimporter-go-to-original-file-button": "Powróć do oryginalnego pliku"
 }

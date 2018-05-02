@@ -55,5 +55,5 @@
 	"fileimporter-filetoolarge": "Filen du försöker importera överstrider gränsen för maximal filstorlek.",
 	"fileimporter-import-wait": "Importeringen kan ta några minuter.",
 	"fileimporter-imported-success-banner": "Denna fil har importerats till {{SITENAME}}. Klicka på följande länk för att visa filen: $1",
-	"fileimporter-add-template-button": "Återvänd till originalfilen"
+	"fileimporter-go-to-original-file-button": "Återvänd till originalfilen"
 }

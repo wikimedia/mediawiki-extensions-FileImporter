@@ -55,5 +55,5 @@
 	"fileimporter-import-wait": "Der Import kann einige Minuten in Anspruch nehmen.",
 	"fileimporter-imported-success-banner": "Diese Datei wurde erfolgreich in {{SITENAME}} importiert. Klicke auf den folgenden Link, um die Datei anzusehen: $1",
 	"fileimporter-imported-change-template": "Wir bitten dich, dass du zur Originaldatei zurückkehrst und das Folgende unternimmst:\n# Entferne alle Vorlagen, die vorschlagen, dass diese Datei nach {{SITENAME}} kopiert werden soll.\n# Ergänze eine Vorlage, die erklärt, dass diese Datei jetzt auf {{SITENAME}} verfügbar ist.\nVielen Dank!",
-	"fileimporter-add-template-button": "Zurück zur Originaldatei"
+	"fileimporter-go-to-original-file-button": "Zurück zur Originaldatei"
 }

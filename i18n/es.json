@@ -45,5 +45,5 @@
 	"fileimporter-filetoolarge": "El archivo que estás intentando cargar excede el límite de tamaño máximo.",
 	"fileimporter-import-wait": "La importación puede demorar unos minutos.",
 	"fileimporter-imported-success-banner": "El archivo se importó correctamente en {{SITENAME}}. Visita este enlace para verlo: $1",
-	"fileimporter-add-template-button": "Volver al archivo original"
+	"fileimporter-go-to-original-file-button": "Volver al archivo original"
 }

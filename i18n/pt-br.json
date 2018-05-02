@@ -55,5 +55,5 @@
 	"fileimporter-import-wait": "A importação pode demorar alguns minutos.",
 	"fileimporter-imported-success-banner": "O ficheiro foi importado para a wiki {{SITENAME}}. Para vê-lo, clique a seguinte hiperligação: $1",
 	"fileimporter-imported-change-template": "Volte ao arquivo original e faça o seguinte, por favor:\n# Remova todas as predefinições que sugerem que este arquivo deve ser copiado para a wiki {{SITENAME}}.\n# Adicione uma predefinição que declare que este arquivo está agora disponível na wiki {{SITENAME}}.\nMuito obrigado!",
-	"fileimporter-add-template-button": "Voltar ao arquivo original"
+	"fileimporter-go-to-original-file-button": "Voltar ao arquivo original"
 }
