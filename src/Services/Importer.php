@@ -239,8 +239,6 @@ class Importer {
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
-		// TODO If modifications are needed on the text we need to make 1 new revision!
-
 		$this->stats->timing(
 			'FileImporter.import.timing.wholeImport',
 			microtime( true ) - $importStart
