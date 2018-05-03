@@ -154,7 +154,6 @@ return [
 	/**
 	 * This configuration example is setup to handle the wikimedia style setup.
 	 * This only allows importing files from sites in the sites table.
-	 * TODO move files on disk not over http
 	 */
 	'FileImporter-WikimediaSitesTableSite' => function ( MediaWikiServices $services ) {
 		/**
