@@ -72,6 +72,8 @@ return [
 			$services->getMainConfig()->get( 'EnableUploads' ),
 			$logger
 		);
+		$uploadRevisionImporter->setNullRevisionCreation( false );
+
 		$oldRevisionImporter = new ImportableOldRevisionImporter(
 			true,
 			$logger,
