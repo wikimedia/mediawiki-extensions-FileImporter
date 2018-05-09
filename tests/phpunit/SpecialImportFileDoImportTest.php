@@ -38,7 +38,7 @@ class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
 	/**
 	 * @param WebRequest $fauxRequest
 	 * @param User $user
-	 * @param $importerResult
+	 * @param bool $importerResult
 	 * @return SpecialImportFile
 	 */
 	protected function newSpecialPage( WebRequest $fauxRequest, User $user, $importerResult ) {
@@ -88,8 +88,13 @@ class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
 	/**
 	 * @dataProvider provideSpecialPageDoImportTest
 	 */
-	public function testSpecialPageDoImportTest( $origHash, $requestData, $tokenCheck,
-												 $importerResult, $expected ) {
+	public function testSpecialPageDoImportTest(
+		$origHash,
+		array $requestData,
+		$tokenCheck,
+		$importerResult,
+		$expected
+	) {
 		$importPlanMock = $this->createMockImportPlan( $origHash );
 
 		$specialImportFile = $this->newSpecialPage(
@@ -132,7 +137,7 @@ class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
 	 * @param bool $tokenMatches
 	 * @return User
 	 */
-	private function createMockUser( $tokenMatches = false ) {
+	private function createMockUser( $tokenMatches ) {
 		$mockUser = $this->createMock( User::class );
 		$mockUser->method( 'matchEditToken' )
 			->willReturn( $tokenMatches );

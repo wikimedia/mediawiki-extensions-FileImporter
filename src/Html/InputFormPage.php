@@ -2,7 +2,6 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Data\SourceUrl;
 use Html;
 use Message;
 use OOUI\ButtonInputWidget;
@@ -23,20 +22,10 @@ class InputFormPage {
 	private $specialPage;
 
 	/**
-	 * @var SourceUrl|null
-	 */
-	private $sourceUrl;
-
-	/**
 	 * @param SpecialPage $specialPage
-	 * @param SourceUrl|null $sourceUrl
 	 */
-	public function __construct(
-		SpecialPage $specialPage,
-		SourceUrl $sourceUrl = null
-	) {
+	public function __construct( SpecialPage $specialPage ) {
 		$this->specialPage = $specialPage;
-		$this->sourceUrl = $sourceUrl;
 	}
 
 	/**
@@ -58,7 +47,6 @@ class InputFormPage {
 				'autofocus' => true,
 				'required' => true,
 				'type' => 'url',
-				'value' => $this->sourceUrl ? $this->sourceUrl->getUrl() : '',
 				'placeholder' => ( new Message( 'fileimporter-exampleprefix' ) )->plain() .
 					': https://en.wikipedia.org/wiki/File:Berlin_Skyline',
 			]

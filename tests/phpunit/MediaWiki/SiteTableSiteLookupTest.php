@@ -36,7 +36,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideGetSite() {
 		return [
-			'google' => [ 'google.com' ],
+			'google' => [ 'google.com', null ],
 			'commons' => [ 'commons.wikimedia.org', 'commonswiki' ],
 			'enwiki' => [ 'en.wikipedia.org', 'enwiki' ],
 			'dewiki' => [ 'de.wikipedia.org', 'dewiki', ],
@@ -46,7 +46,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideGetSite
 	 */
-	public function testGetSite( $host, $expected = null ) {
+	public function testGetSite( $host, $expected ) {
 		$hashSiteStore = new HashSiteStore( [
 			$this->getSite( 'enwiki', 'en.wikipedia.org' ),
 			$this->getSite( 'dewiki', 'de.wikipedia.org' ),
@@ -57,7 +57,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$result = $lookup->getSite( $host );
 		if ( $expected === null ) {
-			$this->assertEquals( null, $result );
+			$this->assertNull( $result );
 		} else {
 			/** @var MediaWikiSite $result */
 			$this->assertEquals( $result->getGlobalId(), $expected );

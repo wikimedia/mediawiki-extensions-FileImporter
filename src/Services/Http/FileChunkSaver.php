@@ -24,7 +24,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	private $filePath;
 
 	/**
-	 * @var int|null
+	 * @var int
 	 */
 	private $maxBytes;
 
@@ -45,9 +45,9 @@ class FileChunkSaver implements LoggerAwareInterface {
 
 	/**
 	 * @param string $filePath
-	 * @param int|null $maxBytes
+	 * @param int $maxBytes
 	 */
-	public function __construct( $filePath, $maxBytes = null ) {
+	public function __construct( $filePath, $maxBytes ) {
 		$this->filePath = $filePath;
 		$this->maxBytes = $maxBytes;
 		$this->logger = new NullLogger();
@@ -112,7 +112,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	}
 
 	private function throwExceptionIfMaxBytesExceeded() {
-		if ( $this->maxBytes !== null && $this->fileSize > $this->maxBytes ) {
+		if ( $this->fileSize > $this->maxBytes ) {
 			$this->closeHandleLogAndThrowException(
 				'File downloaded ' . $this->fileSize . ' bytes, ' .
 				'exceeds maximum ' . $this->maxBytes . ' bytes.'

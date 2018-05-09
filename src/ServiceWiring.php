@@ -167,6 +167,7 @@ return [
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		$logger = LoggerFactory::getInstance( 'FileImporter' );
+		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 
 		$site = new SourceSite(
 			new SiteTableSourceUrlChecker(
@@ -176,7 +177,8 @@ return [
 			new Remote\MediaWiki\ApiDetailRetriever(
 				$httpApiLookup,
 				$httpRequestExecutor,
-				$logger
+				$logger,
+				$maxFileSize
 			),
 			new Remote\MediaWiki\RemoteApiImportTitleChecker(
 				$httpApiLookup,

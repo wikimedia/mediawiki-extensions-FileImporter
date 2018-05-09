@@ -45,7 +45,7 @@ class FileChunkSaverTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetHandleFails() {
-		$saver = new FileChunkSaver( '' );
+		$saver = new FileChunkSaver( '', 0 );
 		$saver = TestingAccessWrapper::newFromObject( $saver );
 
 		$this->setExpectedException( RuntimeException::class );

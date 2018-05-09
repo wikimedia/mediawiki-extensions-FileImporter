@@ -35,11 +35,11 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param int $callCount
-	 * @param null|bool $allowed
+	 * @param bool $allowed
 	 *
 	 * @return ImportTitleChecker
 	 */
-	private function getMockImportTitleChecker( $callCount = 0, $allowed = null ) {
+	private function getMockImportTitleChecker( $callCount, $allowed ) {
 		$mock = $this->createMock( ImportTitleChecker::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'importAllowed' )

@@ -6,7 +6,6 @@ use ErrorPageError;
 use Exception;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
-use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
@@ -333,12 +332,12 @@ class SpecialImportFile extends SpecialPage {
 		);
 	}
 
-	private function showInputForm( SourceUrl $sourceUrl = null ) {
+	private function showInputForm() {
 		if ( $this->config->get( 'FileImporterInBeta' ) ) {
 			$this->showWarningMessage( ( new Message( 'fileimporter-in-beta' ) )->parse() );
 		}
 
-		$this->getOutput()->addHTML( ( new InputFormPage( $this, $sourceUrl ) )->getHtml() );
+		$this->getOutput()->addHTML( ( new InputFormPage( $this ) )->getHtml() );
 	}
 
 }

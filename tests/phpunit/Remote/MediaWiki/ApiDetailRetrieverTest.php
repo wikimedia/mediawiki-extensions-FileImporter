@@ -274,7 +274,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 				$expected[ 'url' ],
 				json_encode( $apiResponse )
 			),
-			new NullLogger()
+			new NullLogger(),
+			0
 		);
 
 		/** @var ApiDetailRetriever $apiRetriever */
@@ -322,7 +323,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( 'File:Foo.jpg', json_encode( $content ) ),
-			new NullLogger()
+			new NullLogger(),
+			0
 		);
 
 		$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
@@ -410,7 +412,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( $titleString, $content ),
-			new NullLogger()
+			new NullLogger(),
+			0
 		);
 		$importDetails = $service->getImportDetails( $sourceUrl );
 
@@ -430,7 +433,8 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		return TestingAccessWrapper::newFromObject( new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->createMock( HttpRequestExecutor::class ),
-			new NullLogger()
+			new NullLogger(),
+			0
 		) );
 	}
 

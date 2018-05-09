@@ -41,7 +41,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $logger;
 
 	/**
-	 * @var int|null
+	 * @var int
 	 */
 	private $maxBytes;
 
@@ -62,7 +62,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param HttpApiLookup $httpApiLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param LoggerInterface $logger
-	 * @param int|null $maxBytes
+	 * @param int $maxBytes
 	 *
 	 * @throws ConfigException
 	 */
@@ -70,7 +70,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
 		LoggerInterface $logger,
-		$maxBytes = null
+		$maxBytes
 	) {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
@@ -340,7 +340,7 @@ class ApiDetailRetriever implements DetailRetriever {
 				$revisionInfo['sha1'] = sha1( $revisionInfo['*'] );
 			}
 
-			if ( array_key_exists( 'size', $revisionInfo ) && $this->maxBytes !== null ) {
+			if ( array_key_exists( 'size', $revisionInfo ) ) {
 				if ( $revisionInfo['size'] > $this->maxBytes ) {
 					$versions = count( $imageInfo );
 					throw new LocalizedImportException( [ 'fileimporter-filetoolarge', $versions ] );

@@ -17,7 +17,7 @@ use Site;
  */
 class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
-	private function getSiteTableSourceUrlChecker( $knownSites = [] ) {
+	private function getSiteTableSourceUrlChecker( array $knownSites ) {
 		$sites = [];
 		foreach ( $knownSites as $siteCode => $linkPath ) {
 			$site = new Site();

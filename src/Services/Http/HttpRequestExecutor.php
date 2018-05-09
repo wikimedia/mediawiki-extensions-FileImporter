@@ -26,20 +26,20 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	private $requestFactoryCallable;
 
 	/**
-	 * @var int|bool
+	 * @var int|false
 	 */
 	private $timeout;
 
 	/**
-	 * @var int|null
+	 * @var int
 	 */
 	private $maxFileSize;
 
 	/**
-	 * @param int|bool $timeout of http requests in seconds, false for default
-	 * @param int|null $maxFileSize in bytes
+	 * @param int|false $timeout of http requests in seconds, false for default
+	 * @param int $maxFileSize in bytes
 	 */
-	public function __construct( $timeout = false, $maxFileSize = null ) {
+	public function __construct( $timeout, $maxFileSize ) {
 		$this->requestFactoryCallable = [ MWHttpRequest::class, 'factory' ];
 		$this->logger = new NullLogger();
 		$this->maxFileSize = $maxFileSize;
