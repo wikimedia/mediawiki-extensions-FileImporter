@@ -3,7 +3,7 @@
 namespace FileImporter\Data;
 
 use MediaWiki\Linker\LinkTarget;
-use Wikimedia\Assert\Assert;
+use OutOfRangeException;
 
 /**
  * Contains the details from the source site for the import.
@@ -24,11 +24,6 @@ class ImportDetails {
 	private $sourceLinkTarget;
 
 	/**
-	 * @var string
-	 */
-	private $imageDisplayUrl;
-
-	/**
 	 * @var TextRevisions
 	 */
 	private $textRevisions;
@@ -41,22 +36,17 @@ class ImportDetails {
 	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param LinkTarget $sourceLinkTarget
-	 * @param string $imageDisplayUrl
 	 * @param TextRevisions $textRevisions
 	 * @param FileRevisions $fileRevisions
 	 */
 	public function __construct(
 		SourceUrl $sourceUrl,
 		LinkTarget $sourceLinkTarget,
-		$imageDisplayUrl,
 		TextRevisions $textRevisions,
 		FileRevisions $fileRevisions
 	) {
-		Assert::parameterType( 'string', $imageDisplayUrl, '$imageDisplayUrl' );
-
 		$this->sourceUrl = $sourceUrl;
 		$this->sourceLinkTarget = $sourceLinkTarget;
-		$this->imageDisplayUrl = $imageDisplayUrl;
 		$this->textRevisions = $textRevisions;
 		$this->fileRevisions = $fileRevisions;
 	}
@@ -83,10 +73,17 @@ class ImportDetails {
 	}
 
 	/**
+	 * @throws OutOfRangeException when no file revisions have been provided
 	 * @return string
 	 */
 	public function getImageDisplayUrl() {
-		return $this->imageDisplayUrl;
+		$latest = $this->fileRevisions->getLatest();
+
+		if ( !$latest ) {
+			throw new OutOfRangeException( 'There is no latest file revision' );
+		}
+
+		return $latest->getField( 'thumburl' );
 	}
 
 	/**

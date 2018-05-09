@@ -24,11 +24,17 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'PATH/FILENAME.EXT' );
 		$textRevisions = new TextRevisions( [] );
-		$fileRevisions = new FileRevisions( [] );
+
+		$fileRevision = $this->createMock( FileRevision::class );
+		$fileRevision->method( 'getField' )->willReturn( 'IMAGEDISPLAYURL' );
+
+		$fileRevisions = $this->createMock( FileRevisions::class );
+		$fileRevisions->method( 'toArray' )->willReturn( [] );
+		$fileRevisions->method( 'getLatest' )->willReturn( $fileRevision );
+
 		$details = new ImportDetails(
 			$sourceUrl,
 			$sourceLinkTarget,
-			'IMAGEDISPLAYURL',
 			$textRevisions,
 			$fileRevisions
 		);
@@ -36,13 +42,13 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		// Values provided on construction time
 		$this->assertSame( $sourceUrl, $details->getSourceUrl(), 'sourceUrl' );
 		$this->assertSame( $sourceLinkTarget, $details->getSourceLinkTarget(), 'sourceLinkTarget' );
-		$this->assertSame( 'IMAGEDISPLAYURL', $details->getImageDisplayUrl(), 'imageDisplayUrl' );
 		$this->assertSame( $textRevisions, $details->getTextRevisions(), 'textRevisions' );
 		$this->assertSame( $fileRevisions, $details->getFileRevisions(), 'fileRevisions' );
 
 		// Derived values
 		$this->assertSame( 'FILENAME', $details->getSourceFileName(), 'sourceFileName' );
 		$this->assertSame( 'EXT', $details->getSourceFileExtension(), 'sourceFileExtension' );
+		$this->assertSame( 'IMAGEDISPLAYURL', $details->getImageDisplayUrl(), 'imageDisplayUrl' );
 		$this->assertSame( 40, strlen( $details->getOriginalHash() ), 'originalHash' );
 	}
 
@@ -58,26 +64,15 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'FILE' );
 		$textRevisions = new TextRevisions( [] );
 		$fileRevisions = new FileRevisions( [] );
+
 		$original = new ImportDetails(
 			$sourceUrl,
 			$sourceLinkTarget,
-			'IMAGEDISPLAYURL',
 			$textRevisions,
 			$fileRevisions
 		);
 
 		yield 'same' => [ $original, $original ];
-
-		yield 'other imageDisplayUrl' => [
-			$original,
-			new ImportDetails(
-				$sourceUrl,
-				$sourceLinkTarget,
-				'OTHER',
-				$textRevisions,
-				$fileRevisions
-			)
-		];
 	}
 
 	/**
@@ -92,10 +87,10 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'FILE' );
 		$textRevisions = new TextRevisions( [ $this->createMock( TextRevision::class ) ] );
 		$fileRevisions = new FileRevisions( [ $this->createMock( FileRevision::class ) ] );
+
 		$original = new ImportDetails(
 			$sourceUrl,
 			$sourceLinkTarget,
-			'IMAGEDISPLAYURL',
 			$textRevisions,
 			$fileRevisions
 		);
@@ -105,7 +100,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				new SourceUrl( '//OTHER.URL' ),
 				$sourceLinkTarget,
-				'IMAGEDISPLAYURL',
 				$textRevisions,
 				$fileRevisions
 			)
@@ -116,7 +110,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				new TitleValue( NS_FILE, 'OTHER' ),
-				'IMAGEDISPLAYURL',
 				$textRevisions,
 				$fileRevisions
 			)
@@ -127,7 +120,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				'IMAGEDISPLAYURL',
 				new TextRevisions( [] ),
 				$fileRevisions
 			)
@@ -138,7 +130,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				'IMAGEDISPLAYURL',
 				$textRevisions,
 				new FileRevisions( [] )
 			)
@@ -151,7 +142,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				'IMAGEDISPLAYURL',
 				new TextRevisions( [ $textRevision ] ),
 				$fileRevisions
 			)
@@ -164,7 +154,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				'IMAGEDISPLAYURL',
 				$textRevisions,
 				new FileRevisions( [ $fileRevision ] )
 			)
