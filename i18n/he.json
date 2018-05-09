@@ -24,7 +24,7 @@
 	"fileimporter-filenameerror-default": "יש בעיה בלתי־ידועה עם שם הקובץ שלך.",
 	"fileimporter-filenameerror-illegal": "שם הקובץ {{GENDER:|שאת|שאתה}} מנסה לייבא אינו תקין.",
 	"fileimporter-filenameerror-toolong": "שם הקובץ {{GENDER:|שאת|שאתה}} מנסה לייבא ארוך מדי.",
-	"fileimporter-filenameerror-automaticchanges": "שם הקובץ {{GENDER:|שאת|שאתה}} מנסה לייבא ישונה אוטומטית ל־\"$1\" בשל שימוש בתווים בלתי־תקינים.",
+	"fileimporter-filenameerror-automaticchanges": "שם הקובץ שוּנה באופן אוטומטי מהשם \"$1\" לשם \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "לקובץ המקור אין סיומת.",
 	"fileimporter-filenameerror-noplannedextension": "לשם הקובץ המתוכנן אין סיומת.",
 	"fileimporter-filenameerror-missmatchextension": "סיומת הקובץ המיועדת אינה מתאימה לסיומת של הקובץ המקורי.",

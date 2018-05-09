@@ -26,7 +26,7 @@
 	"fileimporter-filenameerror-default": "Il y a un problème non reconnu avec le nom de votre fichier.",
 	"fileimporter-filenameerror-illegal": "Le nom du fichier que vous essayez actuellement d'importer est invalide.",
 	"fileimporter-filenameerror-toolong": "Le nom du fichier que vous essayez actuellement d'importer est trop long.",
-	"fileimporter-filenameerror-automaticchanges": "Le nom du fichier que vous essayez d’importer sera modifié automatiquement en « $1 » du fait de l’utilisation de caractères non valides.",
+	"fileimporter-filenameerror-automaticchanges": "Le nom du fichier a été modifié automatiquement de « $1 » en « $2 »",
 	"fileimporter-filenameerror-nosourceextension": "Le nom du fichier source n’a pas d’extension.",
 	"fileimporter-filenameerror-noplannedextension": "Le nom du fichier cible n’a pas d’extension.",
 	"fileimporter-filenameerror-missmatchextension": "L’extension du fichier cible ne correspond pas à celle du fichier d’origine.",

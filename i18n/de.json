@@ -22,7 +22,7 @@
 	"fileimporter-filenameerror-default": "Es gibt ein unbekanntes Problem mit deinem Dateinamen.",
 	"fileimporter-filenameerror-illegal": "Der Dateiname, den du derzeit versuchst zu importieren, ist ungültig.",
 	"fileimporter-filenameerror-toolong": "Der Dateiname, den du derzeit versuchst zu importieren, ist zu lang.",
-	"fileimporter-filenameerror-automaticchanges": "Der Dateiname, den du derzeit versuchst zu importieren, wird aufgrund der Verwendung ungültiger Zeichen automatisch in „$1“ geändert.",
+	"fileimporter-filenameerror-automaticchanges": "Der Dateiname wurde automatisch von „$1“ in „$2“ geändert",
 	"fileimporter-filenameerror-nosourceextension": "Der ursprüngliche Dateiname hat keine Erweiterung.",
 	"fileimporter-filenameerror-noplannedextension": "Der gewünschte Dateiname hat keine Erweiterung.",
 	"fileimporter-filenameerror-missmatchextension": "Die Ziel-Dateierweiterung stimmt nicht mit der Erweiterung der Ursprungsdatei überein.",
