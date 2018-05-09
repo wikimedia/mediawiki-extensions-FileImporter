@@ -63,7 +63,12 @@ class FileChunkSaver implements LoggerAwareInterface {
 	 */
 	private function getHandle() {
 		if ( $this->handle === null ) {
-			$this->handle = fopen( $this->filePath, 'wb' );
+			try {
+				$this->handle = fopen( $this->filePath, 'wb' );
+			} catch ( \Exception $e ) {
+				$this->logger->debug( 'Failed to get file handle: "' . $e->getMessage() . '"' );
+			}
+
 			if ( !$this->handle ) {
 				$this->logger->debug( 'File creation failed "' . $this->filePath . '"' );
 				throw new RuntimeException( 'Failed to open file "' . $this->filePath . '"' );

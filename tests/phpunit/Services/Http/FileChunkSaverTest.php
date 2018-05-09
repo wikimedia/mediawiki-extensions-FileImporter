@@ -4,6 +4,7 @@ namespace FileImporter\Services\Http\Test;
 
 use FileImporter\Services\Http\FileChunkSaver;
 use RuntimeException;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Services\Http\FileChunkSaver
@@ -41,6 +42,15 @@ class FileChunkSaverTest extends \MediaWikiTestCase {
 		}
 
 		$this->assertSame( $expectedResult, $saver->saveFileChunk( null, $buffer ) );
+	}
+
+	public function testGetHandleFails() {
+		$saver = new FileChunkSaver( '' );
+		$saver = TestingAccessWrapper::newFromObject( $saver );
+
+		$this->setExpectedException( RuntimeException::class );
+
+		$saver->getHandle();
 	}
 
 	private function createChunkSaver( $maxBytes ) {
