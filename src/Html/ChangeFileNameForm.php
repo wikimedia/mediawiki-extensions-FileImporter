@@ -38,11 +38,7 @@ class ChangeFileNameForm {
 	 * @return string
 	 */
 	public function getHtml() {
-		// Try showing the user provided value first if present
-		$filenameValue = $this->importPlan->getRequest()->getIntendedName();
-		if ( $filenameValue === null ) {
-			$filenameValue = $this->importPlan->getFileName();
-		}
+		$filenameValue = $this->importPlan->getFileName();
 
 		return Html::openElement(
 			'form',

@@ -79,7 +79,10 @@ class ImportPlanValidator {
 				throw new RecoverableTitleException(
 					new Message(
 						'fileimporter-filenameerror-automaticchanges',
-						[ $importPlan->getFileName() ]
+						[
+							$importPlan->getRequest()->getIntendedName(),
+							$importPlan->getFileName()
+						]
 					),
 					$importPlan
 				);
