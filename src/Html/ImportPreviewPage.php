@@ -7,6 +7,7 @@ use Html;
 use Linker;
 use Message;
 use OOUI\ButtonInputWidget;
+use OOUI\ButtonWidget;
 use OOUI\TextInputWidget;
 use SpecialPage;
 
@@ -204,12 +205,12 @@ class ImportPreviewPage {
 				'flags' => [ 'primary', 'progressive' ],
 			]
 		) .
-		new ButtonInputWidget(
+		new ButtonWidget(
 			[
 				'classes' => [ 'mw-importfile-import-cancel' ],
 				'label' => ( new Message( 'fileimporter-cancel' ) )->plain(),
-				'type' => 'reset',
 				'flags' => [ 'progressive' ],
+				'href' => $this->importPlan->getRequest()->getUrl()->getUrl()
 			]
 		) .
 		Html::element(
