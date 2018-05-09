@@ -18,10 +18,13 @@ use WebResponse;
 
 /**
  * @covers \FileImporter\Html\DuplicateFilesErrorPage
+ * @covers \FileImporter\Html\ErrorPage
+ * @covers \FileImporter\Html\ImportIdentityFormSnippet
  * @covers \FileImporter\Html\ImportPreviewPage
  * @covers \FileImporter\Html\ImportSuccessPage
  * @covers \FileImporter\Html\InputFormPage
  * @covers \FileImporter\Html\RecoverableTitleExceptionPage
+ * @covers \FileImporter\Html\TextRevisionSnippet
  * @covers \FileImporter\Services\Importer
  * @covers \FileImporter\SpecialImportFile
  *

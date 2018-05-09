@@ -17,6 +17,7 @@ use Title;
 
 /**
  * @covers \FileImporter\Html\ChangeFileNameForm
+ * @covers \FileImporter\Html\ImportIdentityFormSnippet
  *
  * @license GPL-2.0-or-later
  * @author Addshore
