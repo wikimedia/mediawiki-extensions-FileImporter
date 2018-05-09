@@ -8,8 +8,8 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Services\Importer;
 use FileImporter\SpecialImportFile;
+use OOUI\ApexTheme;
 use OOUI\Theme;
-use OOUI\WikimediaUITheme;
 use OutputPage;
 use Title;
 use User;
@@ -26,7 +26,12 @@ class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new WikimediaUITheme() );
+		Theme::setSingleton( new ApexTheme() );
+	}
+
+	public function tearDown() {
+		Theme::setSingleton( null );
+		parent::tearDown();
 	}
 
 	/**

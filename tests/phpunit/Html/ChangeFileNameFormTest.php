@@ -9,8 +9,8 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
+use OOUI\ApexTheme;
 use OOUI\Theme;
-use OOUI\WikimediaUITheme;
 use PHPUnit4And6Compat;
 use SpecialPage;
 use Title;
@@ -26,7 +26,12 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new WikimediaUITheme() );
+		Theme::setSingleton( new ApexTheme() );
+	}
+
+	public function tearDown() {
+		Theme::setSingleton( null );
+		parent::tearDown();
 	}
 
 	/**
