@@ -11,8 +11,8 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileInfoForm;
 use IContextSource;
 use Language;
+use OOUI\ApexTheme;
 use OOUI\Theme;
-use OOUI\WikimediaUITheme;
 use OutputPage;
 use PHPUnit4And6Compat;
 use SpecialPage;
@@ -31,7 +31,12 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new WikimediaUITheme() );
+		Theme::setSingleton( new ApexTheme() );
+	}
+
+	public function tearDown() {
+		Theme::setSingleton( null );
+		parent::tearDown();
 	}
 
 	/**
