@@ -24,7 +24,7 @@
 	"fileimporter-filenameerror-default": "هناك مشكلة غير معروفة في اسم الملف.",
 	"fileimporter-filenameerror-illegal": "اسم الملف الذي تحاول استيراده حاليًا غير صالح.",
 	"fileimporter-filenameerror-toolong": "اسم الملف الذي تحاول استيراده حاليًا طويل جدًا.",
-	"fileimporter-filenameerror-automaticchanges": "سيتم تلقائيًا تغيير اسم الملف الذي تحاول استيراده حاليًا إلى \"$1\" نظرًا لاستخدام أحرف غير صالحة.",
+	"fileimporter-filenameerror-automaticchanges": "تم تغيير اسم الملف تلقائيا من \"$1\" إلى \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "لا يحتوي اسم الملف المصدر على ملحق.",
 	"fileimporter-filenameerror-noplannedextension": "لا يحتوي اسم الملف المخطط على ملحق.",
 	"fileimporter-filenameerror-missmatchextension": "لا يتطابق ملحق الملف الهدف مع ملحق الملف الأصلي.",
