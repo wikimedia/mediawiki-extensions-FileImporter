@@ -69,7 +69,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 * @return Site
 	 */
 	private function getMockSite( $globalId, $domain ) {
-		$mockSite = $this->getMock( Site::class );
+		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
 			->willReturn( $globalId );
 		$mockSite->method( 'getDomain' )

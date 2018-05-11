@@ -24,7 +24,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 	 * @return Site
 	 */
 	private function getSite( $globalId, $domain ) {
-		$mockSite = $this->getMock( Site::class );
+		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
 			->willReturn( $globalId );
 		$mockSite->method( 'getDomain' )

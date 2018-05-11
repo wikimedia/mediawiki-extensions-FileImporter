@@ -48,7 +48,7 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( 'SomeTitle' ) );
 		$mock->method( 'getContext' )
-			->willReturn( $this->getMock( IContextSource::class ) );
+			->willReturn( $this->createMock( IContextSource::class ) );
 		$mock->method( 'getRequest' )
 			->willReturn( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) );
 		$mock->method( 'getOutput' )
