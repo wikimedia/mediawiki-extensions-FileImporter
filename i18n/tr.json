@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hedda"
+		]
+	},
+	"fileimporter-filenameerror-automaticchanges": "Dosya adı otomatik olarak \"$1\" adından $2 adına çevrildi."
+}
