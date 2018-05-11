@@ -92,7 +92,7 @@ class ImportPreviewPage {
 				]
 			) .
 			Html::closeElement( 'form' )
-		).
+		) .
 		Linker::makeExternalImage(
 			$details->getImageDisplayUrl(),
 			$title->getPrefixedText()
@@ -168,7 +168,7 @@ class ImportPreviewPage {
 				'method' => 'POST',
 			]
 		) .
-			( $this->wasEdited() ? $this->buildEditSummaryHtml() : '' ).
+		( $this->wasEdited() ? $this->buildEditSummaryHtml() : '' ) .
 		Html::element(
 			'p',
 			[],
