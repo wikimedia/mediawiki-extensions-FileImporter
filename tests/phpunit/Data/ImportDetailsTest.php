@@ -25,12 +25,10 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'PATH/FILENAME.EXT' );
 		$textRevisions = new TextRevisions( [] );
 
-		$fileRevision = $this->createMock( FileRevision::class );
-		$fileRevision->method( 'getField' )->willReturn( 'IMAGEDISPLAYURL' );
-
 		$fileRevisions = $this->createMock( FileRevisions::class );
 		$fileRevisions->method( 'toArray' )->willReturn( [] );
-		$fileRevisions->method( 'getLatest' )->willReturn( $fileRevision );
+		$fileRevisions->method( 'getLatest' )
+			->willReturn( $this->newRevision( FileRevision::class, 'IMAGEDISPLAYURL' ) );
 
 		$details = new ImportDetails(
 			$sourceUrl,
@@ -135,29 +133,37 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			)
 		];
 
-		$textRevision = $this->createMock( TextRevision::class );
-		$textRevision->method( 'getField' )->willReturn( 'OTHER' );
 		yield 'other textRevision sha1' => [
 			$original,
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				new TextRevisions( [ $textRevision ] ),
+				new TextRevisions( [ $this->newRevision( TextRevision::class, 'OTHER' ) ] ),
 				$fileRevisions
 			)
 		];
 
-		$fileRevision = $this->createMock( FileRevision::class );
-		$fileRevision->method( 'getField' )->willReturn( 'OTHER' );
 		yield 'other fileRevision sha1' => [
 			$original,
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
 				$textRevisions,
-				new FileRevisions( [ $fileRevision ] )
+				new FileRevisions( [ $this->newRevision( FileRevision::class, 'OTHER' ) ] )
 			)
 		];
+	}
+
+	/**
+	 * @param string $revisionClass Either TextRevision::class or FileRevision::class
+	 * @param string $fieldValue All fields will return the same value
+	 *
+	 * @return TextRevision|FileRevision
+	 */
+	public function newRevision( $revisionClass, $fieldValue ) {
+		$mock = $this->createMock( $revisionClass );
+		$mock->method( 'getField' )->willReturn( $fieldValue );
+		return $mock;
 	}
 
 }
