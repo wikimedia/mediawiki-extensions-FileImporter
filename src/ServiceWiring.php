@@ -3,9 +3,11 @@
 namespace FileImporter;
 
 use FileImporter\Data\SourceUrl;
+use FileImporter\Remote\NullSourceInterWikiLookup;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
+use FileImporter\Remote\MediaWiki\SiteTableSourceInterWikiLookup;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
@@ -147,7 +149,8 @@ return [
 			),
 			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
 				return new SourceUrl( str_replace( '..GOAT..', '', $sourceUrl->getUrl() ) );
-			} )
+			} ),
+			new NullSourceInterWikiLookup()
 		);
 
 		return $site;
@@ -187,7 +190,8 @@ return [
 			),
 			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
 				return new SourceUrl( str_replace( '.m.', '.', $sourceUrl->getUrl() ) );
-			} )
+			} ),
+			new SiteTableSourceInterWikiLookup( $siteTableLookup )
 		);
 
 		return $site;
