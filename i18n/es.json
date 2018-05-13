@@ -21,7 +21,7 @@
 	"fileimporter-filenameerror-default": "Hay un problema desconocido con tu nombre de archivo.",
 	"fileimporter-filenameerror-illegal": "El nombre del archivo que estás intentando importar actualmente no es válido.",
 	"fileimporter-filenameerror-toolong": "El nombre del archivo que estás intentando importar actualmente es demasiado largo.",
-	"fileimporter-filenameerror-automaticchanges": "El nombre del archivo que estás intentando importar se modificará automáticamente a «$1» debido al uso de caracteres no válidos.",
+	"fileimporter-filenameerror-automaticchanges": "El nombre del archivo se modificó automáticamente de «$1» a «$2».",
 	"fileimporter-filenameerror-nosourceextension": "El nombre de archivo de origen no tiene extensión.",
 	"fileimporter-filenameerror-noplannedextension": "El nombre de archivo planificado no tiene extensión.",
 	"fileimporter-filenameerror-missmatchextension": "La extensión de archivo de destino no coincide con la del archivo original.",
