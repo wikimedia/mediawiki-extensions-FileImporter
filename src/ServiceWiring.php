@@ -72,7 +72,10 @@ return [
 			$services->getMainConfig()->get( 'EnableUploads' ),
 			$logger
 		);
-		$uploadRevisionImporter->setNullRevisionCreation( false );
+		// TODO: Conditional added for backwards-compatibility, revert as soon as possible.
+		if ( method_exists( $uploadRevisionImporter, 'setNullRevisionCreation' ) ) {
+			$uploadRevisionImporter->setNullRevisionCreation( false );
+		}
 
 		$oldRevisionImporter = new ImportableOldRevisionImporter(
 			true,
