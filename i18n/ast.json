@@ -22,7 +22,7 @@
 	"fileimporter-filenameerror-default": "Hai un problema desconocíu col nome del ficheru.",
 	"fileimporter-filenameerror-illegal": "El nome de ficheru al que tas tentando importar ye inválidu.",
 	"fileimporter-filenameerror-toolong": "El nome de ficheru al que tas tentando importar ye demasiao largu.",
-	"fileimporter-filenameerror-automaticchanges": "El nome del ficheru que tas tentando importar cambiaráse automáticamente a «$1» porque usa caráuteres non válidos.",
+	"fileimporter-filenameerror-automaticchanges": "El nome del ficheru cambióse automáticamente de «$1» a «$2»",
 	"fileimporter-filenameerror-nosourceextension": "El nome del ficheru orixinal nun tien estensión.",
 	"fileimporter-filenameerror-noplannedextension": "El nome de ficheru planificáu nun tien estensión.",
 	"fileimporter-filenameerror-missmatchextension": "La estensión del ficheru de destín nun casa cola estensión del ficheru orixinal.",
@@ -51,6 +51,8 @@
 	"fileimporter-revision-removed-comment": "Comentariu suprimíu desaniciáu por FileImporter.",
 	"fileimporter-in-beta": "La importación de ficheros ta en mou beta: Probñamosla con procuru, pero inda podría dar dellos problemes. Si t'alcuentres dalgunu, por favor, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter informa d'ellos na páxina d'ayuda] (idealmente n'inglés, con una manera pasu a pasu pa reproducir el problema), pa que podamos entendelo ya igualo.",
 	"fileimporter-filemissinginrevision": "Nun pudo importase'l ficheru porque polo menos n'una de les revisiones falta un ficheru d'imaxe.",
-	"fileimporter-filetoolarge": "El ficheru que tas tentando importar pasa la llende de tamañu máximu.",
-	"fileimporter-import-wait": "La importación puede tardar dellos minutos."
+	"fileimporter-filetoolarge": "{{PLURAL:$1|El ficheru|$1 versiones del ficheru}} que tas tentando importar {{PLURAL:$1|pasa|pasen}} la llende de tamañu máximu que puede xestionar la importación.",
+	"fileimporter-import-wait": "La importación puede tardar dellos minutos.",
+	"fileimporter-imported-success-banner": "El ficheru importóse correutamente a {{SITENAME}}. Visita l'enllaz siguiente para velu: $1",
+	"fileimporter-go-to-original-file-button": "Volver al ficheru orixinal"
 }
