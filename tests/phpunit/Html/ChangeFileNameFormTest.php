@@ -9,7 +9,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
-use OOUI\ApexTheme;
+use OOUI\BlankTheme;
 use OOUI\Theme;
 use PHPUnit4And6Compat;
 use SpecialPage;
@@ -27,7 +27,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new ApexTheme() );
+		Theme::setSingleton( new BlankTheme() );
 	}
 
 	public function tearDown() {

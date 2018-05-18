@@ -8,7 +8,7 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Services\Importer;
 use FileImporter\SpecialImportFile;
-use OOUI\ApexTheme;
+use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
 use Title;
@@ -27,7 +27,7 @@ class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new ApexTheme() );
+		Theme::setSingleton( new BlankTheme() );
 	}
 
 	public function tearDown() {

@@ -11,7 +11,7 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileInfoForm;
 use IContextSource;
 use Language;
-use OOUI\ApexTheme;
+use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
 use PHPUnit4And6Compat;
@@ -32,7 +32,7 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new ApexTheme() );
+		Theme::setSingleton( new BlankTheme() );
 	}
 
 	public function tearDown() {
