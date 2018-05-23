@@ -12,6 +12,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
+use FileImporter\Services\CommonsHelperConfigParser;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Message;
 use Psr\Log\LoggerInterface;
@@ -46,6 +47,11 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $maxBytes;
 
 	/**
+	 * @var bool
+	 */
+	private $useCommonsHelperConfig;
+
+	/**
 	 * @var int
 	 */
 	private $maxRevisions;
@@ -76,10 +82,12 @@ class ApiDetailRetriever implements DetailRetriever {
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = $logger;
 		$this->maxBytes = $maxBytes;
-		$services = MediaWikiServices::getInstance();
-		$this->maxRevisions = (int)$services->getMainConfig()->get( 'FileImporterMaxRevisions' );
-		$this->maxAggregatedBytes =
-			(int)$services->getMainConfig()->get( 'FileImporterMaxAggregatedBytes' );
+
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		$this->useCommonsHelperConfig = (bool)$config->get( 'FileImporterUseCommonsHelperConfig' );
+		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
+		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
 	}
 
 	/**
@@ -201,6 +209,22 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		while ( array_key_exists( 'continue', $requestData ) ) {
 			$this->getMoreRevisions( $sourceUrl, $apiUrl, $requestData, $pageInfoData );
+		}
+
+		if ( $this->useCommonsHelperConfig ) {
+			$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
+				$sourceUrl, $this->httpRequestExecutor
+			);
+
+			if ( $commonsHelperConfigRetriever->retrieveConfiguration() ) {
+				$commonHelperConfigParser = new CommonsHelperConfigParser(
+					$commonsHelperConfigRetriever->getConfigWikiUrl(),
+					$commonsHelperConfigRetriever->getConfigWikiText()
+				);
+
+				// TODO: Unused at the moment
+				$textConversions = $commonHelperConfigParser->getWikiTextConversions();
+			}
 		}
 
 		$imageInfoData = $pageInfoData['imageinfo'];
