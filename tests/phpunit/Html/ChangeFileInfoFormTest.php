@@ -105,7 +105,8 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 	public function testTextDisplayedInInputBox( $userInput, $expectedInputText ) {
 		$importPlan = new ImportPlan(
 			new ImportRequest( 'http://goog', 'Foo', $userInput ),
-			$this->getMockImportDetails()
+			$this->getMockImportDetails(),
+			''
 		);
 		$form = new ChangeFileInfoForm( $this->getMockSpecialPage(), $importPlan );
 

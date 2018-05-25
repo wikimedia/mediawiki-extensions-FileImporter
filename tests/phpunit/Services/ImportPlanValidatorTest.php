@@ -342,7 +342,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( 'Before#After' );
 		$mockDetails = $this->getMockImportDetails( Title::newFromText( 'SourceTitle', NS_FILE ) );
 
-		$importPlan = new ImportPlan( $mockRequest, $mockDetails );
+		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
 
 		$this->setExpectedException( RecoverableTitleException::class, '"Before"' );
 
@@ -359,7 +359,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 		$mockTitle = $this->getMockTitle( 'Title', true, [ 'error' ] );
 		$mockDetails = $this->getMockImportDetails( $mockTitle );
 
-		$importPlan = new ImportPlan( $mockRequest, $mockDetails );
+		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
 
 		$this->setExpectedException(
 			RecoverableTitleException::class,

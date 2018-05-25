@@ -38,8 +38,10 @@ class ImportPlanFactory {
 	 * @return ImportPlan A valid ImportPlan
 	 */
 	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
-		$importPlan = new ImportPlan( $importRequest, $importDetails );
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importDetails->getSourceUrl() );
+		$interWikiPrefix = $sourceSite->getSitePrefix( $importDetails->getSourceUrl() );
+
+		$importPlan = new ImportPlan( $importRequest, $importDetails, $interWikiPrefix );
 
 		$planValidator = new ImportPlanValidator(
 			$this->duplicateFileRevisionChecker,

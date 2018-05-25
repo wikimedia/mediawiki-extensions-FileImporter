@@ -38,15 +38,22 @@ class ImportPlan {
 	private $fileInfoText = null;
 
 	/**
+	 * @var string
+	 */
+	private $interWikiPrefix;
+
+	/**
 	 * ImportPlan constructor, should not be constructed directly in production code.
 	 * Use an ImportPlanFactory instance.
 	 *
 	 * @param ImportRequest $request
 	 * @param ImportDetails $details
+	 * @param string $prefix
 	 */
-	public function __construct( ImportRequest $request, ImportDetails $details ) {
+	public function __construct( ImportRequest $request, ImportDetails $details, $prefix ) {
 		$this->request = $request;
 		$this->details = $details;
+		$this->interWikiPrefix = $prefix;
 	}
 
 	/**
@@ -102,6 +109,13 @@ class ImportPlan {
 	 */
 	public function getFileName() {
 		return pathinfo( $this->getTitleText() )['filename'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getInterWikiPrefix() {
+		return $this->interWikiPrefix;
 	}
 
 	/**

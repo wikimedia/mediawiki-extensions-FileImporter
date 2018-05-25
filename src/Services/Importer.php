@@ -122,6 +122,8 @@ class Importer {
 		User $user,
 		ImportPlan $importPlan
 	) {
+		$this->wikiRevisionFactory->setUserNamePrefix( $importPlan->getInterWikiPrefix() );
+
 		$importStart = microtime( true );
 		$this->logger->info( __METHOD__ . ' started' );
 

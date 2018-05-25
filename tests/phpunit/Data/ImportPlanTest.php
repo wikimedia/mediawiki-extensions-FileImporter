@@ -22,11 +22,13 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	public function testConstruction() {
 		$request = $this->createMock( ImportRequest::class );
 		$details = $this->createMock( ImportDetails::class );
+		$prefix = 'wiki';
 
-		$plan = new ImportPlan( $request, $details );
+		$plan = new ImportPlan( $request, $details, $prefix );
 
 		$this->assertSame( $request, $plan->getRequest() );
 		$this->assertSame( $details, $plan->getDetails() );
+		$this->assertSame( $prefix, $plan->getInterWikiPrefix() );
 	}
 
 	public function testGetTitleAndFileNameFromInitialTitle() {
@@ -40,7 +42,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 			->method( 'getSourceLinkTarget' )
 			->willReturn( new TitleValue( NS_FILE, 'TestFileName.EXT' ) );
 
-		$plan = new ImportPlan( $request, $details );
+		$plan = new ImportPlan( $request, $details, '' );
 
 		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
 		$this->assertSame( 'TestFileName.EXT', $plan->getTitle()->getText() );
@@ -58,7 +60,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 			->method( 'getSourceFileExtension' )
 			->willReturn( 'EXT' );
 
-		$plan = new ImportPlan( $request, $details );
+		$plan = new ImportPlan( $request, $details, '' );
 
 		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
 		$this->assertSame( 'TestIntendedName.EXT', $plan->getTitle()->getText() );
@@ -99,7 +101,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
 
-		$plan = new ImportPlan( $request, $details );
+		$plan = new ImportPlan( $request, $details, '' );
 		$this->assertSame( $expectedText, $plan->getFileInfoText() );
 	}
 

@@ -3,6 +3,7 @@
 namespace FileImporter\Services;
 
 use Config;
+use ExternalUserNames;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use Title;
@@ -19,12 +20,25 @@ class WikiRevisionFactory {
 	 */
 	private $config;
 
+	/**
+	 * @var ExternalUserNames
+	 */
+	private $externalUserNames;
+
 	public function __construct( Config $config ) {
 		$this->config = $config;
+		$this->externalUserNames = new ExternalUserNames( 'imported', true );
 	}
 
 	private function getWikiRevision() {
 		return new WikiRevision( $this->config );
+	}
+
+	/**
+	 * @param string $prefix
+	 */
+	public function setUserNamePrefix( $prefix ) {
+		$this->externalUserNames = new ExternalUserNames( $prefix, true );
 	}
 
 	/**
@@ -42,7 +56,9 @@ class WikiRevisionFactory {
 		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
 		$revision->setFileSrc( $src, true );
 		$revision->setSha1Base36( $fileRevision->getField( 'sha1' ) );
-		$revision->setUsername( $fileRevision->getField( 'user' ) );
+		$revision->setUsername(
+			$this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) )
+		);
 		$revision->setComment( $fileRevision->getField( 'description' ) );
 
 		return $revision;
@@ -61,7 +77,9 @@ class WikiRevisionFactory {
 		);
 		$revision->setTimestamp( $textRevision->getField( 'timestamp' ) );
 		$revision->setSha1Base36( $textRevision->getField( 'sha1' ) );
-		$revision->setUsername( $textRevision->getField( 'user' ) );
+		$revision->setUsername(
+			$this->externalUserNames->addPrefix( $textRevision->getField( 'user' ) )
+		);
 		$revision->setComment( $textRevision->getField( 'comment' ) );
 		$revision->setModel( $textRevision->getField( 'contentmodel' ) );
 		$revision->setFormat( $textRevision->getField( 'contentformat' ) );
