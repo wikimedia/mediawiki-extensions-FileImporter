@@ -4,7 +4,7 @@ namespace FileImporter\Services;
 
 use File;
 use FileImporter\Data\FileRevision;
-use LocalRepo;
+use FileRepo;
 
 /**
  * Class that can be used to check if a FileRevision already exists on the current wiki.
@@ -16,12 +16,12 @@ use LocalRepo;
 class DuplicateFileRevisionChecker {
 
 	/**
-	 * @var LocalRepo
+	 * @var FileRepo
 	 */
-	private $localRepo;
+	private $fileRepo;
 
-	public function __construct( LocalRepo $localRepo ) {
-		$this->localRepo = $localRepo;
+	public function __construct( FileRepo $fileRepo ) {
+		$this->fileRepo = $fileRepo;
 	}
 
 	/**
@@ -30,7 +30,7 @@ class DuplicateFileRevisionChecker {
 	 * @return File[] array of matched files
 	 */
 	public function findDuplicates( FileRevision $fileRevision ) {
-		$files = $this->localRepo->findBySha1( $fileRevision->getField( 'sha1' ) );
+		$files = $this->fileRepo->findBySha1( $fileRevision->getField( 'sha1' ) );
 		$files = $this->removeIgnoredFiles( $files );
 
 		return $files;
