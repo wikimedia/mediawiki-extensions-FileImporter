@@ -90,9 +90,11 @@ typically utilizes CURL for this, depending on the servers configuration (see
 - FileImporter requests each binary file via MediaWiki's HttpRequest infrastructure, as before (see
   `HttpRequestExecutor`).
   - MediaWiki's ImageInfo API made sure the current file revision is requested first.
+  - See [file-backends.md](docs/file-backends.md) for documentation on alternative backends, e.g.
+    Swift.
 - For each file revision, FileImporter creates a temporary file in the local file system of the web
   server currently running the import (see `FileRevisionFromRemoteUrl::prepare`).
-  - `TempFSFile` from MediaWiki's FileBackend library is utilized for this.
+  - `TempFSFile` from MediaWiki's FileBackend infrastructure is utilized for this.
   - Writing to the binary file is done via `fopen( …, 'wb' )` (see `FileChunkSaver`).
 - The temporary file is moved to the final location via MediaWiki's FileRepo infrastructure (see
   `FileRevisionFromRemoteUrl::commit`).
@@ -113,3 +115,4 @@ When failures occur:
 - It's impossible to end in a situation where the most recent file revision is missing, because the
   order is guaranteed by the ImageInfo API. Either all file revisions are missing, or one or more
   archived ones.
+- See [throttling.md](docs/throttling.md) for throttling options.
