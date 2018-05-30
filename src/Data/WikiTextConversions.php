@@ -24,6 +24,14 @@ class WikiTextConversions {
 	) {
 		$this->badTemplates = $badTemplates;
 		$this->badCategories = $badCategories;
+
+		foreach ( $this->badTemplates as $key => $badTemplate ) {
+			$this->badTemplates[$key] = 'Template:' . $badTemplate;
+		}
+
+		foreach ( $this->badCategories as $key => $badCategory ) {
+			$this->badCategories[$key] = 'Category:' . $badCategory;
+		}
 	}
 
 	/**
