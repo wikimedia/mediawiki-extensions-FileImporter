@@ -46,6 +46,7 @@
 		"FileImporter\\Interfaces\\ImportOperation": "src/Interfaces/ImportOperation.php",
 		"FileImporter\\Interfaces\\ImportTitleChecker": "src/Interfaces/ImportTitleChecker.php",
 		"FileImporter\\Interfaces\\SourceUrlChecker": "src/Interfaces/SourceUrlChecker.php",
+		"FileImporter\\Interfaces\\SourceInterWikiLookup": "src/Interfaces/SourceInterWikiLookup.php",
 		"FileImporter\\Operations\\FileRevisionFromRemoteUrl": "src/Operations/FileRevisionFromRemoteUrl.php",
 		"FileImporter\\Operations\\TextRevisionFromTextRevision": "src/Operations/TextRevisionFromTextRevision.php",
 		"FileImporter\\Services\\DuplicateFileRevisionChecker": "src/Services/DuplicateFileRevisionChecker.php",
@@ -72,12 +73,14 @@
 		"FileImporter\\Html\\RecoverableTitleExceptionPage": "src/Html/RecoverableTitleExceptionPage.php",
 		"FileImporter\\Html\\TextRevisionSnippet": "src/Html/TextRevisionSnippet.php",
 		"FileImporter\\Html\\WikiTextEditor": "src/Html/WikiTextEditor.php",
+		"FileImporter\\Remote\\NullSourceInterWikiLookup": "src/Remote/NullSourceInterWikiLookup.php",
 		"FileImporter\\Remote\\MediaWiki\\ApiDetailRetriever": "src/Remote/MediaWiki/ApiDetailRetriever.php",
 		"FileImporter\\Remote\\MediaWiki\\HttpApiLookup": "src/Remote/MediaWiki/HttpApiLookup.php",
 		"FileImporter\\Remote\\MediaWiki\\RemoteApiImportTitleChecker": "src/Remote/MediaWiki/RemoteApiImportTitleChecker.php",
 		"FileImporter\\Remote\\MediaWiki\\SiteTableSiteLookup": "src/Remote/MediaWiki/SiteTableSiteLookup.php",
 		"FileImporter\\Remote\\MediaWiki\\AnyMediaWikiFileUrlChecker": "src/Remote/MediaWiki/AnyMediaWikiFileUrlChecker.php",
 		"FileImporter\\Remote\\MediaWiki\\SiteTableSourceUrlChecker": "src/Remote/MediaWiki/SiteTableSourceUrlChecker.php",
+		"FileImporter\\Remote\\MediaWiki\\SiteTableSourceInterWikiLookup": "src/Remote/MediaWiki/SiteTableSourceInterWikiLookup.php",
 		"FileImporter\\Remote\\MediaWiki\\WhitelistDomainFileUrlChecker": "src/Remote/MediaWiki/WhitelistDomainFileUrlChecker.php"
 	},
 	"ServiceWiringFiles": [
