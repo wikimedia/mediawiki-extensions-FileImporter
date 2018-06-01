@@ -17,6 +17,7 @@ use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\SourceUrlNormalizer;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\WikimediaSourceUrlNormalizer;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
@@ -148,7 +149,7 @@ return [
 				$logger
 			),
 			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
-				return new SourceUrl( str_replace( '..GOAT..', '', $sourceUrl->getUrl() ) );
+				return $sourceUrl;
 			} ),
 			new NullSourceInterWikiLookup()
 		);
@@ -188,9 +189,7 @@ return [
 				$httpRequestExecutor,
 				$logger
 			),
-			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
-				return new SourceUrl( str_replace( '.m.', '.', $sourceUrl->getUrl() ) );
-			} ),
+			new WikimediaSourceUrlNormalizer(),
 			new SiteTableSourceInterWikiLookup(
 				$siteTableLookup,
 				$logger
