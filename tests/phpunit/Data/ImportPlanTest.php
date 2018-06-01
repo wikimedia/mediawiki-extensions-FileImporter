@@ -42,9 +42,9 @@ class ImportPlanTest extends \MediaWikiTestCase {
 
 		$plan = new ImportPlan( $request, $details );
 
-		$this->assertEquals( NS_FILE, $plan->getTitle()->getNamespace() );
-		$this->assertEquals( 'TestFileName.EXT', $plan->getTitle()->getText() );
-		$this->assertEquals( 'TestFileName', $plan->getFileName() );
+		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
+		$this->assertSame( 'TestFileName.EXT', $plan->getTitle()->getText() );
+		$this->assertSame( 'TestFileName', $plan->getFileName() );
 	}
 
 	public function testGetTitleAndFileNameFromIntendedName() {
@@ -60,9 +60,9 @@ class ImportPlanTest extends \MediaWikiTestCase {
 
 		$plan = new ImportPlan( $request, $details );
 
-		$this->assertEquals( NS_FILE, $plan->getTitle()->getNamespace() );
-		$this->assertEquals( 'TestIntendedName.EXT', $plan->getTitle()->getText() );
-		$this->assertEquals( 'TestIntendedName', $plan->getFileName() );
+		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
+		$this->assertSame( 'TestIntendedName.EXT', $plan->getTitle()->getText() );
+		$this->assertSame( 'TestIntendedName', $plan->getFileName() );
 	}
 
 	public function provideGetFileInfoText() {
@@ -100,7 +100,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 			->willReturn( $textRevisions );
 
 		$plan = new ImportPlan( $request, $details );
-		$this->assertEquals( $expectedText, $plan->getFileInfoText() );
+		$this->assertSame( $expectedText, $plan->getFileInfoText() );
 	}
 
 }

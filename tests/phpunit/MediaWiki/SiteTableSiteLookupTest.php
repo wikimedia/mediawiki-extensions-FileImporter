@@ -60,7 +60,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 			$this->assertNull( $result );
 		} else {
 			/** @var MediaWikiSite $result */
-			$this->assertEquals( $result->getGlobalId(), $expected );
+			$this->assertSame( $result->getGlobalId(), $expected );
 		}
 	}
 

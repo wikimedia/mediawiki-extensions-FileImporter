@@ -40,7 +40,7 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 			new TitleValue( NS_FILE, $targetTitle ),
 			''
 		);
-		$this->assertEquals( $expected, $base->validateTitle() );
+		$this->assertSame( $expected, $base->validateTitle() );
 	}
 
 	public function providePerformFileChecks() {
@@ -66,7 +66,7 @@ class FileImporterUploadBaseTest extends MediaWikiTestCase {
 			new TitleValue( NS_FILE, $targetTitle ),
 				$tempPath
 		);
-		$this->assertEquals( $expected, $base->validateFile() );
+		$this->assertSame( $expected, $base->validateFile() );
 		// Delete the file that we created post test
 		unlink( $tempPath );
 	}

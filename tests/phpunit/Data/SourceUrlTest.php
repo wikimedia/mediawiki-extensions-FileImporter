@@ -53,9 +53,9 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 		$expectedDomain
 	) {
 		$sourceUrl = new SourceUrl( $url );
-		$this->assertEquals( $url, $sourceUrl->getUrl() );
+		$this->assertSame( $url, $sourceUrl->getUrl() );
 		$this->assertEquals( $expectedParsed, $sourceUrl->getParsedUrl() );
-		$this->assertEquals( $expectedDomain, $sourceUrl->getHost() );
+		$this->assertSame( $expectedDomain, $sourceUrl->getHost() );
 	}
 
 }

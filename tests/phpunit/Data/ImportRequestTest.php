@@ -29,7 +29,7 @@ class ImportRequestTest extends \PHPUnit\Framework\TestCase {
 	public function testRemoveTrailingWhitespacesInText( $userInput, $expectedRequestObjectText ) {
 		$importRequest = new ImportRequest( 'http://foo', null, $userInput );
 
-		$this->assertEquals( $expectedRequestObjectText, $importRequest->getIntendedText() );
+		$this->assertSame( $expectedRequestObjectText, $importRequest->getIntendedText() );
 	}
 
 }

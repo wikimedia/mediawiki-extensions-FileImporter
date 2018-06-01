@@ -33,12 +33,12 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 		$executor = new HttpRequestExecutor( 0, 0 );
 		$factoryOverride = function ( $url, $options = null, $caller = __METHOD__ )
 			use ( $testUrl, $expectedResult ) {
-			$this->assertEquals( $testUrl, $url );
+			$this->assertSame( $testUrl, $url );
 			$this->assertArrayHasKey( 'logger', $options );
 			$this->assertArrayHasKey( 'followRedirects', $options );
 			$this->assertInstanceOf( LoggerInterface::class, $options['logger'] );
 			$this->assertTrue( $options['followRedirects'] );
-			$this->assertEquals( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
+			$this->assertSame( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
 
 			$request = $this->createMock( MWHttpRequest::class );
 			$status = Status::newGood();
@@ -60,7 +60,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 		}
 
 		$request = $executor->execute( $testUrl );
-		$this->assertEquals( $expectedResult, $request->getContent() );
+		$this->assertSame( $expectedResult, $request->getContent() );
 	}
 
 }

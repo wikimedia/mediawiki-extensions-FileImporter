@@ -418,12 +418,12 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 		$importDetails = $service->getImportDetails( $sourceUrl );
 
 		$this->assertEquals( $sourceUrl, $importDetails->getSourceUrl() );
-		$this->assertEquals( 'thumburl', $importDetails->getImageDisplayUrl() );
-		$this->assertEquals( $expected['ext'], $importDetails->getSourceFileExtension() );
-		$this->assertEquals( $expected['filename'], $importDetails->getSourceFileName() );
+		$this->assertSame( 'thumburl', $importDetails->getImageDisplayUrl() );
+		$this->assertSame( $expected['ext'], $importDetails->getSourceFileExtension() );
+		$this->assertSame( $expected['filename'], $importDetails->getSourceFileName() );
 
-		$this->assertEquals( $expected['titlestring'], $importDetails->getSourceLinkTarget()->getText() );
-		$this->assertEquals( NS_FILE, $importDetails->getSourceLinkTarget()->getNamespace() );
+		$this->assertSame( $expected['titlestring'], $importDetails->getSourceLinkTarget()->getText() );
+		$this->assertSame( NS_FILE, $importDetails->getSourceLinkTarget()->getNamespace() );
 	}
 
 	/**
