@@ -17,11 +17,22 @@ use UploadBase;
  */
 class ValidatingUploadBaseTest extends MediaWikiTestCase {
 
+	protected function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( [
+			'wgFileExtensions' => [ 'jpg' ],
+		] );
+	}
+
 	public function provideValidateTitle() {
 		return [
-			[ new TitleValue( NS_FILE, 'ValidTitle.JPG' ), true ],
-			[ new TitleValue( NS_FILE, 'OhNoes.JPG/SubPage.JPG' ), UploadBase::FILETYPE_BADTYPE ],
-			[ new TitleValue( NS_FILE, str_repeat( 'a', 300 ) ), UploadBase::FILENAME_TOO_LONG ],
+			'valid title' =>
+				[ new TitleValue( NS_FILE, 'ValidTitle.JPG' ), true ],
+			'bad file extension' =>
+				[ new TitleValue( NS_FILE, 'InvalidExtension.png' ), UploadBase::FILETYPE_BADTYPE ],
+			'too long title' =>
+				[ new TitleValue( NS_FILE, str_repeat( 'a', 300 ) ), UploadBase::FILENAME_TOO_LONG ],
 		];
 	}
 
@@ -34,7 +45,7 @@ class ValidatingUploadBaseTest extends MediaWikiTestCase {
 			$linkTarget,
 			''
 		);
-		$this->assertEquals( $expected, $base->validateTitle() );
+		$this->assertSame( $expected, $base->validateTitle() );
 	}
 
 }
