@@ -51,7 +51,7 @@ class WikiRevisionFactoryTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideNewFromWithPrefix
 	 */
-	public function testNewFromFileWithPrefix( $prefix, $expected ) {
+	public function testNewFromFileWithPrefix( $prefix ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$wikiRevisionFactory = new WikiRevisionFactory( $config );
 
@@ -62,7 +62,7 @@ class WikiRevisionFactoryTest extends \PHPUnit\Framework\TestCase {
 		$revision = $wikiRevisionFactory->newFromFileRevision( $this->createFileRevision(), '' );
 
 		$this->assertSame( false, $revision->getMinor() );
-		$this->assertSame( $expected . '>TestUser', $revision->getUser() );
+		$this->assertSame( 'TestUser', $revision->getUser() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
 		$this->assertSame( 'TestFileName', $revision->getTitle()->getText() );

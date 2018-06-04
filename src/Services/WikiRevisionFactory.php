@@ -61,10 +61,13 @@ class WikiRevisionFactory {
 		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
 		$revision->setFileSrc( $src, true );
 		$revision->setSha1Base36( $fileRevision->getField( 'sha1' ) );
-		$revision->setUsername(
-			$this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) )
-		);
 		$revision->setComment( $fileRevision->getField( 'description' ) );
+
+		// create user with CentralAuth/SUL if nonexistent
+		$this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) );
+
+		// use plain username due to lack of prefix support on file imports
+		$revision->setUsername( $fileRevision->getField( 'user' ) );
 
 		return $revision;
 	}
