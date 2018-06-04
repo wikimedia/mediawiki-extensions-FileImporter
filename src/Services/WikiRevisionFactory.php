@@ -25,9 +25,11 @@ class WikiRevisionFactory {
 	 */
 	private $externalUserNames;
 
+	const DEFAULT_USERNAME_PREFIX = 'imported';
+
 	public function __construct( Config $config ) {
 		$this->config = $config;
-		$this->externalUserNames = new ExternalUserNames( 'imported', true );
+		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
 	}
 
 	private function getWikiRevision() {
@@ -38,6 +40,9 @@ class WikiRevisionFactory {
 	 * @param string $prefix
 	 */
 	public function setUserNamePrefix( $prefix ) {
+		if ( !$prefix ) {
+			$prefix = self::DEFAULT_USERNAME_PREFIX;
+		}
 		$this->externalUserNames = new ExternalUserNames( $prefix, true );
 	}
 
