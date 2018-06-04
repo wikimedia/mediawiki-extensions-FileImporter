@@ -67,62 +67,88 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'wikiText' => <<<WIKITEXT
 == Templates ==
 === Good ===
-* Good
+* GoodTemplate
 === Bad ===
-* Bad
+* BadTemplate
 == Categories ==
 === Bad ===
-* Bad
+* BadCategory
 WIKITEXT
 				,
-				'expectedGoodTemplates' => [ 'Good' ],
-				'expectedBadTemplates' => [ 'Bad' ],
-				'expectedBadCategories' => [ 'Bad' ],
+				'expectedGoodTemplates' => [ 'GoodTemplate' ],
+				'expectedBadTemplates' => [ 'BadTemplate' ],
+				'expectedBadCategories' => [ 'BadCategory' ],
 			],
 
 			'compressed syntax' => [
 				'wikiText' => <<<WIKITEXT
 ==Templates==
 ===Good===
-* Good
+* GoodTemplate
 ===Bad===
-*Bad
+*BadTemplate
 ==Categories==
 ===Bad===
-*Bad
+*BadCategory
 WIKITEXT
 				,
-				'expectedGoodTemplates' => null,
-				'expectedBadTemplates' => null,
-				'expectedBadCategories' => null,
-				// FIXME: Relax all relevant regular expressions
-				'expectedException' => LocalizedImportException::class
+				'expectedGoodTemplates' => [ 'GoodTemplate' ],
+				'expectedBadTemplates' => [ 'BadTemplate' ],
+				'expectedBadCategories' => [ 'BadCategory' ],
 			],
 
 			'tabs' => [
 				'wikiText' => <<<WIKITEXT
-==	Templates	==
+==	Templates	==\t
 
-=== Good ===
+===	Good	===\t
 
-* Good
+*	GoodTemplate\t
 
-===	Bad	===
+===	Bad	===\t
 
-*	Bad
+*	BadTemplate\t
 
-==	Categories	==
+==	Categories	==\t
 
-===	Bad	===
+===	Bad	===\t
 
-*	Bad
+*	BadCategory\t
 WIKITEXT
 				,
-				'expectedGoodTemplates' => null,
-				'expectedBadTemplates' => null,
-				'expectedBadCategories' => null,
-				// FIXME: Relax all relevant regular expressions
-				'expectedException' => LocalizedImportException::class
+				'expectedGoodTemplates' => [ 'GoodTemplate' ],
+				'expectedBadTemplates' => [ 'BadTemplate' ],
+				'expectedBadCategories' => [ 'BadCategory' ],
+			],
+
+			'additional elements to ignore' => [
+				'wikiText' => <<<WIKITEXT
+<!--
+== Templates ==
+-->
+== Templates ==
+=== Good ===
+* GoodTemplate
+=== Bad ===
+<!-- Comment -->
+* BadTemplate <!-- Comment -->
+*
+** 2nd-level comment
+== Categories ==
+=== Bad ===
+{{Comment}}
+* <!-- Comment --> BadCategory
+<!--
+* Disabled
+-->
+*# 2nd-level comment
+*: 2nd-level comment
+*; 2nd-level comment
+WIKITEXT
+				,
+				'expectedGoodTemplates' => [ 'GoodTemplate' ],
+				'expectedBadTemplates' => [ 'BadTemplate' ],
+				'expectedBadCategories' => [ 'BadCategory' ],
 			],
 		];
 	}
