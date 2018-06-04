@@ -37,7 +37,7 @@ class CommonsHelperConfigParser {
 		$wikiText = preg_replace( '/<!--.*?-->/s', '', $this->wikiText );
 
 		$categorySection = $this->splitSectionsByHeaders( '== Categories ==', $wikiText );
-		if ( !$categorySection ) {
+		if ( $categorySection === false ) {
 			throw new LocalizedImportException(
 				new Message( 'fileimporter-commonshelper-parsing-failed', [
 					$this->commonsHelperConfigUrl, 'Categories'
@@ -46,7 +46,7 @@ class CommonsHelperConfigParser {
 		}
 
 		$templateSection = $this->splitSectionsByHeaders( '== Templates ==', $wikiText );
-		if ( !$templateSection ) {
+		if ( $templateSection === false ) {
 			throw new LocalizedImportException(
 				new Message( 'fileimporter-commonshelper-parsing-failed', [
 					$this->commonsHelperConfigUrl, 'Templates'
@@ -64,7 +64,7 @@ class CommonsHelperConfigParser {
 		}
 
 		$badCategorySection = $this->splitSectionsByHeaders( '=== Bad ===', $categorySection );
-		if ( !$badCategorySection ) {
+		if ( $badCategorySection === false ) {
 			throw new LocalizedImportException(
 				new Message( 'fileimporter-commonshelper-parsing-failed', [
 					$this->commonsHelperConfigUrl, 'Categories/Bad'
@@ -73,7 +73,7 @@ class CommonsHelperConfigParser {
 		}
 
 		$badTemplateSection = $this->splitSectionsByHeaders( '=== Bad ===', $templateSection );
-		if ( !$badTemplateSection ) {
+		if ( $badTemplateSection === false ) {
 			throw new LocalizedImportException(
 				new Message( 'fileimporter-commonshelper-parsing-failed', [
 					$this->commonsHelperConfigUrl, 'Templates/Bad'
@@ -107,7 +107,7 @@ class CommonsHelperConfigParser {
 
 		// Extract a section from the given wikitext blob. Start from the given 2nd- or 3rd-level
 		// header. Stop at the same or a higher level (less equal signs), or at the end of the text.
-		$regex = '/^' . $headerRegex . '\h*\n(.*?)(?=^={1,' . $level . '}[^=]|\Z)/ms';
+		$regex = '/^' . $headerRegex . '\h*$(.*?)(?=^={1,' . $level . '}[^=]|\Z)/ms';
 		return preg_match( $regex, $wikiText, $matches ) ? $matches[1] : false;
 	}
 
