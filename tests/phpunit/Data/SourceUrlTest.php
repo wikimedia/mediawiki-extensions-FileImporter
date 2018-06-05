@@ -41,6 +41,16 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 				],
 				'en.wikipedia.org',
 			],
+			[
+				" //wiki/X.svg\n",
+				[
+					'scheme' => '',
+					'host' => 'wiki',
+					'delimiter' => '//',
+					'path' => '/X.svg',
+				],
+				'wiki',
+			],
 		];
 	}
 
@@ -53,7 +63,7 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 		$expectedDomain
 	) {
 		$sourceUrl = new SourceUrl( $url );
-		$this->assertSame( $url, $sourceUrl->getUrl() );
+		$this->assertSame( trim( $url ), $sourceUrl->getUrl() );
 		$this->assertEquals( $expectedParsed, $sourceUrl->getParsedUrl() );
 		$this->assertSame( $expectedDomain, $sourceUrl->getHost() );
 	}

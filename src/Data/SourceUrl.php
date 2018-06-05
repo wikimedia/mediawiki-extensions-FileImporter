@@ -27,8 +27,8 @@ class SourceUrl {
 	 * @throws InvalidArgumentException When $url is not parsable
 	 */
 	public function __construct( $url ) {
-		$this->url = $url;
-		$this->parsed = wfParseUrl( $url );
+		$this->url = trim( $url );
+		$this->parsed = wfParseUrl( $this->url );
 		if ( !$this->parsed ) {
 			throw new InvalidArgumentException( '$url is not parsable' );
 		}

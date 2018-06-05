@@ -14,7 +14,11 @@ class WikimediaSourceUrlNormalizer extends SourceUrlNormalizer {
 		parent::__construct( function ( SourceUrl $sourceUrl ) {
 			$parts = $sourceUrl->getParsedUrl();
 			$parts['host'] = str_replace( '.m.', '.', $parts['host'] );
-			return new SourceUrl( wfAssembleUrl( $parts ) );
+			$url = wfAssembleUrl( $parts );
+
+			$url = str_replace( ' ', '_', $url );
+
+			return new SourceUrl( $url );
 		} );
 	}
 
