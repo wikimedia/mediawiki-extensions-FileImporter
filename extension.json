@@ -98,8 +98,6 @@
 		"FileImporterSourceSiteServices": [],
 		"@FileImporterUseCommonsHelperConfig": "Whether to use CommonsHelper configuration files.",
 		"FileImporterUseCommonsHelperConfig": false,
-		"FileImporterTextPotentialProblems": [],
-		"FileImporterTextReplacements": [],
 		"FileImporterAccountForSuppressedUsername": "FileImporterSuppressed",
 		"@FileImporterCommentForPostImportRevision": "Text used for the edit summary of a post import revision.",
 		"FileImporterCommentForPostImportRevision": "Imported with FileImporter from $1",
