@@ -7,49 +7,59 @@ class WikiTextConversions {
 	/**
 	 * @var string[]
 	 */
-	private $badTemplates;
+	private $badTemplates = [];
 
 	/**
 	 * @var string[]
 	 */
-	private $badCategories;
+	private $badCategories = [];
 
 	/**
-	 * @param string[] $badTemplates
-	 * @param string[] $badCategories
+	 * @param string[] $badTemplates List of case-insensitive page names without namespace prefix
+	 * @param string[] $badCategories List of case-insensitive page names without namespace prefix
 	 */
 	public function __construct(
 		array $badTemplates,
 		array $badCategories
 	) {
-		$this->badTemplates = $badTemplates;
-		$this->badCategories = $badCategories;
-
-		foreach ( $this->badTemplates as $key => $badTemplate ) {
-			$this->badTemplates[$key] = 'Template:' . $badTemplate;
+		foreach ( $badTemplates as $pageName ) {
+			// FIXME: Avoid hard-coding the namespace name here
+			$this->badTemplates[$this->normalizePageName( 'Template:' . $pageName )] = true;
 		}
 
-		foreach ( $this->badCategories as $key => $badCategory ) {
-			$this->badCategories[$key] = 'Category:' . $badCategory;
+		foreach ( $badCategories as $key => $pageName ) {
+			// FIXME: Avoid hard-coding the namespace name here
+			$this->badCategories[$this->normalizePageName( 'Category:' . $pageName )] = true;
 		}
 	}
 
 	/**
-	 * @param string $template
+	 * @param string $pageName Case-insensitive page name with the canonical English "Template:…"
+	 *  prefix
 	 *
 	 * @return bool
 	 */
-	public function isTemplateBad( $template ) {
-		return in_array( $template, $this->badTemplates );
+	public function isTemplateBad( $pageName ) {
+		return array_key_exists( $this->normalizePageName( $pageName ), $this->badTemplates );
 	}
 
 	/**
-	 * @param string $category
+	 * @param string $pageName Case-insensitive page name with the canonical English "Category:…"
+	 *  prefix
 	 *
 	 * @return bool
 	 */
-	public function isCategoryBad( $category ) {
-		return in_array( $category, $this->badCategories );
+	public function isCategoryBad( $pageName ) {
+		return array_key_exists( $this->normalizePageName( $pageName ), $this->badCategories );
+	}
+
+	/**
+	 * @param string $pageName
+	 *
+	 * @return string
+	 */
+	private function normalizePageName( $pageName ) {
+		return mb_convert_case( trim( str_replace( '_', ' ', $pageName ) ), MB_CASE_LOWER );
 	}
 
 }
