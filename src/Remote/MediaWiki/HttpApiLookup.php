@@ -84,24 +84,32 @@ class HttpApiLookup implements LoggerAwareInterface {
 	private function actuallyGetApiUrl( SourceUrl $sourceUrl ) {
 		try {
 			$req = $this->httpRequestExecutor->execute( $sourceUrl->getUrl() );
-		} catch ( HttpRequestException $e ) {
-			$statusCode = $e->getHttpRequest()->getStatus();
+		} catch ( HttpRequestException $ex ) {
+			$statusCode = $ex->getHttpRequest()->getStatus();
+			$errors = $ex->getStatusValue()->getErrors();
+			$error = reset( $errors );
+
 			if ( $statusCode === 404 ) {
-				throw $this->loggedError( 'File not found: ' . $sourceUrl->getUrl() );
+				// TODO: Localize this message?
+				$msg = 'File not found: ' . $sourceUrl->getUrl();
+			} else {
+				// TODO: Localize this message?
+				$msg = 'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".';
+				if ( $statusCode !== 200 ) {
+					// TODO: Localize this message?
+					$msg .= " HTTP status code $statusCode.";
+				}
+				if ( $error ) {
+					$msg .= ' ' . wfMessage( $error['message'], $error['params'] )->plain();
+				}
 			}
-			if ( $e->getStatusValue()->hasMessage( 'http-timed-out' ) ) {
-				throw $this->loggedError(
-					'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
-					' Connection timed out.'
-				);
-			}
+
 			throw $this->loggedError(
-				'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".' .
-				' Status code ' . $statusCode . ', ' . $e->getMessage(),
+				htmlspecialchars( $msg ),
 				[
 					'statusCode' => $statusCode,
-					'previousMessage' => $e->getMessage(),
-					'responseContent' => $e->getHttpRequest()->getContent(),
+					'previousMessage' => $error ? $error['message'] : '',
+					'responseContent' => $ex->getHttpRequest()->getContent(),
 				]
 			);
 		}
