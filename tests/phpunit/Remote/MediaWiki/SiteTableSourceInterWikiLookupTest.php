@@ -7,6 +7,7 @@ use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceInterWikiLookup;
 use MediaWikiSite;
 use PHPUnit4And6Compat;
+use Psr\Log\NullLogger;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\SiteTableSourceInterWikiLookup
@@ -43,7 +44,10 @@ class SiteTableSourceInterWikiLookupTest extends \PHPUnit\Framework\TestCase {
 	public function testGetPrefix( $iwId, $langCode, $expected ) {
 		$siteTableMock = $this->createSiteTableSiteLookupMock( $iwId, $langCode );
 
-		$sourceUrlPrefixer = new SiteTableSourceInterWikiLookup( $siteTableMock );
+		$sourceUrlPrefixer = new SiteTableSourceInterWikiLookup(
+			$siteTableMock,
+			new NullLogger()
+		);
 
 		$this->assertSame( $expected, $sourceUrlPrefixer->getPrefix(
 			new SourceUrl( 'http://example.com' ) )

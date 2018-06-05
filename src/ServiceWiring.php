@@ -191,7 +191,10 @@ return [
 			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
 				return new SourceUrl( str_replace( '.m.', '.', $sourceUrl->getUrl() ) );
 			} ),
-			new SiteTableSourceInterWikiLookup( $siteTableLookup )
+			new SiteTableSourceInterWikiLookup(
+				$siteTableLookup,
+				$logger
+			)
 		);
 
 		return $site;
