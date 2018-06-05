@@ -14,6 +14,7 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\CommonsHelperConfigParser;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use FileImporter\Services\WikiTextContentValidator;
 use Message;
 use Psr\Log\LoggerInterface;
 use Title;
@@ -61,8 +62,9 @@ class ApiDetailRetriever implements DetailRetriever {
 	*/
 	private $maxAggregatedBytes;
 
-	const MAXREVISIONS = 100;
-	const MAXAGGREGATEDBYTES = 250000000;
+	const API_RESULT_LIMIT = 500;
+	const MAX_REVISIONS = 100;
+	const MAX_AGGREGATED_BYTES = 250000000;
 
 	/**
 	 * @param HttpApiLookup $httpApiLookup
@@ -157,6 +159,8 @@ class ApiDetailRetriever implements DetailRetriever {
 		$params = $this->getBaseParams( $sourceUrl );
 		$params = $this->addFileRevisionsToParams( $params );
 		$params = $this->addTextRevisionsToParams( $params );
+		$params = $this->addTemplatesToParams( $params );
+		$params = $this->addCategoriesToParams( $params );
 
 		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
 		$requestData = $this->sendAPIRequest( $requestUrl );
@@ -222,8 +226,19 @@ class ApiDetailRetriever implements DetailRetriever {
 					$commonsHelperConfigRetriever->getConfigWikiText()
 				);
 
-				// TODO: Unused at the moment
-				$textConversions = $commonHelperConfigParser->getWikiTextConversions();
+				$wikiTextContentValidator = new WikiTextContentValidator(
+					$commonHelperConfigParser->getWikiTextConversions()
+				);
+
+				$wikiTextContentValidator->validateTemplates(
+					array_key_exists( 'templates', $pageInfoData ) ?
+						$pageInfoData[ 'templates' ] : []
+				);
+
+				$wikiTextContentValidator->validateCategories(
+					array_key_exists( 'categories', $pageInfoData ) ?
+						$pageInfoData[ 'categories' ] : []
+				);
 			}
 		}
 
@@ -268,6 +283,12 @@ class ApiDetailRetriever implements DetailRetriever {
 		$iiStart = array_key_exists( 'iistart', $requestData['continue'] ) ?
 			$requestData['continue']['iistart'] : null;
 
+		$tlContinue = array_key_exists( 'tlcontinue', $requestData['continue'] ) ?
+			$requestData['continue']['tlcontinue'] : null;
+
+		$clContinue = array_key_exists( 'clcontinue', $requestData['continue'] ) ?
+			$requestData['continue']['clcontinue'] : null;
+
 		$params = $this->getBaseParams( $sourceUrl );
 
 		if ( $iiStart ) {
@@ -276,6 +297,14 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		if ( $rvContinue ) {
 			$params = $this->addTextRevisionsToParams( $params, $rvContinue );
+		}
+
+		if ( $tlContinue ) {
+			$params = $this->addTemplatesToParams( $params, $tlContinue );
+		}
+
+		if ( $clContinue ) {
+			$params = $this->addCategoriesToParams( $params, $clContinue );
 		}
 
 		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
@@ -291,6 +320,16 @@ class ApiDetailRetriever implements DetailRetriever {
 		if ( array_key_exists( 'imageinfo', $newPageInfoData ) ) {
 			$pageInfoData['imageinfo'] =
 				array_merge( $pageInfoData['imageinfo'], $newPageInfoData['imageinfo'] );
+		}
+
+		if ( array_key_exists( 'templates', $newPageInfoData ) ) {
+			$pageInfoData['templates'] =
+				array_merge( $pageInfoData['templates'], $newPageInfoData['templates'] );
+		}
+
+		if ( array_key_exists( 'categories', $newPageInfoData ) ) {
+			$pageInfoData['categories'] =
+				array_merge( $pageInfoData['categories'], $newPageInfoData['categories'] );
 		}
 
 		$this->checkRevisionCount( $sourceUrl, $requestUrl, $pageInfoData );
@@ -310,8 +349,8 @@ class ApiDetailRetriever implements DetailRetriever {
 	private function checkRevisionCount( SourceUrl $sourceUrl, $requestUrl, array $pageInfoData ) {
 		if ( count( $pageInfoData['revisions'] ) > $this->maxRevisions ||
 			count( $pageInfoData['imageinfo'] ) > $this->maxRevisions ||
-			count( $pageInfoData['revisions'] ) > static::MAXREVISIONS ||
-			count( $pageInfoData['imageinfo'] ) > static::MAXREVISIONS ) {
+			count( $pageInfoData['revisions'] ) > static::MAX_REVISIONS ||
+			count( $pageInfoData['imageinfo'] ) > static::MAX_REVISIONS ) {
 			$this->logger->warning(
 				'Too many revisions were being fetched',
 				[
@@ -329,7 +368,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		foreach ( $pageInfoData['imageinfo'] as $fileVersion ) {
 			$aggregatedFileBytes += $fileVersion['size'];
 			if ( $aggregatedFileBytes > $this->maxAggregatedBytes ||
-				$aggregatedFileBytes > static::MAXAGGREGATEDBYTES ) {
+				$aggregatedFileBytes > static::MAX_AGGREGATED_BYTES ) {
 				$versions = count( $pageInfoData['imageinfo'] );
 				throw new LocalizedImportException( [ 'fileimporter-filetoolarge', $versions ] );
 			}
@@ -472,7 +511,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 
 		return $params + [
-			'rvlimit' => '500',
+			'rvlimit' => static::API_RESULT_LIMIT,
 			'rvdir' => 'newer',
 			'rvprop' => implode(
 				'|',
@@ -505,7 +544,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 
 		return $params + [
-			'iilimit' => '500',
+			'iilimit' => static::API_RESULT_LIMIT,
 			'iiurlwidth' => '800',
 			'iiurlheight' => '400',
 			'iiprop' => implode(
@@ -522,6 +561,42 @@ class ApiDetailRetriever implements DetailRetriever {
 				]
 			)
 		];
+	}
+
+	/**
+	 * Adds to params base the properties for getting Templates
+	 *
+	 * @param array $params
+	 * @param string|null $tlContinue
+	 *
+	 * @return array
+	 */
+	private function addTemplatesToParams( array $params, $tlContinue = null ) {
+		$params['prop'] .= ( $params['prop'] ) ? '|templates' : 'templates';
+
+		if ( $tlContinue ) {
+			$params['tlcontinue'] = $tlContinue;
+		}
+
+		return $params + [ 'tllimit' => static::API_RESULT_LIMIT ];
+	}
+
+	/**
+	 * Adds to params base the properties for getting Categories
+	 *
+	 * @param array $params
+	 * @param string|null $clContinue
+	 *
+	 * @return array
+	 */
+	private function addCategoriesToParams( array $params, $clContinue = null ) {
+		$params['prop'] .= ( $params['prop'] ) ? '|categories' : 'categories';
+
+		if ( $clContinue ) {
+			$params['clcontinue'] = $clContinue;
+		}
+
+		return $params + [ 'cllimit' => static::API_RESULT_LIMIT ];
 	}
 
 }
