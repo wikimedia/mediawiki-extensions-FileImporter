@@ -63,6 +63,7 @@
 		"FileImporter\\Services\\SourceSiteLocator": "src/Services/SourceSiteLocator.php",
 		"FileImporter\\Services\\SourceUrlNormalizer": "src/Services/SourceUrlNormalizer.php",
 		"FileImporter\\Services\\FileTextRevisionValidator": "src/Services/FileTextRevisionValidator.php",
+		"FileImporter\\Services\\WikimediaSourceUrlNormalizer": "src/Services/WikimediaSourceUrlNormalizer.php",
 		"FileImporter\\Services\\WikiRevisionFactory": "src/Services/WikiRevisionFactory.php",
 		"FileImporter\\Services\\WikiTextContentValidator": "src/Services/WikiTextContentValidator.php",
 		"FileImporter\\Html\\ChangeFileInfoForm": "src/Html/ChangeFileInfoForm.php",
