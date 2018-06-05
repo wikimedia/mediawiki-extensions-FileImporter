@@ -64,10 +64,9 @@ class WikiRevisionFactory {
 		$revision->setComment( $fileRevision->getField( 'description' ) );
 
 		// create user with CentralAuth/SUL if nonexistent
-		$this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) );
-
+		$importedUser = $this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) );
 		// use plain username due to lack of prefix support on file imports
-		$revision->setUsername( $fileRevision->getField( 'user' ) );
+		$revision->setUsername( $this->externalUserNames->getLocal( $importedUser ) );
 
 		return $revision;
 	}
