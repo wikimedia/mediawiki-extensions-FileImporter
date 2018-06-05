@@ -57,5 +57,8 @@
 	"fileimporter-import-wait": "הייבוא עשוי לקחת מספר דקות.",
 	"fileimporter-imported-success-banner": "קובץ זה יובא בהצלחה ל{{GRAMMAR:תחילית|{{SITENAME}}}}. ניתן להציג את הקובץ באמצעות לחיצה על הקישור הבא: $1",
 	"fileimporter-imported-change-template": "אנו מבקשים ממך לחזור לקובץ המקורי ולעשות את הדברים הבאים:\n# להסיר כל תבנית שמציעה להעתיק את הקובץ הזה ל{{GRAMMAR:תחילית|{{SITENAME}}}}.\n# להוסיף תבנית המודיעה שהקובץ הזה זמין עכשיו ב{{GRAMMAR:תחילית|{{SITENAME}}}}.\nתודה רבה!",
-	"fileimporter-go-to-original-file-button": "חזרה לקובץ המקורי"
+	"fileimporter-go-to-original-file-button": "חזרה לקובץ המקורי",
+	"fileimporter-commonshelper-retrieval-failed": "אירעה שגיאה בבדיקת הקבצים החסומים.",
+	"fileimporter-commonshelper-parsing-failed": "קובץ הגדרות התצורה של אתר הוויקי הזה ($1) אינו מכיל מספיק מידע לגבי <$2>, הדרוש כדי לבדוק האם ניתן להעלות את הקובץ הזה לוויקישיתוף.",
+	"fileimporter-file-contains-blocked-category-template": "לא ניתן לייבא את הקובץ, כיוון שהוא מסומן בתור $1. קבצים כאלה אינם מותרים ב{{GRAMMAR:תחילית|$2}}."
 }
