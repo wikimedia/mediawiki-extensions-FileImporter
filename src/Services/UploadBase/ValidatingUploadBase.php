@@ -75,7 +75,8 @@ class ValidatingUploadBase extends UploadBase {
 
 	/**
 	 * @param User $user user performing the import
-	 * @param TextRevision $textRevision optional text revision to validate the upload with
+	 * @param TextRevision|null $textRevision optional text revision to validate the upload with
+	 *
 	 * @return Status
 	 */
 	public function validateUpload( User $user, TextRevision $textRevision = null ) {
