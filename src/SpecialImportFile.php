@@ -19,6 +19,7 @@ use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessPage;
 use FileImporter\Html\InputFormPage;
 use FileImporter\Html\RecoverableTitleExceptionPage;
+use FileImporter\Html\InfoPage;
 use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
@@ -75,7 +76,7 @@ class SpecialImportFile extends SpecialPage {
 		parent::__construct(
 			'FileImporter-SpecialPage',
 			$this->config->get( 'FileImporterRequiredRight' ),
-			!$this->config->get( 'FileImporterInBeta' )
+			$this->config->get( 'FileImporterShowInputScreen' )
 		);
 
 		// TODO inject services!
@@ -157,7 +158,7 @@ class SpecialImportFile extends SpecialPage {
 
 		if ( $clientUrl === null ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
-			$this->showInputForm();
+			$this->showLandingPage();
 			return;
 		}
 
@@ -332,12 +333,16 @@ class SpecialImportFile extends SpecialPage {
 		);
 	}
 
-	private function showInputForm() {
+	private function showLandingPage() {
 		if ( $this->config->get( 'FileImporterInBeta' ) ) {
 			$this->showWarningMessage( ( new Message( 'fileimporter-in-beta' ) )->parse() );
 		}
 
-		$this->getOutput()->addHTML( ( new InputFormPage( $this ) )->getHtml() );
+		$page = $this->config->get( 'FileImporterShowInputScreen' )
+			? new InputFormPage( $this )
+			: new InfoPage( $this );
+
+		$this->getOutput()->addHTML( $page->getHtml() );
 	}
 
 }

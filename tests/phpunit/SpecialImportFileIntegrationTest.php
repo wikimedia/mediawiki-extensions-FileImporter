@@ -105,7 +105,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertInitialInputFormPreset( $html );
+					$this->assertLandingPagePreset( $html );
 				}
 			],
 			'Bad domain (not in allowed sites)' => [
@@ -202,23 +202,10 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		);
 	}
 
-	private function assertInitialInputFormPreset( $html ) {
+	private function assertLandingPagePreset( $html ) {
 		assertThat(
 			$html,
-			is( htmlPiece( havingChild(
-						both( withTagName( 'form' ) )
-							->andAlso( withAttribute( 'action' ) )
-							->andAlso( withAttribute( 'method' )->havingValue( 'POST' ) )
-							->andAlso( havingChild(
-									both( withTagName( 'input' ) )
-										->andAlso( withAttribute( 'type' )->havingValue( 'url' ) )
-										->andAlso( withAttribute( 'name' )->havingValue( 'clientUrl' ) )
-							) )
-							->andAlso( havingChild(
-									both( withTagName( 'button' ) )
-										->andAlso( withAttribute( 'type' )->havingValue( 'submit' ) )
-							) )
-			) ) )
+			is( htmlPiece( havingChild( withTagName( 'p' ) ) ) )
 		);
 	}
 

@@ -73,6 +73,7 @@
 		"FileImporter\\Html\\ImportIdentityFormSnippet": "src/Html/ImportIdentityFormSnippet.php",
 		"FileImporter\\Html\\ImportPreviewPage": "src/Html/ImportPreviewPage.php",
 		"FileImporter\\Html\\ImportSuccessPage": "src/Html/ImportSuccessPage.php",
+		"FileImporter\\Html\\InfoPage": "src/Html/InfoPage.php",
 		"FileImporter\\Html\\InputFormPage": "src/Html/InputFormPage.php",
 		"FileImporter\\Html\\RecoverableTitleExceptionPage": "src/Html/RecoverableTitleExceptionPage.php",
 		"FileImporter\\Html\\TextRevisionSnippet": "src/Html/TextRevisionSnippet.php",
@@ -95,6 +96,8 @@
 	"config": {
 		"FileImporterRequiredRight": "upload",
 		"FileImporterInBeta": true,
+		"@FileImporterShowInputScreen": "Whether or not to show the source URL input page.",
+		"FileImporterShowInputScreen": false,
 		"FileImporterSourceSiteServices": [],
 		"@FileImporterCommonsHelperServer": "Location of CommonsHelper2 configuration files to use, e.g. \"https://meta.wikimedia.org\". Set to an empty string to disable.",
 		"FileImporterCommonsHelperServer": "",

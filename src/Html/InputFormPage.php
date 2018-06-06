@@ -34,31 +34,31 @@ class InputFormPage {
 	public function getHtml() {
 		return Html::openElement( 'div' ) .
 			Html::openElement(
-			'form',
-			[
-				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-				'method' => 'POST',
-			]
-		) .
+				'form',
+				[
+					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+					'method' => 'POST',
+				]
+			) .
 			new TextInputWidget(
-			[
-				'name' => 'clientUrl',
-				'classes' => [ 'mw-fileimporter-url-text' ],
-				'autofocus' => true,
-				'required' => true,
-				'type' => 'url',
-				'placeholder' => ( new Message( 'fileimporter-exampleprefix' ) )->plain() .
-					': https://en.wikipedia.org/wiki/File:Berlin_Skyline',
-			]
-		) .
+				[
+					'name' => 'clientUrl',
+					'classes' => [ 'mw-fileimporter-url-text' ],
+					'autofocus' => true,
+					'required' => true,
+					'type' => 'url',
+					'placeholder' => ( new Message( 'fileimporter-exampleprefix' ) )->plain() .
+						': https://en.wikipedia.org/wiki/File:Berlin_Skyline',
+				]
+			) .
 			new ButtonInputWidget(
-			[
-				'classes' => [ 'mw-fileimporter-url-submit' ],
-				'label' => ( new Message( 'fileimporter-submit' ) )->plain(),
-				'type' => 'submit',
-				'flags' => [ 'primary', 'progressive' ],
-			]
-		) .
+				[
+					'classes' => [ 'mw-fileimporter-url-submit' ],
+					'label' => ( new Message( 'fileimporter-submit' ) )->plain(),
+					'type' => 'submit',
+					'flags' => [ 'primary', 'progressive' ],
+				]
+			) .
 			Html::closeElement( 'form' ) .
 			Html::closeElement( 'div' );
 	}
