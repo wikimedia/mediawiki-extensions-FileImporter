@@ -50,6 +50,15 @@ class CommonsHelperConfigParser {
 			);
 		}
 
+		$goodTemplateSection = $this->splitSectionsByHeaders( '=== Good ===', $templateSection );
+		if ( !$goodTemplateSection ) {
+			throw new LocalizedImportException(
+				new Message( 'fileimporter-commonshelper-parsing-failed', [
+					$this->commonsHelperConfigUrl, 'Templates/Good'
+				] )
+			);
+		}
+
 		$badCategorySection = $this->splitSectionsByHeaders( '=== Bad ===', $categorySection );
 		if ( !$badCategorySection ) {
 			throw new LocalizedImportException(
@@ -69,6 +78,7 @@ class CommonsHelperConfigParser {
 		}
 
 		return new WikiTextConversions(
+			$this->getItemList( $goodTemplateSection ),
 			$this->getItemList( $badTemplateSection ),
 			$this->getItemList( $badCategorySection )
 		);

@@ -230,6 +230,11 @@ class ApiDetailRetriever implements DetailRetriever {
 					$commonHelperConfigParser->getWikiTextConversions()
 				);
 
+				$wikiTextContentValidator->hasRequiredTemplate(
+					array_key_exists( 'templates', $pageInfoData ) ?
+						$pageInfoData[ 'templates' ] : []
+				);
+
 				$wikiTextContentValidator->validateTemplates(
 					array_key_exists( 'templates', $pageInfoData ) ?
 						$pageInfoData[ 'templates' ] : []

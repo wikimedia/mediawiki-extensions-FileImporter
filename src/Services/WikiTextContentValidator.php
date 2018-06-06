@@ -66,4 +66,28 @@ class WikiTextContentValidator {
 		}
 	}
 
+	/**
+	 * @param array[] $templates
+	 *
+	 * @throws LocalizedImportException
+	 */
+	public function hasRequiredTemplate( array $templates ) {
+		if ( !$this->wikiTextConversions->hasGoodTemplates() ) {
+			return;
+		}
+
+		foreach ( $templates as $template ) {
+			$templateTitle = $template['title'];
+			if ( $this->wikiTextConversions->isTemplateGood( $templateTitle ) ) {
+				return;
+			}
+		}
+
+		throw new LocalizedImportException(
+			new Message(
+				'fileimporter-file-missing-required-template'
+			)
+		);
+	}
+
 }
