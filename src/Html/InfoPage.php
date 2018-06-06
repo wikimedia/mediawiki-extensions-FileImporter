@@ -3,7 +3,6 @@
 namespace FileImporter\Html;
 
 use Html;
-use Message;
 use SpecialPage;
 
 /**
@@ -27,7 +26,7 @@ class InfoPage {
 		return Html::rawElement(
 			'p',
 			[],
-			( new Message( 'fileimporter-input-page-info-text' ) )->parse()
+			$this->specialPage->msg( 'fileimporter-input-page-info-text' )->parse()
 		);
 	}
 

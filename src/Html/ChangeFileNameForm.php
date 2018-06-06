@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use Html;
-use Message;
 use OOUI\FieldLayout;
 use OOUI\FieldsetLayout;
 use OOUI\ButtonInputWidget;
@@ -54,7 +53,7 @@ class ChangeFileNameForm {
 						'name' => 'intendedFileName',
 						'value' => $filenameValue,
 						'classes' => [ 'mw-importfile-import-newtitle' ],
-						'placeholder' => ( new Message( 'fileimporter-newfilename-placeholder' ) )->plain(),
+						'placeholder' => $this->specialPage->msg( 'fileimporter-newfilename-placeholder' )->plain(),
 						'suggestions' => false,
 						'autofocus' => true,
 						'required' => true,
@@ -62,7 +61,7 @@ class ChangeFileNameForm {
 				),
 				[
 					'align' => 'top',
-					'label' => ( new Message( 'fileimporter-newfilename' ) )->plain(),
+					'label' => $this->specialPage->msg( 'fileimporter-newfilename' )->plain(),
 				]
 			) ]
 		] ) ) .
@@ -70,7 +69,7 @@ class ChangeFileNameForm {
 		Html::element(
 			'p',
 			[],
-			( new Message( 'fileimporter-extensionlabel' ) )->plain() .
+			$this->specialPage->msg( 'fileimporter-extensionlabel' )->plain() .
 			' ' .
 			$this->importPlan->getFileExtension()
 		) .
@@ -81,7 +80,7 @@ class ChangeFileNameForm {
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
-				'label' => ( new Message( 'fileimporter-submit' ) )->plain(),
+				'label' => $this->specialPage->msg( 'fileimporter-submit' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 			]

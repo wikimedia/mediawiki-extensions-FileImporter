@@ -5,7 +5,6 @@ namespace FileImporter\Html;
 use FileImporter\Data\ImportPlan;
 use Html;
 use Linker;
-use Message;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
 use OOUI\TextInputWidget;
@@ -54,7 +53,7 @@ class ImportPreviewPage {
 		return Html::element(
 			'p',
 			[],
-			( new Message( 'fileimporter-previewnote' ) )->parse()
+			$this->specialPage->msg( 'fileimporter-previewnote' )->parse()
 		) .
 		Html::rawElement(
 			'div',
@@ -86,7 +85,7 @@ class ImportPreviewPage {
 			new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-importfile-edit-button' ],
-					'label' => ( new Message( 'fileimporter-edittitle' ) )->plain(),
+					'label' => $this->specialPage->msg( 'fileimporter-edittitle' )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'progressive' ],
 				]
@@ -105,7 +104,7 @@ class ImportPreviewPage {
 				[
 					'class' => 'mw-importfile-header-title'
 				],
-				( new Message( 'fileimporter-heading-fileinfo' ) )->plain()
+				$this->specialPage->msg( 'fileimporter-heading-fileinfo' )->plain()
 			).Html::openElement(
 				'form',
 				[
@@ -126,7 +125,7 @@ class ImportPreviewPage {
 			new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-importfile-edit-button' ],
-					'label' => ( new Message( 'fileimporter-editinfo' ) )->plain(),
+					'label' => $this->specialPage->msg( 'fileimporter-editinfo' )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'progressive' ],
 				]
@@ -144,18 +143,18 @@ class ImportPreviewPage {
 		Html::element(
 			'h2',
 			[],
-			( new Message( 'fileimporter-heading-filehistory' ) )->plain()
+			$this->specialPage->msg( 'fileimporter-heading-filehistory' )->plain()
 		) .
 		Html::element(
 			'p',
 			[],
-			( new Message(
+			$this->specialPage->msg(
 				'fileimporter-filerevisions',
 				[
 					$fileRevisionsCount,
 					$fileRevisionsCount,
 				]
-			) )->parse()
+			)->parse()
 		) .
 		Html::openElement(
 			'div',
@@ -172,13 +171,13 @@ class ImportPreviewPage {
 		Html::element(
 			'p',
 			[],
-			( new Message(
+			$this->specialPage->msg(
 				'fileimporter-textrevisions',
 				[
 					$textRevisionsCount,
 					$textRevisionsCount,
 				]
-			) )->parse()
+			)->parse()
 		) .
 		$importIdentityFormSnippet .
 		Html::element(
@@ -200,7 +199,7 @@ class ImportPreviewPage {
 		new ButtonInputWidget(
 			[
 				'classes' => [ 'mw-importfile-import-submit' ],
-				'label' => ( new Message( 'fileimporter-import' ) )->plain(),
+				'label' => $this->specialPage->msg( 'fileimporter-import' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 			]
@@ -208,7 +207,7 @@ class ImportPreviewPage {
 		new ButtonWidget(
 			[
 				'classes' => [ 'mw-importfile-import-cancel' ],
-				'label' => ( new Message( 'fileimporter-cancel' ) )->plain(),
+				'label' => $this->specialPage->msg( 'fileimporter-cancel' )->plain(),
 				'flags' => [ 'progressive' ],
 				'href' => $this->importPlan->getRequest()->getUrl()->getUrl()
 			]
@@ -216,7 +215,7 @@ class ImportPreviewPage {
 		Html::element(
 			'span',
 			[],
-			( new Message( 'fileimporter-import-wait' ) )->plain()
+			$this->specialPage->msg( 'fileimporter-import-wait' )->plain()
 		) .
 		Html::closeElement( 'form' ) .
 		Html::closeElement(
@@ -228,7 +227,7 @@ class ImportPreviewPage {
 		return Html::element(
 			'p',
 			[],
-			( new Message( 'fileimporter-editsummary' ) )->plain()
+			$this->specialPage->msg( 'fileimporter-editsummary' )->plain()
 		) .
 		new TextInputWidget(
 			[

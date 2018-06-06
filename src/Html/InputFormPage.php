@@ -3,7 +3,6 @@
 namespace FileImporter\Html;
 
 use Html;
-use Message;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
 use SpecialPage;
@@ -47,14 +46,14 @@ class InputFormPage {
 					'autofocus' => true,
 					'required' => true,
 					'type' => 'url',
-					'placeholder' => ( new Message( 'fileimporter-exampleprefix' ) )->plain() .
+					'placeholder' => $this->specialPage->msg( 'fileimporter-exampleprefix' )->plain() .
 						': https://en.wikipedia.org/wiki/File:Berlin_Skyline',
 				]
 			) .
 			new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-fileimporter-url-submit' ],
-					'label' => ( new Message( 'fileimporter-submit' ) )->plain(),
+					'label' => $this->specialPage->msg( 'fileimporter-submit' )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'primary', 'progressive' ],
 				]

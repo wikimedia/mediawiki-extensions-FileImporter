@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use Html;
-use Message;
 use OOUI\ButtonInputWidget;
 use SpecialPage;
 
@@ -56,7 +55,7 @@ class ChangeFileInfoForm {
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
-				'label' => ( new Message( 'fileimporter-submit' ) )->plain(),
+				'label' => $this->specialPage->msg( 'fileimporter-submit' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 				'tabIndex' => 2,

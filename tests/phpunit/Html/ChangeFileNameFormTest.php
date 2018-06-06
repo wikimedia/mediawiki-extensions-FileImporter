@@ -44,6 +44,8 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( Title::newFromText( 'SomeTitle' ) );
 		$mock->method( 'getRequest' )
 			->willReturn( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) );
+		$mock->method( 'msg' )
+			->willReturn( new \RawMessage( '' ) );
 		return $mock;
 	}
 

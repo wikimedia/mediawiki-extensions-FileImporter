@@ -57,6 +57,8 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $this->createMock( User::class ) );
 		$mock->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
+		$mock->method( 'msg' )
+			->willReturn( new \RawMessage( '' ) );
 		return $mock;
 	}
 
