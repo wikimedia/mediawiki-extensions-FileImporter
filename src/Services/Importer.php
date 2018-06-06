@@ -3,6 +3,7 @@
 namespace FileImporter\Services;
 
 use Exception;
+use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Exceptions\ValidationException;
@@ -127,16 +128,6 @@ class Importer {
 		$importStart = microtime( true );
 		$this->logger->info( __METHOD__ . ' started' );
 
-		$importDetails = $importPlan->getDetails();
-		$plannedTitle = $importPlan->getTitle();
-		$importOperations = new ImportOperations();
-
-		$textRevisions = $importDetails->getTextRevisions()->toArray();
-		$fileRevisions = $importDetails->getFileRevisions()->toArray();
-
-		$this->stats->gauge( 'FileImporter.import.details.textRevisions', count( $textRevisions ) );
-		$this->stats->gauge( 'FileImporter.import.details.fileRevisions', count( $fileRevisions ) );
-
 		$this->validateFileInfoText(
 			$user,
 			$importPlan
@@ -144,49 +135,11 @@ class Importer {
 
 		// TODO the type of ImportOperation created should be decided somewhere
 
-		/**
-		 * Text revisions should be added first. See T147451.
-		 * This ensures that the page entry is created and if something fails it can thus be deleted.
-		 */
 		$operationBuildingStart = microtime( true );
-		foreach ( $textRevisions as $textRevision ) {
-			$importOperations->add( new TextRevisionFromTextRevision(
-				$plannedTitle,
-				$user,
-				$textRevision,
-				$this->wikiRevisionFactory,
-				$this->oldRevisionImporter,
-				$this->textRevisionValidator,
-				$this->logger
-			) );
-		}
-
-		$totalFileSizes = 0;
-		$initialTextRevision = $textRevisions[0];
-		foreach ( $fileRevisions as $fileRevision ) {
-			$totalFileSizes += $fileRevision->getField( 'size' );
-			$this->stats->gauge(
-				'FileImporter.import.details.individualFileSizes',
-				$fileRevision->getField( 'size' )
-			);
-			$importOperations->add( new FileRevisionFromRemoteUrl(
-				$plannedTitle,
-				$user,
-				$fileRevision,
-				$initialTextRevision,
-				$this->httpRequestExecutor,
-				$this->wikiRevisionFactory,
-				$this->uploadBaseFactory,
-				$this->uploadRevisionImporter,
-				$this->logger
-			) );
-
-			// only include the initial text revision in the first upload
-			$initialTextRevision = null;
-		}
-		$this->stats->gauge(
-			'FileImporter.import.details.totalFileSizes',
-			$totalFileSizes
+		$importOperations = $this->buildImportOperations(
+			$user,
+			$importPlan->getTitle(),
+			$importPlan->getDetails()
 		);
 		$this->stats->timing(
 			'FileImporter.import.timing.buildOperations',
@@ -247,6 +200,70 @@ class Importer {
 		);
 
 		return true;
+	}
+
+	/**
+	 * @param User $user
+	 * @param Title $plannedTitle
+	 * @param ImportDetails $importDetails
+	 *
+	 * @return ImportOperations
+	 */
+	private function buildImportOperations(
+		User $user,
+		Title $plannedTitle,
+		ImportDetails $importDetails
+	) {
+		$textRevisions = $importDetails->getTextRevisions()->toArray();
+		$fileRevisions = $importDetails->getFileRevisions()->toArray();
+		$importOperations = new ImportOperations();
+
+		/**
+		 * Text revisions should be added first. See T147451.
+		 * This ensures that the page entry is created and if something fails it can thus be deleted.
+		 */
+		foreach ( $textRevisions as $textRevision ) {
+			$importOperations->add( new TextRevisionFromTextRevision(
+				$plannedTitle,
+				$user,
+				$textRevision,
+				$this->wikiRevisionFactory,
+				$this->oldRevisionImporter,
+				$this->textRevisionValidator,
+				$this->logger
+			) );
+		}
+
+		$totalFileSizes = 0;
+		$initialTextRevision = $textRevisions[0];
+
+		foreach ( $fileRevisions as $fileRevision ) {
+			$totalFileSizes += $fileRevision->getField( 'size' );
+			$this->stats->gauge(
+				'FileImporter.import.details.individualFileSizes',
+				$fileRevision->getField( 'size' )
+			);
+			$importOperations->add( new FileRevisionFromRemoteUrl(
+				$plannedTitle,
+				$user,
+				$fileRevision,
+				$initialTextRevision,
+				$this->httpRequestExecutor,
+				$this->wikiRevisionFactory,
+				$this->uploadBaseFactory,
+				$this->uploadRevisionImporter,
+				$this->logger
+			) );
+
+			// only include the initial text revision in the first upload
+			$initialTextRevision = null;
+		}
+
+		$this->stats->gauge( 'FileImporter.import.details.textRevisions', count( $textRevisions ) );
+		$this->stats->gauge( 'FileImporter.import.details.fileRevisions', count( $fileRevisions ) );
+		$this->stats->gauge( 'FileImporter.import.details.totalFileSizes', $totalFileSizes );
+
+		return $importOperations;
 	}
 
 	/**
