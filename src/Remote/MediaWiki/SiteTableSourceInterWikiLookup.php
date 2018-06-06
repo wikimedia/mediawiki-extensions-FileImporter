@@ -37,7 +37,7 @@ class SiteTableSourceInterWikiLookup implements SourceInterWikiLookup {
 	 * @inheritDoc
 	 */
 	public function getPrefix( SourceUrl $sourceUrl ) {
-		$host = $sourceUrl->getParsedUrl()['host'];
+		$host = $sourceUrl->getHost();
 		$site = $this->siteTableSiteLookup->getSite( $host );
 		$prefix = '';
 		if ( $site === null ) {

@@ -26,19 +26,20 @@ class WhitelistDomainFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 	 * @inheritDoc
 	 */
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
-		$parsedUrl = $sourceUrl->getParsedUrl();
+		$host = $sourceUrl->getHost();
+
 		foreach ( $this->whiteListDomains as $whiteListDomain ) {
 			$whiteListDomainLength = strlen( $whiteListDomain );
 			$whiteListFirstChar = $whiteListDomain[0];
 
 			if ( $whiteListFirstChar === '.' ) {
 				// If the whitelist domain starts with a . allow subdomains
-				if ( substr( $parsedUrl['host'], -$whiteListDomainLength ) === $whiteListDomain ) {
+				if ( substr( $host, -$whiteListDomainLength ) === $whiteListDomain ) {
 					return parent::checkSourceUrl( $sourceUrl );
 				}
 			} else {
 				// If there is no starting . do not allow subdomains
-				if ( $parsedUrl['host'] === $whiteListDomain ) {
+				if ( $host === $whiteListDomain ) {
 					return parent::checkSourceUrl( $sourceUrl );
 				}
 			}
