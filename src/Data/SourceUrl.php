@@ -52,8 +52,6 @@ class SourceUrl {
 	 * @return string The host, for example "en.wikipedia.org"
 	 */
 	public function getHost() {
-		// TODO configurable host normalization? Using configurable regexes?
-		// For Wikimedia this will enabled normalizing of .m. and .zero. in hosts
 		return $this->parsed['host'];
 	}
 
