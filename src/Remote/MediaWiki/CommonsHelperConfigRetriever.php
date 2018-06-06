@@ -10,12 +10,20 @@ use Message;
 
 class CommonsHelperConfigRetriever {
 
-	const CONFIG_WIKI_LOCATION = 'https://meta.wikimedia.org/';
-
 	/**
 	 * @var HttpRequestExecutor
 	 */
 	private $httpRequestExecutor;
+
+	/**
+	 * @var string
+	 */
+	private $configServer;
+
+	/**
+	 * @var string
+	 */
+	private $configBasePageName;
 
 	/**
 	 * @var SourceUrl
@@ -33,15 +41,21 @@ class CommonsHelperConfigRetriever {
 	private $configWikiUrl = null;
 
 	/**
-	 * @param SourceUrl $sourceUrl
 	 * @param HttpRequestExecutor $httpRequestExecutor
+	 * @param string $configServer Full domain including schema, e.g. "https://meta.wikimedia.org"
+	 * @param string $configBasePageName Base page name, e.g. "CommonsHelper2/Data_"
+	 * @param SourceUrl $sourceUrl
 	 */
 	public function __construct(
-		SourceUrl $sourceUrl,
-		HttpRequestExecutor $httpRequestExecutor
+		HttpRequestExecutor $httpRequestExecutor,
+		$configServer,
+		$configBasePageName,
+		SourceUrl $sourceUrl
 	) {
-		$this->sourceUrl = $sourceUrl;
 		$this->httpRequestExecutor = $httpRequestExecutor;
+		$this->configServer = $configServer;
+		$this->configBasePageName = $configBasePageName;
+		$this->sourceUrl = $sourceUrl;
 	}
 
 	/**
@@ -96,7 +110,7 @@ class CommonsHelperConfigRetriever {
 	 * @return string
 	 */
 	private function buildCommonsHelperConfigUrl( SourceUrl $sourceUrl ) {
-		return static::CONFIG_WIKI_LOCATION . 'wiki/' . $this->getQueryParamTitle( $sourceUrl );
+		return $this->configServer . '/wiki/' . $this->getQueryParamTitle( $sourceUrl );
 	}
 
 	/**
@@ -122,7 +136,7 @@ class CommonsHelperConfigRetriever {
 	 * @return string
 	 */
 	private function buildAPIRequest( SourceUrl $sourceUrl ) {
-		return static::CONFIG_WIKI_LOCATION .'/w/api.php?' .
+		return $this->configServer .'/w/api.php?' .
 			$this->buildAPIQueryParams( $this->getQueryParamTitle( $sourceUrl ) );
 	}
 
@@ -144,8 +158,13 @@ class CommonsHelperConfigRetriever {
 		] );
 	}
 
+	/**
+	 * @param SourceUrl $sourceUrl
+	 *
+	 * @return string
+	 */
 	private function getQueryParamTitle( SourceUrl $sourceUrl ) {
-		return 'CommonsHelper2/Data_' . $this->getCommonsHelperUrlFormat( $sourceUrl );
+		return $this->configBasePageName . $this->getCommonsHelperUrlFormat( $sourceUrl );
 	}
 
 	/**

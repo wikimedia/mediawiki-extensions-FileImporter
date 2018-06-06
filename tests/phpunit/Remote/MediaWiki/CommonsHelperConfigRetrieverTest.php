@@ -38,11 +38,16 @@ class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 		$requestExecutor->method( 'execute' )
 			->willReturn( $request );
 
-		$retriever = new CommonsHelperConfigRetriever( $sourceUrl, $requestExecutor );
+		$retriever = new CommonsHelperConfigRetriever(
+			$requestExecutor,
+			'<SERVER>',
+			'<BASE>',
+			$sourceUrl
+		);
 
 		$this->assertTrue( $retriever->retrieveConfiguration() );
 		$this->assertSame(
-			'https://meta.wikimedia.org/wiki/CommonsHelper2/Data_de.wikipedia',
+			'<SERVER>/wiki/<BASE>de.wikipedia',
 			$retriever->getConfigWikiUrl()
 		);
 		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikiText() );
