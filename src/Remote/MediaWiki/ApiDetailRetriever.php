@@ -48,9 +48,14 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $maxBytes;
 
 	/**
-	 * @var bool
+	 * @var string|null
 	 */
-	private $useCommonsHelperConfig;
+	private $commonsHelperServer;
+
+	/**
+	 * @var string
+	 */
+	private $commonsHelperBasePageName;
 
 	/**
 	 * @var int
@@ -87,7 +92,8 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		$this->useCommonsHelperConfig = (bool)$config->get( 'FileImporterUseCommonsHelperConfig' );
+		$this->commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
+		$this->commonsHelperBasePageName = $config->get( 'FileImporterCommonsHelperBasePageName' );
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
 		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
 	}
@@ -215,9 +221,12 @@ class ApiDetailRetriever implements DetailRetriever {
 			$this->getMoreRevisions( $sourceUrl, $apiUrl, $requestData, $pageInfoData );
 		}
 
-		if ( $this->useCommonsHelperConfig ) {
+		if ( $this->commonsHelperServer ) {
 			$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
-				$sourceUrl, $this->httpRequestExecutor
+				$this->httpRequestExecutor,
+				$this->commonsHelperServer,
+				$this->commonsHelperBasePageName,
+				$sourceUrl
 			);
 
 			if ( $commonsHelperConfigRetriever->retrieveConfiguration() ) {
