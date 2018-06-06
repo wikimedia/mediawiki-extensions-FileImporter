@@ -19,7 +19,8 @@ class HttpRequestException extends ImportException {
 	public function __construct( StatusValue $statusValue, MWHttpRequest $httpRequest ) {
 		$this->statusValue = $statusValue;
 		$this->httpRequest = $httpRequest;
-		parent::__construct();
+
+		parent::__construct( (string)$statusValue, $httpRequest->getStatus() );
 	}
 
 	public function getStatusValue() {

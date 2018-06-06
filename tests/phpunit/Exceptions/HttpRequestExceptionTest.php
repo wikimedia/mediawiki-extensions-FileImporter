@@ -19,11 +19,16 @@ class HttpRequestExceptionTest extends \PHPUnit\Framework\TestCase {
 	public function testException() {
 		$statusValue = new StatusValue();
 		$httpRequest = $this->createMock( MWHttpRequest::class );
+		$httpRequest->method( 'getStatus' )->willReturn( 200 );
 
 		$ex = new HttpRequestException( $statusValue, $httpRequest );
 
 		$this->assertSame( $statusValue, $ex->getStatusValue() );
 		$this->assertSame( $httpRequest, $ex->getHttpRequest() );
+
+		$this->assertNotEmpty( $ex->getMessage() );
+		$this->assertSame( 200, $ex->getCode() );
+		$this->assertNull( $ex->getPrevious() );
 	}
 
 }
