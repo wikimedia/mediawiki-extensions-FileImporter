@@ -55,7 +55,7 @@ class ImportRequest {
 		Assert::parameterType( 'string|null', $intendedSummary, '$intendedSummary' );
 
 		try {
-			$this->url = new SourceUrl( urldecode( $url ) );
+			$this->url = new SourceUrl( $url );
 		} catch ( InvalidArgumentException $e ) {
 			throw new LocalizedImportException( new Message( 'fileimporter-cantparseurl', [ $url ] ) );
 		}
