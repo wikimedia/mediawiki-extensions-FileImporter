@@ -9,26 +9,25 @@ use FileImporter\Data\WikiTextConversions;
  */
 class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideGoodTemplates() {
+	public function provideCaseInsensitivePageNames() {
 		return [
-			[ [], '', false ],
-			[ [], 'Incomplete', false ],
-			[ [ 'Incomplete' ], 'Incomplete', false ],
-
-			[ [ 'Bad' ], 'Template:Bad', true ],
-			[ [ 'needs_normalization' ], 'Template:Needs normalization', true ],
-			[ [ 'Needs normalization' ], 'template:Needs_normalization', true ],
-			[ [ 'CASE INSENSITIVE' ], 'Template:case insensitive', true ],
-			[ [ 'български' ], 'Template:БЪЛГАРСКИ', true ],
+			[ 'Not equal to empty string', '', false ],
+			[ '', 'Not equal to empty string', false ],
+			[ 'Mismatch', 'Not equal', false ],
+			[ 'Identical', 'Identical', true ],
+			[ 'needs_normalization', 'Needs normalization', true ],
+			[ 'Needs normalization', 'Needs_normalization', true ],
+			[ 'CASE INSENSITIVE', 'case insensitive', true ],
+			[ 'български', 'БЪЛГАРСКИ', true ],
 		];
 	}
 
 	/**
-	 * @dataProvider provideGoodTemplates
+	 * @dataProvider provideCaseInsensitivePageNames
 	 */
-	public function testIsTemplateGood( array $goodTemplates, $template, $expected ) {
-		$conversions = new WikiTextConversions( $goodTemplates, [], [] );
-		$this->assertSame( $expected, $conversions->isTemplateGood( $template ) );
+	public function testIsTemplateGood( $listed, $requested, $expected ) {
+		$conversions = new WikiTextConversions( [ $listed ], [], [] );
+		$this->assertSame( $expected, $conversions->isTemplateGood( 'Template:' . $requested ) );
 	}
 
 	public function provideHasGoodTemplates() {
@@ -46,48 +45,20 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $expected, $conversions->hasGoodTemplates() );
 	}
 
-	public function provideBadTemplates() {
-		return [
-			[ [], '', false ],
-			[ [], 'Incomplete', false ],
-			[ [ 'Incomplete' ], 'Incomplete', false ],
-
-			[ [ 'Bad' ], 'Template:Bad', true ],
-			[ [ 'needs_normalization' ], 'Template:Needs normalization', true ],
-			[ [ 'Needs normalization' ], 'template:Needs_normalization', true ],
-			[ [ 'CASE INSENSITIVE' ], 'Template:case insensitive', true ],
-			[ [ 'български' ], 'Template:БЪЛГАРСКИ', true ],
-		];
+	/**
+	 * @dataProvider provideCaseInsensitivePageNames
+	 */
+	public function testIsTemplateBad( $listed, $requested, $expected ) {
+		$conversions = new WikiTextConversions( [], [ $listed ], [] );
+		$this->assertSame( $expected, $conversions->isTemplateBad( 'Template:' . $requested ) );
 	}
 
 	/**
-	 * @dataProvider provideBadTemplates
+	 * @dataProvider provideCaseInsensitivePageNames
 	 */
-	public function testIsTemplateBad( array $badTemplates, $template, $expected ) {
-		$conversions = new WikiTextConversions( [], $badTemplates, [] );
-		$this->assertSame( $expected, $conversions->isTemplateBad( $template ) );
-	}
-
-	public function provideBadCategories() {
-		return [
-			[ [], '', false ],
-			[ [], 'Incomplete', false ],
-			[ [ 'Incomplete' ], 'Incomplete', false ],
-
-			[ [ 'Bad' ], 'Category:Bad', true ],
-			[ [ 'needs_normalization' ], 'Category:Needs normalization', true ],
-			[ [ 'Needs normalization' ], 'category:Needs_normalization', true ],
-			[ [ 'CASE INSENSITIVE' ], 'Category:case insensitive', true ],
-			[ [ 'български' ], 'Category:БЪЛГАРСКИ', true ],
-		];
-	}
-
-	/**
-	 * @dataProvider provideBadCategories
-	 */
-	public function testIsCategoryBad( array $badCategories, $category, $expected ) {
-		$conversions = new WikiTextConversions( [], [], $badCategories );
-		$this->assertSame( $expected, $conversions->isCategoryBad( $category ) );
+	public function testIsCategoryBad( $listed, $requested, $expected ) {
+		$conversions = new WikiTextConversions( [], [], [ $listed ] );
+		$this->assertSame( $expected, $conversions->isCategoryBad( 'Category:' . $requested ) );
 	}
 
 }
