@@ -116,7 +116,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			}
 		}
 
-		return $title;
+		return rawurldecode( $title );
 	}
 
 	/**

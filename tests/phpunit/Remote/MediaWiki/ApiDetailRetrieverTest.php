@@ -345,12 +345,12 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 				],
 			],
 			[
-				new SourceUrl( 'http://de.wikipedia.org/wiki/Datei:Bar.JPG' ),
-				'Datei:Bar.JPG',
-				json_encode( $this->getFullRequestContent( 'Datei:Bar.JPG' ) ),
+				new SourceUrl( 'http://de.wikipedia.org/wiki/Datei:Bar+%31.JPG' ),
+				'Datei:Bar+1.JPG',
+				json_encode( $this->getFullRequestContent( 'Datei:Bar+1.JPG' ) ),
 				[
-					'titlestring' => 'Bar.JPG',
-					'filename' => 'Bar',
+					'titlestring' => 'Bar+1.JPG',
+					'filename' => 'Bar+1',
 					'ext' => 'JPG',
 				],
 			],
@@ -485,7 +485,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 	 * @return string
 	 */
 	private function getExpectedExecuteRequestUrl( $titleString ) {
-		return 'APIURL?action=query&format=json&titles=' . urlencode( $titleString ) .
+		return 'APIURL?action=query&format=json&titles=' . rawurlencode( $titleString ) .
 			'&prop=imageinfo%7Crevisions%7Ctemplates%7Ccategories' .
 			'&iilimit=500&iiurlwidth=800&iiurlheight=400' .
 			'&iiprop=timestamp%7Cuser%7Cuserid%7Ccomment%7Ccanonicaltitle%7Curl%7Csize%7Csha1' .
