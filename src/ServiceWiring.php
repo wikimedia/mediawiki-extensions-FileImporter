@@ -2,7 +2,6 @@
 
 namespace FileImporter;
 
-use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\NullSourceInterWikiLookup;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
@@ -14,7 +13,6 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
-use FileImporter\Services\SourceUrlNormalizer;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
@@ -148,9 +146,7 @@ return [
 				$httpRequestExecutor,
 				$logger
 			),
-			new SourceUrlNormalizer( function ( SourceUrl $sourceUrl ) {
-				return $sourceUrl;
-			} ),
+			new WikimediaSourceUrlNormalizer(),
 			new NullSourceInterWikiLookup()
 		);
 
