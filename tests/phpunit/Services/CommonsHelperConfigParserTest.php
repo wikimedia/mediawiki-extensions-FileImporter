@@ -48,11 +48,9 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 
 			'missing lists' => [
 				'wikiText' => "== Templates ==\n=== Good ===\n=== Bad ===\n== Categories ==\n=== Bad ===\n",
-				'expectedGoodTemplates' => null,
-				'expectedBadTemplates' => null,
-				'expectedBadCategories' => null,
-				// TODO: I don't think this should throw an exception, as the syntax is fine
-				'expectedException' => LocalizedImportException::class
+				'expectedGoodTemplates' => [],
+				'expectedBadTemplates' => [],
+				'expectedBadCategories' => [],
 			],
 
 			'empty lists' => [
