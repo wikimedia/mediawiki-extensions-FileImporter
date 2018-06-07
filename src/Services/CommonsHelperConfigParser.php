@@ -4,6 +4,7 @@ namespace FileImporter\Services;
 
 use FileImporter\Data\WikiTextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
+use InvalidArgumentException;
 use Message;
 
 class CommonsHelperConfigParser {
@@ -32,7 +33,10 @@ class CommonsHelperConfigParser {
 	 * @return WikiTextConversions
 	 */
 	public function getWikiTextConversions() {
-		$categorySection = $this->splitSectionsByHeaders( '== Categories ==', $this->wikiText );
+		// HTML comments must be removed first
+		$wikiText = preg_replace( '/<!--.*?-->/s', '', $this->wikiText );
+
+		$categorySection = $this->splitSectionsByHeaders( '== Categories ==', $wikiText );
 		if ( !$categorySection ) {
 			throw new LocalizedImportException(
 				new Message( 'fileimporter-commonshelper-parsing-failed', [
@@ -41,7 +45,7 @@ class CommonsHelperConfigParser {
 			);
 		}
 
-		$templateSection = $this->splitSectionsByHeaders( '== Templates ==', $this->wikiText );
+		$templateSection = $this->splitSectionsByHeaders( '== Templates ==', $wikiText );
 		if ( !$templateSection ) {
 			throw new LocalizedImportException(
 				new Message( 'fileimporter-commonshelper-parsing-failed', [
@@ -86,41 +90,36 @@ class CommonsHelperConfigParser {
 
 	/**
 	 * @param string $header
-	 * @param string $text
+	 * @param string $wikiText
 	 *
 	 * @return string|false
 	 */
-	private function splitSectionsByHeaders( $header, $text ) {
-		$beginIndex = strpos( $text, $header );
-
-		if ( $beginIndex === false ) {
-			return false;
+	private function splitSectionsByHeaders( $header, $wikiText ) {
+		$level = strpos( $header, '= ' );
+		if ( $level === false ) {
+			throw new InvalidArgumentException( '$header must follow this format: "== … =="' );
 		}
+		$level++;
 
-		$beginIndex += strlen( $header );
-		$headerDividerCount = substr_count( $header, '=' );
+		// NOTE: This relaxes the parser to a degree that accepts "== Foobar ==" when
+		// "== Foo bar ==" is requested.
+		$headerRegex = str_replace( ' ', '\h*', preg_quote( $header, '/' ) );
 
-		$regexStr = '(\n'
-			. str_repeat( '=', $headerDividerCount / 2 )
-			. '\s[a-zA-Z ]*\s'
-			. str_repeat( '=', $headerDividerCount / 2 )
-			. '\n)';
-
-		$regexRes = preg_match( $regexStr, $text, $matches, PREG_OFFSET_CAPTURE, $beginIndex );
-
-		return ( $regexRes === 1 ) ?
-			substr( $text, $beginIndex, $matches[0][1] - $beginIndex ) :
-			substr( $text, $beginIndex );
+		// Extract a section from the given wikitext blob. Start from the given 2nd- or 3rd-level
+		// header. Stop at the same or a higher level (less equal signs), or at the end of the text.
+		$regex = '/^' . $headerRegex . '\h*\n(.*?)(?=^={1,' . $level . '}[^=]|\Z)/ms';
+		return preg_match( $regex, $wikiText, $matches ) ? $matches[1] : false;
 	}
 
 	/**
-	 * @param string $text
+	 * @param string $wikiText
 	 *
 	 * @return string[]
 	 */
-	private function getItemList( $text ) {
-		$list = preg_split( '(\*\040)', str_replace( "\n", '', $text ) );
-		return array_splice( $list, 1 );
+	private function getItemList( $wikiText ) {
+		// Extract non-empty first-level list elements, exclude 2nd and deeper levels
+		preg_match_all( '/^\*\h*([^\s*#:;].*?)\h*$/m', $wikiText, $matches );
+		return $matches[1];
 	}
 
 }
