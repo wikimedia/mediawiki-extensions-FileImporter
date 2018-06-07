@@ -9,7 +9,9 @@ use FileImporter\Interfaces\SourceUrlChecker;
 use FileImporter\Interfaces\SourceInterWikiLookup;
 
 /**
- * A SourceSite object is composed of services which can import files from configurable URLs.
+ * A SourceSite object is composed of services which can import files from configurable URLs. The
+ * SourceUrlChecker provided via the constructor dictates which SourceUrls are going to be processed
+ * by this service.
  *
  * @license GPL-2.0-or-later
  * @author Addshore

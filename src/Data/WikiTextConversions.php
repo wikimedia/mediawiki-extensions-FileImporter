@@ -2,6 +2,13 @@
 
 namespace FileImporter\Data;
 
+/**
+ * Class holding validation and replacement rules for the file description wikitext. This class is
+ * not aware of the source of these rules. They can be extracted from CommonsHelper2 configuration
+ * files or other, yet to be defined sources.
+ *
+ * @license GPL-2.0-or-later
+ */
 class WikiTextConversions {
 
 	/**

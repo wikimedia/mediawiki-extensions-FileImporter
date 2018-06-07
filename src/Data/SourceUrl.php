@@ -5,7 +5,12 @@ namespace FileImporter\Data;
 use InvalidArgumentException;
 
 /**
- * Class representing the URL passed into the extension for importing.
+ * Class representing a (possibly unnormalized) URL passed into the extension for importing. Can be
+ * any URL (e.g. a Flickr image), not necessarily pointing to a MediaWiki.
+ *
+ * Basic normalization that is true for any URL can be done here (e.g. Unicode normalization).
+ * Normalizations for specific sources (as detected by dedicated SourceUrlCheckers) need to be done
+ * in dedicated SourceUrlNormalizers.
  *
  * @license GPL-2.0-or-later
  * @author Addshore
