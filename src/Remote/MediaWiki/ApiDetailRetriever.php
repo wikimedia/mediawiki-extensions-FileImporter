@@ -196,14 +196,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$pageTitle = $pageInfoData['title'];
 
-		$fileRevCount = count( $pageInfoData['imageinfo'] );
-		$textRevCount = count( $pageInfoData['revisions'] );
-
-		if ( !array_key_exists( 'imageinfo', $pageInfoData ) ||
-			!array_key_exists( 'revisions', $pageInfoData ) ||
-			$fileRevCount < 1 ||
-			$textRevCount < 1
-		) {
+		if ( empty( $pageInfoData['imageinfo'] ) || empty( $pageInfoData['imageinfo'] ) ) {
 			$this->logger->warning(
 				'Bad image or revision info returned by the API',
 				[
