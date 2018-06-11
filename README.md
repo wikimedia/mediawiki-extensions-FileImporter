@@ -17,9 +17,10 @@ FileImporter extension.
 
 #### Config
 
-The **FileImporterSourceSiteServices** setting allows extensions and modifications to the services that retrieve details for imports.
-The default setting only allows files to be imported from sites that are in the sites table.
-Using the "FileImporterAnyMediaWikiSite" service here would allow you to import files from any site.
+The **FileImporterSourceSiteServices** setting lists enabled services responsible for imports from different sources.
+Each service allows extensions and modifications of data retrieved by it and limits the type of sites where files can be
+imported from. The default empty list `[]` allows files to be imported from any MediaWiki site. Set the list to
+`[ 'FileImporter-WikimediaSitesTableSite' ]` if you only want to allow imports from sites that are in the sites table.
 
 **FileImporterMaxRevisions** specifies the maximum number of revisions (file or text) a file can
 have in order to be imported. This is restricted to a hard-coded default of 100, which can be
@@ -28,6 +29,16 @@ lowered via configuration, but not raised.
 **FileImporterMaxAggregatedBytes** specifies the maximum aggregated size of versions a file can have
 in order to be imported. This is restricted to a hard-coded default of 250 MB, which can be lowered
 via configuration, but not raised.
+
+**FileImporterShowInputScreen** enables the FileImporter special page to be used without being directed there by the
+`FileExporter` extension's link. If set to `true` an input field shows on the `Special:ImportFile` that can be used to
+import files. Default is `false`.
+
+**FileImporterCommentForPostImportRevision** defines the text used for the edit summary of a post import revision.
+Default is `Imported with FileImporter from $1` where `$1` is the URL of the source file.
+
+**FileImporterTextForPostImportRevision** defines the text added to the top of the imported page's wikitext.
+Default is `<!--This file was moved here using FileImporter from $1-->\n` where `$1` is the URL of the source file.
 
 #### Process Walkthrough
 
