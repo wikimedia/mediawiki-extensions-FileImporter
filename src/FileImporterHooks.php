@@ -2,6 +2,8 @@
 
 namespace FileImporter;
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @license GPL-2.0-or-later
  * @author Andrew Kostka
@@ -15,8 +17,8 @@ class FileImporterHooks {
 	 * @param string[] &$reservedUsernames
 	 */
 	public static function onUserGetReservedNames( array &$reservedUsernames ) {
-		global $wgFileImporterAccountForSuppressedUsername;
-		$reservedUsernames[] = $wgFileImporterAccountForSuppressedUsername;
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$reservedUsernames[] = $config->get( 'FileImporterAccountForSuppressedUsername' );
 	}
 
 }
