@@ -18,6 +18,7 @@ class WikimediaSourceUrlNormalizerTest extends \PHPUnit\Framework\TestCase {
 			// Intended normalizations
 			[ 'https://de.m.wikipedia.org/wiki/File:X.svg', 'https://de.wikipedia.org/wiki/File:X.svg' ],
 			[ '//de.m.wikipedia.org', '//de.wikipedia.org' ],
+			[ '//de.zero.wikipedia.org', '//de.wikipedia.org' ],
 			[ '//de.wikipedia.org/wiki/File:X 2.svg', '//de.wikipedia.org/wiki/File:X_2.svg' ],
 			[ " //wiki/X.svg\n", '//wiki/X.svg' ],
 
