@@ -58,6 +58,12 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $commonsHelperBasePageName;
 
 	/**
+	 * @var string Placeholder name replacing usernames that have been suppressed as part of
+	 * a steward action on the source site.
+	 */
+	private $suppressedUsername;
+
+	/**
 	 * @var int
 	 */
 	private $maxRevisions;
@@ -94,6 +100,8 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$this->commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
 		$this->commonsHelperBasePageName = $config->get( 'FileImporterCommonsHelperBasePageName' );
+		// TODO make sure this is a usable username to avoid a failing import process in later steps
+		$this->suppressedUsername = $config->get( 'FileImporterAccountForSuppressedUsername' );
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
 		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
 	}
@@ -389,8 +397,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return FileRevisions
 	 */
 	private function getFileRevisionsFromImageInfo( array $imageInfo, $pageTitle ) {
-		global $wgFileImporterAccountForSuppressedUsername;
-
 		$revisions = [];
 		foreach ( $imageInfo as $revisionInfo ) {
 			if ( array_key_exists( 'filehidden', $revisionInfo ) ) {
@@ -402,7 +408,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			}
 
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
-				$revisionInfo['user'] = $wgFileImporterAccountForSuppressedUsername;
+				$revisionInfo['user'] = $this->suppressedUsername;
 			}
 
 			if ( array_key_exists( 'sha1hidden', $revisionInfo ) ) {
@@ -446,12 +452,10 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return TextRevisions
 	 */
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
-		global $wgFileImporterAccountForSuppressedUsername;
-
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
-				$revisionInfo['user'] = $wgFileImporterAccountForSuppressedUsername;
+				$revisionInfo['user'] = $this->suppressedUsername;
 			}
 
 			if ( array_key_exists( 'texthidden', $revisionInfo ) ) {
