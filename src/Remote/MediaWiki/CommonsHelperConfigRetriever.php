@@ -164,36 +164,21 @@ class CommonsHelperConfigRetriever {
 	 * @return string
 	 */
 	private function getQueryParamTitle( SourceUrl $sourceUrl ) {
-		return $this->configBasePageName . $this->getCommonsHelperUrlFormat( $sourceUrl );
-	}
-
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return string
-	 */
-	private function getCommonsHelperUrlFormat( SourceUrl $sourceUrl ) {
-		$formattedUrl = $this->getHostWithoutTopLevelDomain( $sourceUrl );
-		if ( preg_match( '/^(?!(en|www)).*\.mediawiki$/', $formattedUrl ) ) {
-			return 'mediawiki';
-		} else {
-			return $formattedUrl;
+		$domain = $this->getHostWithoutTopLevelDomain( $sourceUrl );
+		if ( ctype_alpha( $domain ) ) {
+			$domain = 'www.' . $domain;
 		}
+		return str_replace( ' ', '_', $this->configBasePageName ) . $domain;
 	}
 
 	/**
 	 * @param SourceUrl $sourceUrl
 	 *
-	 * @return string The host without the top level domain, for example "en.wikipedia"
+	 * @return string Full host with all subdomains, but without the top-level domain (if a
+	 *  top-level domain was given), e.g. "en.wikipedia".
 	 */
 	private function getHostWithoutTopLevelDomain( SourceUrl $sourceUrl ) {
-		if ( preg_match( '/^[a-z\d-]+\.[a-z\d-]+/i', $sourceUrl->getHost(), $matches ) ) {
-			return $matches[0];
-		} else {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-retrieval-failed' )
-			);
-		}
+		return preg_replace( '/\.\w+$/', '', $sourceUrl->getHost() );
 	}
 
 }

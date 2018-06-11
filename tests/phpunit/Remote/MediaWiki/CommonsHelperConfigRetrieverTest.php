@@ -12,13 +12,31 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
 
-	// TODO: Test the special www.mediawiki code-path
 	// TODO: Test incompatible URLs
 	// TODO: Test the "missing" code-path
 	// TODO: Test all kinds of failures
 
-	public function testSuccess() {
-		$sourceUrl = new SourceUrl( '//de.wikipedia.org/wiki/Example.svg' );
+	public function provideSourceUrls() {
+		return [
+			[ '//de.wikipedia.org/wiki/Example.svg', 'Data_de.wikipedia' ],
+			[ '//en.MediaWiki.org', 'Data_en.mediawiki' ],
+
+			[ '//www.mediawiki.org', 'Data_www.mediawiki' ],
+			[ '//www.Wikipedia.org', 'Data_www.wikipedia' ],
+
+			[ '//mediawiki.org', 'Data_www.mediawiki' ],
+			[ '//wikipedia.org', 'Data_www.wikipedia' ],
+
+			[ '//en.m.de', 'Data_en.m' ],
+			[ '//en.comics.wikia.com', 'Data_en.comics.wikia' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideSourceUrls
+	 */
+	public function testSuccess( $sourceUrl, $configPage ) {
+		$sourceUrl = new SourceUrl( $sourceUrl );
 
 		$request = $this->createMock( \MWHttpRequest::class );
 		$request->method( 'getContent' )
@@ -36,20 +54,18 @@ class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 
 		$requestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$requestExecutor->method( 'execute' )
+			->with( $this->stringContains( '&titles=' . rawurlencode( $configPage ) . '&' ) )
 			->willReturn( $request );
 
 		$retriever = new CommonsHelperConfigRetriever(
 			$requestExecutor,
 			'<SERVER>',
-			'<BASE>',
+			'Data ',
 			$sourceUrl
 		);
 
 		$this->assertTrue( $retriever->retrieveConfiguration() );
-		$this->assertSame(
-			'<SERVER>/wiki/<BASE>de.wikipedia',
-			$retriever->getConfigWikiUrl()
-		);
+		$this->assertStringEndsWith( "/wiki/$configPage", $retriever->getConfigWikiUrl() );
 		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikiText() );
 	}
 
