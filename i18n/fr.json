@@ -59,5 +59,7 @@
 	"fileimporter-import-wait": "L'importation peu nécessiter quelques minutes.",
 	"fileimporter-imported-success-banner": "Ce fichier a bien été importé vers {{SITENAME}}. Cliquer sur le lien suivant pour afficher le fichier : $1",
 	"fileimporter-imported-change-template": "Nous vous demandons de bien vouloir revenir au fichier d’origine et de faire ce qui suit :\n# Supprimer tout modèle suggérant que ce fichier devrait être copié vers {{SITENAME}}.\n# Ajouter un modèle déclarant que ce fichier est maintenant disponible sur {{SITENAME}}.\nMerci beaucoup !",
-	"fileimporter-go-to-original-file-button": "Revenir au fichier d’origine"
+	"fileimporter-go-to-original-file-button": "Revenir au fichier d’origine",
+	"fileimporter-commonshelper-retrieval-failed": "Erreur durant le contrôle des fichiers bloqués.",
+	"fileimporter-file-missing-required-template": "Le fichier ne peut pas être importé, car il n'est affecté à aucune des licences requises. Veuillez rajouter l'un de ces modèles, selon le cas."
 }

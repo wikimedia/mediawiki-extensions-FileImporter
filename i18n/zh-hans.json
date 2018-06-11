@@ -55,5 +55,10 @@
 	"fileimporter-import-wait": "导入可能需要数分钟。",
 	"fileimporter-imported-success-banner": "此文件已成功导入至{{SITENAME}}。点击以下链接以查看文件：$1",
 	"fileimporter-imported-change-template": "我们恳请您返回原始文件，并做以下操作：\n# 移除任何建议此文件应复制到{{SITENAME}}的模板。\n# 添加说明此文件现已在{{SITENAME}}可用的模板。\n非常感谢您的理解！",
-	"fileimporter-go-to-original-file-button": "返回原始文件"
+	"fileimporter-go-to-original-file-button": "返回原始文件",
+	"fileimporter-commonshelper-retrieval-failed": "检查被封禁的文件时发生错误。",
+	"fileimporter-commonshelper-parsing-failed": "您wiki的配置文件（$1）不包含有关<$2>的足够信息以了解此模板是否能放置在共享资源上。",
+	"fileimporter-file-contains-blocked-category-template": "文件不能导入，因为它被标记为$1。$2不允许这类文件。",
+	"fileimporter-file-missing-required-template": "文件不能导入，因为它未被标记为所需许可协议之一。如果可以，请添加这些模板之一。",
+	"fileimporter-input-page-info-text": "访问我们的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 帮助页面]了解更多。"
 }

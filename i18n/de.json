@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Metalhead64"
+			"Metalhead64",
+			"Johanna Strodt (WMDE)"
 		]
 	},
 	"fileimporter": "Dateiimporteur",
@@ -14,7 +15,7 @@
 	"fileimporter-api-toomanyrevisions": "Von der API wurden zu viele Versionen zurückgegeben. Import nicht möglich.",
 	"fileimporter-cantparseurl": "Die angegebene URL $1 konnte nicht geparst werden",
 	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
-	"fileimporter-cantimportfromsharedrepo": "Es kann keine Datei von einem gemeinsamen Repositorium importiert werden",
+	"fileimporter-cantimportfromsharedrepo": "Es kann keine Datei von einem gemeinsamen Repositorium importiert werden.",
 	"fileimporter-cantimportmissingfile": "Eine fehlende Datei kann nicht importiert werden.",
 	"fileimporter-cantimportfilehidden": "Die Datei konnte nicht importiert werden, da mindestens eine ihrer Versionen eine unterdrückte Datei enthält.",
 	"fileimporter-badtoken": "Der CSRF-Token stimmt nicht überein",
@@ -34,7 +35,7 @@
 	"fileimporter-exampleprefix": "Beispiel",
 	"fileimporter-textrevisions": "$1 von $2 {{PLURAL:$2|Seitenversion wird|Seitenversionen werden}} von der Versionsgeschichte importiert.",
 	"fileimporter-filerevisions": "$1 von $2 {{PLURAL:$2|Dateiversion wird|Dateiversionen werden}} importiert.",
-	"fileimporter-submit": "Absenden",
+	"fileimporter-submit": "Übernehmen",
 	"fileimporter-resubmit": "Erneut senden",
 	"fileimporter-import": "Importieren",
 	"fileimporter-cancel": "Abbrechen",
@@ -43,12 +44,12 @@
 	"fileimporter-extensionlabel": "Dateierweiterung:",
 	"fileimporter-newfilename": "Neuer Dateiname:",
 	"fileimporter-newfilename-placeholder": "Irgendein Dateiname",
-	"fileimporter-editsummary": "Bearbeitungszusammenfassung:",
+	"fileimporter-editsummary": "Zusammenfassung:",
 	"fileimporter-previewnote": "Dies ist eine Vorschau der Datei, die importiert wird. Bitte kontrolliere die Seite genau, bevor du die Datei importierst.",
 	"fileimporter-heading-fileinfo": "Dateiinfo",
 	"fileimporter-heading-filehistory": "Dateiversionen",
-	"fileimporter-revision-removed-text": "Durch den Dateiimporter entfernter unterdrückter Text.",
-	"fileimporter-revision-removed-comment": "Durch den Dateiimporter entfernter unterdrückter Kommentar.",
+	"fileimporter-revision-removed-text": "Durch den Dateiimporteur entfernter unterdrückter Text.",
+	"fileimporter-revision-removed-comment": "Durch den Dateiimporteur entfernter unterdrückter Kommentar.",
 	"fileimporter-in-beta": "Der Dateiimport befindet sich im Betamodus: Wir haben ihn ausführlich getestet, er könnte jedoch noch einige Probleme haben. Falls du Probleme bemerkst, [//www.mediawiki.org/wiki/Extension_talk:FileImporter melde sie bitte auf unserer Hilfeseite] – im Idealfall mit einer Schritt-für-Schritt-Anleitung, um das Problem zu reproduzieren, so dass wir ihn verstehen und beheben können.",
 	"fileimporter-filemissinginrevision": "Die Datei konnte nicht importiert werden, da bei einer oder mehreren Versionen das dazugehörige Bild fehlt.",
 	"fileimporter-filetoolarge": "Die {{PLURAL:$1|Dateiversion|$1 Dateiversionen}}, die du derzeit versuchst zu importieren, {{PLURAL:$1|überschreitet|überschreiten}} die Dateigrößengrenze, die der Import verarbeiten kann.",
@@ -59,5 +60,6 @@
 	"fileimporter-commonshelper-retrieval-failed": "Bei der Überprüfung gesperrter Dateien ist ein Fehler aufgetreten.",
 	"fileimporter-commonshelper-parsing-failed": "Die Konfigurationsdatei für dein Wiki ($1) enthält nicht genügend Informationen über <$2>, um herauszufinden, ob diese Datei auf Commons hochgeladen werden kann.",
 	"fileimporter-file-contains-blocked-category-template": "Die Datei kann nicht importiert werden, da sie als $1 markiert wurde. $2 erlaubt keine solchen Dateien.",
-	"fileimporter-file-missing-required-template": "Die Datei kann nicht importiert werden, da sie nicht mit einer der erforderlichen Lizenzen markiert ist. Bitte ergänze eine dieser Vorlagen, falls angemessen."
+	"fileimporter-file-missing-required-template": "Die Datei kann nicht importiert werden, da sie nicht mit einer der erforderlichen Lizenzen markiert ist. Bitte ergänze eine dieser Vorlagen, falls angemessen.",
+	"fileimporter-input-page-info-text": "Erfahre mehr auf unserer [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons Hilfeseite]."
 }

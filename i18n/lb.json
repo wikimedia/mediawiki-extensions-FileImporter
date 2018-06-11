@@ -31,5 +31,6 @@
 	"fileimporter-heading-filehistory": "Versiounen",
 	"fileimporter-import-wait": "Den Import kann e puer Minutten daueren.",
 	"fileimporter-go-to-original-file-button": "Zréck op den Originalfichier",
-	"fileimporter-commonshelper-retrieval-failed": "Beim Soche no gespaarte Fichieren ass e Feeler geschitt."
+	"fileimporter-commonshelper-retrieval-failed": "Beim Soche no gespaarte Fichieren ass e Feeler geschitt.",
+	"fileimporter-file-contains-blocked-category-template": "De Fichier däerf net importéiert gi well en als $1 markéiert ass. $2 erlaabt esou Fichieren net."
 }

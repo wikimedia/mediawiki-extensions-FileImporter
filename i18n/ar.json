@@ -60,5 +60,6 @@
 	"fileimporter-go-to-original-file-button": "العودة إلى الملف الأصلي",
 	"fileimporter-commonshelper-retrieval-failed": "حدث خطأ أثناء التحقق من الملفات المحظورة.",
 	"fileimporter-commonshelper-parsing-failed": "لا يحتوي ملف تهيئة الويكي الخاص بك ($1) على معلومات كافية حول <$2> لمعرفة ما إذا كان يمكن وضع هذا الملف على كومنز.",
-	"fileimporter-file-contains-blocked-category-template": "لا يمكن استيراد الملف; لأنه تم تعليمه كـ$1، $2 لا يسمح بمثل هذه الملفات."
+	"fileimporter-file-contains-blocked-category-template": "لا يمكن استيراد الملف; لأنه تم تعليمه كـ$1، $2 لا يسمح بمثل هذه الملفات.",
+	"fileimporter-file-missing-required-template": "لا يمكن استيراد الملف; لأنه غير معلَّم بأحد التراخيص المطلوب;، الرجاء إضافة أحد هذه القوالب، إذا كان ذلك مناسبا."
 }

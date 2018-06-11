@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjakupi"
+		]
+	},
+	"fileimporter-commonshelper-retrieval-failed": "Nje gabim ka ndodhur perderisa keni kontrolluar per fijllat e bllokuar",
+	"fileimporter-commonshelper-parsing-failed": "Konfigurimi i fajllit per wiki-n tuaj ($1) nuk permban informata te mjaftueshme per <$2> per ta ditur nese ky fajll mund te futet tek te pergjithshmet.",
+	"fileimporter-file-contains-blocked-category-template": "Ky fajll nuk mund te importohet, sepse eshte i markuar si $1.$2 nuk lejon fajll te tille.",
+	"fileimporter-file-missing-required-template": "Fajlli nuk mund te importohet, sepse nuk eshte e shenuar me nje nga licensat e kerkuara.Ju lutem shtoni nje nga keto templleta, nese eshte e pershtatshme.",
+	"fileimporter-input-page-info-text": "Meso me shume duke vizituar\n[//meta.wikimedia.org/wiki/WMDE_Deshira_Teknike/Dergo_fajllat_tek_faqja ndihmese e pergjithshme]."
+}

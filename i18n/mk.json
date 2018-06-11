@@ -22,7 +22,7 @@
 	"fileimporter-filenameerror-default": "Се појави непознат проблем со податотечното име.",
 	"fileimporter-filenameerror-illegal": "Податотечното име што се обидувате да го увезете е неважечко.",
 	"fileimporter-filenameerror-toolong": "Податотечното име што се обидувате да го увезете е предолго.",
-	"fileimporter-filenameerror-automaticchanges": "Името на податотеката што сакате да ја увезете ќе биде автоматски сменето во „$1“ поради употребата на недопуштени знаци.",
+	"fileimporter-filenameerror-automaticchanges": "Името на податотеката е автоматски сменето од „$1“ во „$2“",
 	"fileimporter-filenameerror-nosourceextension": "Изворното податотечно име нема наставка.",
 	"fileimporter-filenameerror-noplannedextension": "Посакуваното податотечно име нема наставка.",
 	"fileimporter-filenameerror-missmatchextension": "Целната податотечна наставка не одговара на онаа на изворната податотека.",
@@ -55,5 +55,10 @@
 	"fileimporter-import-wait": "Увозот може да потрае неколку минути.",
 	"fileimporter-imported-success-banner": "Податотеката е успешно увезена во {{SITENAME}}. Можете да ја видите на следнава врска: $1",
 	"fileimporter-imported-change-template": "Би ве замолиле да се вратите на изворната податотека и да го направите следново:\n# Остранете го шаблонот кој вели дека податотеката треба да се прекопира на {{SITENAME}}.\n# Ставете шаблон кој кажува дека податотеката сега е достапна на {{SITENAME}}.\nВи благодариме!",
-	"fileimporter-go-to-original-file-button": "Назад на изворната податотека"
+	"fileimporter-go-to-original-file-button": "Назад на изворната податотека",
+	"fileimporter-commonshelper-retrieval-failed": "Се појави грешка при проверката на блокирани податотеки.",
+	"fileimporter-commonshelper-parsing-failed": "Податотеката со поставки на вашето вики ($1) не содржи доволно информации за <$2> за да се знае дали истата може да се стави на Ризницата.",
+	"fileimporter-file-contains-blocked-category-template": "Податотеката не може да се увезе бидејќи е обележана како $1. Вакви податотеки не се дозволени на $2.",
+	"fileimporter-file-missing-required-template": "Податотеката не може да се увезе бидејќи не е означена со една од бараните лиценци. Ставете еден од таквите шаблони, ако одговара.",
+	"fileimporter-input-page-info-text": "Дознајте повеќе на [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons помошната страница]."
 }
