@@ -57,7 +57,7 @@ class SourceUrl {
 	 * @return string The host, for example "en.wikipedia.org"
 	 */
 	public function getHost() {
-		return $this->parsed['host'];
+		return strtolower( $this->parsed['host'] );
 	}
 
 	public function __toString() {
