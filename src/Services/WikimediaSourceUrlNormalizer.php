@@ -16,7 +16,10 @@ class WikimediaSourceUrlNormalizer extends SourceUrlNormalizer {
 	public function __construct() {
 		parent::__construct( function ( SourceUrl $sourceUrl ) {
 			$parts = $sourceUrl->getParsedUrl();
-			$parts['host'] = str_replace( '.m.', '.', $parts['host'] );
+			$parts['host'] = strtr( $parts['host'], [
+				'.m.' => '.',
+				'.zero.' => '.',
+			] );
 			$url = wfAssembleUrl( $parts );
 
 			// TODO: Extract this normalization that is true for all (3rd-party) MediaWiki wikis to
