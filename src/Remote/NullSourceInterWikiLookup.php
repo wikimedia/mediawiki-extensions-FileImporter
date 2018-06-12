@@ -11,6 +11,8 @@ use FileImporter\Interfaces\SourceInterWikiLookup;
  *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
+ *
+ * @codeCoverageIgnore
  */
 class NullSourceInterWikiLookup implements SourceInterWikiLookup {
 
