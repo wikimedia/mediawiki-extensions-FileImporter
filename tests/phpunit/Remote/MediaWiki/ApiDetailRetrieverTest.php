@@ -2,6 +2,7 @@
 
 namespace FileImporter\Remote\MediaWiki\Test;
 
+use ConfigException;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
@@ -27,6 +28,15 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 			'wgFileImporterMaxRevisions' => 4,
 			'wgFileImporterMaxAggregatedBytes' => 9,
 		] );
+	}
+
+	public function testInvalidSuppressedUser() {
+		$this->setMwGlobals( [
+			'wgFileImporterAccountForSuppressedUsername' => 'InValid#Name'
+		] );
+		$this->setExpectedException( ConfigException::class );
+
+		$this->newInstance();
 	}
 
 	public function testCheckMaxRevisionAggregatedBytes_setMax() {

@@ -20,6 +20,7 @@ use Psr\Log\LoggerInterface;
 use Title;
 use MediaWiki\MediaWikiServices;
 use ConfigException;
+use User;
 
 /**
  * @license GPL-2.0-or-later
@@ -100,10 +101,16 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$this->commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
 		$this->commonsHelperBasePageName = $config->get( 'FileImporterCommonsHelperBasePageName' );
-		// TODO make sure this is a usable username to avoid a failing import process in later steps
-		$this->suppressedUsername = $config->get( 'FileImporterAccountForSuppressedUsername' );
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
 		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
+
+		$this->suppressedUsername = $config->get( 'FileImporterAccountForSuppressedUsername' );
+		if ( !User::isValidUserName( $this->suppressedUsername ) ) {
+			throw new ConfigException(
+				'Invalid username configured in wgFileImporterAccountForSuppressedUsername: "' .
+				$this->suppressedUsername . '"'
+			);
+		}
 	}
 
 	/**
