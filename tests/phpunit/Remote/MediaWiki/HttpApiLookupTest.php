@@ -23,6 +23,26 @@ class HttpApiLookupTest extends \MediaWikiTestCase {
 		$this->setMwGlobals( 'wgContLang', \Language::factory( 'qqx' ) );
 	}
 
+	public function testResultCaching() {
+		$request = $this->createMock( \MWHttpRequest::class );
+		$request->method( 'getContent' )
+			->willReturn( '<link rel="EditURI" href="//edit.uri?action=rsd">' );
+
+		$executor = $this->createMock( HttpRequestExecutor::class );
+		$executor->expects( $this->once() )
+			->method( 'execute' )
+			->willReturn( $request );
+
+		$lookup = new HttpApiLookup( $executor );
+		$sourceUrl = new SourceUrl( '//source.url' );
+
+		$url1 = $lookup->getApiUrl( $sourceUrl );
+		$this->assertSame( '//edit.uri', $url1, 'first call' );
+
+		$url2 = $lookup->getApiUrl( $sourceUrl );
+		$this->assertSame( $url1, $url2, 'second call' );
+	}
+
 	public function provideHttpRequestErrors() {
 		return [
 			[ 404, 'File not found: //source.url' ],
