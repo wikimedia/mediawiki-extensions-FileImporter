@@ -27,8 +27,7 @@ class SourceSiteLocator {
 
 	public function getSourceSite( SourceUrl $sourceUrl ) {
 		foreach ( $this->sourceSites as $site ) {
-			$normalizedUrl = $site->normalizeUrl( $sourceUrl );
-			if ( $site->isSourceSiteFor( $normalizedUrl ) ) {
+			if ( $site->isSourceSiteFor( $sourceUrl ) ) {
 				return $site;
 			}
 		}

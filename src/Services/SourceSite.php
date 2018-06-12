@@ -2,6 +2,7 @@
 
 namespace FileImporter\Services;
 
+use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Interfaces\ImportTitleChecker;
@@ -41,19 +42,11 @@ class SourceSite {
 	/**
 	 * @param SourceUrl $sourceUrl
 	 *
-	 * @return bool is this the source side for the given URL
+	 * @return bool is this the source site for the given URL
 	 */
 	public function isSourceSiteFor( SourceUrl $sourceUrl ) {
+		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
 		return $this->sourceUrlChecker->checkSourceUrl( $sourceUrl );
-	}
-
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return SourceUrl
-	 */
-	public function normalizeUrl( SourceUrl $sourceUrl ) {
-		return $this->sourceUrlNormalizer->normalize( $sourceUrl );
 	}
 
 	/**
@@ -66,10 +59,13 @@ class SourceSite {
 	}
 
 	/**
-	 * @return DetailRetriever
+	 * @param SourceUrl $sourceUrl
+	 *
+	 * @return ImportDetails
 	 */
-	public function getDetailRetriever() {
-		return $this->detailRetriever;
+	public function retrieveImportDetails( SourceUrl $sourceUrl ) {
+		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
+		return $this->detailRetriever->getImportDetails( $sourceUrl );
 	}
 
 	/**

@@ -253,11 +253,8 @@ class SpecialImportFile extends SpecialPage {
 		);
 
 		$url = $importRequest->getUrl();
-		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importRequest->getUrl() );
-		$url = $sourceSite->normalizeUrl( $url );
-
-		$detailRetriever = $sourceSite->getDetailRetriever();
-		$importDetails = $detailRetriever->getImportDetails( $url );
+		$sourceSite = $this->sourceSiteLocator->getSourceSite( $url );
+		$importDetails = $sourceSite->retrieveImportDetails( $url );
 
 		return $this->importPlanFactory->newPlan( $importRequest, $importDetails, $this->getUser() );
 	}
