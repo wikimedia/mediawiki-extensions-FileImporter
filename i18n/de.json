@@ -60,6 +60,6 @@
 	"fileimporter-commonshelper-retrieval-failed": "Bei der Überprüfung gesperrter Dateien ist ein Fehler aufgetreten.",
 	"fileimporter-commonshelper-parsing-failed": "Die Konfigurationsdatei für dein Wiki ($1) enthält nicht genügend Informationen über <$2>, um herauszufinden, ob diese Datei auf Commons hochgeladen werden kann.",
 	"fileimporter-file-contains-blocked-category-template": "Die Datei kann nicht importiert werden, da sie als $1 markiert wurde. $2 erlaubt keine solchen Dateien.",
-	"fileimporter-file-missing-required-template": "Die Datei kann nicht importiert werden, da sie nicht mit einer der erforderlichen Lizenzen markiert ist. Bitte ergänze eine dieser Vorlagen, falls angemessen.",
+	"fileimporter-file-missing-required-template": "Die Datei kann nicht importiert werden, da sie nicht mit einer der erforderlichen Lizenzen markiert ist.",
 	"fileimporter-input-page-info-text": "Erfahre mehr auf unserer [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons Hilfeseite]."
 }

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Citadell"
 		]
 	},
 	"fileimporter": "Filimportering",
@@ -47,5 +48,7 @@
 	"fileimporter-revision-removed-comment": "Undertrykt kommentar fjernet av FileImporter.",
 	"fileimporter-in-beta": "Filimportering er i betamodus: Vi har testet det nøye, men det kan fortsatt være noen problemer med det. Om du oppdager problemer, rapporter dem gjerne [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter på hjelpesida vår] – helst med en gjennomgang steg for steg av hvordan problemet oppstår, så vi kan forstå problemet og fikse det.",
 	"fileimporter-filemissinginrevision": "Kan ikke importere fila fordi minst én av revisjonene mangler bildefil.",
-	"fileimporter-filetoolarge": "Fila du prøver å importere overskrider den maksimale filstørrelsen."
+	"fileimporter-filetoolarge": "Fila du prøver å importere overskrider den maksimale filstørrelsen.",
+	"fileimporter-commonshelper-retrieval-failed": "En feil oppsto under kontroll etter blokkerte filer.",
+	"fileimporter-input-page-info-text": "Lær mer ved å besøke vår [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons help page]."
 }

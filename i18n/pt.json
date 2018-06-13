@@ -60,5 +60,6 @@
 	"fileimporter-commonshelper-retrieval-failed": "Ocorreu um erro ao verificar a existência de ficheiros bloqueados.",
 	"fileimporter-commonshelper-parsing-failed": "O ficheiro de configuração da sua wiki ($1) não contém informação suficiente acerca de <$2> para saber se este ficheiro pode ser colocado na wiki Commons.",
 	"fileimporter-file-contains-blocked-category-template": "O ficheiro não pode ser importado porque foi marcado como $1. A wiki $2 não permite  ficheiros desse tipo.",
-	"fileimporter-file-missing-required-template": "O ficheiro não pode ser importado, porque não está marcado com uma das predefinições de licenciamento necessárias. Se apropriado, adicione uma destas predefinições."
+	"fileimporter-file-missing-required-template": "O ficheiro não pode ser importado, porque não está marcado com uma das predefinições de licenciamento necessárias. Se apropriado, adicione uma destas predefinições.",
+	"fileimporter-input-page-info-text": "Saiba mais na nossa [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons página de ajuda]."
 }
