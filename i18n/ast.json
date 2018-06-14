@@ -55,5 +55,10 @@
 	"fileimporter-import-wait": "La importación puede tardar dellos minutos.",
 	"fileimporter-imported-success-banner": "El ficheru importóse correutamente a {{SITENAME}}. Visita l'enllaz siguiente para velu: $1",
 	"fileimporter-imported-change-template": "Pidímoste que vuelvas al ficheru orixinal y faigas lo siguiente:\n# Quita cualquier plantía que suxera qu'esti ficheru tendría de copiase a {{SITENAME}}.\n# Añade una plantía que declare qu'esti ficheru yá ta disponible'n {{SITENAME}}.\n¡Munches gracies!",
-	"fileimporter-go-to-original-file-button": "Volver al ficheru orixinal"
+	"fileimporter-go-to-original-file-button": "Volver al ficheru orixinal",
+	"fileimporter-commonshelper-retrieval-failed": "Asocedió un error al comprobar los ficheros bloquiaos.",
+	"fileimporter-commonshelper-parsing-failed": "El ficheru de configuración de la wiki ($1) nun contien información bastante sobro <$2> pa determinar si esti ficheru puede agospiase'n Commons.",
+	"fileimporter-file-contains-blocked-category-template": "El ficheru nun puede importase porque ta marcáu como $1. $2 nun permite estos ficheros.",
+	"fileimporter-file-missing-required-template": "El ficheru nun puede importase porque nun ta marcáu con una de les llicencies riquíes.",
+	"fileimporter-input-page-info-text": "Pa saber más coses, visita la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons páxina d'ayuda]."
 }

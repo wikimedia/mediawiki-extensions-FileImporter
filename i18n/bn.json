@@ -29,5 +29,6 @@
 	"fileimporter-previewnote": "এটি যে ফাইলটি আমদানি করা হবে তাঁর একটি পূর্বরূপ। আমদানি করার আগে পাতাটি বিস্তারিতভাবে পরীক্ষা করুন।",
 	"fileimporter-heading-fileinfo": "ফাইলের তথ্য",
 	"fileimporter-heading-filehistory": "ফাইলের ইতিহাস",
-	"fileimporter-import-wait": "আমদানি করতে কয়েক মিনিট সময় লাগতে পারে।"
+	"fileimporter-import-wait": "আমদানি করতে কয়েক মিনিট সময় লাগতে পারে।",
+	"fileimporter-file-missing-required-template": "ফাইলটি আমদানি করা যাবে না, কারণ এটি প্রয়োজনীয় লাইসেন্সগুলির কোন একটি দ্বারা চিহ্নিত নয়।"
 }
