@@ -48,5 +48,6 @@
 	"fileimporter-go-to-original-file-button": "Volver al archivo original",
 	"fileimporter-commonshelper-retrieval-failed": "Se produjo un error al buscar archivos bloqueados.",
 	"fileimporter-commonshelper-parsing-failed": "El archivo de configuración de este wiki ($1) no contiene información suficiente sobre <$2> para determinar si este archivo puede alojarse en Commons.",
-	"fileimporter-file-contains-blocked-category-template": "No se puede importar el archivo porque se ha marcado como $1. $2 no permite estos archivos."
+	"fileimporter-file-contains-blocked-category-template": "No se puede importar el archivo porque se ha marcado como $1. $2 no permite estos archivos.",
+	"fileimporter-file-missing-required-template": "No se puede importar el archivo porque no posee alguna de las licencias requeridas."
 }
