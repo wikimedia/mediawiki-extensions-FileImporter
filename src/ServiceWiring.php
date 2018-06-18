@@ -187,7 +187,7 @@ return [
 			),
 			new WikimediaSourceUrlNormalizer(),
 			new SiteTableSourceInterWikiLookup(
-				$siteTableLookup,
+				$services->getInterwikiLookup(),
 				$logger
 			)
 		);
