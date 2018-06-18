@@ -1,8 +1,12 @@
 {
 	"name": "FileImporter",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"author": [
-		"Addshore"
+		"TCB team (Wikimedia Deutschland)",
+		"Addshore",
+		"Andrew Kostka",
+		"Christoph Jauera",
+		"Thiemo Kreuz"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:FileImporter",
 	"namemsg": "fileimporter",

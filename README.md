@@ -1,7 +1,8 @@
 # FileImporter extension
 
 This MediaWiki extension allows for the easy importing of a file from one site to another.
-The word site is chosen specifically here as there is no reason code can not be written allowing the importing of Files from sites that are not MediaWiki wikis.
+The word site is chosen specifically here as there is no reason code can not be written allowing the
+importing of files from sites that are not MediaWiki wikis.
 
 This extension has been created as part of the
 [2013 German Community Technical Wishlist](https://meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons)
@@ -50,7 +51,8 @@ Default is `<!--This file was moved here using FileImporter from $1-->\n` where 
       - the rights required to be able to upload files.
       - uploads to be enabled on the site.
       - the user to not be blocked locally or globally.
-2) When a SourceUrl is submitted to the special page the SourceSiteLocator service is used to find a SourceSite service which can handle the SourceUrl.
+2) When a SourceUrl is submitted to the special page the SourceSiteLocator service is used to find a
+   SourceSite service which can handle the SourceUrl.
       - SourceSite services are composed of various other services.
       - Multiple SourceSite services can be enabled at once (see config above) and the default can also be removed.
       - The SourceSiteLocator service is used to find a SourceSite service which can handle the SourceUrl of the ImportPlan.
