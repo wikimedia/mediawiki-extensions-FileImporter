@@ -100,6 +100,7 @@
 	"config": {
 		"FileImporterRequiredRight": "upload",
 		"FileImporterInBeta": true,
+		"FileImporterInterWikiMap": [],
 		"@FileImporterShowInputScreen": "Whether or not to show the source URL input page.",
 		"FileImporterShowInputScreen": false,
 		"FileImporterSourceSiteServices": [],

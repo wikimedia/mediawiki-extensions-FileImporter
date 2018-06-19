@@ -4,6 +4,8 @@ namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\SourceInterWikiLookup;
+use MediaWiki\Interwiki\InterwikiLookup;
+use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -16,20 +18,24 @@ use Psr\Log\LoggerInterface;
 class SiteTableSourceInterWikiLookup implements SourceInterWikiLookup {
 
 	/**
-	 * @var SiteTableSiteLookup
+	 * @var InterwikiLookup
 	 */
-	private $siteTableSiteLookup;
+	private $interwikiLookup;
 
 	/**
 	 * @var LoggerInterface
 	 */
 	private $logger;
 
+	/**
+	 * @param InterwikiLookup $interwikiLookup
+	 * @param LoggerInterface $logger
+	 */
 	public function __construct(
-		SiteTableSiteLookup $siteTableSiteLookup,
+		InterwikiLookup $interwikiLookup,
 		LoggerInterface $logger
 	) {
-		$this->siteTableSiteLookup = $siteTableSiteLookup;
+		$this->interwikiLookup = $interwikiLookup;
 		$this->logger = $logger;
 	}
 
@@ -37,38 +43,36 @@ class SiteTableSourceInterWikiLookup implements SourceInterWikiLookup {
 	 * @inheritDoc
 	 */
 	public function getPrefix( SourceUrl $sourceUrl ) {
-		$host = $sourceUrl->getHost();
-		$site = $this->siteTableSiteLookup->getSite( $host );
-		$prefix = '';
-		if ( $site === null ) {
-			$this->logger->warning(
-				'No site found in site table.',
-				[
-					'host' => $host
-				]
-			);
-			return $prefix;
-		}
+		// TODO: Implement a stable two level prefix retriever to get the prefix
 
-		$interWikiIds = $site->getInterwikiIds();
-		if ( empty( $interWikiIds ) ) {
+		$host = $sourceUrl->getHost();
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$interWikiMap = $config->get( 'FileImporterInterWikiMap' );
+
+		if ( !isset( $interWikiMap[$host] ) ) {
 			$this->logger->warning(
-				'No interWikiIds for site.',
+				'Site not in FileImporterInterWikiMap.',
 				[
 					'host' => $host,
-					'siteId' => $site->getGlobalId()
 				]
 			);
-			return $prefix;
+			return '';
 		}
 
-		$prefix = array_pop( $interWikiIds );
-		$langCode = $site->getLanguageCode();
-		if ( $langCode === null || $langCode === '' ) {
-			return $prefix;
+		$prefixes = explode( ':', $interWikiMap[$host] );
+		$firstPrefix = array_shift( $prefixes );
+		if ( !$this->interwikiLookup->isValidInterwiki( $firstPrefix ) ) {
+			$this->logger->warning(
+				'Configured prefix not valid.',
+				[
+					'host' => $host,
+					'siteId' => $interWikiMap[$host]
+				]
+			);
+			return '';
 		}
 
-		return $prefix . ':' . $langCode;
+		return $interWikiMap[$host];
 	}
 
 }

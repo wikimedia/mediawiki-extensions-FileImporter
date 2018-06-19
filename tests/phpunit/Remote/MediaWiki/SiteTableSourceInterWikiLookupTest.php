@@ -3,10 +3,9 @@
 namespace FileImporter\Remote\MediaWiki\Test;
 
 use FileImporter\Data\SourceUrl;
-use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceInterWikiLookup;
-use MediaWikiSite;
-use PHPUnit4And6Compat;
+use MediaWiki\Interwiki\InterwikiLookupAdapter;
+use MediaWikiTestCase;
 use Psr\Log\NullLogger;
 
 /**
@@ -15,25 +14,27 @@ use Psr\Log\NullLogger;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class SiteTableSourceInterWikiLookupTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class SiteTableSourceInterWikiLookupTest extends MediaWikiTestCase {
 
 	public function provideGetPrefix() {
 		return [
-			'interwiki id and language code present' => [
-				'iwid',
-				'qqx',
-				'iwid:qqx',
+			'interWikiMap contains host' => [
+				[ 'de.wikipedia.org' => 'wiki:de' ],
+				'//de.wikipedia.org/wiki/',
+				true,
+				'wiki:de'
 			],
-			'no language code configured' => [
-				'iwid',
-				null,
-				'iwid',
+			'interWikiMap does not contain host' => [
+				[],
+				'//de.wikipedia.org/wiki/',
+				true,
+				''
 			],
-			'no interwiki id configured' => [
-				null,
-				null,
-				'',
+			'interwiki id configured is wrong' => [
+				[ 'de.wikipedia.org' => 'wiki:de' ],
+				'//de.wikipedia.org/wiki/',
+				false,
+				''
 			],
 		];
 	}
@@ -41,34 +42,31 @@ class SiteTableSourceInterWikiLookupTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideGetPrefix
 	 */
-	public function testGetPrefix( $iwId, $langCode, $expected ) {
-		$siteTableMock = $this->createSiteTableSiteLookupMock( $iwId, $langCode );
+	public function testGetPrefix( $global, $source, $validPrefix, $expected ) {
+		$this->setMwGlobals( [
+			'wgFileImporterInterWikiMap' => $global,
+		] );
+
+		$lookupMock = $this->createInterWikiLookupMock( $validPrefix );
 
 		$sourceUrlPrefixer = new SiteTableSourceInterWikiLookup(
-			$siteTableMock,
+			$lookupMock,
 			new NullLogger()
 		);
 
 		$this->assertSame( $expected, $sourceUrlPrefixer->getPrefix(
-			new SourceUrl( 'http://example.com' ) )
+			new SourceUrl( $source ) )
 		);
 	}
 
 	/**
-	 * @param string $iwId
-	 * @param string $langCode
-	 * @return SiteTableSiteLookup
+	 * @param $validPrefix
+	 * @return InterwikiLookupAdapter
 	 */
-	private function createSiteTableSiteLookupMock( $iwId, $langCode ) {
-		$site = new MediaWikiSite();
-		if ( $iwId ) {
-			$site->addInterwikiId( $iwId );
-		}
-		$site->setLanguageCode( $langCode );
-
-		$mock = $this->createMock( SiteTableSiteLookup::class );
-		$mock->method( 'getSite' )
-			->willReturn( $site );
+	private function createInterWikiLookupMock( $validPrefix ) {
+		$mock = $this->createMock( InterwikiLookupAdapter::class );
+		$mock->method( 'isValidInterwiki' )
+			->willReturn( $validPrefix );
 
 		return $mock;
 	}
