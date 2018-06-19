@@ -2,11 +2,11 @@
 
 namespace FileImporter;
 
-use FileImporter\Remote\NullSourceInterWikiLookup;
+use FileImporter\Remote\NullPrefixLookup;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
-use FileImporter\Remote\MediaWiki\SiteTableSourceInterWikiLookup;
+use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
@@ -147,7 +147,7 @@ return [
 				$logger
 			),
 			new WikimediaSourceUrlNormalizer(),
-			new NullSourceInterWikiLookup()
+			new NullPrefixLookup()
 		);
 
 		return $site;
@@ -186,7 +186,7 @@ return [
 				$logger
 			),
 			new WikimediaSourceUrlNormalizer(),
-			new SiteTableSourceInterWikiLookup(
+			new InterwikiTablePrefixLookup(
 				$services->getInterwikiLookup(),
 				$logger
 			)

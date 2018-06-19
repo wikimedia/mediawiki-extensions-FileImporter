@@ -11,7 +11,7 @@ use FileImporter\Data\SourceUrl;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-interface SourceInterWikiLookup {
+interface LinkPrefixLookup {
 
 	/**
 	 * @param SourceUrl $sourceUrl

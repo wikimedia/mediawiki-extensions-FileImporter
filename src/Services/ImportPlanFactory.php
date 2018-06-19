@@ -39,7 +39,7 @@ class ImportPlanFactory {
 	 */
 	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importDetails->getSourceUrl() );
-		$interWikiPrefix = $sourceSite->getSitePrefix( $importDetails->getSourceUrl() );
+		$interWikiPrefix = $sourceSite->getLinkPrefix( $importDetails->getSourceUrl() );
 
 		$importPlan = new ImportPlan( $importRequest, $importDetails, $interWikiPrefix );
 

@@ -7,7 +7,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Interfaces\SourceUrlChecker;
-use FileImporter\Interfaces\SourceInterWikiLookup;
+use FileImporter\Interfaces\LinkPrefixLookup;
 
 /**
  * A SourceSite object is composed of services which can import files from configurable URLs. The
@@ -23,20 +23,20 @@ class SourceSite {
 	private $detailRetriever;
 	private $importTitleChecker;
 	private $sourceUrlNormalizer;
-	private $sourceInterWikiLookup;
+	private $linkPrefixLookup;
 
 	public function __construct(
 		SourceUrlChecker $sourceUrlChecker,
 		DetailRetriever $detailRetriever,
 		ImportTitleChecker $importTitleChecker,
 		SourceUrlNormalizer $sourceUrlNormalizer,
-		SourceInterWikiLookup $sourceInterWikiLookup
+		LinkPrefixLookup $linkPrefixLookup
 	) {
 		$this->sourceUrlChecker = $sourceUrlChecker;
 		$this->detailRetriever = $detailRetriever;
 		$this->importTitleChecker = $importTitleChecker;
 		$this->sourceUrlNormalizer = $sourceUrlNormalizer;
-		$this->sourceInterWikiLookup = $sourceInterWikiLookup;
+		$this->linkPrefixLookup = $linkPrefixLookup;
 	}
 
 	/**
@@ -54,8 +54,8 @@ class SourceSite {
 	 *
 	 * @return string
 	 */
-	public function getSitePrefix( SourceUrl $sourceUrl ) {
-		return $this->sourceInterWikiLookup->getPrefix( $sourceUrl );
+	public function getLinkPrefix( SourceUrl $sourceUrl ) {
+		return $this->linkPrefixLookup->getPrefix( $sourceUrl );
 	}
 
 	/**

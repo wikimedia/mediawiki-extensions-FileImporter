@@ -3,18 +3,18 @@
 namespace FileImporter\Remote\MediaWiki\Test;
 
 use FileImporter\Data\SourceUrl;
-use FileImporter\Remote\MediaWiki\SiteTableSourceInterWikiLookup;
+use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
 use MediaWikiTestCase;
 use Psr\Log\NullLogger;
 
 /**
- * @covers \FileImporter\Remote\MediaWiki\SiteTableSourceInterWikiLookup
+ * @covers \FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup
  *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class SiteTableSourceInterWikiLookupTest extends MediaWikiTestCase {
+class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 
 	public function provideGetPrefix() {
 		return [
@@ -49,7 +49,7 @@ class SiteTableSourceInterWikiLookupTest extends MediaWikiTestCase {
 
 		$lookupMock = $this->createInterWikiLookupMock( $validPrefix );
 
-		$sourceUrlPrefixer = new SiteTableSourceInterWikiLookup(
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
 			$lookupMock,
 			new NullLogger()
 		);

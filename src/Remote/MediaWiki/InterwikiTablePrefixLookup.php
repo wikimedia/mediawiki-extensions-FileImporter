@@ -3,19 +3,19 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
-use FileImporter\Interfaces\SourceInterWikiLookup;
+use FileImporter\Interfaces\LinkPrefixLookup;
 use MediaWiki\Interwiki\InterwikiLookup;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
 
 /**
- * This SourceInterWikiLookup implementation will allow interwiki references
- * from MediaWiki websites that are contained in the sites table.
+ * This LinkPrefixLookup implementation will allow interwiki references
+ * from MediaWiki websites that are contained in the interwiki table.
  *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class SiteTableSourceInterWikiLookup implements SourceInterWikiLookup {
+class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 	/**
 	 * @var InterwikiLookup

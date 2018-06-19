@@ -3,10 +3,10 @@
 namespace FileImporter\Remote;
 
 use FileImporter\Data\SourceUrl;
-use FileImporter\Interfaces\SourceInterWikiLookup;
+use FileImporter\Interfaces\LinkPrefixLookup;
 
 /**
- * Plain SourceInterWikiLookup implementation returning an empty string
+ * Plain LinkPrefixLookup implementation returning an empty string
  * as prefix.
  *
  * @license GPL-2.0-or-later
@@ -14,7 +14,7 @@ use FileImporter\Interfaces\SourceInterWikiLookup;
  *
  * @codeCoverageIgnore
  */
-class NullSourceInterWikiLookup implements SourceInterWikiLookup {
+class NullPrefixLookup implements LinkPrefixLookup {
 
 	/**
 	 * @inheritDoc
