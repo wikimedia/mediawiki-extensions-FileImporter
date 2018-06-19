@@ -16,7 +16,7 @@ use Psr\Log\NullLogger;
  */
 class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 
-	public function provideGetPrefix() {
+	public function provideGetPrefixFromConfig() {
 		return [
 			'interWikiMap contains host' => [
 				[ 'de.wikipedia.org' => 'wiki:de' ],
@@ -40,17 +40,15 @@ class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 	}
 
 	/**
-	 * @dataProvider provideGetPrefix
+	 * @dataProvider provideGetPrefixFromConfig
 	 */
-	public function testGetPrefix( $global, $source, $validPrefix, $expected ) {
+	public function testGetPrefixFromConfig( array $global, $source, $validPrefix, $expected ) {
 		$this->setMwGlobals( [
 			'wgFileImporterInterWikiMap' => $global,
 		] );
 
-		$lookupMock = $this->createInterWikiLookupMock( $validPrefix );
-
 		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
-			$lookupMock,
+			$this->createInterWikiLookupMock( $validPrefix, [] ),
 			new NullLogger()
 		);
 
@@ -59,15 +57,78 @@ class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 		);
 	}
 
+	public function provideGetPrefixFromTable() {
+		return [
+			'interWiki table contains host' => [
+				[
+					[
+						'iw_url' => 'https://de.wikipedia.org/wiki/$1',
+						'iw_prefix' => 'wiki'
+					],
+				],
+				'//de.wikipedia.org/wiki/',
+				'wiki'
+			],
+			'interWiki table does not contain host' => [
+				[
+					[
+						'iw_url' => 'https://en.wikipedia.org/wiki/$1',
+						'iw_prefix' => 'wiki'
+					],
+				],
+				'//wikipedia.org/wiki/',
+				''
+			],
+		];
+	}
+
 	/**
-	 * @param $validPrefix
+	 * @dataProvider provideGetPrefixFromTable
+	 */
+	public function testGetPrefixFromTable( array $iwMap, $source, $expected ) {
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+			$this->createInterWikiLookupMock( true, $iwMap ),
+			new NullLogger()
+		);
+
+		$this->assertSame( $expected, $sourceUrlPrefixer->getPrefix(
+			new SourceUrl( $source ) )
+		);
+	}
+
+	public function testGetPrefixFromTableCache() {
+		$iwMock = $this->createMock( InterwikiLookupAdapter::class );
+		$iwMock->expects( $this->once() )
+			->method( 'getAllPrefixes' )
+			->willReturn( [ [
+				'iw_url' => 'https://de.wikipedia.org/wiki/$1',
+				'iw_prefix' => 'wiki'
+			] ] );
+
+		$sourceUrl = new SourceUrl( '//de.wikipedia.org/wiki' );
+
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+			$iwMock,
+			new NullLogger()
+		);
+
+		$sourceUrlPrefixer->getPrefix( $sourceUrl );
+		$sourceUrlPrefixer->getPrefix( $sourceUrl );
+	}
+
+	/**
+	 * @param bool $validPrefix
+	 * @param array[] $iwMap
 	 * @return InterwikiLookupAdapter
 	 */
-	private function createInterWikiLookupMock( $validPrefix ) {
+	private function createInterWikiLookupMock( $validPrefix, array $iwMap ) {
 		$mock = $this->createMock( InterwikiLookupAdapter::class );
 		$mock->method( 'isValidInterwiki' )
 			->willReturn( $validPrefix );
+		$mock->method( 'getAllPrefixes' )
+			->willReturn( $iwMap );
 
 		return $mock;
 	}
+
 }
