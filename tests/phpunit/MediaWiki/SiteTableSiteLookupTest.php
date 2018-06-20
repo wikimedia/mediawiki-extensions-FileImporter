@@ -5,7 +5,6 @@ namespace FileImporter\MediaWiki\Test;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use HashSiteStore;
-use MediaWikiSite;
 use PHPUnit4And6Compat;
 use Site;
 
@@ -37,6 +36,8 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 			'commons' => [ '//commons.wikimedia.org', 'commonswiki' ],
 			'enwiki' => [ '//en.wikipedia.org', 'enwiki' ],
 			'dewiki' => [ '//de.wikipedia.org', 'dewiki', ],
+			'test1' => [ '//example.com/test1/', null, ],
+			'test2' => [ '//example.com/test2/', null, ],
 		];
 	}
 
@@ -48,6 +49,8 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 			$this->getSite( 'enwiki', 'https://en.wikipedia.org/wiki/$1' ),
 			$this->getSite( 'dewiki', 'https://de.wikipedia.org/wiki/$1' ),
 			$this->getSite( 'commonswiki', 'https://commons.wikimedia.org/wiki/$1' ),
+			$this->getSite( 'test1', 'https://example.com/test1/$1' ),
+			$this->getSite( 'test2', 'https://example.com/test2/$1' ),
 		] );
 
 		$lookup = new SiteTableSiteLookup( $hashSiteStore );
@@ -56,7 +59,6 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 		if ( $expected === null ) {
 			$this->assertNull( $result );
 		} else {
-			/** @var MediaWikiSite $result */
 			$this->assertSame( $result->getGlobalId(), $expected );
 		}
 	}
