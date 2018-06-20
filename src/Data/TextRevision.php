@@ -51,6 +51,19 @@ class TextRevision {
 
 	/**
 	 * @param string $name
+	 * @param mixed $value
+	 *
+	 * @throws InvalidArgumentException if an unrecognized field is requested
+	 */
+	public function setField( $name, $value ) {
+		if ( !in_array( $name, self::$fieldNames ) ) {
+			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested' );
+		}
+		$this->fields[$name] = $value;
+	}
+
+	/**
+	 * @param string $name
 	 *
 	 * @return mixed
 	 * @throws InvalidArgumentException if an unrecognized field is requested

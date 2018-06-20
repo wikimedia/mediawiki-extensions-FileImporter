@@ -14,6 +14,7 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\CommonsHelperConfigParser;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use FileImporter\Services\WikiTextContentCleaner;
 use FileImporter\Services\WikiTextContentValidator;
 use Message;
 use Psr\Log\LoggerInterface;
@@ -229,6 +230,12 @@ class ApiDetailRetriever implements DetailRetriever {
 			$this->getMoreRevisions( $sourceUrl, $apiUrl, $requestData, $pageInfoData );
 		}
 
+		$imageInfoData = $pageInfoData['imageinfo'];
+		$revisionsData = $pageInfoData['revisions'];
+		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
+		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
+
+		$numberOfTemplatesReplaced = 0;
 		if ( $this->commonsHelperServer ) {
 			$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
 				$this->httpRequestExecutor,
@@ -261,13 +268,16 @@ class ApiDetailRetriever implements DetailRetriever {
 					array_key_exists( 'categories', $pageInfoData ) ?
 						$pageInfoData[ 'categories' ] : []
 				);
+
+				$wikiTextContentCleaner = new WikiTextContentCleaner(
+					$commonHelperConfigParser->getWikiTextConversions()
+				);
+
+				$numberOfTemplatesReplaced = $wikiTextContentCleaner->cleanWikiText(
+					$textRevisions->getLatest()
+				);
 			}
 		}
-
-		$imageInfoData = $pageInfoData['imageinfo'];
-		$revisionsData = $pageInfoData['revisions'];
-		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
-		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
 
 		$splitTitle = explode( ':', $pageInfoData['title'] );
 		$titleAfterColon = array_pop( $splitTitle );
@@ -276,7 +286,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			$sourceUrl,
 			Title::newFromText( $titleAfterColon, NS_FILE ),
 			$textRevisions,
-			$fileRevisions
+			$fileRevisions,
+			$numberOfTemplatesReplaced
 		);
 
 		return $importDetails;
