@@ -54,4 +54,5 @@ class ErrorPage {
 
 		return $output;
 	}
+
 }

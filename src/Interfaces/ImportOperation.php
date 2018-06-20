@@ -8,7 +8,6 @@ use FileImporter\Exceptions\ValidationException;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-
 interface ImportOperation {
 
 	/**

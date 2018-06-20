@@ -70,4 +70,5 @@ class FileTextRevisionValidator {
 			throw new ValidationException( $status->getHTML() );
 		}
 	}
+
 }

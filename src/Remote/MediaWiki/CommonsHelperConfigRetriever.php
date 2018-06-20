@@ -8,6 +8,9 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Message;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class CommonsHelperConfigRetriever {
 
 	/**

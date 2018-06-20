@@ -7,6 +7,9 @@ use FileImporter\Exceptions\LocalizedImportException;
 use MediaWiki\MediaWikiServices;
 use Message;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class WikiTextContentValidator {
 
 	/**

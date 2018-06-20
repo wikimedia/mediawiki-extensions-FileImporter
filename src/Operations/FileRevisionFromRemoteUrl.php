@@ -187,4 +187,5 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 		return $result->isGood();
 	}
+
 }

@@ -73,4 +73,5 @@ class ImportSuccessPage {
 			]
 		);
 	}
+
 }
