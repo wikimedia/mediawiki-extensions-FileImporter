@@ -19,7 +19,10 @@ return [
 	},
 
 	'FileImporterMediaWikiSiteTableSiteLookup' => function ( MediaWikiServices $services ) {
-		return new Remote\MediaWiki\SiteTableSiteLookup( $services->getSiteLookup() );
+		return new Remote\MediaWiki\SiteTableSiteLookup(
+			$services->getSiteLookup(),
+			LoggerFactory::getInstance( 'FileImporter' )
+		);
 	},
 
 ];
