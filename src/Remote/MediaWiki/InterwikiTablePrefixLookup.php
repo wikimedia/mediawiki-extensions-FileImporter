@@ -28,9 +28,9 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $logger;
 
 	/**
-	 * @var string[]
+	 * @var string[] Array mapping full host name to interwiki prefix
 	 */
-	private $interwikiTableMap = [];
+	private $interwikiTableMap = null;
 
 	/**
 	 * @param InterwikiLookup $interwikiLookup
@@ -87,19 +87,20 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @return string
 	 */
 	private function getPrefixFromInterwikiTable( $host ) {
-		if ( isset( $this->interwikiTableMap[$host] ) ) {
-			return $this->interwikiTableMap[$host];
+		if ( $this->interwikiTableMap === null ) {
+			$this->interwikiTableMap = [];
+
+			// FIXME: This repeats a very similar (and similarily problematic) implementation from
+			// SiteTableSiteLookup::getSiteFromSitesLoop(). Both compare the host only.
+			foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {
+				// This assumes all URLs in the interwiki (or sites) table are valid.
+				$iwHost = parse_url( $row['iw_url'], PHP_URL_HOST );
+				$this->interwikiTableMap[$iwHost] = $row['iw_prefix'];
+			}
 		}
 
-		// FIXME: This repeats a very similar (and similarily problematic) implementation from
-		// SiteTableSiteLookup::getSiteFromSitesLoop(). Both compare the host only.
-		foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {
-			// This assumes all URLs in the interwiki (or sites) table are valid.
-			if ( parse_url( $row['iw_url'], PHP_URL_HOST ) === $host ) {
-				$prefix = $row['iw_prefix'];
-				$this->interwikiTableMap[$host] = $prefix;
-				return $prefix;
-			}
+		if ( isset( $this->interwikiTableMap[$host] ) ) {
+			return $this->interwikiTableMap[$host];
 		}
 
 		$this->logger->warning(
@@ -108,7 +109,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 				'host' => $host,
 			]
 		);
-
 		return '';
 	}
 
