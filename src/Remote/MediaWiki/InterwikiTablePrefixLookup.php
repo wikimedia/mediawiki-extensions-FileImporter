@@ -28,6 +28,11 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $logger;
 
 	/**
+	 * @var string[]
+	 */
+	private $interwikiTableMap = [];
+
+	/**
 	 * @param InterwikiLookup $interwikiLookup
 	 * @param LoggerInterface $logger
 	 */
@@ -47,32 +52,64 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 		$host = $sourceUrl->getHost();
 		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$interWikiMap = $config->get( 'FileImporterInterWikiMap' );
+		$interwikiConfigMap = $config->get( 'FileImporterInterWikiMap' );
 
-		if ( !isset( $interWikiMap[$host] ) ) {
+		if ( !isset( $interwikiConfigMap[$host] ) ) {
 			$this->logger->warning(
 				'Site not in FileImporterInterWikiMap.',
 				[
 					'host' => $host,
 				]
 			);
-			return '';
+
+			return $this->getPrefixFromInterwikiTable( $host );
 		}
 
-		$prefixes = explode( ':', $interWikiMap[$host] );
+		$prefixes = explode( ':', $interwikiConfigMap[$host] );
 		$firstPrefix = array_shift( $prefixes );
 		if ( !$this->interwikiLookup->isValidInterwiki( $firstPrefix ) ) {
 			$this->logger->warning(
 				'Configured prefix not valid.',
 				[
 					'host' => $host,
-					'siteId' => $interWikiMap[$host]
+					'siteId' => $interwikiConfigMap[$host]
 				]
 			);
 			return '';
 		}
 
-		return $interWikiMap[$host];
+		return $interwikiConfigMap[$host];
+	}
+
+	/**
+	 * @param string $host
+	 *
+	 * @return string
+	 */
+	private function getPrefixFromInterwikiTable( $host ) {
+		if ( isset( $this->interwikiTableMap[$host] ) ) {
+			return $this->interwikiTableMap[$host];
+		}
+
+		// FIXME: This repeats a very similar (and similarily problematic) implementation from
+		// SiteTableSiteLookup::getSiteFromSitesLoop(). Both compare the host only.
+		foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {
+			// This assumes all URLs in the interwiki (or sites) table are valid.
+			if ( parse_url( $row['iw_url'], PHP_URL_HOST ) === $host ) {
+				$prefix = $row['iw_prefix'];
+				$this->interwikiTableMap[$host] = $prefix;
+				return $prefix;
+			}
+		}
+
+		$this->logger->warning(
+			'Site not in InterwikiMap.',
+			[
+				'host' => $host,
+			]
+		);
+
+		return '';
 	}
 
 }
