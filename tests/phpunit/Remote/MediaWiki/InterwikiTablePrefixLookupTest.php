@@ -6,7 +6,6 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
 use MediaWikiTestCase;
-use Psr\Log\NullLogger;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup
@@ -48,8 +47,7 @@ class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 		] );
 
 		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
-			$this->createInterWikiLookupMock( $validPrefix, [] ),
-			new NullLogger()
+			$this->createInterWikiLookupMock( $validPrefix, [] )
 		);
 
 		$this->assertSame( $expected, $sourceUrlPrefixer->getPrefix(
@@ -87,8 +85,7 @@ class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 	 */
 	public function testGetPrefixFromTable( array $iwMap, $source, $expected ) {
 		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
-			$this->createInterWikiLookupMock( true, $iwMap ),
-			new NullLogger()
+			$this->createInterWikiLookupMock( true, $iwMap )
 		);
 
 		$this->assertSame( $expected, $sourceUrlPrefixer->getPrefix(
@@ -107,10 +104,7 @@ class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 
 		$sourceUrl = new SourceUrl( '//de.wikipedia.org/wiki' );
 
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
-			$iwMock,
-			new NullLogger()
-		);
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup( $iwMock );
 
 		$sourceUrlPrefixer->getPrefix( $sourceUrl );
 		$sourceUrlPrefixer->getPrefix( $sourceUrl );

@@ -5,6 +5,7 @@ namespace FileImporter\Remote\MediaWiki;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\SourceUrlChecker;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * This SourceUrlChecker implementation will allow files from mediawiki websites that are contained
@@ -22,12 +23,16 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 	 */
 	private $logger;
 
+	/**
+	 * @param SiteTableSiteLookup $siteTableSiteLookup
+	 * @param LoggerInterface|null $logger
+	 */
 	public function __construct(
 		SiteTableSiteLookup $siteTableSiteLookup,
-		LoggerInterface $logger
+		LoggerInterface $logger = null
 	) {
 		$this->siteTableSiteLookup = $siteTableSiteLookup;
-		$this->logger = $logger;
+		$this->logger = $logger ?: new NullLogger();
 	}
 
 	/**
