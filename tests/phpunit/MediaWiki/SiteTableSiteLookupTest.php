@@ -2,6 +2,7 @@
 
 namespace FileImporter\MediaWiki\Test;
 
+use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use HashSiteStore;
 use MediaWikiSite;
@@ -36,17 +37,17 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideGetSite() {
 		return [
-			'google' => [ 'google.com', null ],
-			'commons' => [ 'commons.wikimedia.org', 'commonswiki' ],
-			'enwiki' => [ 'en.wikipedia.org', 'enwiki' ],
-			'dewiki' => [ 'de.wikipedia.org', 'dewiki', ],
+			'google' => [ '//google.com', null ],
+			'commons' => [ '//commons.wikimedia.org', 'commonswiki' ],
+			'enwiki' => [ '//en.wikipedia.org', 'enwiki' ],
+			'dewiki' => [ '//de.wikipedia.org', 'dewiki', ],
 		];
 	}
 
 	/**
 	 * @dataProvider provideGetSite
 	 */
-	public function testGetSite( $host, $expected ) {
+	public function testGetSite( $url, $expected ) {
 		$hashSiteStore = new HashSiteStore( [
 			$this->getSite( 'enwiki', 'en.wikipedia.org' ),
 			$this->getSite( 'dewiki', 'de.wikipedia.org' ),
@@ -55,7 +56,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$lookup = new SiteTableSiteLookup( $hashSiteStore );
 
-		$result = $lookup->getSite( $host );
+		$result = $lookup->getSite( new SourceUrl( $url ) );
 		if ( $expected === null ) {
 			$this->assertNull( $result );
 		} else {

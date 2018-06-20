@@ -34,7 +34,7 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 	 * @inheritDoc
 	 */
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
-		$site = $this->siteTableSiteLookup->getSite( $sourceUrl->getHost() );
+		$site = $this->siteTableSiteLookup->getSite( $sourceUrl );
 
 		if ( $site === null ) {
 			$this->logger->error( __METHOD__ . ' failed site check for URL: ' . $sourceUrl->getUrl() );

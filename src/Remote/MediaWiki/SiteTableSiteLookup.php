@@ -2,6 +2,7 @@
 
 namespace FileImporter\Remote\MediaWiki;
 
+use FileImporter\Data\SourceUrl;
 use Site;
 use SiteLookup;
 
@@ -20,7 +21,7 @@ class SiteTableSiteLookup {
 	private $siteLookup;
 
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	private $hostGlobalIdMap = [];
 
@@ -29,25 +30,19 @@ class SiteTableSiteLookup {
 	}
 
 	/**
-	 * @param string $host e.g. en.wikipedia.org or commons.wikimedia.org
+	 * @param SourceUrl $sourceUrl
 	 *
 	 * @return Site|null
 	 */
-	public function getSite( $host ) {
-		$hosts = [ $host ];
-
-		foreach ( $hosts as $host ) {
-			$site = $this->getSiteFromHostMap( $host );
-			if ( $site ) {
-				return $site;
-			}
+	public function getSite( SourceUrl $sourceUrl ) {
+		$site = $this->getSiteFromHostMap( $sourceUrl->getHost() );
+		if ( $site ) {
+			return $site;
 		}
 
-		foreach ( $hosts as $host ) {
-			$site = $this->getSiteFromSitesLoop( $host );
-			if ( $site ) {
-				return $site;
-			}
+		$site = $this->getSiteFromSitesLoop( $sourceUrl->getHost() );
+		if ( $site ) {
+			return $site;
 		}
 
 		return null;
