@@ -247,8 +247,7 @@ class ImportPreviewPage {
 	}
 
 	private function wasEdited() {
-		return $this->importPlan->wasFileNameChanged() ||
-			$this->importPlan->wasFileInfoTextChanged();
+		return $this->importPlan->wasFileInfoTextChanged();
 	}
 
 }

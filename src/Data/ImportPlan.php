@@ -119,13 +119,6 @@ class ImportPlan {
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function wasFileNameChanged() {
-		return $this->details->getSourceLinkTarget()->getText() !== $this->getTitle()->getText();
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getFileExtension() {
