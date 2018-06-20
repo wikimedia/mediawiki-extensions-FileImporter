@@ -12,6 +12,7 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use Http;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use TempFSFile;
 use Title;
 use UploadRevisionImporter;
@@ -88,7 +89,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param UploadBaseFactory $uploadBaseFactory
 	 * @param UploadRevisionImporter $importer
-	 * @param LoggerInterface $logger
+	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
 		Title $plannedTitle,
@@ -99,7 +100,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		WikiRevisionFactory $wikiRevisionFactory,
 		UploadBaseFactory $uploadBaseFactory,
 		UploadRevisionImporter $importer,
-		LoggerInterface $logger
+		LoggerInterface $logger = null
 	) {
 		$this->plannedTitle = $plannedTitle;
 		$this->user = $user;
@@ -109,7 +110,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->importer = $importer;
-		$this->logger = $logger;
+		$this->logger = $logger ?: new NullLogger();
 	}
 
 	/**

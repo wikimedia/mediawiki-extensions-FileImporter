@@ -7,6 +7,7 @@ use FileImporter\Interfaces\LinkPrefixLookup;
 use MediaWiki\Interwiki\InterwikiLookup;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * This LinkPrefixLookup implementation will allow interwiki references
@@ -34,14 +35,14 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 	/**
 	 * @param InterwikiLookup $interwikiLookup
-	 * @param LoggerInterface $logger
+	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
 		InterwikiLookup $interwikiLookup,
-		LoggerInterface $logger
+		LoggerInterface $logger = null
 	) {
 		$this->interwikiLookup = $interwikiLookup;
-		$this->logger = $logger;
+		$this->logger = $logger ?: new NullLogger();
 	}
 
 	/**

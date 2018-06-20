@@ -6,7 +6,6 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
 use HashSiteStore;
-use Psr\Log\NullLogger;
 use Site;
 
 /**
@@ -27,8 +26,7 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 		}
 
 		return new SiteTableSourceUrlChecker(
-			new SiteTableSiteLookup( new HashSiteStore( $sites ) ),
-			new NullLogger()
+			new SiteTableSiteLookup( new HashSiteStore( $sites ) )
 		);
 	}
 

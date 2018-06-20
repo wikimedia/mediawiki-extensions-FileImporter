@@ -43,8 +43,7 @@ class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( UploadBaseFactory::class ),
-			$this->newUploadRevisionImporter(),
-			new NullLogger()
+			$this->newUploadRevisionImporter()
 		);
 
 		$this->addToAssertionCount( 1 );
@@ -59,8 +58,7 @@ class FileRevisionFromRemoteUrlTest extends MediaWikiTestCase {
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( UploadBaseFactory::class ),
-			$this->newUploadRevisionImporter(),
-			new NullLogger()
+			$this->newUploadRevisionImporter()
 		);
 
 		$this->assertFalse( $fileRevisionFromRemoteUrl->prepare() );
