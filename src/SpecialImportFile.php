@@ -15,6 +15,7 @@ use FileImporter\Html\ErrorPage;
 use FileImporter\Html\ChangeFileInfoForm;
 use FileImporter\Html\ChangeFileNameForm;
 use FileImporter\Html\DuplicateFilesErrorPage;
+use FileImporter\Html\FileInfoDiffPage;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessPage;
 use FileImporter\Html\InputFormPage;
@@ -186,6 +187,11 @@ class SpecialImportFile extends SpecialPage {
 			case 'editinfo':
 				$this->getOutput()->addHTML(
 					( new ChangeFileInfoForm( $this, $importPlan ) )->getHtml()
+				);
+				break;
+			case 'viewdiff':
+				$this->getOutput()->addHTML(
+					( new FileInfoDiffPage( $this, $importPlan ) )->getHtml()
 				);
 				break;
 			default:

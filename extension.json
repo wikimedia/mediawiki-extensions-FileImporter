@@ -74,6 +74,7 @@
 		"FileImporter\\Html\\ChangeFileNameForm": "src/Html/ChangeFileNameForm.php",
 		"FileImporter\\Html\\DuplicateFilesErrorPage": "src/Html/DuplicateFilesErrorPage.php",
 		"FileImporter\\Html\\ErrorPage": "src/Html/ErrorPage.php",
+		"FileImporter\\Html\\FileInfoDiffPage": "src/Html/FileInfoDiffPage.php",
 		"FileImporter\\Html\\ImportIdentityFormSnippet": "src/Html/ImportIdentityFormSnippet.php",
 		"FileImporter\\Html\\ImportPreviewPage": "src/Html/ImportPreviewPage.php",
 		"FileImporter\\Html\\ImportSuccessPage": "src/Html/ImportSuccessPage.php",

@@ -169,6 +169,7 @@ class ImportPreviewPage {
 				'flags' => [ 'primary', 'progressive' ],
 			]
 		) .
+		( $this->wasEdited() ? $this->buildShowChangesButtonHtml() : '' ) .
 		new ButtonWidget(
 			[
 				'classes' => [ 'mw-importfile-import-cancel' ],
@@ -203,6 +204,19 @@ class ImportPreviewPage {
 				'type' => 'hidden',
 				'name' => 'action',
 				'value' => $action,
+			]
+		);
+	}
+
+	private function buildShowChangesButtonHtml() {
+		return new ButtonInputWidget(
+			[
+				'classes' => [ 'mw-importfile-import-diff' ],
+				'label' => $this->specialPage->msg( 'fileimporter-viewdiff' )->plain(),
+				'name' => 'action',
+				'value' => 'viewdiff',
+				'type' => 'submit',
+				'flags' => [ 'progressive' ],
 			]
 		);
 	}
