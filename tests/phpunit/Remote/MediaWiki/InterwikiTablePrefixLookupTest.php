@@ -77,6 +77,60 @@ class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
 				'//wikipedia.org/wiki/',
 				''
 			],
+			'accept aliases with identical URLs' => [
+				[
+					[
+						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_prefix' => 'wikia'
+					],
+					[
+						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_prefix' => 'wikicities'
+					],
+				],
+				'//www.wikia.com/',
+				'wikia'
+			],
+			'prefer shortest alias' => [
+				[
+					[
+						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_prefix' => '1-wikicities'
+					],
+					[
+						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_prefix' => '3-wikia'
+					],
+					[
+						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_prefix' => '2-wikia'
+					],
+					[
+						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_prefix' => '0-wikicities'
+					],
+				],
+				'//www.wikia.com/',
+				'2-wikia'
+			],
+			'refuse ambiguous hosts' => [
+				[
+					[
+						'iw_url' => 'http://www.tejo.org/vikio/$1',
+						'iw_prefix' => 'tejo'
+					],
+					[
+						'iw_url' => 'http://www.tejo.org/uea/$1',
+						'iw_prefix' => 'uea'
+					],
+					[
+						'iw_url' => 'http://www.tejo.org/3rd/$1',
+						'iw_prefix' => '3rd'
+					],
+				],
+				'//www.tejo.org/',
+				''
+			],
 		];
 	}
 

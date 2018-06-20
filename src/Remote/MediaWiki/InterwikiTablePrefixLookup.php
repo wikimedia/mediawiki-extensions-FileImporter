@@ -57,7 +57,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 		if ( !isset( $interwikiConfigMap[$host] ) ) {
 			$this->logger->warning(
-				'Site not in FileImporterInterWikiMap.',
+				'Host {host} not in FileImporterInterWikiMap.',
 				[
 					'host' => $host,
 				]
@@ -70,10 +70,10 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		$firstPrefix = array_shift( $prefixes );
 		if ( !$this->interwikiLookup->isValidInterwiki( $firstPrefix ) ) {
 			$this->logger->warning(
-				'Configured prefix not valid.',
+				'Configured prefix {prefix} not valid.',
 				[
 					'host' => $host,
-					'siteId' => $interwikiConfigMap[$host]
+					'prefix' => $interwikiConfigMap[$host]
 				]
 			);
 			return '';
@@ -89,15 +89,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 */
 	private function getPrefixFromInterwikiTable( $host ) {
 		if ( $this->interwikiTableMap === null ) {
-			$this->interwikiTableMap = [];
-
-			// FIXME: This repeats a very similar (and similarily problematic) implementation from
-			// SiteTableSiteLookup::getSiteFromSitesLoop(). Both compare the host only.
-			foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {
-				// This assumes all URLs in the interwiki (or sites) table are valid.
-				$iwHost = parse_url( $row['iw_url'], PHP_URL_HOST );
-				$this->interwikiTableMap[$iwHost] = $row['iw_prefix'];
-			}
+			$this->interwikiTableMap = $this->prefetchInterwikiMap();
 		}
 
 		if ( isset( $this->interwikiTableMap[$host] ) ) {
@@ -105,12 +97,56 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		}
 
 		$this->logger->warning(
-			'Site not in InterwikiMap.',
+			'Host {host} does not match any interwiki entry.',
 			[
 				'host' => $host,
 			]
 		);
 		return '';
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private function prefetchInterwikiMap() {
+		$urls = [];
+		$map = [];
+
+		foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {
+			// This assumes all URLs in the interwiki (or sites) table are valid.
+			$host = parse_url( $row['iw_url'], PHP_URL_HOST );
+
+			if ( isset( $urls[$host] ) && $urls[$host] !== $row['iw_url'] ) {
+				$this->logger->warning(
+					'Host {host} matches at least two interwiki entries, {url1} and {url2}.',
+					[
+						'host' => $host,
+						'url1' => $urls[$host],
+						'url2' => $row['iw_url'],
+					]
+				);
+				$map[$host] = '';
+				continue;
+			}
+
+			$urls[$host] = $row['iw_url'];
+			if ( !isset( $map[$host] ) || $this->isSmaller( $row['iw_prefix'], $map[$host] ) ) {
+				$map[$host] = $row['iw_prefix'];
+			}
+		}
+
+		return $map;
+	}
+
+	/**
+	 * @param string $a
+	 * @param string $b
+	 *
+	 * @return bool true if $a is shorter or alphabetically before $b
+	 */
+	private function isSmaller( $a, $b ) {
+		return strlen( $a ) < strlen( $b )
+			|| ( strlen( $a ) === strlen( $b ) && strcmp( $a, $b ) < 0 );
 	}
 
 }
