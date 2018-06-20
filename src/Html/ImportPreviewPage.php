@@ -65,21 +65,9 @@ class ImportPreviewPage {
 				],
 				$this->importPlan->getTitle()->getText()
 			) .
-			Html::openElement(
-				'form',
-				[
-					'class' => 'mw-importfile-rightAlign',
-					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-					'method' => 'POST',
-				]
-			) .
-			Html::element(
-				'input',
-				[
-					'type' => 'hidden',
-					'name' => 'action',
-					'value' => 'edittitle',
-				]
+			$this->buildActionFormStart(
+				'edittitle',
+				'mw-importfile-rightAlign'
 			) .
 			$importIdentityFormSnippet .
 			new ButtonInputWidget(
@@ -105,21 +93,10 @@ class ImportPreviewPage {
 					'class' => 'mw-importfile-header-title'
 				],
 				$this->specialPage->msg( 'fileimporter-heading-fileinfo' )->plain()
-			).Html::openElement(
-				'form',
-				[
-					'class' => 'mw-importfile-rightAlign',
-					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-					'method' => 'POST',
-				]
 			) .
-			Html::element(
-				'input',
-				[
-					'type' => 'hidden',
-					'name' => 'action',
-					'value' => 'editinfo',
-				]
+			$this->buildActionFormStart(
+				'editinfo',
+				'mw-importfile-rightAlign'
 			) .
 			$importIdentityFormSnippet .
 			new ButtonInputWidget(
@@ -160,13 +137,10 @@ class ImportPreviewPage {
 			'div',
 			[ 'class' => 'mw-importfile-importOptions' ]
 		) .
-		Html::openElement(
-			'form',
-			[
-				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
-				'method' => 'POST',
-			]
+		$this->buildActionFormStart(
+			'submit'
 		) .
+		$importIdentityFormSnippet .
 		( $this->wasEdited() ? $this->buildEditSummaryHtml() : '' ) .
 		Html::element(
 			'p',
@@ -179,21 +153,12 @@ class ImportPreviewPage {
 				]
 			)->parse()
 		) .
-		$importIdentityFormSnippet .
 		Html::element(
 			'input',
 			[
 				'type' => 'hidden',
 				'name' => 'token',
 				'value' => $this->specialPage->getUser()->getEditToken()
-			]
-		) .
-		Html::element(
-			'input',
-			[
-				'type' => 'hidden',
-				'name' => 'action',
-				'value' => 'submit',
 			]
 		) .
 		new ButtonInputWidget(
@@ -220,6 +185,25 @@ class ImportPreviewPage {
 		Html::closeElement( 'form' ) .
 		Html::closeElement(
 			'div'
+		);
+	}
+
+	private function buildActionFormStart( $action, $class = '' ) {
+		return Html::openElement(
+			'form',
+			[
+				'class' => $class,
+				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+				'method' => 'POST',
+			]
+		) .
+		Html::element(
+			'input',
+			[
+				'type' => 'hidden',
+				'name' => 'action',
+				'value' => $action,
+			]
 		);
 	}
 
