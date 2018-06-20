@@ -20,19 +20,15 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param string $globalId
-	 * @param string $domain
+	 * @param string $linkPath
 	 *
 	 * @return Site
 	 */
-	private function getSite( $globalId, $domain ) {
-		$mockSite = $this->createMock( Site::class );
-		$mockSite->method( 'getGlobalId' )
-			->willReturn( $globalId );
-		$mockSite->method( 'getDomain' )
-			->willReturn( $domain );
-		$mockSite->method( 'getNavigationIds' )
-			->willReturn( [] );
-		return $mockSite;
+	private function getSite( $globalId, $linkPath ) {
+		$site = new Site();
+		$site->setGlobalId( $globalId );
+		$site->setLinkPath( $linkPath );
+		return $site;
 	}
 
 	public function provideGetSite() {
@@ -49,9 +45,9 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testGetSite( $url, $expected ) {
 		$hashSiteStore = new HashSiteStore( [
-			$this->getSite( 'enwiki', 'en.wikipedia.org' ),
-			$this->getSite( 'dewiki', 'de.wikipedia.org' ),
-			$this->getSite( 'commonswiki', 'commons.wikimedia.org' ),
+			$this->getSite( 'enwiki', 'https://en.wikipedia.org/wiki/$1' ),
+			$this->getSite( 'dewiki', 'https://de.wikipedia.org/wiki/$1' ),
+			$this->getSite( 'commonswiki', 'https://commons.wikimedia.org/wiki/$1' ),
 		] );
 
 		$lookup = new SiteTableSiteLookup( $hashSiteStore );
