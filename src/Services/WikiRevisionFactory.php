@@ -21,6 +21,11 @@ class WikiRevisionFactory {
 	private $config;
 
 	/**
+	 * @var string
+	 */
+	private $interwikiPrefix;
+
+	/**
 	 * @var ExternalUserNames
 	 */
 	private $externalUserNames;
@@ -39,11 +44,12 @@ class WikiRevisionFactory {
 	/**
 	 * @param string $prefix
 	 */
-	public function setUserNamePrefix( $prefix ) {
-		if ( !$prefix ) {
-			$prefix = self::DEFAULT_USERNAME_PREFIX;
-		}
-		$this->externalUserNames = new ExternalUserNames( $prefix, true );
+	public function setInterWikiPrefix( $prefix ) {
+		$this->interwikiPrefix = $prefix;
+		$this->externalUserNames = new ExternalUserNames(
+			$prefix ?: self::DEFAULT_USERNAME_PREFIX,
+			true
+		);
 	}
 
 	/**
@@ -80,14 +86,16 @@ class WikiRevisionFactory {
 		$revision = $this->getWikiRevision();
 		$revision->setTitle( Title::newFromText(
 			$this->removeNamespaceFromString( $textRevision->getField( 'title' ) ),
-			NS_FILE )
-		);
+			NS_FILE
+		) );
 		$revision->setTimestamp( $textRevision->getField( 'timestamp' ) );
 		$revision->setSha1Base36( $textRevision->getField( 'sha1' ) );
 		$revision->setUsername(
 			$this->externalUserNames->addPrefix( $textRevision->getField( 'user' ) )
 		);
-		$revision->setComment( $textRevision->getField( 'comment' ) );
+		$revision->setComment(
+			$this->prefixCommentLinks( $textRevision->getField( 'comment' ) )
+		);
 		$revision->setModel( $textRevision->getField( 'contentmodel' ) );
 		$revision->setFormat( $textRevision->getField( 'contentformat' ) );
 		$revision->setMinor( $textRevision->getField( 'minor' ) );
@@ -104,6 +112,36 @@ class WikiRevisionFactory {
 	private function removeNamespaceFromString( $title ) {
 		$splitTitle = explode( ':', $title );
 		return array_pop( $splitTitle );
+	}
+
+	/**
+	 * @param string $summaryText
+	 *
+	 * @return string
+	 */
+	private function prefixCommentLinks( $summaryText ) {
+		if ( !$this->interwikiPrefix ) {
+			return $summaryText;
+		}
+
+		/** Mostly taken from @see Linker::formatLinksInComment */
+		return preg_replace(
+			'/
+				\[\[
+				\s*+ # ignore leading whitespace, the *+ quantifier disallows backtracking
+				:?
+				(?=
+					[^\[\]|]+
+					(?:\|
+						# The "possessive" *+ quantifier disallows backtracking
+						(?:]?[^\]])*+
+					)?
+					\]\]
+				)
+			/x',
+			'[[' . $this->interwikiPrefix . ':',
+			$summaryText
+		);
 	}
 
 }

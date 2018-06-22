@@ -123,7 +123,7 @@ class Importer {
 		User $user,
 		ImportPlan $importPlan
 	) {
-		$this->wikiRevisionFactory->setUserNamePrefix( $importPlan->getInterWikiPrefix() );
+		$this->wikiRevisionFactory->setInterWikiPrefix( $importPlan->getInterWikiPrefix() );
 
 		$importStart = microtime( true );
 		$this->logger->info( __METHOD__ . ' started' );
