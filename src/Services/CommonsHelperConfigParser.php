@@ -143,7 +143,7 @@ class CommonsHelperConfigParser {
 	private function parseTransferList( $wikiText ) {
 		// TODO: Apply the same *+ treatment on all other regular expressions. This stops
 		// backtracking where it's not wanted.
-		preg_match_all( '/^;\h*+([^:|\n]+?)\s*:\h*+([^:|\n]+)/m', $wikiText, $matches );
+		preg_match_all( '/^;\h*+([^:|\n]+)\n?:\h*+([^:|\n]+)/m', $wikiText, $matches );
 		return array_combine( $matches[1], $matches[2] );
 	}
 
