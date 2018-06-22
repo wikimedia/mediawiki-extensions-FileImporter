@@ -27,6 +27,20 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedCount' => 0,
 			],
 
+			'skip triple bracket parameter syntax' => [
+				'replacements' => [ 'a' => 'b' ],
+				'wikitext' => '{{{a}}}',
+				'expectedWikiText' => null,
+				'expectedCount' => 0,
+			],
+
+			'skip unclosed templates' => [
+				'replacements' => [ 'a' => 'b' ],
+				'wikitext' => '{{a}',
+				'expectedWikiText' => null,
+				'expectedCount' => 0,
+			],
+
 			'most trivial match' => [
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => '{{Info}}',
@@ -67,6 +81,13 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'wikitext' => "{{Info\n| param = value\n}}",
 				'expectedWikiText' => "{{Information\n| param = value\n}}",
 				'expectedCount' => 1,
+			],
+
+			'replace nested templates' => [
+				'replacements' => [ 'Info' => 'Information', 'enS' => 'en' ],
+				'wikitext' => '{{Info|{{enS|…}}}}',
+				'expectedWikiText' => '{{Information|{{en|…}}}}',
+				'expectedCount' => 2,
 			],
 		];
 	}
