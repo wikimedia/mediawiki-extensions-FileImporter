@@ -5,6 +5,9 @@ namespace FileImporter\Services;
 use FileImporter\Data\WikiTextConversions;
 use FileImporter\Data\TextRevision;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class WikiTextContentCleaner {
 
 	/**
@@ -30,7 +33,7 @@ class WikiTextContentCleaner {
 		$newTemplates = [];
 
 		foreach ( $templates[1] as $template ) {
-			$templateComponents = explode( '|', $template, 2 );
+			$templateComponents = preg_split( '/(\s*\|)/', $template, 2, PREG_SPLIT_DELIM_CAPTURE );
 			$templateOldName = $templateComponents[0];
 			$templateNewName = $this->wikiTextConversions->swapTemplate( $templateOldName );
 
@@ -40,11 +43,9 @@ class WikiTextContentCleaner {
 			$templateComponents[0] = $templateNewName;
 
 			array_push( $oldTemplates, $this->templatify( $template ) );
-			array_push( $newTemplates, $this->templatify( implode( '|', $templateComponents ) ) );
+			array_push( $newTemplates, $this->templatify( implode( $templateComponents ) ) );
 		}
 
-		// TODO: Test when one templates name contains the other, e.g. replacing "a" shouldn't
-		// touch "{{ba}}" nor "{{ab}}".
 		$wikiText = str_replace( $oldTemplates, $newTemplates, $wikiText, $count );
 		$latestTextRevision->setField( '*', $wikiText );
 
