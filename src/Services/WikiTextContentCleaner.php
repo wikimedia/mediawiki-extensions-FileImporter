@@ -85,6 +85,7 @@ class WikiTextContentCleaner {
 		$nesting = 0;
 		$params = [];
 		$p = -1;
+		$number = 0;
 
 		for ( $i = $startPosition; $i < $max; $i++ ) {
 			switch ( $wikiText[$i] ) {
@@ -106,11 +107,15 @@ class WikiTextContentCleaner {
 				case '|':
 					if ( $nesting === 0 ) {
 						$p++;
-						$params[$p] = [ 'number' => $p, 'offset' => $i + 1 ];
+						$number++;
+						$params[$p] = [ 'number' => $number, 'offset' => $i + 1 ];
 					}
 					break;
 				case '=':
 					if ( $nesting === 0 && $p !== -1 && !isset( $params[$p]['name'] ) ) {
+						unset( $params[$p]['number'] );
+						$number--;
+
 						$offset = $params[$p]['offset'];
 						$name = rtrim( substr( $wikiText, $offset, $i - $offset ) );
 						$params[$p]['name'] = ltrim( $name );
@@ -139,9 +144,14 @@ class WikiTextContentCleaner {
 				: $parameters[$i]['number'];
 
 			if ( isset( $replacements[$from] ) ) {
-				$offset = $parameters[$i]['offset'];
 				$to = $replacements[$from];
-				$wikiText = substr_replace( $wikiText, $to, $offset, strlen( $from ) );
+				$offset = $parameters[$i]['offset'];
+				if ( isset( $parameters[$i]['name'] ) ) {
+					$wikiText = substr_replace( $wikiText, $to, $offset, strlen( $from ) );
+				} else {
+					// Insert parameter name when the source parameter was unnamed
+					$wikiText = substr_replace( $wikiText, $to . '=', $offset, 0 );
+				}
 			}
 		}
 

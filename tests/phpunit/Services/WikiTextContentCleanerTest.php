@@ -100,6 +100,16 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedCount' => 1,
 			],
 
+			'replace numeric parameters' => [
+				'replacements' => [ 'Info' => [
+					'commonsTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'localParameters' => 2 ] ],
+				] ],
+				'wikitext' => '{{Info|a|b}}',
+				'expectedWikiText' => '{{Info|a|Description=b}}',
+				'expectedCount' => 1,
+			],
+
 			'must skip single brackets' => [
 				'replacements' => [ 'Info' => [
 					'commonsTemplate' => 'Info',
