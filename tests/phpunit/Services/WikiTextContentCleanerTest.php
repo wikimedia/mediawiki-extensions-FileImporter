@@ -89,6 +89,36 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedWikiText' => '{{Information|{{en|…}}}}',
 				'expectedCount' => 2,
 			],
+
+			'most trivial parameter replacement' => [
+				'replacements' => [ 'Info' => [
+					'commonsTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'localParameters' => 'Desc' ] ],
+				] ],
+				'wikitext' => '{{Info|Desc=…}}',
+				'expectedWikiText' => '{{Info|Description=…}}',
+				'expectedCount' => 1,
+			],
+
+			'must skip single brackets' => [
+				'replacements' => [ 'Info' => [
+					'commonsTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'localParameters' => 'Desc' ] ],
+				] ],
+				'wikitext' => '{{Info|}|Desc=…}}{{Info|{|Desc=…}}',
+				'expectedWikiText' => '{{Info|}|Description=…}}{{Info|{|Description=…}}',
+				'expectedCount' => 2,
+			],
+
+			'must skip {{{…}}} syntax' => [
+				'replacements' => [ 'Info' => [
+					'commonsTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'localParameters' => 'Desc' ] ],
+				] ],
+				'wikitext' => '{{Info|{{{Info|Desc=…}}}|Desc=…}}',
+				'expectedWikiText' => '{{Info|{{{Info|Desc=…}}}|Description=…}}',
+				'expectedCount' => 1,
+			],
 		];
 	}
 

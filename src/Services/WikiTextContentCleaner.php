@@ -48,7 +48,7 @@ class WikiTextContentCleaner {
 
 		// Replacements must be applied in reverse order to not mess with the captured offsets!
 		for ( $i = count( $matches[1] ); $i-- > 0; ) {
-			list( $oldTemplateName, $position ) = $matches[1][$i];
+			list( $oldTemplateName, $offset ) = $matches[1][$i];
 
 			$newTemplateName = $this->wikiTextConversions->swapTemplate( $oldTemplateName );
 			if ( !$newTemplateName ) {
@@ -58,10 +58,91 @@ class WikiTextContentCleaner {
 			$wikiText = substr_replace(
 				$wikiText,
 				$newTemplateName,
-				$position,
+				$offset,
 				strlen( $oldTemplateName )
 			);
+
+			$wikiText = $this->renameTemplateParameters(
+				$wikiText,
+				$this->parseTemplateParameters( $wikiText, $offset ),
+				$this->wikiTextConversions->getTemplateParameters( $oldTemplateName )
+			);
+
 			$this->latestNumberOfReplacements++;
+		}
+
+		return $wikiText;
+	}
+
+	/**
+	 * @param string $wikiText
+	 * @param int $startPosition
+	 *
+	 * @return array[]
+	 */
+	public function parseTemplateParameters( $wikiText, $startPosition ) {
+		$max = strlen( $wikiText );
+		$nesting = 0;
+		$params = [];
+		$p = -1;
+
+		for ( $i = $startPosition; $i < $max; $i++ ) {
+			switch ( $wikiText[$i] ) {
+				case '}':
+					if ( $wikiText[$i + 1] !== '}' ) {
+						continue;
+					}
+					if ( $nesting === 0 ) {
+						break 2;
+					}
+					$nesting--;
+					break;
+				case '{':
+					if ( $wikiText[$i + 1] !== '{' ) {
+						continue;
+					}
+					$nesting++;
+					break;
+				case '|':
+					if ( $nesting === 0 ) {
+						$p++;
+						$params[$p] = [ 'number' => $p, 'offset' => $i + 1 ];
+					}
+					break;
+				case '=':
+					if ( $nesting === 0 && $p !== -1 && !isset( $params[$p]['name'] ) ) {
+						$offset = $params[$p]['offset'];
+						$name = rtrim( substr( $wikiText, $offset, $i - $offset ) );
+						$params[$p]['name'] = ltrim( $name );
+						$params[$p]['offset'] += strlen( $name ) - strlen( $params[$p]['name'] );
+						// TODO: Value replacements are currently not supported.
+					}
+					break;
+			}
+		}
+
+		return $params;
+	}
+
+	/**
+	 * @param string $wikiText
+	 * @param array[] $parameters
+	 * @param array $replacements
+	 *
+	 * @return string
+	 */
+	private function renameTemplateParameters( $wikiText, array $parameters, array $replacements ) {
+		// Replacements must be applied in reverse order to not mess with the captured offsets!
+		for ( $i = count( $parameters ); $i-- > 0; ) {
+			$from = isset( $parameters[$i]['name'] )
+				? $parameters[$i]['name']
+				: $parameters[$i]['number'];
+
+			if ( isset( $replacements[$from] ) ) {
+				$offset = $parameters[$i]['offset'];
+				$to = $replacements[$from];
+				$wikiText = substr_replace( $wikiText, $to, $offset, strlen( $from ) );
+			}
 		}
 
 		return $wikiText;

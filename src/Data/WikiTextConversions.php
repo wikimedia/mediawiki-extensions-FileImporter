@@ -138,6 +138,49 @@ class WikiTextConversions {
 	}
 
 	/**
+	 * TODO: Currently not used. Remove?
+	 *
+	 * @param string $templateName
+	 * @param string $sourceParameter
+	 *
+	 * @return string|false
+	 */
+	public function swapTemplateParameter( $templateName, $sourceParameter ) {
+		$templateName = $this->lowercasePageName( $templateName );
+		if ( !isset( $this->transferTemplates[$templateName] ) ) {
+			return false;
+		}
+
+		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
+			if ( in_array( $sourceParameter, (array)$opt['localParameters'], true ) ) {
+				return $targetParameter;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param string $templateName
+	 *
+	 * @return string[] Array mapping source to target parameter names.
+	 */
+	public function getTemplateParameters( $templateName ) {
+		$templateName = $this->lowercasePageName( $templateName );
+		if ( !isset( $this->transferTemplates[$templateName] ) ) {
+			return [];
+		}
+
+		$replacements = [];
+		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
+			foreach ( (array)$opt['localParameters'] as $sourceParameter ) {
+				$replacements[$sourceParameter] = $targetParameter;
+			}
+		}
+		return $replacements;
+	}
+
+	/**
 	 * @param string $pageName
 	 *
 	 * @return string
