@@ -505,7 +505,7 @@ class ApiDetailRetrieverTest extends MediaWikiTestCase {
 			'&iiprop=timestamp%7Cuser%7Cuserid%7Ccomment%7Ccanonicaltitle%7Curl%7Csize%7Csha1' .
 			'&rvlimit=500&rvdir=newer&rvprop=flags%7Ctimestamp%7Cuser%7Csha1%7Ccontentmodel%7' .
 			'Ccomment%7Ccontent' .
-			'&tllimit=500&cllimit=500';
+			'&tlnamespace=' . NS_TEMPLATE . '&tllimit=500&cllimit=500';
 	}
 
 	/**

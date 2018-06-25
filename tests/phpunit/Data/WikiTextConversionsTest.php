@@ -17,6 +17,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 			[ 'Identical', 'Identical', true ],
 			[ 'needs_normalization', 'Needs normalization', true ],
 			[ 'Needs normalization', 'Needs_normalization', true ],
+			[ 'Needs normalization', 'Vorlage:Needs_normalization', true ],
 			[ 'CASE INSENSITIVE', 'case insensitive', true ],
 			[ 'български', 'БЪЛГАРСКИ', true ],
 		];
@@ -27,7 +28,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testIsTemplateGood( $listed, $requested, $expected ) {
 		$conversions = new WikiTextConversions( [ $listed ], [], [] );
-		$this->assertSame( $expected, $conversions->isTemplateGood( 'Template:' . $requested ) );
+		$this->assertSame( $expected, $conversions->isTemplateGood( $requested ) );
 	}
 
 	public function provideHasGoodTemplates() {
@@ -50,7 +51,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testIsTemplateBad( $listed, $requested, $expected ) {
 		$conversions = new WikiTextConversions( [], [ $listed ], [] );
-		$this->assertSame( $expected, $conversions->isTemplateBad( 'Template:' . $requested ) );
+		$this->assertSame( $expected, $conversions->isTemplateBad( $requested ) );
 	}
 
 	/**
@@ -58,7 +59,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testIsCategoryBad( $listed, $requested, $expected ) {
 		$conversions = new WikiTextConversions( [], [], [ $listed ] );
-		$this->assertSame( $expected, $conversions->isCategoryBad( 'Category:' . $requested ) );
+		$this->assertSame( $expected, $conversions->isCategoryBad( $requested ) );
 	}
 
 }

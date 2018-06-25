@@ -38,6 +38,10 @@ class WikiTextContentValidator {
 	 */
 	public function validateTemplates( array $templates ) {
 		foreach ( $templates as $template ) {
+			if ( $template['ns'] !== NS_TEMPLATE ) {
+				continue;
+			}
+
 			$templateTitle = $template['title'];
 			if ( $this->wikiTextConversions->isTemplateBad( $templateTitle ) ) {
 				throw new LocalizedImportException(
@@ -57,6 +61,10 @@ class WikiTextContentValidator {
 	 */
 	public function validateCategories( array $categories ) {
 		foreach ( $categories as $category ) {
+			if ( $category['ns'] !== NS_CATEGORY ) {
+				continue;
+			}
+
 			$categoryTitle = $category['title'];
 			if ( $this->wikiTextConversions->isCategoryBad( $categoryTitle ) ) {
 				throw new LocalizedImportException(
@@ -80,6 +88,10 @@ class WikiTextContentValidator {
 		}
 
 		foreach ( $templates as $template ) {
+			if ( $template['ns'] !== NS_TEMPLATE ) {
+				continue;
+			}
+
 			$templateTitle = $template['title'];
 			if ( $this->wikiTextConversions->isTemplateGood( $templateTitle ) ) {
 				return;

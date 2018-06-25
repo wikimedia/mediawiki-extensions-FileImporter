@@ -37,18 +37,15 @@ class WikiTextConversions {
 		array $badCategories
 	) {
 		foreach ( $goodTemplates as $pageName ) {
-			// FIXME: Avoid hard-coding the namespace name here
-			$this->goodTemplates[$this->normalizePageName( 'Template:' . $pageName )] = true;
+			$this->goodTemplates[$this->normalizePageName( $pageName )] = true;
 		}
 
 		foreach ( $badTemplates as $pageName ) {
-			// FIXME: Avoid hard-coding the namespace name here
-			$this->badTemplates[$this->normalizePageName( 'Template:' . $pageName )] = true;
+			$this->badTemplates[$this->normalizePageName( $pageName )] = true;
 		}
 
 		foreach ( $badCategories as $pageName ) {
-			// FIXME: Avoid hard-coding the namespace name here
-			$this->badCategories[$this->normalizePageName( 'Category:' . $pageName )] = true;
+			$this->badCategories[$this->normalizePageName( $pageName )] = true;
 		}
 	}
 
@@ -59,6 +56,7 @@ class WikiTextConversions {
 	 * @return bool
 	 */
 	public function isTemplateGood( $pageName ) {
+		$pageName = $this->removeNamespaceFromString( $pageName );
 		return array_key_exists( $this->normalizePageName( $pageName ), $this->goodTemplates );
 	}
 
@@ -76,6 +74,7 @@ class WikiTextConversions {
 	 * @return bool
 	 */
 	public function isTemplateBad( $pageName ) {
+		$pageName = $this->removeNamespaceFromString( $pageName );
 		return array_key_exists( $this->normalizePageName( $pageName ), $this->badTemplates );
 	}
 
@@ -86,6 +85,7 @@ class WikiTextConversions {
 	 * @return bool
 	 */
 	public function isCategoryBad( $pageName ) {
+		$pageName = $this->removeNamespaceFromString( $pageName );
 		return array_key_exists( $this->normalizePageName( $pageName ), $this->badCategories );
 	}
 
@@ -96,6 +96,16 @@ class WikiTextConversions {
 	 */
 	private function normalizePageName( $pageName ) {
 		return mb_convert_case( trim( str_replace( '_', ' ', $pageName ) ), MB_CASE_LOWER );
+	}
+
+	/**
+	 * @param string $title
+	 *
+	 * @return string
+	 */
+	private function removeNamespaceFromString( $title ) {
+		$splitTitle = explode( ':', $title, 2 );
+		return array_pop( $splitTitle );
 	}
 
 }

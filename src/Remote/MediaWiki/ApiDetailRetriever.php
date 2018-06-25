@@ -596,7 +596,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			$params['tlcontinue'] = $tlContinue;
 		}
 
-		return $params + [ 'tllimit' => static::API_RESULT_LIMIT ];
+		return $params + [ 'tlnamespace' => NS_TEMPLATE, 'tllimit' => static::API_RESULT_LIMIT ];
 	}
 
 	/**
