@@ -3,6 +3,7 @@
 namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
+use FileImporter\SpecialImportFile;
 use Html;
 use Linker;
 use OOUI\ButtonInputWidget;
@@ -66,7 +67,7 @@ class ImportPreviewPage {
 				$this->importPlan->getTitle()->getText()
 			) .
 			$this->buildActionFormStart(
-				'edittitle',
+				SpecialImportFile::ACTION_EDIT_TITLE,
 				'mw-importfile-rightAlign'
 			) .
 			$importIdentityFormSnippet .
@@ -95,7 +96,7 @@ class ImportPreviewPage {
 				$this->specialPage->msg( 'fileimporter-heading-fileinfo' )->plain()
 			) .
 			$this->buildActionFormStart(
-				'editinfo',
+				SpecialImportFile::ACTION_EDIT_INFO,
 				'mw-importfile-rightAlign'
 			) .
 			$importIdentityFormSnippet .
@@ -137,9 +138,7 @@ class ImportPreviewPage {
 			'div',
 			[ 'class' => 'mw-importfile-importOptions' ]
 		) .
-		$this->buildActionFormStart(
-			'submit'
-		) .
+		$this->buildActionFormStart( SpecialImportFile::ACTION_SUBMIT ) .
 		$importIdentityFormSnippet .
 		( $this->wasEdited() ? $this->buildEditSummaryHtml() : '' ) .
 		Html::element(
@@ -214,7 +213,7 @@ class ImportPreviewPage {
 				'classes' => [ 'mw-importfile-import-diff' ],
 				'label' => $this->specialPage->msg( 'fileimporter-viewdiff' )->plain(),
 				'name' => 'action',
-				'value' => 'viewdiff',
+				'value' => SpecialImportFile::ACTION_VIEW_DIFF,
 				'type' => 'submit',
 				'flags' => [ 'progressive' ],
 			]
