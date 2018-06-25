@@ -2,6 +2,8 @@
 
 namespace FileImporter\Data;
 
+use InvalidArgumentException;
+
 /**
  * Class holding validation and replacement rules for the file description wikitext. This class is
  * not aware of the source of these rules. They can be extracted from CommonsHelper2 configuration
@@ -27,7 +29,7 @@ class WikiTextConversions {
 	private $badCategories = [];
 
 	/**
-	 * @var string[]
+	 * @var array[]
 	 */
 	private $transferTemplates = [];
 
@@ -35,7 +37,19 @@ class WikiTextConversions {
 	 * @param string[] $goodTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badCategories List of case-insensitive page names without namespace prefix
-	 * @param string[] $transferTemplates List of template to template mappings without template format
+	 * @param array[] $transferTemplates List mapping local template names without namespace prefix
+	 *  to replacement rules in the following format:
+	 *  string $localTemplate => [
+	 *      'commonsTemplate' => string,
+	 *      'parameters' => [
+	 *          string $commonsParameter => [
+	 *              'addIfMissing' => bool,
+	 *              'addLanguageTemplate' => bool,
+	 *              'localParameters' => string|string[],
+	 *          ],
+	 *          …
+	 *      ],
+	 *  ]
 	 */
 	public function __construct(
 		array $goodTemplates,
@@ -56,8 +70,18 @@ class WikiTextConversions {
 		}
 
 		foreach ( $transferTemplates as $from => $to ) {
+			// TODO: Accepts strings for backwards-compatibility; remove if not needed any more
+			if ( is_string( $to ) ) {
+				$to = [ 'commonsTemplate' => $to ];
+			}
+
+			if ( empty( $to['commonsTemplate'] ) ) {
+				throw new InvalidArgumentException( 'Transfer rule misses "commonsTemplate"' );
+			}
+
 			$from = $this->lowercasePageName( $from );
-			$this->transferTemplates[$from] = $this->normalizePageName( $to );
+			$to['commonsTemplate'] = $this->normalizePageName( $to['commonsTemplate'] );
+			$this->transferTemplates[$from] = $to;
 		}
 	}
 
@@ -109,7 +133,7 @@ class WikiTextConversions {
 	public function swapTemplate( $templateName ) {
 		$templateName = $this->lowercasePageName( $templateName );
 		return array_key_exists( $templateName, $this->transferTemplates )
-			? $this->transferTemplates[$templateName]
+			? $this->transferTemplates[$templateName]['commonsTemplate']
 			: false;
 	}
 
