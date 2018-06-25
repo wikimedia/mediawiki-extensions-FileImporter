@@ -72,7 +72,7 @@ class WikiTextConversions {
 		foreach ( $transferTemplates as $from => $to ) {
 			// TODO: Accepts strings for backwards-compatibility; remove if not needed any more
 			if ( is_string( $to ) ) {
-				$to = [ 'commonsTemplate' => $to ];
+				$to = [ 'commonsTemplate' => $to, 'parameters' => [] ];
 			}
 
 			if ( empty( $to['commonsTemplate'] ) ) {
