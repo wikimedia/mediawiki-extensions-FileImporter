@@ -4,7 +4,8 @@
 			"Beta16",
 			"Redredsonia",
 			"Statix64",
-			"Sarah Bernabei"
+			"Sarah Bernabei",
+			"Toadino2"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -33,5 +34,7 @@
 	"fileimporter-imported-success-banner": "Questo file è stato importato con successo a {{SITENAME}}. Clicca nel collegamento seguente per vedere il file: $1",
 	"fileimporter-imported-change-template": "Ti chiediamo cortesemente di ritornare al file originale e procedere come segue: \n# Rimuovi ogni template che suggerisca che questo file dovrebbe essere copiato da {{SITENAME}}.\n# Aggiungi un template che dichiari che ora questo file è disponibile su {{SITENAME}}.\nGrazie mille!",
 	"fileimporter-go-to-original-file-button": "Ritorna al file originale",
-	"fileimporter-file-missing-required-template": "Il file non può essere importato, perché non è contrassegnato con una delle licenze richieste."
+	"fileimporter-file-missing-required-template": "Il file non può essere importato, perché non è contrassegnato con una delle licenze richieste.",
+	"fileimporter-viewdiff": "Mostra modifiche",
+	"fileimporter-to-preview": "Torna all'anteprima"
 }

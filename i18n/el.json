@@ -8,5 +8,8 @@
 	"fileimporter-duplicatefilesdetected-prefix": "Διπλότυπα",
 	"fileimporter-import-wait": "Η εισαγωγή μπορεί να πάρει λίγα λεπτά.",
 	"fileimporter-imported-success-banner": "Το αρχείο έχει εισαχθεί επιτυχώς στο {{SITENAME}}. Κάντε κλικ στον ακόλουθο σύνδεσμο για να δείτε το αρχείο: $1",
-	"fileimporter-go-to-original-file-button": "Επιστροφή στο αρχικό αρχείο"
+	"fileimporter-go-to-original-file-button": "Επιστροφή στο αρχικό αρχείο",
+	"fileimporter-auto-replacements-summary": "Αντικατέστησε ονόματα προτύπων $1 με ονόματα προτύπων του {{SITENAME}}",
+	"fileimporter-viewdiff": "Εμφάνιση αλλαγών",
+	"fileimporter-to-preview": "Επιστροφή στη προεπισκόπηση"
 }
