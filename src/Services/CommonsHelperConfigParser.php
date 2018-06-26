@@ -84,10 +84,20 @@ class CommonsHelperConfigParser {
 			);
 		}
 
+		$transferTemplateSection = $this->splitSectionsByHeaders( '=== Transfer ===', $templateSection );
+		if ( $transferTemplateSection === false ) {
+			throw new LocalizedImportException(
+				new Message( 'fileimporter-commonshelper-parsing-failed', [
+					$this->commonsHelperConfigUrl, 'Templates/Transfer'
+				] )
+			);
+		}
+
 		return new WikiTextConversions(
 			$this->getItemList( $goodTemplateSection ),
 			$this->getItemList( $badTemplateSection ),
-			$this->getItemList( $badCategorySection )
+			$this->getItemList( $badCategorySection ),
+			$this->parseTransferList( $transferTemplateSection )
 		);
 	}
 
@@ -123,6 +133,18 @@ class CommonsHelperConfigParser {
 		// Extract non-empty first-level list elements, exclude 2nd and deeper levels
 		preg_match_all( '/^\*\h*([^\s*#:;].*?)\h*$/m', $wikiText, $matches );
 		return $matches[1];
+	}
+
+	/**
+	 * @param string $wikiText
+	 *
+	 * @return string[]
+	 */
+	private function parseTransferList( $wikiText ) {
+		// TODO: Apply the same *+ treatment on all other regular expressions. This stops
+		// backtracking where it's not wanted.
+		preg_match_all( '/^;\h*+([^:|\n]+?)\s*:\h*+([^:|\n]+)/m', $wikiText, $matches );
+		return array_combine( $matches[1], $matches[2] );
 	}
 
 }

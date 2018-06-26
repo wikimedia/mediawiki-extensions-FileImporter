@@ -27,7 +27,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsTemplateGood( $listed, $requested, $expected ) {
-		$conversions = new WikiTextConversions( [ $listed ], [], [] );
+		$conversions = new WikiTextConversions( [ $listed ], [], [], [] );
 		$this->assertSame( $expected, $conversions->isTemplateGood( $requested ) );
 	}
 
@@ -42,7 +42,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideHasGoodTemplates
 	 */
 	public function testHasGoodTemplates( array $goodTemplates, $expected ) {
-		$conversions = new WikiTextConversions( $goodTemplates, [], [] );
+		$conversions = new WikiTextConversions( $goodTemplates, [], [], [] );
 		$this->assertSame( $expected, $conversions->hasGoodTemplates() );
 	}
 
@@ -50,7 +50,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsTemplateBad( $listed, $requested, $expected ) {
-		$conversions = new WikiTextConversions( [], [ $listed ], [] );
+		$conversions = new WikiTextConversions( [], [ $listed ], [], [] );
 		$this->assertSame( $expected, $conversions->isTemplateBad( $requested ) );
 	}
 
@@ -58,7 +58,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsCategoryBad( $listed, $requested, $expected ) {
-		$conversions = new WikiTextConversions( [], [], [ $listed ] );
+		$conversions = new WikiTextConversions( [], [], [ $listed ], [] );
 		$this->assertSame( $expected, $conversions->isCategoryBad( $requested ) );
 	}
 

@@ -34,21 +34,29 @@ class ImportDetails {
 	private $fileRevisions;
 
 	/**
+	 * @var int
+	 */
+	private $numberOfTemplatesReplaced;
+
+	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param LinkTarget $sourceLinkTarget
 	 * @param TextRevisions $textRevisions
 	 * @param FileRevisions $fileRevisions
+	 * @param int $numOfReplacedTemplates
 	 */
 	public function __construct(
 		SourceUrl $sourceUrl,
 		LinkTarget $sourceLinkTarget,
 		TextRevisions $textRevisions,
-		FileRevisions $fileRevisions
+		FileRevisions $fileRevisions,
+		$numOfReplacedTemplates = 0
 	) {
 		$this->sourceUrl = $sourceUrl;
 		$this->sourceLinkTarget = $sourceLinkTarget;
 		$this->textRevisions = $textRevisions;
 		$this->fileRevisions = $fileRevisions;
+		$this->numberOfTemplatesReplaced = $numOfReplacedTemplates;
 	}
 
 	/**
@@ -105,6 +113,13 @@ class ImportDetails {
 	 */
 	public function getFileRevisions() {
 		return $this->fileRevisions;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getNumberOfTemplatesReplaced() {
+		return $this->numberOfTemplatesReplaced;
 	}
 
 	/**

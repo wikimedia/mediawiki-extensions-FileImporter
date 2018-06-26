@@ -221,6 +221,12 @@ class ImportPreviewPage {
 	}
 
 	private function buildEditSummaryHtml() {
+		$replacements = $this->importPlan->getDetails()->getNumberOfTemplatesReplaced();
+		$summary = $replacements > 0
+			? $this->specialPage->msg( 'fileimporter-auto-replacements-summary', $replacements )
+				->plain()
+			: null;
+
 		return Html::element(
 			'p',
 			[],
@@ -230,6 +236,7 @@ class ImportPreviewPage {
 			[
 				'name' => 'intendedRevisionSummary',
 				'classes' => [ 'mw-importfile-import-summary' ],
+				'value' => $summary,
 			]
 		);
 	}
@@ -244,7 +251,8 @@ class ImportPreviewPage {
 	}
 
 	private function wasEdited() {
-		return $this->importPlan->wasFileInfoTextChanged();
+		return $this->importPlan->wasFileInfoTextChanged() ||
+			$this->importPlan->getDetails()->getNumberOfTemplatesReplaced() > 0;
 	}
 
 }

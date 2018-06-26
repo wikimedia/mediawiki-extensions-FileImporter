@@ -47,15 +47,26 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing lists' => [
-				'wikiText' => "== Templates ==\n=== Good ===\n=== Bad ===\n== Categories ==\n=== Bad ===\n",
+				'wikiText' => "== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===" .
+					"\n== Categories ==\n=== Bad ===\n",
 				'expectedGoodTemplates' => [],
 				'expectedBadTemplates' => [],
 				'expectedBadCategories' => [],
 			],
 
 			'empty lists' => [
-				'wikiText' => "== Templates ==\n=== Good ===\n*\n=== Bad ===\n*" .
-					"\n== Categories ==\n=== Bad ===\n*",
+				'wikiText' => <<<WIKITEXT
+== Templates ==
+=== Good ===
+*
+=== Bad ===
+*
+=== Transfer ===
+== Categories ==
+=== Bad ===
+*
+WIKITEXT
+				,
 				'expectedGoodTemplates' => [],
 				'expectedBadTemplates' => [],
 				'expectedBadCategories' => [],
@@ -68,6 +79,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 * GoodTemplate
 === Bad ===
 * BadTemplate
+=== Transfer ===
 == Categories ==
 === Bad ===
 * BadCategory
@@ -85,6 +97,7 @@ WIKITEXT
 * GoodTemplate
 ===Bad===
 *BadTemplate
+===Transfer===
 ==Categories==
 ===Bad===
 *BadCategory
@@ -107,6 +120,7 @@ WIKITEXT
 
 *	BadTemplate\t
 
+=== Transfer ===
 ==	Categories	==\t
 
 ===	Bad	===\t
@@ -132,6 +146,7 @@ WIKITEXT
 * BadTemplate <!-- Comment -->
 *
 ** 2nd-level comment
+=== Transfer ===
 == Categories ==
 === Bad ===
 {{Comment}}
@@ -169,7 +184,9 @@ WIKITEXT
 			$expected = new WikiTextConversions(
 				$expectedGoodTemplates,
 				$expectedBadTemplates,
-				$expectedBadCategories
+				$expectedBadCategories,
+				// TODO: Test
+				[]
 			);
 			$this->assertEquals( $expected, $parser->getWikiTextConversions() );
 		}

@@ -27,14 +27,21 @@ class WikiTextConversions {
 	private $badCategories = [];
 
 	/**
+	 * @var string[]
+	 */
+	private $transferTemplates = [];
+
+	/**
 	 * @param string[] $goodTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badCategories List of case-insensitive page names without namespace prefix
+	 * @param string[] $transferTemplates List of template to template mappings without template format
 	 */
 	public function __construct(
 		array $goodTemplates,
 		array $badTemplates,
-		array $badCategories
+		array $badCategories,
+		array $transferTemplates
 	) {
 		foreach ( $goodTemplates as $pageName ) {
 			$this->goodTemplates[$this->normalizePageName( $pageName )] = true;
@@ -46,6 +53,12 @@ class WikiTextConversions {
 
 		foreach ( $badCategories as $pageName ) {
 			$this->badCategories[$this->normalizePageName( $pageName )] = true;
+		}
+
+		foreach ( $transferTemplates as $from => $to ) {
+			$from = $this->normalizePageName( $from );
+			// TODO: Normalize the replacement the same way, but don't lowercase it.
+			$this->transferTemplates[$from] = $to;
 		}
 	}
 
@@ -87,6 +100,18 @@ class WikiTextConversions {
 	public function isCategoryBad( $pageName ) {
 		$pageName = $this->removeNamespaceFromString( $pageName );
 		return array_key_exists( $this->normalizePageName( $pageName ), $this->badCategories );
+	}
+
+	/**
+	 * @param string $templateName
+	 *
+	 * @return string|false
+	 */
+	public function swapTemplate( $templateName ) {
+		$templateName = $this->normalizePageName( $templateName );
+		return array_key_exists( $templateName, $this->transferTemplates )
+			? $this->transferTemplates[$templateName]
+			: false;
 	}
 
 	/**
