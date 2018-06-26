@@ -224,7 +224,7 @@ class ImportPreviewPage {
 		$replacements = $this->importPlan->getDetails()->getNumberOfTemplatesReplaced();
 		$summary = $replacements > 0
 			? $this->specialPage->msg( 'fileimporter-auto-replacements-summary', $replacements )
-				->plain()
+				->text()
 			: null;
 
 		return Html::element(
