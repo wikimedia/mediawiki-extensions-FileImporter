@@ -44,21 +44,20 @@ class WikiTextConversions {
 		array $transferTemplates
 	) {
 		foreach ( $goodTemplates as $pageName ) {
-			$this->goodTemplates[$this->normalizePageName( $pageName )] = true;
+			$this->goodTemplates[$this->lowercasePageName( $pageName )] = true;
 		}
 
 		foreach ( $badTemplates as $pageName ) {
-			$this->badTemplates[$this->normalizePageName( $pageName )] = true;
+			$this->badTemplates[$this->lowercasePageName( $pageName )] = true;
 		}
 
 		foreach ( $badCategories as $pageName ) {
-			$this->badCategories[$this->normalizePageName( $pageName )] = true;
+			$this->badCategories[$this->lowercasePageName( $pageName )] = true;
 		}
 
 		foreach ( $transferTemplates as $from => $to ) {
-			$from = $this->normalizePageName( $from );
-			// TODO: Normalize the replacement the same way, but don't lowercase it.
-			$this->transferTemplates[$from] = $to;
+			$from = $this->lowercasePageName( $from );
+			$this->transferTemplates[$from] = $this->normalizePageName( $to );
 		}
 	}
 
@@ -70,7 +69,7 @@ class WikiTextConversions {
 	 */
 	public function isTemplateGood( $pageName ) {
 		$pageName = $this->removeNamespaceFromString( $pageName );
-		return array_key_exists( $this->normalizePageName( $pageName ), $this->goodTemplates );
+		return array_key_exists( $this->lowercasePageName( $pageName ), $this->goodTemplates );
 	}
 
 	/**
@@ -88,7 +87,7 @@ class WikiTextConversions {
 	 */
 	public function isTemplateBad( $pageName ) {
 		$pageName = $this->removeNamespaceFromString( $pageName );
-		return array_key_exists( $this->normalizePageName( $pageName ), $this->badTemplates );
+		return array_key_exists( $this->lowercasePageName( $pageName ), $this->badTemplates );
 	}
 
 	/**
@@ -99,7 +98,7 @@ class WikiTextConversions {
 	 */
 	public function isCategoryBad( $pageName ) {
 		$pageName = $this->removeNamespaceFromString( $pageName );
-		return array_key_exists( $this->normalizePageName( $pageName ), $this->badCategories );
+		return array_key_exists( $this->lowercasePageName( $pageName ), $this->badCategories );
 	}
 
 	/**
@@ -108,7 +107,7 @@ class WikiTextConversions {
 	 * @return string|false
 	 */
 	public function swapTemplate( $templateName ) {
-		$templateName = $this->normalizePageName( $templateName );
+		$templateName = $this->lowercasePageName( $templateName );
 		return array_key_exists( $templateName, $this->transferTemplates )
 			? $this->transferTemplates[$templateName]
 			: false;
@@ -119,8 +118,17 @@ class WikiTextConversions {
 	 *
 	 * @return string
 	 */
+	private function lowercasePageName( $pageName ) {
+		return mb_convert_case( $this->normalizePageName( $pageName ), MB_CASE_LOWER );
+	}
+
+	/**
+	 * @param string $pageName
+	 *
+	 * @return string
+	 */
 	private function normalizePageName( $pageName ) {
-		return mb_convert_case( trim( str_replace( '_', ' ', $pageName ) ), MB_CASE_LOWER );
+		return trim( str_replace( '_', ' ', $pageName ) );
 	}
 
 	/**

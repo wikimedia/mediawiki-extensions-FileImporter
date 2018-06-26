@@ -62,4 +62,25 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $expected, $conversions->isCategoryBad( $requested ) );
 	}
 
+	public function provideTemplateReplacements() {
+		return [
+			'empty' => [ [], 'a', false ],
+			'no substring matching' => [ [ 'a' => 'b' ], 'aa', false ],
+			'rule is trimmed' => [ [ ' a ' => ' b ' ], 'a', 'b' ],
+			'input is trimmed' => [ [ 'a' => 'b' ], ' a ', 'b' ],
+			'rule is normalized' => [ [ 'a_a' => 'b_b' ], 'a a', 'b b' ],
+			'input is normalized' => [ [ 'a a' => 'b b' ], 'a_a', 'b b' ],
+			'rule is case-insensitive' => [ [ 'A A' => 'B B' ], 'a a', 'B B' ],
+			'input is case-insensitive' => [ [ 'a a' => 'b b' ], 'A A', 'b b' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideTemplateReplacements
+	 */
+	public function testTemplateReplacements( array $replacements, $requested, $expected ) {
+		$conversions = new WikiTextConversions( [], [], [], $replacements );
+		$this->assertSame( $expected, $conversions->swapTemplate( $requested ) );
+	}
+
 }
