@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Services;
 
-use FileImporter\Data\TextRevision;
 use FileImporter\Data\WikiTextConversions;
 use FileImporter\Services\WikiTextContentCleaner;
 
@@ -81,31 +80,11 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 		$expectedWikiText,
 		$expectedCount
 	) {
-		$revision = $this->newTextRevision( $wikiText );
 		$conversions = new WikiTextConversions( [], [], [], $replacements );
 		$cleaner = new WikiTextContentCleaner( $conversions );
 
-		$this->assertSame( $expectedCount, $cleaner->cleanWikiText( $revision ) );
-		$this->assertSame( $expectedWikiText ?: $wikiText, $revision->getField( '*' ) );
-	}
-
-	/**
-	 * @param string $wikitext
-	 *
-	 * @return TextRevision
-	 */
-	private function newTextRevision( $wikitext ) {
-		return new TextRevision( [
-			'minor' => null,
-			'user' => null,
-			'timestamp' => null,
-			'sha1' => null,
-			'contentmodel' => null,
-			'contentformat' => null,
-			'comment' => null,
-			'*' => $wikitext,
-			'title' => null,
-		] );
+		$this->assertSame( $expectedWikiText ?: $wikiText, $cleaner->cleanWikiText( $wikiText ) );
+		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 
 }

@@ -3,12 +3,16 @@
 namespace FileImporter\Services;
 
 use FileImporter\Data\WikiTextConversions;
-use FileImporter\Data\TextRevision;
 
 /**
  * @license GPL-2.0-or-later
  */
 class WikiTextContentCleaner {
+
+	/**
+	 * @var int
+	 */
+	private $latestNumberOfReplacements = 0;
 
 	/**
 	 * @var WikiTextConversions
@@ -20,13 +24,18 @@ class WikiTextContentCleaner {
 	}
 
 	/**
-	 * @param TextRevision $latestTextRevision
-	 *
 	 * @return int
 	 */
-	public function cleanWikiText( $latestTextRevision ) {
-		$wikiText = $latestTextRevision->getField( '*' );
+	public function getLatestNumberOfReplacements() {
+		return $this->latestNumberOfReplacements;
+	}
 
+	/**
+	 * @param string $wikiText
+	 *
+	 * @return string
+	 */
+	public function cleanWikiText( $wikiText ) {
 		preg_match_all( '/{{(.*?)}}/s', $wikiText, $templates );
 
 		$oldTemplates = [];
@@ -47,9 +56,9 @@ class WikiTextContentCleaner {
 		}
 
 		$wikiText = str_replace( $oldTemplates, $newTemplates, $wikiText, $count );
-		$latestTextRevision->setField( '*', $wikiText );
 
-		return count( $oldTemplates );
+		$this->latestNumberOfReplacements = count( $oldTemplates );
+		return $wikiText;
 	}
 
 	/**

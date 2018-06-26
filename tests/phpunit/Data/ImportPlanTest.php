@@ -100,6 +100,8 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details = $this->createMock( ImportDetails::class );
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
+		$details->method( 'getCleanedRevisionText' )
+			->willReturn( $originalText );
 
 		$plan = new ImportPlan( $request, $details, '' );
 		$this->assertSame( $expectedText, $plan->getFileInfoText() );

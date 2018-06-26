@@ -235,6 +235,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
 		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
 
+		$lastRevisionText = $textRevisions->getLatest()->getField( '*' );
 		$numberOfTemplatesReplaced = 0;
 		if ( $this->commonsHelperServer ) {
 			$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
@@ -273,9 +274,8 @@ class ApiDetailRetriever implements DetailRetriever {
 					$commonHelperConfigParser->getWikiTextConversions()
 				);
 
-				$numberOfTemplatesReplaced = $wikiTextContentCleaner->cleanWikiText(
-					$textRevisions->getLatest()
-				);
+				$lastRevisionText = $wikiTextContentCleaner->cleanWikiText( $lastRevisionText );
+				$numberOfTemplatesReplaced = $wikiTextContentCleaner->getLatestNumberOfReplacements();
 			}
 		}
 
@@ -289,6 +289,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			$fileRevisions,
 			$numberOfTemplatesReplaced
 		);
+
+		$importDetails->setCleanedRevisionText( $lastRevisionText );
 
 		return $importDetails;
 	}

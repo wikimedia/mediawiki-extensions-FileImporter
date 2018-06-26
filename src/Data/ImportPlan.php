@@ -135,7 +135,17 @@ class ImportPlan {
 				return $intendedWikiText;
 			}
 		}
-		return $this->getInitialFileInfoText();
+		return $this->getInitialCleanedInfoText();
+	}
+
+	/**
+	 * Appends a marker to the beginning of the cleaned File Info Text indicating that
+	 * it was imported using FileImporter
+	 *
+	 * @return string
+	 */
+	public function getInitialCleanedInfoText() {
+		return $this->addImportComment( $this->details->getCleanedRevisionText() );
 	}
 
 	/**
@@ -145,11 +155,9 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getInitialFileInfoText() {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-
-		return wfMsgReplaceArgs(
-			$config->get( 'FileImporterTextForPostImportRevision' ), [ $this->request->getUrl() ]
-			) . $this->details->getTextRevisions()->getLatest()->getField( '*' );
+		return $this->addImportComment(
+			$this->details->getTextRevisions()->getLatest()->getField( '*' )
+		);
 	}
 
 	/**
@@ -157,6 +165,18 @@ class ImportPlan {
 	 */
 	public function wasFileInfoTextChanged() {
 		return $this->getFileInfoText() !== $this->getInitialFileInfoText();
+	}
+
+	/**
+	 * @param string $text
+	 * @return string
+	 */
+	private function addImportComment( $text ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		return wfMsgReplaceArgs(
+				$config->get( 'FileImporterTextForPostImportRevision' ), [ $this->request->getUrl() ]
+			) . $text;
 	}
 
 }

@@ -325,7 +325,7 @@ class Importer {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		$editResult = $page->doEditContent(
-			new \WikitextContent( $importPlan->getInitialFileInfoText() ),
+			new \WikitextContent( $importPlan->getInitialCleanedInfoText() ),
 			wfMsgReplaceArgs(
 				$config->get( 'FileImporterCommentForPostImportRevision' ),
 				[ $importPlan->getRequest()->getUrl() ]

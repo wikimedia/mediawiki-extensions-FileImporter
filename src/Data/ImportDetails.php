@@ -34,6 +34,11 @@ class ImportDetails {
 	private $fileRevisions;
 
 	/**
+	 * @var string
+	 */
+	private $cleanedRevisionText = '';
+
+	/**
 	 * @var int
 	 */
 	private $numberOfTemplatesReplaced;
@@ -57,6 +62,13 @@ class ImportDetails {
 		$this->textRevisions = $textRevisions;
 		$this->fileRevisions = $fileRevisions;
 		$this->numberOfTemplatesReplaced = $numOfReplacedTemplates;
+	}
+
+	/**
+	 * @param string $text
+	 */
+	public function setCleanedRevisionText( $text ) {
+		$this->cleanedRevisionText = $text;
 	}
 
 	/**
@@ -120,6 +132,13 @@ class ImportDetails {
 	 */
 	public function getNumberOfTemplatesReplaced() {
 		return $this->numberOfTemplatesReplaced;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCleanedRevisionText() {
+		return $this->cleanedRevisionText;
 	}
 
 	/**
