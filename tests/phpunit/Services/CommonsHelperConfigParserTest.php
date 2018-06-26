@@ -185,11 +185,75 @@ WIKITEXT
 				$expectedGoodTemplates,
 				$expectedBadTemplates,
 				$expectedBadCategories,
-				// TODO: Test
 				[]
 			);
 			$this->assertEquals( $expected, $parser->getWikiTextConversions() );
 		}
+	}
+
+	public function provideTransferRules() {
+		return [
+			'empty' => [
+				'wikiText' => '',
+				'expected' => [],
+			],
+			'empty <dt> element' => [
+				'wikiText' => ';',
+				'expected' => [],
+			],
+			'no <dd> element' => [
+				'wikiText' => ';Local',
+				'expected' => [],
+			],
+			'empty <dd> element' => [
+				'wikiText' => ';Local:',
+				'expected' => [],
+			],
+			'empty <dd> element on next line' => [
+				'wikiText' => ";Local\n:",
+				'expected' => [],
+			],
+			'to many newlines' => [
+				'wikiText' => ";Local\n\n:Commons",
+				'expected' => [],
+			],
+			'bad parameter syntax on local side' => [
+				'wikiText' => ";Local|param:Commons",
+				'expected' => [],
+			],
+
+			'basic 1-line syntax' => [
+				'wikiText' => ';Local:Commons',
+				'expected' => [ 'Local' => 'Commons' ],
+			],
+			'basic 2-line syntax' => [
+				'wikiText' => ";Local\n:Commons",
+				'expected' => [ 'Local' => 'Commons' ],
+			],
+			'empty parameter list' => [
+				'wikiText' => ";Local:Commons|",
+				'expected' => [ 'Local' => 'Commons' ],
+			],
+			'one basic parameter' => [
+				'wikiText' => ";Local:Commons|local_param=commons_param",
+				'expected' => [ 'Local' => 'Commons' ],
+			],
+			'additional whitespace' => [
+				'wikiText' => "; Local : Commons | local_param = commons_param",
+				'expected' => [ 'Local' => 'Commons' ],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideTransferRules
+	 */
+	public function testTransferRules( $wikiText, array $expected ) {
+		$wikiText = "== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n$wikiText\n" .
+			"== Categories ==\n=== Bad ===";
+		$parser = new CommonsHelperConfigParser( '', $wikiText );
+		$expected = new WikiTextConversions( [], [], [], $expected );
+		$this->assertEquals( $expected, $parser->getWikiTextConversions() );
 	}
 
 }
