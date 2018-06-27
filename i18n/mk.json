@@ -59,6 +59,9 @@
 	"fileimporter-commonshelper-retrieval-failed": "Се појави грешка при проверката на блокирани податотеки.",
 	"fileimporter-commonshelper-parsing-failed": "Податотеката со поставки на вашето вики ($1) не содржи доволно информации за <$2> за да се знае дали истата може да се стави на Ризницата.",
 	"fileimporter-file-contains-blocked-category-template": "Податотеката не може да се увезе бидејќи е обележана како $1. Вакви податотеки не се дозволени на $2.",
-	"fileimporter-file-missing-required-template": "Податотеката не може да се увезе бидејќи не е означена со една од бараните лиценци. Ставете еден од таквите шаблони, ако одговара.",
-	"fileimporter-input-page-info-text": "Дознајте повеќе на [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons помошната страница]."
+	"fileimporter-file-missing-required-template": "Податотеката не може да се увезе бидејќи не е означена со една од бараните лиценци.",
+	"fileimporter-auto-replacements-summary": "Заменети $1 имиња на шаблони со {{SITENAME}}",
+	"fileimporter-input-page-info-text": "Дознајте повеќе на [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons помошната страница].",
+	"fileimporter-viewdiff": "Прикажи промени",
+	"fileimporter-to-preview": "Назад на прегледот"
 }

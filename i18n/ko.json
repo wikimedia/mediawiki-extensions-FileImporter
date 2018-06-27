@@ -56,5 +56,8 @@
 	"fileimporter-commonshelper-parsing-failed": "위키의 구성 파일($1)에 이 파일이 공용에 위치할 수 있는지 알기 위한 <$2>에 관한 충분한 정보가 포함되어 있지 않습니다.",
 	"fileimporter-file-contains-blocked-category-template": "$1 표시로 인해 파일을 가져올 수 없습니다. $2은(는) 이러한 파일을 허용하지 않습니다.",
 	"fileimporter-file-missing-required-template": "필요한 라이선스 중 하나로 표시되지 않았으므로 파일을 가져올 수 없습니다.",
-	"fileimporter-input-page-info-text": "[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 도움말 문서]에 방문하여 더 알아보세요."
+	"fileimporter-auto-replacements-summary": "$1개의 틀 이름을 {{SITENAME}} 틀 이름으로 변경함",
+	"fileimporter-input-page-info-text": "[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 도움말 문서]에 방문하여 더 알아보세요.",
+	"fileimporter-viewdiff": "변경사항 보기",
+	"fileimporter-to-preview": "미리 보기로 돌아가기"
 }
