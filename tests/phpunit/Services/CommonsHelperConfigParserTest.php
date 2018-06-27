@@ -234,14 +234,63 @@ WIKITEXT
 				'wikiText' => ";Local:Commons|",
 				'expected' => [ 'Local' => 'Commons' ],
 			],
+
 			'one basic parameter' => [
-				'wikiText' => ";Local:Commons|local_param=commons_param",
-				'expected' => [ 'Local' => 'Commons' ],
+				'wikiText' => ";Local:Commons|commons_param=local_param",
+				'expected' => [ 'Local' => [
+					'commonsTemplate' => 'Commons',
+					'parameters' => [ 'commons_param' => [
+						'addIfMissing' => false,
+						'addLanguageTemplate' => false,
+						'localParameters' => 'local_param',
+					] ],
+				] ],
 			],
 			'additional whitespace' => [
-				'wikiText' => "; Local : Commons | local_param = commons_param",
-				'expected' => [ 'Local' => 'Commons' ],
+				'wikiText' => "; Local : Commons | commons_param = local_param",
+				'expected' => [ 'Local' => [
+					'commonsTemplate' => 'Commons',
+					'parameters' => [ 'commons_param' => [
+						'addIfMissing' => false,
+						'addLanguageTemplate' => false,
+						'localParameters' => 'local_param',
+					] ],
+				] ],
 			],
+			'+add syntax' => [
+				'wikiText' => ";Local:Commons|+commons_param=local_param",
+				'expected' => [ 'Local' => [
+					'commonsTemplate' => 'Commons',
+					'parameters' => [ 'commons_param' => [
+						'addIfMissing' => true,
+						'addLanguageTemplate' => false,
+						'localParameters' => 'local_param',
+					] ],
+				] ],
+			],
+			'@language parameter syntax' => [
+				'wikiText' => ";Local:Commons|@commons_param=local_param",
+				'expected' => [ 'Local' => [
+					'commonsTemplate' => 'Commons',
+					'parameters' => [ 'commons_param' => [
+						'addIfMissing' => false,
+						'addLanguageTemplate' => true,
+						'localParameters' => 'local_param',
+					] ],
+				] ],
+			],
+			'%MAGIC_WORD% syntax' => [
+				'wikiText' => ";Local:Commons|commons_param=%MAGIC_WORD%",
+				'expected' => [ 'Local' => [
+					'commonsTemplate' => 'Commons',
+					'parameters' => [],
+				] ],
+			],
+
+			// TODO: Test combined +@ and @+ prefixes
+			// TODO: Test + and @ when not the first character
+			// TODO: Test combinations of + and @ with a %MAGIC_WORD%
+			// TODO: Test %MAGIC_WORD% syntax when surrounded by text
 		];
 	}
 

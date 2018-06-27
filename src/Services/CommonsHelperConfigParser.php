@@ -138,13 +138,43 @@ class CommonsHelperConfigParser {
 	/**
 	 * @param string $wikiText
 	 *
-	 * @return string[]
+	 * @return array[]
 	 */
 	private function parseTransferList( $wikiText ) {
-		// TODO: Apply the same *+ treatment on all other regular expressions. This stops
-		// backtracking where it's not wanted.
-		preg_match_all( '/^;\h*+([^:|\n]+)\n?:\h*+([^:|\n]+)/m', $wikiText, $matches );
-		return array_combine( $matches[1], $matches[2] );
+		$transfers = [];
+
+		preg_match_all(
+			'/^;\h*+([^:|\n]+)\n?:\h*+([^:|\n]+)(.*)/m',
+			$wikiText,
+			$patterns,
+			PREG_SET_ORDER
+		);
+		foreach ( $patterns as $pattern ) {
+			list( , $localTemplate, $commonsTemplate, $paramPatterns ) = $pattern;
+			$parameterTransfers = [];
+
+			$paramPatterns = preg_split( '/\s*\|+\s*/', $paramPatterns, -1, PREG_SPLIT_NO_EMPTY );
+			foreach ( $paramPatterns as $paramPattern ) {
+				list( $commonsParam, $localParam ) = preg_split( '/\s*=\s*/', $paramPattern, 2 );
+				// TODO: The magic words "%AUTHOR%" and "%TRANSFERUSER%" are not supported yet
+				if ( strpos( $localParam, '%' ) !== false ) {
+					continue;
+				}
+
+				$parameterTransfers[ltrim( $commonsParam, '+@' )] = [
+					'addIfMissing' => $commonsParam[0] === '+',
+					'addLanguageTemplate' => $commonsParam[0] === '@',
+					'localParameters' => $localParam,
+				];
+			}
+
+			$transfers[$localTemplate] = [
+				'commonsTemplate' => $commonsTemplate,
+				'parameters' => $parameterTransfers,
+			];
+		}
+
+		return $transfers;
 	}
 
 }
