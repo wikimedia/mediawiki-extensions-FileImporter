@@ -7,6 +7,9 @@ use FileImporter\Services\WikiTextContentCleaner;
 
 /**
  * @covers \FileImporter\Services\WikiTextContentCleaner
+ *
+ * @license GPL-2.0-or-later
+ * @author Thiemo Kreuz
  */
 class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
@@ -98,6 +101,22 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'wikitext' => '{{Info|Desc=…}}',
 				'expectedWikiText' => '{{Info|Description=…}}',
 				'expectedCount' => 1,
+			],
+
+			'nested templates do not shift parameter offsets' => [
+				'replacements' => [
+					'a' => [
+						'commonsTemplate' => 'a',
+						'parameters' => [ 'parameter2' => [ 'localParameters' => 'p2' ] ],
+					],
+					'b' => [
+						'commonsTemplate' => 'b',
+						'parameters' => [ 'parameter1' => [ 'localParameters' => 'p1' ] ],
+					],
+				],
+				'wikitext' => '{{a |p1={{b |p1=… }} |p2=… }}',
+				'expectedWikiText' => '{{a |p1={{b |parameter1=… }} |parameter2=… }}',
+				'expectedCount' => 2,
 			],
 
 			'replace numeric parameters' => [

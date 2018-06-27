@@ -8,6 +8,9 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever
+ *
+ * @license GPL-2.0-or-later
+ * @author Thiemo Kreuz
  */
 class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;

@@ -139,7 +139,7 @@ class CommonsHelperConfigRetriever {
 	 * @return string
 	 */
 	private function buildAPIRequest( SourceUrl $sourceUrl ) {
-		return $this->configServer .'/w/api.php?' .
+		return $this->configServer . '/w/api.php?' .
 			$this->buildAPIQueryParams( $this->getQueryParamTitle( $sourceUrl ) );
 	}
 

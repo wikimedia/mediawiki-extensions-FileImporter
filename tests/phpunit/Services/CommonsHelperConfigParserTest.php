@@ -8,6 +8,9 @@ use FileImporter\Services\CommonsHelperConfigParser;
 
 /**
  * @covers \FileImporter\Services\CommonsHelperConfigParser
+ *
+ * @license GPL-2.0-or-later
+ * @author Thiemo Kreuz
  */
 class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;

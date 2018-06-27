@@ -6,6 +6,7 @@ use FileImporter\Data\WikiTextConversions;
 
 /**
  * @license GPL-2.0-or-later
+ * @author Thiemo Kreuz
  */
 class WikiTextContentCleaner {
 
@@ -131,12 +132,16 @@ class WikiTextContentCleaner {
 
 	/**
 	 * @param string $wikiText
-	 * @param array[] $parameters
-	 * @param array $replacements
+	 * @param array[] $parameters as returned by {@see parseTemplateParameters}
+	 * @param string[] $replacements Array mapping old to new parameter names
 	 *
 	 * @return string
 	 */
 	private function renameTemplateParameters( $wikiText, array $parameters, array $replacements ) {
+		if ( $replacements === [] ) {
+			return $wikiText;
+		}
+
 		// Replacements must be applied in reverse order to not mess with the captured offsets!
 		for ( $i = count( $parameters ); $i-- > 0; ) {
 			$from = isset( $parameters[$i]['name'] )
