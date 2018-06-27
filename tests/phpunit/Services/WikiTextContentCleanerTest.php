@@ -148,6 +148,19 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedWikiText' => '{{Info|{{{Info|Desc=…}}}|Description=…}}',
 				'expectedCount' => 1,
 			],
+
+			'end-of-text' => [
+				'replacements' => [ 'Info' => [
+					'commonsTemplate' => 'Info',
+					'parameters' => [
+						'x' => [ 'localParameters' => 'a' ],
+						'y' => [ 'localParameters' => 'b' ],
+					],
+				] ],
+				'wikitext' => '{{Info|a=|b=',
+				'expectedWikiText' => '{{Info|x=|y=',
+				'expectedCount' => 1,
+			],
 		];
 	}
 
