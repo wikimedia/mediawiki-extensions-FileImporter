@@ -36,38 +36,35 @@ class WikiTextContentCleaner {
 	 * @return string
 	 */
 	public function cleanWikiText( $wikiText ) {
-		preg_match_all( '/{{(.*?)}}/s', $wikiText, $templates );
+		$this->latestNumberOfReplacements = 0;
 
-		$oldTemplates = [];
-		$newTemplates = [];
+		preg_match_all(
+			// This intentionally only searches for the start of each template
+			'/(?<!{){{\s*+([^{|}]+?)\s*(?=\||}})/s',
+			$wikiText,
+			$matches,
+			PREG_OFFSET_CAPTURE
+		);
 
-		foreach ( $templates[1] as $template ) {
-			$templateComponents = preg_split( '/(\s*\|)/', $template, 2, PREG_SPLIT_DELIM_CAPTURE );
-			$templateOldName = $templateComponents[0];
-			$templateNewName = $this->wikiTextConversions->swapTemplate( $templateOldName );
+		// Replacements must be applied in reverse order to not mess with the captured offsets!
+		for ( $i = count( $matches[1] ); $i-- > 0; ) {
+			list( $oldTemplateName, $position ) = $matches[1][$i];
 
-			if ( !$templateNewName ) {
+			$newTemplateName = $this->wikiTextConversions->swapTemplate( $oldTemplateName );
+			if ( !$newTemplateName ) {
 				continue;
 			}
-			$templateComponents[0] = $templateNewName;
 
-			array_push( $oldTemplates, $this->templatify( $template ) );
-			array_push( $newTemplates, $this->templatify( implode( $templateComponents ) ) );
+			$wikiText = substr_replace(
+				$wikiText,
+				$newTemplateName,
+				$position,
+				strlen( $oldTemplateName )
+			);
+			$this->latestNumberOfReplacements++;
 		}
 
-		$wikiText = str_replace( $oldTemplates, $newTemplates, $wikiText, $count );
-
-		$this->latestNumberOfReplacements = count( $oldTemplates );
 		return $wikiText;
-	}
-
-	/**
-	 * @param string $template
-	 *
-	 * @return string
-	 */
-	private function templatify( $template ) {
-		return '{{' . $template . '}}';
 	}
 
 }
