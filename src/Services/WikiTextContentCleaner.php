@@ -77,9 +77,13 @@ class WikiTextContentCleaner {
 
 	/**
 	 * @param string $wikiText
-	 * @param int $startPosition
+	 * @param int $startPosition Must be after the opening {{, and before or exactly at the first |
 	 *
-	 * @return array[]
+	 * @return array[] List of template parameters found, each in the format [
+	 *     'offset' => int,
+	 *     'number' => int,
+	 *     'name' => string,
+	 * ]
 	 */
 	public function parseTemplateParameters( $wikiText, $startPosition ) {
 		$max = strlen( $wikiText );
@@ -91,35 +95,33 @@ class WikiTextContentCleaner {
 		for ( $i = $startPosition; $i < $max; $i++ ) {
 			switch ( $wikiText[$i] ) {
 				case '}':
-					if ( $wikiText[$i + 1] !== '}' ) {
-						continue;
+					if ( $wikiText[$i + 1] === '}' ) {
+						if ( !$nesting ) {
+							// Found the closing }}, abort the switch and the for-loop
+							break 2;
+						}
+						$nesting--;
 					}
-					if ( $nesting === 0 ) {
-						break 2;
-					}
-					$nesting--;
 					break;
 				case '{':
-					if ( $wikiText[$i + 1] !== '{' ) {
-						continue;
+					if ( $wikiText[$i + 1] === '{' ) {
+						$nesting++;
 					}
-					$nesting++;
 					break;
 				case '|':
-					if ( $nesting === 0 ) {
-						$p++;
-						$number++;
-						$params[$p] = [ 'number' => $number, 'offset' => $i + 1 ];
+					if ( !$nesting ) {
+						$params[++$p] = [ 'number' => ++$number, 'offset' => $i + 1 ];
 					}
 					break;
 				case '=':
-					if ( $nesting === 0 && $p !== -1 && !isset( $params[$p]['name'] ) ) {
+					if ( !$nesting && $p !== -1 && !isset( $params[$p]['name'] ) ) {
 						unset( $params[$p]['number'] );
 						$number--;
 
 						$offset = $params[$p]['offset'];
 						$name = rtrim( substr( $wikiText, $offset, $i - $offset ) );
 						$params[$p]['name'] = ltrim( $name );
+						// Skip (optional) whitespace between | and the parameter name
 						$params[$p]['offset'] += strlen( $name ) - strlen( $params[$p]['name'] );
 						// TODO: Value replacements are currently not supported.
 					}
