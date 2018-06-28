@@ -32,5 +32,6 @@
 	"fileimporter-heading-filehistory": "ফাইলের ইতিহাস",
 	"fileimporter-import-wait": "আমদানি করতে কয়েক মিনিট সময় লাগতে পারে।",
 	"fileimporter-file-missing-required-template": "ফাইলটি আমদানি করা যাবে না, কারণ এটি প্রয়োজনীয় লাইসেন্সগুলির কোন একটি দ্বারা চিহ্নিত নয়।",
+	"fileimporter-viewdiff": "পরিবর্তনসমূহ দেখান",
 	"fileimporter-to-preview": "প্রাকদর্শনে ফিরুন"
 }

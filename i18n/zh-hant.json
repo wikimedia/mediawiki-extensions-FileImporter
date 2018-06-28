@@ -62,5 +62,8 @@
 	"fileimporter-commonshelper-parsing-failed": "您 wiki（$1）的設置檔案裡，沒有包含有關 <$2> 的足夠資訊來確認是否可放置到共享資源上。",
 	"fileimporter-file-contains-blocked-category-template": "檔案無法匯入，因為被標記成$1。$2 不允許這類型檔案。",
 	"fileimporter-file-missing-required-template": "檔案無法匯入，因為沒有標記所需的許可協議之一。",
-	"fileimporter-input-page-info-text": "查看我們的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 說明頁面]來了解更多。"
+	"fileimporter-auto-replacements-summary": "已使用 {{SITENAME}} 模板名稱來取代 $1 個模板名稱",
+	"fileimporter-input-page-info-text": "查看我們的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 說明頁面]來了解更多。",
+	"fileimporter-viewdiff": "顯示變更",
+	"fileimporter-to-preview": "返回預覽"
 }
