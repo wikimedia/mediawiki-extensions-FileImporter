@@ -37,15 +37,15 @@ class WikiTextConversions {
 	 * @param string[] $goodTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badCategories List of case-insensitive page names without namespace prefix
-	 * @param array[] $transferTemplates List mapping local template names without namespace prefix
+	 * @param array[] $transferTemplates List mapping source template names without namespace prefix
 	 *  to replacement rules in the following format:
-	 *  string $localTemplate => [
-	 *      'commonsTemplate' => string,
+	 *  string $sourceTemplate => [
+	 *      'targetTemplate' => string,
 	 *      'parameters' => [
-	 *          string $commonsParameter => [
+	 *          string $targetParameter => [
 	 *              'addIfMissing' => bool,
 	 *              'addLanguageTemplate' => bool,
-	 *              'localParameters' => string|string[],
+	 *              'sourceParameters' => string|string[],
 	 *          ],
 	 *          …
 	 *      ],
@@ -72,15 +72,15 @@ class WikiTextConversions {
 		foreach ( $transferTemplates as $from => $to ) {
 			// TODO: Accepts strings for backwards-compatibility; remove if not needed any more
 			if ( is_string( $to ) ) {
-				$to = [ 'commonsTemplate' => $to, 'parameters' => [] ];
+				$to = [ 'targetTemplate' => $to, 'parameters' => [] ];
 			}
 
-			if ( empty( $to['commonsTemplate'] ) ) {
-				throw new InvalidArgumentException( 'Transfer rule misses "commonsTemplate"' );
+			if ( empty( $to['targetTemplate'] ) ) {
+				throw new InvalidArgumentException( 'Transfer rule misses "targetTemplate"' );
 			}
 
 			$from = $this->lowercasePageName( $from );
-			$to['commonsTemplate'] = $this->normalizePageName( $to['commonsTemplate'] );
+			$to['targetTemplate'] = $this->normalizePageName( $to['targetTemplate'] );
 			$this->transferTemplates[$from] = $to;
 		}
 	}
@@ -133,7 +133,7 @@ class WikiTextConversions {
 	public function swapTemplate( $templateName ) {
 		$templateName = $this->lowercasePageName( $templateName );
 		return array_key_exists( $templateName, $this->transferTemplates )
-			? $this->transferTemplates[$templateName]['commonsTemplate']
+			? $this->transferTemplates[$templateName]['targetTemplate']
 			: false;
 	}
 
@@ -152,7 +152,7 @@ class WikiTextConversions {
 		}
 
 		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
-			if ( in_array( $sourceParameter, (array)$opt['localParameters'], true ) ) {
+			if ( in_array( $sourceParameter, (array)$opt['sourceParameters'], true ) ) {
 				return $targetParameter;
 			}
 		}
@@ -173,7 +173,7 @@ class WikiTextConversions {
 
 		$replacements = [];
 		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
-			foreach ( (array)$opt['localParameters'] as $sourceParameter ) {
+			foreach ( (array)$opt['sourceParameters'] as $sourceParameter ) {
 				$replacements[$sourceParameter] = $targetParameter;
 			}
 		}

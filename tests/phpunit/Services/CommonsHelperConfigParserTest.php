@@ -205,87 +205,87 @@ WIKITEXT
 				'expected' => [],
 			],
 			'no <dd> element' => [
-				'wikiText' => ';Local',
+				'wikiText' => ';Source',
 				'expected' => [],
 			],
 			'empty <dd> element' => [
-				'wikiText' => ';Local:',
+				'wikiText' => ';Source:',
 				'expected' => [],
 			],
 			'empty <dd> element on next line' => [
-				'wikiText' => ";Local\n:",
+				'wikiText' => ";Source\n:",
 				'expected' => [],
 			],
 			'to many newlines' => [
-				'wikiText' => ";Local\n\n:Commons",
+				'wikiText' => ";Source\n\n:Target",
 				'expected' => [],
 			],
 			'bad parameter syntax on local side' => [
-				'wikiText' => ";Local|param:Commons",
+				'wikiText' => ";Source|param:Target",
 				'expected' => [],
 			],
 
 			'basic 1-line syntax' => [
-				'wikiText' => ';Local:Commons',
-				'expected' => [ 'Local' => 'Commons' ],
+				'wikiText' => ';Source:Target',
+				'expected' => [ 'Source' => 'Target' ],
 			],
 			'basic 2-line syntax' => [
-				'wikiText' => ";Local\n:Commons",
-				'expected' => [ 'Local' => 'Commons' ],
+				'wikiText' => ";Source\n:Target",
+				'expected' => [ 'Source' => 'Target' ],
 			],
 			'empty parameter list' => [
-				'wikiText' => ";Local:Commons|",
-				'expected' => [ 'Local' => 'Commons' ],
+				'wikiText' => ";Source:Target|",
+				'expected' => [ 'Source' => 'Target' ],
 			],
 
 			'one basic parameter' => [
-				'wikiText' => ";Local:Commons|commons_param=local_param",
-				'expected' => [ 'Local' => [
-					'commonsTemplate' => 'Commons',
-					'parameters' => [ 'commons_param' => [
+				'wikiText' => ";Source:Target|target_param=source_param",
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ 'target_param' => [
 						'addIfMissing' => false,
 						'addLanguageTemplate' => false,
-						'localParameters' => 'local_param',
+						'sourceParameters' => 'source_param',
 					] ],
 				] ],
 			],
 			'additional whitespace' => [
-				'wikiText' => "; Local : Commons | commons_param = local_param",
-				'expected' => [ 'Local' => [
-					'commonsTemplate' => 'Commons',
-					'parameters' => [ 'commons_param' => [
+				'wikiText' => "; Source : Target | target_param = source_param",
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ 'target_param' => [
 						'addIfMissing' => false,
 						'addLanguageTemplate' => false,
-						'localParameters' => 'local_param',
+						'sourceParameters' => 'source_param',
 					] ],
 				] ],
 			],
 			'+add syntax' => [
-				'wikiText' => ";Local:Commons|+commons_param=local_param",
-				'expected' => [ 'Local' => [
-					'commonsTemplate' => 'Commons',
-					'parameters' => [ 'commons_param' => [
+				'wikiText' => ";Source:Target|+target_param=source_param",
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ 'target_param' => [
 						'addIfMissing' => true,
 						'addLanguageTemplate' => false,
-						'localParameters' => 'local_param',
+						'sourceParameters' => 'source_param',
 					] ],
 				] ],
 			],
 			'@language parameter syntax' => [
-				'wikiText' => ";Local:Commons|@commons_param=local_param",
-				'expected' => [ 'Local' => [
-					'commonsTemplate' => 'Commons',
-					'parameters' => [ 'commons_param' => [
+				'wikiText' => ";Source:Target|@target_param=source_param",
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ 'target_param' => [
 						'addIfMissing' => false,
 						'addLanguageTemplate' => true,
-						'localParameters' => 'local_param',
+						'sourceParameters' => 'source_param',
 					] ],
 				] ],
 			],
 			'%MAGIC_WORD% syntax' => [
-				'wikiText' => ";Local:Commons|commons_param=%MAGIC_WORD%",
-				'expected' => [ 'Local' => [
-					'commonsTemplate' => 'Commons',
+				'wikiText' => ";Source:Target|target_param=%MAGIC_WORD%",
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
 					'parameters' => [],
 				] ],
 			],

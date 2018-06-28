@@ -150,26 +150,26 @@ class CommonsHelperConfigParser {
 			PREG_SET_ORDER
 		);
 		foreach ( $patterns as $pattern ) {
-			list( , $localTemplate, $commonsTemplate, $paramPatterns ) = $pattern;
+			list( , $sourceTemplate, $targetTemplate, $paramPatterns ) = $pattern;
 			$parameterTransfers = [];
 
 			$paramPatterns = preg_split( '/\s*\|+\s*/', $paramPatterns, -1, PREG_SPLIT_NO_EMPTY );
 			foreach ( $paramPatterns as $paramPattern ) {
-				list( $commonsParam, $localParam ) = preg_split( '/\s*=\s*/', $paramPattern, 2 );
+				list( $targetParam, $sourceParam ) = preg_split( '/\s*=\s*/', $paramPattern, 2 );
 				// TODO: The magic words "%AUTHOR%" and "%TRANSFERUSER%" are not supported yet
-				if ( strpos( $localParam, '%' ) !== false ) {
+				if ( strpos( $sourceParam, '%' ) !== false ) {
 					continue;
 				}
 
-				$parameterTransfers[ltrim( $commonsParam, '+@' )] = [
-					'addIfMissing' => $commonsParam[0] === '+',
-					'addLanguageTemplate' => $commonsParam[0] === '@',
-					'localParameters' => $localParam,
+				$parameterTransfers[ltrim( $targetParam, '+@' )] = [
+					'addIfMissing' => $targetParam[0] === '+',
+					'addLanguageTemplate' => $targetParam[0] === '@',
+					'sourceParameters' => $sourceParam,
 				];
 			}
 
-			$transfers[$localTemplate] = [
-				'commonsTemplate' => $commonsTemplate,
+			$transfers[$sourceTemplate] = [
+				'targetTemplate' => $targetTemplate,
 				'parameters' => $parameterTransfers,
 			];
 		}
