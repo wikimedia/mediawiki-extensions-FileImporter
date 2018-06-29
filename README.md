@@ -8,8 +8,8 @@ This extension has been created as part of the
 [2013 German Community Technical Wishlist](https://meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons)
 where a wish requested that it be possible to
 ["Correctly move files from Wikipedia to Commons"](https://phabricator.wikimedia.org/T140462)
-including file & description page history along with maintaining edit attribution & migrating
-templates.
+including file & description page history along with maintaining edit attribution &
+[migrating templates](docs/wikitext-cleanup.md).
 
 Please also see the [FileExporter extension](https://www.mediawiki.org/wiki/Extension:FileExporter)
 which provides a link on the file pages of a MediaWiki site to link to a wiki that is running the
@@ -43,7 +43,8 @@ import files. Default is `false`.
 prefixes (e.g. `mw`, which always points to mediawiki.org).
 
 **FileImporterCommonsHelperServer** and **FileImporterCommonsHelperBasePageName** specify the
-location of CommonsHelper2-compatible rule sets that specify transfer rules and template migrations
+location of CommonsHelper2-compatible rule sets that specify
+[transfer rules and template migrations](docs/wikitext-cleanup.md)
 for individual source wikis. For example, with server and base page name set to
 `https://www.mediawiki.org/` and `Extension:FileImporter/Data/`, imports from en.wikipedia.org will
 be restricted by the rules specified in
