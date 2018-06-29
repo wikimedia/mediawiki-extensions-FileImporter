@@ -53,7 +53,10 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( 'wgEnableUploads', true );
+		$this->setMwGlobals( [
+			'wgEnableUploads' => true ,
+			'wgFileImporterShowInputScreen' => true,
+		] );
 
 		$commonsSite = $this->getMockSite( 'commonswiki', 'commons.wikimedia.org' );
 		$hashSiteStore = new HashSiteStore( [ $commonsSite ] );
