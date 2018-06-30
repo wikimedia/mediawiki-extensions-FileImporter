@@ -59,5 +59,7 @@
 	"fileimporter-commonshelper-retrieval-failed": "Ett fel uppstod under kontroll efter blockerade filer.",
 	"fileimporter-commonshelper-parsing-failed": "Konfigurationsfilen för din wiki ($1) innehåller inte tillräckligt mycket info om <$2> för att veta om denna fil kan läggas upp på Commons.",
 	"fileimporter-file-contains-blocked-category-template": "Denna fil kan inte importera, eftersom den är markerad som $1. $2 tillåter inte dessa filer.",
-	"fileimporter-file-missing-required-template": "Filen kan inte importeras, eftersom den är inte markerad med en av de begärda licenserna. Lägg till en av dessa mallar om det går."
+	"fileimporter-file-missing-required-template": "Filen kan inte importeras, eftersom den är inte markerad med en av de begärda licenserna. Lägg till en av dessa mallar om det går.",
+	"fileimporter-viewdiff": "Visa ändringar",
+	"fileimporter-to-preview": "Tillbaka till förhandsgranskning"
 }
