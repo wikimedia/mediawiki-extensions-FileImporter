@@ -135,6 +135,15 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedWikiText' => '{{GFDL|migration=not-eligible}}',
 			],
 
+			'add missing parameter reuses existing wikitext format' => [
+				'replacements' => [ 'Bild-GFDL-Neu' => [
+					'targetTemplate' => 'GFDL',
+					'parameters' => [ 'migration' => [ 'addIfMissing' => true ] ],
+				] ],
+				'wikitext' => "{{Bild-GFDL-Neu\n | p1 = …\n}}",
+				'expectedWikiText' => "{{GFDL\n | migration = \n | p1 = …\n}}",
+			],
+
 			'add missing parameter without value' => [
 				'replacements' => [ 'Bild-GFDL-Neu' => [
 					'targetTemplate' => 'GFDL',

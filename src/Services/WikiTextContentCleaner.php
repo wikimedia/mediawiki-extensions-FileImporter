@@ -119,6 +119,7 @@ class WikiTextContentCleaner {
 				case '|':
 					if ( !$nesting ) {
 						$params[++$p] = [ 'number' => ++$number, 'offset' => $i + 1 ];
+						$params[$p]['format'] = $this->scanFormatSnippet( $wikiText, $i ) . '_=';
 					}
 					break;
 				case '=':
@@ -131,6 +132,8 @@ class WikiTextContentCleaner {
 						$params[$p]['name'] = ltrim( $name );
 						// Skip (optional) whitespace between | and the parameter name
 						$params[$p]['offset'] += strlen( $name ) - strlen( $params[$p]['name'] );
+						$params[$p]['format'] = rtrim( $params[$p]['format'], '=' )
+							. $this->scanFormatSnippet( $wikiText, $i );
 						// TODO: Value replacements are currently not supported.
 					}
 					break;
@@ -138,6 +141,28 @@ class WikiTextContentCleaner {
 		}
 
 		return $params;
+	}
+
+	/**
+	 * @param string $wikiText
+	 * @param int $offset
+	 *
+	 * @return string Substring from $wikiText including the character at $offset, and all
+	 *  whitespace left and right
+	 */
+	private function scanFormatSnippet( $wikiText, $offset ) {
+		$from = $offset;
+		while ( $from > 0 && ctype_space( $wikiText[$from - 1] ) ) {
+			$from--;
+		}
+
+		$to = $offset + 1;
+		$max = strlen( $wikiText );
+		while ( $to < $max && ctype_space( $wikiText[$to] ) ) {
+			$to++;
+		}
+
+		return substr( $wikiText, $from, $to - $from );
 	}
 
 	/**
@@ -187,14 +212,19 @@ class WikiTextContentCleaner {
 		array $parameters,
 		$offset
 	) {
+		if ( $required === [] ) {
+			return $wikiText;
+		}
+
 		foreach ( $parameters as $param ) {
 			$name = isset( $param['name'] ) ? $param['name'] : $param['number'];
 			unset( $required[$name] );
 		}
 
+		$format = $parameters ? $parameters[0]['format'] : '|_=';
 		$newWikiText = '';
 		foreach ( $required as $name => $value ) {
-			$newWikiText .= "|$name=$value";
+			$newWikiText .= str_replace( '_', $name, $format ) . $value;
 		}
 
 		return substr_replace( $wikiText, $newWikiText, $offset, 0 );
