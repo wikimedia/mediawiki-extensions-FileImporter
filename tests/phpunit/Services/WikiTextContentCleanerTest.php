@@ -48,21 +48,18 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => '{{Info}}',
 				'expectedWikiText' => '{{Information}}',
-				'expectedCount' => 1,
 			],
 
 			'case-insensitive' => [
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => '{{info}}',
 				'expectedWikiText' => '{{Information}}',
-				'expectedCount' => 1,
 			],
 
 			'complex parameters' => [
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => '{{info|desc={{en|Desc with a [[…|link]].}}}}',
 				'expectedWikiText' => '{{Information|desc={{en|Desc with a [[…|link]].}}}}',
-				'expectedCount' => 1,
 			],
 
 			'count different replacements' => [
@@ -83,7 +80,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => "{{Info\n| param = value\n}}",
 				'expectedWikiText' => "{{Information\n| param = value\n}}",
-				'expectedCount' => 1,
 			],
 
 			'replace nested templates' => [
@@ -100,7 +96,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				] ],
 				'wikitext' => '{{Info|Desc=…}}',
 				'expectedWikiText' => '{{Info|Description=…}}',
-				'expectedCount' => 1,
 			],
 
 			'nested templates do not shift parameter offsets' => [
@@ -126,7 +121,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				] ],
 				'wikitext' => '{{Info|a|b}}',
 				'expectedWikiText' => '{{Info|a|Description=b}}',
-				'expectedCount' => 1,
 			],
 
 			'add missing parameter' => [
@@ -139,7 +133,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				] ],
 				'wikitext' => '{{Bild-GFDL-Neu}}',
 				'expectedWikiText' => '{{GFDL|migration=not-eligible}}',
-				'expectedCount' => 1,
 			],
 
 			'add missing parameter without value' => [
@@ -149,7 +142,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				] ],
 				'wikitext' => "{{Bild-GFDL-Neu\n}}",
 				'expectedWikiText' => "{{GFDL|migration=\n}}",
-				'expectedCount' => 1,
 			],
 
 			'add missing parameter cannot replace existing' => [
@@ -162,7 +154,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				] ],
 				'wikitext' => '{{Bild-GFDL-Neu|migration=old}}',
 				'expectedWikiText' => '{{GFDL|migration=old}}',
-				'expectedCount' => 1,
 			],
 
 			// TODO: "value" should overwrite empty old value
@@ -186,7 +177,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				] ],
 				'wikitext' => '{{Info|{{{Info|Desc=…}}}|Desc=…}}',
 				'expectedWikiText' => '{{Info|{{{Info|Desc=…}}}|Description=…}}',
-				'expectedCount' => 1,
 			],
 
 			'end-of-text' => [
@@ -199,7 +189,6 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				] ],
 				'wikitext' => '{{Info|a=|b=',
 				'expectedWikiText' => '{{Info|x=|y=',
-				'expectedCount' => 1,
 			],
 		];
 	}
@@ -211,7 +200,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 		array $replacements,
 		$wikiText,
 		$expectedWikiText,
-		$expectedCount
+		$expectedCount = 1
 	) {
 		$conversions = new WikiTextConversions( [], [], [], $replacements );
 		$cleaner = new WikiTextContentCleaner( $conversions );
