@@ -173,8 +173,10 @@ class WikiTextConversions {
 
 		$replacements = [];
 		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
-			foreach ( (array)$opt['sourceParameters'] as $sourceParameter ) {
-				$replacements[$sourceParameter] = $targetParameter;
+			if ( isset( $opt['sourceParameters'] ) ) {
+				foreach ( (array)$opt['sourceParameters'] as $sourceParameter ) {
+					$replacements[$sourceParameter] = $targetParameter;
+				}
 			}
 		}
 		return $replacements;

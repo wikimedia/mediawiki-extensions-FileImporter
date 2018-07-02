@@ -267,7 +267,7 @@ WIKITEXT
 					'parameters' => [ 'target_param' => [
 						'addIfMissing' => true,
 						'addLanguageTemplate' => false,
-						'sourceParameters' => 'source_param',
+						'value' => 'source_param',
 					] ],
 				] ],
 			],
@@ -282,6 +282,28 @@ WIKITEXT
 					] ],
 				] ],
 			],
+			'+@ combination leaves a meaningless @ behind' => [
+				'wikiText' => ";Source:Target|+@target_param=source_param",
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ '@target_param' => [
+						'addIfMissing' => true,
+						'addLanguageTemplate' => false,
+						'value' => 'source_param',
+					] ],
+				] ],
+			],
+			'@+ combination leaves a meaningless + behind' => [
+				'wikiText' => ";Source:Target|@+target_param=source_param",
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ '+target_param' => [
+						'addIfMissing' => false,
+						'addLanguageTemplate' => true,
+						'sourceParameters' => 'source_param',
+					] ],
+				] ],
+			],
 			'%MAGIC_WORD% syntax' => [
 				'wikiText' => ";Source:Target|target_param=%MAGIC_WORD%",
 				'expected' => [ 'Source' => [
@@ -290,7 +312,6 @@ WIKITEXT
 				] ],
 			],
 
-			// TODO: Test combined +@ and @+ prefixes
 			// TODO: Test + and @ when not the first character
 			// TODO: Test combinations of + and @ with a %MAGIC_WORD%
 			// TODO: Test %MAGIC_WORD% syntax when surrounded by text
