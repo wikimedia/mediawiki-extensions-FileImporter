@@ -95,8 +95,8 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 
 			'most trivial parameter replacement' => [
 				'replacements' => [ 'Info' => [
-					'commonsTemplate' => 'Info',
-					'parameters' => [ 'Description' => [ 'localParameters' => 'Desc' ] ],
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'sourceParameters' => 'Desc' ] ],
 				] ],
 				'wikitext' => '{{Info|Desc=…}}',
 				'expectedWikiText' => '{{Info|Description=…}}',
@@ -106,12 +106,12 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 			'nested templates do not shift parameter offsets' => [
 				'replacements' => [
 					'a' => [
-						'commonsTemplate' => 'a',
-						'parameters' => [ 'parameter2' => [ 'localParameters' => 'p2' ] ],
+						'targetTemplate' => 'a',
+						'parameters' => [ 'parameter2' => [ 'sourceParameters' => 'p2' ] ],
 					],
 					'b' => [
-						'commonsTemplate' => 'b',
-						'parameters' => [ 'parameter1' => [ 'localParameters' => 'p1' ] ],
+						'targetTemplate' => 'b',
+						'parameters' => [ 'parameter1' => [ 'sourceParameters' => 'p1' ] ],
 					],
 				],
 				'wikitext' => '{{a |p1={{b |p1=… }} |p2=… }}',
@@ -121,8 +121,8 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 
 			'replace numeric parameters' => [
 				'replacements' => [ 'Info' => [
-					'commonsTemplate' => 'Info',
-					'parameters' => [ 'Description' => [ 'localParameters' => 2 ] ],
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'sourceParameters' => 2 ] ],
 				] ],
 				'wikitext' => '{{Info|a|b}}',
 				'expectedWikiText' => '{{Info|a|Description=b}}',
@@ -131,8 +131,8 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 
 			'must skip single brackets' => [
 				'replacements' => [ 'Info' => [
-					'commonsTemplate' => 'Info',
-					'parameters' => [ 'Description' => [ 'localParameters' => 'Desc' ] ],
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'sourceParameters' => 'Desc' ] ],
 				] ],
 				'wikitext' => '{{Info|}|Desc=…}}{{Info|{|Desc=…}}',
 				'expectedWikiText' => '{{Info|}|Description=…}}{{Info|{|Description=…}}',
@@ -141,8 +141,8 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 
 			'must skip {{{…}}} syntax' => [
 				'replacements' => [ 'Info' => [
-					'commonsTemplate' => 'Info',
-					'parameters' => [ 'Description' => [ 'localParameters' => 'Desc' ] ],
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'sourceParameters' => 'Desc' ] ],
 				] ],
 				'wikitext' => '{{Info|{{{Info|Desc=…}}}|Desc=…}}',
 				'expectedWikiText' => '{{Info|{{{Info|Desc=…}}}|Description=…}}',
@@ -151,10 +151,10 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 
 			'end-of-text' => [
 				'replacements' => [ 'Info' => [
-					'commonsTemplate' => 'Info',
+					'targetTemplate' => 'Info',
 					'parameters' => [
-						'x' => [ 'localParameters' => 'a' ],
-						'y' => [ 'localParameters' => 'b' ],
+						'x' => [ 'sourceParameters' => 'a' ],
+						'y' => [ 'sourceParameters' => 'b' ],
 					],
 				] ],
 				'wikitext' => '{{Info|a=|b=',
