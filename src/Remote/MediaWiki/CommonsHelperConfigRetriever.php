@@ -45,8 +45,8 @@ class CommonsHelperConfigRetriever {
 
 	/**
 	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param string $configServer Full domain including schema, e.g. "https://meta.wikimedia.org"
-	 * @param string $configBasePageName Base page name, e.g. "CommonsHelper2/Data_"
+	 * @param string $configServer Full domain including schema, e.g. "https://www.mediawiki.org"
+	 * @param string $configBasePageName Base page name, e.g. "Extension:FileImporter/Data/"
 	 * @param SourceUrl $sourceUrl
 	 */
 	public function __construct(
