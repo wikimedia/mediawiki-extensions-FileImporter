@@ -56,25 +56,28 @@ class WikiTextContentCleaner {
 				continue;
 			}
 
-			$wikiText = substr_replace(
-				$wikiText,
-				$newTemplateName,
-				$offset,
-				strlen( $oldTemplateName )
-			);
+			$endOfTemplateName = $offset + strlen( $oldTemplateName );
+			$parseResult = $this->parseTemplate( $wikiText, $endOfTemplateName );
 
-			$endOfTemplateName = $offset + strlen( $newTemplateName );
-			$parameters = $this->parseTemplateParameters( $wikiText, $endOfTemplateName );
+			// TODO: Delete templates
+
 			$wikiText = $this->renameTemplateParameters(
 				$wikiText,
-				$parameters,
+				$parseResult['parameters'],
 				$this->wikiTextConversions->getTemplateParameters( $oldTemplateName )
 			);
 			$wikiText = $this->addRequiredTemplateParameters(
 				$wikiText,
 				$this->wikiTextConversions->getRequiredTemplateParameters( $oldTemplateName ),
-				$parameters,
+				$parseResult['parameters'],
 				$endOfTemplateName
+			);
+
+			$wikiText = substr_replace(
+				$wikiText,
+				$newTemplateName,
+				$offset,
+				strlen( $oldTemplateName )
 			);
 
 			$this->latestNumberOfReplacements++;
@@ -87,13 +90,20 @@ class WikiTextContentCleaner {
 	 * @param string $wikiText
 	 * @param int $startPosition Must be after the opening {{, and before or exactly at the first |
 	 *
-	 * @return array[] List of template parameters found, each in the format [
-	 *     'offset' => int,
-	 *     'number' => int,
-	 *     'name' => string,
+	 * @return array Parse result in the following format:
+	 * [
+	 *     'parameters' => [
+	 *         [
+	 *             'offset' => absolute position of the parameter name in the wikitext, or where the
+	 *                 parameter name needs to be placed for unnamed parameters,
+	 *             'number' => positive integer number, only present for unnamed parameters,
+	 *             'name' => optional string name of the parameter,
+	 *         ],
+	 *         …
+	 *     ]
 	 * ]
 	 */
-	public function parseTemplateParameters( $wikiText, $startPosition ) {
+	public function parseTemplate( $wikiText, $startPosition ) {
 		$max = strlen( $wikiText );
 		$nesting = 0;
 		$params = [];
@@ -140,7 +150,11 @@ class WikiTextContentCleaner {
 			}
 		}
 
-		return $params;
+		return [
+			// TODO: Add the end of the template as detected by the "}" case above, to be able to
+			// delete templates
+			'parameters' => $params,
+		];
 	}
 
 	/**
@@ -167,7 +181,7 @@ class WikiTextContentCleaner {
 
 	/**
 	 * @param string $wikiText
-	 * @param array[] $parameters as returned by {@see parseTemplateParameters}
+	 * @param array[] $parameters "parameters" list as returned by {@see parseTemplateParameters}
 	 * @param string[] $replacements Array mapping old to new parameter names
 	 *
 	 * @return string
@@ -201,7 +215,7 @@ class WikiTextContentCleaner {
 	/**
 	 * @param string $wikiText
 	 * @param string[] $required List of parameter name => string value pairs
-	 * @param array[] $parameters as returned by {@see parseTemplateParameters}
+	 * @param array[] $parameters "parameters" list as returned by {@see parseTemplateParameters}
 	 * @param int $offset Exact position where to insert the new parameter
 	 *
 	 * @return string
