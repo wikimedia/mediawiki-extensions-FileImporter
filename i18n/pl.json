@@ -38,5 +38,6 @@
 	"fileimporter-import-wait": "Importowanie może potrwać kilka minut.",
 	"fileimporter-go-to-original-file-button": "Powróć do oryginalnego pliku",
 	"fileimporter-file-contains-blocked-category-template": "Nie można zaimportować pliku, ponieważ jest oznaczony jako $1. $2 nie zezwala na takie pliki.",
-	"fileimporter-file-missing-required-template": "Plik nie może zostać zaimportowany, ponieważ nie jest oznaczony jedną z wymaganych licencji."
+	"fileimporter-file-missing-required-template": "Plik nie może zostać zaimportowany, ponieważ nie jest oznaczony jedną z wymaganych licencji.",
+	"fileimporter-viewdiff": "Pokaż zmiany"
 }
