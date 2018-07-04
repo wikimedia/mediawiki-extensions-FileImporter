@@ -34,6 +34,11 @@ class WikiTextConversions {
 	private $badCategories = [];
 
 	/**
+	 * @var string[]
+	 */
+	private $obsoleteTemplates = [];
+
+	/**
 	 * @var array[]
 	 */
 	private $transferTemplates = [];
@@ -42,6 +47,7 @@ class WikiTextConversions {
 	 * @param string[] $goodTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badTemplates List of case-insensitive page names without namespace prefix
 	 * @param string[] $badCategories List of case-insensitive page names without namespace prefix
+	 * @param string[] $obsoleteTemplates List of case-insensitive page names without namespace prefix
 	 * @param array[] $transferTemplates List mapping source template names without namespace prefix
 	 *  to replacement rules in the following format:
 	 *  string $sourceTemplate => [
@@ -60,6 +66,7 @@ class WikiTextConversions {
 		array $goodTemplates,
 		array $badTemplates,
 		array $badCategories,
+		array $obsoleteTemplates,
 		array $transferTemplates
 	) {
 		foreach ( $goodTemplates as $pageName ) {
@@ -72,6 +79,10 @@ class WikiTextConversions {
 
 		foreach ( $badCategories as $pageName ) {
 			$this->badCategories[$this->lowercasePageName( $pageName )] = true;
+		}
+
+		foreach ( $obsoleteTemplates as $pageName ) {
+			$this->obsoleteTemplates[$this->lowercasePageName( $pageName )] = true;
 		}
 
 		foreach ( $transferTemplates as $from => $to ) {
@@ -150,6 +161,16 @@ class WikiTextConversions {
 	public function isCategoryBad( $pageName ) {
 		$pageName = $this->removeNamespaceFromString( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->badCategories );
+	}
+
+	/**
+	 * @param string $pageName
+	 *
+	 * @return bool
+	 */
+	public function isObsoleteTemplate( $pageName ) {
+		$pageName = $this->removeNamespaceFromString( $pageName );
+		return array_key_exists( $this->lowercasePageName( $pageName ), $this->obsoleteTemplates );
 	}
 
 	/**

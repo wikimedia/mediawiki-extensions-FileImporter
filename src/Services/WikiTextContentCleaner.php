@@ -68,15 +68,20 @@ class WikiTextContentCleaner {
 		for ( $i = count( $matches[1] ); $i-- > 0; ) {
 			list( $oldTemplateName, $offset ) = $matches[1][$i];
 
+			$isObsolete = $this->wikiTextConversions->isObsoleteTemplate( $oldTemplateName );
 			$newTemplateName = $this->wikiTextConversions->swapTemplate( $oldTemplateName );
-			if ( !$newTemplateName ) {
+			if ( !$isObsolete && !$newTemplateName ) {
 				continue;
 			}
 
 			$endOfTemplateName = $offset + strlen( $oldTemplateName );
 			$parseResult = $this->parseTemplate( $wikiText, $endOfTemplateName );
 
-			// TODO: Delete templates
+			if ( $isObsolete ) {
+				$start = $matches[$i][0][1];
+				$wikiText = substr_replace( $wikiText, '', $start, $parseResult['end'] - $start );
+				continue;
+			}
 
 			$wikiText = $this->renameTemplateParameters(
 				$wikiText,
@@ -100,7 +105,7 @@ class WikiTextContentCleaner {
 			$this->latestNumberOfReplacements++;
 		}
 
-		return $wikiText;
+		return preg_replace( '/\n\s*\n\s*\n/', "\n\n", $wikiText );
 	}
 
 	/**
@@ -132,6 +137,7 @@ class WikiTextContentCleaner {
 				case '}':
 					if ( $wikiText[$i + 1] === '}' ) {
 						if ( !$nesting ) {
+							$max = $i + 2;
 							// Found the closing }}, abort the switch and the for-loop
 							break 2;
 						}
@@ -168,8 +174,7 @@ class WikiTextContentCleaner {
 		}
 
 		return [
-			// TODO: Add the end of the template as detected by the "}" case above, to be able to
-			// delete templates
+			'end' => $max,
 			'parameters' => $params,
 		];
 	}

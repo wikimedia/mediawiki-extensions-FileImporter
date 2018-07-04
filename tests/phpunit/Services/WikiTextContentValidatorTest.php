@@ -16,7 +16,7 @@ class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnit4And6Compat;
 
 	public function testSuccess() {
-		$conversions = new WikiTextConversions( [], [], [], [] );
+		$conversions = new WikiTextConversions( [], [], [], [], [] );
 		$validator = new WikiTextContentValidator( $conversions );
 
 		// Provide at least one title to cover the full code-path
@@ -29,7 +29,7 @@ class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testHasAtLeastOneRequiredGoodTemplate() {
-		$conversions = new WikiTextConversions( [ 'Required1', 'Required2' ], [], [], [] );
+		$conversions = new WikiTextConversions( [ 'Required1', 'Required2' ], [], [], [], [] );
 		$validator = new WikiTextContentValidator( $conversions );
 
 		$validator->hasRequiredTemplate( [ [ 'title' => 'Template:Required2', 'ns' => NS_TEMPLATE ] ] );
@@ -37,7 +37,7 @@ class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testMissingRequiredGoodTemplate() {
-		$conversions = new WikiTextConversions( [ 'Required' ], [], [], [] );
+		$conversions = new WikiTextConversions( [ 'Required' ], [], [], [], [] );
 		$validator = new WikiTextContentValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );
@@ -45,7 +45,7 @@ class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testBadTemplate() {
-		$conversions = new WikiTextConversions( [], [ 'Bad' ], [], [] );
+		$conversions = new WikiTextConversions( [], [ 'Bad' ], [], [], [] );
 		$validator = new WikiTextContentValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );
@@ -53,7 +53,7 @@ class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testBadCategory() {
-		$conversions = new WikiTextConversions( [], [], [ 'Bad' ], [] );
+		$conversions = new WikiTextConversions( [], [], [ 'Bad' ], [], [] );
 		$validator = new WikiTextContentValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );

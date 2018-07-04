@@ -14,6 +14,47 @@ use FileImporter\Services\WikiTextContentCleaner;
 class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
 
+	public function provideTemplateRemovals() {
+		return [
+			'empty' => [
+				'removals' => [],
+				'wikitext' => '{{movetocommons}}',
+				'expectedWikiText' => '{{movetocommons}}',
+			],
+
+			// TODO: Do we need to test substring matching, triple brackets, unclosed templates, and
+			// other parser features again (@see provideTemplateReplacements below)?
+
+			'basic, case-insensitive removal' => [
+				'removals' => [ 'MoveToCommons' ],
+				'wikitext' => "before\n\n{{movetocommons}}\n\nafter",
+				'expectedWikiText' => "before\n\nafter",
+			],
+
+			'remove parameters and nested templates' => [
+				'removals' => [ 'a' ],
+				'wikitext' => 'before{{a |p1={{b |p1=… }} |p2=… }}after',
+				'expectedWikiText' => 'beforeafter',
+			],
+
+			'end-of-text' => [
+				'removals' => [ 'Info' ],
+				'wikitext' => '{{Info|a=|b=',
+				'expectedWikiText' => '',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideTemplateRemovals
+	 */
+	public function testTemplateRemovals( array $removals, $wikiText, $expectedWikiText ) {
+		$conversions = new WikiTextConversions( [], [], [], $removals, [] );
+		$cleaner = new WikiTextContentCleaner( $conversions );
+
+		$this->assertSame( $expectedWikiText, $cleaner->cleanWikiText( $wikiText ) );
+	}
+
 	public function provideTemplateReplacements() {
 		return [
 			'nothing to do' => [
@@ -220,7 +261,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 		$expectedWikiText,
 		$expectedCount = 1
 	) {
-		$conversions = new WikiTextConversions( [], [], [], $replacements );
+		$conversions = new WikiTextConversions( [], [], [], [], $replacements );
 		$cleaner = new WikiTextContentCleaner( $conversions );
 
 		$this->assertSame( $expectedWikiText ?: $wikiText, $cleaner->cleanWikiText( $wikiText ) );
@@ -243,7 +284,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideHeadingReplacements
 	 */
 	public function testHeadingReplacements( $wikiText, $expectedWikiText ) {
-		$conversions = new WikiTextConversions( [], [], [], [] );
+		$conversions = new WikiTextConversions( [], [], [], [], [] );
 		$conversions->setHeadingReplacements( [
 			'Description' => '{{int:filedesc}}',
 			'Licensing' => '{{int:license-header}}',

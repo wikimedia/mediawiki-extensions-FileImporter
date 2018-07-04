@@ -49,6 +49,8 @@ class CommonsHelperConfigParser {
 			'Templates/Good' );
 		$badTemplateSection = $this->grepSection( $templateSection, '=== Bad ===',
 			'Templates/Bad' );
+		$obsoleteTemplates = $this->grepSection( $templateSection, '=== Remove ===',
+			'Templates/Remove' );
 		$transferTemplateSection = $this->grepSection( $templateSection, '=== Transfer ===',
 			'Templates/Transfer' );
 		$descriptionSection = $this->grepSection( $informationSection, '=== Description ===',
@@ -60,6 +62,7 @@ class CommonsHelperConfigParser {
 			$this->getItemList( $goodTemplateSection ),
 			$this->getItemList( $badTemplateSection ),
 			$this->getItemList( $badCategorySection ),
+			$this->getItemList( $obsoleteTemplates ),
 			$this->parseTransferList( $transferTemplateSection )
 		);
 		$conversions->setHeadingReplacements(

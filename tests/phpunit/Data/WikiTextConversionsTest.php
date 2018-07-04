@@ -15,16 +15,16 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 
 	public function testInvalidTargetTemplateName() {
 		$this->setExpectedException( InvalidArgumentException::class, 'targetTemplate' );
-		new WikiTextConversions( [], [], [], [ [ 'targetTemplate' => '' ] ] );
+		new WikiTextConversions( [], [], [], [], [ [ 'targetTemplate' => '' ] ] );
 	}
 
 	public function testMissingTemplateParameters() {
 		$this->setExpectedException( InvalidArgumentException::class, 'parameters' );
-		new WikiTextConversions( [], [], [], [ [ 'targetTemplate' => 'a' ] ] );
+		new WikiTextConversions( [], [], [], [], [ [ 'targetTemplate' => 'a' ] ] );
 	}
 
 	public function testHeadingReplacements() {
-		$conversions = new WikiTextConversions( [], [], [], [] );
+		$conversions = new WikiTextConversions( [], [], [], [], [] );
 		$this->assertSame( 'a', $conversions->swapHeading( 'a' ) );
 		$conversions->setHeadingReplacements( [ 'a' => 'b' ] );
 		$this->assertSame( 'b', $conversions->swapHeading( 'a' ) );
@@ -48,7 +48,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsTemplateGood( $listed, $requested, $expected ) {
-		$conversions = new WikiTextConversions( [ $listed ], [], [], [] );
+		$conversions = new WikiTextConversions( [ $listed ], [], [], [], [] );
 		$this->assertSame( $expected, $conversions->isTemplateGood( $requested ) );
 	}
 
@@ -63,7 +63,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideHasGoodTemplates
 	 */
 	public function testHasGoodTemplates( array $goodTemplates, $expected ) {
-		$conversions = new WikiTextConversions( $goodTemplates, [], [], [] );
+		$conversions = new WikiTextConversions( $goodTemplates, [], [], [], [] );
 		$this->assertSame( $expected, $conversions->hasGoodTemplates() );
 	}
 
@@ -71,7 +71,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsTemplateBad( $listed, $requested, $expected ) {
-		$conversions = new WikiTextConversions( [], [ $listed ], [], [] );
+		$conversions = new WikiTextConversions( [], [ $listed ], [], [], [] );
 		$this->assertSame( $expected, $conversions->isTemplateBad( $requested ) );
 	}
 
@@ -79,8 +79,16 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsCategoryBad( $listed, $requested, $expected ) {
-		$conversions = new WikiTextConversions( [], [], [ $listed ], [] );
+		$conversions = new WikiTextConversions( [], [], [ $listed ], [], [] );
 		$this->assertSame( $expected, $conversions->isCategoryBad( $requested ) );
+	}
+
+	/**
+	 * @dataProvider provideCaseInsensitivePageNames
+	 */
+	public function testIsObsoleteTemplate( $listed, $requested, $expected ) {
+		$conversions = new WikiTextConversions( [], [], [], [ $listed ], [] );
+		$this->assertSame( $expected, $conversions->isObsoleteTemplate( $requested ) );
 	}
 
 	public function provideTemplateReplacements() {
@@ -100,7 +108,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideTemplateReplacements
 	 */
 	public function testTemplateReplacements( array $replacements, $requested, $expected ) {
-		$conversions = new WikiTextConversions( [], [], [], $replacements );
+		$conversions = new WikiTextConversions( [], [], [], [], $replacements );
 		$this->assertSame( $expected, $conversions->swapTemplate( $requested ) );
 	}
 
@@ -133,7 +141,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideTemplateParameterReplacements
 	 */
 	public function testGetTemplateParameters( array $replacements, $expected ) {
-		$conversions = new WikiTextConversions( [], [], [], [ 's' => [
+		$conversions = new WikiTextConversions( [], [], [], [], [ 's' => [
 			'targetTemplate' => 't',
 			'parameters' => $replacements,
 		] ] );
@@ -169,7 +177,7 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideRequiredTemplateParameters
 	 */
 	public function testGetRequiredTemplateParameters( array $replacements, $expected ) {
-		$conversions = new WikiTextConversions( [], [], [], [ 's' => [
+		$conversions = new WikiTextConversions( [], [], [], [], [ 's' => [
 			'targetTemplate' => 't',
 			'parameters' => $replacements,
 		] ] );
