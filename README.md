@@ -18,6 +18,9 @@ FileImporter extension.
 
 #### Config
 
+**FileImporterRequiredRight** specifies the user right required to use the special page. Default is
+"upload" – the same right [[Special:Upload]] requires.
+
 The **FileImporterSourceSiteServices** setting lists enabled services responsible for imports from different sources.
 Each service allows extensions and modifications of data retrieved by it and limits the type of sites where files can be
 imported from. The default empty list `[]` allows files to be imported from any MediaWiki site. Set the list to
@@ -35,6 +38,11 @@ via configuration, but not raised.
 `FileExporter` extension's link. If set to `true` an input field shows on the `Special:ImportFile` that can be used to
 import files. Default is `false`.
 
+**FileImporterInterWikiMap** specifies a map from host names to interwiki prefixes, e.g.
+`[ 'de.wikisource.org' => 's:de' ]`. This is currently mandatory for chains of more than one prefix
+(e.g. `s:de` to point from Wikimedia Commons to the German Wikisource), and optional for 1-level
+prefixes (e.g. `mw`, which always points to mediawiki.org).
+
 **FileImporterCommentForPostImportRevision** defines the text used for the edit summary of a post import revision.
 Default is `Imported with FileImporter from $1` where `$1` is the URL of the source file.
 
@@ -47,7 +55,7 @@ Default is `<!--This file was moved here using FileImporter from $1-->\n` where 
    either with a source URL as a URL parameter in the request,
    or the user will be presented with an input field to enter the URL.
     - The special page requires:
-      - the right as configured in wgFileImporterRequiredRight to operate.
+      - the right as configured in FileImporterRequiredRight to operate.
       - the rights required to be able to upload files.
       - uploads to be enabled on the site.
       - the user to not be blocked locally or globally.
