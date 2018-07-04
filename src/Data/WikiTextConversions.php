@@ -5,9 +5,9 @@ namespace FileImporter\Data;
 use InvalidArgumentException;
 
 /**
- * Class holding validation and replacement rules for the file description wikitext. This class is
- * not aware of the source of these rules. They can be extracted from CommonsHelper2 configuration
- * files or other, yet to be defined sources.
+ * Class holding validation and cleanup rules for the file description wikitext. This class is not
+ * aware of the source of these rules. They can be extracted from CommonsHelper2-compatible
+ * configuration files or other, yet to be defined sources.
  *
  * @license GPL-2.0-or-later
  */
@@ -138,29 +138,6 @@ class WikiTextConversions {
 		return array_key_exists( $templateName, $this->transferTemplates )
 			? $this->transferTemplates[$templateName]['targetTemplate']
 			: false;
-	}
-
-	/**
-	 * TODO: Currently not used. Remove?
-	 *
-	 * @param string $templateName
-	 * @param string $sourceParameter
-	 *
-	 * @return string|false
-	 */
-	public function swapTemplateParameter( $templateName, $sourceParameter ) {
-		$templateName = $this->lowercasePageName( $templateName );
-		if ( !isset( $this->transferTemplates[$templateName] ) ) {
-			return false;
-		}
-
-		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
-			if ( in_array( $sourceParameter, (array)$opt['sourceParameters'], true ) ) {
-				return $targetParameter;
-			}
-		}
-
-		return false;
 	}
 
 	/**

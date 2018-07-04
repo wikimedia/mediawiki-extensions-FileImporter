@@ -22,7 +22,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
-				'expectedException' => LocalizedImportException::class
+				'expectedException' => '<Categories>'
 			],
 
 			'missing "bad templates" heading' => [
@@ -30,7 +30,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
-				'expectedException' => LocalizedImportException::class
+				'expectedException' => '<Templates/Bad>'
 			],
 
 			'missing "good templates" heading' => [
@@ -38,7 +38,16 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
-				'expectedException' => LocalizedImportException::class
+				'expectedException' => '<Templates/Good>'
+			],
+
+			'missing "transfer templates" heading' => [
+				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===",
+				'expectedGoodTemplates' => null,
+				'expectedBadTemplates' => null,
+				'expectedBadCategories' => null,
+				'expectedException' => '<Templates/Transfer>'
 			],
 
 			'missing "bad categories" heading' => [
@@ -46,7 +55,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
-				'expectedException' => LocalizedImportException::class
+				'expectedException' => '<Categories/Bad>'
 			],
 
 			'missing lists' => [
@@ -180,8 +189,8 @@ WIKITEXT
 		$expectedException = null
 	) {
 		$parser = new CommonsHelperConfigParser( '', $wikiText );
-		if ( $expectedException ) {
-			$this->setExpectedException( $expectedException );
+		if ( $expectedException !== null ) {
+			$this->setExpectedException( LocalizedImportException::class, $expectedException );
 			$parser->getWikiTextConversions();
 		} else {
 			$expected = new WikiTextConversions(

@@ -58,7 +58,7 @@ class CommonsHelperConfigParser {
 		}
 
 		$goodTemplateSection = $this->splitSectionsByHeaders( '=== Good ===', $templateSection );
-		if ( !$goodTemplateSection ) {
+		if ( $goodTemplateSection === false ) {
 			throw new LocalizedImportException(
 				new Message( 'fileimporter-commonshelper-parsing-failed', [
 					$this->commonsHelperConfigUrl, 'Templates/Good'
