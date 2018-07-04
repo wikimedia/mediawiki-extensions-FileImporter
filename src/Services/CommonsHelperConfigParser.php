@@ -156,16 +156,24 @@ class CommonsHelperConfigParser {
 			$paramPatterns = preg_split( '/\s*\|+\s*/', $paramPatterns, -1, PREG_SPLIT_NO_EMPTY );
 			foreach ( $paramPatterns as $paramPattern ) {
 				list( $targetParam, $sourceParam ) = preg_split( '/\s*=\s*/', $paramPattern, 2 );
+
 				// TODO: The magic words "%AUTHOR%" and "%TRANSFERUSER%" are not supported yet
 				if ( strpos( $sourceParam, '%' ) !== false ) {
 					continue;
 				}
 
-				$parameterTransfers[ltrim( $targetParam, '+@' )] = [
-					'addIfMissing' => $targetParam[0] === '+',
-					'addLanguageTemplate' => $targetParam[0] === '@',
-					'sourceParameters' => $sourceParam,
+				preg_match( '/^(?:(\+)|(@))?(.*)/', $targetParam, $matches );
+				list( , $addIfMissing, $addLanguageTemplate, $targetParam ) = $matches;
+
+				$parameterTransfers[$targetParam] = [
+					'addIfMissing' => (bool)$addIfMissing,
+					'addLanguageTemplate' => (bool)$addLanguageTemplate,
 				];
+				if ( $addIfMissing ) {
+					$parameterTransfers[$targetParam]['value'] = $sourceParam;
+				} else {
+					$parameterTransfers[$targetParam]['sourceParameters'] = $sourceParam;
+				}
 			}
 
 			$transfers[$sourceTemplate] = [
