@@ -129,6 +129,46 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedCount' => 1,
 			],
 
+			'add missing parameter' => [
+				'replacements' => [ 'Bild-GFDL-Neu' => [
+					'targetTemplate' => 'GFDL',
+					'parameters' => [ 'migration' => [
+						'addIfMissing' => true,
+						'value' => 'not-eligible',
+					] ],
+				] ],
+				'wikitext' => '{{Bild-GFDL-Neu}}',
+				'expectedWikiText' => '{{GFDL|migration=not-eligible}}',
+				'expectedCount' => 1,
+			],
+
+			'add missing parameter without value' => [
+				'replacements' => [ 'Bild-GFDL-Neu' => [
+					'targetTemplate' => 'GFDL',
+					'parameters' => [ 'migration' => [ 'addIfMissing' => true ] ],
+				] ],
+				'wikitext' => "{{Bild-GFDL-Neu\n}}",
+				'expectedWikiText' => "{{GFDL|migration=\n}}",
+				'expectedCount' => 1,
+			],
+
+			'add missing parameter cannot replace existing' => [
+				'replacements' => [ 'Bild-GFDL-Neu' => [
+					'targetTemplate' => 'GFDL',
+					'parameters' => [ 'migration' => [
+						'addIfMissing' => true,
+						'value' => 'new',
+					] ],
+				] ],
+				'wikitext' => '{{Bild-GFDL-Neu|migration=old}}',
+				'expectedWikiText' => '{{GFDL|migration=old}}',
+				'expectedCount' => 1,
+			],
+
+			// TODO: "value" should overwrite empty old value
+			// TODO: "value" should not overwrite non-empty old value
+			// TODO: Test combinations of "sourceParameters" and "addIfMissing" with "value"
+
 			'must skip single brackets' => [
 				'replacements' => [ 'Info' => [
 					'targetTemplate' => 'Info',

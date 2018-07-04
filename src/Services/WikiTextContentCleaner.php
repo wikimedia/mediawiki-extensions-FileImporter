@@ -63,10 +63,18 @@ class WikiTextContentCleaner {
 				strlen( $oldTemplateName )
 			);
 
+			$endOfTemplateName = $offset + strlen( $newTemplateName );
+			$parameters = $this->parseTemplateParameters( $wikiText, $endOfTemplateName );
 			$wikiText = $this->renameTemplateParameters(
 				$wikiText,
-				$this->parseTemplateParameters( $wikiText, $offset ),
+				$parameters,
 				$this->wikiTextConversions->getTemplateParameters( $oldTemplateName )
+			);
+			$wikiText = $this->addRequiredTemplateParameters(
+				$wikiText,
+				$this->wikiTextConversions->getRequiredTemplateParameters( $oldTemplateName ),
+				$parameters,
+				$endOfTemplateName
 			);
 
 			$this->latestNumberOfReplacements++;
@@ -163,6 +171,33 @@ class WikiTextContentCleaner {
 		}
 
 		return $wikiText;
+	}
+
+	/**
+	 * @param string $wikiText
+	 * @param string[] $required List of parameter name => string value pairs
+	 * @param array[] $parameters as returned by {@see parseTemplateParameters}
+	 * @param int $offset Exact position where to insert the new parameter
+	 *
+	 * @return string
+	 */
+	private function addRequiredTemplateParameters(
+		$wikiText,
+		array $required,
+		array $parameters,
+		$offset
+	) {
+		foreach ( $parameters as $param ) {
+			$name = isset( $param['name'] ) ? $param['name'] : $param['number'];
+			unset( $required[$name] );
+		}
+
+		$newWikiText = '';
+		foreach ( $required as $name => $value ) {
+			$newWikiText .= "|$name=$value";
+		}
+
+		return substr_replace( $wikiText, $newWikiText, $offset, 0 );
 	}
 
 }

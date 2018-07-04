@@ -183,6 +183,26 @@ class WikiTextConversions {
 	}
 
 	/**
+	 * @param string $templateName
+	 *
+	 * @return string[] Array mapping required target parameter names to static string values.
+	 */
+	public function getRequiredTemplateParameters( $templateName ) {
+		$templateName = $this->lowercasePageName( $templateName );
+		if ( !isset( $this->transferTemplates[$templateName] ) ) {
+			return [];
+		}
+
+		$additions = [];
+		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
+			if ( isset( $opt['addIfMissing'] ) && $opt['addIfMissing'] ) {
+				$additions[$targetParameter] = isset( $opt['value'] ) ? $opt['value'] : '';
+			}
+		}
+		return $additions;
+	}
+
+	/**
 	 * @param string $pageName
 	 *
 	 * @return string
