@@ -36,6 +36,11 @@ class Importer {
 	private $wikiRevisionFactory;
 
 	/**
+	 * @var NullRevisionCreator
+	 */
+	private $nullRevisionCreator;
+
+	/**
 	 * @var HttpRequestExecutor
 	 */
 	private $httpRequestExecutor;
@@ -72,6 +77,7 @@ class Importer {
 
 	public function __construct(
 		WikiRevisionFactory $wikiRevisionFactory,
+		NullRevisionCreator $nullRevisionCreator,
 		HttpRequestExecutor $httpRequestExecutor,
 		UploadBaseFactory $uploadBaseFactory,
 		OldRevisionImporter $oldRevisionImporter,
@@ -81,6 +87,7 @@ class Importer {
 		LoggerInterface $logger
 	) {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
+		$this->nullRevisionCreator = $nullRevisionCreator;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->oldRevisionImporter = $oldRevisionImporter;
@@ -184,7 +191,7 @@ class Importer {
 		// TODO the below should be an ImportOperation
 		$miscActionsStart = microtime( true );
 		$page = $this->getPageFromImportPlan( $importPlan );
-		$this->createPostImportRevision( $importPlan, $page, $user );
+		$this->createPostImportNullRevision( $importPlan, $page, $user );
 		$this->createPostImportEdit( $importPlan, $page, $user );
 		$this->stats->timing(
 			'FileImporter.import.timing.miscActions',
@@ -317,25 +324,23 @@ class Importer {
 	 * @param WikiPage $page
 	 * @param User $user
 	 */
-	private function createPostImportRevision(
+	private function createPostImportNullRevision(
 		ImportPlan $importPlan,
 		WikiPage $page,
 		User $user
 	) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		$editResult = $page->doEditContent(
-			new \WikitextContent( $importPlan->getInitialCleanedInfoText() ),
+		$revision = $this->nullRevisionCreator->createForLinkTarget(
+			$page->getTitle(),
+			$user,
 			wfMsgReplaceArgs(
 				$config->get( 'FileImporterCommentForPostImportRevision' ),
 				[ $importPlan->getRequest()->getUrl() ]
-			),
-			EDIT_MINOR,
-			false,
-			$user
+			)
 		);
 
-		if ( !$editResult->isOK() ) {
+		if ( !$revision ) {
 			$this->logger->error( __METHOD__ . ' Failed to create import revision.' );
 			throw new RuntimeException( 'Failed to create import revision' );
 		}

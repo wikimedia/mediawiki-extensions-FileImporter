@@ -149,15 +149,10 @@ class ImportPlan {
 	}
 
 	/**
-	 * Appends a marker to the beginning of the original File Info Text indicating that
-	 * it was imported using FileImporter
-	 *
 	 * @return string
 	 */
 	public function getInitialFileInfoText() {
-		return $this->addImportComment(
-			$this->details->getTextRevisions()->getLatest()->getField( '*' )
-		);
+		return $this->details->getTextRevisions()->getLatest()->getField( '*' );
 	}
 
 	/**
