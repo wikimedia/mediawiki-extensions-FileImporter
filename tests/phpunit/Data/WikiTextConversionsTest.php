@@ -83,4 +83,76 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $expected, $conversions->swapTemplate( $requested ) );
 	}
 
+	public function provideTemplateParameterReplacements() {
+		return [
+			'empty' => [
+				[],
+				[]
+			],
+			'empty string' => [
+				[ 's1' => [ 'sourceParameters' => '' ] ],
+				[]
+			],
+			'empty array' => [
+				[ 't1' => [ 'sourceParameters' => [] ] ],
+				[]
+			],
+			'string' => [
+				[ 't1' => [ 'sourceParameters' => 's1' ] ],
+				[ 's1' => 't1' ]
+			],
+			'array' => [
+				[ 't1' => [ 'sourceParameters' => [ 's1', 'alias' ] ] ],
+				[ 's1' => 't1', 'alias' => 't1' ]
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideTemplateParameterReplacements
+	 */
+	public function testGetTemplateParameters( array $replacements, $expected ) {
+		$conversions = new WikiTextConversions( [], [], [], [ 's' => [
+			'targetTemplate' => 't',
+			'parameters' => $replacements,
+		] ] );
+		$this->assertSame( $expected, $conversions->getTemplateParameters( 's' ) );
+	}
+
+	public function provideRequiredTemplateParameters() {
+		return [
+			'empty' => [
+				[],
+				[]
+			],
+			'flag not set' => [
+				[ 't1' => [] ],
+				[]
+			],
+			'not required' => [
+				[ 't1' => [ 'addIfMissing' => false ] ],
+				[]
+			],
+			'no value' => [
+				[ 't1' => [ 'addIfMissing' => true ] ],
+				[ 't1' => '' ]
+			],
+			'non-empty value' => [
+				[ 't1' => [ 'addIfMissing' => true, 'value' => '…' ] ],
+				[ 't1' => '…' ]
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideRequiredTemplateParameters
+	 */
+	public function testGetRequiredTemplateParameters( array $replacements, $expected ) {
+		$conversions = new WikiTextConversions( [], [], [], [ 's' => [
+			'targetTemplate' => 't',
+			'parameters' => $replacements,
+		] ] );
+		$this->assertSame( $expected, $conversions->getRequiredTemplateParameters( 's' ) );
+	}
+
 }
