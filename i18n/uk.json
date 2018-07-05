@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Piramidion",
-			"SimondR"
+			"SimondR",
+			"Ата"
 		]
 	},
 	"fileimporter": "Імпортер файлів",
@@ -23,14 +24,14 @@
 	"fileimporter-filenameerror-default": "З Вашою назвою файлу сталася невідома помилка.",
 	"fileimporter-filenameerror-illegal": "Назва файлу, на яку Ви зараз намагаєтесь імпортувати, є недійсною.",
 	"fileimporter-filenameerror-toolong": "Назва файлу, на яку Ви зараз намагаєтесь імпортувати, є надто довгою.",
-	"fileimporter-filenameerror-automaticchanges": "Назву файлу, на яку Ви зараз намагаєтесь імпортувати, буде автоматично змінено на «$1» через використання недійсних символів.",
+	"fileimporter-filenameerror-automaticchanges": "Назву файлу автоматично змінено з «$1» на «$2»",
 	"fileimporter-localtitleexists": "Назва, на яку Ви зараз намагаєтесь імпортувати, вже існує в цій вікі.",
 	"fileimporter-sourcetitleexists": "Назва, на яку Ви зараз намагаєтесь імпортувати, вже існує у вихідній вікі.",
 	"fileimporter-illegalfilenamechars": "Назва, на яку Ви зараз намагаєтесь імпортувати, містить недійсні для назви файлу символи.",
 	"fileimporter-duplicatefilesdetected": "Файл, який Ви зараз намагаєтесь імпортувати, вже існує в цій вікі.",
 	"fileimporter-duplicatefilesdetected-prefix": "Дублікати",
 	"fileimporter-exampleprefix": "Приклад",
-	"fileimporter-textrevisions": "Буде імпортовано $1 {{PLURAL:$1|версію|версії|версій}} файлу.",
+	"fileimporter-textrevisions": "Буде імпортовано $1/$2 {{PLURAL:$2|версії|версій}} з історії версій.",
 	"fileimporter-submit": "Надіслати",
 	"fileimporter-resubmit": "Надіслати повторно",
 	"fileimporter-import": "Імпортувати",

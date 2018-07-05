@@ -4,7 +4,8 @@
 			"Redredsonia",
 			"Alexey zakharenkov",
 			"Okras",
-			"Edible Melon"
+			"Edible Melon",
+			"Vlad5250"
 		]
 	},
 	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
@@ -28,5 +29,7 @@
 	"fileimporter-editsummary": "Описание изменений:",
 	"fileimporter-heading-fileinfo": "Информация о файле",
 	"fileimporter-heading-filehistory": "История файла",
-	"fileimporter-filetoolarge": "Файл, который вы сейчас пытаетесь загрузить, превосходит максимальный размер файла."
+	"fileimporter-filetoolarge": "Файл, который вы сейчас пытаетесь загрузить, превосходит максимальный размер файла.",
+	"fileimporter-viewdiff": "Показать изменения",
+	"fileimporter-to-preview": "Вернуться к предпросмотру"
 }
