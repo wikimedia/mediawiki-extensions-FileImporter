@@ -7,6 +7,8 @@ use SpecialPage;
 
 /**
  * Page displaying extension usage information.
+ *
+ * @license GPL-2.0-or-later
  */
 class InfoPage {
 

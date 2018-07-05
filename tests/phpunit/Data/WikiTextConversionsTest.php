@@ -6,6 +6,8 @@ use FileImporter\Data\WikiTextConversions;
 
 /**
  * @covers \FileImporter\Data\WikiTextConversions
+ *
+ * @license GPL-2.0-or-later
  */
 class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 

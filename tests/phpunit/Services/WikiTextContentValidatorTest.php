@@ -9,6 +9,8 @@ use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Services\WikiTextContentValidator
+ *
+ * @license GPL-2.0-or-later
  */
 class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnit4And6Compat;
