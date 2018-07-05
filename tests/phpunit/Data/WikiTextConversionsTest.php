@@ -3,11 +3,25 @@
 namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\WikiTextConversions;
+use InvalidArgumentException;
 
 /**
  * @covers \FileImporter\Data\WikiTextConversions
+ *
+ * @license GPL-2.0-or-later
  */
 class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
+
+	public function testInvalidTargetTemplateName() {
+		$this->setExpectedException( InvalidArgumentException::class, 'targetTemplate' );
+		new WikiTextConversions( [], [], [], [ [ 'targetTemplate' => '' ] ] );
+	}
+
+	public function testMissingTemplateParameters() {
+		$this->setExpectedException( InvalidArgumentException::class, 'parameters' );
+		new WikiTextConversions( [], [], [], [ [ 'targetTemplate' => 'a' ] ] );
+	}
 
 	public function provideCaseInsensitivePageNames() {
 		return [

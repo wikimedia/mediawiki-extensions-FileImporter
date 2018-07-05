@@ -76,7 +76,10 @@ class WikiTextConversions {
 			}
 
 			if ( empty( $to['targetTemplate'] ) ) {
-				throw new InvalidArgumentException( 'Transfer rule misses "targetTemplate"' );
+				throw new InvalidArgumentException( "$from transfer rule misses targetTemplate" );
+			}
+			if ( !isset( $to['parameters'] ) ) {
+				throw new InvalidArgumentException( "$from transfer rule misses parameters" );
 			}
 
 			$from = $this->lowercasePageName( $from );
