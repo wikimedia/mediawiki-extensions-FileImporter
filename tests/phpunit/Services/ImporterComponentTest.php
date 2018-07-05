@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Services;
 
+use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
@@ -14,8 +15,10 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
+use MediaWiki\Linker\LinkTarget;
 use OldRevisionImporter;
 use Psr\Log\NullLogger;
 use UploadRevisionImporter;
@@ -37,7 +40,6 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 	const PREFIX = 'interwiki-prefix';
 
 	const COMMENT = "<!--This file was moved here using FileImporter from http://source.url-->\n";
-	const ORIGINAL_WIKITEXT = 'Original wikitext.';
 	const CLEANED_WIKITEXT = 'Auto-cleaned wikitext.';
 	const USER_WIKITEXT = 'User-provided wikitext.';
 
@@ -48,32 +50,59 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 		$textRevision = $this->newTextRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
 		$user = $this->createMock( User::class );
-		$logger = new NullLogger();
-
-		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
-		$details = new ImportDetails(
-			new SourceUrl( self::URL ),
-			new \TitleValue( NS_FILE, self::TITLE ),
-			new TextRevisions( [ $textRevision ] ),
-			new FileRevisions( [] )
-		);
-		$details->setCleanedRevisionText( self::CLEANED_WIKITEXT );
-		$importPlan = new ImportPlan( $request, $details, self::PREFIX );
+		$importPlan = $this->newImportPlan( $textRevision, null );
 
 		$importer = new Importer(
 			$this->createWikiPageFactoryMock( $user ),
-			$this->createWikiRevisionFactoryMock( $textRevision, $wikiRevision ),
+			$this->createWikiRevisionFactoryMock( $textRevision, null, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $user ),
 			$this->createHttpRequestExecutorMock(),
-			new UploadBaseFactory( $logger ),
+			$this->createUploadBaseFactoryMock(),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock(),
 			new FileTextRevisionValidator(),
 			new \NullStatsdDataFactory(),
-			$logger
+			new NullLogger()
 		);
 
 		$this->assertTrue( $importer->import( $user, $importPlan ) );
+	}
+
+	public function testImportingOneFileRevision() {
+		$textRevision = $this->newTextRevision();
+		$fileRevision = $this->newFileRevision();
+		$wikiRevision = $this->createWikiRevisionMock();
+		$user = $this->createMock( User::class );
+		$importPlan = $this->newImportPlan( $textRevision, $fileRevision );
+
+		$importer = new Importer(
+			$this->createWikiPageFactoryMock( $user ),
+			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
+			$this->createNullRevisionCreatorMock( $user ),
+			$this->createHttpRequestExecutorMock( 1 ),
+			$this->createUploadBaseFactoryMock( $user, $textRevision ),
+			$this->createOldRevisionImporterMock( $wikiRevision ),
+			$this->createUploadRevisionImporterMock( $wikiRevision ),
+			new FileTextRevisionValidator(),
+			new \NullStatsdDataFactory(),
+			new NullLogger()
+		);
+
+		$this->assertTrue( $importer->import( $user, $importPlan ) );
+	}
+
+	private function newImportPlan( TextRevision $textRevision, FileRevision $fileRevision = null ) {
+		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
+
+		$details = new ImportDetails(
+			new SourceUrl( self::URL ),
+			new \TitleValue( NS_FILE, self::TITLE ),
+			new TextRevisions( [ $textRevision ] ),
+			new FileRevisions( $fileRevision ? [ $fileRevision ] : [] )
+		);
+		$details->setCleanedRevisionText( self::CLEANED_WIKITEXT );
+
+		return new ImportPlan( $request, $details, self::PREFIX );
 	}
 
 	private function newTextRevision() {
@@ -90,6 +119,19 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 		] );
 	}
 
+	private function newFileRevision() {
+		return new FileRevision( [
+			'name' => null,
+			'description' => null,
+			'user' => null,
+			'timestamp' => null,
+			'sha1' => null,
+			'size' => null,
+			'thumburl' => null,
+			'url' => self::URL,
+		] );
+	}
+
 	/**
 	 * @return WikiRevision
 	 */
@@ -103,12 +145,14 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param TextRevision $expectedTextRevision
+	 * @param FileRevision|null $expectedFileRevision
 	 * @param WikiRevision $returnedWikiRevision
 	 *
 	 * @return WikiRevisionFactory
 	 */
 	private function createWikiRevisionFactoryMock(
 		TextRevision $expectedTextRevision,
+		FileRevision $expectedFileRevision = null,
 		WikiRevision $returnedWikiRevision
 	) {
 		$factory = $this->createMock( WikiRevisionFactory::class );
@@ -116,8 +160,10 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 			->method( 'newFromTextRevision' )
 			->with( $expectedTextRevision )
 			->willReturn( $returnedWikiRevision );
-		$factory->expects( $this->never() )
-			->method( 'newFromFileRevision' );
+		$factory->expects( $this->exactly( $expectedFileRevision ? 1 : 0 ) )
+			->method( 'newFromFileRevision' )
+			->with( $expectedFileRevision, $this->stringContains( 'fileimporter_' ) )
+			->willReturn( $returnedWikiRevision );
 		return $factory;
 	}
 
@@ -152,24 +198,64 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @param int $calls
+	 *
 	 * @return HttpRequestExecutor
 	 */
-	private function createHttpRequestExecutorMock() {
+	private function createHttpRequestExecutorMock( $calls = 0 ) {
+		$request = $this->createMock( \MWHttpRequest::class );
+
 		$executor = $this->createMock( HttpRequestExecutor::class );
-		// TODO: Never called because there are no file revisions (yet) in this test!
-		$executor->expects( $this->never() )
-			->method( 'executeAndSave' );
+		$executor->expects( $this->exactly( $calls ) )
+			->method( 'executeAndSave' )
+			->with( self::URL, $this->stringContains( 'fileimporter_' ) )
+			->willReturn( $request );
 		return $executor;
 	}
 
 	/**
+	 * @param User|null $expectedUser
+	 * @param TextRevision|null $expectedTextRevision
+	 *
+	 * @return UploadBaseFactory
+	 */
+	private function createUploadBaseFactoryMock(
+		User $expectedUser = null,
+		TextRevision $expectedTextRevision = null
+	) {
+		$calls = $expectedUser ? 1 : 0;
+
+		$uploadBase = $this->createMock( ValidatingUploadBase::class );
+		$uploadBase->expects( $this->exactly( $calls ) )
+			->method( 'validateTitle' )
+			->willReturn( true );
+		$uploadBase->expects( $this->exactly( $calls ) )
+			->method( 'validateFile' )
+			->willReturn( true );
+		$uploadBase->expects( $this->exactly( $calls ) )
+			->method( 'validateUpload' )
+			->with( $expectedUser, $expectedTextRevision )
+			->willReturn( new \Status() );
+
+		$factory = $this->createMock( UploadBaseFactory::class );
+		$factory->expects( $this->exactly( $calls ) )
+			->method( 'newValidatingUploadBase' )
+			->with( $this->isInstanceOf( LinkTarget::class ), '' )
+			->willReturn( $uploadBase );
+		return $factory;
+	}
+
+	/**
+	 * @param WikiRevision|null $expectedWikiRevision
+	 *
 	 * @return UploadRevisionImporter
 	 */
-	private function createUploadRevisionImporterMock() {
+	private function createUploadRevisionImporterMock( WikiRevision $expectedWikiRevision = null ) {
 		$importer = $this->createMock( UploadRevisionImporter::class );
-		// TODO: Never called because there are no file revisions (yet) in this test!
-		$importer->expects( $this->never() )
-			->method( 'import' );
+		$importer->expects( $this->exactly( $expectedWikiRevision ? 1 : 0 ) )
+			->method( 'import' )
+			->with( $expectedWikiRevision )
+			->willReturn( new \Status() );
 		return $importer;
 	}
 
