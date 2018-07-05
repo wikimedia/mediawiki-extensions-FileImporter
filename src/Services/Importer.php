@@ -146,36 +146,22 @@ class Importer {
 			microtime( true ) - $operationBuildingStart
 		);
 
-		$this->logger->info( __METHOD__ . ' ImportOperations built.' );
-
 		$operationPrepareStart = microtime( true );
-		if ( !$importOperations->prepare() ) {
-			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
-			throw new RuntimeException( 'Failed to prepare operations.' );
-		}
-		$this->logger->info( __METHOD__ . ' operations prepared.' );
+		$this->prepareImportOperations( $importOperations );
 		$this->stats->timing(
 			'FileImporter.import.timing.prepareOperations',
 			microtime( true ) - $operationPrepareStart
 		);
 
 		$operationValidateStart = microtime( true );
-		if ( !$importOperations->validate() ) {
-			$this->logger->error( __METHOD__ . 'Failed to validate operations.' );
-			throw new RuntimeException( 'Failed to validate operations.' );
-		}
-		$this->logger->info( __METHOD__ . ' operations validated.' );
+		$this->validateImportOperations( $importOperations );
 		$this->stats->timing(
 			'FileImporter.import.timing.validateOperations',
 			microtime( true ) - $operationValidateStart
 		);
 
 		$operationCommitStart = microtime( true );
-		if ( !$importOperations->commit() ) {
-			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
-			throw new RuntimeException( 'Failed to commit operations.' );
-		}
-		$this->logger->info( __METHOD__ . ' operations committed.' );
+		$this->commitImportOperations( $importOperations );
 		$this->stats->timing(
 			'FileImporter.import.timing.commitOperations',
 			microtime( true ) - $operationCommitStart
@@ -263,7 +249,36 @@ class Importer {
 		$this->stats->gauge( 'FileImporter.import.details.fileRevisions', count( $fileRevisions ) );
 		$this->stats->gauge( 'FileImporter.import.details.totalFileSizes', $totalFileSizes );
 
+		$this->logger->info( __METHOD__ . ' ImportOperations built.' );
+
 		return $importOperations;
+	}
+
+	private function prepareImportOperations( ImportOperations $importOperations ) {
+		if ( !$importOperations->prepare() ) {
+			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
+			throw new RuntimeException( 'Failed to prepare operations.' );
+		}
+
+		$this->logger->info( __METHOD__ . ' operations prepared.' );
+	}
+
+	private function validateImportOperations( ImportOperations $importOperations ) {
+		if ( !$importOperations->validate() ) {
+			$this->logger->error( __METHOD__ . 'Failed to validate operations.' );
+			throw new RuntimeException( 'Failed to validate operations.' );
+		}
+
+		$this->logger->info( __METHOD__ . ' operations validated.' );
+	}
+
+	private function commitImportOperations( ImportOperations $importOperations ) {
+		if ( !$importOperations->commit() ) {
+			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
+			throw new RuntimeException( 'Failed to commit operations.' );
+		}
+
+		$this->logger->info( __METHOD__ . ' operations committed.' );
 	}
 
 	/**
