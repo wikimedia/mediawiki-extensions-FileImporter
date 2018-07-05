@@ -25,7 +25,6 @@ use WebResponse;
  * @covers \FileImporter\Html\InputFormPage
  * @covers \FileImporter\Html\RecoverableTitleExceptionPage
  * @covers \FileImporter\Html\TextRevisionSnippet
- * @covers \FileImporter\Services\Importer
  * @covers \FileImporter\SpecialImportFile
  *
  * This test makes some calls to https://commons.wikimedia.org
