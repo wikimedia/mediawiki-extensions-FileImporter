@@ -12,8 +12,11 @@
 	"namemsg": "fileimporter",
 	"descriptionmsg": "fileimporter-desc",
 	"license-name": "GPL-2.0-or-later",
-	"type": "other",
-	"manifest_version": 1,
+	"type": "specialpage",
+	"manifest_version": 2,
+	"requires": {
+		"MediaWiki": ">= 1.29.0"
+	},
 	"MessagesDirs": {
 		"FileImporter": [
 			"i18n"
@@ -102,25 +105,49 @@
 		"src/Remote/MediaWiki/SiteWiring.php"
 	],
 	"config": {
-		"FileImporterRequiredRight": "upload",
-		"FileImporterInBeta": true,
-		"FileImporterInterWikiMap": [],
-		"@FileImporterShowInputScreen": "Whether or not to show the source URL input page.",
-		"FileImporterShowInputScreen": false,
-		"FileImporterSourceSiteServices": [],
-		"@FileImporterCommonsHelperServer": "Location of CommonsHelper2-compatible configuration files to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable.",
-		"FileImporterCommonsHelperServer": "",
-		"@FileImporterCommonsHelperBasePageName": "Base page name of CommonsHelper2-compatible configuration files to use.",
-		"FileImporterCommonsHelperBasePageName": "Extension:FileImporter/Data/",
-		"FileImporterAccountForSuppressedUsername": "FileImporterSuppressed",
-		"@FileImporterCommentForPostImportRevision": "Text used for the edit summary of a post import revision.",
-		"FileImporterCommentForPostImportRevision": "Imported with FileImporter from $1",
-		"@FileImporterTextForPostImportRevision": "Text added to the top of the imported page's wikitext.",
-		"FileImporterTextForPostImportRevision": "<!--This file was moved here using FileImporter from $1-->\n",
-		"@FileImporterMaxRevisions": "Maximum number of revisions (file or text) a file can have in order to be imported.",
-		"FileImporterMaxRevisions": 100,
-		"@FileImporterMaxAggregatedBytes": "Maximum aggregated size of versions a file can have in order to be imported.",
-		"FileImporterMaxAggregatedBytes": 250000000
+		"FileImporterRequiredRight": {
+			"value": "upload"
+		},
+		"FileImporterInBeta": {
+			"value": true
+		},
+		"FileImporterInterWikiMap": {
+			"value": []
+		},
+		"FileImporterShowInputScreen": {
+			"value": false,
+			"description": "Whether or not to show the source URL input page."
+		},
+		"FileImporterSourceSiteServices": {
+			"value": []
+		},
+		"FileImporterCommonsHelperServer": {
+			"value": "",
+			"description": "Location of CommonsHelper2-compatible configuration files to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable."
+		},
+		"FileImporterCommonsHelperBasePageName": {
+			"value": "Extension:FileImporter/Data/",
+			"description": "Base page name of CommonsHelper2-compatible configuration files to use."
+		},
+		"FileImporterAccountForSuppressedUsername": {
+			"value": "FileImporterSuppressed"
+		},
+		"FileImporterCommentForPostImportRevision": {
+			"value": "Imported with FileImporter from $1",
+			"description": "Text used for the edit summary of a post import revision."
+		},
+		"FileImporterTextForPostImportRevision": {
+			"value": "<!--This file was moved here using FileImporter from $1-->\n",
+			"description": "Text added to the top of the imported page's wikitext."
+		},
+		"FileImporterMaxRevisions": {
+			"value": 100,
+			"description": "Maximum number of revisions (file or text) a file can have in order to be imported."
+		},
+		"FileImporterMaxAggregatedBytes": {
+			"value": 250000000,
+			"description": "Maximum aggregated size of versions a file can have in order to be imported."
+		}
 	},
 	"ResourceModules": {
 		"ext.FileImporter.Special": {
