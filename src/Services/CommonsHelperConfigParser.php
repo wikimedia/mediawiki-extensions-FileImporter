@@ -57,6 +57,15 @@ class CommonsHelperConfigParser {
 			);
 		}
 
+		$informationSection = $this->splitSectionsByHeaders( '== Information ==', $wikiText );
+		if ( $informationSection === false ) {
+			throw new LocalizedImportException(
+				new Message( 'fileimporter-commonshelper-parsing-failed', [
+					$this->commonsHelperConfigUrl, 'Information'
+				] )
+			);
+		}
+
 		$goodTemplateSection = $this->splitSectionsByHeaders( '=== Good ===', $templateSection );
 		if ( $goodTemplateSection === false ) {
 			throw new LocalizedImportException(
@@ -93,12 +102,35 @@ class CommonsHelperConfigParser {
 			);
 		}
 
-		return new WikiTextConversions(
+		$descriptionSection = $this->splitSectionsByHeaders( '=== Description ===', $informationSection );
+		if ( $descriptionSection === false ) {
+			throw new LocalizedImportException(
+				new Message( 'fileimporter-commonshelper-parsing-failed', [
+					$this->commonsHelperConfigUrl, 'Information/Description'
+				] )
+			);
+		}
+
+		$licensingSection = $this->splitSectionsByHeaders( '=== Licensing ===', $informationSection );
+		if ( $licensingSection === false ) {
+			throw new LocalizedImportException(
+				new Message( 'fileimporter-commonshelper-parsing-failed', [
+					$this->commonsHelperConfigUrl, 'Information/Licensing'
+				] )
+			);
+		}
+
+		$conversions = new WikiTextConversions(
 			$this->getItemList( $goodTemplateSection ),
 			$this->getItemList( $badTemplateSection ),
 			$this->getItemList( $badCategorySection ),
 			$this->parseTransferList( $transferTemplateSection )
 		);
+		$conversions->setHeadingReplacements(
+			array_fill_keys( $this->getItemList( $descriptionSection ), '{{int:filedesc}}' ) +
+			array_fill_keys( $this->getItemList( $licensingSection ), '{{int:license-header}}' )
+		);
+		return $conversions;
 	}
 
 	/**

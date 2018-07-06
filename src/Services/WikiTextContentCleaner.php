@@ -37,6 +37,23 @@ class WikiTextContentCleaner {
 	 * @return string
 	 */
 	public function cleanWikiText( $wikiText ) {
+		$wikiText = $this->cleanHeadings( $wikiText );
+		$wikiText = $this->cleanTemplates( $wikiText );
+		return $wikiText;
+	}
+
+	/**
+	 * @param string $wikiText
+	 *
+	 * @return string
+	 */
+	public function cleanHeadings( $wikiText ) {
+		return preg_replace_callback( '/^((=+)\h*)(.*?)(?=\h*\2$)/m', function ( $matches ) {
+			return $matches[1] . $this->wikiTextConversions->swapHeading( $matches[3] );
+		}, $wikiText );
+	}
+
+	public function cleanTemplates( $wikiText ) {
 		$this->latestNumberOfReplacements = 0;
 
 		preg_match_all(

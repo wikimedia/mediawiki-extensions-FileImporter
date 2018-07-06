@@ -227,4 +227,30 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 
+	public function provideHeadingReplacements() {
+		return [
+			[ '==Description==', '=={{int:filedesc}}==' ],
+			[ '==Licensing==', '=={{int:license-header}}==' ],
+			[ "==Description==\n==Licensing==", "=={{int:filedesc}}==\n=={{int:license-header}}==" ],
+			[ '= Description =', '= {{int:filedesc}} =' ],
+			[ '===Description===', '==={{int:filedesc}}===' ],
+			[ '==Description=', '==Description=' ],
+			[ '=Description==', '=Description==' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideHeadingReplacements
+	 */
+	public function testHeadingReplacements( $wikiText, $expectedWikiText ) {
+		$conversions = new WikiTextConversions( [], [], [], [] );
+		$conversions->setHeadingReplacements( [
+			'Description' => '{{int:filedesc}}',
+			'Licensing' => '{{int:license-header}}',
+		] );
+		$cleaner = new WikiTextContentCleaner( $conversions );
+
+		$this->assertSame( $expectedWikiText, $cleaner->cleanWikiText( $wikiText ) );
+	}
+
 }

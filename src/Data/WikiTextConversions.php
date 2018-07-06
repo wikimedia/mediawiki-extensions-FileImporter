@@ -16,6 +16,11 @@ class WikiTextConversions {
 	/**
 	 * @var string[]
 	 */
+	private $headingReplacements = [];
+
+	/**
+	 * @var string[]
+	 */
 	private $goodTemplates = [];
 
 	/**
@@ -86,6 +91,25 @@ class WikiTextConversions {
 			$to['targetTemplate'] = $this->normalizePageName( $to['targetTemplate'] );
 			$this->transferTemplates[$from] = $to;
 		}
+	}
+
+	/**
+	 * @param string[] $headingReplacements Straight 1:1 mapping of source to target headings
+	 *  without any `==` syntax
+	 */
+	public function setHeadingReplacements( array $headingReplacements ) {
+		$this->headingReplacements = $headingReplacements;
+	}
+
+	/**
+	 * @param string $heading
+	 *
+	 * @return string
+	 */
+	public function swapHeading( $heading ) {
+		return isset( $this->headingReplacements[$heading] )
+			? $this->headingReplacements[$heading]
+			: $heading;
 	}
 
 	/**
