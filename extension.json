@@ -68,6 +68,7 @@
 		"FileImporter\\Services\\SourceUrlNormalizer": "src/Services/SourceUrlNormalizer.php",
 		"FileImporter\\Services\\FileTextRevisionValidator": "src/Services/FileTextRevisionValidator.php",
 		"FileImporter\\Services\\WikimediaSourceUrlNormalizer": "src/Services/WikimediaSourceUrlNormalizer.php",
+		"FileImporter\\Services\\WikiPageFactory": "src/Services/WikiPageFactory.php",
 		"FileImporter\\Services\\WikiRevisionFactory": "src/Services/WikiRevisionFactory.php",
 		"FileImporter\\Services\\WikiTextContentValidator": "src/Services/WikiTextContentValidator.php",
 		"FileImporter\\Services\\WikiTextContentCleaner": "src/Services/WikiTextContentCleaner.php",

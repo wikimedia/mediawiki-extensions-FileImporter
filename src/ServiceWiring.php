@@ -16,6 +16,7 @@ use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
+use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
@@ -82,6 +83,7 @@ return [
 		);
 
 		$importer = new Importer(
+			new WikiPageFactory(),
 			$wikiRevisionFactory,
 			$httpRequestExecutor,
 			$uploadBaseFactory,
