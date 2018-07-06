@@ -82,14 +82,14 @@ class ImportDetails {
 	 * @return string File extension. Example: 'png'
 	 */
 	public function getSourceFileExtension() {
-		return pathinfo( $this->sourceLinkTarget->getText() )['extension'];
+		return pathinfo( $this->sourceLinkTarget->getText(), PATHINFO_EXTENSION );
 	}
 
 	/**
 	 * @return string Filename with no namespace prefix or file extension. Example: 'Berlin'
 	 */
 	public function getSourceFileName() {
-		return pathinfo( $this->sourceLinkTarget->getText() )['filename'];
+		return pathinfo( $this->sourceLinkTarget->getText(), PATHINFO_FILENAME );
 	}
 
 	/**
