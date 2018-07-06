@@ -215,20 +215,19 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( \Title::makeTitle( NS_FILE, self::TITLE ) );
 		$page->expects( $this->once() )
 			->method( 'doEditContent' )
-			->withConsecutive(
-				[
-					new \WikitextContent( $expectedWikiText ),
-					$expectedSummary,
-					EDIT_UPDATE,
-					false,
-					$expectedUser
-				]
+			->with(
+				new \WikitextContent( $expectedWikiText ),
+				$expectedSummary,
+				EDIT_UPDATE,
+				false,
+				$expectedUser
 			)
 			->willReturn( new \Status() );
 
 		$factory = $this->createMock( WikiPageFactory::class );
 		$factory->expects( $this->once() )
 			->method( 'newFromID' )
+			->with( 0 )
 			->willReturn( $page );
 		return $factory;
 	}

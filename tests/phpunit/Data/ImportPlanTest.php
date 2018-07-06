@@ -65,7 +65,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$this->assertSame( 'TestIntendedName', $plan->getFileName() );
 	}
 
-	public function provideGetFileInfoText() {
+	public function provideTexts() {
 		return [
 			[ 'Some Text', 'Some Text', null, 'Some Text' ],
 			[ 'Some Text', 'Some Text', 'Some Other Text', 'Some Other Text' ],
@@ -76,17 +76,13 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @dataProvider provideGetFileInfoText
-	 * @param string $originalText
-	 * @param string $intendedText
-	 * @param string $expectedText
+	 * @dataProvider provideTexts
 	 */
-	public function testGetFileInfoText( $originalText, $cleanedText, $intendedText, $expectedText ) {
+	public function testTextGetters( $originalText, $cleanedText, $intendedText, $expectedText ) {
 		$this->setMwGlobals( 'wgFileImporterTextForPostImportRevision', '' );
 
 		$request = $this->createMock( ImportRequest::class );
-		$request->expects( $this->once() )
-			->method( 'getIntendedText' )
+		$request->method( 'getIntendedText' )
 			->willReturn( $intendedText );
 
 		$textRevision = $this->createMock( TextRevision::class );
@@ -104,7 +100,28 @@ class ImportPlanTest extends \MediaWikiTestCase {
 			->willReturn( $cleanedText );
 
 		$plan = new ImportPlan( $request, $details, '' );
-		$this->assertSame( $expectedText, $plan->getFileInfoText() );
+		$this->assertSame( $originalText, $plan->getInitialFileInfoText(), 'initialFileInfoText' );
+		$this->assertSame(
+			$cleanedText ?: $originalText,
+			$plan->getInitialCleanedInfoText(),
+			'initialCleanedInfoText'
+		);
+		$this->assertSame( $expectedText, $plan->getFileInfoText(), 'fileInfoText' );
+	}
+
+	public function testGetInitialFileInfoTextWithNoTextRevision() {
+		$request = $this->createMock( ImportRequest::class );
+
+		$textRevisions = $this->createMock( TextRevisions::class );
+		$textRevisions->method( 'getLatest' )
+			->willReturn( null );
+
+		$details = $this->createMock( ImportDetails::class );
+		$details->method( 'getTextRevisions' )
+			->willReturn( $textRevisions );
+
+		$plan = new ImportPlan( $request, $details, '' );
+		$this->assertSame( '', $plan->getInitialFileInfoText() );
 	}
 
 }
