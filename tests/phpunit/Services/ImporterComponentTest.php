@@ -50,10 +50,36 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 		$textRevision = $this->newTextRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
 		$user = $this->createMock( User::class );
-		$importPlan = $this->newImportPlan( $textRevision, null );
+
+		$minimalRequest = new ImportRequest( self::URL );
+		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision );
 
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $user ),
+			$this->createWikiPageFactoryMock( $user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
+			$this->createWikiRevisionFactoryMock( $textRevision, null, $wikiRevision ),
+			$this->createNullRevisionCreatorMock( $user ),
+			$this->createHttpRequestExecutorMock(),
+			$this->createUploadBaseFactoryMock(),
+			$this->createOldRevisionImporterMock( $wikiRevision ),
+			$this->createUploadRevisionImporterMock(),
+			new FileTextRevisionValidator(),
+			new \NullStatsdDataFactory(),
+			new NullLogger()
+		);
+
+		$this->assertTrue( $importer->import( $user, $importPlan ) );
+	}
+
+	public function testImportingZeroFileRevisionsWithUserProvidedValues() {
+		$textRevision = $this->newTextRevision();
+		$wikiRevision = $this->createWikiRevisionMock();
+		$user = $this->createMock( User::class );
+
+		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
+		$importPlan = $this->newImportPlan( $request, $textRevision );
+
+		$importer = new Importer(
+			$this->createWikiPageFactoryMock( $user, self::USER_WIKITEXT, self::USER_SUMMARY ),
 			$this->createWikiRevisionFactoryMock( $textRevision, null, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $user ),
 			$this->createHttpRequestExecutorMock(),
@@ -73,10 +99,12 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
 		$user = $this->createMock( User::class );
-		$importPlan = $this->newImportPlan( $textRevision, $fileRevision );
+
+		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
+		$importPlan = $this->newImportPlan( $request, $textRevision, $fileRevision );
 
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $user ),
+			$this->createWikiPageFactoryMock( $user, self::USER_WIKITEXT, self::USER_SUMMARY ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $user ),
 			$this->createHttpRequestExecutorMock( 1 ),
@@ -91,9 +119,11 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue( $importer->import( $user, $importPlan ) );
 	}
 
-	private function newImportPlan( TextRevision $textRevision, FileRevision $fileRevision = null ) {
-		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
-
+	private function newImportPlan(
+		ImportRequest $request,
+		TextRevision $textRevision,
+		FileRevision $fileRevision = null
+	) {
 		$details = new ImportDetails(
 			new SourceUrl( self::URL ),
 			new \TitleValue( NS_FILE, self::TITLE ),
@@ -169,10 +199,16 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param User $expectedUser
+	 * @param string $expectedWikiText
+	 * @param string|null $expectedSummary
 	 *
 	 * @return WikiPageFactory
 	 */
-	private function createWikiPageFactoryMock( User $expectedUser ) {
+	private function createWikiPageFactoryMock(
+		User $expectedUser,
+		$expectedWikiText,
+		$expectedSummary
+	) {
 		$page = $this->createMock( \WikiPage::class );
 		$page->expects( $this->once() )
 			->method( 'getTitle' )
@@ -181,8 +217,8 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 			->method( 'doEditContent' )
 			->withConsecutive(
 				[
-					new \WikitextContent( self::USER_WIKITEXT ),
-					self::USER_SUMMARY,
+					new \WikitextContent( $expectedWikiText ),
+					$expectedSummary,
 					EDIT_UPDATE,
 					false,
 					$expectedUser
