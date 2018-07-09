@@ -3,9 +3,7 @@
 namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Exceptions\LocalizedImportException;
-use Language;
 use MediaWikiTestCase;
-use Message;
 
 /**
  * @covers \FileImporter\Exceptions\LocalizedImportException
@@ -24,7 +22,7 @@ class LocalizedImportExceptionTest extends MediaWikiTestCase {
 	public function testGetMessageObject() {
 		$ex = new LocalizedImportException( [ 'fileimporter-filetoolarge', 1 ] );
 
-		$expectedMessage = new Message( 'fileimporter-filetoolarge', [ 1 ], Language::factory( 'en' ) );
+		$expectedMessage = wfMessage( 'fileimporter-filetoolarge', 1 )->inLanguage( 'en' );
 		$this->assertSame( $expectedMessage->text(), $ex->getMessage() );
 		$this->assertSame( 'qqx', $ex->getMessageObject()->getLanguage()->getCode() );
 	}

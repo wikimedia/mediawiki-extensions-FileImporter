@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use File;
 use Html;
-use Message;
 use OOUI\ButtonWidget;
 
 /**
@@ -39,7 +38,7 @@ class DuplicateFilesErrorPage {
 	 */
 	public function getHtml() {
 		$duplicateFilesList = '';
-		$duplicatesMessage = ( new Message( 'fileimporter-duplicatefilesdetected-prefix' ) )->plain();
+		$duplicatesMessage = wfMessage( 'fileimporter-duplicatefilesdetected-prefix' )->plain();
 		$duplicateFilesList .= Html::rawElement(
 			'p',
 			[],
@@ -62,7 +61,7 @@ class DuplicateFilesErrorPage {
 		$output = Html::rawElement(
 				'div',
 				[ 'class' => 'mw-importfile-error-banner errorbox' ],
-				Html::element( 'p', [], ( new Message( 'fileimporter-duplicatefilesdetected' ) )->plain() )
+				Html::element( 'p', [], wfMessage( 'fileimporter-duplicatefilesdetected' )->plain() )
 			);
 
 		$output .= $duplicateFilesList;
@@ -70,7 +69,7 @@ class DuplicateFilesErrorPage {
 		if ( $this->url !== null ) {
 			$output .= new ButtonWidget(
 				[
-					'label' => ( new Message( 'fileimporter-go-to-original-file-button' ) )->plain(),
+					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
 					'href' => $this->url,
 					'classes' => [ 'mw-importfile-error-back-button' ],
 					'flags' => [ 'primary', 'progressive' ]

@@ -6,7 +6,6 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use Message;
 
 /**
  * @license GPL-2.0-or-later
@@ -88,9 +87,7 @@ class CommonsHelperConfigRetriever {
 			}
 		}
 
-		throw new LocalizedImportException(
-			new Message( 'fileimporter-commonshelper-retrieval-failed' )
-		);
+		throw new LocalizedImportException( 'fileimporter-commonshelper-retrieval-failed' );
 	}
 
 	/**
@@ -125,9 +122,8 @@ class CommonsHelperConfigRetriever {
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-api-failedtogetinfo', [ $requestUrl ] )
-			);
+			throw new LocalizedImportException( [ 'fileimporter-api-failedtogetinfo',
+				$requestUrl ] );
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 		return $requestData;

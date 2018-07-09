@@ -4,7 +4,6 @@ namespace FileImporter\Data;
 
 use FileImporter\Exceptions\LocalizedImportException;
 use InvalidArgumentException;
-use Message;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -57,7 +56,7 @@ class ImportRequest {
 		try {
 			$this->url = new SourceUrl( $url );
 		} catch ( InvalidArgumentException $e ) {
-			throw new LocalizedImportException( new Message( 'fileimporter-cantparseurl', [ $url ] ) );
+			throw new LocalizedImportException( [ 'fileimporter-cantparseurl', $url ] );
 		}
 
 		if ( $intendedText !== null ) {

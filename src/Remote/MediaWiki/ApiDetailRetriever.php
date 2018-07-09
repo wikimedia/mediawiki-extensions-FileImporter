@@ -16,7 +16,6 @@ use FileImporter\Services\CommonsHelperConfigParser;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\WikiTextContentCleaner;
 use FileImporter\Services\WikiTextContentValidator;
-use Message;
 use Psr\Log\LoggerInterface;
 use Title;
 use MediaWiki\MediaWikiServices;
@@ -161,9 +160,8 @@ class ApiDetailRetriever implements DetailRetriever {
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-api-failedtogetinfo', [ $requestUrl ] )
-			);
+			throw new LocalizedImportException( [ 'fileimporter-api-failedtogetinfo',
+				$requestUrl ] );
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 		return $requestData;
@@ -451,9 +449,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
 
 			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
-				$revisionInfo['comment'] = (
-					new Message( 'fileimporter-revision-removed-comment' )
-				)->plain();
+				$revisionInfo['comment'] = wfMessage( 'fileimporter-revision-removed-comment' )
+					->plain();
 			}
 
 			$revisionInfo['bits'] = $revisionInfo['size'];
@@ -479,9 +476,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			}
 
 			if ( array_key_exists( 'texthidden', $revisionInfo ) ) {
-				$revisionInfo['*'] = (
-					new Message( 'fileimporter-revision-removed-text' )
-				)->plain();
+				$revisionInfo['*'] = wfMessage( 'fileimporter-revision-removed-text' )
+					->plain();
 			}
 
 			if ( array_key_exists( 'sha1hidden', $revisionInfo ) ) {
@@ -491,9 +487,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			}
 
 			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
-				$revisionInfo['comment'] = (
-					new Message( 'fileimporter-revision-removed-comment' )
-				)->plain();
+				$revisionInfo['comment'] = wfMessage( 'fileimporter-revision-removed-comment' )
+					->plain();
 			}
 
 			if ( !array_key_exists( 'contentmodel', $revisionInfo ) ) {
