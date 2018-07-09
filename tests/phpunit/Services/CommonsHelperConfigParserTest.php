@@ -59,6 +59,33 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedException' => '<Categories/Bad>'
 			],
 
+			'missing "information" heading' => [
+				'wikiText' => "== Categories ==\n== Templates ==",
+				'expectedGoodTemplates' => null,
+				'expectedBadTemplates' => null,
+				'expectedBadCategories' => null,
+				'expectedException' => '<Information>'
+			],
+
+			'missing "description" heading' => [
+				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n== Information ==",
+				'expectedGoodTemplates' => null,
+				'expectedBadTemplates' => null,
+				'expectedBadCategories' => null,
+				'expectedException' => '<Information/Description>'
+			],
+
+			'missing "licensing" heading' => [
+				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n" .
+					"== Information ==\n=== Description ===",
+				'expectedGoodTemplates' => null,
+				'expectedBadTemplates' => null,
+				'expectedBadCategories' => null,
+				'expectedException' => '<Information/Licensing>'
+			],
+
 			'missing lists' => [
 				'wikiText' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n" .
