@@ -50,6 +50,10 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( 40, strlen( $details->getOriginalHash() ), 'originalHash' );
 	}
 
+	public function testMissingExtension() {
+		$this->assertSame( '', $this->minimalImportDetails()->getSourceFileExtension() );
+	}
+
 	/**
 	 * @dataProvider provideSameHashes
 	 */
@@ -58,17 +62,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function provideSameHashes() {
-		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
-		$sourceLinkTarget = new TitleValue( NS_FILE, 'FILE' );
-		$textRevisions = new TextRevisions( [] );
-		$fileRevisions = new FileRevisions( [] );
-
-		$original = new ImportDetails(
-			$sourceUrl,
-			$sourceLinkTarget,
-			$textRevisions,
-			$fileRevisions
-		);
+		$original = $this->minimalImportDetails();
 
 		yield 'same' => [ $original, $original ];
 	}
@@ -154,13 +148,22 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	private function minimalImportDetails() {
+		return new ImportDetails(
+			new SourceUrl( '//SOURCE.URL' ),
+			new TitleValue( NS_FILE, 'FILE' ),
+			new TextRevisions( [] ),
+			new FileRevisions( [] )
+		);
+	}
+
 	/**
 	 * @param string $revisionClass Either TextRevision::class or FileRevision::class
 	 * @param string $fieldValue All fields will return the same value
 	 *
 	 * @return TextRevision|FileRevision
 	 */
-	public function newRevision( $revisionClass, $fieldValue ) {
+	private function newRevision( $revisionClass, $fieldValue ) {
 		$mock = $this->createMock( $revisionClass );
 		$mock->method( 'getField' )->willReturn( $fieldValue );
 		return $mock;
