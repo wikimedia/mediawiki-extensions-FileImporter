@@ -17,6 +17,7 @@ use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
 use FileImporter\Services\WikiRevisionFactory;
+use FileImporter\Services\NullRevisionCreator;
 use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
@@ -61,6 +62,8 @@ return [
 	'FileImporterImporter' => function ( MediaWikiServices $services ) {
 		/** @var WikiRevisionFactory $wikiRevisionFactory */
 		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
+		/** @var NullRevisionCreator $nullRevisionCreator */
+		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
 		/** @var HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		/** @var UploadBaseFactory $uploadBaseFactory */
@@ -83,6 +86,7 @@ return [
 
 		$importer = new Importer(
 			$wikiRevisionFactory,
+			$nullRevisionCreator,
 			$httpRequestExecutor,
 			$uploadBaseFactory,
 			$oldRevisionImporter,
@@ -96,6 +100,13 @@ return [
 
 	'FileImporterWikiRevisionFactory' => function ( MediaWikiServices $services ) {
 		return new WikiRevisionFactory( $services->getMainConfig() );
+	},
+
+	'FileImporterNullRevisionCreator' => function ( MediaWikiServices $services ) {
+		return new NullRevisionCreator(
+			$services->getDBLoadBalancer(),
+			$services->getRevisionStore()
+		);
 	},
 
 	'FileImporterImportPlanFactory' => function ( MediaWikiServices $services ) {
