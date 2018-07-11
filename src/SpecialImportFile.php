@@ -29,7 +29,6 @@ use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
-use Message;
 use PermissionsError;
 use Psr\Log\LoggerInterface;
 use SpecialPage;
@@ -141,7 +140,7 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function setupPage() {
-		$this->getOutput()->setPageTitle( new Message( 'fileimporter-specialpage' ) );
+		$this->getOutput()->setPageTitle( wfMessage( 'fileimporter-specialpage' ) );
 		$this->getOutput()->enableOOUI();
 		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
 	}
@@ -278,12 +277,12 @@ class SpecialImportFile extends SpecialPage {
 		$token = $out->getRequest()->getVal( 'token', '' );
 
 		if ( !$this->getUser()->matchEditToken( $token ) ) {
-			$this->showWarningMessage( new Message( 'fileimporter-badtoken' ) );
+			$this->showWarningMessage( wfMessage( 'fileimporter-badtoken' )->parse() );
 			return false;
 		}
 
 		if ( $importDetails->getOriginalHash() !== $importDetailsHash ) {
-			$this->showWarningMessage( new Message( 'fileimporter-badimporthash' ) );
+			$this->showWarningMessage( wfMessage( 'fileimporter-badimporthash' )->parse() );
 			return false;
 		}
 
@@ -302,7 +301,7 @@ class SpecialImportFile extends SpecialPage {
 			$out->setPageTitle( $successPage->getPageTitle() );
 			$out->addHTML( $successPage->getHtml() );
 		} else {
-			$this->showWarningMessage( new Message( 'fileimporter-importfailed' ) );
+			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );
 		}
 
 		return $result;
@@ -311,25 +310,25 @@ class SpecialImportFile extends SpecialPage {
 	/**
 	 * @param Exception $e
 	 *
-	 * @return string
+	 * @return string HTML
 	 */
 	private function getWarningMessage( Exception $e ) {
 		if ( $e instanceof ILocalizedException ) {
 			return $e->getMessageObject()->parse();
 		} else {
-			return $e->getMessage();
+			return htmlspecialchars( $e->getMessage() );
 		}
 	}
 
 	/**
-	 * @param string $message
+	 * @param string $html
 	 */
-	private function showWarningMessage( $message ) {
+	private function showWarningMessage( $html ) {
 		$this->getOutput()->addHTML(
 			Html::rawElement(
 				'div',
 				[ 'class' => 'warningbox' ],
-				Html::rawElement( 'p', [], $message )
+				Html::rawElement( 'p', [], $html )
 			) .
 			Html::rawElement( 'br' )
 		);
@@ -343,7 +342,7 @@ class SpecialImportFile extends SpecialPage {
 
 	private function showLandingPage() {
 		if ( $this->config->get( 'FileImporterInBeta' ) ) {
-			$this->showWarningMessage( ( new Message( 'fileimporter-in-beta' ) )->parse() );
+			$this->showWarningMessage( wfMessage( 'fileimporter-in-beta' )->parse() );
 		}
 
 		$page = $this->config->get( 'FileImporterShowInputScreen' )

@@ -5,7 +5,6 @@ namespace FileImporter\Services;
 use FileImporter\Data\WikiTextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use MediaWiki\MediaWikiServices;
-use Message;
 
 /**
  * @license GPL-2.0-or-later
@@ -44,12 +43,11 @@ class WikiTextContentValidator {
 
 			$templateTitle = $template['title'];
 			if ( $this->wikiTextConversions->isTemplateBad( $templateTitle ) ) {
-				throw new LocalizedImportException(
-					new Message(
-						'fileimporter-file-contains-blocked-category-template',
-						[ $templateTitle, $this->siteName ]
-					)
-				);
+				throw new LocalizedImportException( [
+					'fileimporter-file-contains-blocked-category-template',
+					$templateTitle,
+					$this->siteName
+				] );
 			}
 		}
 	}
@@ -67,12 +65,11 @@ class WikiTextContentValidator {
 
 			$categoryTitle = $category['title'];
 			if ( $this->wikiTextConversions->isCategoryBad( $categoryTitle ) ) {
-				throw new LocalizedImportException(
-					new Message(
-						'fileimporter-file-contains-blocked-category-template',
-						[ $categoryTitle, $this->siteName ]
-					)
-				);
+				throw new LocalizedImportException( [
+					'fileimporter-file-contains-blocked-category-template',
+					$categoryTitle,
+					$this->siteName
+				] );
 			}
 		}
 	}
@@ -98,11 +95,7 @@ class WikiTextContentValidator {
 			}
 		}
 
-		throw new LocalizedImportException(
-			new Message(
-				'fileimporter-file-missing-required-template'
-			)
-		);
+		throw new LocalizedImportException( 'fileimporter-file-missing-required-template' );
 	}
 
 }

@@ -6,7 +6,6 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
 use OOUI\ButtonWidget;
 use Html;
-use Message;
 use Title;
 
 /**
@@ -48,26 +47,24 @@ class ImportSuccessPage {
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-success-banner successbox' ],
-			( new Message(
+			wfMessage(
 				'fileimporter-imported-success-banner',
-				[
-					Html::element(
-						'a',
-						[ 'href' => $this->importTitle->getInternalURL() ],
-						$this->importTitle->getPrefixedText()
-					)
-				]
-			) )->text()
+				Html::element(
+					'a',
+					[ 'href' => $this->importTitle->getInternalURL() ],
+					$this->importTitle->getPrefixedText()
+				)
+			)->text()
 		) .
 		Html::rawElement(
 			'p',
 			[],
-			( new Message( 'fileimporter-imported-change-template' ) )->parse()
+			wfMessage( 'fileimporter-imported-change-template' )->parse()
 		) .
 		new ButtonWidget(
 			[
 				'classes' => [ 'mw-importfile-add-template-button' ],
-				'label' => ( new Message( 'fileimporter-go-to-original-file-button' ) )->plain(),
+				'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
 				'href' => $this->sourceUrl->getUrl(),
 				'flags' => [ 'primary', 'progressive' ],
 			]

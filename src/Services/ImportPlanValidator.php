@@ -9,7 +9,6 @@ use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use MalformedTitleException;
-use Message;
 use UploadBase;
 use User;
 
@@ -77,13 +76,11 @@ class ImportPlanValidator {
 				$importPlan->getFileName() !== $importPlan->getRequest()->getIntendedName()
 			) {
 				throw new RecoverableTitleException(
-					new Message(
+					[
 						'fileimporter-filenameerror-automaticchanges',
-						[
-							$importPlan->getRequest()->getIntendedName(),
-							$importPlan->getFileName()
-						]
-					),
+						$importPlan->getRequest()->getIntendedName(),
+						$importPlan->getFileName()
+					],
 					$importPlan
 				);
 			}
@@ -102,10 +99,7 @@ class ImportPlanValidator {
 
 		);
 		if ( !empty( $permErrors ) ) {
-			throw new RecoverableTitleException(
-				Message::newFromSpecifier( $permErrors[0] ),
-				$importPlan
-			);
+			throw new RecoverableTitleException( $permErrors[0], $importPlan );
 		}
 	}
 

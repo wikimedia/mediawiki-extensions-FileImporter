@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use Html;
 use OOUI\ButtonWidget;
-use Message;
 
 /**
  * @license GPL-2.0-or-later
@@ -44,7 +43,7 @@ class ErrorPage {
 		if ( $this->url !== null ) {
 			$output .= new ButtonWidget(
 				[
-					'label' => ( new Message( 'fileimporter-go-to-original-file-button' ) )->plain(),
+					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
 					'href' => $this->url,
 					'classes' => [ 'mw-importfile-error-back-button' ],
 					'flags' => [ 'primary', 'progressive' ]
