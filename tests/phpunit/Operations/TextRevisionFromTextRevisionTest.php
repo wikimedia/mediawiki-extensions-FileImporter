@@ -33,11 +33,9 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		$this->assertNull( $textRevisionFromTextRevision->getWikiRevison() );
 
 		$result = $textRevisionFromTextRevision->prepare();
-
 		$wikiRevision = $textRevisionFromTextRevision->getWikiRevison();
 
 		$this->assertTrue( $result );
-
 		$this->assertFalse( $title->exists() );
 		$this->assertTrue( $title->isWikitextPage() );
 		$this->assertSame( 0, $wikiRevision->getID() );
