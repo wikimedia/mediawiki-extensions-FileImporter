@@ -5,7 +5,6 @@ namespace FileImporter\Services;
 use FileImporter\Data\WikiTextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use InvalidArgumentException;
-use Message;
 
 /**
  * @license GPL-2.0-or-later
@@ -39,86 +38,23 @@ class CommonsHelperConfigParser {
 		// HTML comments must be removed first
 		$wikiText = preg_replace( '/<!--.*?-->/s', '', $this->wikiText );
 
-		$categorySection = $this->splitSectionsByHeaders( '== Categories ==', $wikiText );
-		if ( $categorySection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Categories'
-				] )
-			);
-		}
+		// Scan for all level-2 headings first, relevant for properly prioritized error reporting
+		$categorySection = $this->grepSection( $wikiText, '== Categories ==', 'Categories' );
+		$templateSection = $this->grepSection( $wikiText, '== Templates ==', 'Templates' );
+		$informationSection = $this->grepSection( $wikiText, '== Information ==', 'Information' );
 
-		$templateSection = $this->splitSectionsByHeaders( '== Templates ==', $wikiText );
-		if ( $templateSection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Templates'
-				] )
-			);
-		}
-
-		$informationSection = $this->splitSectionsByHeaders( '== Information ==', $wikiText );
-		if ( $informationSection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Information'
-				] )
-			);
-		}
-
-		$goodTemplateSection = $this->splitSectionsByHeaders( '=== Good ===', $templateSection );
-		if ( $goodTemplateSection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Templates/Good'
-				] )
-			);
-		}
-
-		$badCategorySection = $this->splitSectionsByHeaders( '=== Bad ===', $categorySection );
-		if ( $badCategorySection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Categories/Bad'
-				] )
-			);
-		}
-
-		$badTemplateSection = $this->splitSectionsByHeaders( '=== Bad ===', $templateSection );
-		if ( $badTemplateSection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Templates/Bad'
-				] )
-			);
-		}
-
-		$transferTemplateSection = $this->splitSectionsByHeaders( '=== Transfer ===', $templateSection );
-		if ( $transferTemplateSection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Templates/Transfer'
-				] )
-			);
-		}
-
-		$descriptionSection = $this->splitSectionsByHeaders( '=== Description ===', $informationSection );
-		if ( $descriptionSection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Information/Description'
-				] )
-			);
-		}
-
-		$licensingSection = $this->splitSectionsByHeaders( '=== Licensing ===', $informationSection );
-		if ( $licensingSection === false ) {
-			throw new LocalizedImportException(
-				new Message( 'fileimporter-commonshelper-parsing-failed', [
-					$this->commonsHelperConfigUrl, 'Information/Licensing'
-				] )
-			);
-		}
+		$badCategorySection = $this->grepSection( $categorySection, '=== Bad ===',
+			'Categories/Bad' );
+		$goodTemplateSection = $this->grepSection( $templateSection, '=== Good ===',
+			'Templates/Good' );
+		$badTemplateSection = $this->grepSection( $templateSection, '=== Bad ===',
+			'Templates/Bad' );
+		$transferTemplateSection = $this->grepSection( $templateSection, '=== Transfer ===',
+			'Templates/Transfer' );
+		$descriptionSection = $this->grepSection( $informationSection, '=== Description ===',
+			'Information/Description' );
+		$licensingSection = $this->grepSection( $informationSection, '=== Licensing ===',
+			'Information/Licensing' );
 
 		$conversions = new WikiTextConversions(
 			$this->getItemList( $goodTemplateSection ),
@@ -134,12 +70,14 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @param string $header
 	 * @param string $wikiText
+	 * @param string $header
+	 * @param string $sectionName
 	 *
-	 * @return string|false
+	 * @throws LocalizedImportException if the section could not be found
+	 * @return string
 	 */
-	private function splitSectionsByHeaders( $header, $wikiText ) {
+	private function grepSection( $wikiText, $header, $sectionName ) {
 		$level = strpos( $header, '= ' );
 		if ( $level === false ) {
 			throw new InvalidArgumentException( '$header must follow this format: "== … =="' );
@@ -153,7 +91,16 @@ class CommonsHelperConfigParser {
 		// Extract a section from the given wikitext blob. Start from the given 2nd- or 3rd-level
 		// header. Stop at the same or a higher level (less equal signs), or at the end of the text.
 		$regex = '/^' . $headerRegex . '\h*$(.*?)(?=^={1,' . $level . '}[^=]|\Z)/ms';
-		return preg_match( $regex, $wikiText, $matches ) ? $matches[1] : false;
+
+		if ( !preg_match( $regex, $wikiText, $matches ) ) {
+			throw new LocalizedImportException( [
+				'fileimporter-commonshelper-parsing-failed',
+				$this->commonsHelperConfigUrl,
+				$sectionName
+			] );
+		}
+
+		return $matches[1];
 	}
 
 	/**

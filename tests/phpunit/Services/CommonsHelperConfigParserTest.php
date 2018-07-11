@@ -52,7 +52,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "bad categories" heading' => [
-				'wikiText' => "== Categories ==\n== Templates ==\n=== Good ===\n== Information ==",
+				'wikiText' => "== Categories ==\n== Templates ==\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
