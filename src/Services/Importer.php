@@ -31,6 +31,11 @@ use WikiPage;
 class Importer {
 
 	/**
+	 * @var WikiPageFactory
+	 */
+	private $wikiPageFactory;
+
+	/**
 	 * @var WikiRevisionFactory
 	 */
 	private $wikiRevisionFactory;
@@ -76,6 +81,7 @@ class Importer {
 	private $stats;
 
 	public function __construct(
+		WikiPageFactory $wikiPageFactory,
 		WikiRevisionFactory $wikiRevisionFactory,
 		NullRevisionCreator $nullRevisionCreator,
 		HttpRequestExecutor $httpRequestExecutor,
@@ -86,6 +92,7 @@ class Importer {
 		StatsdDataFactoryInterface $statsdDataFactory,
 		LoggerInterface $logger
 	) {
+		$this->wikiPageFactory = $wikiPageFactory;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->nullRevisionCreator = $nullRevisionCreator;
 		$this->httpRequestExecutor = $httpRequestExecutor;
@@ -316,14 +323,9 @@ class Importer {
 	private function getPageFromImportPlan( ImportPlan $importPlan ) {
 		/**
 		 * T164729 GAID_FOR_UPDATE needed to select for a write
-		 * T181391 Pass fromdbmaster as the page has only just been created and in
-		 * multi db setups slaves will have lag.
 		 */
 		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE );
-		$page = WikiPage::newFromID(
-			$articleIdForUpdate,
-			'fromdbmaster'
-		);
+		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate );
 
 		if ( $page === null ) {
 			throw new RuntimeException(
