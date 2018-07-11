@@ -26,7 +26,8 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "bad templates" heading' => [
-				'wikiText' => "== Templates ==\n=== Good ===\n== Categories ==\n=== Bad ===\n",
+				'wikiText' => "== Categories ==\n=== Bad ===\n== Templates ==\n=== Good ===\n" .
+					"== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -34,7 +35,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "good templates" heading' => [
-				'wikiText' => "== Templates ==\n=== Bad ===\n== Categories ==\n=== Bad ===\n",
+				'wikiText' => "== Categories ==\n=== Bad ===\n== Templates ==\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -43,7 +44,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 
 			'missing "transfer templates" heading' => [
 				'wikiText' => "== Categories ==\n=== Bad ===\n" .
-					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===",
+					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -51,7 +52,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "bad categories" heading' => [
-				'wikiText' => "== Templates ==\n=== Good ===\n=== Bad ===\n== Categories ==\n",
+				'wikiText' => "== Categories ==\n== Templates ==\n=== Good ===\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -59,8 +60,9 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing lists' => [
-				'wikiText' => "== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===" .
-					"\n== Categories ==\n=== Bad ===\n",
+				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n" .
+					"== Information ==\n=== Description ===\n=== Licensing ===\n",
 				'expectedGoodTemplates' => [],
 				'expectedBadTemplates' => [],
 				'expectedBadCategories' => [],
@@ -77,6 +79,9 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 == Categories ==
 === Bad ===
 *
+== Information ==
+=== Description ===
+=== Licensing ===
 WIKITEXT
 				,
 				'expectedGoodTemplates' => [],
@@ -95,6 +100,9 @@ WIKITEXT
 == Categories ==
 === Bad ===
 * BadCategory
+== Information ==
+=== Description ===
+=== Licensing ===
 WIKITEXT
 				,
 				'expectedGoodTemplates' => [ 'GoodTemplate' ],
@@ -113,6 +121,9 @@ WIKITEXT
 ==Categories==
 ===Bad===
 *BadCategory
+==Information==
+===Description===
+===Licensing===
 WIKITEXT
 				,
 				'expectedGoodTemplates' => [ 'GoodTemplate' ],
@@ -138,6 +149,9 @@ WIKITEXT
 ===	Bad	===\t
 
 *	BadCategory\t
+== Information ==
+=== Description ===
+=== Licensing ===
 WIKITEXT
 				,
 				'expectedGoodTemplates' => [ 'GoodTemplate' ],
@@ -169,6 +183,9 @@ WIKITEXT
 *# 2nd-level comment
 *: 2nd-level comment
 *; 2nd-level comment
+== Information ==
+=== Description ===
+=== Licensing ===
 WIKITEXT
 				,
 				'expectedGoodTemplates' => [ 'GoodTemplate' ],
@@ -201,6 +218,20 @@ WIKITEXT
 			);
 			$this->assertEquals( $expected, $parser->getWikiTextConversions() );
 		}
+	}
+
+	public function testHeadingReplacements() {
+		$wikiText = "== Categories ==\n=== Bad ===\n" .
+			"== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n" .
+			"== Information ==\n=== Description ===\n* A\n=== Licensing ===\n* B";
+		$parser = new CommonsHelperConfigParser( '', $wikiText );
+
+		$expected = new WikiTextConversions( [], [], [], [] );
+		$expected->setHeadingReplacements( [
+			'A' => '{{int:filedesc}}',
+			'B' => '{{int:license-header}}',
+		] );
+		$this->assertEquals( $expected, $parser->getWikiTextConversions() );
 	}
 
 	public function provideTransferRules() {
@@ -331,9 +362,11 @@ WIKITEXT
 	 * @dataProvider provideTransferRules
 	 */
 	public function testTransferRules( $wikiText, array $expected ) {
-		$wikiText = "== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n$wikiText\n" .
-			"== Categories ==\n=== Bad ===";
+		$wikiText = "== Categories ==\n=== Bad ===\n" .
+			"== Templates ==\n=== Good ===\n=== Bad ===\n=== Transfer ===\n$wikiText\n" .
+			"== Information ==\n=== Description ===\n=== Licensing ===";
 		$parser = new CommonsHelperConfigParser( '', $wikiText );
+
 		$expected = new WikiTextConversions( [], [], [], $expected );
 		$this->assertEquals( $expected, $parser->getWikiTextConversions() );
 	}

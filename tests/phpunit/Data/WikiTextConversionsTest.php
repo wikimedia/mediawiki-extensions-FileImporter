@@ -23,6 +23,13 @@ class WikiTextConversionsTest extends \PHPUnit\Framework\TestCase {
 		new WikiTextConversions( [], [], [], [ [ 'targetTemplate' => 'a' ] ] );
 	}
 
+	public function testHeadingReplacements() {
+		$conversions = new WikiTextConversions( [], [], [], [] );
+		$this->assertSame( 'a', $conversions->swapHeading( 'a' ) );
+		$conversions->setHeadingReplacements( [ 'a' => 'b' ] );
+		$this->assertSame( 'b', $conversions->swapHeading( 'a' ) );
+	}
+
 	public function provideCaseInsensitivePageNames() {
 		return [
 			[ 'Not equal to empty string', '', false ],
