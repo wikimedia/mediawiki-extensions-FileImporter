@@ -189,4 +189,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		return $result->isGood();
 	}
 
+	/**
+	 * @return WikiRevision|null
+	 */
+	public function getWikiRevison() {
+		return $this->wikiRevision;
+	}
+
 }
