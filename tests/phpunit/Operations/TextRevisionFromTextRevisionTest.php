@@ -12,7 +12,6 @@ use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
 use Title;
 use User;
-use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Operations\TextRevisionFromTextRevision
@@ -29,17 +28,13 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 
 	public function testPrepare() {
 		$title = Title::newFromText( self::TITLE, NS_FILE );
+		$textRevisionFromTextRevision = $this->newTextRevisionFromTextRevision( $title );
 
-		/** @var $textRevisionFromTextRevision TextRevisionFromTextRevision */
-		$textRevisionFromTextRevision = TestingAccessWrapper::newFromObject(
-			$this->newTextRevisionFromTextRevision( $title )
-		);
-
-		$this->assertNull( $textRevisionFromTextRevision->wikiRevision );
+		$this->assertNull( $textRevisionFromTextRevision->getWikiRevison() );
 
 		$result = $textRevisionFromTextRevision->prepare();
 
-		$wikiRevision = $textRevisionFromTextRevision->wikiRevision;
+		$wikiRevision = $textRevisionFromTextRevision->getWikiRevison();
 
 		$this->assertTrue( $result );
 
