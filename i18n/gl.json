@@ -48,5 +48,6 @@
 	"fileimporter-revision-removed-text": "Texto suprimido eliminado por FileImporter.",
 	"fileimporter-revision-removed-comment": "Comentario suprimido eliminado por FileImporter.",
 	"fileimporter-filemissinginrevision": "Non se pode importar o ficheiro porque polo menos a unha das súas revisións fáltalle o ficheiro de imaxe.",
-	"fileimporter-filetoolarge": "O ficheiro que está intentando importar excede o límite do tamaño máximo dun ficheiro."
+	"fileimporter-filetoolarge": "O ficheiro que está intentando importar excede o límite do tamaño máximo dun ficheiro.",
+	"fileimporter-viewdiff": "Amosar os cambios"
 }
