@@ -116,9 +116,12 @@ class HttpApiLookup implements LoggerAwareInterface {
 
 		$document = new DOMDocument();
 
-		libxml_use_internal_errors( true );
+		$oldXmlErrorUsage = libxml_use_internal_errors( true );
+
 		$document->loadHTML( $req->getContent() );
+
 		libxml_clear_errors();
+		libxml_use_internal_errors( $oldXmlErrorUsage );
 
 		$elements = $document->getElementsByTagName( 'link' );
 		foreach ( $elements as $element ) {
