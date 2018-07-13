@@ -24,6 +24,7 @@ use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
 use TitleValue;
 use User;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Services\Importer
@@ -36,6 +37,7 @@ use User;
 class ImporterTest extends \MediaWikiTestCase {
 
 	const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
+	const TEST_FILE2_SRC = __DIR__ . '/../res/testfile2.png';
 	// Random number (actually the SHA1 of this file) to not conflict with other tests
 	const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59cb9c5a3cf55.png';
 
@@ -59,6 +61,16 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		$this->config = new \HashConfig( [ 'EnableUploads' => true ] );
 		$this->targetUser = $this->getTestUser()->getUser();
+	}
+
+	public static function tearDownAfterClass() {
+		parent::tearDownAfterClass();
+
+		// avoid file leftovers when repeatedly run on a local system
+		$file = wfLocalFile( self::TITLE );
+		if ( $file ) {
+			$file->delete( 'This was just from a PHPUnit test.' );
+		}
 	}
 
 	public function testImport() {
@@ -92,21 +104,29 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		// assert import user revision was created correctly
 		$article = Article::newFromID( $title->getArticleID() );
+
 		$lastRevision = $article->getRevision();
+		$nullRevision = $lastRevision->getPrevious();
+		$secondRevison = $nullRevision->getPrevious();
 
 		$this->assertSame( $this->targetUser->getName(), $lastRevision->getUserText() );
 		$this->assertSame( 'User import comment', $lastRevision->getComment() );
 		$this->assertSame(
-			"imported from http://example.com/Test.png\nOriginal text of test.jpg",
+			"imported from http://example.com/Test.png\nThis is my text!",
 			$lastRevision->getContent()->serialize( $lastRevision->getContentFormat() )
 		);
 
 		// assert null revision was created correctly
-		$nullRevision = $lastRevision->getPrevious();
 		$this->assertSame( $this->targetUser->getName(), $nullRevision->getUserText() );
 		$this->assertSame(
 			'imported from http://example.com/Test.png',
 			$nullRevision->getComment()
+		);
+		$this->assertSame( 'testprefix>TextChangeUser', $secondRevison->getUserText() );
+		$this->assertSame( 'I like more text', $secondRevison->getComment() );
+		$this->assertSame(
+			'This is my text!',
+			$secondRevison->getContent()->serialize( $secondRevison->getContentFormat() )
 		);
 
 		// assert import log entry was created correctly
@@ -118,12 +138,24 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertFileImporterTagWasAdded( $logEntry->getId(), $nullRevision->getId() );
 
 		// assert file was imported correctly
-		$file = wfFindFile( $title );
-		$this->assertTrue( $file !== false );
-		$this->assertSame( self::TITLE, $file->getName() );
-		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
-		$this->assertSame( 'SourceUser1', $file->getUser() );
-		$this->assertSame( '20180624133723', $file->getTimestamp() );
+		$latestFileRevision = wfLocalFile( $title );
+		$fileHistory = $latestFileRevision->getHistory();
+		$this->assertCount( 1, $fileHistory );
+		$firstFileRevision = $fileHistory[0];
+
+		// assert latest file revision is correct
+		$this->assertSame( self::TITLE, $latestFileRevision->getName() );
+		$this->assertSame( 'Changed the file.', $latestFileRevision->getDescription() );
+		$this->assertSame( '20180625133723', $latestFileRevision->getTimestamp() );
+		$this->assertSame( 7317, $latestFileRevision->getSize() );
+		$this->assertSame( 'FileChangeUser', $latestFileRevision->getUser() );
+
+		// assert original file revision is correct
+		$this->assertSame( self::TITLE, $firstFileRevision->getName() );
+		$this->assertSame( 'Original upload comment of Test.png', $firstFileRevision->getDescription() );
+		$this->assertSame( '20180624133723', $firstFileRevision->getTimestamp() );
+		$this->assertSame( 3532, $firstFileRevision->getSize() );
+		$this->assertSame( 'SourceUser1', $firstFileRevision->getUser() );
 	}
 
 	/**
@@ -226,8 +258,11 @@ class ImporterTest extends \MediaWikiTestCase {
 					$realFactory = new WikiRevisionFactory( $this->config );
 
 					$tempFile = $this->getNewTempFile();
+					// getField checks if a field is valid so get the test file src directly
+					$srcFile = TestingAccessWrapper::newFromObject( $fileRevision )
+						->fields[ '_test_file_src_' ];
 					// the file will be moved or deleted in the process so create a copy
-					copy( self::TEST_FILE_SRC, $tempFile );
+					copy( $srcFile, $tempFile );
 
 					return $realFactory->newFromFileRevision( $fileRevision, $tempFile );
 				}
@@ -280,15 +315,26 @@ class ImporterTest extends \MediaWikiTestCase {
 		return new TextRevisions( [
 			new TextRevision( [
 				'minor' => '',
+				'user' => 'TextChangeUser',
+				'timestamp' => '2018-06-27T13:37:23Z',
+				'sha1' => '',
+				'contentmodel' => 'wikitext',
+				'contentformat' => 'text/x-wiki',
+				'comment' => 'I like more text',
+				'*' => 'This is my text!',
+				'title' => 'test.jpg',
+			] ),
+			new TextRevision( [
+				'minor' => '',
 				'user' => 'SourceUser1',
 				'timestamp' => '2018-06-24T13:37:23Z',
-				'sha1' => 'TextSHA1',
+				'sha1' => '',
 				'contentmodel' => 'wikitext',
 				'contentformat' => 'text/x-wiki',
 				'comment' => 'Original upload comment of Test.png',
 				'*' => 'Original text of test.jpg',
 				'title' => 'test.jpg',
-			] )
+			] ),
 		] );
 	}
 
@@ -299,14 +345,26 @@ class ImporterTest extends \MediaWikiTestCase {
 		return new FileRevisions( [
 			new FileRevision( [
 				'name' => 'File:test.jpg',
+				'description' => 'Changed the file.',
+				'user' => 'FileChangeUser',
+				'timestamp' => '2018-06-25T13:37:23Z',
+				'sha1' => \FSFile::getSha1Base36FromPath( self::TEST_FILE2_SRC ),
+				'size' => '3532',
+				'thumburl' => '',
+				'url' => 'http://example.com/Test.png',
+				'_test_file_src_' => self::TEST_FILE2_SRC,
+			] ),
+			new FileRevision( [
+				'name' => 'File:test.jpg',
 				'description' => 'Original upload comment of Test.png',
 				'user' => 'SourceUser1',
 				'timestamp' => '2018-06-24T13:37:23Z',
 				'sha1' => \FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ),
-				'size' => '12345',
-				'thumburl' => 'http://example.com/thumb/Test.png',
+				'size' => '7317',
+				'thumburl' => '',
 				'url' => 'http://example.com/Test.png',
-			] )
+				'_test_file_src_' => self::TEST_FILE_SRC,
+			] ),
 		] );
 	}
 
