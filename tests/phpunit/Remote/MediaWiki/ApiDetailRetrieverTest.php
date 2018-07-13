@@ -8,7 +8,6 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use MediaWikiTestCase;
 use MWHttpRequest;
 use Psr\Log\NullLogger;
 use Wikimedia\TestingAccessWrapper;
@@ -19,7 +18,7 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ApiDetailRetrieverTest extends MediaWikiTestCase {
+class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 
 	protected function setUp() {
 		parent::setUp();

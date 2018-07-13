@@ -22,7 +22,6 @@ use User;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
-	use \PHPUnit4And6Compat;
 
 	const TITLE = 'Test-29e8a6ff58c5eb980fc0642a13b59cb9c5a3cf66.png';
 

@@ -3,7 +3,6 @@
 namespace FileImporter\MediaWiki\Test;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
-use MediaWikiTestCase;
 use Psr\Log\NullLogger;
 use TitleValue;
 use UploadBase;
@@ -14,7 +13,7 @@ use UploadBase;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class FileImporterUploadBaseTest extends MediaWikiTestCase {
+class FileImporterUploadBaseTest extends \MediaWikiTestCase {
 
 	public function setUp() {
 		parent::setUp();

@@ -15,7 +15,6 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  * @author Thiemo Kreuz
  */
 class HttpApiLookupTest extends \MediaWikiTestCase {
-	use \PHPUnit4And6Compat;
 
 	protected function setUp() {
 		parent::setUp();

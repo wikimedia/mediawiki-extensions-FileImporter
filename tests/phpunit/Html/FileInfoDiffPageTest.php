@@ -12,7 +12,6 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Html\FileInfoDiffPage;
 use IContextSource;
 use Language;
-use MediaWikiTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use RequestContext;
@@ -26,7 +25,7 @@ use Title;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class FileInfoDiffPageTest extends MediaWikiTestCase {
+class FileInfoDiffPageTest extends \MediaWikiTestCase {
 
 	public function setUp() {
 		parent::setUp();

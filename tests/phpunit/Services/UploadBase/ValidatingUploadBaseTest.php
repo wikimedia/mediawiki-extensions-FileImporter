@@ -4,7 +4,6 @@ namespace FileImporter\Services\UploadBase\Test;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWiki\Linker\LinkTarget;
-use MediaWikiTestCase;
 use Psr\Log\NullLogger;
 use TitleValue;
 use UploadBase;
@@ -15,7 +14,7 @@ use UploadBase;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ValidatingUploadBaseTest extends MediaWikiTestCase {
+class ValidatingUploadBaseTest extends \MediaWikiTestCase {
 
 	protected function setUp() {
 		parent::setUp();

@@ -5,7 +5,6 @@ namespace FileImporter\Remote\MediaWiki\Test;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
-use MediaWikiTestCase;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup
@@ -13,7 +12,7 @@ use MediaWikiTestCase;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class InterwikiTablePrefixLookupTest extends MediaWikiTestCase {
+class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 	public function provideGetPrefixFromConfig() {
 		return [

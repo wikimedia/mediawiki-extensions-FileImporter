@@ -7,7 +7,6 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
-use PHPUnit4And6Compat;
 use TitleValue;
 
 /**
@@ -17,7 +16,6 @@ use TitleValue;
  * @author Addshore
  */
 class ImportPlanTest extends \MediaWikiTestCase {
-	use PHPUnit4And6Compat;
 
 	public function testConstruction() {
 		$request = $this->createMock( ImportRequest::class );

@@ -3,7 +3,6 @@
 namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Exceptions\LocalizedImportException;
-use MediaWikiTestCase;
 
 /**
  * @covers \FileImporter\Exceptions\LocalizedImportException
@@ -11,7 +10,7 @@ use MediaWikiTestCase;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class LocalizedImportExceptionTest extends MediaWikiTestCase {
+class LocalizedImportExceptionTest extends \MediaWikiTestCase {
 
 	protected function setUp() {
 		parent::setUp();
