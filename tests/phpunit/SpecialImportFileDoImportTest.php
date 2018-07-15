@@ -58,6 +58,7 @@ class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
 		$specialImportFileMock->method( 'getUser' )
 			->willReturn( $user );
 
+		/** @var SpecialImportFile $specialImportFileMock */
 		$specialImportFileMock = TestingAccessWrapper::newFromObject( $specialImportFileMock );
 		$specialImportFileMock->importer = $importerMock;
 

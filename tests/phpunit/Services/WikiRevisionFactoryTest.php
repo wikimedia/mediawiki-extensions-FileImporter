@@ -106,6 +106,7 @@ class WikiRevisionFactoryTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testPrefixCommentLinks( $prefix, $input, $expected ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
+		/** @var WikiRevisionFactory $wikiRevisionFactory */
 		$wikiRevisionFactory = TestingAccessWrapper::newFromObject(
 			new WikiRevisionFactory( $config )
 		);
