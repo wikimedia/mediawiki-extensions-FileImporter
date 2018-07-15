@@ -14,7 +14,6 @@ use SpecialPage;
 use SpecialPageTestBase;
 use User;
 use WebRequest;
-use WebResponse;
 
 /**
  * @covers \FileImporter\Html\DuplicateFilesErrorPage
@@ -298,9 +297,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$user = $this->getTestUser()->getUser();
 		}
 
-		/** @var string $html */
-		/** @var WebResponse $response */
-		list( $html, $response ) = $this->executeSpecialPage(
+		list( $html, ) = $this->executeSpecialPage(
 			'',
 			$request,
 			'en',
