@@ -3,7 +3,8 @@
 		"authors": [
 			"Dgstranz",
 			"Macofe",
-			"Fitoschido"
+			"Fitoschido",
+			"MarcoAurelio"
 		]
 	},
 	"fileimporter": "Importador de archivos",
@@ -42,7 +43,7 @@
 	"fileimporter-heading-fileinfo": "Información del archivo",
 	"fileimporter-heading-filehistory": "Historial del archivo",
 	"fileimporter-filemissinginrevision": "No se puede importar el archivo porque a al menos una de sus revisiones le falta el archivo de imagen.",
-	"fileimporter-filetoolarge": "El archivo que estás intentando cargar excede el límite de tamaño máximo.",
+	"fileimporter-filetoolarge": "{{PLURAL:$1|El archivo|Las $1 versiones del archivo}} que estás tratando de importar {{PLURAL:$1|excede|exceden}} del tamaño máximo permitido por la herramienta de importación.",
 	"fileimporter-import-wait": "La importación puede demorar unos minutos.",
 	"fileimporter-imported-success-banner": "El archivo se importó correctamente en {{SITENAME}}. Visita este enlace para verlo: $1",
 	"fileimporter-go-to-original-file-button": "Volver al archivo original",
