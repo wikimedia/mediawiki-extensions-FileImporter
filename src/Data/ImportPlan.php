@@ -145,7 +145,10 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getInitialCleanedInfoText() {
-		return $this->addImportComment( $this->details->getCleanedRevisionText() );
+		$text = $this->details->getCleanedRevisionText() !== null ?
+			$this->details->getCleanedRevisionText() :
+			$this->getInitialFileInfoText();
+		return $this->addImportComment( $text );
 	}
 
 	/**

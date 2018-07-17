@@ -34,9 +34,9 @@ class ImportDetails {
 	private $fileRevisions;
 
 	/**
-	 * @var string
+	 * @var string|null
 	 */
-	private $cleanedRevisionText = '';
+	private $cleanedRevisionText;
 
 	/**
 	 * @var int

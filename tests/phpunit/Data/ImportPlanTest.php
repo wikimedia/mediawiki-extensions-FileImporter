@@ -67,9 +67,11 @@ class ImportPlanTest extends \MediaWikiTestCase {
 
 	public function provideGetFileInfoText() {
 		return [
-			[ 'Some Text', null, 'Some Text' ],
-			[ 'Some Text', 'Some Other Text', 'Some Other Text' ],
-			[ 'Some Text', '', '' ],
+			[ 'Some Text', 'Some Text', null, 'Some Text' ],
+			[ 'Some Text', 'Some Text', 'Some Other Text', 'Some Other Text' ],
+			[ 'Some Text', 'Some Text', '', '' ],
+			[ 'Some unclean Text', 'Some Text', null, 'Some Text' ],
+			[ 'Some Text', null, null, 'Some Text' ],
 		];
 	}
 
@@ -79,7 +81,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	 * @param string $intendedText
 	 * @param string $expectedText
 	 */
-	public function testGetFileInfoText( $originalText, $intendedText, $expectedText ) {
+	public function testGetFileInfoText( $originalText, $cleanedText, $intendedText, $expectedText ) {
 		$this->setMwGlobals( 'wgFileImporterTextForPostImportRevision', '' );
 
 		$request = $this->createMock( ImportRequest::class );
@@ -99,7 +101,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
 		$details->method( 'getCleanedRevisionText' )
-			->willReturn( $originalText );
+			->willReturn( $cleanedText );
 
 		$plan = new ImportPlan( $request, $details, '' );
 		$this->assertSame( $expectedText, $plan->getFileInfoText() );
