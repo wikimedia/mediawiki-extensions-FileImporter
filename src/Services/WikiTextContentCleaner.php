@@ -77,6 +77,8 @@ class WikiTextContentCleaner {
 			$endOfTemplateName = $offset + strlen( $oldTemplateName );
 			$parseResult = $this->parseTemplate( $wikiText, $endOfTemplateName );
 
+			$this->latestNumberOfReplacements++;
+
 			if ( $isObsolete ) {
 				$start = $matches[$i][0][1];
 				$wikiText = substr_replace( $wikiText, '', $start, $parseResult['end'] - $start );
@@ -101,8 +103,6 @@ class WikiTextContentCleaner {
 				$offset,
 				strlen( $oldTemplateName )
 			);
-
-			$this->latestNumberOfReplacements++;
 		}
 
 		return preg_replace( '/\n\s*\n\s*\n/', "\n\n", $wikiText );

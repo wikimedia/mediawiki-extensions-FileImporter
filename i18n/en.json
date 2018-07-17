@@ -60,7 +60,7 @@
 	"fileimporter-commonshelper-parsing-failed": "The configuration file for your wiki ($1) does not contain enough info about <$2> to know if this file can be put on Commons.",
 	"fileimporter-file-contains-blocked-category-template": "The file cannot be imported, because it is marked as $1. $2 does not allow such files.",
 	"fileimporter-file-missing-required-template": "The file cannot be imported, because it is not marked with one of the required licences.",
-	"fileimporter-auto-replacements-summary": "Replaced $1 template names with {{SITENAME}} template names",
+	"fileimporter-auto-replacements-summary": "$1 automatic changes to templates have been made",
 	"fileimporter-input-page-info-text": "Learn more by visiting our [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons help page].",
 	"fileimporter-viewdiff": "Show changes",
 	"fileimporter-to-preview": "Back to preview"
