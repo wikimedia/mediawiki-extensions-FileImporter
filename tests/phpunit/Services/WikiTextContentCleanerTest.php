@@ -20,6 +20,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'removals' => [],
 				'wikitext' => '{{movetocommons}}',
 				'expectedWikiText' => '{{movetocommons}}',
+				'expectedCount' => 0,
 			],
 
 			// TODO: Do we need to test substring matching, triple brackets, unclosed templates, and
@@ -48,11 +49,17 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideTemplateRemovals
 	 */
-	public function testTemplateRemovals( array $removals, $wikiText, $expectedWikiText ) {
+	public function testTemplateRemovals(
+		array $removals,
+		$wikiText,
+		$expectedWikiText,
+		$expectedCount = 1
+	) {
 		$conversions = new WikiTextConversions( [], [], [], $removals, [] );
 		$cleaner = new WikiTextContentCleaner( $conversions );
 
 		$this->assertSame( $expectedWikiText, $cleaner->cleanWikiText( $wikiText ) );
+		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 
 	public function provideTemplateReplacements() {
@@ -292,6 +299,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 		$cleaner = new WikiTextContentCleaner( $conversions );
 
 		$this->assertSame( $expectedWikiText, $cleaner->cleanWikiText( $wikiText ) );
+		$this->assertSame( 0, $cleaner->getLatestNumberOfReplacements() );
 	}
 
 }
