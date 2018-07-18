@@ -55,7 +55,7 @@
 	"fileimporter-revision-removed-comment": "Text inserted as a revision comment if the original comment is suppressed.",
 	"fileimporter-in-beta": "Text shown when the special page is loaded warning the user that the extension is in beta.",
 	"fileimporter-filemissinginrevision": "Error message shown when the file contains at least one revision with a missing image file.",
-	"fileimporter-filetoolarge": "Text shown when a user tries to import a file with a history of one or more file versions that exceed the maximum file size limit.\n\nParameters:\n* $1 - Number of file revisions to be imported.",
+	"fileimporter-filetoolarge": "Text shown when a user tries to import a file with a history of one or more file versions that exceed the maximum file size limit.\n\nParameters:\n* $1 - Number of file revisions to be imported, could be used with PLURAL",
 	"fileimporter-import-wait": "Text shown during the file preview informing the user that the import may take a few minutes.",
 	"fileimporter-imported-success-banner": "Text shown when an import was completed successfully which includes a link to the file's new location.\n\nParameters:\n* $1 - Internal link to the file info page of the imported file.",
 	"fileimporter-imported-change-template": "Text shown on the success screen asking the user to go back and replace the old \"commons ready\" template with a \"now on commons\" template.",
@@ -64,7 +64,7 @@
 	"fileimporter-commonshelper-parsing-failed": "Error message shown when the configuration file, used to prevent the import of files with bad categories/templates, is incomplete.\n\nParameters:\n* $1 - Configuration file url.\n* $2 - Name of the section missing from the config file.",
 	"fileimporter-file-contains-blocked-category-template": "Error message shown when the file contains a blocked category/template.\n\nParameters:\n* $1 - Blocked category/template name.\n* $2 - Name of the target wiki.",
 	"fileimporter-file-missing-required-template": "Error message shown when the file is missing a template (license template) required to import the file.",
-	"fileimporter-auto-replacements-summary": "Automatic summary line protocolling how many automatic template replacements have been done.\n\nParameters:\n* $1 - Number of template replacements done.",
+	"fileimporter-auto-replacements-summary": "Automatic summary line protocolling how many automatic changes have been done.\n\nParameters:\n* $1 - Number of changes done, could be used with PLURAL.",
 	"fileimporter-input-page-info-text": "Message shown to the user when visiting the URL input page.",
 	"fileimporter-viewdiff": "Text for the show changes button on the special page.\n{{Identical|Show changes}}",
 	"fileimporter-to-preview": "Text for the button on the diff page to get back to the preview."
