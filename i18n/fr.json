@@ -64,7 +64,7 @@
 	"fileimporter-commonshelper-parsing-failed": "Le fichier de configuration pour votre wiki ($1) ne contient pas assez d’information sur <$2> pour savoir si ce fichier peut être mis sur Communs.",
 	"fileimporter-file-contains-blocked-category-template": "Le fichier n’a pas pu être importé, parce qu’il est marqué $1. $2 n’autorise pas de tels fichiers.",
 	"fileimporter-file-missing-required-template": "Le fichier ne peut pas être importé, car il n’est affecté à aucune des licences requises.",
-	"fileimporter-auto-replacements-summary": "Noms de modèle $1 remplacés par les noms de modèle de {{SITENAME}}",
+	"fileimporter-auto-replacements-summary": "Réalisé $1 remplacements automatiques par des modèles",
 	"fileimporter-input-page-info-text": "En savoir plus en visitant votre [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons page d’aide].",
 	"fileimporter-viewdiff": "Afficher les modifications",
 	"fileimporter-to-preview": "Retour à l’aperçu"

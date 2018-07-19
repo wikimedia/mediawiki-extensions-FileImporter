@@ -29,7 +29,8 @@
 	"fileimporter-editsummary": "Описание изменений:",
 	"fileimporter-heading-fileinfo": "Информация о файле",
 	"fileimporter-heading-filehistory": "История файла",
-	"fileimporter-filetoolarge": "Файл, который вы сейчас пытаетесь загрузить, превосходит максимальный размер файла.",
+	"fileimporter-filetoolarge": "{{PLURAL:$1|Файл|$1 версии файла|$1 версий файла}}, который вы сейчас пытаетесь импортировать, {{PLURAL:$1|превышает|превышают}} ограничение на максимально допустимый размер файла для импорта.",
+	"fileimporter-auto-replacements-summary": "Было сделано $1 автоматических замен в шаблонах",
 	"fileimporter-viewdiff": "Показать изменения",
 	"fileimporter-to-preview": "Вернуться к предпросмотру"
 }
