@@ -157,28 +157,28 @@ class Importer {
 		);
 		$this->stats->timing(
 			'FileImporter.import.timing.buildOperations',
-			microtime( true ) - $operationBuildingStart
+			( microtime( true ) - $operationBuildingStart ) * 1000
 		);
 
 		$operationPrepareStart = microtime( true );
 		$this->prepareImportOperations( $importOperations );
 		$this->stats->timing(
 			'FileImporter.import.timing.prepareOperations',
-			microtime( true ) - $operationPrepareStart
+			( microtime( true ) - $operationPrepareStart ) * 1000
 		);
 
 		$operationValidateStart = microtime( true );
 		$this->validateImportOperations( $importOperations );
 		$this->stats->timing(
 			'FileImporter.import.timing.validateOperations',
-			microtime( true ) - $operationValidateStart
+			( microtime( true ) - $operationValidateStart ) * 1000
 		);
 
 		$operationCommitStart = microtime( true );
 		$this->commitImportOperations( $importOperations );
 		$this->stats->timing(
 			'FileImporter.import.timing.commitOperations',
-			microtime( true ) - $operationCommitStart
+			( microtime( true ) - $operationCommitStart ) * 1000
 		);
 
 		// TODO the below should be an ImportOperation
@@ -188,7 +188,7 @@ class Importer {
 		$this->createPostImportEdit( $importPlan, $page, $user );
 		$this->stats->timing(
 			'FileImporter.import.timing.miscActions',
-			microtime( true ) - $miscActionsStart
+			( microtime( true ) - $miscActionsStart ) * 1000
 		);
 
 		// TODO do we need to call WikiImporter::finishImportPage??
@@ -196,7 +196,7 @@ class Importer {
 
 		$this->stats->timing(
 			'FileImporter.import.timing.wholeImport',
-			microtime( true ) - $importStart
+			( microtime( true ) - $importStart ) * 1000
 		);
 
 		return true;
