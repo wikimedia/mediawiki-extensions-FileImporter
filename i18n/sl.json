@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"HairyFotr",
-			"Janezdrilc"
+			"Janezdrilc",
+			"Dbc334"
 		]
 	},
 	"fileimporter": "Uvoznik datotek",
@@ -34,7 +35,7 @@
 	"fileimporter-duplicatefilesdetected-prefix": "Dvojniki",
 	"fileimporter-exampleprefix": "Primer",
 	"fileimporter-textrevisions": "Iz zgodovine redakcij {{PLURAL:bo uvožena|bosta uvoženi|bodo uvožene|bo uvoženih}} $1/$2 {{PLURAL:$2|redakcija|redakciji|redakcije|redakcij}} strani.",
-	"fileimporter-filerevisions": "{{PLURAL:Uvožena bo|Uvoženi bosta|Uvožene bodo|Uvoženih bo}} $1/$2 {{PLURAL:$2|različica|različici|različice|različic}} datoteke.",
+	"fileimporter-filerevisions": "{{PLURAL:$1|Uvožena bo|Uvoženi bosta|Uvožene bodo|Uvoženih bo}} $1/$2 {{PLURAL:$2|različice|različic}} datoteke.",
 	"fileimporter-submit": "Potrdi",
 	"fileimporter-resubmit": "Ponovno potrdi",
 	"fileimporter-import": "Uvozi",
@@ -61,7 +62,7 @@
 	"fileimporter-commonshelper-parsing-failed": "Datoteka z nastavitvami za tvoj wiki ($1) ne vsebuje zadostnih informacij <$2>, da bi ugotovila, ali je možno to datoteko shraniti v Zbirko.",
 	"fileimporter-file-contains-blocked-category-template": "Datoteke ni možno uvoziti, saj je označena kot $1. $2 takšnih datotek žal ne dovoljuje.",
 	"fileimporter-file-missing-required-template": "Datoteke ni možno uvoziti, saj ni označena s katerim od zahtevanih dovoljenj.",
-	"fileimporter-auto-replacements-summary": "$1 imen predlog je bilo spremenjenih z imeni predlog projekta {{SITENAME}}",
+	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Narejena je bila|Narejeni sta bili|Narejene so bile|Narejenih je bilo}} $1 {{PLURAL:$1|sprememba|spremembi|spremembe|sprememb}} predlog.",
 	"fileimporter-input-page-info-text": "Poizvedi več in obišči našo [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons stran za pomoč].",
 	"fileimporter-viewdiff": "Prikaži spremembe",
 	"fileimporter-to-preview": "Nazaj na predogled"
