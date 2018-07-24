@@ -35,6 +35,7 @@
 	"fileimporter-imported-change-template": "Ti chiediamo cortesemente di ritornare al file originale e procedere come segue: \n# Rimuovi ogni template che suggerisca che questo file dovrebbe essere copiato da {{SITENAME}}.\n# Aggiungi un template che dichiari che ora questo file è disponibile su {{SITENAME}}.\nGrazie mille!",
 	"fileimporter-go-to-original-file-button": "Ritorna al file originale",
 	"fileimporter-file-missing-required-template": "Il file non può essere importato, perché non è contrassegnato con una delle licenze richieste.",
+	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|È stata eseguita|Sono state eseguite}} $1 {{PLURAL:$1|modifica automatica|modifiche automatiche}} ai template",
 	"fileimporter-viewdiff": "Mostra modifiche",
 	"fileimporter-to-preview": "Torna all'anteprima"
 }
