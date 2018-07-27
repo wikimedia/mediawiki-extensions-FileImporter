@@ -62,7 +62,7 @@
 	"fileimporter-commonshelper-parsing-failed": "קובץ הגדרות התצורה של אתר הוויקי הזה ($1) אינו מכיל מספיק מידע לגבי <$2>, הדרוש כדי לבדוק האם ניתן להעלות את הקובץ הזה לוויקישיתוף.",
 	"fileimporter-file-contains-blocked-category-template": "לא ניתן לייבא את הקובץ, כיוון שהוא מסומן בתור $1. קבצים כאלה אינם מותרים ב{{GRAMMAR:תחילית|$2}}.",
 	"fileimporter-file-missing-required-template": "לא ניתן לייבא את הקובץ כיוון שהוא לא מסומן עם אחד הרישיונות הנדרשים.",
-	"fileimporter-auto-replacements-summary": "החלפת {{PLURAL:$1|השם של תבנית לשם שלה|השמות של $1 תבניות לשמות שלהן}} ב{{GRAMMAR:תחילית|{{SITENAME}}}}",
+	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|בוצע שינוי אוטומטי אחד|בוצעו $1 שינויים אוטומטיים}} בתבניות",
 	"fileimporter-input-page-info-text": "ניתן למצוא מידע נוסף ב[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons דף העזרה] שלנו.",
 	"fileimporter-viewdiff": "הצגת שינויים",
 	"fileimporter-to-preview": "חזרה לתצוגה המקדימה"
