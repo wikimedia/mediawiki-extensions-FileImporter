@@ -80,7 +80,7 @@ class WikiTextContentCleaner {
 			$this->latestNumberOfReplacements++;
 
 			if ( $isObsolete ) {
-				$start = $matches[$i][0][1];
+				$start = $matches[0][$i][1];
 				$wikiText = substr_replace( $wikiText, '', $start, $parseResult['end'] - $start );
 				continue;
 			}
