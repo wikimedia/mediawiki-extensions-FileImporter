@@ -34,8 +34,8 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 
 			'remove parameters and nested templates' => [
 				'removals' => [ 'a' ],
-				'wikitext' => 'before{{a |p1={{b |p1=… }} |p2=… }}after',
-				'expectedWikiText' => 'beforeafter',
+				'wikitext' => '{{before}}{{a |p1={{b |p1=… }} |p2=… }}{{after}}',
+				'expectedWikiText' => '{{before}}{{after}}',
 			],
 
 			'end-of-text' => [
