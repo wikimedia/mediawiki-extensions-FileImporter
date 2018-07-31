@@ -135,7 +135,7 @@ class ImportDetails {
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getCleanedRevisionText() {
 		return $this->cleanedRevisionText;
