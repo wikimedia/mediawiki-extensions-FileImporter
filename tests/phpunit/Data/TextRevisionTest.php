@@ -33,9 +33,15 @@ class TextRevisionTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertSame( $fields, $instance->getFields(), 'getFields' );
 
-		foreach ( self::$requiredFieldNames as $expected => $field ) {
+		foreach ( $fields as $field => $expected ) {
 			$this->assertSame( $expected, $instance->getField( $field ), "getField($field)" );
 		}
+	}
+
+	public function testSetField() {
+		$instance = new TextRevision( array_flip( self::$requiredFieldNames ) );
+		$instance->setField( 'comment', 'changed' );
+		$this->assertSame( 'changed', $instance->getField( 'comment' ) );
 	}
 
 	public function testGetNonExistingField() {
@@ -43,6 +49,13 @@ class TextRevisionTest extends \PHPUnit\Framework\TestCase {
 
 		$this->setExpectedException( InvalidArgumentException::class );
 		$instance->getField( 'invalid' );
+	}
+
+	public function testSetNonExistingField() {
+		$instance = new TextRevision( array_flip( self::$requiredFieldNames ) );
+
+		$this->setExpectedException( InvalidArgumentException::class );
+		$instance->setField( 'invalid', null );
 	}
 
 	public function provideMissingField() {

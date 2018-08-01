@@ -8,6 +8,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
+use OutOfRangeException;
 use PHPUnit4And6Compat;
 use TitleValue;
 
@@ -34,7 +35,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			$sourceUrl,
 			$sourceLinkTarget,
 			$textRevisions,
-			$fileRevisions
+			$fileRevisions,
+			1
 		);
 
 		// Values provided on construction time
@@ -42,6 +44,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $sourceLinkTarget, $details->getSourceLinkTarget(), 'sourceLinkTarget' );
 		$this->assertSame( $textRevisions, $details->getTextRevisions(), 'textRevisions' );
 		$this->assertSame( $fileRevisions, $details->getFileRevisions(), 'fileRevisions' );
+		$this->assertSame( 1, $details->getNumberOfTemplatesReplaced() );
+		$this->assertNull( $details->getCleanedRevisionText() );
 
 		// Derived values
 		$this->assertSame( 'FILENAME', $details->getSourceFileName(), 'sourceFileName' );
@@ -50,8 +54,19 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( 40, strlen( $details->getOriginalHash() ), 'originalHash' );
 	}
 
+	public function testSetCleanedRevisionText() {
+		$details = $this->minimalImportDetails();
+		$details->setCleanedRevisionText( 'WIKITEXT' );
+		$this->assertSame( 'WIKITEXT', $details->getCleanedRevisionText() );
+	}
+
 	public function testMissingExtension() {
 		$this->assertSame( '', $this->minimalImportDetails()->getSourceFileExtension() );
+	}
+
+	public function testMissingFileRevision() {
+		$this->setExpectedException( OutOfRangeException::class );
+		$this->minimalImportDetails()->getImageDisplayUrl();
 	}
 
 	/**
