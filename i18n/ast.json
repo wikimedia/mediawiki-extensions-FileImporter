@@ -60,5 +60,8 @@
 	"fileimporter-commonshelper-parsing-failed": "El ficheru de configuración de la wiki ($1) nun contien información bastante sobro <$2> pa determinar si esti ficheru puede agospiase'n Commons.",
 	"fileimporter-file-contains-blocked-category-template": "El ficheru nun puede importase porque ta marcáu como $1. $2 nun permite estos ficheros.",
 	"fileimporter-file-missing-required-template": "El ficheru nun puede importase porque nun ta marcáu con una de les llicencies riquíes.",
-	"fileimporter-input-page-info-text": "Pa saber más coses, visita la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons páxina d'ayuda]."
+	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Fíxose|Ficiéronse}} $1 {{PLURAL:$1|cambiu automáticu|cambios automáticos}} nes plantíes",
+	"fileimporter-input-page-info-text": "Pa saber más coses, visita la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons páxina d'ayuda].",
+	"fileimporter-viewdiff": "Amosar cambeos",
+	"fileimporter-to-preview": "Volver a la vista previa"
 }
