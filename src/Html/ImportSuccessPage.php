@@ -48,26 +48,31 @@ class ImportSuccessPage {
 			'div',
 			[ 'class' => 'mw-importfile-success-banner successbox' ],
 			wfMessage(
-				'fileimporter-imported-success-banner',
+				'fileimporter-imported-success-banner'
+			)->rawParams(
 				Html::element(
 					'a',
 					[ 'href' => $this->importTitle->getInternalURL() ],
 					$this->importTitle->getPrefixedText()
 				)
-			)->text()
+			)->escaped()
 		) .
 		Html::rawElement(
 			'p',
 			[],
 			wfMessage( 'fileimporter-imported-change-template' )->parse()
 		) .
-		new ButtonWidget(
-			[
-				'classes' => [ 'mw-importfile-add-template-button' ],
-				'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
-				'href' => $this->sourceUrl->getUrl(),
-				'flags' => [ 'primary', 'progressive' ],
-			]
+		Html::rawElement(
+			'div',
+			[],
+			new ButtonWidget(
+				[
+					'classes' => [ 'mw-importfile-add-template-button' ],
+					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
+					'href' => $this->sourceUrl->getUrl(),
+					'flags' => [ 'primary', 'progressive' ],
+				]
+			)
 		);
 	}
 

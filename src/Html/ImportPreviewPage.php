@@ -51,7 +51,7 @@ class ImportPreviewPage {
 		$fileRevisionsCount = count( $details->getFileRevisions()->toArray() );
 		$importIdentityFormSnippet = $this->buildImportIdentityFormSnippet();
 
-		return Html::element(
+		return Html::rawElement(
 			'p',
 			[],
 			$this->specialPage->msg( 'fileimporter-previewnote' )->parse()
@@ -123,7 +123,7 @@ class ImportPreviewPage {
 			[],
 			$this->specialPage->msg( 'fileimporter-heading-filehistory' )->plain()
 		) .
-		Html::element(
+		Html::rawElement(
 			'p',
 			[],
 			$this->specialPage->msg(
@@ -141,7 +141,7 @@ class ImportPreviewPage {
 		$this->buildActionFormStart( SpecialImportFile::ACTION_SUBMIT ) .
 		$importIdentityFormSnippet .
 		( $this->wasEdited() ? $this->buildEditSummaryHtml() : '' ) .
-		Html::element(
+		Html::rawElement(
 			'p',
 			[],
 			$this->specialPage->msg(
