@@ -116,7 +116,7 @@ class CommonsHelperConfigRetriever {
 	/**
 	 * @param string $requestUrl
 	 *
-	 * @return array
+	 * @return array[]
 	 */
 	private function sendAPIRequest( $requestUrl ) {
 		try {
