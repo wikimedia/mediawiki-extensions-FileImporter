@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saederup92"
+		]
+	},
+	"fileimporter-specialpage": "Importer fil",
+	"fileimporter-importfailed": "Importering mislykkedes",
+	"fileimporter-exampleprefix": "Eksempel",
+	"fileimporter-submit": "Indsend",
+	"fileimporter-resubmit": "Genindsend",
+	"fileimporter-import": "Importer",
+	"fileimporter-cancel": "Annullér",
+	"fileimporter-edittitle": "Rediger titel",
+	"fileimporter-viewdiff": "Vis ændringer"
+}
