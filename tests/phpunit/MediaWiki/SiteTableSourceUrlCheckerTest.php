@@ -16,6 +16,11 @@ use Site;
  */
 class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
+	/**
+	 * @param string[] $knownSites
+	 *
+	 * @return SiteTableSourceUrlChecker
+	 */
 	private function getSiteTableSourceUrlChecker( array $knownSites ) {
 		$sites = [];
 		foreach ( $knownSites as $siteCode => $linkPath ) {
@@ -78,9 +83,6 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @dataProvider provideCheckSourceUrl
-	 * @param SourceUrl $sourceUrl
-	 * @param array $knownSites
-	 * @param bool $expected
 	 */
 	public function testCanGetImportDetails( SourceUrl $sourceUrl, array $knownSites, $expected ) {
 		$checker = $this->getSiteTableSourceUrlChecker( $knownSites );

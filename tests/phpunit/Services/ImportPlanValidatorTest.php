@@ -70,18 +70,18 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @param string $text
 	 * @param bool $exists
-	 * @param array $error = []
+	 * @param array $userPermissionsErrors
 	 *
 	 * @return Title
 	 */
-	private function getMockTitle( $text, $exists, $error = [] ) {
+	private function getMockTitle( $text, $exists, array $userPermissionsErrors = [] ) {
 		$mock = $this->createMock( Title::class );
 		$mock->method( 'getText' )
 			->willReturn( $text );
 		$mock->method( 'exists' )
 			->willReturn( $exists );
 		$mock->method( 'getUserPermissionsErrors' )
-			->willReturn( $error );
+			->willReturn( $userPermissionsErrors );
 		return $mock;
 	}
 

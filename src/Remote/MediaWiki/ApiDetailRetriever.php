@@ -142,7 +142,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 	/**
 	 * @param string $apiUrl
-	 * @param array $params
+	 * @param string[] $params
 	 *
 	 * @return string
 	 */
@@ -153,7 +153,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * @param string $requestUrl
 	 *
-	 * @return array
+	 * @return array[]
 	 * @throws ImportException
 	 */
 	private function sendAPIRequest( $requestUrl ) {
@@ -299,8 +299,8 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param string $apiUrl
-	 * @param array &$requestData
-	 * @param array &$pageInfoData
+	 * @param array[] &$requestData
+	 * @param array[] &$pageInfoData
 	 *
 	 * @throws ImportException
 	 */
@@ -375,7 +375,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param string $requestUrl
-	 * @param array $pageInfoData
+	 * @param array[] $pageInfoData
 	 *
 	 * @throws LocalizedImportException
 	 */
@@ -409,7 +409,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * @param array $imageInfo
+	 * @param array[] $imageInfo
 	 * @param string $pageTitle
 	 *
 	 * @return FileRevisions
@@ -463,7 +463,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * @param array $revisionsInfo
+	 * @param array[] $revisionsInfo
 	 * @param string $pageTitle
 	 *
 	 * @return TextRevisions
@@ -507,10 +507,8 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * Build params base
-	 *
 	 * @param SourceUrl $sourceUrl
-	 * @return array
+	 * @return string[]
 	 */
 	private function getBaseParams( SourceUrl $sourceUrl ) {
 		return [
