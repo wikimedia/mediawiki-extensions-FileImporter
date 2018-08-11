@@ -1,12 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Obsuser"
+			"Obsuser",
+			"BadDog"
 		]
 	},
 	"fileimporter-importfailed": "Увоз неуспешан",
 	"fileimporter-api-badinfo": "Лоша слика или опис измене враћен API-јем.",
-	"fileimporter-api-failedtogetinfo": "Неуспешно узимање информација о датотеци из: $1",
+	"fileimporter-api-failedtogetinfo": "Неуспело преузимање информација о датотеци из: $1",
 	"fileimporter-api-nopagesreturned": "Ниједна страница није враћена даљинским API-јем.",
 	"fileimporter-api-toomanyrevisions": "Превише измена враћено API-јем, увоз није могућ.",
 	"fileimporter-cantimportfromsharedrepo": "Није могућ увоз датотеке из подељеног складишта.",
