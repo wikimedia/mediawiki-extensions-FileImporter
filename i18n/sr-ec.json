@@ -12,7 +12,7 @@
 	"fileimporter-api-toomanyrevisions": "Превише измена враћено API-јем, увоз није могућ.",
 	"fileimporter-cantimportfromsharedrepo": "Није могућ увоз датотеке из подељеног складишта.",
 	"fileimporter-cantimportmissingfile": "Није могућ увоз датотеке која недостаје.",
-	"fileimporter-badtoken": "CSRF токен се не поклапа",
+	"fileimporter-badtoken": "CSRF жетон се не поклапа",
 	"fileimporter-badimporthash": "Увезени хеш се не поклапа. Молимо рестартујте увоз.",
 	"fileimporter-localtitleexists": "Наслов који тренутно покушавате да увезете већ постоји на овој Вики.",
 	"fileimporter-sourcetitleexists": "Наслов који тренутно покушавате да увезете већ постоји на изворној Вики.",
