@@ -62,17 +62,13 @@ class ImportSuccessPage {
 			[],
 			wfMessage( 'fileimporter-imported-change-template' )->parse()
 		) .
-		Html::rawElement(
-			'div',
-			[],
-			new ButtonWidget(
-				[
-					'classes' => [ 'mw-importfile-add-template-button' ],
-					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
-					'href' => $this->sourceUrl->getUrl(),
-					'flags' => [ 'primary', 'progressive' ],
-				]
-			)
+		new ButtonWidget(
+			[
+				'classes' => [ 'mw-importfile-add-template-button' ],
+				'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
+				'href' => $this->sourceUrl->getUrl(),
+				'flags' => [ 'primary', 'progressive' ],
+			]
 		);
 	}
 
