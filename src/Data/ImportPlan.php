@@ -33,11 +33,6 @@ class ImportPlan {
 	private $title = null;
 
 	/**
-	 * @var string|null
-	 */
-	private $fileInfoText = null;
-
-	/**
 	 * @var string
 	 */
 	private $interWikiPrefix;
@@ -129,11 +124,9 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getFileInfoText() {
-		if ( $this->fileInfoText === null ) {
-			$intendedWikiText = $this->request->getIntendedText();
-			if ( $intendedWikiText !== null ) {
-				return $intendedWikiText;
-			}
+		$text = $this->request->getIntendedText();
+		if ( $text !== null ) {
+			return $text;
 		}
 		return $this->getInitialCleanedInfoText();
 	}
@@ -145,9 +138,10 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getInitialCleanedInfoText() {
-		$text = $this->details->getCleanedRevisionText() !== null ?
-			$this->details->getCleanedRevisionText() :
-			$this->getInitialFileInfoText();
+		$text = $this->details->getCleanedRevisionText();
+		if ( $text === null ) {
+			$text = $this->getInitialFileInfoText();
+		}
 		return $this->addImportComment( $text );
 	}
 
@@ -155,7 +149,8 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getInitialFileInfoText() {
-		return $this->details->getTextRevisions()->getLatest()->getField( '*' );
+		$textRevision = $this->details->getTextRevisions()->getLatest();
+		return $textRevision ? $textRevision->getField( '*' ) : '';
 	}
 
 	/**
