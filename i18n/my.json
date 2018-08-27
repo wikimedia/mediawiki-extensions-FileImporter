@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ninjastrikers"
+			"Ninjastrikers",
+			"Dr Lotus Black"
 		]
 	},
-	"fileimporter-import": "တင်သွင်းရန်"
+	"fileimporter-import": "တင်သွင်းရန်",
+	"fileimporter-cancel": "မလုပ်တော့ပါ"
 }
