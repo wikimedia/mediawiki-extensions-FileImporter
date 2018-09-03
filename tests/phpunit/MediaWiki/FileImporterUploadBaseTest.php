@@ -24,7 +24,7 @@ class FileImporterUploadBaseTest extends \MediaWikiTestCase {
 	public function providePerformTitleChecks() {
 		return [
 			'fileNameTooLongValidJPEG' =>
-				[ str_repeat( 'a', 237 ) .  '.jpg', UploadBase::FILENAME_TOO_LONG ],
+				[ str_repeat( 'a', 237 ) . '.jpg', UploadBase::FILENAME_TOO_LONG ],
 			'disallowedFileExtensionValidJPEG' =>
 				[ 'Foo.jpg', UploadBase::FILETYPE_BADTYPE ],
 		];

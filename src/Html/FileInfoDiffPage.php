@@ -46,7 +46,7 @@ class FileInfoDiffPage {
 					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
 					'method' => 'POST',
 				]
-			)  .
+			) .
 			Html::rawElement(
 				'div',
 				[ 'class' => 'mw-importfile-diff-view' ],
