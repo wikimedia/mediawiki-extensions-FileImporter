@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Obsuser",
-			"BadDog"
+			"BadDog",
+			"Zoranzoki21"
 		]
 	},
 	"fileimporter-importfailed": "Увоз неуспешан",
@@ -18,7 +19,7 @@
 	"fileimporter-sourcetitleexists": "Наслов који тренутно покушавате да увезете већ постоји на изворној Вики.",
 	"fileimporter-duplicatefilesdetected": "Датотека коју тренутно покушавате да увезете већ постоји на овој Вики.",
 	"fileimporter-duplicatefilesdetected-prefix": "Дупликати",
-	"fileimporter-textrevisions": "$1 {{PLURAL:$1|измена|измене|измена}} датотеке ће да {{PLURAL:$1|буде увезена|буду увезене|буде увезено}}.",
+	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$2|измена|измене|измена}} датотеке ће да {{PLURAL:$1|буде увезена|буду увезене|буде увезено}}.",
 	"fileimporter-resubmit": "Поново пошаљи",
 	"fileimporter-cancel": "Откажи",
 	"fileimporter-edittitle": "Уреди наслов",
