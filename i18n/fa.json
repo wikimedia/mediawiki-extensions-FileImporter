@@ -39,5 +39,7 @@
 	"fileimporter-heading-filehistory": "تاریخچهٔ پرونده",
 	"fileimporter-revision-removed-text": "متن حذف شده توسط درون‌ریز پرونده.",
 	"fileimporter-revision-removed-comment": "نظر حذف شده توسط درون‌ریز پرونده.",
-	"fileimporter-import-wait": "درون‌ریزی ممکن است چند دقیقه طول بکشد."
+	"fileimporter-import-wait": "درون‌ریزی ممکن است چند دقیقه طول بکشد.",
+	"fileimporter-viewdiff": "نمایش تغییرات",
+	"fileimporter-to-preview": "بازگشت به پیش‌نمایش"
 }
