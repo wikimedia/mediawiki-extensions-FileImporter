@@ -43,6 +43,15 @@ import files. Default is `false`.
 (e.g. `s:de` to point from Wikimedia Commons to the German Wikisource), and optional for 1-level
 prefixes (e.g. `mw`, which always points to mediawiki.org).
 
+**FileImporterCommonsHelperServer** and **FileImporterCommonsHelperBasePageName** specify the
+location of CommonsHelper2-compatible rule sets that specify transfer rules and template migrations
+for individual source wikis. For example, with server and base page name set to
+`https://www.mediawiki.org/` and `Extension:FileImporter/Data/`, imports from en.wikipedia.org will
+be restricted by the rules specified in
+https://www.mediawiki.org/wiki/Extension:FileImporter/Data/en.wikipedia. See the later for a
+self-documenting example of such a rule set. Setting the server to an empty string turns the feature
+off.
+
 **FileImporterCommentForPostImportRevision** defines the text used for the edit summary of a post import revision.
 Default is `Imported with FileImporter from $1` where `$1` is the URL of the source file.
 
