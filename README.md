@@ -146,3 +146,8 @@ When failures occur:
   order is guaranteed by the ImageInfo API. Either all file revisions are missing, or one or more
   archived ones.
 - See [throttling.md](docs/throttling.md) for throttling options.
+
+#### More documentation
+- This extension on mediawiki.org: https://www.mediawiki.org/wiki/Extension:FileImporter
+- User documentation: https://www.mediawiki.org/wiki/Help:Extension:FileImporter
+- Project documentation: https://meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons
