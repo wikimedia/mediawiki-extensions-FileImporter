@@ -15,8 +15,7 @@ Please also see the [FileExporter extension](https://www.mediawiki.org/wiki/Exte
 which provides a link on the file pages of a MediaWiki site to link to a wiki that is running the
 FileImporter extension.
 
-
-#### Config
+#### Configuration
 
 **FileImporterRequiredRight** specifies the user right required to use the special page. Default is
 "upload" – the same right [[Special:Upload]] requires.
@@ -58,7 +57,7 @@ Default is `Imported with FileImporter from $1` where `$1` is the URL of the sou
 **FileImporterTextForPostImportRevision** defines the text added to the top of the imported page's wikitext.
 Default is `<!--This file was moved here using FileImporter from $1-->\n` where `$1` is the URL of the source file.
 
-#### Process Walkthrough
+#### Process walkthrough
 
 1) The user enters the extension on the special page,
    either with a source URL as a URL parameter in the request,
@@ -84,7 +83,7 @@ Default is `<!--This file was moved here using FileImporter from $1-->\n` where 
 7) On import, after hash and token checks, the ImportPlan and current User are given to the Importer to import the file.
    For Importer specifics please see the docs of the Importer class.
 
-#### Command and data flow
+#### Detailed command and data flow
 
 In general the extension is build to be modular when it comes to the systems to import from. Code
 that deals with retrieving data from a source, transforming it and inserting it into corresponding

@@ -13,6 +13,8 @@ plan involves the following steps:
 
 ## Mid-term workarounds
 
+- The extension makes HTTP requests to the configured `FileImporterCommonsHelperServer` (see
+  [README.md](../README.md#Configuration)). Additional caching can reduce the load.
 - Binary files are transferred in chunks. It might be worth looking into the individual
   configurations the different MWHttpRequest implementations (typically CURL) allow in terms of
   buffer sizes as well as timings.
