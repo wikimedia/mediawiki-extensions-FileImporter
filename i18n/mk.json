@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bjankuloski06"
+			"Bjankuloski06",
+			"Vlad5250"
 		]
 	},
 	"fileimporter": "Увезувач на податотеки",
 	"fileimporter-desc": "Лесен увоз на податотеки од други места",
 	"fileimporter-specialpage": "Увези податотека",
 	"fileimporter-importfailed": "Увозот не успеа",
-	"fileimporter-api-badinfo": "Извршникот даде неправилни информации за слиакта или преработката.",
+	"fileimporter-api-badinfo": "Извршникот даде неправилни информации за сликата или преработката.",
 	"fileimporter-api-failedtogetinfo": "Не успеав да преземам податотечни информации од: $1",
 	"fileimporter-api-nopagesreturned": "Далечинскиот извршник не даде страници.",
 	"fileimporter-api-toomanyrevisions": "Извршникот даде премногу преработки. Не можам да увезам.",
@@ -60,7 +61,7 @@
 	"fileimporter-commonshelper-parsing-failed": "Податотеката со поставки на вашето вики ($1) не содржи доволно информации за <$2> за да се знае дали истата може да се стави на Ризницата.",
 	"fileimporter-file-contains-blocked-category-template": "Податотеката не може да се увезе бидејќи е обележана како $1. Вакви податотеки не се дозволени на $2.",
 	"fileimporter-file-missing-required-template": "Податотеката не може да се увезе бидејќи не е означена со една од бараните лиценци.",
-	"fileimporter-auto-replacements-summary": "Заменети $1 имиња на шаблони со {{SITENAME}}",
+	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Направена е $1 автоматска замена|Направени се $1 автоматски замени}} во {{PLURAL:$1|шаблон|шаблоните}}",
 	"fileimporter-input-page-info-text": "Дознајте повеќе на [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons помошната страница].",
 	"fileimporter-viewdiff": "Прикажи промени",
 	"fileimporter-to-preview": "Назад на прегледот"
