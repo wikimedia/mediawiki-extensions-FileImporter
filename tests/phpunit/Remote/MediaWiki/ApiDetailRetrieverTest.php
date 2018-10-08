@@ -390,7 +390,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 								'sha1' => 'sha1-image',
 								'thumburl' => 'thumburl',
 								'url' => 'url',
-								'size' => 'size',
+								'size' => 0,
 								'comment' => 'comment',
 							],
 						],
