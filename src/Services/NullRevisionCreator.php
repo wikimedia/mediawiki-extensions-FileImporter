@@ -3,8 +3,8 @@
 namespace FileImporter\Services;
 
 use CommentStoreComment;
-use MediaWiki\Storage\RevisionRecord;
-use MediaWiki\Storage\RevisionStore;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\RevisionStore;
 use Title;
 use User;
 use Wikimedia\Rdbms\ILoadBalancer;

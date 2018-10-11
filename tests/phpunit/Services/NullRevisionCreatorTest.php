@@ -4,8 +4,8 @@ namespace FileImporter\Tests\Services;
 
 use CommentStoreComment;
 use FileImporter\Services\NullRevisionCreator;
-use MediaWiki\Storage\RevisionRecord;
-use MediaWiki\Storage\RevisionStore;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\RevisionStore;
 use PHPUnit4And6Compat;
 use Title;
 use User;
