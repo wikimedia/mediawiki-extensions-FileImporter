@@ -46,5 +46,7 @@
 	"fileimporter-imported-change-template": "We verzoeken u vriendelijk om terug te gaan naar het originele bestand en de volgende stappen te ondernemen:\n# Verwijder sjablonen die voorstellen dat dit bestand gekopiëerd zou moeten worden naar {{SITENAME}}.\n# Voeg een sjabloon toe dat aangeeft dat dit bestand nu ook beschikbaar is op {{SITENAME}}.\nHartelijk bedankt!",
 	"fileimporter-go-to-original-file-button": "Terug naar het originele bestand",
 	"fileimporter-file-contains-blocked-category-template": "Dit bestand kan niet worden geïmporteerd, omdat het is als $1 gemarkeerd. $2 staat deze bestanden niet toe.",
-	"fileimporter-input-page-info-text": "Leer meer door onze [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons hulppagina] te bezoeken."
+	"fileimporter-input-page-info-text": "Leer meer door onze [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons hulppagina] te bezoeken.",
+	"fileimporter-viewdiff": "Wijzigingen bekijken",
+	"fileimporter-to-preview": "Terug naar de voorvertoning"
 }
