@@ -90,8 +90,9 @@ class WikiRevisionFactory {
 		) );
 		$revision->setTimestamp( $textRevision->getField( 'timestamp' ) );
 		$revision->setSha1Base36( $textRevision->getField( 'sha1' ) );
+		// create user with CentralAuth/SUL if nonexistent and use the prefix only as fallback
 		$revision->setUsername(
-			$this->externalUserNames->addPrefix( $textRevision->getField( 'user' ) )
+			$this->externalUserNames->applyPrefix( $textRevision->getField( 'user' ) )
 		);
 		$revision->setComment(
 			$this->prefixCommentLinks( $textRevision->getField( 'comment' ) )

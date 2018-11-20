@@ -6,15 +6,18 @@ use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\MediaWikiServices;
+use User;
 use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Services\WikiRevisionFactory
  *
+ * @group Database
+ *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class WikiRevisionFactoryTest extends \PHPUnit\Framework\TestCase {
+class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 
 	public function provideNewFromWithPrefix() {
 		return [
@@ -51,6 +54,30 @@ class WikiRevisionFactoryTest extends \PHPUnit\Framework\TestCase {
 		}
 		$this->assertSame( 'TestText', $revision->getText() );
 		$this->assertSame( 'TestTitle', $revision->getTitle()->getText() );
+	}
+
+	public function testUserAutoCreation() {
+		// mock the hook that would trigger user creation
+		$localUserId = null;
+		$this->setMwGlobals( 'wgHooks', [
+			'ImportHandleUnknownUser' => [ function ( $name ) use ( &$localUserId ) {
+				$user = User::createNew( $name );
+				$this->assertNotNull( $user );
+				$localUserId = $user->getId();
+				return false;
+			} ]
+		] );
+
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$wikiRevisionFactory->setInterWikiPrefix( 'prefix' );
+
+		$textRevision = $this->createTextRevision();
+		$revision = $wikiRevisionFactory->newFromTextRevision( $textRevision );
+
+		$this->assertSame( 'TestUser', $revision->getUser() );
+		$this->assertSame( $localUserId, (int)User::idFromName( 'TestUser' ) );
+		$this->assertSame( 'TestComment [[prefix:Link]]', $revision->getComment() );
 	}
 
 	/**
