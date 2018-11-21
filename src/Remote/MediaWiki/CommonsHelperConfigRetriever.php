@@ -68,7 +68,9 @@ class CommonsHelperConfigRetriever {
 		$request = $this->buildAPIRequest( $this->sourceUrl );
 		$response = $this->sendAPIRequest( $request );
 
-		if ( count( $response['query']['pages'] ) !== 1 ) {
+		if ( !isset( $response['query']['pages'] ) ||
+			count( $response['query']['pages'] ) !== 1
+		) {
 			return false;
 		}
 

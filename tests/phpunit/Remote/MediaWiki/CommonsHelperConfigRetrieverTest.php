@@ -41,9 +41,7 @@ class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 	public function testSuccess( $sourceUrl, $configPage ) {
 		$sourceUrl = new SourceUrl( $sourceUrl );
 
-		$request = $this->createMock( \MWHttpRequest::class );
-		$request->method( 'getContent' )
-			->willReturn( json_encode( [
+		$request = $this->createMWHttpRequest( [
 				'query' => [
 					'pages' => [
 						[
@@ -53,7 +51,7 @@ class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 						],
 					],
 				],
-			] ) );
+			] );
 
 		$requestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$requestExecutor->method( 'execute' )
@@ -70,6 +68,42 @@ class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 		$this->assertTrue( $retriever->retrieveConfiguration() );
 		$this->assertStringEndsWith( "/wiki/$configPage", $retriever->getConfigWikiUrl() );
 		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikiText() );
+	}
+
+	public function provideMissingResponses() {
+		return [
+			[ [], ],
+			[ [ 'query' => [], ], ],
+			[ [ 'query' => [ 'pages' => [], ], ], ],
+			[ [ 'query' => [ 'pages' => [ [ 'missing' => 'missing' ], ], ], ], ]
+		];
+	}
+
+	/**
+	 * @dataProvider provideMissingResponses
+	 */
+	public function testRetrievalFails( $queryResponse ) {
+		$request = $this->createMWHttpRequest( $queryResponse );
+
+		$requestExecutor = $this->createMock( HttpRequestExecutor::class );
+		$requestExecutor->method( 'execute' )
+			->willReturn( $request );
+
+		$retriever = new CommonsHelperConfigRetriever(
+			$requestExecutor,
+			'',
+			'',
+			new SourceUrl( '//en.m.de' )
+		);
+
+		$this->assertFalse( $retriever->retrieveConfiguration() );
+	}
+
+	private function createMWHttpRequest( array $response ) {
+		$request = $this->createMock( \MWHttpRequest::class );
+		$request->method( 'getContent' )
+			->willReturn( json_encode( $response ) );
+		return $request;
 	}
 
 }

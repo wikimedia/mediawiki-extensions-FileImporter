@@ -274,6 +274,13 @@ class ApiDetailRetriever implements DetailRetriever {
 
 				$lastRevisionText = $wikiTextContentCleaner->cleanWikiText( $lastRevisionText );
 				$numberOfTemplatesReplaced = $wikiTextContentCleaner->getLatestNumberOfReplacements();
+			} else {
+				throw new LocalizedImportException( [
+					'fileimporter-commonshelper-missing-config',
+					$sourceUrl->getHost(),
+					'[' . $this->commonsHelperServer . '/wiki/Special:PrefixIndex/' .
+					$this->commonsHelperBasePageName . ' ' . $this->commonsHelperServer . ']'
+				] );
 			}
 		}
 
