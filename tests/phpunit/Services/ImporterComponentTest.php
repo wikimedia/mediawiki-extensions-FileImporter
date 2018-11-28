@@ -19,6 +19,7 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Storage\RevisionRecord;
 use OldRevisionImporter;
 use Psr\Log\NullLogger;
 use UploadRevisionImporter;
@@ -32,7 +33,7 @@ use WikiRevision;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
+class ImporterComponentTest extends \MediaWikiTestCase {
 	use \PHPUnit4And6Compat;
 
 	const URL = 'http://source.url';
@@ -49,7 +50,7 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 	public function testImportingZeroFileRevisions() {
 		$textRevision = $this->newTextRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
-		$user = $this->createMock( User::class );
+		$user = $this->getTestUser()->getUser();
 
 		$minimalRequest = new ImportRequest( self::URL );
 		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision );
@@ -73,7 +74,7 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 	public function testImportingZeroFileRevisionsWithUserProvidedValues() {
 		$textRevision = $this->newTextRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
-		$user = $this->createMock( User::class );
+		$user = $this->getTestUser()->getUser();
 
 		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
 		$importPlan = $this->newImportPlan( $request, $textRevision );
@@ -98,7 +99,7 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 		$textRevision = $this->newTextRevision();
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
-		$user = $this->createMock( User::class );
+		$user = $this->getTestUser()->getUser();
 
 		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
 		$importPlan = $this->newImportPlan( $request, $textRevision, $fileRevision );
@@ -322,7 +323,18 @@ class ImporterComponentTest extends \PHPUnit\Framework\TestCase {
 				$expectedUser,
 				self::NULL_EDIT_SUMMARY
 			)
-			->willReturn( true );
+			->willReturn( $this->createNullRevisionMock() );
+		return $creator;
+	}
+
+	/**
+	 * @return RevisionRecord
+	 */
+	private function createNullRevisionMock() {
+		$creator = $this->createMock( RevisionRecord::class );
+		$creator->expects( $this->once() )
+			->method( 'getId' )
+			->willReturn( 0 );
 		return $creator;
 	}
 

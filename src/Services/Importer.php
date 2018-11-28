@@ -14,6 +14,7 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use ManualLogEntry;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -347,20 +348,30 @@ class Importer {
 		User $user
 	) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$summary = wfMsgReplaceArgs(
+			$config->get( 'FileImporterCommentForPostImportRevision' ),
+			[ $importPlan->getRequest()->getUrl() ]
+		);
 
 		$revision = $this->nullRevisionCreator->createForLinkTarget(
 			$page->getTitle(),
 			$user,
-			wfMsgReplaceArgs(
-				$config->get( 'FileImporterCommentForPostImportRevision' ),
-				[ $importPlan->getRequest()->getUrl() ]
-			)
+			$summary
 		);
 
 		if ( !$revision ) {
 			$this->logger->error( __METHOD__ . ' Failed to create import revision.' );
 			throw new RuntimeException( 'Failed to create import revision' );
 		}
+
+		$logEntry = new ManualLogEntry( 'import', 'interwiki' );
+		$logEntry->setTarget( $importPlan->getTitle() );
+		$logEntry->setComment( $summary );
+		$logEntry->setPerformer( $user );
+		$logEntry->setAssociatedRevId( $revision->getId() );
+
+		$logId = $logEntry->insert();
+		$logEntry->publish( $logId );
 	}
 
 	/**
