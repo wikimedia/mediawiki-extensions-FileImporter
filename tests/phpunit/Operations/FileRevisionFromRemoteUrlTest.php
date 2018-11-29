@@ -12,7 +12,6 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
 use Title;
-use User;
 
 /**
  * @covers \FileImporter\Operations\FileRevisionFromRemoteUrl
@@ -50,7 +49,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 	public function testPrepareWithBrokenUrl( TextRevision $textRevision = null ) {
 		$fileRevisionFromRemoteUrl = new FileRevisionFromRemoteUrl(
 			Title::newFromText( 'Test' ),
-			User::newFromName( 'TargetUser' ),
+			$this->getTestUser()->getUser(),
 			$this->newFileRevision(),
 			$textRevision,
 			$this->createMock( HttpRequestExecutor::class ),
@@ -133,7 +132,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 
 		$fileRevisionFromRemoteUrl = new FileRevisionFromRemoteUrl(
 			$title,
-			User::newFromName( 'TargetUser' ),
+			$this->getTestUser()->getUser(),
 			$this->newFileRevision( 'http://example.com/Test.png' ),
 			$this->newTextRevision(),
 			$this->newHttpRequestExecutor(),

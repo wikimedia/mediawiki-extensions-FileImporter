@@ -43,6 +43,11 @@ class ImporterTest extends \MediaWikiTestCase {
 	 */
 	private $config;
 
+	/**
+	 * @var User
+	 */
+	private $targetUser;
+
 	protected function setUp() {
 		parent::setUp();
 
@@ -52,6 +57,7 @@ class ImporterTest extends \MediaWikiTestCase {
 			] );
 
 		$this->config = new \HashConfig( [ 'EnableUploads' => true ] );
+		$this->targetUser = $this->getTestUser()->getUser();
 	}
 
 	public function testImport() {
@@ -62,7 +68,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertFalse( $title->exists() );
 
 		$result = $importer->import(
-			User::newFromName( 'TargetUser' ),
+			$this->targetUser,
 			$plan
 		);
 
@@ -87,7 +93,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$article = Article::newFromID( $title->getArticleID() );
 		$lastRevison = $article->getRevision();
 
-		$this->assertSame( 'TargetUser', $lastRevison->getUserText() );
+		$this->assertSame( $this->targetUser->getName(), $lastRevison->getUserText() );
 		$this->assertSame( 'User import comment', $lastRevison->getComment() );
 		$this->assertSame(
 			"imported from http://example.com/Test.png\nOriginal text of test.jpg",
@@ -96,7 +102,7 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		// assert null revision was created correctly
 		$nullRevision = $lastRevison->getPrevious();
-		$this->assertSame( 'TargetUser', $nullRevision->getUserText() );
+		$this->assertSame( $this->targetUser->getName(), $nullRevision->getUserText() );
 		$this->assertSame(
 			'imported from http://example.com/Test.png',
 			$nullRevision->getComment()

@@ -328,7 +328,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 			$titleChecker,
 			$this->getMockUploadBaseFactory( $validatingUploadBase )
 		);
-		$validator->validate( $plan, User::newFromName( 'TestUser' ) );
+		$validator->validate( $plan, $this->createMock( User::class ) );
 
 		if ( $expected === null ) {
 			$this->addToAssertionCount( 1 );
@@ -351,7 +351,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 			$this->getMockImportTitleChecker( 0, true ),
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() )
 		);
-		$validator->validate( $importPlan, User::newFromName( 'TestUser' ) );
+		$validator->validate( $importPlan, $this->createMock( User::class ) );
 	}
 
 	public function testValidateFailsOnFailingTitlePermissionCheck() {
@@ -371,7 +371,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 			$this->getMockImportTitleChecker( 0, true ),
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() )
 		);
-		$validator->validate( $importPlan, User::newFromName( 'TestUser' ) );
+		$validator->validate( $importPlan, $this->createMock( User::class ) );
 	}
 
 }

@@ -11,7 +11,6 @@ use ImportableOldRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
 use Title;
-use User;
 
 /**
  * @covers \FileImporter\Operations\TextRevisionFromTextRevision
@@ -89,7 +88,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 
 		return new TextRevisionFromTextRevision(
 			$title,
-			User::newFromName( 'TargetUser' ),
+			$this->getTestUser()->getUser(),
 			$this->newTextRevision(),
 			new WikiRevisionFactory( new HashConfig() ),
 			$oldRevisionImporter,
