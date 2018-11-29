@@ -27,5 +27,6 @@
 	"fileimporter-editsummary": "Опис измене:",
 	"fileimporter-previewnote": "Ово је претпреглед датотеке за увоз. Молимо проверите страницу детаљено пре увоза.",
 	"fileimporter-heading-fileinfo": "Информације о датотеци",
-	"fileimporter-heading-filehistory": "Историја датотеке"
+	"fileimporter-heading-filehistory": "Историја датотеке",
+	"fileimporter-commonshelper-missing-config": "Увожење датотека из изворног wiki-ја ($1) још није могуће. Не постоји конфигурација за wiki на $2."
 }
