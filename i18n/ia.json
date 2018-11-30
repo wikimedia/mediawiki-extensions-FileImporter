@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"fileimporter-commonshelper-missing-config": "Non es ancora possibile importar files ab le wiki de origine ($1). Il non ha configuration pro le wiki a $2."
+}

@@ -13,5 +13,6 @@
 	"fileimporter-cancel": "Annullér",
 	"fileimporter-edittitle": "Rediger titel",
 	"fileimporter-go-to-original-file-button": "Vend tilbage til oprindelig fil",
+	"fileimporter-commonshelper-missing-config": "Importering af filer fra kildewikien ($1) er endnu ikke mulig. Der er ingen konfiguration for wikien på $2.",
 	"fileimporter-viewdiff": "Vis ændringer"
 }

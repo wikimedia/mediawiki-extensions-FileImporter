@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"BHARATHESHA ALASANDEMAJALU"
+			"BHARATHESHA ALASANDEMAJALU",
+			"Ravi Mundkur"
 		]
 	},
 	"fileimporter-resubmit": "ಕುಡೋರ ಕಡಪುಡ್ಲೆ",
@@ -10,5 +11,6 @@
 	"fileimporter-newfilename": "ಕಡತೊತ ಪೊಸ ಪುದರ್",
 	"fileimporter-editsummary": "ಸಾರಾಂಶ ಸಂಪೊಲಿಪುಲೆ",
 	"fileimporter-heading-fileinfo": "ವಿಸಯೊದ ವಿವರೋ",
-	"fileimporter-heading-filehistory": "ಫೈಲ್‍ದ ಇತಿಹಾಸೊ"
+	"fileimporter-heading-filehistory": "ಫೈಲ್‍ದ ಇತಿಹಾಸೊ",
+	"fileimporter-commonshelper-missing-config": "ಮೂಲ ವಿಕಿರ್ದ್ ($1)ಕಡತೊಲೆನ್ ಆಯಾತ ಮಲ್ಪುನ ನನಲಾ ಸಾಧ್ಯ ಆತಿಜಿ.($2)ಟ್ ವಿಕಿಗ್ ಸಂರಚನೆ ಇಜ್ಜಿ."
 }

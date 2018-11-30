@@ -59,6 +59,7 @@
 	"fileimporter-imported-change-template": "我們懇請您返回到原始檔案並執行以下步驟：\n# 移除任何建議此檔案應要複製到 {{SITENAME}} 的模板。\n# 添加說明此檔案目前在 {{SITENAME}} 上可用的模板。\n在此非常感謝您！",
 	"fileimporter-go-to-original-file-button": "返回至原始檔案",
 	"fileimporter-commonshelper-retrieval-failed": "檢查被封鎖檔案時發生錯誤。",
+	"fileimporter-commonshelper-missing-config": "目前尚無法從來源 wiki（$1）匯入檔案，在 $2 裡沒有用於 wiki 的設置。",
 	"fileimporter-commonshelper-parsing-failed": "您 wiki（$1）的設置檔案裡，沒有包含有關 <$2> 的足夠資訊來確認是否可放置到共享資源上。",
 	"fileimporter-file-contains-blocked-category-template": "檔案無法匯入，因為被標記成$1。$2 不允許這類型檔案。",
 	"fileimporter-file-missing-required-template": "檔案無法匯入，因為沒有標記所需的許可協議之一。",
