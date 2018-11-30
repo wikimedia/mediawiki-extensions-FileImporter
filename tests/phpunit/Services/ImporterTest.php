@@ -79,30 +79,30 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertTrue( $title->isWikitextPage() );
 
 		// assert original revision was imported correctly
-		$firstRevison = $title->getFirstRevision();
+		$firstRevision = $title->getFirstRevision();
 
-		$this->assertFalse( $firstRevison->isMinor() );
-		$this->assertSame( 'testprefix>SourceUser1', $firstRevison->getUserText() );
-		$this->assertSame( 'Original upload comment of Test.png', $firstRevison->getComment() );
+		$this->assertFalse( $firstRevision->isMinor() );
+		$this->assertSame( 'testprefix>SourceUser1', $firstRevision->getUserText() );
+		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
 		$this->assertSame(
 			'Original text of test.jpg',
-			$firstRevison->getContent()->serialize( $firstRevison->getContentFormat() )
+			$firstRevision->getContent()->serialize( $firstRevision->getContentFormat() )
 		);
-		$this->assertSame( '20180624133723', $firstRevison->getTimestamp() );
+		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
 
 		// assert import user revision was created correctly
 		$article = Article::newFromID( $title->getArticleID() );
-		$lastRevison = $article->getRevision();
+		$lastRevision = $article->getRevision();
 
-		$this->assertSame( $this->targetUser->getName(), $lastRevison->getUserText() );
-		$this->assertSame( 'User import comment', $lastRevison->getComment() );
+		$this->assertSame( $this->targetUser->getName(), $lastRevision->getUserText() );
+		$this->assertSame( 'User import comment', $lastRevision->getComment() );
 		$this->assertSame(
 			"imported from http://example.com/Test.png\nOriginal text of test.jpg",
-			$lastRevison->getContent()->serialize( $lastRevison->getContentFormat() )
+			$lastRevision->getContent()->serialize( $lastRevision->getContentFormat() )
 		);
 
 		// assert null revision was created correctly
-		$nullRevision = $lastRevison->getPrevious();
+		$nullRevision = $lastRevision->getPrevious();
 		$this->assertSame( $this->targetUser->getName(), $nullRevision->getUserText() );
 		$this->assertSame(
 			'imported from http://example.com/Test.png',
