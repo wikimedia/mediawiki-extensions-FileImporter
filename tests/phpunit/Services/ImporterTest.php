@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Services;
 
 use Article;
 use Config;
+use DatabaseLogEntry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -108,6 +109,14 @@ class ImporterTest extends \MediaWikiTestCase {
 			$nullRevision->getComment()
 		);
 
+		// assert import log entry was created correctly
+		$logEntry = $this->getLogTypeFromPageId( $title->getArticleID(), 'import' );
+		$this->assertNotNull( $logEntry );
+		$this->assertSame( 'interwiki', $logEntry->getSubtype() );
+		$this->assertSame( $this->targetUser->getName(), $logEntry->getPerformer()->getName() );
+		$this->assertSame( $this->targetUser->getId(), $logEntry->getPerformer()->getId() );
+		$this->assertSame( $nullRevision->getId(), $logEntry->getAssociatedRevId() );
+
 		// assert file was imported correctly
 		$file = wfFindFile( $title );
 		$this->assertTrue( $file !== false );
@@ -115,6 +124,32 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
 		$this->assertSame( 'SourceUser1', $file->getUser() );
 		$this->assertSame( '20180624133723', $file->getTimestamp() );
+	}
+
+	/**
+	 * @param int $pageId
+	 * @param string $type
+	 * @return DatabaseLogEntry|null
+	 */
+	private function getLogTypeFromPageId( $pageId, $type ) {
+		$queryInfo = DatabaseLogEntry::getSelectQueryData();
+		$queryInfo['conds'] += [
+			'log_page' => $pageId,
+			'log_type' => $type,
+		];
+		$row = $this->db->selectRow(
+			$queryInfo['tables'],
+			$queryInfo['fields'],
+			$queryInfo['conds'],
+			__METHOD__,
+			$queryInfo['options'],
+			$queryInfo['join_conds']
+		);
+		if ( !$row ) {
+			return null;
+		}
+
+		return DatabaseLogEntry::newFromRow( $row );
 	}
 
 	/**
