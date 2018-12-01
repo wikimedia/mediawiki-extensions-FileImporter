@@ -57,6 +57,7 @@
 	"fileimporter-imported-change-template": "Volte ao arquivo original e faça o seguinte, por favor:\n# Remova todas as predefinições que sugerem que este arquivo deve ser copiado para a wiki {{SITENAME}}.\n# Adicione uma predefinição que declare que este arquivo está agora disponível na wiki {{SITENAME}}.\nMuito obrigado!",
 	"fileimporter-go-to-original-file-button": "Voltar ao arquivo original",
 	"fileimporter-commonshelper-retrieval-failed": "Ocorreu um erro ao verificar a existência de arquivos bloqueados.",
+	"fileimporter-commonshelper-missing-config": "Ainda não é possível importar arquivos da wiki de origem ($1). Não há configuração para a wiki em $2.",
 	"fileimporter-commonshelper-parsing-failed": "O arquivo de configuração da sua wiki ($1) não contém informação suficiente acerca de <$2> para saber se este arquivo pode ser colocado na wiki Commons.",
 	"fileimporter-file-contains-blocked-category-template": "O arquivo não pode ser importado porque foi marcado como $1. A wiki $2 não permite  arquivo desse tipo.",
 	"fileimporter-file-missing-required-template": "O arquivo não pode ser importado, porque não está marcado com uma das licenças necessárias.",
