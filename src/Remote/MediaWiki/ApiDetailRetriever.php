@@ -59,6 +59,11 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $commonsHelperBasePageName;
 
 	/**
+	 * @var string
+	 */
+	private $commonsHelperHelpPage;
+
+	/**
 	 * @var string Placeholder name replacing usernames that have been suppressed as part of
 	 * a steward action on the source site.
 	 */
@@ -101,6 +106,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$this->commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
 		$this->commonsHelperBasePageName = $config->get( 'FileImporterCommonsHelperBasePageName' );
+		$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' );
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
 		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
 
@@ -278,8 +284,7 @@ class ApiDetailRetriever implements DetailRetriever {
 				throw new LocalizedImportException( [
 					'fileimporter-commonshelper-missing-config',
 					$sourceUrl->getHost(),
-					'[' . $this->commonsHelperServer . '/wiki/Special:PrefixIndex/' .
-					$this->commonsHelperBasePageName . ' ' . $this->commonsHelperServer . ']'
+					$this->commonsHelperHelpPage
 				] );
 			}
 		}

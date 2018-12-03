@@ -51,6 +51,9 @@ https://www.mediawiki.org/wiki/Extension:FileImporter/Data/en.wikipedia. See the
 self-documenting example of such a rule set. Setting the server to an empty string turns the feature
 off.
 
+**FileImporterCommonsHelperHelpPage** specifies the location of the on wiki help for the configuration described
+above.
+
 **FileImporterCommentForPostImportRevision** defines the text used for the edit summary of a post import revision.
 Default is `Imported with FileImporter from $1` where `$1` is the URL of the source file.
 
