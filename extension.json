@@ -60,6 +60,10 @@
 			"value": "Extension:FileImporter/Data/",
 			"description": "Base page name of CommonsHelper2-compatible configuration files to use."
 		},
+		"FileImporterCommonsHelperHelpPage": {
+			"value": "",
+			"description": "Location of the help page for the CommonsHelper2-compatible configuration files management."
+		},
 		"FileImporterAccountForSuppressedUsername": {
 			"value": "FileImporterSuppressed"
 		},
