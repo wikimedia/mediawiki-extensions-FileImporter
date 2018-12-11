@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Leduyquang753"
+		]
+	},
+	"fileimporter-commonshelper-missing-config": "Nhập tệp từ wiki gốc ($1) hiện chưa thể thực hiện được. Không có thiết lập nào cho wiki tại $2."
+}
