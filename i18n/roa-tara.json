@@ -8,5 +8,12 @@
 	"fileimporter-desc": "'Nu mode facile de 'mbortà le file da otre site",
 	"fileimporter-specialpage": "'Mborte file",
 	"fileimporter-importfailed": "'Mbortazione fallite",
-	"fileimporter-api-badinfo": "Immaggine brutte o 'mbormazione d'a revisione turnate da l'API."
+	"fileimporter-api-badinfo": "Immaggine brutte o 'mbormazione d'a revisione turnate da l'API.",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplicate",
+	"fileimporter-exampleprefix": "Esembie",
+	"fileimporter-submit": "Conferme",
+	"fileimporter-resubmit": "Conferme arrete",
+	"fileimporter-import": "'Mborte",
+	"fileimporter-cancel": "Annulle",
+	"fileimporter-edittitle": "Cange 'u titole"
 }
