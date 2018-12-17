@@ -62,13 +62,11 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 					'host' => $host,
 				]
 			);
-
 			return $this->getPrefixFromInterwikiTable( $host );
 		}
 
-		$prefixes = explode( ':', $interwikiConfigMap[$host] );
-		$firstPrefix = array_shift( $prefixes );
-		if ( !$this->interwikiLookup->isValidInterwiki( $firstPrefix ) ) {
+		$prefixes = explode( ':', $interwikiConfigMap[$host], 2 );
+		if ( !$this->interwikiLookup->isValidInterwiki( $prefixes[0] ) ) {
 			$this->logger->warning(
 				'Configured prefix {prefix} not valid.',
 				[
