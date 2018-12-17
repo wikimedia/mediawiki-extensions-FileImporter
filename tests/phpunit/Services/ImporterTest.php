@@ -55,7 +55,25 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->setMwGlobals( [
 			'wgFileImporterCommentForPostImportRevision' => 'imported from $1',
 			'wgFileImporterTextForPostImportRevision' => "imported from $1\n",
-			] );
+			'wgHooks' => [
+				'ChangeTagsAfterUpdateTags' => [ function (
+					$tagsToAdd,
+					$tagsToRemove,
+					$prevTags,
+					$rc_id,
+					$rev_id,
+					$log_id,
+					$params,
+					$rc,
+					$user
+				) {
+					$this->assertSame( [ 'fileimporter' ], $tagsToAdd );
+					$this->assertGreaterThanOrEqual( 1, $rc_id );
+					$this->assertGreaterThanOrEqual( 1, $rev_id );
+					$this->assertGreaterThanOrEqual( 1, $log_id );
+				} ],
+			],
+		] );
 
 		$this->config = new \HashConfig( [ 'EnableUploads' => true ] );
 		$this->targetUser = $this->getTestUser()->getUser();
@@ -136,6 +154,15 @@ class ImporterTest extends \MediaWikiTestCase {
 			'log_page' => $pageId,
 			'log_type' => $type,
 		];
+
+		\ChangeTags::modifyDisplayQuery(
+			$queryInfo['tables'],
+			$queryInfo['fields'],
+			$queryInfo['conds'],
+			$queryInfo['join_conds'],
+			$queryInfo['options']
+		);
+
 		$row = $this->db->selectRow(
 			$queryInfo['tables'],
 			$queryInfo['fields'],
@@ -145,6 +172,7 @@ class ImporterTest extends \MediaWikiTestCase {
 			$queryInfo['join_conds']
 		);
 
+		$this->assertSame( 'fileimporter', $row->ts_tags, 'fileimporter tag was added' );
 		return DatabaseLogEntry::newFromRow( $row );
 	}
 

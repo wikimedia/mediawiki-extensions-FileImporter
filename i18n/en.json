@@ -6,6 +6,8 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Easy importing of files from other sites",
+	"tag-fileimporter": "Imported with FileImporter",
+	"tag-fileimporter-description": "Files imported from another wiki, including file and page history",
 	"fileimporter-specialpage": "Import file",
 	"fileimporter-importfailed": "Import failed",
 	"fileimporter-api-badinfo": "Bad image or revision info returned by the API.",

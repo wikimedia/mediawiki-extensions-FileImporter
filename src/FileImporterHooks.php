@@ -11,6 +11,16 @@ use MediaWiki\MediaWikiServices;
 class FileImporterHooks {
 
 	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ChangeTagsListActive
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ListDefinedTags
+	 *
+	 * @param string[] &$tags
+	 */
+	public static function onListDefinedTags( array &$tags ) {
+		$tags[] = 'fileimporter';
+	}
+
+	/**
 	 * Add FileImporter username to the list of reserved ones for
 	 * replacing suppressed usernames in certain revisions
 	 *

@@ -372,6 +372,7 @@ class Importer {
 		$logEntry->setComment( $summary );
 		$logEntry->setPerformer( $user );
 		$logEntry->setAssociatedRevId( $revision->getId() );
+		$logEntry->setTags( 'fileimporter' );
 
 		$logId = $logEntry->insert();
 		$logEntry->publish( $logId );

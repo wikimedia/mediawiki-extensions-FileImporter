@@ -96,6 +96,8 @@
 		"remoteExtPath": "FileImporter"
 	},
 	"Hooks": {
+		"ChangeTagsListActive": "FileImporter\\FileImporterHooks::onListDefinedTags",
+		"ListDefinedTags": "FileImporter\\FileImporterHooks::onListDefinedTags",
 		"UserGetReservedNames": [
 			"FileImporter\\FileImporterHooks::onUserGetReservedNames"
 		]

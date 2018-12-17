@@ -15,18 +15,40 @@ use Wikimedia\Rdbms\ILoadBalancer;
 /**
  * @covers \FileImporter\Services\NullRevisionCreator
  *
+ * @group Database
+ *
  * @license GPL-2.0-or-later
  */
-class NullRevisionCreatorTest extends \PHPUnit\Framework\TestCase {
+class NullRevisionCreatorTest extends \MediaWikiTestCase {
 	use PHPUnit4And6Compat;
 
 	public function testCreateForLinkTargetSuccess() {
+		$this->setMwGlobals( 'wgHooks', [
+			'ChangeTagsAfterUpdateTags' => [ function (
+				$tagsToAdd,
+				$tagsToRemove,
+				$prevTags,
+				$rc_id,
+				$rev_id,
+				$log_id,
+				$params,
+				$rc,
+				$user
+			) {
+				$this->assertSame( [ 'fileimporter' ], $tagsToAdd );
+				$this->assertSame( 1, $rev_id );
+			} ],
+		] );
+
 		$title = $this->createMock( Title::class );
 		$user = $this->createMock( User::class );
 		$dbw = $this->createMock( IDatabase::class );
 		$summary = 'Summary';
 		$commentStore = new CommentStoreComment( null, $summary );
+
 		$revisionRecord = $this->createMock( RevisionRecord::class );
+		$revisionRecord->method( 'getId' )
+			->willReturn( 1 );
 
 		$loadBalancer = $this->createILoadBalancerMock( $dbw );
 
