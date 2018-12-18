@@ -9,11 +9,22 @@
 	"fileimporter-specialpage": "'Mborte file",
 	"fileimporter-importfailed": "'Mbortazione fallite",
 	"fileimporter-api-badinfo": "Immaggine brutte o 'mbormazione d'a revisione turnate da l'API.",
+	"fileimporter-api-failedtogetinfo": "Non ge se riesce a pigghià le 'mbormaziune d'u file da : $1",
+	"fileimporter-api-nopagesreturned": "Nisciune pàgene turnate da l'API remote.",
+	"fileimporter-api-toomanyrevisions": "Troppe revisiune turnate da l'API, non ge se ponne 'mbortà.",
+	"fileimporter-cantparseurl": "Non ge pozze analizzà l'URL date: $1",
+	"fileimporter-cantimporturl": "Non ge pozze 'mbortà l'URL date",
+	"fileimporter-cantimportfromsharedrepo": "Non ge pozze 'mbortà 'nu file da 'n'archivije condivise.",
+	"fileimporter-cantimportmissingfile": "Non ge pozze 'mbortà 'nu file mangande.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicate",
 	"fileimporter-exampleprefix": "Esembie",
 	"fileimporter-submit": "Conferme",
 	"fileimporter-resubmit": "Conferme arrete",
 	"fileimporter-import": "'Mborte",
 	"fileimporter-cancel": "Annulle",
-	"fileimporter-edittitle": "Cange 'u titole"
+	"fileimporter-edittitle": "Cange 'u titole",
+	"fileimporter-import-wait": "'A 'mbortazione pò purtà cchiù de quacche minute.",
+	"fileimporter-go-to-original-file-button": "Tuèrne a 'u file origgenale",
+	"fileimporter-viewdiff": "'Ndruche le cangiaminde",
+	"fileimporter-to-preview": "Tuèrne a l'andeprime"
 }
