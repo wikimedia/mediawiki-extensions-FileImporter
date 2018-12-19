@@ -11,6 +11,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use Http;
+use ManualLogEntry;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use TempFSFile;
@@ -81,9 +82,15 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	private $importer;
 
 	/**
+	 * @var bool
+	 */
+	private $isLatestFileRevision;
+
+	/**
 	 * @param Title $plannedTitle
 	 * @param User $user
 	 * @param FileRevision $fileRevision
+	 * @param bool $isLatestFileRevision
 	 * @param TextRevision|null $textRevision
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param WikiRevisionFactory $wikiRevisionFactory
@@ -95,6 +102,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		Title $plannedTitle,
 		User $user,
 		FileRevision $fileRevision,
+		$isLatestFileRevision,
 		TextRevision $textRevision = null,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
@@ -105,6 +113,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$this->plannedTitle = $plannedTitle;
 		$this->user = $user;
 		$this->fileRevision = $fileRevision;
+		$this->isLatestFileRevision = $isLatestFileRevision;
 		$this->textRevision = $textRevision;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
@@ -186,7 +195,38 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			);
 		}
 
+		// core does already create an upload log entry for the latest revision
+		if ( !$this->isLatestFileRevision ) {
+			$this->createUploadLog();
+		}
+
 		return $result->isGood();
+	}
+
+	/**
+	 * Log this import operation.
+	 */
+	private function createUploadLog() {
+		$user = $this->wikiRevision->getUserObj();
+		if ( $user == null ) {
+			$user = User::newFromName( $this->wikiRevision->getUser() );
+		}
+
+		$logEntry = new ManualLogEntry( 'upload', 'upload' );
+		$logEntry->setTimestamp( $this->wikiRevision->getTimestamp() );
+		$logEntry->setPerformer( $user );
+		$logEntry->setComment( $this->wikiRevision->getComment() );
+		$logEntry->setAssociatedRevId( $this->wikiRevision->getID() );
+		$logEntry->setTarget( $this->wikiRevision->getTitle() );
+		$logEntry->setParameters(
+			[
+				'img_sha1' => $this->wikiRevision->getSha1(),
+				'img_timestamp' => $this->wikiRevision->getTimestamp()
+			]
+		);
+
+		$logId = $logEntry->insert();
+		$logEntry->publish( $logId );
 	}
 
 	/**
