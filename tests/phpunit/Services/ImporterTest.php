@@ -55,24 +55,6 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->setMwGlobals( [
 			'wgFileImporterCommentForPostImportRevision' => 'imported from $1',
 			'wgFileImporterTextForPostImportRevision' => "imported from $1\n",
-			'wgHooks' => [
-				'ChangeTagsAfterUpdateTags' => [ function (
-					$tagsToAdd,
-					$tagsToRemove,
-					$prevTags,
-					$rc_id,
-					$rev_id,
-					$log_id,
-					$params,
-					$rc,
-					$user
-				) {
-					$this->assertSame( [ 'fileimporter' ], $tagsToAdd );
-					$this->assertGreaterThanOrEqual( 1, $rc_id );
-					$this->assertGreaterThanOrEqual( 1, $rev_id );
-					$this->assertGreaterThanOrEqual( 1, $log_id );
-				} ],
-			],
 		] );
 
 		$this->config = new \HashConfig( [ 'EnableUploads' => true ] );
@@ -133,6 +115,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( $this->targetUser->getName(), $logEntry->getPerformer()->getName() );
 		$this->assertSame( $this->targetUser->getId(), $logEntry->getPerformer()->getId() );
 		$this->assertSame( $nullRevision->getId(), $logEntry->getAssociatedRevId() );
+		$this->assertFileImporterTagWasAdded( $logEntry->getId(), $nullRevision->getId() );
 
 		// assert file was imported correctly
 		$file = wfFindFile( $title );
@@ -141,6 +124,25 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
 		$this->assertSame( 'SourceUser1', $file->getUser() );
 		$this->assertSame( '20180624133723', $file->getTimestamp() );
+	}
+
+	/**
+	 * @param int $logId
+	 * @param int $revId
+	 */
+	private function assertFileImporterTagWasAdded( $logId, $revId ) {
+		$this->assertSame( 1, $this->db->selectRowCount(
+			[ 'change_tag', 'change_tag_def' ],
+			'*',
+			[
+				'ct_log_id' => $logId,
+				'ct_rev_id' => $revId,
+				'ctd_name' => 'fileimporter',
+			],
+			__METHOD__,
+			[],
+			[ 'change_tag_def' => [ 'INNER JOIN', 'ctd_id = ct_tag_id' ] ]
+		) );
 	}
 
 	/**
