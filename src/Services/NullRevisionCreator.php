@@ -3,11 +3,13 @@
 namespace FileImporter\Services;
 
 use CommentStoreComment;
+use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use Title;
 use User;
 use Wikimedia\Rdbms\ILoadBalancer;
+use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 class NullRevisionCreator {
 
@@ -49,6 +51,15 @@ class NullRevisionCreator {
 
 		if ( $revision === null ) {
 			return false;
+		}
+
+		if ( $revision instanceof MutableRevisionRecord ) {
+			$now = new ConvertibleTimestamp();
+			// Place the null revision (along with the import log entry that mirrors the same
+			// information) 1 second in the past, to guarantee it's listed before the later "post
+			// import edit".
+			$now->timestamp->sub( new \DateInterval( 'PT1S' ) );
+			$revision->setTimestamp( $now->getTimestamp( TS_MW ) );
 		}
 
 		return $this->revisionStore->insertRevisionOn( $revision, $dbw );

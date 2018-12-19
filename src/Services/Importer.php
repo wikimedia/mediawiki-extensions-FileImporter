@@ -364,8 +364,11 @@ class Importer {
 			throw new RuntimeException( 'Failed to create import revision' );
 		}
 
+		// FIXME: This code belongs next to the code that creates the null revision. Both should be
+		// in one class, and the class be named appropriately.
 		$logEntry = new ManualLogEntry( 'import', 'interwiki' );
 		$logEntry->setTarget( $importPlan->getTitle() );
+		$logEntry->setTimestamp( $revision->getTimestamp() );
 		$logEntry->setComment( $summary );
 		$logEntry->setPerformer( $user );
 		$logEntry->setAssociatedRevId( $revision->getId() );
