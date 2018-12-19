@@ -331,11 +331,11 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	 * @return RevisionRecord
 	 */
 	private function createNullRevisionMock() {
-		$creator = $this->createMock( RevisionRecord::class );
-		$creator->expects( $this->once() )
+		$revision = $this->createMock( RevisionRecord::class );
+		$revision->expects( $this->once() )
 			->method( 'getId' )
 			->willReturn( 0 );
-		return $creator;
+		return $revision;
 	}
 
 }
