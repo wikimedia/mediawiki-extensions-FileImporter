@@ -111,7 +111,6 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		// assert import log entry was created correctly
 		$logEntry = $this->getLogTypeFromPageId( $title->getArticleID(), 'import' );
-		$this->assertNotNull( $logEntry );
 		$this->assertSame( 'interwiki', $logEntry->getSubtype() );
 		$this->assertSame( $this->targetUser->getName(), $logEntry->getPerformer()->getName() );
 		$this->assertSame( $this->targetUser->getId(), $logEntry->getPerformer()->getId() );
@@ -129,7 +128,7 @@ class ImporterTest extends \MediaWikiTestCase {
 	/**
 	 * @param int $pageId
 	 * @param string $type
-	 * @return DatabaseLogEntry|null
+	 * @return DatabaseLogEntry
 	 */
 	private function getLogTypeFromPageId( $pageId, $type ) {
 		$queryInfo = DatabaseLogEntry::getSelectQueryData();
@@ -145,9 +144,6 @@ class ImporterTest extends \MediaWikiTestCase {
 			$queryInfo['options'],
 			$queryInfo['join_conds']
 		);
-		if ( !$row ) {
-			return null;
-		}
 
 		return DatabaseLogEntry::newFromRow( $row );
 	}
