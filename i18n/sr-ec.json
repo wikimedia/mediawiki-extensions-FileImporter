@@ -6,6 +6,7 @@
 			"Zoranzoki21"
 		]
 	},
+	"tag-fileimporter": "увезено помоћу Увозника датотека",
 	"fileimporter-importfailed": "Увоз неуспешан",
 	"fileimporter-api-badinfo": "Лоша слика или опис измене враћен API-јем.",
 	"fileimporter-api-failedtogetinfo": "Неуспело преузимање информација о датотеци из: $1",

@@ -10,6 +10,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importa facilmente file da altri siti",
+	"tag-fileimporter": "Importato con FileImporter",
 	"fileimporter-specialpage": "Importa file",
 	"fileimporter-importfailed": "Importazione fallita",
 	"fileimporter-filenameerror-default": "Si è verificato un problema sconosciuto con il nome del tuo file.",

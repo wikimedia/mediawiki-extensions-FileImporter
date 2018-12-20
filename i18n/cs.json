@@ -3,9 +3,11 @@
 		"authors": [
 			"Meliganai",
 			"Ilimanaq29",
-			"Matěj Suchánek"
+			"Matěj Suchánek",
+			"Patriccck"
 		]
 	},
+	"tag-fileimporter": "Importováno s FileImporter",
 	"fileimporter-filenameerror-default": "Vyskytl se neznámý problém s názvem Vašeho souboru.",
 	"fileimporter-filenameerror-illegal": "Název souboru, který se právě snažíte importovat, není platný.",
 	"fileimporter-filenameerror-toolong": "Název souboru, který se právě snažíte importovat, je příliš dlouhý.",

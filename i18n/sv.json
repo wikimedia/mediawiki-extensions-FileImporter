@@ -7,6 +7,8 @@
 	},
 	"fileimporter": "Filimporterare",
 	"fileimporter-desc": "Enkel importering av filer från andra webbplatser",
+	"tag-fileimporter": "Importerad med FileImporter",
+	"tag-fileimporter-description": "Filer som importerades från en annan wiki, inklusive filen och sidhistoriken.",
 	"fileimporter-specialpage": "Importera fil",
 	"fileimporter-importfailed": "Importering misslyckades",
 	"fileimporter-api-badinfo": "Trasig bild eller sidversionsinfo returnerades av API:et.",

@@ -8,6 +8,8 @@
 	},
 	"fileimporter": "مستورد ملفات",
 	"fileimporter-desc": "سهولة استيراد الملفات من المواقع الأخرى",
+	"tag-fileimporter": "مستورد بمستورد الملفات",
+	"tag-fileimporter-description": "ملفات مستوردة من ويكيات أخرى، بما في ذلك تاريخ الملفات والصفحات",
 	"fileimporter-specialpage": "ملف الإستيراد",
 	"fileimporter-importfailed": "فشل الاستيراد",
 	"fileimporter-api-badinfo": "صورة سيئة أو معلومات مراجعة تم إرجاعها بواسطة API.",
