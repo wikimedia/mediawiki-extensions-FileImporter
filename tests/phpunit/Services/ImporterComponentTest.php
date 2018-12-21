@@ -19,7 +19,7 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Linker\LinkTarget;
-use MediaWiki\Storage\RevisionRecord;
+use MediaWiki\Revision\RevisionRecord;
 use OldRevisionImporter;
 use Psr\Log\NullLogger;
 use UploadRevisionImporter;
