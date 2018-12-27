@@ -8,6 +8,8 @@
 	},
 	"fileimporter": "ייבוא קבצים",
 	"fileimporter-desc": "ייבוא קל של קבצים מאתרים אחרים",
+	"tag-fileimporter": "יובא עם FileImporter",
+	"tag-fileimporter-description": "הקבצים יובאו מוויקי אחר, כולל היסטוריית קובץ ודף",
 	"fileimporter-specialpage": "ייבוא קובץ",
 	"fileimporter-importfailed": "הייבוא נכשל",
 	"fileimporter-api-badinfo": "מידע גרוע על תמונה או על גרסה הוחזר על־ידי ה־API.",

@@ -8,6 +8,8 @@
 	},
 	"fileimporter": "檔案匯入器",
 	"fileimporter-desc": "輕鬆匯入來自其它站台的檔案",
+	"tag-fileimporter": "以 FileImporter 匯入",
+	"tag-fileimporter-description": "從其它 wiki 匯入的檔案，包含檔案與頁面歷史",
 	"fileimporter-specialpage": "匯入檔案",
 	"fileimporter-importfailed": "匯入失敗",
 	"fileimporter-api-badinfo": "由 API 返回的錯誤圖片或修訂訊息。",

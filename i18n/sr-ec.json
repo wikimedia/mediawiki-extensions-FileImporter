@@ -7,6 +7,7 @@
 		]
 	},
 	"tag-fileimporter": "увезено помоћу Увозника датотека",
+	"tag-fileimporter-description": "Датотеке увезене са другог викија, укључујући датотеку и историју странице",
 	"fileimporter-importfailed": "Увоз неуспешан",
 	"fileimporter-api-badinfo": "Лоша слика или опис измене враћен API-јем.",
 	"fileimporter-api-failedtogetinfo": "Неуспело преузимање информација о датотеци из: $1",
