@@ -118,10 +118,10 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 			$this->getMockImportDetails( $originalInput ),
 			''
 		);
-		$diffPage = new FileInfoDiffPage( $this->getMockSpecialPage(), $importPlan );
+		$diffPage = new FileInfoDiffPage( $this->getMockSpecialPage() );
 
 		assertThat(
-			$diffPage->getHtml(),
+			$diffPage->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
 				both( withTagName( 'div' ) )
 					->andAlso( havingTextContents( $expected ) )

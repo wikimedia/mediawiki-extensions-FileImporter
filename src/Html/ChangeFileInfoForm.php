@@ -5,7 +5,6 @@ namespace FileImporter\Html;
 use FileImporter\Data\ImportPlan;
 use Html;
 use OOUI\ButtonInputWidget;
-use SpecialPage;
 
 /**
  * Form allowing the user to change the file info text.
@@ -13,49 +12,36 @@ use SpecialPage;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class ChangeFileInfoForm {
+class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 
 	/**
-	 * @var SpecialPage
-	 */
-	private $specialPage;
-
-	/**
-	 * @var ImportPlan
-	 */
-	private $importPlan;
-
-	public function __construct( SpecialPage $specialPage, ImportPlan $importPlan ) {
-		$this->specialPage = $specialPage;
-		$this->importPlan = $importPlan;
-	}
-
-	/**
+	 * @param ImportPlan $importPlan
+	 *
 	 * @return string
 	 */
-	public function getHtml() {
+	public function getHtml( ImportPlan $importPlan ) {
 		// Try showing the user provided value first if present
-		$wikiTextValue = $this->importPlan->getRequest()->getIntendedText();
+		$wikiTextValue = $importPlan->getRequest()->getIntendedText();
 		if ( $wikiTextValue === null ) {
-			$wikiTextValue = $this->importPlan->getFileInfoText();
+			$wikiTextValue = $importPlan->getFileInfoText();
 		}
 
 		return Html::openElement(
 			'form',
 			[
-				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+				'action' => $this->getPageTitle()->getLocalURL(),
 				'method' => 'POST',
 			]
 		) .
-		( new WikiTextEditor( $this->specialPage ) )->getHtml( $wikiTextValue ) .
+		( new WikiTextEditor( $this ) )->getHtml( $wikiTextValue ) .
 		( new ImportIdentityFormSnippet( [
-			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
-			'intendedFileName' => $this->importPlan->getFileName(),
-			'importDetailsHash' => $this->importPlan->getRequest()->getImportDetailsHash(),
+			'clientUrl' => $importPlan->getRequest()->getUrl(),
+			'intendedFileName' => $importPlan->getFileName(),
+			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
-				'label' => $this->specialPage->msg( 'fileimporter-submit' )->plain(),
+				'label' => $this->msg( 'fileimporter-submit' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 				'tabIndex' => 2,

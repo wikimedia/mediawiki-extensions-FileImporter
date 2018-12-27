@@ -9,7 +9,6 @@ use Linker;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
 use OOUI\TextInputWidget;
-use SpecialPage;
 
 /**
  * Page displaying the preview of the import before it has happened.
@@ -17,44 +16,24 @@ use SpecialPage;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ImportPreviewPage {
+class ImportPreviewPage extends SpecialPageHtmlFragment {
 
 	/**
-	 * @var SpecialPage
-	 */
-	private $specialPage;
-
-	/**
-	 * @var ImportPlan
-	 */
-	private $importPlan;
-
-	/**
-	 * @param SpecialPage $specialPage
 	 * @param ImportPlan $importPlan
-	 */
-	public function __construct(
-		SpecialPage $specialPage,
-		ImportPlan $importPlan
-	) {
-		$this->specialPage = $specialPage;
-		$this->importPlan = $importPlan;
-	}
-
-	/**
+	 *
 	 * @return string
 	 */
-	public function getHtml() {
-		$details = $this->importPlan->getDetails();
-		$title = $this->importPlan->getTitle();
+	public function getHtml( ImportPlan $importPlan ) {
+		$details = $importPlan->getDetails();
+		$title = $importPlan->getTitle();
 		$textRevisionsCount = count( $details->getTextRevisions()->toArray() );
 		$fileRevisionsCount = count( $details->getFileRevisions()->toArray() );
-		$importIdentityFormSnippet = $this->buildImportIdentityFormSnippet();
+		$importIdentityFormSnippet = $this->buildImportIdentityFormSnippet( $importPlan );
 
 		return Html::rawElement(
 			'p',
 			[],
-			$this->specialPage->msg( 'fileimporter-previewnote' )->parse()
+			$this->msg( 'fileimporter-previewnote' )->parse()
 		) .
 		Html::rawElement(
 			'div',
@@ -64,7 +43,7 @@ class ImportPreviewPage {
 				[
 					'class' => 'mw-importfile-header-title'
 				],
-				$this->importPlan->getTitle()->getText()
+				$importPlan->getTitle()->getText()
 			) .
 			$this->buildActionFormStart(
 				SpecialImportFile::ACTION_EDIT_TITLE,
@@ -74,7 +53,7 @@ class ImportPreviewPage {
 			new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-importfile-edit-button' ],
-					'label' => $this->specialPage->msg( 'fileimporter-edittitle' )->plain(),
+					'label' => $this->msg( 'fileimporter-edittitle' )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'progressive' ],
 				]
@@ -93,7 +72,7 @@ class ImportPreviewPage {
 				[
 					'class' => 'mw-importfile-header-title'
 				],
-				$this->specialPage->msg( 'fileimporter-heading-fileinfo' )->plain()
+				$this->msg( 'fileimporter-heading-fileinfo' )->plain()
 			) .
 			$this->buildActionFormStart(
 				SpecialImportFile::ACTION_EDIT_INFO,
@@ -103,7 +82,7 @@ class ImportPreviewPage {
 			new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-importfile-edit-button' ],
-					'label' => $this->specialPage->msg( 'fileimporter-editinfo' )->plain(),
+					'label' => $this->msg( 'fileimporter-editinfo' )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'progressive' ],
 				]
@@ -115,18 +94,18 @@ class ImportPreviewPage {
 			[ 'class' => 'mw-importfile-parsedContent' ],
 			( new TextRevisionSnippet(
 				$details->getTextRevisions()->getLatest(),
-				$this->importPlan->getFileInfoText()
+				$importPlan->getFileInfoText()
 			) )->getHtml()
 		) .
 		Html::element(
 			'h2',
 			[],
-			$this->specialPage->msg( 'fileimporter-heading-filehistory' )->plain()
+			$this->msg( 'fileimporter-heading-filehistory' )->plain()
 		) .
 		Html::rawElement(
 			'p',
 			[],
-			$this->specialPage->msg(
+			$this->msg(
 				'fileimporter-filerevisions',
 				[
 					$fileRevisionsCount,
@@ -140,11 +119,12 @@ class ImportPreviewPage {
 		) .
 		$this->buildActionFormStart( SpecialImportFile::ACTION_SUBMIT ) .
 		$importIdentityFormSnippet .
-		( $this->wasEdited() ? $this->buildEditSummaryHtml() : '' ) .
+		( $this->wasEdited( $importPlan ) ? $this->buildEditSummaryHtml(
+			$importPlan->getDetails()->getNumberOfTemplatesReplaced() ) : '' ) .
 		Html::rawElement(
 			'p',
 			[],
-			$this->specialPage->msg(
+			$this->msg(
 				'fileimporter-textrevisions',
 				[
 					$textRevisionsCount,
@@ -157,30 +137,30 @@ class ImportPreviewPage {
 			[
 				'type' => 'hidden',
 				'name' => 'token',
-				'value' => $this->specialPage->getUser()->getEditToken()
+				'value' => $this->getUser()->getEditToken()
 			]
 		) .
 		new ButtonInputWidget(
 			[
 				'classes' => [ 'mw-importfile-import-submit' ],
-				'label' => $this->specialPage->msg( 'fileimporter-import' )->plain(),
+				'label' => $this->msg( 'fileimporter-import' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 			]
 		) .
-		( $this->wasEdited() ? $this->buildShowChangesButtonHtml() : '' ) .
+		( $this->wasEdited( $importPlan ) ? $this->buildShowChangesButtonHtml() : '' ) .
 		new ButtonWidget(
 			[
 				'classes' => [ 'mw-importfile-import-cancel' ],
-				'label' => $this->specialPage->msg( 'fileimporter-cancel' )->plain(),
+				'label' => $this->msg( 'fileimporter-cancel' )->plain(),
 				'flags' => [ 'progressive' ],
-				'href' => $this->importPlan->getRequest()->getUrl()->getUrl()
+				'href' => $importPlan->getRequest()->getUrl()->getUrl()
 			]
 		) .
 		Html::element(
 			'span',
 			[],
-			$this->specialPage->msg( 'fileimporter-import-wait' )->plain()
+			$this->msg( 'fileimporter-import-wait' )->plain()
 		) .
 		Html::closeElement( 'form' ) .
 		Html::closeElement(
@@ -193,7 +173,7 @@ class ImportPreviewPage {
 			'form',
 			[
 				'class' => $class,
-				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+				'action' => $this->getPageTitle()->getLocalURL(),
 				'method' => 'POST',
 			]
 		) .
@@ -211,7 +191,7 @@ class ImportPreviewPage {
 		return new ButtonInputWidget(
 			[
 				'classes' => [ 'mw-importfile-import-diff' ],
-				'label' => $this->specialPage->msg( 'fileimporter-viewdiff' )->plain(),
+				'label' => $this->msg( 'fileimporter-viewdiff' )->plain(),
 				'name' => 'action',
 				'value' => SpecialImportFile::ACTION_VIEW_DIFF,
 				'type' => 'submit',
@@ -220,17 +200,16 @@ class ImportPreviewPage {
 		);
 	}
 
-	private function buildEditSummaryHtml() {
-		$replacements = $this->importPlan->getDetails()->getNumberOfTemplatesReplaced();
+	private function buildEditSummaryHtml( $replacements ) {
 		$summary = $replacements > 0
-			? $this->specialPage->msg( 'fileimporter-auto-replacements-summary', $replacements )
+			? $this->msg( 'fileimporter-auto-replacements-summary', $replacements )
 				->text()
 			: null;
 
 		return Html::element(
 			'p',
 			[],
-			$this->specialPage->msg( 'fileimporter-editsummary' )->plain()
+			$this->msg( 'fileimporter-editsummary' )->plain()
 		) .
 		new TextInputWidget(
 			[
@@ -241,18 +220,18 @@ class ImportPreviewPage {
 		);
 	}
 
-	private function buildImportIdentityFormSnippet() {
+	private function buildImportIdentityFormSnippet( ImportPlan $importPlan ) {
 		return ( new ImportIdentityFormSnippet( [
-			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
-			'intendedFileName' => $this->importPlan->getFileName(),
-			'intendedWikiText' => $this->importPlan->getFileInfoText(),
-			'importDetailsHash' => $this->importPlan->getDetails()->getOriginalHash(),
+			'clientUrl' => $importPlan->getRequest()->getUrl(),
+			'intendedFileName' => $importPlan->getFileName(),
+			'intendedWikiText' => $importPlan->getFileInfoText(),
+			'importDetailsHash' => $importPlan->getDetails()->getOriginalHash(),
 		] ) )->getHtml();
 	}
 
-	private function wasEdited() {
-		return $this->importPlan->wasFileInfoTextChanged() ||
-			$this->importPlan->getDetails()->getNumberOfTemplatesReplaced() > 0;
+	private function wasEdited( ImportPlan $importPlan ) {
+		return $importPlan->wasFileInfoTextChanged() ||
+			$importPlan->getDetails()->getNumberOfTemplatesReplaced() > 0;
 	}
 
 }

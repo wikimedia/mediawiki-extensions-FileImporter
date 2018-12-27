@@ -185,17 +185,17 @@ class SpecialImportFile extends SpecialPage {
 				break;
 			case self::ACTION_EDIT_TITLE:
 				$this->getOutput()->addHTML(
-					( new ChangeFileNameForm( $this, $importPlan ) )->getHtml()
+					( new ChangeFileNameForm( $this ) )->getHtml( $importPlan )
 				);
 				break;
 			case self::ACTION_EDIT_INFO:
 				$this->getOutput()->addHTML(
-					( new ChangeFileInfoForm( $this, $importPlan ) )->getHtml()
+					( new ChangeFileInfoForm( $this ) )->getHtml( $importPlan )
 				);
 				break;
 			case self::ACTION_VIEW_DIFF:
 				$this->getOutput()->addHTML(
-					( new FileInfoDiffPage( $this, $importPlan ) )->getHtml()
+					( new FileInfoDiffPage( $this ) )->getHtml( $importPlan )
 				);
 				break;
 			default:
@@ -337,7 +337,7 @@ class SpecialImportFile extends SpecialPage {
 
 	private function showImportPage( ImportPlan $importPlan ) {
 		$this->getOutput()->addHTML(
-			( new ImportPreviewPage( $this, $importPlan ) )->getHtml()
+			( new ImportPreviewPage( $this ) )->getHtml( $importPlan )
 		);
 	}
 

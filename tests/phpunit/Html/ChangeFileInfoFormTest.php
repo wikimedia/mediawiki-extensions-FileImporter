@@ -113,10 +113,10 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 			$this->getMockImportDetails(),
 			''
 		);
-		$form = new ChangeFileInfoForm( $this->getMockSpecialPage(), $importPlan );
+		$form = new ChangeFileInfoForm( $this->getMockSpecialPage() );
 
 		assertThat(
-			$form->getHtml(),
+			$form->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
 				both( withTagName( 'textarea' ) )
 					->andAlso( withAttribute( 'name' )->havingValue( 'intendedWikiText' ) )
