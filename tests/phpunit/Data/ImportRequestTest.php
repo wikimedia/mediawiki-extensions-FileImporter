@@ -16,12 +16,13 @@ class ImportRequestTest extends \PHPUnit\Framework\TestCase {
 
 	public function testConstructor() {
 		$url = 'https://ar.wikipedia.org/wiki/ملف:1967+TUN.jpg';
-		$importRequest = new ImportRequest( $url, '<NAME>', '<TEXT>', '<SUMMARY>' );
+		$importRequest = new ImportRequest( $url, '<NAME>', '<TEXT>', '<SUMMARY>', '<HASH>' );
 
 		$this->assertSame( $url, $importRequest->getUrl()->getUrl() );
 		$this->assertSame( '<NAME>', $importRequest->getIntendedName() );
 		$this->assertSame( '<TEXT>', $importRequest->getIntendedText() );
 		$this->assertSame( '<SUMMARY>', $importRequest->getIntendedSummary() );
+		$this->assertSame( '<HASH>', $importRequest->getImportDetailsHash() );
 	}
 
 	public function testInvalidUrl() {

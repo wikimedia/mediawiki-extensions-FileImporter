@@ -259,7 +259,8 @@ class SpecialImportFile extends SpecialPage {
 			$this->getRequest()->getVal( 'clientUrl' ),
 			$this->getRequest()->getVal( 'intendedFileName' ),
 			$intendedWikiText,
-			$this->getRequest()->getVal( 'intendedRevisionSummary' )
+			$this->getRequest()->getVal( 'intendedRevisionSummary' ),
+			$this->getRequest()->getVal( 'importDetailsHash', '' )
 		);
 
 		$url = $importRequest->getUrl();

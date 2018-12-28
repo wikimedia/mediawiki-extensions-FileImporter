@@ -35,10 +35,16 @@ class ImportRequest {
 	private $intendedSummary;
 
 	/**
+	 * @var string
+	 */
+	private $importDetailsHash;
+
+	/**
 	 * @param string $url
 	 * @param string|null $intendedName null for no intended change
 	 * @param string|null $intendedText null for no intended change
 	 * @param string|null $intendedSummary null for no intended change
+	 * @param string $importDetailsHash
 	 *
 	 * @throws InvalidArgumentException|LocalizedImportException
 	 */
@@ -46,12 +52,14 @@ class ImportRequest {
 		$url,
 		$intendedName = null,
 		$intendedText = null,
-		$intendedSummary = null
+		$intendedSummary = null,
+		$importDetailsHash = ''
 	) {
 		Assert::parameterType( 'string', $url, '$url' );
 		Assert::parameterType( 'string|null', $intendedName, '$intendedName' );
 		Assert::parameterType( 'string|null', $intendedText, '$intendedText' );
 		Assert::parameterType( 'string|null', $intendedSummary, '$intendedSummary' );
+		Assert::parameterType( 'string', $importDetailsHash, '$importDetailsHash' );
 
 		try {
 			$this->url = new SourceUrl( $url );
@@ -72,6 +80,7 @@ class ImportRequest {
 		$this->intendedName = $intendedName;
 		$this->intendedText = $intendedText;
 		$this->intendedSummary = $intendedSummary;
+		$this->importDetailsHash = $importDetailsHash;
 	}
 
 	/**
@@ -100,6 +109,15 @@ class ImportRequest {
 	 */
 	public function getIntendedSummary() {
 		return $this->intendedSummary;
+	}
+
+	/**
+	 * @see \FileImporter\Data\ImportDetails::getOriginalHash
+	 *
+	 * @return string
+	 */
+	public function getImportDetailsHash() {
+		return $this->importDetailsHash;
 	}
 
 	/**

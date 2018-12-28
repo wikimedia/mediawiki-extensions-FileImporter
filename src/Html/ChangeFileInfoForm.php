@@ -51,7 +51,7 @@ class ChangeFileInfoForm {
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
 			'intendedFileName' => $this->importPlan->getFileName(),
-			'importDetailsHash' => $this->specialPage->getRequest()->getVal( 'importDetailsHash' ),
+			'importDetailsHash' => $this->importPlan->getRequest()->getImportDetailsHash(),
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
