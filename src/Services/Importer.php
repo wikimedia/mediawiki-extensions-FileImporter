@@ -238,7 +238,7 @@ class Importer {
 		$totalFileSizes = 0;
 		$initialTextRevision = $textRevisions[0];
 
-		foreach ( $fileRevisions as $fileRevision ) {
+		foreach ( $fileRevisions as $index => $fileRevision ) {
 			$totalFileSizes += $fileRevision->getField( 'size' );
 			$this->stats->gauge(
 				'FileImporter.import.details.individualFileSizes',
@@ -248,6 +248,7 @@ class Importer {
 				$plannedTitle,
 				$user,
 				$fileRevision,
+				( $index === 0 ),
 				$initialTextRevision,
 				$this->httpRequestExecutor,
 				$this->wikiRevisionFactory,
