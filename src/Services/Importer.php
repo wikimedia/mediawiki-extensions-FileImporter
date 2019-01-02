@@ -187,7 +187,7 @@ class Importer {
 		// TODO the below should be an ImportOperation
 		$miscActionsStart = microtime( true );
 		$page = $this->getPageFromImportPlan( $importPlan );
-		$this->createPostImportNullRevision( $importPlan, $page, $user );
+		$this->createPostImportNullRevision( $importPlan, $user );
 		$this->createPostImportEdit( $importPlan, $page, $user );
 		$this->stats->timing(
 			'FileImporter.import.timing.miscActions',
@@ -250,6 +250,8 @@ class Importer {
 				$plannedTitle,
 				$user,
 				$fileRevision,
+				// FIXME: This depends on ApiQueryImageInfo returning the current revision first,
+				// but this is not really guaranteed at this point!
 				( $index === 0 ),
 				$initialTextRevision,
 				$this->httpRequestExecutor,
@@ -342,12 +344,10 @@ class Importer {
 
 	/**
 	 * @param ImportPlan $importPlan
-	 * @param WikiPage $page
 	 * @param User $user
 	 */
 	private function createPostImportNullRevision(
 		ImportPlan $importPlan,
-		WikiPage $page,
 		User $user
 	) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
@@ -357,7 +357,7 @@ class Importer {
 		);
 
 		$revision = $this->nullRevisionCreator->createForLinkTarget(
-			$page->getTitle(),
+			$importPlan->getTitle(),
 			$user,
 			$summary
 		);
@@ -367,16 +367,20 @@ class Importer {
 			throw new RuntimeException( 'Failed to create import revision' );
 		}
 
+		// FIXME: All log code below belongs to {@see \FileImporter\Services\NullRevisionCreator}
+		// where the null revision is created. All this should be in one class, and the class be
+		// named appropriately.
 		$this->createImportLog(
 			$importPlan, $revision, $user, $summary
 		);
 
-		$latestFileRevision = $importPlan->getDetails()->getFileRevisions()->getLatest();
-		if ( $latestFileRevision !== null ) {
-			$this->createNullRevisionUploadLog(
-				$importPlan, $revision, $latestFileRevision, $user, $summary
-			);
-		}
+		$this->createNullRevisionUploadLog(
+			$importPlan->getTitle(),
+			$revision,
+			$importPlan->getDetails()->getFileRevisions()->getLatest(),
+			$user,
+			$summary
+		);
 	}
 
 	/**
@@ -391,8 +395,6 @@ class Importer {
 		User $user,
 		$summary
 	) {
-		// FIXME: This code belongs next to the code that creates the null revision. Both should be
-		// in one class, and the class be named appropriately.
 		$importLogEntry = new ManualLogEntry( 'import', 'interwiki' );
 		$importLogEntry->setTarget( $importPlan->getTitle() );
 		$importLogEntry->setComment( $summary );
@@ -406,27 +408,32 @@ class Importer {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
+	 * @see \LocalFile::recordUpload2
+	 *
+	 * @param Title $title
 	 * @param RevisionRecord $revision
-	 * @param FileRevision $latestFileRevision
+	 * @param FileRevision|null $latestFileRevision
 	 * @param User $user
 	 * @param String $summary
 	 */
 	private function createNullRevisionUploadLog(
-		ImportPlan $importPlan,
+		Title $title,
 		RevisionRecord $revision,
-		FileRevision $latestFileRevision,
+		FileRevision $latestFileRevision = null,
 		User $user,
 		$summary
 	) {
-		// FIXME: This code belongs next to the code that creates the null revision. Both should be
-		// in one class, and the class be named appropriately.
+		// FIXME: It shouldn't be possible for imports with no file revision to end here.
+		if ( !$latestFileRevision ) {
+			return;
+		}
+
 		$uploadLogEntry = new ManualLogEntry( 'upload', 'upload' );
 		$uploadLogEntry->setPerformer( $user );
 		$uploadLogEntry->setComment( $summary );
 		$uploadLogEntry->setTimestamp( $revision->getTimestamp() );
 		$uploadLogEntry->setAssociatedRevId( $revision->getId() );
-		$uploadLogEntry->setTarget( $importPlan->getTitle() );
+		$uploadLogEntry->setTarget( $title );
 		$uploadLogEntry->setParameters(
 			[
 				'img_sha1' => $latestFileRevision->getField( 'sha1' ),

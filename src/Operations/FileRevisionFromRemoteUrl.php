@@ -186,31 +186,40 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @return bool success
 	 */
 	public function commit() {
-		$result = $this->importer->import( $this->wikiRevision );
+		$status = $this->importer->import( $this->wikiRevision );
 
-		if ( !$result->isGood() ) {
+		if ( !$status->isGood() ) {
 			$this->logger->error(
 				__METHOD__ . ' failed to commit.',
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
 		}
 
-		// core does already create an upload log entry for the latest revision
+		/**
+		 * Core only creates log entries for the latest revision. This results in a complete upload
+		 * log only when the revisions are uploaded in chronological order, and all using the same
+		 * file name.
+		 *
+		 * Here we are not only working in reverse chronological order, but also with archive file
+		 * names that are all different. Core can't know if it needs to create historical log
+		 * entries for these.
+		 *
+		 * According to {@see \LocalFile::publishTo} the {@see \StatusValue::$value} contains the
+		 * archive file name.
+		 */
+		// FIXME: Replace with $status->value !== '' after fixing the relevant core bug.
 		if ( !$this->isLatestFileRevision ) {
 			$this->createUploadLog();
 		}
 
-		return $result->isGood();
+		return $status->isGood();
 	}
 
 	/**
-	 * Log this import operation.
+	 * @see \LocalFile::recordUpload2
 	 */
 	private function createUploadLog() {
-		$user = $this->wikiRevision->getUserObj();
-		if ( $user == null ) {
-			$user = User::newFromName( $this->wikiRevision->getUser() );
-		}
+		$user = $this->wikiRevision->getUserObj() ?: User::newFromName( $this->wikiRevision->getUser() );
 
 		$logEntry = new ManualLogEntry( 'upload', 'upload' );
 		$logEntry->setTimestamp( $this->wikiRevision->getTimestamp() );

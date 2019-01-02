@@ -225,9 +225,8 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$expectedSummary
 	) {
 		$page = $this->createMock( \WikiPage::class );
-		$page->expects( $this->once() )
-			->method( 'getTitle' )
-			->willReturn( \Title::makeTitle( NS_FILE, self::TITLE ) );
+		$page->expects( $this->never() )
+			->method( 'getTitle' );
 		$page->expects( $this->once() )
 			->method( 'doEditContent' )
 			->with(
@@ -333,7 +332,10 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$creator->expects( $this->once() )
 			->method( 'createForLinkTarget' )
 			->with(
-				\Title::makeTitle( NS_FILE, self::TITLE ),
+				$this->callback( function ( LinkTarget $title ) {
+					return $title->getNamespace() === NS_FILE
+						&& $title->getText() === self::TITLE;
+				} ),
 				$expectedUser,
 				self::NULL_EDIT_SUMMARY
 			)
