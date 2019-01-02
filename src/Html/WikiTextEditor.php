@@ -4,22 +4,12 @@ namespace FileImporter\Html;
 
 use EditPage;
 use Html;
-use SpecialPage;
 
 /**
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class WikiTextEditor {
-
-	/**
-	 * @var SpecialPage
-	 */
-	private $specialPage;
-
-	public function __construct( SpecialPage $specialPage ) {
-		$this->specialPage = $specialPage;
-	}
+class WikiTextEditor extends SpecialPageHtmlFragment {
 
 	/**
 	 * @param string $wikitext
@@ -38,8 +28,8 @@ class WikiTextEditor {
 	 * Load modules mainly related to the toolbar functions
 	 */
 	private function loadModules() {
-		$this->specialPage->getOutput()->addModules( 'mediawiki.action.edit' );
-		$this->specialPage->getOutput()->addModuleStyles( 'mediawiki.action.edit.styles' );
+		$this->getOutput()->addModules( 'mediawiki.action.edit' );
+		$this->getOutput()->addModuleStyles( 'mediawiki.action.edit.styles' );
 	}
 
 	/**
@@ -50,13 +40,13 @@ class WikiTextEditor {
 	private function runEditFormInitialHook() {
 		$editPage = new EditPage(
 			\Article::newFromTitle(
-				$this->specialPage->getPageTitle(),
-				$this->specialPage->getContext()
+				$this->getPageTitle(),
+				$this->getContext()
 			)
 		);
 
 		\Hooks::run( 'EditPage::showEditForm:initial',
-			[ &$editPage, $this->specialPage->getOutput() ]
+			[ &$editPage, $this->getOutput() ]
 		);
 	}
 
@@ -68,14 +58,14 @@ class WikiTextEditor {
 	 * @return string HTML
 	 */
 	private function buildEditor( $wikitext ) {
-		$class = 'mw-editfont-' . $this->specialPage->getUser()->getOption( 'editfont' );
-		$pageLang = $this->specialPage->getLanguage();
+		$class = 'mw-editfont-' . $this->getUser()->getOption( 'editfont' );
+		$pageLang = $this->getLanguage();
 
 		/**
 		 * The below could be turned on with refactoring @ https://gerrit.wikimedia.org/r/#/c/373867/
 		 * But a patch also exists to remove this code https://gerrit.wikimedia.org/r/#/c/138840/
 		 */
-		// if ( !$this->specialPage->getRequest()->isUnicodeCompliantBrowser() ) {
+		// if ( !$this->isUnicodeCompliantBrowser() ) {
 		// $wikitext = StringUtils::makeSafeForUtf8Editing( $wikitext );
 		// }
 		$wikitext = $this->addNewLineAtEnd( $wikitext );

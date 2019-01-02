@@ -23,6 +23,7 @@ use WebRequest;
  * @covers \FileImporter\Html\ImportSuccessPage
  * @covers \FileImporter\Html\InputFormPage
  * @covers \FileImporter\Html\RecoverableTitleExceptionPage
+ * @covers \FileImporter\Html\SpecialPageHtmlFragment
  * @covers \FileImporter\Html\TextRevisionSnippet
  * @covers \FileImporter\SpecialImportFile
  *
