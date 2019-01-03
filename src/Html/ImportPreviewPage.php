@@ -92,10 +92,10 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-parsedContent' ],
-			( new TextRevisionSnippet(
+			( new TextRevisionSnippet( $this ) )->getHtml(
 				$details->getTextRevisions()->getLatest(),
 				$importPlan->getFileInfoText()
-			) )->getHtml()
+			)
 		) .
 		Html::element(
 			'h2',

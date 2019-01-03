@@ -12,31 +12,15 @@ use OOUI\ButtonWidget;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class DuplicateFilesErrorPage {
-
-	/**
-	 * @var File[]
-	 */
-	private $files;
-
-	/**
-	 * @var string|null
-	 */
-	private $url;
+class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 
 	/**
 	 * @param File[] $files
 	 * @param string|null $url
-	 */
-	public function __construct( array $files, $url ) {
-		$this->files = $files;
-		$this->url = $url;
-	}
-
-	/**
+	 *
 	 * @return string
 	 */
-	public function getHtml() {
+	public function getHtml( array $files, $url ) {
 		$duplicateFilesList = '';
 		$duplicatesMessage = wfMessage( 'fileimporter-duplicatefilesdetected-prefix' )->plain();
 		$duplicateFilesList .= Html::rawElement(
@@ -45,7 +29,7 @@ class DuplicateFilesErrorPage {
 			Html::element( 'strong', [], $duplicatesMessage )
 		);
 		$duplicateFilesList .= Html::openElement( 'ul' );
-		foreach ( $this->files as $file ) {
+		foreach ( $files as $file ) {
 			$duplicateFilesList .= Html::rawElement(
 				'li',
 				[],
@@ -66,11 +50,11 @@ class DuplicateFilesErrorPage {
 
 		$output .= $duplicateFilesList;
 
-		if ( $this->url !== null ) {
+		if ( $url !== null ) {
 			$output .= new ButtonWidget(
 				[
 					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
-					'href' => $this->url,
+					'href' => $url,
 					'classes' => [ 'mw-importfile-error-back-button' ],
 					'flags' => [ 'primary', 'progressive' ]
 				]

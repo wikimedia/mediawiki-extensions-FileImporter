@@ -9,42 +9,26 @@ use OOUI\ButtonWidget;
  * @license GPL-2.0-or-later
  * @author Andrew Kostka <andrew.kostka@wikimedia.de>
  */
-class ErrorPage {
+class ErrorPage extends SpecialPageHtmlFragment {
 
 	/**
-	 * @var string
-	 */
-	private $errorMessage;
-
-	/**
-	 * @var string|null
-	 */
-	private $url;
-
-	/**
-	 * @param string $errorMessage
+	 * @param string $errorMessage HTML
 	 * @param string|null $url
-	 */
-	public function __construct( $errorMessage, $url ) {
-		$this->errorMessage = $errorMessage;
-		$this->url = $url;
-	}
-
-	/**
+	 *
 	 * @return string
 	 */
-	public function getHtml() {
+	public function getHtml( $errorMessage, $url ) {
 		$output = Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-error-banner errorbox' ],
-			Html::rawElement( 'p', [], $this->errorMessage )
+			Html::rawElement( 'p', [], $errorMessage )
 		);
 
-		if ( $this->url !== null ) {
+		if ( $url !== null ) {
 			$output .= new ButtonWidget(
 				[
 					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
-					'href' => $this->url,
+					'href' => $url,
 					'classes' => [ 'mw-importfile-error-back-button' ],
 					'flags' => [ 'primary', 'progressive' ]
 				]

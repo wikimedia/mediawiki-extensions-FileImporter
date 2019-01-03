@@ -3,10 +3,8 @@
 namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
-use FileImporter\Data\SourceUrl;
 use OOUI\ButtonWidget;
 use Html;
-use Title;
 
 /**
  * Page displaying a successful import.
@@ -14,36 +12,17 @@ use Title;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ImportSuccessPage {
+class ImportSuccessPage extends SpecialPageHtmlFragment {
 
 	/**
-	 * @var SourceUrl
-	 */
-	private $sourceUrl;
-
-	/**
-	 * @var Title
-	 */
-	private $importTitle;
-
-	public function __construct(
-		ImportPlan $importPlan
-	) {
-		$this->sourceUrl = $importPlan->getRequest()->getUrl();
-		$this->importTitle = $importPlan->getTitle();
-	}
-
-	/**
+	 * @param ImportPlan $importPlan
+	 *
 	 * @return string
 	 */
-	public function getPageTitle() {
-		return $this->importTitle->getPrefixedText();
-	}
+	public function getHtml( ImportPlan $importPlan ) {
+		$sourceUrl = $importPlan->getRequest()->getUrl();
+		$importTitle = $importPlan->getTitle();
 
-	/**
-	 * @return string
-	 */
-	public function getHtml() {
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-success-banner successbox' ],
@@ -52,8 +31,8 @@ class ImportSuccessPage {
 			)->rawParams(
 				Html::element(
 					'a',
-					[ 'href' => $this->importTitle->getInternalURL() ],
-					$this->importTitle->getPrefixedText()
+					[ 'href' => $importTitle->getInternalURL() ],
+					$importTitle->getPrefixedText()
 				)
 			)->escaped()
 		) .
@@ -66,7 +45,7 @@ class ImportSuccessPage {
 			[
 				'classes' => [ 'mw-importfile-add-template-button' ],
 				'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
-				'href' => $this->sourceUrl->getUrl(),
+				'href' => $sourceUrl->getUrl(),
 				'flags' => [ 'primary', 'progressive' ],
 			]
 		);

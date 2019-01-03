@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use FileImporter\Exceptions\RecoverableTitleException;
 use Html;
-use SpecialPage;
 
 /**
  * Html showing an error and the ChangeTitleForm
@@ -12,51 +11,20 @@ use SpecialPage;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class RecoverableTitleExceptionPage {
+class RecoverableTitleExceptionPage extends SpecialPageHtmlFragment {
 
 	/**
-	 * @var SpecialPage
-	 */
-	private $specialPage;
-
-	/**
-	 * @var RecoverableTitleException
-	 */
-	private $exception;
-
-	/**
-	 * @param SpecialPage $specialPage
 	 * @param RecoverableTitleException $exception
-	 */
-	public function __construct(
-		SpecialPage $specialPage,
-		RecoverableTitleException $exception
-	) {
-		$this->specialPage = $specialPage;
-		$this->exception = $exception;
-	}
-
-	/**
+	 *
 	 * @return string
 	 */
-	private function getMessageString() {
-		return $this->exception
-			->getMessageObject()
-			->parse();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getHtml() {
+	public function getHtml( RecoverableTitleException $exception ) {
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'warningbox' ],
-			Html::rawElement( 'p', [], ( $this->getMessageString() ) )
+			Html::rawElement( 'p', [], $exception->getMessageObject()->parse() )
 		) .
-		( new ChangeFileNameForm(
-			$this->specialPage
-		) )->getHtml( $this->exception->getImportPlan() );
+		( new ChangeFileNameForm( $this ) )->getHtml( $exception->getImportPlan() );
 	}
 
 }
