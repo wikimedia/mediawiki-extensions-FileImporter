@@ -8,7 +8,6 @@ use OOUI\FieldLayout;
 use OOUI\FieldsetLayout;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
-use SpecialPage;
 
 /**
  * Form allowing the user to select a new file name.
@@ -16,33 +15,20 @@ use SpecialPage;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ChangeFileNameForm {
+class ChangeFileNameForm extends SpecialPageHtmlFragment {
 
 	/**
-	 * @var SpecialPage
-	 */
-	private $specialPage;
-
-	/**
-	 * @var ImportPlan
-	 */
-	private $importPlan;
-
-	public function __construct( SpecialPage $specialPage, ImportPlan $importPlan ) {
-		$this->specialPage = $specialPage;
-		$this->importPlan = $importPlan;
-	}
-
-	/**
+	 * @param ImportPlan $importPlan
+	 *
 	 * @return string
 	 */
-	public function getHtml() {
-		$filenameValue = $this->importPlan->getFileName();
+	public function getHtml( ImportPlan $importPlan ) {
+		$filenameValue = $importPlan->getFileName();
 
 		return Html::openElement(
 			'form',
 			[
-				'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+				'action' => $this->getPageTitle()->getLocalURL(),
 				'method' => 'POST',
 			]
 		) .
@@ -53,7 +39,7 @@ class ChangeFileNameForm {
 						'name' => 'intendedFileName',
 						'value' => $filenameValue,
 						'classes' => [ 'mw-importfile-import-newtitle' ],
-						'placeholder' => $this->specialPage->msg( 'fileimporter-newfilename-placeholder' )->plain(),
+						'placeholder' => $this->msg( 'fileimporter-newfilename-placeholder' )->plain(),
 						'suggestions' => false,
 						'autofocus' => true,
 						'required' => true,
@@ -61,7 +47,7 @@ class ChangeFileNameForm {
 				),
 				[
 					'align' => 'top',
-					'label' => $this->specialPage->msg( 'fileimporter-newfilename' )->plain(),
+					'label' => $this->msg( 'fileimporter-newfilename' )->plain(),
 				]
 			) ]
 		] ) ) .
@@ -69,18 +55,18 @@ class ChangeFileNameForm {
 		Html::element(
 			'p',
 			[],
-			$this->specialPage->msg( 'fileimporter-extensionlabel' )->plain() .
+			$this->msg( 'fileimporter-extensionlabel' )->plain() .
 			' ' .
-			$this->importPlan->getFileExtension()
+			$importPlan->getFileExtension()
 		) .
 		( new ImportIdentityFormSnippet( [
-			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
-			'intendedWikiText' => $this->importPlan->getFileInfoText(),
-			'importDetailsHash' => $this->importPlan->getRequest()->getImportDetailsHash(),
+			'clientUrl' => $importPlan->getRequest()->getUrl(),
+			'intendedWikiText' => $importPlan->getFileInfoText(),
+			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
-				'label' => $this->specialPage->msg( 'fileimporter-submit' )->plain(),
+				'label' => $this->msg( 'fileimporter-submit' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 			]

@@ -100,10 +100,10 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 		$importPlan->method( 'getFileName' )
 			->willReturn( $fileName );
 
-		$form = new ChangeFileNameForm( $this->getMockSpecialPage(), $importPlan );
+		$form = new ChangeFileNameForm( $this->getMockSpecialPage() );
 
 		assertThat(
-			$form->getHtml(),
+			$form->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
 				both( withTagName( 'input' ) )
 					->andAlso( withAttribute( 'name' )->havingValue( 'intendedFileName' ) )

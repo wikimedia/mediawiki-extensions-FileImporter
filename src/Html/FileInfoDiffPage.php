@@ -6,7 +6,7 @@ use ContentHandler;
 use FileImporter\Data\ImportPlan;
 use Html;
 use OOUI\ButtonInputWidget;
-use SpecialPage;
+use Title;
 
 /**
  * Page to display a diff from changed file info text.
@@ -14,53 +14,40 @@ use SpecialPage;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class FileInfoDiffPage {
+class FileInfoDiffPage extends SpecialPageHtmlFragment {
 
 	/**
-	 * @var SpecialPage
-	 */
-	private $specialPage;
-
-	/**
-	 * @var ImportPlan
-	 */
-	private $importPlan;
-
-	public function __construct( SpecialPage $specialPage, ImportPlan $importPlan ) {
-		$this->specialPage = $specialPage;
-		$this->importPlan = $importPlan;
-	}
-
-	/**
+	 * @param ImportPlan $importPlan
+	 *
 	 * @return string
 	 */
-	public function getHtml() {
-		$newText = $this->importPlan->getRequest()->getIntendedText();
+	public function getHtml( ImportPlan $importPlan ) {
+		$newText = $importPlan->getRequest()->getIntendedText();
 		if ( $newText === null ) {
-			$newText = $this->importPlan->getFileInfoText();
+			$newText = $importPlan->getFileInfoText();
 		}
 
 		return Html::openElement(
 				'form',
 				[
-					'action' => $this->specialPage->getPageTitle()->getLocalURL(),
+					'action' => $this->getPageTitle()->getLocalURL(),
 					'method' => 'POST',
 				]
 			) .
 			Html::rawElement(
 				'div',
 				[ 'class' => 'mw-importfile-diff-view' ],
-				$this->buildDiff( $this->importPlan->getInitialFileInfoText(), $newText )
+				$this->buildDiff( $importPlan->getTitle(), $importPlan->getInitialFileInfoText(), $newText )
 			) .
 			( new ImportIdentityFormSnippet( [
-				'clientUrl' => $this->importPlan->getRequest()->getUrl(),
-				'intendedFileName' => $this->importPlan->getFileName(),
-				'intendedWikiText' => $this->importPlan->getFileInfoText(),
-				'importDetailsHash' => $this->importPlan->getRequest()->getImportDetailsHash(),
+				'clientUrl' => $importPlan->getRequest()->getUrl(),
+				'intendedFileName' => $importPlan->getFileName(),
+				'intendedWikiText' => $importPlan->getFileInfoText(),
+				'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
 			] ) )->getHtml() .
 			new ButtonInputWidget(
 				[
-					'label' => $this->specialPage->msg( 'fileimporter-to-preview' )->plain(),
+					'label' => $this->msg( 'fileimporter-to-preview' )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'primary', 'progressive' ],
 				]
@@ -68,28 +55,35 @@ class FileInfoDiffPage {
 			Html::closeElement( 'form' );
 	}
 
-	private function buildDiff( $originalText, $newText ) {
+	/**
+	 * @param Title $title
+	 * @param string $originalText
+	 * @param string $newText
+	 *
+	 * @return string HTML
+	 */
+	private function buildDiff( Title $title, $originalText, $newText ) {
 		$originalContent = ContentHandler::makeContent(
 			$originalText,
-			$this->importPlan->getTitle(),
+			$title,
 			CONTENT_MODEL_WIKITEXT,
 			CONTENT_FORMAT_WIKITEXT
 		);
 		$newContent = ContentHandler::makeContent(
 			$newText,
-			$this->importPlan->getTitle(),
+			$title,
 			CONTENT_MODEL_WIKITEXT,
 			CONTENT_FORMAT_WIKITEXT
 		);
 
 		$contenHandler = ContentHandler::getForModelID( CONTENT_MODEL_WIKITEXT );
-		$diffEngine = $contenHandler->createDifferenceEngine( $this->specialPage->getContext() );
+		$diffEngine = $contenHandler->createDifferenceEngine( $this->getContext() );
 		$diffEngine->setContent( $originalContent, $newContent );
 
 		$diffEngine->showDiffStyle();
 		return $diffEngine->getDiff(
-			$this->specialPage->msg( 'currentrev' ),
-			$this->specialPage->msg( 'yourtext' )
+			$this->msg( 'currentrev' ),
+			$this->msg( 'yourtext' )
 		);
 	}
 

@@ -55,9 +55,8 @@ class RecoverableTitleExceptionPage {
 			Html::rawElement( 'p', [], ( $this->getMessageString() ) )
 		) .
 		( new ChangeFileNameForm(
-			$this->specialPage,
-			$this->exception->getImportPlan()
-		) )->getHtml();
+			$this->specialPage
+		) )->getHtml( $this->exception->getImportPlan() );
 	}
 
 }
