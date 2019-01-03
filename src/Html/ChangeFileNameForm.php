@@ -76,7 +76,7 @@ class ChangeFileNameForm {
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $this->importPlan->getRequest()->getUrl(),
 			'intendedWikiText' => $this->importPlan->getFileInfoText(),
-			'importDetailsHash' => $this->specialPage->getRequest()->getVal( 'importDetailsHash' ),
+			'importDetailsHash' => $this->importPlan->getRequest()->getImportDetailsHash(),
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
