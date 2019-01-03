@@ -22,7 +22,7 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 	 */
 	public function getHtml( array $files, $url ) {
 		$duplicateFilesList = '';
-		$duplicatesMessage = wfMessage( 'fileimporter-duplicatefilesdetected-prefix' )->plain();
+		$duplicatesMessage = $this->msg( 'fileimporter-duplicatefilesdetected-prefix' )->plain();
 		$duplicateFilesList .= Html::rawElement(
 			'p',
 			[],
@@ -45,7 +45,7 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 		$output = Html::rawElement(
 				'div',
 				[ 'class' => 'mw-importfile-error-banner errorbox' ],
-				Html::element( 'p', [], wfMessage( 'fileimporter-duplicatefilesdetected' )->plain() )
+				Html::element( 'p', [], $this->msg( 'fileimporter-duplicatefilesdetected' )->plain() )
 			);
 
 		$output .= $duplicateFilesList;
@@ -53,7 +53,7 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 		if ( $url !== null ) {
 			$output .= new ButtonWidget(
 				[
-					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
+					'label' => $this->msg( 'fileimporter-go-to-original-file-button' )->plain(),
 					'href' => $url,
 					'classes' => [ 'mw-importfile-error-back-button' ],
 					'flags' => [ 'primary', 'progressive' ]

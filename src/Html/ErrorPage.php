@@ -27,7 +27,7 @@ class ErrorPage extends SpecialPageHtmlFragment {
 		if ( $url !== null ) {
 			$output .= new ButtonWidget(
 				[
-					'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
+					'label' => $this->msg( 'fileimporter-go-to-original-file-button' )->plain(),
 					'href' => $url,
 					'classes' => [ 'mw-importfile-error-back-button' ],
 					'flags' => [ 'primary', 'progressive' ]
