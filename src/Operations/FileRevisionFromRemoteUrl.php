@@ -82,16 +82,10 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	private $importer;
 
 	/**
-	 * @var bool
-	 */
-	private $isLatestFileRevision;
-
-	/**
 	 * @suppress PhanParamReqAfterOpt
 	 * @param Title $plannedTitle
 	 * @param User $user
 	 * @param FileRevision $fileRevision
-	 * @param bool $isLatestFileRevision
 	 * @param TextRevision|null $textRevision
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param WikiRevisionFactory $wikiRevisionFactory
@@ -103,7 +97,6 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		Title $plannedTitle,
 		User $user,
 		FileRevision $fileRevision,
-		$isLatestFileRevision,
 		TextRevision $textRevision = null,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
@@ -114,7 +107,6 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$this->plannedTitle = $plannedTitle;
 		$this->user = $user;
 		$this->fileRevision = $fileRevision;
-		$this->isLatestFileRevision = $isLatestFileRevision;
 		$this->textRevision = $textRevision;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
@@ -208,8 +200,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		 * According to {@see \LocalFile::publishTo} the {@see \StatusValue::$value} contains the
 		 * archive file name.
 		 */
-		// FIXME: Replace with $status->value !== '' after fixing the relevant core bug.
-		if ( !$this->isLatestFileRevision ) {
+		if ( $status->value !== '' ) {
 			$this->createUploadLog();
 		}
 

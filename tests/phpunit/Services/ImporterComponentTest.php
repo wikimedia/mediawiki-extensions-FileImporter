@@ -222,7 +222,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 				false,
 				$expectedUser
 			)
-			->willReturn( new \Status() );
+			->willReturn( \StatusValue::newGood() );
 
 		$factory = $this->createMock( WikiPageFactory::class );
 		$factory->expects( $this->once() )
@@ -266,7 +266,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$uploadBase->expects( $this->once() )
 			->method( 'validateUpload' )
 			->with( $expectedUser, $expectedTextRevision )
-			->willReturn( new \Status() );
+			->willReturn( \StatusValue::newGood() );
 
 		$factory = $this->createMock( UploadBaseFactory::class );
 		$factory->expects( $this->once() )
@@ -286,7 +286,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$importer->expects( $this->once() )
 			->method( 'import' )
 			->with( $expectedWikiRevision )
-			->willReturn( new \Status() );
+			->willReturn( \StatusValue::newGood( '' ) );
 		return $importer;
 	}
 

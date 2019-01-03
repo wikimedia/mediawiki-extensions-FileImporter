@@ -237,7 +237,7 @@ class Importer {
 		$totalFileSizes = 0;
 		$initialTextRevision = $textRevisions[0] ?? null;
 
-		foreach ( $fileRevisions as $index => $fileRevision ) {
+		foreach ( $fileRevisions as $fileRevision ) {
 			$totalFileSizes += $fileRevision->getField( 'size' );
 			$this->stats->gauge(
 				'FileImporter.import.details.individualFileSizes',
@@ -247,9 +247,6 @@ class Importer {
 				$plannedTitle,
 				$user,
 				$fileRevision,
-				// FIXME: This depends on ApiQueryImageInfo returning the current revision first,
-				// but this is not really guaranteed at this point!
-				( $index === 0 ),
 				$initialTextRevision,
 				$this->httpRequestExecutor,
 				$this->wikiRevisionFactory,
