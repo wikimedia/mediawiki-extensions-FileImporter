@@ -26,7 +26,7 @@ class ImportSuccessPage extends SpecialPageHtmlFragment {
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-success-banner successbox' ],
-			wfMessage(
+			$this->msg(
 				'fileimporter-imported-success-banner'
 			)->rawParams(
 				Html::element(
@@ -39,12 +39,12 @@ class ImportSuccessPage extends SpecialPageHtmlFragment {
 		Html::rawElement(
 			'p',
 			[],
-			wfMessage( 'fileimporter-imported-change-template' )->parse()
+			$this->msg( 'fileimporter-imported-change-template' )->parse()
 		) .
 		new ButtonWidget(
 			[
 				'classes' => [ 'mw-importfile-add-template-button' ],
-				'label' => wfMessage( 'fileimporter-go-to-original-file-button' )->plain(),
+				'label' => $this->msg( 'fileimporter-go-to-original-file-button' )->plain(),
 				'href' => $sourceUrl->getUrl(),
 				'flags' => [ 'primary', 'progressive' ],
 			]
