@@ -13,38 +13,21 @@ use Title;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class TextRevisionSnippet {
-
-	/**
-	 * @var TextRevision
-	 */
-	private $textRevision;
-
-	/**
-	 * @var string|null
-	 */
-	private $intendedWikiText;
+class TextRevisionSnippet extends SpecialPageHtmlFragment {
 
 	/**
 	 * @param TextRevision $textRevision Latest test revision
 	 * @param string|null $intendedWikiText This will override the text provided in the TextRevision
-	 */
-	public function __construct( TextRevision $textRevision, $intendedWikiText ) {
-		$this->textRevision = $textRevision;
-		$this->intendedWikiText = $intendedWikiText;
-	}
-
-	/**
+	 *
 	 * @return string
 	 */
-	public function getHtml() {
-		$textRevision = $this->textRevision;
+	public function getHtml( TextRevision $textRevision, $intendedWikiText ) {
 		$title = Title::newFromText( $textRevision->getField( 'title' ), NS_FILE );
 
-		if ( $this->intendedWikiText === null ) {
+		if ( $intendedWikiText === null ) {
 			$text = $textRevision->getField( '*' );
 		} else {
-			$text = $this->intendedWikiText;
+			$text = $intendedWikiText;
 		}
 
 		$content = ContentHandler::makeContent(

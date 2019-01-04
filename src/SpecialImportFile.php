@@ -220,23 +220,22 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	private function handleImportException( ImportException $exception, $url ) {
 		if ( $exception instanceof DuplicateFilesException ) {
-				$this->getOutput()->addHTML( ( new DuplicateFilesErrorPage(
+				$this->getOutput()->addHTML( ( new DuplicateFilesErrorPage( $this ) )->getHtml(
 					$exception->getFiles(),
 					$url
-				) )->getHtml() );
+				) );
 				return;
 		}
 
 		if ( $exception instanceof RecoverableTitleException ) {
-			$this->getOutput()->addHTML( ( new RecoverableTitleExceptionPage(
-				$this,
+			$this->getOutput()->addHTML( ( new RecoverableTitleExceptionPage( $this ) )->getHtml(
 				$exception
-			) )->getHtml() );
+			) );
 			return;
 		}
 
 		$this->getOutput()->addHTML(
-			( new ErrorPage( $this->getWarningMessage( $exception ), $url ) )->getHtml()
+			( new ErrorPage( $this ) )->getHtml( $this->getWarningMessage( $exception ), $url )
 		);
 	}
 
@@ -298,9 +297,8 @@ class SpecialImportFile extends SpecialPage {
 		}
 
 		if ( $result ) {
-			$successPage = new ImportSuccessPage( $importPlan );
-			$out->setPageTitle( $successPage->getPageTitle() );
-			$out->addHTML( $successPage->getHtml() );
+			$out->setPageTitle( $importPlan->getTitle()->getPrefixedText() );
+			$out->addHTML( ( new ImportSuccessPage( $this ) )->getHtml( $importPlan ) );
 		} else {
 			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );
 		}
