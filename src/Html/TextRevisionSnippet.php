@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use ContentHandler;
 use FileImporter\Data\TextRevision;
-use MWContentSerializationException;
 use ParserOptions;
 use Title;
 
@@ -48,17 +47,12 @@ class TextRevisionSnippet {
 			$text = $this->intendedWikiText;
 		}
 
-		$content = null;
-		try {
-			$content = ContentHandler::makeContent(
-				$text,
-				$title,
-				$textRevision->getField( 'contentmodel' ),
-				$textRevision->getField( 'contentformat' )
-			);
-		} catch ( MWContentSerializationException $ex ) {
-			die( 'failed to parse content of latest revision' );
-		}
+		$content = ContentHandler::makeContent(
+			$text,
+			$title,
+			$textRevision->getField( 'contentmodel' ),
+			$textRevision->getField( 'contentformat' )
+		);
 
 		$parseResult = $content->getParserOutput(
 			$title,
