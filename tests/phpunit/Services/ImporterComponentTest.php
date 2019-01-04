@@ -168,6 +168,12 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	 */
 	private function createWikiRevisionMock() {
 		$revision = $this->createMock( WikiRevision::class );
+		$revision->method( 'getTitle' )
+			->willReturn( \Title::makeTitle( NS_FILE, self::TITLE ) );
+		$revision->method( 'getID' )
+			->willReturn( 0 );
+		$revision->method( 'getUserObj' )
+			->willReturn( $this->getTestUser()->getUser() );
 		$revision->expects( $this->once() )
 			->method( 'getContent' )
 			->willReturn( $this->createMock( \Content::class ) );
