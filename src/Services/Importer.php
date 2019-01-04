@@ -236,7 +236,7 @@ class Importer {
 		}
 
 		$totalFileSizes = 0;
-		$initialTextRevision = $textRevisions[0];
+		$initialTextRevision = $textRevisions[0] ?? null;
 
 		foreach ( $fileRevisions as $index => $fileRevision ) {
 			$totalFileSizes += $fileRevision->getField( 'size' );

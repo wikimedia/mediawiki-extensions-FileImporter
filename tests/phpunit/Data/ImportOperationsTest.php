@@ -16,11 +16,28 @@ use RuntimeException;
 class ImportOperationsTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnit4And6Compat;
 
-	public function testCorrectCallOrder() {
+	public function testFailureOnEmptyOperations() {
 		$operations = new ImportOperations();
-		$this->assertTrue( $operations->prepare() );
-		$this->assertTrue( $operations->validate() );
-		$this->assertTrue( $operations->commit() );
+		$this->assertFalse( $operations->prepare() );
+	}
+
+	public function testCorrectCallOrder() {
+		$allSucceed = $this->newImportOperation( 1, true );
+		$operations = new ImportOperations();
+		$operations->add( $allSucceed );
+
+		$this->assertTrue( $operations->prepare(), 'prepare' );
+		$this->assertTrue( $operations->validate(), 'validate' );
+		$this->assertTrue( $operations->commit(), 'commit' );
+	}
+
+	public function testIncorrectCallOrder_add() {
+		$operations = new ImportOperations();
+		$operations->add( $this->createMock( ImportOperation::class ) );
+		$operations->prepare();
+
+		$this->setExpectedException( RuntimeException::class );
+		$operations->add( $this->createMock( ImportOperation::class ) );
 	}
 
 	public function testIncorrectCallOrder_validate() {
@@ -43,15 +60,8 @@ class ImportOperationsTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testOperationsAreCalledButStopOnFailure() {
-		$allFail = $this->getMock( ImportOperation::class );
-		$allFail->expects( $this->once() )->method( 'prepare' );
-		$allFail->expects( $this->once() )->method( 'validate' );
-		$allFail->expects( $this->once() )->method( 'commit' );
-
-		$neverCalled = $this->getMock( ImportOperation::class );
-		$neverCalled->expects( $this->never() )->method( 'prepare' );
-		$neverCalled->expects( $this->never() )->method( 'validate' );
-		$neverCalled->expects( $this->never() )->method( 'commit' );
+		$allFail = $this->newImportOperation( 1, false );
+		$neverCalled = $this->newImportOperation( 0 );
 
 		$operations = new ImportOperations();
 		$operations->add( $allFail );
@@ -60,6 +70,26 @@ class ImportOperationsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse( $operations->prepare() );
 		$this->assertFalse( $operations->validate() );
 		$this->assertFalse( $operations->commit() );
+	}
+
+	/**
+	 * @param int $calls Number of calls to each of the steps
+	 * @param bool $success
+	 *
+	 * @return ImportOperation
+	 */
+	private function newImportOperation( $calls, $success = false ) {
+		$mock = $this->getMock( ImportOperation::class );
+		$mock->expects( $this->exactly( $calls ) )
+			->method( 'prepare' )
+			->willReturn( $success );
+		$mock->expects( $this->exactly( $calls ) )
+			->method( 'validate' )
+			->willReturn( $success );
+		$mock->expects( $this->exactly( $calls ) )
+			->method( 'commit' )
+			->willReturn( $success );
+		return $mock;
 	}
 
 }
