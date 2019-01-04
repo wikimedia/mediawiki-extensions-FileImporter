@@ -47,18 +47,28 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	const NULL_EDIT_SUMMARY = 'Imported with FileImporter from http://source.url';
 	const USER_SUMMARY = 'User-provided summary';
 
+	/**
+	 * @var User
+	 */
+	private $user;
+
+	protected function setUp() {
+		parent::setUp();
+
+		$this->user = $this->getTestUser()->getUser();
+	}
+
 	public function testImportingZeroFileRevisions() {
 		$textRevision = $this->newTextRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
-		$user = $this->getTestUser()->getUser();
 
 		$minimalRequest = new ImportRequest( self::URL );
 		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision );
 
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
+			$this->createWikiPageFactoryMock( $this->user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
 			$this->createWikiRevisionFactoryMock( $textRevision, null, $wikiRevision ),
-			$this->createNullRevisionCreatorMock( $user ),
+			$this->createNullRevisionCreatorMock( $this->user ),
 			$this->createHttpRequestExecutorMock(),
 			$this->createUploadBaseFactoryMock(),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
@@ -68,21 +78,20 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		$this->assertTrue( $importer->import( $user, $importPlan ) );
+		$this->assertTrue( $importer->import( $this->user, $importPlan ) );
 	}
 
 	public function testImportingZeroFileRevisionsWithUserProvidedValues() {
 		$textRevision = $this->newTextRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
-		$user = $this->getTestUser()->getUser();
 
 		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
 		$importPlan = $this->newImportPlan( $request, $textRevision );
 
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $user, self::USER_WIKITEXT, self::USER_SUMMARY ),
+			$this->createWikiPageFactoryMock( $this->user, self::USER_WIKITEXT, self::USER_SUMMARY ),
 			$this->createWikiRevisionFactoryMock( $textRevision, null, $wikiRevision ),
-			$this->createNullRevisionCreatorMock( $user ),
+			$this->createNullRevisionCreatorMock( $this->user ),
 			$this->createHttpRequestExecutorMock(),
 			$this->createUploadBaseFactoryMock(),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
@@ -92,24 +101,23 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		$this->assertTrue( $importer->import( $user, $importPlan ) );
+		$this->assertTrue( $importer->import( $this->user, $importPlan ) );
 	}
 
 	public function testImportingOneFileRevision() {
 		$textRevision = $this->newTextRevision();
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
-		$user = $this->getTestUser()->getUser();
 
 		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
 		$importPlan = $this->newImportPlan( $request, $textRevision, $fileRevision );
 
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $user, self::USER_WIKITEXT, self::USER_SUMMARY ),
+			$this->createWikiPageFactoryMock( $this->user, self::USER_WIKITEXT, self::USER_SUMMARY ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
-			$this->createNullRevisionCreatorMock( $user ),
+			$this->createNullRevisionCreatorMock( $this->user ),
 			$this->createHttpRequestExecutorMock( 1 ),
-			$this->createUploadBaseFactoryMock( $user, $textRevision ),
+			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
 			new FileTextRevisionValidator(),
@@ -117,7 +125,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		$this->assertTrue( $importer->import( $user, $importPlan ) );
+		$this->assertTrue( $importer->import( $this->user, $importPlan ) );
 	}
 
 	private function newImportPlan(
@@ -173,7 +181,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$revision->method( 'getID' )
 			->willReturn( 0 );
 		$revision->method( 'getUserObj' )
-			->willReturn( $this->getTestUser()->getUser() );
+			->willReturn( $this->user );
 		$revision->expects( $this->once() )
 			->method( 'getContent' )
 			->willReturn( $this->createMock( \Content::class ) );
