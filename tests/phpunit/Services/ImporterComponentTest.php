@@ -172,19 +172,28 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	}
 
 	/**
+	 * @param int $expectedLogActions Number of actions to expect that are only called when an
+	 *  upload log entry is created.
+	 *
 	 * @return WikiRevision
 	 */
-	private function createWikiRevisionMock() {
+	private function createWikiRevisionMock( $expectedLogActions = 0 ) {
 		$revision = $this->createMock( WikiRevision::class );
-		$revision->method( 'getTitle' )
+
+		$revision->expects( $this->exactly( $expectedLogActions ) )
+			->method( 'getTitle' )
 			->willReturn( \Title::makeTitle( NS_FILE, self::TITLE ) );
-		$revision->method( 'getID' )
+		$revision->expects( $this->exactly( $expectedLogActions ) )
+			->method( 'getID' )
 			->willReturn( 0 );
-		$revision->method( 'getUserObj' )
+		$revision->expects( $this->exactly( $expectedLogActions ) )
+			->method( 'getUserObj' )
 			->willReturn( $this->user );
+
 		$revision->expects( $this->once() )
 			->method( 'getContent' )
 			->willReturn( $this->createMock( \Content::class ) );
+
 		return $revision;
 	}
 
@@ -301,8 +310,10 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	 * @return UploadRevisionImporter
 	 */
 	private function createUploadRevisionImporterMock( WikiRevision $expectedWikiRevision = null ) {
+		$calls = $expectedWikiRevision ? 1 : 0;
+
 		$importer = $this->createMock( UploadRevisionImporter::class );
-		$importer->expects( $this->exactly( $expectedWikiRevision ? 1 : 0 ) )
+		$importer->expects( $this->exactly( $calls ) )
 			->method( 'import' )
 			->with( $expectedWikiRevision )
 			->willReturn( new \Status() );
