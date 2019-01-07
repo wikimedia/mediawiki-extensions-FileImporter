@@ -27,7 +27,6 @@ use User;
 use WikiRevision;
 
 /**
- * @covers \FileImporter\Services\FileTextRevisionValidator
  * @covers \FileImporter\Services\Importer
  *
  * @license GPL-2.0-or-later
