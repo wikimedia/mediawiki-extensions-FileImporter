@@ -28,6 +28,7 @@ class ImportOperations implements ImportOperation {
 	const COMMIT_RUN = 3;
 
 	public function add( ImportOperation $importOperation ) {
+		$this->throwExceptionOnBadState( self::BUILDING );
 		$this->importOperations[] = $importOperation;
 	}
 
@@ -45,8 +46,13 @@ class ImportOperations implements ImportOperation {
 	 * @return bool success
 	 */
 	public function prepare() {
+		if ( $this->importOperations === [] ) {
+			return false;
+		}
+
 		$this->throwExceptionOnBadState( self::BUILDING );
 		$this->state = self::PREPARE_RUN;
+
 		foreach ( $this->importOperations as $importOperation ) {
 			if ( !$importOperation->prepare() ) {
 				return false;
@@ -64,6 +70,7 @@ class ImportOperations implements ImportOperation {
 	public function validate() {
 		$this->throwExceptionOnBadState( self::PREPARE_RUN );
 		$this->state = self::VALIDATE_RUN;
+
 		foreach ( $this->importOperations as $importOperation ) {
 			if ( !$importOperation->validate() ) {
 				return false;
@@ -80,11 +87,13 @@ class ImportOperations implements ImportOperation {
 	public function commit() {
 		$this->throwExceptionOnBadState( self::VALIDATE_RUN );
 		$this->state = self::COMMIT_RUN;
+
 		foreach ( $this->importOperations as $importOperation ) {
 			if ( !$importOperation->commit() ) {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
