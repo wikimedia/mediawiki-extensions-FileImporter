@@ -10,7 +10,6 @@ use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
-use FileImporter\Exceptions\ValidationException;
 use FileImporter\Html\ErrorPage;
 use FileImporter\Html\ChangeFileInfoForm;
 use FileImporter\Html\ChangeFileNameForm;
@@ -291,7 +290,7 @@ class SpecialImportFile extends SpecialPage {
 				$this->getUser(),
 				$importPlan
 			);
-		} catch ( ValidationException $exception ) {
+		} catch ( ImportException $exception ) {
 			$this->showWarningMessage( $this->getWarningMessage( $exception ) );
 			return false;
 		}
