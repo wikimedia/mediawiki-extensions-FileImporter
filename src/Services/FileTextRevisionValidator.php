@@ -5,6 +5,7 @@ namespace FileImporter\Services;
 use Content;
 use DerivativeContext;
 use FauxRequest;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\ValidationException;
 use Hooks;
 use IContextSource;
@@ -67,7 +68,7 @@ class FileTextRevisionValidator {
 		] );
 
 		if ( !$status->isGood() ) {
-			throw new ValidationException( $status->getHTML() );
+			throw new LocalizedImportException( $status->getMessage() );
 		}
 	}
 
