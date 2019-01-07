@@ -21,6 +21,7 @@ class TextRevisions {
 	 * @param TextRevision[] $textRevisions
 	 */
 	public function __construct( array $textRevisions ) {
+		Assert::parameter( $textRevisions !== [], '$textRevisions', 'cannot be empty' );
 		Assert::parameterElementType( TextRevision::class, $textRevisions, '$textRevisions' );
 		$this->textRevisions = $textRevisions;
 	}
