@@ -55,7 +55,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 					'classes' => [ 'mw-importfile-edit-button' ],
 					'label' => $this->msg( 'fileimporter-edittitle' )->plain(),
 					'type' => 'submit',
-					'flags' => [ 'progressive' ],
 				]
 			) .
 			Html::closeElement( 'form' )
@@ -84,7 +83,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 					'classes' => [ 'mw-importfile-edit-button' ],
 					'label' => $this->msg( 'fileimporter-editinfo' )->plain(),
 					'type' => 'submit',
-					'flags' => [ 'progressive' ],
 				]
 			) .
 			Html::closeElement( 'form' )
@@ -153,7 +151,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			[
 				'classes' => [ 'mw-importfile-import-cancel' ],
 				'label' => $this->msg( 'fileimporter-cancel' )->plain(),
-				'flags' => [ 'progressive' ],
 				'href' => $importPlan->getRequest()->getUrl()->getUrl()
 			]
 		) .
@@ -195,7 +192,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'name' => 'action',
 				'value' => SpecialImportFile::ACTION_VIEW_DIFF,
 				'type' => 'submit',
-				'flags' => [ 'progressive' ],
 			]
 		);
 	}
