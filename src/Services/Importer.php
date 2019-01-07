@@ -412,22 +412,17 @@ class Importer {
 	 *
 	 * @param Title $title
 	 * @param RevisionRecord $revision
-	 * @param FileRevision|null $latestFileRevision
+	 * @param FileRevision $latestFileRevision
 	 * @param User $user
 	 * @param String $summary
 	 */
 	private function createNullRevisionUploadLog(
 		Title $title,
 		RevisionRecord $revision,
-		FileRevision $latestFileRevision = null,
+		FileRevision $latestFileRevision,
 		User $user,
 		$summary
 	) {
-		// FIXME: It shouldn't be possible for imports with no file revision to end here.
-		if ( !$latestFileRevision ) {
-			return;
-		}
-
 		$uploadLogEntry = new ManualLogEntry( 'upload', 'upload' );
 		$uploadLogEntry->setPerformer( $user );
 		$uploadLogEntry->setComment( $summary );

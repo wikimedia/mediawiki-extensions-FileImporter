@@ -34,14 +34,14 @@ class FileRevisions {
 	}
 
 	/**
-	 * @return FileRevision|null
+	 * @return FileRevision
 	 */
 	public function getLatest() {
 		if ( $this->latestKey === null ) {
 			$this->calculateLatestKey();
 		}
 
-		return $this->latestKey !== null ? $this->fileRevisions[$this->latestKey] : null;
+		return $this->fileRevisions[$this->latestKey];
 	}
 
 	private function calculateLatestKey() {
@@ -53,6 +53,8 @@ class FileRevisions {
 				$this->latestKey = $key;
 			}
 		}
+
+		Assert::postcondition( $this->latestKey !== null, 'cannot determine latest file revision' );
 	}
 
 }

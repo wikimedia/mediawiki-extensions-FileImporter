@@ -3,7 +3,6 @@
 namespace FileImporter\Data;
 
 use MediaWiki\Linker\LinkTarget;
-use OutOfRangeException;
 
 /**
  * Contains the details from the source site for the import.
@@ -93,17 +92,10 @@ class ImportDetails {
 	}
 
 	/**
-	 * @throws OutOfRangeException when no file revisions have been provided
 	 * @return string
 	 */
 	public function getImageDisplayUrl() {
-		$latest = $this->fileRevisions->getLatest();
-
-		if ( !$latest ) {
-			throw new OutOfRangeException( 'There is no latest file revision' );
-		}
-
-		return $latest->getField( 'thumburl' );
+		return $this->fileRevisions->getLatest()->getField( 'thumburl' );
 	}
 
 	/**
