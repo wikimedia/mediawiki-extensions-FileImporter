@@ -24,7 +24,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	public function testValueObject() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'PATH/FILENAME.EXT' );
-		$textRevisions = new TextRevisions( [] );
+		$textRevisions = new TextRevisions( [ $this->createMock( TextRevision::class ) ] );
 
 		$fileRevisions = $this->createMock( FileRevisions::class );
 		$fileRevisions->method( 'toArray' )->willReturn( [] );
@@ -127,7 +127,10 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				new TextRevisions( [] ),
+				new TextRevisions( [
+					$this->createMock( TextRevision::class ),
+					$this->createMock( TextRevision::class ),
+				] ),
 				$fileRevisions
 			)
 		];
@@ -138,7 +141,10 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				$sourceUrl,
 				$sourceLinkTarget,
 				$textRevisions,
-				new FileRevisions( [] )
+				new FileRevisions( [
+					$this->createMock( FileRevision::class ),
+					$this->createMock( FileRevision::class ),
+				] )
 			)
 		];
 
@@ -167,8 +173,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		return new ImportDetails(
 			new SourceUrl( '//SOURCE.URL' ),
 			new TitleValue( NS_FILE, 'FILE' ),
-			new TextRevisions( [] ),
-			new FileRevisions( [] )
+			new TextRevisions( [ $this->createMock( TextRevision::class ) ] ),
+			new FileRevisions( [ $this->createMock( FileRevision::class ) ] )
 		);
 	}
 

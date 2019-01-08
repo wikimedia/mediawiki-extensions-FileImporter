@@ -28,6 +28,11 @@ class TextRevisionsTest extends \PHPUnit\Framework\TestCase {
 		return $mock;
 	}
 
+	public function testCanNotBeEmpty() {
+		$this->setExpectedException( \InvalidArgumentException::class );
+		new TextRevisions( [] );
+	}
+
 	public function testToArray() {
 		$revisions = [ $this->newTextRevision() ];
 		$instance = new TextRevisions( $revisions );
@@ -40,7 +45,6 @@ class TextRevisionsTest extends \PHPUnit\Framework\TestCase {
 		$from2015 = $this->newTextRevision( '2015-11-18T13:19:01Z' );
 
 		return [
-			[ [], null ],
 			[ [ $from2013 ], $from2013 ],
 			[ [ $from2014 ], $from2014 ],
 			[ [ $from2013, $from2014 ], $from2014 ],

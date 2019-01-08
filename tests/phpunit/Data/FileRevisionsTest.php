@@ -28,6 +28,11 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 		return $mock;
 	}
 
+	public function testCanNotBeEmpty() {
+		$this->setExpectedException( \InvalidArgumentException::class );
+		new FileRevisions( [] );
+	}
+
 	public function testToArray() {
 		$revisions = [ $this->newFileRevision() ];
 		$instance = new FileRevisions( $revisions );
@@ -40,7 +45,6 @@ class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
 		$thirdFileRevision = $this->newFileRevision( '2015-11-18T13:19:01Z' );
 
 		return [
-			[ [], null ],
 			[ [ $firstFileRevision ], $firstFileRevision ],
 			[ [ $secondFileRevision ], $secondFileRevision ],
 			[ [ $firstFileRevision, $secondFileRevision ], $secondFileRevision ],

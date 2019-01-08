@@ -21,6 +21,7 @@ class FileRevisions {
 	 * @param FileRevision[] $fileRevisions
 	 */
 	public function __construct( array $fileRevisions ) {
+		Assert::parameter( $fileRevisions !== [], '$fileRevisions', 'cannot be empty' );
 		Assert::parameterElementType( FileRevision::class, $fileRevisions, '$fileRevisions' );
 		$this->fileRevisions = $fileRevisions;
 	}
