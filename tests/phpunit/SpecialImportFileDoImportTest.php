@@ -121,7 +121,7 @@ class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
 		$importPlanMock->method( 'getRequest' )
 			->willReturn( new ImportRequest( 'http://example.com' ) );
 		$importPlanMock->method( 'getTitle' )
-			->willReturn( Title::newFromText( 'Test' ) );
+			->willReturn( Title::newFromText( __METHOD__ ) );
 
 		return $importPlanMock;
 	}

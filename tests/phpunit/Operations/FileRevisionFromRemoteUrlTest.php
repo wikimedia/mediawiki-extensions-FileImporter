@@ -48,7 +48,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 	 */
 	public function testPrepareWithBrokenUrl( TextRevision $textRevision = null ) {
 		$fileRevisionFromRemoteUrl = new FileRevisionFromRemoteUrl(
-			Title::newFromText( 'Test' ),
+			Title::newFromText( __METHOD__ ),
 			$this->getTestUser()->getUser(),
 			$this->newFileRevision(),
 			false,

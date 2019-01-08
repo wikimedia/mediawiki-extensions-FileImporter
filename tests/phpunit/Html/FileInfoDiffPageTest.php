@@ -43,7 +43,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 * @return SpecialPage
 	 */
 	private function getMockSpecialPage() {
-		$title = Title::newFromText( 'TestTitle' );
+		$title = Title::newFromText( __METHOD__ );
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )

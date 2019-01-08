@@ -340,7 +340,7 @@ class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
 		$mockRequest->expects( $this->atLeastOnce() )
 			->method( 'getIntendedName' )
 			->willReturn( 'Before#After' );
-		$mockDetails = $this->getMockImportDetails( Title::newFromText( 'SourceTitle', NS_FILE ) );
+		$mockDetails = $this->getMockImportDetails( Title::makeTitle( NS_FILE, __METHOD__ ) );
 
 		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
 
