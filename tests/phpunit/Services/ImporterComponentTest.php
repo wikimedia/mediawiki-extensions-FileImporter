@@ -125,7 +125,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return new TextRevision( [
 			'minor' => null,
 			'user' => null,
-			'timestamp' => null,
+			'timestamp' => '20190101000000',
 			'sha1' => null,
 			'contentmodel' => null,
 			'contentformat' => null,
@@ -140,7 +140,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			'name' => null,
 			'description' => null,
 			'user' => null,
-			'timestamp' => null,
+			'timestamp' => '20190101000000',
 			'sha1' => null,
 			'size' => null,
 			'thumburl' => null,
@@ -330,7 +330,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	 */
 	private function createNullRevisionMock() {
 		$revision = $this->createMock( RevisionRecord::class );
-		$revision->expects( $this->once() )
+		$revision->expects( $this->exactly( 2 ) )
 			->method( 'getId' )
 			->willReturn( 0 );
 		return $revision;

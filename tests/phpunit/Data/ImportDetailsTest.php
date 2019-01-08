@@ -8,7 +8,6 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
-use OutOfRangeException;
 use PHPUnit4And6Compat;
 use TitleValue;
 
@@ -64,8 +63,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( '', $this->minimalImportDetails()->getSourceFileExtension() );
 	}
 
-	public function testMissingFileRevision() {
-		$this->setExpectedException( OutOfRangeException::class );
+	public function testInvalidFileRevisionTimestamp() {
+		$this->setExpectedException( \LogicException::class );
 		$this->minimalImportDetails()->getImageDisplayUrl();
 	}
 
