@@ -10,7 +10,6 @@ use PHPUnit4And6Compat;
 use Title;
 use User;
 use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
  * @covers \FileImporter\Services\NullRevisionCreator
@@ -42,15 +41,13 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$title = $this->createMock( Title::class );
 		$user = $this->createMock( User::class );
-		$dbw = $this->createMock( IDatabase::class );
+		$dbw = $this->createIDatabaseMock();
 		$summary = 'Summary';
 		$commentStore = new CommentStoreComment( null, $summary );
 
 		$revisionRecord = $this->createMock( RevisionRecord::class );
 		$revisionRecord->method( 'getId' )
 			->willReturn( 1 );
-
-		$loadBalancer = $this->createILoadBalancerMock( $dbw );
 
 		$revisionStore = $this->createMock( RevisionStore::class );
 		$revisionStore->expects( $this->once() )
@@ -63,7 +60,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 			->with( $revisionRecord, $dbw )
 			->willReturn( $revisionRecord );
 
-		$nullRevisionCreator = new NullRevisionCreator( $loadBalancer, $revisionStore );
+		$nullRevisionCreator = new NullRevisionCreator( $revisionStore, $dbw );
 
 		$this->assertSame(
 			$revisionRecord,
@@ -72,7 +69,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 	}
 
 	public function testCreateForLinkTargetFailure() {
-		$loadBalancer = $this->createILoadBalancerMock( $this->createMock( IDatabase::class ) );
+		$dbw = $this->createIDatabaseMock();
 
 		$revisionStore = $this->createMock( RevisionStore::class );
 		$revisionStore->expects( $this->once() )
@@ -82,7 +79,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 		$revisionStore->expects( $this->never() )
 			->method( 'insertRevisionOn' );
 
-		$nullRevisionCreator = new NullRevisionCreator( $loadBalancer, $revisionStore );
+		$nullRevisionCreator = new NullRevisionCreator( $revisionStore, $dbw );
 
 		$this->assertFalse(
 			$nullRevisionCreator->createForLinkTarget(
@@ -94,14 +91,11 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @return ILoadBalancer
+	 * @return IDatabase
 	 */
-	private function createILoadBalancerMock( IDatabase $database ) {
-		$loadBalancer = $this->createMock( ILoadBalancer::class );
-		$loadBalancer->expects( $this->once() )
-			->method( 'getConnection' )
-			->willReturn( $database );
-		return $loadBalancer;
+	private function createIDatabaseMock() {
+		$dbw = $this->createMock( IDatabase::class );
+		return $dbw;
 	}
 
 }

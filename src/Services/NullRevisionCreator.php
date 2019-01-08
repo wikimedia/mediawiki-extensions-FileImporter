@@ -8,26 +8,23 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use Title;
 use User;
-use Wikimedia\Rdbms\ILoadBalancer;
+use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 class NullRevisionCreator {
 
 	/**
-	 * @var ILoadBalancer
+	 * @var IDatabase
 	 */
-	private $loadBalancer;
+	private $dbw;
 
 	/**
 	 * @var RevisionStore
 	 */
 	private $revisionStore;
 
-	public function __construct(
-		ILoadBalancer $loadBalancer,
-		RevisionStore $revisionStore
-	) {
-		$this->loadBalancer = $loadBalancer;
+	public function __construct( RevisionStore $revisionStore, IDatabase $dbw ) {
+		$this->dbw = $dbw;
 		$this->revisionStore = $revisionStore;
 	}
 
@@ -39,10 +36,8 @@ class NullRevisionCreator {
 	 * @return RevisionRecord|false
 	 */
 	public function createForLinkTarget( Title $title, User $user, $summary ) {
-		$dbw = $this->loadBalancer->getConnection( DB_MASTER );
-
 		$revision = $this->revisionStore->newNullRevision(
-			$dbw,
+			$this->dbw,
 			$title,
 			CommentStoreComment::newUnsavedComment( $summary ),
 			true,
@@ -62,7 +57,7 @@ class NullRevisionCreator {
 			$revision->setTimestamp( $now->getTimestamp( TS_MW ) );
 		}
 
-		return $this->revisionStore->insertRevisionOn( $revision, $dbw );
+		return $this->revisionStore->insertRevisionOn( $revision, $this->dbw );
 	}
 
 }
