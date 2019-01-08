@@ -24,7 +24,6 @@ use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
 use TitleValue;
 use User;
-use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Services\Importer
@@ -98,7 +97,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
 		$this->assertSame(
 			'Original text of test.jpg',
-			$firstRevision->getContent()->serialize( $firstRevision->getContentFormat() )
+			$firstRevision->getContent()->serialize()
 		);
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
 
@@ -113,7 +112,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( 'User import comment', $lastRevision->getComment() );
 		$this->assertSame(
 			"imported from http://example.com/Test.png\nThis is my text!",
-			$lastRevision->getContent()->serialize( $lastRevision->getContentFormat() )
+			$lastRevision->getContent()->serialize()
 		);
 
 		// assert null revision was created correctly
@@ -122,11 +121,12 @@ class ImporterTest extends \MediaWikiTestCase {
 			'imported from http://example.com/Test.png',
 			$nullRevision->getComment()
 		);
+
 		$this->assertSame( 'testprefix>TextChangeUser', $secondRevison->getUserText() );
 		$this->assertSame( 'I like more text', $secondRevison->getComment() );
 		$this->assertSame(
 			'This is my text!',
-			$secondRevison->getContent()->serialize( $secondRevison->getContentFormat() )
+			$secondRevison->getContent()->serialize()
 		);
 
 		// assert import log entry was created correctly
@@ -147,7 +147,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( self::TITLE, $latestFileRevision->getName() );
 		$this->assertSame( 'Changed the file.', $latestFileRevision->getDescription() );
 		$this->assertSame( '20180625133723', $latestFileRevision->getTimestamp() );
-		$this->assertSame( 7317, $latestFileRevision->getSize() );
+		$this->assertSame( 3641, $latestFileRevision->getSize() );
 		$this->assertSame( 'FileChangeUser', $latestFileRevision->getUser() );
 
 		// assert original file revision is correct
@@ -258,9 +258,7 @@ class ImporterTest extends \MediaWikiTestCase {
 					$realFactory = new WikiRevisionFactory( $this->config );
 
 					$tempFile = $this->getNewTempFile();
-					// getField checks if a field is valid so get the test file src directly
-					$srcFile = TestingAccessWrapper::newFromObject( $fileRevision )
-						->fields[ '_test_file_src_' ];
+					$srcFile = $fileRevision->getFields()['_test_file_src'];
 					// the file will be moved or deleted in the process so create a copy
 					copy( $srcFile, $tempFile );
 
@@ -352,7 +350,7 @@ class ImporterTest extends \MediaWikiTestCase {
 				'size' => '3532',
 				'thumburl' => '',
 				'url' => 'http://example.com/Test.png',
-				'_test_file_src_' => self::TEST_FILE2_SRC,
+				'_test_file_src' => self::TEST_FILE2_SRC,
 			] ),
 			new FileRevision( [
 				'name' => 'File:test.jpg',
@@ -363,7 +361,7 @@ class ImporterTest extends \MediaWikiTestCase {
 				'size' => '7317',
 				'thumburl' => '',
 				'url' => 'http://example.com/Test.png',
-				'_test_file_src_' => self::TEST_FILE_SRC,
+				'_test_file_src' => self::TEST_FILE_SRC,
 			] ),
 		] );
 	}
