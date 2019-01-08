@@ -3,6 +3,8 @@
 namespace FileImporter\Services;
 
 use CommentStoreComment;
+use FileImporter\Data\FileRevision;
+use ManualLogEntry;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
@@ -30,6 +32,7 @@ class NullRevisionCreator {
 
 	/**
 	 * @param Title $title
+	 * @param FileRevision $fileRevision
 	 * @param User $user
 	 * @param string $summary
 	 *
@@ -37,6 +40,7 @@ class NullRevisionCreator {
 	 */
 	public function createForLinkTarget(
 		Title $title,
+		FileRevision $fileRevision,
 		User $user,
 		$summary
 	) {
@@ -63,7 +67,51 @@ class NullRevisionCreator {
 
 		$nullRevision = $this->revisionStore->insertRevisionOn( $nullRevision, $this->dbw );
 
+		/** @see \ImportReporter::reportPage */
+		$this->publishLogEntry(
+			'import',
+			'interwiki',
+			$nullRevision
+		);
+
+		/** @see \LocalFile::recordUpload2 */
+		$this->publishLogEntry(
+			'upload',
+			'upload',
+			$nullRevision,
+			[
+				'img_sha1' => $fileRevision->getField( 'sha1' ),
+				'img_timestamp' => $fileRevision->getField( 'timestamp' ),
+			]
+		);
+
 		return $nullRevision;
+	}
+
+	/**
+	 * @param string $type
+	 * @param string $subtype
+	 * @param RevisionRecord $revision
+	 * @param array $parameters
+	 */
+	private function publishLogEntry(
+		$type,
+		$subtype,
+		RevisionRecord $revision,
+		array $parameters = []
+	) {
+		$logEntry = new ManualLogEntry( $type, $subtype );
+
+		$logEntry->setParameters( $parameters );
+		$logEntry->setPerformer( User::newFromIdentity( $revision->getUser() ) );
+		$logEntry->setTarget( Title::newFromLinkTarget( $revision->getPageAsLinkTarget() ) );
+		$logEntry->setTimestamp( $revision->getTimestamp() );
+		$logEntry->setComment( $revision->getComment()->text );
+		$logEntry->setAssociatedRevId( $revision->getId() );
+		$logEntry->setTags( 'fileimporter' );
+
+		$logEntryId = $logEntry->insert( $this->dbw );
+		$logEntry->publish( $logEntryId );
 	}
 
 }

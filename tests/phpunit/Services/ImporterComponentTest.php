@@ -318,22 +318,12 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 					return $title->getNamespace() === NS_FILE
 						&& $title->getText() === self::TITLE;
 				} ),
+				$this->isInstanceOf( FileRevision::class ),
 				$expectedUser,
 				self::NULL_EDIT_SUMMARY
 			)
-			->willReturn( $this->createNullRevisionMock() );
+			->willReturn( $this->createMock( RevisionRecord::class ) );
 		return $creator;
-	}
-
-	/**
-	 * @return RevisionRecord
-	 */
-	private function createNullRevisionMock() {
-		$revision = $this->createMock( RevisionRecord::class );
-		$revision->expects( $this->exactly( 2 ) )
-			->method( 'getId' )
-			->willReturn( 0 );
-		return $revision;
 	}
 
 }

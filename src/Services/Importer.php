@@ -3,7 +3,6 @@
 namespace FileImporter\Services;
 
 use Exception;
-use FileImporter\Data\FileRevision;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
@@ -15,8 +14,6 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
-use ManualLogEntry;
-use MediaWiki\Revision\RevisionRecord;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -358,6 +355,7 @@ class Importer {
 
 		$revision = $this->nullRevisionCreator->createForLinkTarget(
 			$importPlan->getTitle(),
+			$importPlan->getDetails()->getFileRevisions()->getLatest(),
 			$user,
 			$summary
 		);
@@ -366,79 +364,6 @@ class Importer {
 			$this->logger->error( __METHOD__ . ' Failed to create import revision.' );
 			throw new RuntimeException( 'Failed to create import revision' );
 		}
-
-		// FIXME: All log code below belongs to {@see \FileImporter\Services\NullRevisionCreator}
-		// where the null revision is created. All this should be in one class, and the class be
-		// named appropriately.
-		$this->createImportLog(
-			$importPlan, $revision, $user, $summary
-		);
-
-		$this->createNullRevisionUploadLog(
-			$importPlan->getTitle(),
-			$revision,
-			$importPlan->getDetails()->getFileRevisions()->getLatest(),
-			$user,
-			$summary
-		);
-	}
-
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param RevisionRecord $revision
-	 * @param User $user
-	 * @param String $summary
-	 */
-	private function createImportLog(
-		ImportPlan $importPlan,
-		RevisionRecord $revision,
-		User $user,
-		$summary
-	) {
-		$importLogEntry = new ManualLogEntry( 'import', 'interwiki' );
-		$importLogEntry->setTarget( $importPlan->getTitle() );
-		$importLogEntry->setComment( $summary );
-		$importLogEntry->setTimestamp( $revision->getTimestamp() );
-		$importLogEntry->setPerformer( $user );
-		$importLogEntry->setAssociatedRevId( $revision->getId() );
-		$importLogEntry->setTags( 'fileimporter' );
-
-		$importLogEntryId = $importLogEntry->insert();
-		$importLogEntry->publish( $importLogEntryId );
-	}
-
-	/**
-	 * @see \LocalFile::recordUpload2
-	 *
-	 * @param Title $title
-	 * @param RevisionRecord $revision
-	 * @param FileRevision $latestFileRevision
-	 * @param User $user
-	 * @param String $summary
-	 */
-	private function createNullRevisionUploadLog(
-		Title $title,
-		RevisionRecord $revision,
-		FileRevision $latestFileRevision,
-		User $user,
-		$summary
-	) {
-		$uploadLogEntry = new ManualLogEntry( 'upload', 'upload' );
-		$uploadLogEntry->setPerformer( $user );
-		$uploadLogEntry->setComment( $summary );
-		$uploadLogEntry->setTimestamp( $revision->getTimestamp() );
-		$uploadLogEntry->setAssociatedRevId( $revision->getId() );
-		$uploadLogEntry->setTarget( $title );
-		$uploadLogEntry->setParameters(
-			[
-				'img_sha1' => $latestFileRevision->getField( 'sha1' ),
-				'img_timestamp' => $latestFileRevision->getField( 'timestamp' )
-			]
-		);
-		$uploadLogEntry->setTags( 'fileimporter' );
-
-		$uploadLogEntryId = $uploadLogEntry->insert();
-		$uploadLogEntry->publish( $uploadLogEntryId );
 	}
 
 	/**

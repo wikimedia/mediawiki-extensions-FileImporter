@@ -3,17 +3,19 @@
 namespace FileImporter\Tests\Services;
 
 use CommentStoreComment;
+use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use PHPUnit4And6Compat;
 use Title;
-use User;
 use Wikimedia\Rdbms\IDatabase;
 
 /**
  * @covers \FileImporter\Services\NullRevisionCreator
  *
+ * Via {@see \ManualLogEntry::publish} this test still writes to the database, and there is
+ * currently no way around this.
  * @group Database
  *
  * @license GPL-2.0-or-later
@@ -39,14 +41,22 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 			} ],
 		] );
 
-		$title = $this->createMock( Title::class );
-		$user = $this->createMock( User::class );
+		$title = Title::makeTitle( NS_FILE, __METHOD__ );
+		$fileRevision = $this->createMock( FileRevision::class );
+		$user = $this->getTestUser()->getUser();
 		$dbw = $this->createIDatabaseMock();
 		$summary = 'Summary';
 		$commentStore = new CommentStoreComment( null, $summary );
 
 		$revisionRecord = $this->createMock( RevisionRecord::class );
-		$revisionRecord->method( 'getId' )
+		$revisionRecord->method( 'getUser' )
+			->willReturn( $user );
+		$revisionRecord->method( 'getPageAsLinkTarget' )
+			->willReturn( $title );
+		$revisionRecord->method( 'getComment' )
+			->willReturn( $commentStore );
+		$revisionRecord->expects( $this->exactly( 2 ) )
+			->method( 'getId' )
 			->willReturn( 1 );
 
 		$revisionStore = $this->createMock( RevisionStore::class );
@@ -64,7 +74,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			$revisionRecord,
-			$nullRevisionCreator->createForLinkTarget( $title, $user, $summary )
+			$nullRevisionCreator->createForLinkTarget( $title, $fileRevision, $user, $summary )
 		);
 	}
 
@@ -83,8 +93,9 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$this->assertFalse(
 			$nullRevisionCreator->createForLinkTarget(
-				$this->createMock( Title::class ),
-				$this->createMock( User::class ),
+				Title::makeTitle( NS_FILE, __METHOD__ ),
+				$this->createMock( FileRevision::class ),
+				$this->getTestUser()->getUser(),
 				''
 			)
 		);
@@ -95,6 +106,8 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 	 */
 	private function createIDatabaseMock() {
 		$dbw = $this->createMock( IDatabase::class );
+		$dbw->method( 'insertId' )
+			->willReturn( 1 );
 		return $dbw;
 	}
 
