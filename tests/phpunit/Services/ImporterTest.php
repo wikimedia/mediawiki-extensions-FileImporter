@@ -130,12 +130,30 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 
 		// assert import log entry was created correctly
-		$logEntry = $this->getLogTypeFromPageId( $title->getArticleID(), 'import' );
-		$this->assertSame( 'interwiki', $logEntry->getSubtype() );
-		$this->assertSame( $this->targetUser->getName(), $logEntry->getPerformer()->getName() );
-		$this->assertSame( $this->targetUser->getId(), $logEntry->getPerformer()->getId() );
-		$this->assertSame( $nullRevision->getId(), $logEntry->getAssociatedRevId() );
-		$this->assertFileImporterTagWasAdded( $logEntry->getId(), $nullRevision->getId() );
+		$importLogEntry = $this->getLogType(
+			$title->getArticleID(),
+			'import',
+			$nullRevision->getTimestamp(),
+			'fileimporter'
+		);
+		$this->assertSame( 'interwiki', $importLogEntry->getSubtype() );
+		$this->assertSame( $this->targetUser->getName(), $importLogEntry->getPerformer()->getName() );
+		$this->assertSame( $this->targetUser->getId(), $importLogEntry->getPerformer()->getId() );
+		$this->assertSame( $nullRevision->getId(), $importLogEntry->getAssociatedRevId() );
+		$this->assertFileImporterTagWasAdded( $importLogEntry->getId(), $nullRevision->getId() );
+
+		// TODO assert tag was added for log entry
+		$uploadLogEntry = $this->getLogType(
+			$title->getArticleID(),
+			'upload',
+			$nullRevision->getTimestamp()
+		);
+		$this->assertSame( 'upload', $uploadLogEntry->getSubtype() );
+		$this->assertSame( $this->targetUser->getName(), $uploadLogEntry->getPerformer()->getName() );
+		$this->assertSame( $this->targetUser->getId(), $uploadLogEntry->getPerformer()->getId() );
+		$this->assertSame( $nullRevision->getId(), $uploadLogEntry->getAssociatedRevId() );
+
+		// TODO assert upload log entries are created for older revisions
 
 		// assert file was imported correctly
 		$latestFileRevision = wfLocalFile( $title );
@@ -180,13 +198,16 @@ class ImporterTest extends \MediaWikiTestCase {
 	/**
 	 * @param int $pageId
 	 * @param string $type
+	 * @param int $timestamp
+	 * @param string|null $assertTag
 	 * @return DatabaseLogEntry
 	 */
-	private function getLogTypeFromPageId( $pageId, $type ) {
+	private function getLogType( $pageId, $type, $timestamp, $assertTag = null ) {
 		$queryInfo = DatabaseLogEntry::getSelectQueryData();
 		$queryInfo['conds'] += [
 			'log_page' => $pageId,
 			'log_type' => $type,
+			'log_timestamp' => $timestamp,
 		];
 
 		\ChangeTags::modifyDisplayQuery(
@@ -206,7 +227,9 @@ class ImporterTest extends \MediaWikiTestCase {
 			$queryInfo['join_conds']
 		);
 
-		$this->assertSame( 'fileimporter', $row->ts_tags, 'fileimporter tag was added' );
+		if ( $assertTag !== null ) {
+			$this->assertSame( $assertTag, $row->ts_tags, $assertTag . ' tag was added' );
+		}
 		return DatabaseLogEntry::newFromRow( $row );
 	}
 
