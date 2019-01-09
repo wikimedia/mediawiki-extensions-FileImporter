@@ -35,8 +35,12 @@ class NullRevisionCreator {
 	 *
 	 * @return RevisionRecord|false
 	 */
-	public function createForLinkTarget( Title $title, User $user, $summary ) {
-		$revision = $this->revisionStore->newNullRevision(
+	public function createForLinkTarget(
+		Title $title,
+		User $user,
+		$summary
+	) {
+		$nullRevision = $this->revisionStore->newNullRevision(
 			$this->dbw,
 			$title,
 			CommentStoreComment::newUnsavedComment( $summary ),
@@ -44,20 +48,22 @@ class NullRevisionCreator {
 			$user
 		);
 
-		if ( $revision === null ) {
+		if ( $nullRevision === null ) {
 			return false;
 		}
 
-		if ( $revision instanceof MutableRevisionRecord ) {
+		if ( $nullRevision instanceof MutableRevisionRecord ) {
 			$now = new ConvertibleTimestamp();
 			// Place the null revision (along with the import log entry that mirrors the same
 			// information) 1 second in the past, to guarantee it's listed before the later "post
 			// import edit".
 			$now->timestamp->sub( new \DateInterval( 'PT1S' ) );
-			$revision->setTimestamp( $now->getTimestamp( TS_MW ) );
+			$nullRevision->setTimestamp( $now->getTimestamp( TS_MW ) );
 		}
 
-		return $this->revisionStore->insertRevisionOn( $revision, $this->dbw );
+		$nullRevision = $this->revisionStore->insertRevisionOn( $nullRevision, $this->dbw );
+
+		return $nullRevision;
 	}
 
 }
