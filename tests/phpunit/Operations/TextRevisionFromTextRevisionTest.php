@@ -28,10 +28,10 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		$title = Title::newFromText( self::TITLE, NS_FILE );
 		$textRevisionFromTextRevision = $this->newTextRevisionFromTextRevision( $title );
 
-		$this->assertNull( $textRevisionFromTextRevision->getWikiRevison() );
+		$this->assertNull( $textRevisionFromTextRevision->getWikiRevision() );
 
 		$result = $textRevisionFromTextRevision->prepare();
-		$wikiRevision = $textRevisionFromTextRevision->getWikiRevison();
+		$wikiRevision = $textRevisionFromTextRevision->getWikiRevision();
 
 		$this->assertTrue( $result );
 		$this->assertFalse( $title->exists() );
@@ -68,12 +68,12 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		$textRevisionFromTextRevision->commit();
 
 		$this->assertTrue( $title->exists() );
-		$firstRevison = $title->getFirstRevision();
+		$firstRevision = $title->getFirstRevision();
 
-		$this->assertSame( 'imported>SourceUser1', $firstRevison->getUserText() );
-		$this->assertSame( 'Original upload comment of Test.png', $firstRevison->getComment() );
-		$this->assertSame( '20180624133723', $firstRevison->getTimestamp() );
-		$this->assertFalse( $firstRevison->isMinor() );
+		$this->assertSame( 'imported>SourceUser1', $firstRevision->getUserText() );
+		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
+		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
+		$this->assertFalse( $firstRevision->isMinor() );
 	}
 
 	private function newTextRevisionFromTextRevision( Title $title ) {

@@ -66,10 +66,10 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$title = Title::newFromText( self::TITLE, NS_FILE );
 		$fileRevisionFromRemoteUrl = $this->newFileRevisionFromRemoteUrl( $title );
 
-		$this->assertNull( $fileRevisionFromRemoteUrl->getWikiRevison() );
+		$this->assertNull( $fileRevisionFromRemoteUrl->getWikiRevision() );
 
 		$result = $fileRevisionFromRemoteUrl->prepare();
-		$wikiRevision = $fileRevisionFromRemoteUrl->getWikiRevison();
+		$wikiRevision = $fileRevisionFromRemoteUrl->getWikiRevision();
 
 		$this->assertTrue( $result );
 		$this->assertFalse( $title->exists() );
@@ -105,16 +105,16 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$this->assertTrue( $title->exists() );
 
 		// there will be a text revision created with the upload
-		$firstRevison = $title->getFirstRevision();
-		$this->assertSame( 'SourceUser1', $firstRevison->getUserText() );
-		$this->assertSame( 'text/x-wiki', $firstRevison->getContentFormat() );
+		$firstRevision = $title->getFirstRevision();
+		$this->assertSame( 'SourceUser1', $firstRevision->getUserText() );
+		$this->assertSame( 'text/x-wiki', $firstRevision->getContentFormat() );
 		$this->assertSame( 'Original upload comment of Test.png',
-			$firstRevison->getContent()->getTextForSummary()
+			$firstRevision->getContent()->getTextForSummary()
 		);
-		$this->assertSame( 'Original upload comment of Test.png', $firstRevison->getComment() );
+		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
 		// title will be created from scratch and will have a current timestamp
-		$this->assertTrue( 20180624133723 < (int)$firstRevison->getTimestamp() );
-		$this->assertFalse( $firstRevison->isMinor() );
+		$this->assertTrue( 20180624133723 < (int)$firstRevision->getTimestamp() );
+		$this->assertFalse( $firstRevision->isMinor() );
 
 		// assert file was imported correctly
 		$file = wfFindFile( $title );

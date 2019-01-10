@@ -106,7 +106,7 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		$lastRevision = $article->getRevision();
 		$nullRevision = $lastRevision->getPrevious();
-		$secondRevison = $nullRevision->getPrevious();
+		$secondRevision = $nullRevision->getPrevious();
 
 		$this->assertSame( $this->targetUser->getName(), $lastRevision->getUserText() );
 		$this->assertSame( 'User import comment', $lastRevision->getComment() );
@@ -122,11 +122,11 @@ class ImporterTest extends \MediaWikiTestCase {
 			$nullRevision->getComment()
 		);
 
-		$this->assertSame( 'testprefix>TextChangeUser', $secondRevison->getUserText() );
-		$this->assertSame( 'I like more text', $secondRevison->getComment() );
+		$this->assertSame( 'testprefix>TextChangeUser', $secondRevision->getUserText() );
+		$this->assertSame( 'I like more text', $secondRevision->getComment() );
 		$this->assertSame(
 			'This is my text!',
-			$secondRevison->getContent()->serialize()
+			$secondRevision->getContent()->serialize()
 		);
 
 		// assert import log entry was created correctly

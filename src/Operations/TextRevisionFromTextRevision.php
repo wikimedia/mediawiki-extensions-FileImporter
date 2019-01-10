@@ -127,7 +127,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	/**
 	 * @return WikiRevision|null
 	 */
-	public function getWikiRevison() {
+	public function getWikiRevision() {
 		return $this->wikiRevision;
 	}
 
