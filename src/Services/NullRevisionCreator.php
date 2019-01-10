@@ -8,6 +8,7 @@ use ManualLogEntry;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
+use RuntimeException;
 use Title;
 use User;
 use Wikimedia\Rdbms\IDatabase;
@@ -36,7 +37,7 @@ class NullRevisionCreator {
 	 * @param User $user
 	 * @param string $summary
 	 *
-	 * @return RevisionRecord|false
+	 * @throws RuntimeException e.g. when the $title was not created before
 	 */
 	public function createForLinkTarget(
 		Title $title,
@@ -52,8 +53,8 @@ class NullRevisionCreator {
 			$user
 		);
 
-		if ( $nullRevision === null ) {
-			return false;
+		if ( !$nullRevision ) {
+			throw new RuntimeException( 'Failed to create import revision' );
 		}
 
 		if ( $nullRevision instanceof MutableRevisionRecord ) {
@@ -84,8 +85,6 @@ class NullRevisionCreator {
 				'img_timestamp' => $fileRevision->getField( 'timestamp' ),
 			]
 		);
-
-		return $nullRevision;
 	}
 
 	/**

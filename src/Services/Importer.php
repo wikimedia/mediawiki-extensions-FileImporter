@@ -353,16 +353,16 @@ class Importer {
 			[ $importPlan->getRequest()->getUrl() ]
 		);
 
-		$revision = $this->nullRevisionCreator->createForLinkTarget(
-			$importPlan->getTitle(),
-			$importPlan->getDetails()->getFileRevisions()->getLatest(),
-			$user,
-			$summary
-		);
-
-		if ( !$revision ) {
+		try {
+			$this->nullRevisionCreator->createForLinkTarget(
+				$importPlan->getTitle(),
+				$importPlan->getDetails()->getFileRevisions()->getLatest(),
+				$user,
+				$summary
+			);
+		} catch ( RuntimeException $ex ) {
 			$this->logger->error( __METHOD__ . ' Failed to create import revision.' );
-			throw new RuntimeException( 'Failed to create import revision' );
+			throw $ex;
 		}
 	}
 

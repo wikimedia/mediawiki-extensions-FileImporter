@@ -72,10 +72,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator( $revisionStore, $dbw );
 
-		$this->assertSame(
-			$revisionRecord,
-			$nullRevisionCreator->createForLinkTarget( $title, $fileRevision, $user, $summary )
-		);
+		$nullRevisionCreator->createForLinkTarget( $title, $fileRevision, $user, $summary );
 	}
 
 	public function testCreateForLinkTargetFailure() {
@@ -91,13 +88,12 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator( $revisionStore, $dbw );
 
-		$this->assertFalse(
-			$nullRevisionCreator->createForLinkTarget(
-				Title::makeTitle( NS_FILE, __METHOD__ ),
-				$this->createMock( FileRevision::class ),
-				$this->getTestUser()->getUser(),
-				''
-			)
+		$this->setExpectedException( \RuntimeException::class );
+		$nullRevisionCreator->createForLinkTarget(
+			Title::makeTitle( NS_FILE, __METHOD__ ),
+			$this->createMock( FileRevision::class ),
+			$this->getTestUser()->getUser(),
+			''
 		);
 	}
 
