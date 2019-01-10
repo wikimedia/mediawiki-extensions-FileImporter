@@ -10,6 +10,7 @@
 	},
 	"fileimporter": "Importador de archivos",
 	"fileimporter-desc": "Importación sencilla de archivos de otros sitios",
+	"tag-fileimporter": "Importado con FileImporter",
 	"fileimporter-specialpage": "Importar archivo",
 	"fileimporter-importfailed": "Falló la importación",
 	"fileimporter-api-failedtogetinfo": "No se pudo recuperar información del archivo de: $1",
