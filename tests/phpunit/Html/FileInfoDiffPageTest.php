@@ -21,6 +21,7 @@ use Title;
 /**
  * @covers \FileImporter\Html\FileInfoDiffPage
  * @covers \FileImporter\Html\ImportIdentityFormSnippet
+ * @covers \FileImporter\Html\SpecialPageHtmlFragment
  *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
