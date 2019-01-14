@@ -53,14 +53,16 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 			);
 			throw new ImportException( 'Failed to check title state from: ' . $requestUrl );
 		}
+
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 
-		$result = array_key_exists( '-1', $requestData['query']['pages'] );
-		if ( !$result ) {
+		if ( !isset( $requestData['query']['pages'] ) ) {
 			$this->logger->error( __METHOD__ . ' failed, could not find pages query key in result.' );
+			return false;
 		}
 
-		return $result;
+		// -1 appears as a key in all error situations, e.g. invalid title or page doesn't exist.
+		return array_key_exists( '-1', $requestData['query']['pages'] );
 	}
 
 	private function getParams( $titleString ) {
