@@ -162,7 +162,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return array[]
 	 * @throws ImportException
 	 */
-	private function sendAPIRequest( $requestUrl ) {
+	private function sendApiRequest( $requestUrl ) {
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
@@ -189,7 +189,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		$params = $this->addCategoriesToParams( $params );
 
 		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
-		$requestData = $this->sendAPIRequest( $requestUrl );
+		$requestData = $this->sendApiRequest( $requestUrl );
 
 		if ( count( $requestData['query']['pages'] ) !== 1 ) {
 			$this->logger->warning(
@@ -353,7 +353,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 
 		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
-		$requestData = $this->sendAPIRequest( $requestUrl );
+		$requestData = $this->sendApiRequest( $requestUrl );
 
 		$newPageInfoData = array_pop( $requestData['query']['pages'] );
 

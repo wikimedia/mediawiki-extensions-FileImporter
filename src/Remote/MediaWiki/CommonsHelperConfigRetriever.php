@@ -65,8 +65,8 @@ class CommonsHelperConfigRetriever {
 	 * @return bool True if a config was found
 	 */
 	public function retrieveConfiguration() {
-		$request = $this->buildAPIRequest( $this->sourceUrl );
-		$response = $this->sendAPIRequest( $request );
+		$request = $this->buildApiRequest( $this->sourceUrl );
+		$response = $this->sendApiRequest( $request );
 
 		if ( !isset( $response['query']['pages'] ) ||
 			count( $response['query']['pages'] ) !== 1
@@ -120,7 +120,7 @@ class CommonsHelperConfigRetriever {
 	 *
 	 * @return array[]
 	 */
-	private function sendAPIRequest( $requestUrl ) {
+	private function sendApiRequest( $requestUrl ) {
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
 		} catch ( HttpRequestException $e ) {
@@ -136,9 +136,9 @@ class CommonsHelperConfigRetriever {
 	 *
 	 * @return string
 	 */
-	private function buildAPIRequest( SourceUrl $sourceUrl ) {
+	private function buildApiRequest( SourceUrl $sourceUrl ) {
 		return $this->configServer . '/w/api.php?' .
-			$this->buildAPIQueryParams( $this->getQueryParamTitle( $sourceUrl ) );
+			$this->buildApiQueryParams( $this->getQueryParamTitle( $sourceUrl ) );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class CommonsHelperConfigRetriever {
 	 *
 	 * @return string
 	 */
-	private function buildAPIQueryParams( $title ) {
+	private function buildApiQueryParams( $title ) {
 		return http_build_query( [
 			'action' => 'query',
 			'format' => 'json',
