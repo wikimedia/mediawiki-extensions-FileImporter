@@ -22,6 +22,7 @@ use User;
 /**
  * @covers \FileImporter\Html\ChangeFileInfoForm
  * @covers \FileImporter\Html\ImportIdentityFormSnippet
+ * @covers \FileImporter\Html\SpecialPageHtmlFragment
  * @covers \FileImporter\Html\WikiTextEditor
  *
  * @license GPL-2.0-or-later

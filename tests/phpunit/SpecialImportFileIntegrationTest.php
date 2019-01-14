@@ -25,6 +25,8 @@ use WebRequest;
  * @covers \FileImporter\Html\RecoverableTitleExceptionPage
  * @covers \FileImporter\Html\SpecialPageHtmlFragment
  * @covers \FileImporter\Html\TextRevisionSnippet
+ * @covers \FileImporter\Services\ImportPlanFactory
+ * @covers \FileImporter\Services\SourceSite
  * @covers \FileImporter\SpecialImportFile
  *
  * This test makes some calls to https://commons.wikimedia.org
