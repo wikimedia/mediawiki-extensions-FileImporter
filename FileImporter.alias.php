@@ -17,3 +17,8 @@ $specialPageAliases['en'] = [
 $specialPageAliases['es'] = [
 	'FileImporter-SpecialPage' => [ 'Importar_archivo' ],
 ];
+
+/** Urdu (اردو) */
+$specialPageAliases['ur'] = [
+	'FileImporter-SpecialPage' => [ 'درآمد_فائل' ],
+];
