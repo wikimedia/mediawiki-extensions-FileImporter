@@ -130,13 +130,11 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 
 		// assert import log entry was created correctly
-		$this->assertLogEntry( $nullRevision, 'import', 'interwiki', 'fileimporter' );
+		$this->assertTextRevisionLogEntry( $nullRevision, 'import', 'interwiki', 'fileimporter' );
 
 		// assert upload log entry was created correctly
 		// TODO assert tag was added for upload log entry
-		$this->assertLogEntry( $nullRevision, 'upload', 'upload' );
-
-		// TODO assert upload log entries are created for older revisions
+		$this->assertTextRevisionLogEntry( $nullRevision, 'upload', 'upload' );
 
 		// assert file was imported correctly
 		$latestFileRevision = wfLocalFile( $title );
@@ -150,6 +148,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( '20180625133723', $latestFileRevision->getTimestamp() );
 		$this->assertSame( 3641, $latestFileRevision->getSize() );
 		$this->assertSame( 'FileChangeUser', $latestFileRevision->getUser() );
+		$this->assertFileLogEntry( $latestFileRevision );
 
 		// assert original file revision is correct
 		$this->assertSame( self::TITLE, $firstFileRevision->getName() );
@@ -157,6 +156,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( '20180624133723', $firstFileRevision->getTimestamp() );
 		$this->assertSame( 3532, $firstFileRevision->getSize() );
 		$this->assertSame( 'SourceUser1', $firstFileRevision->getUser() );
+		$this->assertFileLogEntry( $firstFileRevision );
 	}
 
 	/**
@@ -165,7 +165,7 @@ class ImporterTest extends \MediaWikiTestCase {
 	 * @param string $expectedSubType
 	 * @param string|null $expectedTag
 	 */
-	private function assertLogEntry(
+	private function assertTextRevisionLogEntry(
 		\Revision $revision,
 		$type,
 		$expectedSubType,
@@ -177,14 +177,32 @@ class ImporterTest extends \MediaWikiTestCase {
 			$revision->getTimestamp(),
 			$expectedTag
 		);
+
 		$this->assertSame( $expectedSubType, $logEntry->getSubtype() );
-		$this->assertSame( $this->targetUser->getName(), $logEntry->getPerformer()->getName() );
-		$this->assertSame( $this->targetUser->getId(), $logEntry->getPerformer()->getId() );
 		$this->assertSame( $revision->getId(), $logEntry->getAssociatedRevId() );
+		$this->assertSame( $revision->getUserText(), $logEntry->getPerformer()->getName() );
+		$this->assertSame( $revision->getUser(), $logEntry->getPerformer()->getId() );
 
 		if ( $expectedTag !== null ) {
 			$this->assertFileImporterTagWasAdded( $logEntry->getId(), $revision->getId() );
 		}
+	}
+
+	/**
+	 * @param \File $file
+	 */
+	private function assertFileLogEntry(
+		\File $file
+	) {
+		$logEntry = $this->getLogType(
+			$file->getTitle()->getArticleID(),
+			'upload',
+			$file->getTimestamp()
+		);
+
+		$this->assertSame( 'upload', $logEntry->getSubtype() );
+		$this->assertSame( $file->getUser(), $logEntry->getPerformer()->getName() );
+		$this->assertSame( $file->getUser( 'id' ), $logEntry->getPerformer()->getId() );
 	}
 
 	/**
