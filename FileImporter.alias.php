@@ -12,3 +12,8 @@ $specialPageAliases = [];
 $specialPageAliases['en'] = [
 	'FileImporter-SpecialPage' => [ 'ImportFile' ],
 ];
+
+/** Spanish (Español) */
+$specialPageAliases['es'] = [
+	'FileImporter-SpecialPage' => [ 'Importar_archivo' ],
+];
