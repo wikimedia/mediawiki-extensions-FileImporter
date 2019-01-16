@@ -152,14 +152,24 @@ class CommonsHelperConfigParser {
 				preg_match( '/^(?:(\+)|(@))?(.*)/', $targetParam, $matches );
 				list( , $addIfMissing, $addLanguageTemplate, $targetParam ) = $matches;
 
-				$parameterTransfers[$targetParam] = [
-					'addIfMissing' => (bool)$addIfMissing,
-					'addLanguageTemplate' => (bool)$addLanguageTemplate,
-				];
+				if ( !isset( $parameterTransfers[$targetParam] ) ) {
+					$parameterTransfers[$targetParam] = [];
+				}
+
+				$opt = &$parameterTransfers[$targetParam];
+
+				if ( !isset( $opt['addIfMissing'] ) || $addIfMissing ) {
+					$opt['addIfMissing'] = (bool)$addIfMissing;
+				}
+				if ( !isset( $opt['addLanguageTemplate'] ) || $addLanguageTemplate ) {
+					$opt['addLanguageTemplate'] = (bool)$addLanguageTemplate;
+				}
+
 				if ( $addIfMissing ) {
-					$parameterTransfers[$targetParam]['value'] = $sourceParam;
+					// It doesn't make sense to have multiple default values, only keep the last
+					$opt['value'] = $sourceParam;
 				} else {
-					$parameterTransfers[$targetParam]['sourceParameters'] = $sourceParam;
+					$opt['sourceParameters'][] = $sourceParam;
 				}
 			}
 

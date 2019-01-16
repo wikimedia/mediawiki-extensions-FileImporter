@@ -362,7 +362,7 @@ WIKITEXT
 					'parameters' => [ 'target_param' => [
 						'addIfMissing' => false,
 						'addLanguageTemplate' => false,
-						'sourceParameters' => 'source_param',
+						'sourceParameters' => [ 'source_param' ],
 					] ],
 				] ],
 			],
@@ -373,18 +373,18 @@ WIKITEXT
 					'parameters' => [ 'target_param' => [
 						'addIfMissing' => false,
 						'addLanguageTemplate' => false,
-						'sourceParameters' => 'source_param',
+						'sourceParameters' => [ 'source_param' ],
 					] ],
 				] ],
 			],
 			'+add syntax' => [
-				'wikitext' => ';Source:Target|+target_param=source_param',
+				'wikitext' => ';Source:Target|+target_param=static value',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
 						'addIfMissing' => true,
 						'addLanguageTemplate' => false,
-						'value' => 'source_param',
+						'value' => 'static value',
 					] ],
 				] ],
 			],
@@ -395,18 +395,18 @@ WIKITEXT
 					'parameters' => [ 'target_param' => [
 						'addIfMissing' => false,
 						'addLanguageTemplate' => true,
-						'sourceParameters' => 'source_param',
+						'sourceParameters' => [ 'source_param' ],
 					] ],
 				] ],
 			],
 			'+@ combination leaves a meaningless @ behind' => [
-				'wikitext' => ';Source:Target|+@target_param=source_param',
+				'wikitext' => ';Source:Target|+@target_param=static value',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ '@target_param' => [
 						'addIfMissing' => true,
 						'addLanguageTemplate' => false,
-						'value' => 'source_param',
+						'value' => 'static value',
 					] ],
 				] ],
 			],
@@ -417,7 +417,7 @@ WIKITEXT
 					'parameters' => [ '+target_param' => [
 						'addIfMissing' => false,
 						'addLanguageTemplate' => true,
-						'sourceParameters' => 'source_param',
+						'sourceParameters' => [ 'source_param' ],
 					] ],
 				] ],
 			],
@@ -426,6 +426,30 @@ WIKITEXT
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [],
+				] ],
+			],
+
+			'parameter aliases' => [
+				'wikiText' => ';Source:Target|@target_param=source_param1|target_param=source_param2',
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ 'target_param' => [
+						'addIfMissing' => false,
+						'addLanguageTemplate' => true,
+						'sourceParameters' => [ 'source_param1', 'source_param2' ],
+					] ],
+				] ],
+			],
+			'default value' => [
+				'wikiText' => ';Source:Target|target_param=source_param|+target_param=static value',
+				'expected' => [ 'Source' => [
+					'targetTemplate' => 'Target',
+					'parameters' => [ 'target_param' => [
+						'addIfMissing' => true,
+						'addLanguageTemplate' => false,
+						'sourceParameters' => [ 'source_param' ],
+						'value' => 'static value',
+					] ],
 				] ],
 			],
 
