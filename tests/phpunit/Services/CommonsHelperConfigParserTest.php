@@ -23,7 +23,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Categories>'
+				'expectedException' => '"Categories"'
 			],
 
 			'missing "bad templates" heading' => [
@@ -34,7 +34,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Templates/Bad>'
+				'expectedException' => '"Templates/Bad"'
 			],
 
 			'missing "good templates" heading' => [
@@ -44,7 +44,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Templates/Good>'
+				'expectedException' => '"Templates/Good"'
 			],
 
 			'missing "remove templates" heading' => [
@@ -54,7 +54,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Templates/Remove>'
+				'expectedException' => '"Templates/Remove"'
 			],
 
 			'missing "transfer templates" heading' => [
@@ -64,7 +64,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Templates/Transfer>'
+				'expectedException' => '"Templates/Transfer"'
 			],
 
 			'missing "bad categories" heading' => [
@@ -73,7 +73,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Categories/Bad>'
+				'expectedException' => '"Categories/Bad"'
 			],
 
 			'missing "information" heading' => [
@@ -82,7 +82,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Information>'
+				'expectedException' => '"Information"'
 			],
 
 			'missing "description" heading' => [
@@ -93,7 +93,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Information/Description>'
+				'expectedException' => '"Information/Description"'
 			],
 
 			'missing "licensing" heading' => [
@@ -104,7 +104,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
 				'expectedObsoleteTemplates' => null,
-				'expectedException' => '<Information/Licensing>'
+				'expectedException' => '"Information/Licensing"'
 			],
 
 			'missing lists' => [
