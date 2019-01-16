@@ -54,15 +54,15 @@
 		},
 		"FileImporterCommonsHelperServer": {
 			"value": "",
-			"description": "Location of CommonsHelper2-compatible configuration files to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable."
+			"description": "Location of CommonsHelper2-compatible configuration pages to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable."
 		},
 		"FileImporterCommonsHelperBasePageName": {
 			"value": "Extension:FileImporter/Data/",
-			"description": "Base page name of CommonsHelper2-compatible configuration files to use."
+			"description": "Base page name of CommonsHelper2-compatible configuration pages to use."
 		},
 		"FileImporterCommonsHelperHelpPage": {
 			"value": "",
-			"description": "Location of the help page for the CommonsHelper2-compatible configuration files management."
+			"description": "Location of the help page for the CommonsHelper2-compatible configuration page management."
 		},
 		"FileImporterAccountForSuppressedUsername": {
 			"value": "FileImporterSuppressed"

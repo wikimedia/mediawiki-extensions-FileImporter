@@ -64,7 +64,7 @@
 	"fileimporter-go-to-original-file-button": "Text for the button linking back to the original file shown on both the success and error screen.",
 	"fileimporter-commonshelper-retrieval-failed": "Error message shown when checking for blocked categories or templates fails.",
 	"fileimporter-commonshelper-missing-config": "Error message shown when the configuration page, used to prevent the import of files with bad categories or templates, is missing.\n\nParameters:\n* $1 - Source wiki hostname (not the name of the configuration page)\n* $2 - Link to the configuration root path",
-	"fileimporter-commonshelper-parsing-failed": "Error message shown when the configuration file, used to prevent the import of files with bad categories/templates, is incomplete.\n\nParameters:\n* $1 - Configuration file url.\n* $2 - Name of the section missing from the config file.",
+	"fileimporter-commonshelper-parsing-failed": "Error message shown when the configuration page, used to prevent the import of files with bad categories/templates, is incomplete.\n\nParameters:\n* $1 - Configuration file url.\n* $2 - Name of the section missing from the configuration page.",
 	"fileimporter-file-contains-blocked-category-template": "Error message shown when the file contains a blocked category/template.\n\nParameters:\n* $1 - Blocked category/template name.\n* $2 - Name of the target wiki.",
 	"fileimporter-file-missing-required-template": "Error message shown when the file is missing a template (license template) required to import the file.",
 	"fileimporter-auto-replacements-summary": "Automatic summary line protocolling how many automatic changes have been done.\n\nParameters:\n* $1 - Number of changes done, could be used with PLURAL.",

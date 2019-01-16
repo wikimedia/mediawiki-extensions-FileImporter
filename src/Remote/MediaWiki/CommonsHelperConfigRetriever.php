@@ -180,7 +180,7 @@ class CommonsHelperConfigRetriever {
 	 */
 	private function getHostWithoutTopLevelDomain( SourceUrl $sourceUrl ) {
 		$domain = $sourceUrl->getHost();
-		// Reuse the original CommonsHelper2 config files for test imports from the Beta cluster
+		// Reuse the original configuration pages for test imports from the Beta cluster
 		$domain = str_replace( '.beta.wmflabs.org', '.org', $domain );
 		return preg_replace( '/\.\w+$/', '', $domain );
 	}
