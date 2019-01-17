@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Njardarlogar"
+		]
+	},
+	"fileimporter": "Filimportør",
+	"fileimporter-desc": "Enkel importering av filer frå andre nettstader",
+	"fileimporter-file-missing-required-template": "Fila kan ikkje importerast av di ho ikkje er merkt med ein av dei påkravde lisensane."
+}

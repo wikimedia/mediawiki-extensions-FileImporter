@@ -5,7 +5,8 @@
 			"Liuxinyu970226",
 			"Robby",
 			"Umherirrender",
-			"Amire80"
+			"Amire80",
+			"Tacsipacsi"
 		]
 	},
 	"fileimporter": "{{name}}",
@@ -15,7 +16,7 @@
 	"fileimporter-specialpage": "Title for the File Import special page.",
 	"fileimporter-importfailed": "Error message for cases where when a generic import failure occurs.",
 	"fileimporter-api-badinfo": "Error message when the remote API returns bad image or revision info.",
-	"fileimporter-api-failedtogetinfo": "Error message when the retrieval of information from the remote API fails.",
+	"fileimporter-api-failedtogetinfo": "Error message when the retrieval of information from the remote API fails.\n* $1 – the request URL",
 	"fileimporter-api-nopagesreturned": "Error message when the remote API returns no pages.",
 	"fileimporter-api-toomanyrevisions": "Error message when the import target has too many revisions..",
 	"fileimporter-cantparseurl": "Error message for cases where when the URL entered can not be parsed.",
