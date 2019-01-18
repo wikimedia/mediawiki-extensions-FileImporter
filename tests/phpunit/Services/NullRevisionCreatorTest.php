@@ -5,7 +5,7 @@ namespace FileImporter\Tests\Services;
 use CommentStoreComment;
 use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
-use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use PHPUnit4And6Compat;
 use Title;
@@ -48,7 +48,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 		$summary = 'Summary';
 		$commentStore = new CommentStoreComment( null, $summary );
 
-		$revisionRecord = $this->createMock( RevisionRecord::class );
+		$revisionRecord = $this->createMock( MutableRevisionRecord::class );
 		$revisionRecord->method( 'getUser' )
 			->willReturn( $user );
 		$revisionRecord->method( 'getPageAsLinkTarget' )
