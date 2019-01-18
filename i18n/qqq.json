@@ -6,7 +6,8 @@
 			"Robby",
 			"Umherirrender",
 			"Amire80",
-			"Tacsipacsi"
+			"Tacsipacsi",
+			"TMg"
 		]
 	},
 	"fileimporter": "{{name}}",
@@ -34,7 +35,7 @@
 	"fileimporter-filenameerror-noplannedextension": "Error message for cases where the planned import name provided by the user does not have a file extension.",
 	"fileimporter-filenameerror-missmatchextension": "Error message for cases where the original and planned importer name file extensions do not match.",
 	"fileimporter-localtitleexists": "Error message for cases where when the title to be imported to already exists on the local wiki.",
-	"fileimporter-sourcetitleexists": "Error message for cases where when the title to be imported to already exists on the source wiki.",
+	"fileimporter-sourcetitleexists": "Error message for situations in which the user wants to import a file with a modified file name, but another file with the requested file name also exists on the source wiki. Such an attempt gets blocked with this error message so the other file can still be imported with it's original file name.",
 	"fileimporter-illegalfilenamechars": "Error message for cases where when the title to be imported to contains invalid characters as defined by MediaWiki.",
 	"fileimporter-duplicatefilesdetected": "Error message for cases where when the file to be imported has been detected as already existing on the local wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Prefix for the duplicate file that has been found.\n{{Identical|Duplicate}}",

@@ -61,7 +61,7 @@
 	"fileimporter-go-to-original-file-button": "Zurück zur Originaldatei",
 	"fileimporter-commonshelper-retrieval-failed": "Bei der Überprüfung gesperrter Dateien ist ein Fehler aufgetreten.",
 	"fileimporter-commonshelper-missing-config": "Das Importieren von Dateien vom Quellwiki ($1) ist noch nicht möglich. Es gibt keine Konfiguration für das Wiki unter $2.",
-	"fileimporter-commonshelper-parsing-failed": "Die Konfigurationsdatei für dein Wiki ($1) enthält nicht genügend Informationen über <$2>, um herauszufinden, ob diese Datei auf Commons hochgeladen werden kann.",
+	"fileimporter-commonshelper-parsing-failed": "Die Konfigurationsseite für dein Wiki ($1) enthält nicht genügend Informationen, um zu wissen, ob diese Datei auf Commons verschoben werden kann. Stelle bitte sicher, dass sie einen Abschnitt namens „$2“ enthält.",
 	"fileimporter-file-contains-blocked-category-template": "Die Datei kann nicht importiert werden, da sie als $1 markiert wurde. $2 erlaubt keine solchen Dateien.",
 	"fileimporter-file-missing-required-template": "Die Datei kann nicht importiert werden, da sie nicht mit einer der erforderlichen Lizenzen markiert ist.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Eine automatische Änderung|$1 automatische Änderungen}} an Vorlagen {{PLURAL:$1|wurde|wurden}} durchgeführt",
