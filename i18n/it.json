@@ -5,7 +5,8 @@
 			"Redredsonia",
 			"Statix64",
 			"Sarah Bernabei",
-			"Toadino2"
+			"Toadino2",
+			"Sakretsu"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -32,6 +33,7 @@
 	"fileimporter-heading-fileinfo": "Informazioni sul file",
 	"fileimporter-heading-filehistory": "Cronologia del file",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Il file|Le $1 versioni del file}} che stai cercando di importare {{PLURAL:$1|eccede|eccedono}} i limiti che l'importazione può gestire.",
+	"fileimporter-import-wait": "L'importazione potrebbe impiegare alcuni minuti.",
 	"fileimporter-imported-success-banner": "Questo file è stato importato con successo a {{SITENAME}}. Clicca nel collegamento seguente per vedere il file: $1",
 	"fileimporter-imported-change-template": "Ti chiediamo cortesemente di ritornare al file originale e procedere come segue: \n# Rimuovi ogni template che suggerisca che questo file dovrebbe essere copiato da {{SITENAME}}.\n# Aggiungi un template che dichiari che ora questo file è disponibile su {{SITENAME}}.\nGrazie mille!",
 	"fileimporter-go-to-original-file-button": "Ritorna al file originale",
