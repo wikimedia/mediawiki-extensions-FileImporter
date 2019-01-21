@@ -50,6 +50,10 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		$this->httpOptions = $httpOptions;
 	}
 
+	/**
+	 * @param LoggerInterface $logger
+	 * @codeCoverageIgnore
+	 */
 	public function setLogger( LoggerInterface $logger ) {
 		$this->logger = $logger;
 	}

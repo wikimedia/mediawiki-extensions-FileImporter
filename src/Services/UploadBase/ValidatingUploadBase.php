@@ -114,6 +114,7 @@ class ValidatingUploadBase extends UploadBase {
 	 * Should never be used but must be implemented for UploadBase
 	 *
 	 * @param WebRequest &$request
+	 * @codeCoverageIgnore
 	 */
 	public function initializeFromRequest( &$request ) {
 		throw new LogicException( 'Should never be called.' );
@@ -121,6 +122,7 @@ class ValidatingUploadBase extends UploadBase {
 
 	/**
 	 * @inheritDoc
+	 * @codeCoverageIgnore
 	 */
 	public function getSourceType() {
 		return 'file';

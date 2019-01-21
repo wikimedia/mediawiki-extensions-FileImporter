@@ -5,6 +5,9 @@ namespace FileImporter;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 
+/**
+ * @codeCoverageIgnore
+ */
 return [
 
 	'FileImporterMediaWikiHttpApiLookup' => function ( MediaWikiServices $services ) {
