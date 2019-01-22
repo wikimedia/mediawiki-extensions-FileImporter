@@ -126,7 +126,7 @@ class CommonsHelperConfigParser {
 		$transfers = [];
 
 		preg_match_all(
-			'/^;\h*+([^:|\n]+)\n?:\h*+([^:|\n]+)(.*)/m',
+			'/^;\h*+([^:|\n]+)\n?:\h*+([^|\n]+)(.*)/m',
 			$wikiText,
 			$patterns,
 			PREG_SET_ORDER
