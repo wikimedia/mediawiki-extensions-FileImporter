@@ -60,7 +60,7 @@
 	"fileimporter-go-to-original-file-button": "Özgün dosyaya dön",
 	"fileimporter-commonshelper-retrieval-failed": "Engellenen dosyaları denetlerken bir hata oluştu.",
 	"fileimporter-commonshelper-missing-config": "Dosyaları kaynak viki'den ($1) içe aktarmak henüz mümkün değil. $2 sayfasında viki için bir yapılandırma yok.",
-	"fileimporter-commonshelper-parsing-failed": "Viki'niz ($1) için yapılandırma dosyası, bu dosyanın Commons'a yüklenip yüklenmeyeceğini bilmek için <$2> hakkında yeterli bilgi içermez.",
+	"fileimporter-commonshelper-parsing-failed": "Viki'niz ($1) için yapılandırma sayfası, bu dosyanın Commons'a yüklenip yüklenmeyeceğini bilmek için <$2> hakkında yeterli bilgi içermez. Lütfen \"$2\" içerdiğinden emin olun.",
 	"fileimporter-file-contains-blocked-category-template": "$1 olarak işaretlendiğinden dosya içe alınamıyor. $2, bu tür dosyalara izin vermiyor.",
 	"fileimporter-file-missing-required-template": "Gerekli lisanslardan biriyle işaretlenmediği için dosya içe alınamıyor.",
 	"fileimporter-auto-replacements-summary": "Şablonlarda $1 otomatik değişiklik yapıldı.",

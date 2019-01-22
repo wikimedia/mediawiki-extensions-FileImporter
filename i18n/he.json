@@ -62,7 +62,7 @@
 	"fileimporter-go-to-original-file-button": "חזרה לקובץ המקורי",
 	"fileimporter-commonshelper-retrieval-failed": "אירעה שגיאה בבדיקת הקבצים החסומים.",
 	"fileimporter-commonshelper-missing-config": "יבוא קבצים מוויקי המקור ($1) עדיין אינו אפשרי. אין הגדרות עבור הוויקי ב־$2.",
-	"fileimporter-commonshelper-parsing-failed": "קובץ הגדרות התצורה של אתר הוויקי הזה ($1) אינו מכיל מספיק מידע לגבי <$2>, הדרוש כדי לבדוק האם ניתן להעלות את הקובץ הזה לוויקישיתוף.",
+	"fileimporter-commonshelper-parsing-failed": "דף הגדרות התצורה של אתר הוויקי הזה ($1) אינו מכיל מספיק מידע כדי לדעת אם אפשר לשום את הקובץ הזה בוויקישיתוף. נא לוודא שיש בו פסקת \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "לא ניתן לייבא את הקובץ, כיוון שהוא מסומן בתור $1. קבצים כאלה אינם מותרים ב{{GRAMMAR:תחילית|$2}}.",
 	"fileimporter-file-missing-required-template": "לא ניתן לייבא את הקובץ כיוון שהוא לא מסומן עם אחד הרישיונות הנדרשים.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|בוצע שינוי אוטומטי אחד|בוצעו $1 שינויים אוטומטיים}} בתבניות",
