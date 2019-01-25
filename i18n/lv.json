@@ -4,13 +4,31 @@
 			"Papuass"
 		]
 	},
+	"fileimporter": "FileImporter",
+	"tag-fileimporter": "Importēts ar FileImporter",
+	"fileimporter-specialpage": "Importēt failu",
+	"fileimporter-importfailed": "Imports neizdevās",
+	"fileimporter-cantimportmissingfile": "Nevar importēt trūkstošu failu.",
+	"fileimporter-duplicatefilesdetected-prefix": "Dublikāti",
 	"fileimporter-exampleprefix": "Piemērs",
+	"fileimporter-filerevisions": "$1/$2 faila {{PLURAL:$2|versijām tiks importētas|versijas tiks importēta|versijām tiks importētas}}.",
+	"fileimporter-submit": "Iesniegt",
 	"fileimporter-resubmit": "Iesniegt atkārtoti",
+	"fileimporter-import": "Importēt",
 	"fileimporter-cancel": "Atcelt",
+	"fileimporter-edittitle": "Labot nosaukumu",
+	"fileimporter-editinfo": "Labot faila informāciju",
 	"fileimporter-extensionlabel": "Faila paplašinājums:",
 	"fileimporter-newfilename": "Jaunais faila nosaukums:",
 	"fileimporter-newfilename-placeholder": "Kāds faila nosaukums",
 	"fileimporter-editsummary": "Izmaiņu kopsavilkums:",
+	"fileimporter-previewnote": "Šis ir importējamā faila priekšskatījums. Lūdzu, pirms importēšanas pārbaudi informāciju šajā lapā.",
 	"fileimporter-heading-fileinfo": "Faila informācija",
-	"fileimporter-heading-filehistory": "Faila vēsture"
+	"fileimporter-heading-filehistory": "Faila vēsture",
+	"fileimporter-import-wait": "Imports var aizņemt pāris minūtes",
+	"fileimporter-go-to-original-file-button": "Atgriezties uz sākotnējo failu",
+	"fileimporter-file-missing-required-template": "Failu nevar importēt, jo tas nav atzīmēts ar kādu no nepieciešamajām licencēm.",
+	"fileimporter-auto-replacements-summary": "Veidnēs {{PLURAL:$1|veiktas|veikta|veiktas}} $1 {{PLURAL:$1|automātiskas izmaiņas|automātiska izmaiņa|automātiskas izmaiņas}}",
+	"fileimporter-viewdiff": "Rādīt izmaiņas",
+	"fileimporter-to-preview": "Atpakaļ uz priekšskatījumu"
 }

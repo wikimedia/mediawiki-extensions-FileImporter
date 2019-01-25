@@ -59,7 +59,7 @@
 	"fileimporter-imported-change-template": "Vljudno te prosimo, da se vrneš na izvirno datoteko in storiš sledeče:\n# Odstrani vse predloge, ki sporočajo, da je to datoteko potrebno skopirati na {{SITENAME}}.\n# Dodaj predlogo, ki sporoča, da je ta datoteka sedaj na voljo na {{SITENAME}}.\nIskrena hvala!",
 	"fileimporter-go-to-original-file-button": "Vrni se na izvirno datoteko",
 	"fileimporter-commonshelper-retrieval-failed": "Pri preverjanju blokiranih datotek je prišlo do napake.",
-	"fileimporter-commonshelper-parsing-failed": "Datoteka z nastavitvami za tvoj wiki ($1) ne vsebuje zadostnih informacij <$2>, da bi ugotovila, ali je možno to datoteko shraniti v Zbirko.",
+	"fileimporter-commonshelper-parsing-failed": "Stran z nastavitvami za vaš wiki ($1) ne vsebuje zadostnih informacij, da bi ugotovili, ali je možno to datoteko shraniti v Zbirko. Prosimo, prepričajte se, da vsebuje razdelek »$2«.",
 	"fileimporter-file-contains-blocked-category-template": "Datoteke ni možno uvoziti, saj je označena kot $1. $2 takšnih datotek žal ne dovoljuje.",
 	"fileimporter-file-missing-required-template": "Datoteke ni možno uvoziti, saj ni označena s katerim od zahtevanih dovoljenj.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Narejena je bila|Narejeni sta bili|Narejene so bile|Narejenih je bilo}} $1 {{PLURAL:$1|sprememba|spremembi|spremembe|sprememb}} predlog.",
