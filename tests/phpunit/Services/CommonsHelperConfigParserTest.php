@@ -339,7 +339,7 @@ WIKITEXT
 			],
 			'subst' => [
 				'wikiText' => ";Source:subst:Target",
-				'expected' => [ 'Source' => 'subst' ],
+				'expected' => [ 'Source' => 'subst:Target' ],
 			],
 
 			'basic 1-line syntax' => [
