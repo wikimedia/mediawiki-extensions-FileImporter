@@ -284,7 +284,7 @@ class ApiDetailRetriever implements DetailRetriever {
 				throw new LocalizedImportException( [
 					'fileimporter-commonshelper-missing-config',
 					$sourceUrl->getHost(),
-					$this->commonsHelperHelpPage
+					$this->commonsHelperHelpPage ?: $this->commonsHelperServer
 				] );
 			}
 		}
