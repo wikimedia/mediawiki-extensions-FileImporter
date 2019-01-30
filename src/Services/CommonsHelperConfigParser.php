@@ -137,7 +137,12 @@ class CommonsHelperConfigParser {
 
 			$paramPatterns = preg_split( '/\s*\|+\s*/', $paramPatterns, -1, PREG_SPLIT_NO_EMPTY );
 			foreach ( $paramPatterns as $paramPattern ) {
-				list( $targetParam, $sourceParam ) = preg_split( '/\s*=\s*/', $paramPattern, 2 );
+				$parts = preg_split( '/\s*=\s*/', $paramPattern, 2 );
+				if ( count( $parts ) !== 2 ) {
+					continue;
+				}
+
+				list( $targetParam, $sourceParam ) = $parts;
 
 				// TODO: The magic words "%AUTHOR%" and "%TRANSFERUSER%" are not supported yet
 				if ( strpos( $sourceParam, '%' ) !== false ) {

@@ -329,9 +329,17 @@ WIKITEXT
 				'wikiText' => ";Source\n\n:Target",
 				'expected' => [],
 			],
+			'incomplete parameter syntax' => [
+				'wikiText' => ";Source:Target|incomplete",
+				'expected' => [ 'Source' => 'Target' ],
+			],
 			'bad parameter syntax on local side' => [
 				'wikiText' => ";Source|param:Target",
 				'expected' => [],
+			],
+			'subst' => [
+				'wikiText' => ";Source:subst:Target",
+				'expected' => [ 'Source' => 'subst' ],
 			],
 
 			'basic 1-line syntax' => [
