@@ -62,7 +62,7 @@
 	"fileimporter-go-to-original-file-button": "العودة إلى الملف الأصلي",
 	"fileimporter-commonshelper-retrieval-failed": "حدث خطأ أثناء التحقق من الملفات المحظورة.",
 	"fileimporter-commonshelper-missing-config": "استيراد الملفات من الويكي المصدر ($1) غير ممكن بعد; لا يوجد تكوين للويكي في $2.",
-	"fileimporter-commonshelper-parsing-failed": "لا تحتوي صفحة التكوين الخاصة بالويكي الخاص بك ($1) على معلومات كافية لمعرفة ما إذا كان يمكن وضع هذا الملف على كومنز; يُرجَى التأكد من أنه يحتوي على قسم \"$2\".",
+	"fileimporter-commonshelper-parsing-failed": "لا تحتوي صفحة التكوين الخاصة بالويكي الخاص بك ($1) على معلومات مكتملة; يُرجَى التأكد من أنها تحتوي على قسم \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "لا يمكن استيراد الملف; لأنه تم تعليمه كـ$1، $2 لا يسمح بمثل هذه الملفات.",
 	"fileimporter-file-missing-required-template": "لا يمكن استيراد الملف; لأنه غير معلَّم بأحد التراخيص المطلوبة.",
 	"fileimporter-auto-replacements-summary": "$1 تم إجراء {{PLURAL:$1|تغيير تلقائي|تغييرات تلقائية}} إلى {{PLURAL:$1|قالب|قوالب}}",

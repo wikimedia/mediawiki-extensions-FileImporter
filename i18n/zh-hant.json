@@ -62,7 +62,7 @@
 	"fileimporter-go-to-original-file-button": "返回至原始檔案",
 	"fileimporter-commonshelper-retrieval-failed": "檢查被封鎖檔案時發生錯誤。",
 	"fileimporter-commonshelper-missing-config": "目前尚無法從來源 wiki（$1）匯入檔案，在 $2 裡沒有用於 wiki 的設置。",
-	"fileimporter-commonshelper-parsing-failed": "您 wiki（$1）的設置頁面裡，沒有包含足夠資訊來判斷檔案是否可放置到共享資源上。請確認有包含「$2」段落。",
+	"fileimporter-commonshelper-parsing-failed": "您 wiki（$1）的設置頁面不完全。請確認有包含「$2」段落。",
 	"fileimporter-file-contains-blocked-category-template": "檔案無法匯入，因為被標記成$1。$2 不允許這類型檔案。",
 	"fileimporter-file-missing-required-template": "檔案無法匯入，因為沒有標記所需的許可協議之一。",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|已|已}}對模板做出 $1 個自動{{PLURAL:$1|更改|更改}}",
