@@ -166,9 +166,12 @@ class CommonsHelperConfigRetriever {
 	 */
 	private function getQueryParamTitle( SourceUrl $sourceUrl ) {
 		$domain = $this->getHostWithoutTopLevelDomain( $sourceUrl );
+
 		if ( ctype_alpha( $domain ) ) {
+			// Default to "www.mediawiki", even when the source URL was "https://mediawiki.org/…"
 			$domain = 'www.' . $domain;
 		}
+
 		return str_replace( ' ', '_', $this->configBasePageName ) . $domain;
 	}
 
@@ -180,8 +183,10 @@ class CommonsHelperConfigRetriever {
 	 */
 	private function getHostWithoutTopLevelDomain( SourceUrl $sourceUrl ) {
 		$domain = $sourceUrl->getHost();
+
 		// Reuse the original configuration pages for test imports from the Beta cluster
 		$domain = str_replace( '.beta.wmflabs.org', '.org', $domain );
+
 		return preg_replace( '/\.\w+$/', '', $domain );
 	}
 
