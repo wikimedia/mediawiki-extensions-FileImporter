@@ -22,7 +22,7 @@
 	"fileimporter-cantparseurl": "Impossible d’analyser l’URL fournie : $1",
 	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
 	"fileimporter-cantimportfromsharedrepo": "Impossible d’importer un fichier depuis un répertoire partagé.",
-	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier inexistant.",
+	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier absent.",
 	"fileimporter-cantimportfilehidden": "Impossible d’importer le fichier parce qu’au moins une de ses révisions contient un fichier supprimé.",
 	"fileimporter-badtoken": "Le jeton CSRF ne correspond pas",
 	"fileimporter-badimporthash": "Le hachage de l’import ne correspond pas. Veuillez refaire l'import.",

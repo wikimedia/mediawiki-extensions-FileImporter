@@ -57,6 +57,7 @@
 	"fileimporter-imported-success-banner": "Questo file è stato importato con successo a {{SITENAME}}. Clicca nel collegamento seguente per vedere il file: $1",
 	"fileimporter-imported-change-template": "Ti chiediamo cortesemente di ritornare al file originale e procedere come segue: \n# Rimuovi ogni template che suggerisca che questo file dovrebbe essere copiato da {{SITENAME}}.\n# Aggiungi un template che dichiari che ora questo file è disponibile su {{SITENAME}}.\nGrazie mille!",
 	"fileimporter-go-to-original-file-button": "Ritorna al file originale",
+	"fileimporter-commonshelper-parsing-failed": "La pagina di configurazione per il tuo wiki ($1) è incompleta. Assicurati che contenga una sezione \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Il file non può essere importato, perché è contrassegnato come $1. $2 non consente tali file.",
 	"fileimporter-file-missing-required-template": "Il file non può essere importato, perché non è contrassegnato con una delle licenze richieste.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|È stata eseguita|Sono state eseguite}} $1 {{PLURAL:$1|modifica automatica|modifiche automatiche}} ai template",
