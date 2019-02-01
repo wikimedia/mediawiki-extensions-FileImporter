@@ -6,11 +6,17 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\MediaWikiServices;
 
 /**
  * @license GPL-2.0-or-later
  */
 class CommonsHelperConfigRetriever {
+
+	/**
+	 * @var \Config
+	 */
+	private $mainConfig;
 
 	/**
 	 * @var HttpRequestExecutor
@@ -54,6 +60,9 @@ class CommonsHelperConfigRetriever {
 		$configBasePageName,
 		SourceUrl $sourceUrl
 	) {
+		// TODO: Inject?
+		$this->mainConfig = MediaWikiServices::getInstance()->getMainConfig();
+
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->configServer = $configServer;
 		$this->configBasePageName = $configBasePageName;
@@ -112,7 +121,12 @@ class CommonsHelperConfigRetriever {
 	 * @return string
 	 */
 	private function buildCommonsHelperConfigUrl( SourceUrl $sourceUrl ) {
-		return $this->configServer . '/wiki/' . $this->getQueryParamTitle( $sourceUrl );
+		$title = $this->getQueryParamTitle( $sourceUrl );
+
+		// We assume the wiki holding the config pages uses the same configuration.
+		$articlePath = str_replace( '$1', $title, $this->mainConfig->get( 'ArticlePath' ) );
+
+		return $this->configServer . $articlePath;
 	}
 
 	/**
@@ -137,7 +151,10 @@ class CommonsHelperConfigRetriever {
 	 * @return string
 	 */
 	private function buildApiRequest( SourceUrl $sourceUrl ) {
-		return $this->configServer . '/w/api.php?' .
+		// We assume the wiki holding the config pages uses the same configuration.
+		$scriptPath = $this->mainConfig->get( 'ScriptPath' );
+
+		return $this->configServer . $scriptPath . '/api.php?' .
 			$this->buildApiQueryParams( $this->getQueryParamTitle( $sourceUrl ) );
 	}
 

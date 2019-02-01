@@ -12,7 +12,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
+class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
 	use \PHPUnit4And6Compat;
 
 	// TODO: Test incompatible URLs
@@ -39,7 +39,7 @@ class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideSourceUrls
 	 */
 	public function testSuccess( $sourceUrl, $configPage ) {
-		$sourceUrl = new SourceUrl( $sourceUrl );
+		$this->overrideMwServices( new \HashConfig( [ 'ArticlePath' => '/wiki/$1' ] ) );
 
 		$request = $this->createMWHttpRequest( [
 				'query' => [
@@ -62,11 +62,11 @@ class CommonsHelperConfigRetrieverTest extends \PHPUnit\Framework\TestCase {
 			$requestExecutor,
 			'<SERVER>',
 			'Data ',
-			$sourceUrl
+			new SourceUrl( $sourceUrl )
 		);
 
 		$this->assertTrue( $retriever->retrieveConfiguration() );
-		$this->assertStringEndsWith( "/wiki/$configPage", $retriever->getConfigWikiUrl() );
+		$this->assertSame( "<SERVER>/wiki/$configPage", $retriever->getConfigWikiUrl() );
 		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikiText() );
 	}
 
