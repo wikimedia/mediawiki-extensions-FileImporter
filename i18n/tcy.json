@@ -12,5 +12,6 @@
 	"fileimporter-editsummary": "ಸಾರಾಂಶ ಸಂಪೊಲಿಪುಲೆ",
 	"fileimporter-heading-fileinfo": "ವಿಸಯೊದ ವಿವರೋ",
 	"fileimporter-heading-filehistory": "ಫೈಲ್‍ದ ಇತಿಹಾಸೊ",
-	"fileimporter-commonshelper-missing-config": "ಮೂಲ ವಿಕಿರ್ದ್ ($1)ಕಡತೊಲೆನ್ ಆಯಾತ ಮಲ್ಪುನ ನನಲಾ ಸಾಧ್ಯ ಆತಿಜಿ.($2)ಟ್ ವಿಕಿಗ್ ಸಂರಚನೆ ಇಜ್ಜಿ."
+	"fileimporter-commonshelper-missing-config": "ಮೂಲ ವಿಕಿರ್ದ್ ($1)ಕಡತೊಲೆನ್ ಆಯಾತ ಮಲ್ಪುನ ನನಲಾ ಸಾಧ್ಯ ಆತಿಜಿ.($2)ಟ್ ವಿಕಿಗ್ ಸಂರಚನೆ ಇಜ್ಜಿ.",
+	"fileimporter-commonshelper-parsing-failed": "ಇರೆನ ವಿಕಿತ($1) ಸಂರಚನೆ ಪುಟೊ ಸಂಪೂರ್ಣವಾತಿಜಿ.ದಯಮಲ್ತ್ ಅಯಿಟ್ ಒಂಜಿ ($2)ಭಾಗ ಉಪ್ಪುನಂಚ ತೂಲೆ."
 }

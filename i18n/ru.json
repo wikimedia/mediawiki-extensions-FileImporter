@@ -5,7 +5,8 @@
 			"Alexey zakharenkov",
 			"Okras",
 			"Edible Melon",
-			"Vlad5250"
+			"Vlad5250",
+			"Athena Atterdag"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -36,6 +37,7 @@
 	"fileimporter-heading-fileinfo": "Информация о файле",
 	"fileimporter-heading-filehistory": "История файла",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Файл|$1 версии файла|$1 версий файла}}, который вы сейчас пытаетесь импортировать, {{PLURAL:$1|превышает|превышают}} ограничение на максимально допустимый размер файла для импорта.",
+	"fileimporter-commonshelper-parsing-failed": "Страница конфигурации для вашей вики ($1) неполная. Пожалуйста, проверьте, что она содержит раздел $2.",
 	"fileimporter-auto-replacements-summary": "Было сделано $1 автоматических замен в шаблонах",
 	"fileimporter-viewdiff": "Показать изменения",
 	"fileimporter-to-preview": "Вернуться к предпросмотру"
