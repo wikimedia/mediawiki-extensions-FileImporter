@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"fileimporter-commonshelper-parsing-failed": "La pàgina de configuració del wiki ($1) no s’ha completat. Assegureu-vos que conté la secció «$2»."
+}
