@@ -62,7 +62,7 @@
 	"fileimporter-go-to-original-file-button": "Voltar ao ficheiro original",
 	"fileimporter-commonshelper-retrieval-failed": "Ocorreu um erro ao verificar a existência de ficheiros bloqueados.",
 	"fileimporter-commonshelper-missing-config": "Ainda não é possível importar ficheiros da wiki de origem ($1). Não há configuração para a wiki em $2.",
-	"fileimporter-commonshelper-parsing-failed": "O ficheiro de configuração da sua wiki ($1) não contém informação suficiente acerca de <$2> para saber se este ficheiro pode ser colocado na wiki Commons.",
+	"fileimporter-commonshelper-parsing-failed": "A página de configuração da sua wiki ($1) está incompleta. Certifique-se de que ela contém uma secção \"$2\", por favor.",
 	"fileimporter-file-contains-blocked-category-template": "O ficheiro não pode ser importado porque foi marcado como $1. A wiki $2 não permite  ficheiros desse tipo.",
 	"fileimporter-file-missing-required-template": "O ficheiro não pode ser importado, porque não está marcado com uma das predefinições de licenciamento necessárias.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Foi realizada $1 alteração automática|Foram realizadas $1 alterações automáticas}} a predefinições",
