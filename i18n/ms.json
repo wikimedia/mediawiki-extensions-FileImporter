@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kurniasan"
+			"Kurniasan",
+			"Tofeiku"
 		]
 	},
-	"fileimporter-cantimportfilehidden": "Fail tidak dapat diimport kerana sekurang-kurangnya salah satu semakannya mengandungi fail tertindih"
+	"fileimporter-cantimportfilehidden": "Fail tidak dapat diimport kerana sekurang-kurangnya salah satu semakannya mengandungi fail tertindih",
+	"fileimporter-heading-filehistory": "Sejarah fail"
 }
