@@ -3,7 +3,8 @@
 		"authors": [
 			"Piramidion",
 			"SimondR",
-			"Ата"
+			"Ата",
+			"Vlad5250"
 		]
 	},
 	"fileimporter": "Імпортер файлів",
@@ -62,7 +63,7 @@
 	"fileimporter-go-to-original-file-button": "Повернутися до оригінального файлу",
 	"fileimporter-commonshelper-retrieval-failed": "Сталася помилка при пошуку блокованих файлів.",
 	"fileimporter-commonshelper-missing-config": "Імпортування файлів із вихідної вікі ($1) ще неможливе. Немає конфігурації для вікі на $2.",
-	"fileimporter-commonshelper-parsing-failed": "Сторінка конфігурації для Вашої вікі ($1) не містить достатньо інформації, щоб знати, чи цей файл можна розмістити на Вікісховищі. Будь ласка, переконайтесь, що вона містить розділ «$2».",
+	"fileimporter-commonshelper-parsing-failed": "Сторінка конфігурації для Вашої вікі ($1) є неповною. Будь ласка, переконайтесь, що вона містить розділ «$2».",
 	"fileimporter-file-contains-blocked-category-template": "Файл не можна імпортувати, оскільки він позначений як $1. $2 не дозволяє завантажувати такі файли.",
 	"fileimporter-file-missing-required-template": "Цей файл не можна імпортувати, оскільки він не містить шаблону однієї з необхідних ліцензій.",
 	"fileimporter-auto-replacements-summary": "Здійснено $1 {{PLURAL:$1|автоматичну зміну|автоматичні зміни|автоматичних змін}} шаблонів",
