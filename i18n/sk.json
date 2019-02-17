@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Patriccck"
+		]
+	},
+	"fileimporter": "Exportér súborov",
+	"fileimporter-desc": "Jednoduché importovanie súborov z iných stránok",
+	"tag-fileimporter": "Importované s nástrojom Exportér súborov",
+	"tag-fileimporter-description": "Súbory importované z inej wiki vrátane histórie súborov a stránok",
+	"fileimporter-specialpage": "Exportér súborov",
+	"fileimporter-importfailed": "Export zlyhal",
+	"fileimporter-submit": "Odoslať",
+	"fileimporter-resubmit": "Znovu odoslať",
+	"fileimporter-import": "Export",
+	"fileimporter-cancel": "Zrušiť",
+	"fileimporter-edittitle": "Upraviť názov",
+	"fileimporter-editinfo": "Edit File Info",
+	"fileimporter-extensionlabel": "Rozšírenie súboru:",
+	"fileimporter-newfilename": "Nový názov súboru:",
+	"fileimporter-newfilename-placeholder": "Niektoré názvy súborov",
+	"fileimporter-editsummary": "Zhrnutie úprav:",
+	"fileimporter-previewnote": "Toto je náhľad súboru, ktorý má byť exportovaný. Pred exportovaním prosím podrobne skontrolujte súbor.",
+	"fileimporter-heading-fileinfo": "Informácie o súbore",
+	"fileimporter-heading-filehistory": "História súboru",
+	"fileimporter-revision-removed-text": "Potlačený text odobratý aplikácií Exportér súborov.",
+	"fileimporter-in-beta": "Exportér súborov je vo verzii beta: Vyskúšali sme ho starostlivo, ale stále môže mať nejaké problémy. Ak sa stretnete s problémami, prosím, informujte [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter na našej stránke nápovedy] – ideálne si prečítajte krok za krokom, ako problém nahlásiť, aby sme ho pochopili a opravili.",
+	"fileimporter-import-wait": "Export môže trvať niekoľko minút."
+}
