@@ -4,5 +4,25 @@
 			"Умар"
 		]
 	},
-	"fileimporter-import": "Импорт"
+	"fileimporter": "FileImporter",
+	"fileimporter-desc": "Кхечу сайташкара файлаш атта импортяр",
+	"tag-fileimporter": "FileImporter гӀоьнца импортйина",
+	"fileimporter-specialpage": "Файл импортян",
+	"fileimporter-importfailed": "Импортяран гӀалат",
+	"fileimporter-api-failedtogetinfo": "Файлан хаамаш каро аьтту цахийли чура: $1",
+	"fileimporter-cantimporturl": "ХӀара URL-адрес импортдан цало",
+	"fileimporter-duplicatefilesdetected-prefix": "Дубликаташ",
+	"fileimporter-exampleprefix": "Масала",
+	"fileimporter-submit": "ДӀадахьийта",
+	"fileimporter-resubmit": "Юха дӀадахьита",
+	"fileimporter-import": "Импорт",
+	"fileimporter-cancel": "Юхаяккха",
+	"fileimporter-edittitle": "Табе корта",
+	"fileimporter-extensionlabel": "Файлан шоралла:",
+	"fileimporter-newfilename": "Файлан керла цӀе:",
+	"fileimporter-editsummary": "Хийцамах лаьцна:",
+	"fileimporter-heading-fileinfo": "Файлан хаамаш",
+	"fileimporter-heading-filehistory": "Файлан истори",
+	"fileimporter-viewdiff": "Гайта хийцамаш",
+	"fileimporter-to-preview": "ЮхагӀо хьалха хьажаре"
 }
