@@ -35,7 +35,7 @@
 	"fileimporter-duplicatefilesdetected-prefix": "Дупликати",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$2|измена|измене|измена}} странице биће {{PLURAL:$1|увезена|увезене|увезено}} из историје измена.",
-	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|верзија датотеке ће бити увезено|верзије датотеке ће бити увезене}}.",
+	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|верзија датотеке биће увезена|верзије датотеке биће увезене|верзија датотеке биће увезено}}.",
 	"fileimporter-submit": "Пошаљи",
 	"fileimporter-resubmit": "Поново пошаљи",
 	"fileimporter-import": "Увези",
