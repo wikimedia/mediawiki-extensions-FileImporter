@@ -56,7 +56,7 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Datoteka koju|$1 inačice datoteke koje|$1 inačica datoteka koje }} pokušavate uvesti {{PLURAL:$1|prekoračuje|prekoračuju|prekoračuje}} veličinu koju uvoznik može obraditi.",
 	"fileimporter-import-wait": "Uvoz može potrajati par minuta.",
 	"fileimporter-imported-success-banner": "Datoteka je uspješno uvezena na projekt {{SITENAME}}. Kliknite na sljedeću poveznicu da biste je vidjeli: $1",
-	"fileimporter-imported-change-template": "Ljubazno molimo da vratite na izvornu datoteku i učinite sljedeće.\n# Uklonite bilo koji predložak koji predlaže kopiranje datoteke na projekt {{SITENAME}}.\n# Dodajte predložak koji pokazuje da je datoteka sada dostupna na projektu {{SITENAME}}.\nHvala Vam!",
+	"fileimporter-imported-change-template": "Ljubazno molimo da se vratite na izvornu datoteku i učinite sljedeće.\n# Uklonite bilo koji predložak koji predlaže kopiranje datoteke na projekt {{SITENAME}}.\n# Dodajte predložak koji pokazuje da je datoteka sada dostupna na projektu {{SITENAME}}.\nHvala Vam!",
 	"fileimporter-go-to-original-file-button": "Vrati se na izvornu datoteku",
 	"fileimporter-commonshelper-retrieval-failed": "Pogrješka prilikom provjere blokiranih datoteka.",
 	"fileimporter-commonshelper-missing-config": "Uvoz datoteka s izvornog wikija ($1) još nije moguć. Ne postoji konfiguracija za taj wiki na $2.",
