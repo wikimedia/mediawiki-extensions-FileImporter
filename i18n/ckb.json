@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Épine"
+		]
+	},
+	"fileimporter": "ھەناردەکەری پەڕگە",
+	"fileimporter-desc": "ھەناردەکردنی ئاسانی پەڕگەکان بۆ سایتەکانی تر",
+	"tag-fileimporter": "بە ھەناردەکەری پەڕە گوێزراوەتەوە",
+	"tag-fileimporter-description": "ئەو پەڕگانەی لە ویکییەکی ترەوە ھەناردە کراون، بە پەڕگە و مێژووی پەڕەوە",
+	"fileimporter-specialpage": "ھاوردنی پەڕگە",
+	"fileimporter-importfailed": "ھاوردن شکستی ھێنا",
+	"fileimporter-filenameerror-automaticchanges": "ناوی پەڕگەکە بۆ خۆگەڕی لە «$1»ەوە گۆڕدرا بۆ «$2»",
+	"fileimporter-duplicatefilesdetected": "ئەو پەڕگەیەی ھەوڵی بارکردنی دەدەیت لە پێشدا ھەیە لەم ویکییە.",
+	"fileimporter-duplicatefilesdetected-prefix": "دووبارەکان",
+	"fileimporter-exampleprefix": "نموونە",
+	"fileimporter-submit": "ناردن",
+	"fileimporter-resubmit": "ناردنەوە",
+	"fileimporter-import": "هاوردن",
+	"fileimporter-cancel": "ھەڵوەشاندنەوە",
+	"fileimporter-edittitle": "دەستکاریکردنی سەرناو",
+	"fileimporter-editinfo": "دەستکاریکردنی زانیاریی پەڕگە",
+	"fileimporter-newfilename": "ناوی نوێی پەڕگە:",
+	"fileimporter-editsummary": "کورتەی دەستکاری:",
+	"fileimporter-heading-fileinfo": "زانیاریی پەڕگە",
+	"fileimporter-heading-filehistory": "مێژووی پەڕگە",
+	"fileimporter-import-wait": "لەوانەیە ئەم ھاوردنە چەند خولەکێکی پێ بچێت.",
+	"fileimporter-go-to-original-file-button": "گەڕانەوە بۆ پەڕگەی ڕەسەن"
+}
