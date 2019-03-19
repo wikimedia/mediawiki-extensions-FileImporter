@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hedda"
+			"Hedda",
+			"Karduelis"
 		]
 	},
 	"fileimporter": "DosyaİçeAktarıcı",
@@ -47,7 +48,7 @@
 	"fileimporter-newfilename-placeholder": "Bazı Dosya Adı",
 	"fileimporter-editsummary": "Değişiklik özeti:",
 	"fileimporter-previewnote": "Bu, içe aktarılacak dosyanın önizlemesidir. Lütfen içe aktarmadan önce sayfayı ayrıntılı olarak kontrol edin.",
-	"fileimporter-heading-fileinfo": "File info",
+	"fileimporter-heading-fileinfo": "Dosya bilgisi",
 	"fileimporter-heading-filehistory": "Dosya geçmişi",
 	"fileimporter-revision-removed-text": "Bastırılmış metin DosyaİçeAktarıcı tarafından kaldırıldı.",
 	"fileimporter-revision-removed-comment": "Bastırılmış yorum DosyaİçeAktarıcı tarafından kaldırıldı.",

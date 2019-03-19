@@ -4,7 +4,11 @@
 			"StanProg"
 		]
 	},
+	"fileimporter-specialpage": "Внасяне на файл",
+	"fileimporter-importfailed": "Внасянето се провали",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-import": "Внасяне",
-	"fileimporter-cancel": "Отказ"
+	"fileimporter-cancel": "Отказ",
+	"fileimporter-viewdiff": "Показване на промените",
+	"fileimporter-to-preview": "Назад към предварителния преглед"
 }
