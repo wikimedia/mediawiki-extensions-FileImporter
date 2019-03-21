@@ -109,6 +109,7 @@ class WikiTextContentCleaner {
 	}
 
 	/**
+	 * @suppress PhanTypeInvalidDimOffset false positive with $p being -1
 	 * @param string $wikiText
 	 * @param int $startPosition Must be after the opening {{, and before or exactly at the first |
 	 *
@@ -215,9 +216,7 @@ class WikiTextContentCleaner {
 
 		// Replacements must be applied in reverse order to not mess with the captured offsets!
 		for ( $i = count( $parameters ); $i-- > 0; ) {
-			$from = isset( $parameters[$i]['name'] )
-				? $parameters[$i]['name']
-				: $parameters[$i]['number'];
+			$from = $parameters[$i]['name'] ?? $parameters[$i]['number'];
 
 			if ( isset( $replacements[$from] ) ) {
 				$to = $replacements[$from];
@@ -253,7 +252,7 @@ class WikiTextContentCleaner {
 		}
 
 		foreach ( $parameters as $param ) {
-			$name = isset( $param['name'] ) ? $param['name'] : $param['number'];
+			$name = $param['name'] ?? $param['number'];
 			unset( $required[$name] );
 		}
 

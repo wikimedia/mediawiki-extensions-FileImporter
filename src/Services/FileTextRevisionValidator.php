@@ -8,7 +8,6 @@ use FauxRequest;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\ValidationException;
 use Hooks;
-use IContextSource;
 use RequestContext;
 use Status;
 use Title;
@@ -24,7 +23,7 @@ use WikiFilePage;
 class FileTextRevisionValidator {
 
 	/**
-	 * @var IContextSource
+	 * @var DerivativeContext
 	 */
 	private $context;
 

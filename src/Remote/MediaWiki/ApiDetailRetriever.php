@@ -216,7 +216,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$pageTitle = $pageInfoData['title'];
 
-		if ( empty( $pageInfoData['imageinfo'] ) || empty( $pageInfoData['imageinfo'] ) ) {
+		if ( empty( $pageInfoData['imageinfo'] ) || empty( $pageInfoData['revisions'] ) ) {
 			$this->logger->warning(
 				'Bad image or revision info returned by the API',
 				[

@@ -118,9 +118,7 @@ class WikiTextConversions {
 	 * @return string
 	 */
 	public function swapHeading( $heading ) {
-		return isset( $this->headingReplacements[$heading] )
-			? $this->headingReplacements[$heading]
-			: $heading;
+		return $this->headingReplacements[$heading] ?? $heading;
 	}
 
 	/**
@@ -221,7 +219,7 @@ class WikiTextConversions {
 		$additions = [];
 		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
 			if ( isset( $opt['addIfMissing'] ) && $opt['addIfMissing'] ) {
-				$additions[$targetParameter] = isset( $opt['value'] ) ? $opt['value'] : '';
+				$additions[$targetParameter] = $opt['value'] ?? '';
 			}
 		}
 		return $additions;
