@@ -46,7 +46,7 @@
 	"fileimporter-imported-change-template": "আমরা আপনাকে অনুরোধ করছি যে আপনি মূল ফাইলটিতে ফিরে যান এবং নিম্নলিখিতটি করুন:\n# এই ফাইলটি {{SITENAME}}-এ অনুলিপি করা উচিত এমন পরামর্শ দেয়া যে কোনও টেমপ্লেট সরান।\n# এই ফাইলটি এখন {{SITENAME}}-এ উপলব্ধ রয়েছে এমন ঘোষণাকারী একটি টেমপ্লেট যোগ করুন।\nআপনাকে অনেক ধন্যবাদ!",
 	"fileimporter-go-to-original-file-button": "মূল ফাইলে ফেরত যান",
 	"fileimporter-file-missing-required-template": "ফাইলটি আমদানি করা যাবে না, কারণ এটি প্রয়োজনীয় লাইসেন্সগুলির কোন একটি দ্বারা চিহ্নিত নয়।",
-	"fileimporter-auto-replacements-summary": "টেমপ্লেটগুলিতে $1টি স্বয়ংক্রিয় {{PLURAL:$1|পরিবর্তন}} {{PLURAL:$1|করা}} হয়েছে",
+	"fileimporter-auto-replacements-summary": "টেমপ্লেটসমূহে $1টি স্বয়ংক্রিয় {{PLURAL:$1|পরিবর্তন}} {{PLURAL:$1|করা}} হয়েছে",
 	"fileimporter-viewdiff": "পরিবর্তনসমূহ দেখান",
 	"fileimporter-to-preview": "প্রাকদর্শনে ফিরুন"
 }
