@@ -41,7 +41,7 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
-				'label' => $this->msg( 'fileimporter-submit' )->plain(),
+				'label' => $this->msg( 'fileimporter-submit-fileinfo' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 				'tabIndex' => 2,

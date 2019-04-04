@@ -66,7 +66,7 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
-				'label' => $this->msg( 'fileimporter-submit' )->plain(),
+				'label' => $this->msg( 'fileimporter-submit-title' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 			]

@@ -37,6 +37,8 @@
 	"fileimporter-textrevisions": "$1/$2 page {{PLURAL:$2|revision|revisions}} will be imported from the revision history.",
 	"fileimporter-filerevisions": "$1/$2 file {{PLURAL:$2|version|versions}} will be imported.",
 	"fileimporter-submit": "Submit",
+	"fileimporter-submit-fileinfo": "Change file info",
+	"fileimporter-submit-title": "Change title",
 	"fileimporter-resubmit": "Resubmit",
 	"fileimporter-import": "Import",
 	"fileimporter-cancel": "Cancel",

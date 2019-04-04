@@ -43,6 +43,8 @@
 	"fileimporter-textrevisions": "Prefix for the number of text revisions to be imported on the special page.\n\nParameters:\n* $1 - number of text revisions that will be imported\n* $2 - number of text revisions in source, could be used with PLURAL",
 	"fileimporter-filerevisions": "Prefix for the number of file revisions to be imported on the special page.\n\nParameters:\n* $1 - number of file revisions that will be imported\n* $2 - number of file revisions in source, could be used with PLURAL",
 	"fileimporter-submit": "Text for the submit button on the special page.\n{{Identical|Submit}}",
+	"fileimporter-submit-fileinfo": "Text for the submit button to change the file info text.",
+	"fileimporter-submit-title": "Text for the submit button to change the title of the file.",
 	"fileimporter-resubmit": "Text for the resubmit button on the special page.",
 	"fileimporter-import": "Text for the import button on the special page.\n{{Identical|Import}}",
 	"fileimporter-cancel": "Text for the cancel button on the special page.\n{{Identical|Cancel}}",
