@@ -67,7 +67,7 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		// avoid file leftovers when repeatedly run on a local system
 		$file = wfLocalFile( self::TITLE );
-		if ( $file ) {
+		if ( $file->exists() ) {
 			$file->delete( 'This was just from a PHPUnit test.' );
 		}
 	}
