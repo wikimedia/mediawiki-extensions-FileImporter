@@ -7,6 +7,7 @@ use ExternalUserNames;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use Title;
+use User;
 use WikiRevision;
 
 /**
@@ -30,7 +31,8 @@ class WikiRevisionFactory {
 	 */
 	private $externalUserNames;
 
-	const DEFAULT_USERNAME_PREFIX = 'imported';
+	// TODO: should be changed back to lowercase when T221235 is fixed.
+	const DEFAULT_USERNAME_PREFIX = 'Imported';
 
 	public function __construct( Config $config ) {
 		$this->config = $config;
@@ -71,8 +73,8 @@ class WikiRevisionFactory {
 
 		// create user with CentralAuth/SUL if nonexistent
 		$importedUser = $this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) );
-		// use plain username due to lack of prefix support on file imports
-		$revision->setUsername( $this->externalUserNames->getLocal( $importedUser ) );
+		$revision->setUsername( $importedUser );
+		$revision->setUserObj( User::newFromName( $importedUser ) );
 
 		return $revision;
 	}

@@ -75,7 +75,8 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$this->assertTrue( $title->isWikitextPage() );
 		$this->assertSame( 0, $wikiRevision->getID() );
 		$this->assertSame( $title, $wikiRevision->getTitle() );
-		$this->assertSame( 'SourceUser1', $wikiRevision->getUser() );
+		$this->assertSame( 'Imported>SourceUser1', $wikiRevision->getUser() );
+		$this->assertSame( false, $wikiRevision->getUserObj() );
 		$this->assertSame( '', $wikiRevision->getText() );
 		$this->assertSame( 'Original upload comment of Test.png', $wikiRevision->getComment() );
 		$this->assertSame( '20180624133723', $wikiRevision->getTimestamp() );
@@ -105,7 +106,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 
 		// there will be a text revision created with the upload
 		$firstRevision = $title->getFirstRevision();
-		$this->assertSame( 'SourceUser1', $firstRevision->getUserText() );
+		$this->assertSame( 'Imported>SourceUser1', $firstRevision->getUserText() );
 		$this->assertSame( 'text/x-wiki', $firstRevision->getContentFormat() );
 		$this->assertSame( 'Original upload comment of Test.png',
 			$firstRevision->getContent()->getTextForSummary()
@@ -120,7 +121,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$this->assertTrue( $file !== false );
 		$this->assertSame( self::TITLE, $file->getName() );
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
-		$this->assertSame( 'SourceUser1', $file->getUser() );
+		$this->assertSame( 'Imported>SourceUser1', $file->getUser() );
 		$this->assertSame( '20180624133723', $file->getTimestamp() );
 		$this->assertSame( 'image/png', $file->getMimeType() );
 		$this->assertSame( 3532, $file->getSize() );

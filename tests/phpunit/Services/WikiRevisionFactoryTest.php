@@ -34,15 +34,18 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 	public function testNewFromTextWithPrefix( $prefix, $expected ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$testUserName = $this->getRandomUserName();
 
 		if ( $prefix !== null ) {
 			$wikiRevisionFactory->setInterWikiPrefix( $prefix );
 		}
 
-		$revision = $wikiRevisionFactory->newFromTextRevision( $this->createTextRevision() );
+		$revision = $wikiRevisionFactory->newFromTextRevision(
+			$this->createTextRevision( $testUserName )
+		);
 
 		$this->assertSame( true, $revision->getMinor() );
-		$this->assertSame( $expected . '>TestUser', $revision->getUser() );
+		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
 		$this->assertSame( 'cf', $revision->getFormat() );
@@ -57,6 +60,9 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 	}
 
 	public function testUserAutoCreation() {
+		$textUserName = $this->getRandomUserName();
+		$fileUserName = $this->getRandomUserName();
+
 		// mock the hook that would trigger user creation
 		$localUserId = null;
 		$this->setMwGlobals( 'wgHooks', [
@@ -72,29 +78,43 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$wikiRevisionFactory = new WikiRevisionFactory( $config );
 		$wikiRevisionFactory->setInterWikiPrefix( 'prefix' );
 
-		$textRevision = $this->createTextRevision();
-		$revision = $wikiRevisionFactory->newFromTextRevision( $textRevision );
+		$textRevision = $wikiRevisionFactory->newFromTextRevision(
+			$this->createTextRevision( $textUserName )
+		);
 
-		$this->assertSame( 'TestUser', $revision->getUser() );
-		$this->assertSame( $localUserId, (int)User::idFromName( 'TestUser' ) );
-		$this->assertSame( 'TestComment [[prefix:Link]]', $revision->getComment() );
+		$this->assertSame( $textUserName, $textRevision->getUser() );
+		$this->assertSame( $localUserId, User::idFromName( $textUserName ) );
+		$this->assertSame( 'TestComment [[prefix:Link]]', $textRevision->getComment() );
+
+		$fileRevision = $wikiRevisionFactory->newFromFileRevision(
+			$this->createFileRevision( $fileUserName ),
+			''
+		);
+
+		$this->assertSame( $fileUserName, $fileRevision->getUser() );
+		$this->assertSame( $localUserId, User::idFromName( $fileUserName ) );
 	}
 
 	/**
 	 * @dataProvider provideNewFromWithPrefix
 	 */
-	public function testNewFromFileWithPrefix( $prefix ) {
+	public function testNewFromFileWithPrefix( $prefix, $expected ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$testUserName = $this->getRandomUserName();
 
 		if ( $prefix !== null ) {
 			$wikiRevisionFactory->setInterWikiPrefix( $prefix );
 		}
 
-		$revision = $wikiRevisionFactory->newFromFileRevision( $this->createFileRevision(), '' );
+		$revision = $wikiRevisionFactory->newFromFileRevision(
+			$this->createFileRevision( $testUserName ),
+			''
+		);
 
 		$this->assertSame( false, $revision->getMinor() );
-		$this->assertSame( 'TestUser', $revision->getUser() );
+		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
+		$this->assertSame( false, $revision->getUserObj() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
 		$this->assertSame( 'TestFileName', $revision->getTitle()->getText() );
@@ -143,10 +163,10 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$this->assertSame( $expected, $wikiRevisionFactory->prefixCommentLinks( $input ) );
 	}
 
-	private function createTextRevision() {
+	private function createTextRevision( $userName ) {
 		return new TextRevision( [
 			'minor' => true,
-			'user' => 'TestUser',
+			'user' => $userName,
 			'timestamp' => '42',
 			'sha1' => 'SHA1HASH',
 			'contentmodel' => 'cm',
@@ -157,17 +177,21 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		] );
 	}
 
-	private function createFileRevision() {
+	private function createFileRevision( $userName ) {
 		return new FileRevision( [
 			'name' => 'TestFileName',
 			'description' => 'TestFileText',
-			'user' => 'TestUser',
+			'user' => $userName,
 			'timestamp' => '42',
 			'sha1' => 'SHA1HASH',
 			'size' => '23',
 			'thumburl' => 'testthumb.url',
 			'url' => 'testimg.url',
 		] );
+	}
+
+	private function getRandomUserName() {
+		return 'TestUser ' . wfRandomString( 16 );
 	}
 
 }
