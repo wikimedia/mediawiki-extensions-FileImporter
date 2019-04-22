@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"MaGa"
+			"MaGa",
+			"Bugoslav"
 		]
 	},
 	"fileimporter": "Datotečni uvoznik",
@@ -34,8 +35,8 @@
 	"fileimporter-duplicatefilesdetected": "Datoteka koju trenutačno pokušavate uvesti već postoji na ovom wikiju.",
 	"fileimporter-duplicatefilesdetected-prefix": "Kopije",
 	"fileimporter-exampleprefix": "Primjer",
-	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$2|izmjena stranice biti će uvezena|izmjene stranice biti će uvezene|izmjena stranica biti će uvezeno}} iz povijesti izmjena.",
-	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|izmjena biti će uvezena.|izmjene biti će uvezene.|izmjena biti će uvezeno.}}",
+	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$2|izmjena stranice bit će uvezena|izmjene stranice bit će uvezene|izmjena stranica bit će uvezeno}} iz povijesti izmjena.",
+	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|izmjena bit će uvezena|izmjene bit će uvezene|izmjena bit će uvezeno}}.",
 	"fileimporter-submit": "Potvrdi",
 	"fileimporter-resubmit": "Ponovno potvrdi",
 	"fileimporter-import": "Uvezi",
