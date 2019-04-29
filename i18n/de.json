@@ -38,6 +38,8 @@
 	"fileimporter-textrevisions": "$1 von $2 {{PLURAL:$2|Seitenversion wird|Seitenversionen werden}} von der Versionsgeschichte importiert.",
 	"fileimporter-filerevisions": "$1 von $2 {{PLURAL:$2|Dateiversion wird|Dateiversionen werden}} importiert.",
 	"fileimporter-submit": "Übernehmen",
+	"fileimporter-submit-fileinfo": "Dateiinformationen ändern",
+	"fileimporter-submit-title": "Titel ändern",
 	"fileimporter-resubmit": "Erneut senden",
 	"fileimporter-import": "Importieren",
 	"fileimporter-cancel": "Abbrechen",

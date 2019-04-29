@@ -29,6 +29,7 @@
 	"fileimporter-textrevisions": "ইতিহাস থেকে পাতার $1/$2টি {{PLURAL:$2|সংশোধন}} আমদানি করা হবে।",
 	"fileimporter-filerevisions": "ফাইলের $1/$2টি {{PLURAL:$2|সংস্করণ}} আমদানি করা হবে।",
 	"fileimporter-submit": "জমা দিন",
+	"fileimporter-submit-title": "শিরোনাম পরিবর্তন করুন",
 	"fileimporter-resubmit": "পুনঃজমা দিন",
 	"fileimporter-import": "আমদানি করুন",
 	"fileimporter-cancel": "বাতিল",
