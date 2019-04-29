@@ -38,7 +38,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		$this->assertTrue( $title->isWikitextPage() );
 		$this->assertSame( 0, $wikiRevision->getID() );
 		$this->assertSame( $title, $wikiRevision->getTitle() );
-		$this->assertSame( 'imported>SourceUser1', $wikiRevision->getUser() );
+		$this->assertSame( 'Imported>SourceUser1', $wikiRevision->getUser() );
 		$this->assertSame( 'Original text of Test.png', $wikiRevision->getText() );
 		$this->assertSame( 'Original upload comment of Test.png', $wikiRevision->getComment() );
 		$this->assertSame( '20180624133723', $wikiRevision->getTimestamp() );
@@ -70,7 +70,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		$this->assertTrue( $title->exists() );
 		$firstRevision = $title->getFirstRevision();
 
-		$this->assertSame( 'imported>SourceUser1', $firstRevision->getUserText() );
+		$this->assertSame( 'Imported>SourceUser1', $firstRevision->getUserText() );
 		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
 		$this->assertFalse( $firstRevision->isMinor() );

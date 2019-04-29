@@ -12,6 +12,7 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use Http;
 use ManualLogEntry;
+use MediaWiki\User\UserIdentityValue;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use TempFSFile;
@@ -211,11 +212,12 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @see \LocalFile::recordUpload2
 	 */
 	private function createUploadLog() {
-		$user = $this->wikiRevision->getUserObj() ?: User::newFromName( $this->wikiRevision->getUser() );
+		$performer = $this->wikiRevision->getUserObj() ?:
+			new UserIdentityValue( 0, $this->wikiRevision->getUser(), 0 );
 
 		$logEntry = new ManualLogEntry( 'upload', 'upload' );
 		$logEntry->setTimestamp( $this->wikiRevision->getTimestamp() );
-		$logEntry->setPerformer( $user );
+		$logEntry->setPerformer( $performer );
 		$logEntry->setComment( $this->wikiRevision->getComment() );
 		$logEntry->setAssociatedRevId( $this->wikiRevision->getID() );
 		$logEntry->setTarget( $this->wikiRevision->getTitle() );
