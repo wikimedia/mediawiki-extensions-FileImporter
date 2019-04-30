@@ -7,6 +7,7 @@ use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
+use FileImporter\Services\CategoryExtractor;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
@@ -26,6 +27,7 @@ use MediaWiki\MediaWikiServices;
 use RepoGroup;
 use UploadBase;
 
+// TODO: Alphabetize.
 return [
 
 	'FileImporterSourceSiteLocator' => function ( MediaWikiServices $services ) {
@@ -56,6 +58,13 @@ return [
 		);
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $service;
+	},
+
+	'FileImporterCategoryExtractor' => function ( MediaWikiServices $services ) {
+		return new CategoryExtractor(
+			$services->getParser(),
+			$services->getDBLoadBalancer()
+		);
 	},
 
 	'FileImporterDuplicateFileRevisionChecker' => function ( MediaWikiServices $services ) {

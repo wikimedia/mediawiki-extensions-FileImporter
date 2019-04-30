@@ -8,6 +8,7 @@ use Linker;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
 use OOUI\TextInputWidget;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Page displaying the preview of the import before it has happened.
@@ -28,11 +29,14 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
-		$details = $importPlan->getDetails();
+		$text = $importPlan->getFileInfoText();
 		$title = $importPlan->getTitle();
+
+		$details = $importPlan->getDetails();
 		$textRevisionsCount = count( $details->getTextRevisions()->toArray() );
 		$fileRevisionsCount = count( $details->getFileRevisions()->toArray() );
 		$importIdentityFormSnippet = $this->buildImportIdentityFormSnippet( $importPlan );
+		$categoriesSnippet = $this->buildCategoriesSnippet( $importPlan );
 
 		return Html::rawElement(
 			'p',
@@ -47,7 +51,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				[
 					'class' => 'mw-importfile-header-title'
 				],
-				$importPlan->getTitle()->getText()
+				$title->getText()
 			) .
 			$this->buildActionFormStart(
 				self::ACTION_EDIT_TITLE,
@@ -96,9 +100,10 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			[ 'class' => 'mw-importfile-parsedContent' ],
 			( new TextRevisionSnippet( $this ) )->getHtml(
 				$details->getTextRevisions()->getLatest(),
-				$importPlan->getFileInfoText()
+				$text
 			)
 		) .
+		$categoriesSnippet .
 		Html::element(
 			'h2',
 			[],
@@ -220,6 +225,10 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		);
 	}
 
+	/**
+	 * @param ImportPlan $importPlan
+	 * @return string
+	 */
 	private function buildImportIdentityFormSnippet( ImportPlan $importPlan ) {
 		return ( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
@@ -229,6 +238,28 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		] ) )->getHtml();
 	}
 
+	/**
+	 * @param ImportPlan $importPlan
+	 * @return string HTML snippet for a box showing the categories, or empty string if there are
+	 * no categories.
+	 */
+	private function buildCategoriesSnippet( ImportPlan $importPlan ) {
+		$categoryExtractor = MediaWikiServices::getInstance()
+			->getService( 'FileImporterCategoryExtractor' );
+		list( $visibleCategories, $hiddenCategories ) = $categoryExtractor->getCategoriesGrouped(
+			$importPlan->getFileInfoText(),
+			$importPlan->getTitle()
+		);
+		return ( new CategoriesSnippet(
+			$visibleCategories,
+			$hiddenCategories
+		) )->getHtml();
+	}
+
+	/**
+	 * @param ImportPlan $importPlan
+	 * @return bool
+	 */
 	private function wasEdited( ImportPlan $importPlan ) {
 		return $importPlan->wasFileInfoTextChanged() ||
 			$importPlan->getDetails()->getNumberOfTemplatesReplaced() > 0;
