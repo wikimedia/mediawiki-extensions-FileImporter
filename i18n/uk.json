@@ -40,6 +40,8 @@
 	"fileimporter-textrevisions": "Буде імпортовано $1/$2 {{PLURAL:$2|версії|версій}} з історії версій.",
 	"fileimporter-filerevisions": "Буде імпортовано $1/$2 {{PLURAL:$2|версії|версій}} файлу.",
 	"fileimporter-submit": "Надіслати",
+	"fileimporter-submit-fileinfo": "Змінити інформацію про файл",
+	"fileimporter-submit-title": "Змінити заголовок",
 	"fileimporter-resubmit": "Надіслати повторно",
 	"fileimporter-import": "Імпортувати",
 	"fileimporter-cancel": "Скасувати",

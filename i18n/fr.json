@@ -42,6 +42,8 @@
 	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$1|révision de page sera importée|révisions de page seront importées}} de l’historique des révisions.",
 	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|version de fichier sera importée|versions de fichier seront importées}}.",
 	"fileimporter-submit": "Soumettre",
+	"fileimporter-submit-fileinfo": "Changer l’information du fichier",
+	"fileimporter-submit-title": "Changer le titre",
 	"fileimporter-resubmit": "Soumettre à nouveau",
 	"fileimporter-import": "Importer",
 	"fileimporter-cancel": "Annuler",

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"水獭很懒"
+			"水獭很懒",
+			"A Chinese Wikipedian"
 		]
 	},
 	"fileimporter": "文件导入器",
@@ -36,6 +37,7 @@
 	"fileimporter-textrevisions": "$1/$2个页面的{{PLURAL:$2|修订版本}}将从修订版本历史中导入。",
 	"fileimporter-filerevisions": "$1/$2个文件{{PLURAL:$2|版本}}将被导入。",
 	"fileimporter-submit": "提交",
+	"fileimporter-submit-title": "更改标题",
 	"fileimporter-resubmit": "重新提交",
 	"fileimporter-import": "导入",
 	"fileimporter-cancel": "取消",

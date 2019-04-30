@@ -38,6 +38,8 @@
 	"fileimporter-textrevisions": "Ќе се {{PLURAL:$2|увезе|увезат}} $1/$2 {{PLURAL:$2|преработка|преработки}} од историјата.",
 	"fileimporter-filerevisions": "Ќе се {{PLURAL:$2|увезе|увезат}} $1/$2 {{PLURAL:$2|верзија|верзии}} од историјата.",
 	"fileimporter-submit": "Поднеси",
+	"fileimporter-submit-fileinfo": "Измени инфо за податотеката",
+	"fileimporter-submit-title": "Измени наслов",
 	"fileimporter-resubmit": "Поднеси пак",
 	"fileimporter-import": "Увези",
 	"fileimporter-cancel": "Откажи",

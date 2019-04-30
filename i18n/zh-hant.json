@@ -39,6 +39,8 @@
 	"fileimporter-textrevisions": "$1/$2 個頁面{{PLURAL:$1|修訂|修訂}}會從修訂歷史裡匯入。",
 	"fileimporter-filerevisions": "$1/$2 個檔案{{PLURAL:$2|版本|版本}}會被匯入。",
 	"fileimporter-submit": "送出",
+	"fileimporter-submit-fileinfo": "更改檔案資訊",
+	"fileimporter-submit-title": "更改標題",
 	"fileimporter-resubmit": "重新提交",
 	"fileimporter-import": "匯入",
 	"fileimporter-cancel": "取消",
@@ -67,6 +69,6 @@
 	"fileimporter-file-missing-required-template": "檔案無法匯入，因為沒有標記所需的許可協議之一。",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|已|已}}對模板做出 $1 個自動{{PLURAL:$1|更改|更改}}",
 	"fileimporter-input-page-info-text": "查看我們的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 說明頁面]來了解更多。",
-	"fileimporter-viewdiff": "顯示變更",
+	"fileimporter-viewdiff": "顯示更改",
 	"fileimporter-to-preview": "返回預覽"
 }

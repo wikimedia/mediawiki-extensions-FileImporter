@@ -39,6 +39,8 @@
 	"fileimporter-textrevisions": "سيتم استيراد $1/$2 {{PLURAL:$2|مراجعة|مراجعات}} من سجل المراجعات.",
 	"fileimporter-filerevisions": "سيتم استيراد $1/$2 {{PLURAL:$2|مراجعة|مراجعات}} ملف.",
 	"fileimporter-submit": "إرسال",
+	"fileimporter-submit-fileinfo": "تغيير معلومات الملف",
+	"fileimporter-submit-title": "تغيير العنوان",
 	"fileimporter-resubmit": "إعادة إرسال",
 	"fileimporter-import": "استيراد",
 	"fileimporter-cancel": "إلغاء",

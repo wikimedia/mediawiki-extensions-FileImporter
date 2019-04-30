@@ -7,7 +7,8 @@
 			"Sarah Bernabei",
 			"Toadino2",
 			"Sakretsu",
-			"Wim b"
+			"Wim b",
+			"Ghebbro"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -39,6 +40,8 @@
 	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$2|versione|versioni}} della pagina {{PLURAL:$1|sarà importata|saranno importate}} dalla cronologia.",
 	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|versione|versioni}} del file {{PLURAL:$1|sarà importata|saranno importate}}.",
 	"fileimporter-submit": "Invia",
+	"fileimporter-submit-fileinfo": "Cambiare le informazioni del file",
+	"fileimporter-submit-title": "Cambia titolo",
 	"fileimporter-resubmit": "Invia nuovamente",
 	"fileimporter-import": "Importa",
 	"fileimporter-cancel": "Annulla",
