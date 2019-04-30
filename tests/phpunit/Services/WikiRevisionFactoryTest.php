@@ -59,6 +59,32 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$this->assertSame( 'TestTitle', $revision->getTitle()->getText() );
 	}
 
+	/**
+	 * @dataProvider provideNewFromWithPrefix
+	 */
+	public function testNewFromFileWithPrefix( $prefix, $expected ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$testUserName = $this->getRandomUserName();
+
+		if ( $prefix !== null ) {
+			$wikiRevisionFactory->setInterWikiPrefix( $prefix );
+		}
+
+		$revision = $wikiRevisionFactory->newFromFileRevision(
+			$this->createFileRevision( $testUserName ),
+			''
+		);
+
+		$this->assertSame( false, $revision->getMinor() );
+		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
+		$this->assertSame( false, $revision->getUserObj() );
+		$this->assertSame( '19700101000042', $revision->getTimestamp() );
+		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
+		$this->assertSame( 'TestFileName', $revision->getTitle()->getText() );
+		$this->assertSame( '', $revision->getFileSrc() );
+	}
+
 	public function testUserAutoCreation() {
 		$textUserName = $this->getRandomUserName();
 		$fileUserName = $this->getRandomUserName();
@@ -95,30 +121,27 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$this->assertSame( $localUserId, User::idFromName( $fileUserName ) );
 	}
 
-	/**
-	 * @dataProvider provideNewFromWithPrefix
-	 */
-	public function testNewFromFileWithPrefix( $prefix, $expected ) {
+	public function testExistingUserAttribution() {
+		$existingUser = $this->getTestUser()->getUser();
+
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$wikiRevisionFactory = new WikiRevisionFactory( $config );
-		$testUserName = $this->getRandomUserName();
+		$wikiRevisionFactory->setInterWikiPrefix( 'prefix' );
 
-		if ( $prefix !== null ) {
-			$wikiRevisionFactory->setInterWikiPrefix( $prefix );
-		}
+		$textRevision = $wikiRevisionFactory->newFromTextRevision(
+			$this->createTextRevision( $existingUser->getName() )
+		);
 
-		$revision = $wikiRevisionFactory->newFromFileRevision(
-			$this->createFileRevision( $testUserName ),
+		$this->assertSame( $existingUser->getName(), $textRevision->getUser() );
+		$this->assertSame( $existingUser->getId(), User::idFromName( $textRevision->getUser() ) );
+
+		$fileRevision = $wikiRevisionFactory->newFromFileRevision(
+			$this->createFileRevision( $existingUser->getName() ),
 			''
 		);
 
-		$this->assertSame( false, $revision->getMinor() );
-		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
-		$this->assertSame( false, $revision->getUserObj() );
-		$this->assertSame( '19700101000042', $revision->getTimestamp() );
-		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
-		$this->assertSame( 'TestFileName', $revision->getTitle()->getText() );
-		$this->assertSame( '', $revision->getFileSrc() );
+		$this->assertSame( $existingUser->getName(), $fileRevision->getUser() );
+		$this->assertSame( $existingUser->getId(), User::idFromName( $fileRevision->getUser() ) );
 	}
 
 	public function providePrefixCommentLinks() {
