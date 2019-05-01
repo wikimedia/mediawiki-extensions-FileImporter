@@ -38,6 +38,8 @@
 	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$1|sidversion|sidversioner}} kommer att importeras från sidversionshistoriken.",
 	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|sidversion|sidversioner}} kommer att importeras.",
 	"fileimporter-submit": "Skicka",
+	"fileimporter-submit-fileinfo": "Ändra filinfo",
+	"fileimporter-submit-title": "Ändra titel",
 	"fileimporter-resubmit": "Skicka igen",
 	"fileimporter-import": "Importera",
 	"fileimporter-cancel": "Avbryt",
