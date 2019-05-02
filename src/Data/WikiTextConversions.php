@@ -249,8 +249,8 @@ class WikiTextConversions {
 	 * @return string
 	 */
 	private function removeNamespaceFromString( $title ) {
-		$splitTitle = explode( ':', $title, 2 );
-		return array_pop( $splitTitle );
+		$splitTitle = explode( ':', $title );
+		return end( $splitTitle );
 	}
 
 }
