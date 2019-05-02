@@ -38,7 +38,8 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 		if ( $specialPage instanceof self ) {
 			$specialPage = $specialPage->specialPage;
 		} elseif ( !( $specialPage instanceof SpecialPage ) ) {
-			throw new InvalidArgumentException( 'Invalid $specialPage' );
+			throw new InvalidArgumentException(
+				'$specialPage must be a SpecialPage or SpecialPageHtmlFragment' );
 		}
 
 		$this->specialPage = $specialPage;
