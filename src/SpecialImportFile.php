@@ -41,11 +41,6 @@ use UserBlockedError;
  */
 class SpecialImportFile extends SpecialPage {
 
-	const ACTION_EDIT_TITLE = 'edittitle';
-	const ACTION_EDIT_INFO = 'editinfo';
-	const ACTION_SUBMIT = 'submit';
-	const ACTION_VIEW_DIFF = 'viewdiff';
-
 	/**
 	 * @var SourceSiteLocator
 	 */
@@ -177,22 +172,22 @@ class SpecialImportFile extends SpecialPage {
 		}
 
 		switch ( $this->getRequest()->getVal( 'action' ) ) {
-			case self::ACTION_SUBMIT:
+			case ImportPreviewPage::ACTION_SUBMIT:
 				if ( !$this->doImport( $importPlan ) ) {
 					$this->showImportPage( $importPlan );
 				}
 				break;
-			case self::ACTION_EDIT_TITLE:
+			case ImportPreviewPage::ACTION_EDIT_TITLE:
 				$this->getOutput()->addHTML(
 					( new ChangeFileNameForm( $this ) )->getHtml( $importPlan )
 				);
 				break;
-			case self::ACTION_EDIT_INFO:
+			case ImportPreviewPage::ACTION_EDIT_INFO:
 				$this->getOutput()->addHTML(
 					( new ChangeFileInfoForm( $this ) )->getHtml( $importPlan )
 				);
 				break;
-			case self::ACTION_VIEW_DIFF:
+			case ImportPreviewPage::ACTION_VIEW_DIFF:
 				$this->getOutput()->addHTML(
 					( new FileInfoDiffPage( $this ) )->getHtml( $importPlan )
 				);

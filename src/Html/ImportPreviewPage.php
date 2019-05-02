@@ -3,7 +3,6 @@
 namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
-use FileImporter\SpecialImportFile;
 use Html;
 use Linker;
 use OOUI\ButtonInputWidget;
@@ -17,6 +16,11 @@ use OOUI\TextInputWidget;
  * @author Addshore
  */
 class ImportPreviewPage extends SpecialPageHtmlFragment {
+
+	const ACTION_EDIT_TITLE = 'edittitle';
+	const ACTION_EDIT_INFO = 'editinfo';
+	const ACTION_SUBMIT = 'submit';
+	const ACTION_VIEW_DIFF = 'viewdiff';
 
 	/**
 	 * @param ImportPlan $importPlan
@@ -46,7 +50,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				$importPlan->getTitle()->getText()
 			) .
 			$this->buildActionFormStart(
-				SpecialImportFile::ACTION_EDIT_TITLE,
+				self::ACTION_EDIT_TITLE,
 				'mw-importfile-rightAlign'
 			) .
 			$importIdentityFormSnippet .
@@ -74,7 +78,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				$this->msg( 'fileimporter-heading-fileinfo' )->plain()
 			) .
 			$this->buildActionFormStart(
-				SpecialImportFile::ACTION_EDIT_INFO,
+				self::ACTION_EDIT_INFO,
 				'mw-importfile-rightAlign'
 			) .
 			$importIdentityFormSnippet .
@@ -115,7 +119,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			'div',
 			[ 'class' => 'mw-importfile-importOptions' ]
 		) .
-		$this->buildActionFormStart( SpecialImportFile::ACTION_SUBMIT ) .
+		$this->buildActionFormStart( self::ACTION_SUBMIT ) .
 		$importIdentityFormSnippet .
 		( $this->wasEdited( $importPlan ) ? $this->buildEditSummaryHtml(
 			$importPlan->getDetails()->getNumberOfTemplatesReplaced() ) : '' ) .
@@ -190,7 +194,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'classes' => [ 'mw-importfile-import-diff' ],
 				'label' => $this->msg( 'fileimporter-viewdiff' )->plain(),
 				'name' => 'action',
-				'value' => SpecialImportFile::ACTION_VIEW_DIFF,
+				'value' => self::ACTION_VIEW_DIFF,
 				'type' => 'submit',
 			]
 		);
