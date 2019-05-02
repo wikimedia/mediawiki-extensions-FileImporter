@@ -105,8 +105,8 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 
 	public function provideTestTextDisplayedInInputBox() {
 		return [
-			[ 'This is old text.', "This is new text.", "This is new text." ],
-			[ 'This is old text.', "This is old text.", "(diff-empty)" ],
+			[ 'This is old text.', 'This is new text.', 'This is new text.' ],
+			[ 'This is old text.', 'This is old text.', '(diff-empty)' ],
 		];
 	}
 

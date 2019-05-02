@@ -540,7 +540,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return array
 	 */
 	private function addTextRevisionsToParams( array $params, $rvContinue = null ) {
-		$params['prop'] .= ( $params['prop'] ) ? "|revisions" : "revisions";
+		$params['prop'] .= ( $params['prop'] ) ? '|revisions' : 'revisions';
 
 		if ( $rvContinue ) {
 			$params['rvcontinue'] = $rvContinue;
@@ -573,7 +573,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return array
 	 */
 	private function addFileRevisionsToParams( array $params, $iiStart = null ) {
-		$params['prop'] .= ( $params['prop'] ) ? "|imageinfo" : "imageinfo";
+		$params['prop'] .= ( $params['prop'] ) ? '|imageinfo' : 'imageinfo';
 
 		if ( $iiStart ) {
 			$params['iistart'] = $iiStart;

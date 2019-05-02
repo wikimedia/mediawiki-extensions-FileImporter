@@ -29,7 +29,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			'missing "bad templates" heading' => [
 				'wikiText' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n" .
-					"== Information ==",
+					'== Information ==',
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -330,15 +330,15 @@ WIKITEXT
 				'expected' => [],
 			],
 			'incomplete parameter syntax' => [
-				'wikiText' => ";Source:Target|incomplete",
+				'wikiText' => ';Source:Target|incomplete',
 				'expected' => [ 'Source' => 'Target' ],
 			],
 			'bad parameter syntax on local side' => [
-				'wikiText' => ";Source|param:Target",
+				'wikiText' => ';Source|param:Target',
 				'expected' => [],
 			],
 			'subst' => [
-				'wikiText' => ";Source:subst:Target",
+				'wikiText' => ';Source:subst:Target',
 				'expected' => [ 'Source' => 'subst:Target' ],
 			],
 
@@ -351,12 +351,12 @@ WIKITEXT
 				'expected' => [ 'Source' => 'Target' ],
 			],
 			'empty parameter list' => [
-				'wikiText' => ";Source:Target|",
+				'wikiText' => ';Source:Target|',
 				'expected' => [ 'Source' => 'Target' ],
 			],
 
 			'one basic parameter' => [
-				'wikiText' => ";Source:Target|target_param=source_param",
+				'wikiText' => ';Source:Target|target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -367,7 +367,7 @@ WIKITEXT
 				] ],
 			],
 			'additional whitespace' => [
-				'wikiText' => "; Source : Target | target_param = source_param",
+				'wikiText' => '; Source : Target | target_param = source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -378,7 +378,7 @@ WIKITEXT
 				] ],
 			],
 			'+add syntax' => [
-				'wikiText' => ";Source:Target|+target_param=source_param",
+				'wikiText' => ';Source:Target|+target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -389,7 +389,7 @@ WIKITEXT
 				] ],
 			],
 			'@language parameter syntax' => [
-				'wikiText' => ";Source:Target|@target_param=source_param",
+				'wikiText' => ';Source:Target|@target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -400,7 +400,7 @@ WIKITEXT
 				] ],
 			],
 			'+@ combination leaves a meaningless @ behind' => [
-				'wikiText' => ";Source:Target|+@target_param=source_param",
+				'wikiText' => ';Source:Target|+@target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ '@target_param' => [
@@ -411,7 +411,7 @@ WIKITEXT
 				] ],
 			],
 			'@+ combination leaves a meaningless + behind' => [
-				'wikiText' => ";Source:Target|@+target_param=source_param",
+				'wikiText' => ';Source:Target|@+target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ '+target_param' => [
@@ -422,7 +422,7 @@ WIKITEXT
 				] ],
 			],
 			'%MAGIC_WORD% syntax' => [
-				'wikiText' => ";Source:Target|target_param=%MAGIC_WORD%",
+				'wikiText' => ';Source:Target|target_param=%MAGIC_WORD%',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [],

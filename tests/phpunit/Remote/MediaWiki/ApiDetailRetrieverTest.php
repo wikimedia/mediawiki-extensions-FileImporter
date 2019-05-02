@@ -129,7 +129,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 
 		$apiRetriever->checkRevisionCount(
 			$this->createMock( SourceUrl::class ),
-			"",
+			'',
 			$input
 		);
 	}
@@ -159,7 +159,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 
 		$apiRetriever->checkRevisionCount(
 			$this->createMock( SourceUrl::class ),
-			"",
+			'',
 			$input
 		);
 

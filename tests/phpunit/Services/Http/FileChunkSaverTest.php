@@ -16,17 +16,17 @@ class FileChunkSaverTest extends \MediaWikiTestCase {
 
 	public function provideSaveFileChunk() {
 		return [
-			"save less bytes then allowed" =>
+			'save less bytes then allowed' =>
 				[ str_repeat( 'x', 10 ), 20, 10 ],
-			"save exactly the bytes allowed" =>
+			'save exactly the bytes allowed' =>
 				[ str_repeat( 'x', 20 ), 20, 20 ],
-			"save empty buffer" =>
+			'save empty buffer' =>
 				[ '', 20, 0 ],
-			"empty buffer and maxbytes is zero" =>
+			'empty buffer and maxbytes is zero' =>
 				[ '', 0, 0 ],
-			"save more bytes then allowed" =>
+			'save more bytes then allowed' =>
 				[ str_repeat( 'x', 20 ), 1, RuntimeException::class ],
-			"maxbytes is zero" =>
+			'maxbytes is zero' =>
 				[ str_repeat( 'x', 20 ), 0, RuntimeException::class ],
 		];
 	}
