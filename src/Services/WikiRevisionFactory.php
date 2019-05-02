@@ -114,7 +114,7 @@ class WikiRevisionFactory {
 	 */
 	private function removeNamespaceFromString( $title ) {
 		$splitTitle = explode( ':', $title );
-		return array_pop( $splitTitle );
+		return end( $splitTitle );
 	}
 
 	/**

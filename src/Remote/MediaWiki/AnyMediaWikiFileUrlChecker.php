@@ -37,8 +37,8 @@ class AnyMediaWikiFileUrlChecker implements SourceUrlChecker {
 
 		if ( array_key_exists( 'path', $parsed ) ) {
 			$bits = explode( '/', $parsed['path'] );
-			if ( count( $bits ) >= 2 && !empty( $bits[count( $bits ) - 1] ) ) {
-				return array_pop( $bits );
+			if ( count( $bits ) >= 2 && end( $bits ) !== '' ) {
+				return end( $bits );
 			}
 		}
 

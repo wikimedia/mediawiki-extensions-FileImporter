@@ -138,8 +138,8 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		if ( !$hasQueryAndTitle && array_key_exists( 'path', $parsed ) ) {
 			$bits = explode( '/', $parsed['path'] );
-			if ( count( $bits ) >= 2 && !empty( $bits[count( $bits ) - 1] ) ) {
-				$title = array_pop( $bits );
+			if ( count( $bits ) >= 2 && end( $bits ) !== '' ) {
+				$title = end( $bits );
 			}
 		}
 
@@ -202,7 +202,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			throw new LocalizedImportException( 'fileimporter-api-nopagesreturned' );
 		}
 
-		$pageInfoData = array_pop( $requestData['query']['pages'] );
+		$pageInfoData = end( $requestData['query']['pages'] );
 
 		if ( array_key_exists( 'missing', $pageInfoData ) ) {
 			if (
@@ -290,7 +290,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 
 		$splitTitle = explode( ':', $pageInfoData['title'] );
-		$titleAfterColon = array_pop( $splitTitle );
+		$titleAfterColon = end( $splitTitle );
 
 		$importDetails = new ImportDetails(
 			$sourceUrl,
@@ -355,7 +355,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
 		$requestData = $this->sendApiRequest( $requestUrl );
 
-		$newPageInfoData = array_pop( $requestData['query']['pages'] );
+		$newPageInfoData = end( $requestData['query']['pages'] );
 
 		if ( array_key_exists( 'revisions', $newPageInfoData ) ) {
 			$pageInfoData['revisions'] =

@@ -83,14 +83,14 @@ class CommonsHelperConfigRetriever {
 			return false;
 		}
 
-		$currPage = array_pop( $response['query']['pages'] );
+		$currPage = end( $response['query']['pages'] );
 
 		if ( array_key_exists( 'missing', $currPage ) ) {
 			return false;
 		}
 
 		if ( array_key_exists( 'revisions', $currPage ) ) {
-			$latestRevision = array_pop( $currPage['revisions'] );
+			$latestRevision = end( $currPage['revisions'] );
 			if ( array_key_exists( 'content', $latestRevision ) ) {
 				$this->configWikiUrl = $this->buildCommonsHelperConfigUrl( $this->sourceUrl );
 				$this->configWikiText = $latestRevision['content'];

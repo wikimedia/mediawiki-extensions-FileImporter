@@ -76,8 +76,8 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 
 		if ( !$hasQueryAndTitle && array_key_exists( 'path', $parsed ) ) {
 			$bits = explode( '/', $parsed['path'] );
-			if ( count( $bits ) >= 2 && !empty( $bits[count( $bits ) - 1] ) ) {
-				$title = array_pop( $bits );
+			if ( count( $bits ) >= 2 && end( $bits ) !== '' ) {
+				$title = end( $bits );
 			}
 		}
 
