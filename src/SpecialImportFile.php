@@ -151,7 +151,7 @@ class SpecialImportFile extends SpecialPage {
 		// shown in this metric as executeStandardChecks will have already kicked them out,
 		$this->stats->increment( 'FileImporter.specialPage.execute.total' );
 		// The importSource url parameter is added to requests from the FileExporter extension.
-		if ( $this->getRequest()->getVal( 'importSource' ) === 'FileExporter' ) {
+		if ( $this->getRequest()->getRawVal( 'importSource' ) === 'FileExporter' ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.fromFileExporter' );
 		}
 
@@ -171,7 +171,7 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		switch ( $this->getRequest()->getVal( 'action' ) ) {
+		switch ( $this->getRequest()->getRawVal( 'action' ) ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
 				if ( !$this->doImport( $importPlan ) ) {
 					$this->showImportPage( $importPlan );
@@ -253,7 +253,7 @@ class SpecialImportFile extends SpecialPage {
 			$this->getRequest()->getVal( 'intendedFileName' ),
 			$intendedWikiText,
 			$this->getRequest()->getVal( 'intendedRevisionSummary' ),
-			$this->getRequest()->getVal( 'importDetailsHash', '' )
+			$this->getRequest()->getRawVal( 'importDetailsHash', '' )
 		);
 
 		$url = $importRequest->getUrl();
@@ -267,8 +267,8 @@ class SpecialImportFile extends SpecialPage {
 		$out = $this->getOutput();
 		$importDetails = $importPlan->getDetails();
 
-		$importDetailsHash = $out->getRequest()->getVal( 'importDetailsHash', '' );
-		$token = $out->getRequest()->getVal( 'token', '' );
+		$importDetailsHash = $out->getRequest()->getRawVal( 'importDetailsHash', '' );
+		$token = $out->getRequest()->getRawVal( 'token', '' );
 
 		if ( !$this->getUser()->matchEditToken( $token ) ) {
 			$this->showWarningMessage( wfMessage( 'fileimporter-badtoken' )->parse() );
