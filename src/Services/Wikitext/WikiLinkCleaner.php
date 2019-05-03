@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services;
+namespace FileImporter\Services\Wikitext;
 
 /**
  * Interface for classes processing wikitext links as found by the WikiLinkParser.

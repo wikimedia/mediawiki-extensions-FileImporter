@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services;
+namespace FileImporter\Services\Wikitext;
 
 /**
  * @license GPL-2.0-or-later

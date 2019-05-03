@@ -1,13 +1,13 @@
 <?php
 
-namespace FileImporter\Tests\Services;
+namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Data\WikiTextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
-use FileImporter\Services\CommonsHelperConfigParser;
+use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 
 /**
- * @covers \FileImporter\Services\CommonsHelperConfigParser
+ * @covers \FileImporter\Services\Wikitext\CommonsHelperConfigParser
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

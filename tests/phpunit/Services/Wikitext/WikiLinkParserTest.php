@@ -1,12 +1,12 @@
 <?php
 
-namespace FileImporter\Tests\Services;
+namespace FileImporter\Tests\Services\Wikitext;
 
-use FileImporter\Services\WikiLinkCleaner;
-use FileImporter\Services\WikiLinkParser;
+use FileImporter\Services\Wikitext\WikiLinkCleaner;
+use FileImporter\Services\Wikitext\WikiLinkParser;
 
 /**
- * @covers \FileImporter\Services\WikiLinkParser
+ * @covers \FileImporter\Services\Wikitext\WikiLinkParser
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

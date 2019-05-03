@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services;
+namespace FileImporter\Services\Wikitext;
 
 use FileImporter\Data\WikiTextConversions;
 

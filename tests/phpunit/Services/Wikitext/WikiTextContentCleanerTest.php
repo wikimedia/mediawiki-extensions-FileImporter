@@ -1,12 +1,12 @@
 <?php
 
-namespace FileImporter\Tests\Services;
+namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Data\WikiTextConversions;
-use FileImporter\Services\WikiTextContentCleaner;
+use FileImporter\Services\Wikitext\WikiTextContentCleaner;
 
 /**
- * @covers \FileImporter\Services\WikiTextContentCleaner
+ * @covers \FileImporter\Services\Wikitext\WikiTextContentCleaner
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

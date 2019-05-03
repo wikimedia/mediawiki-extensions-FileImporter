@@ -7,6 +7,10 @@ use FileImporter\Exceptions\LocalizedImportException;
 use MediaWiki\MediaWikiServices;
 
 /**
+ * @fixme This class should be renamed. It is not about WikitextContent, not even about wikitext.
+ * What it does is processing the structured information as returned by the "templates" as well as
+ * "categories" API. As such, it probably belongs in the FileImporter\Remote\MediaWiki namespace.
+ *
  * @license GPL-2.0-or-later
  */
 class WikiTextContentValidator {
