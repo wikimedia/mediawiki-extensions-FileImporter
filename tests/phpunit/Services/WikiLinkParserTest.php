@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Services;
 
+use FileImporter\Services\WikiLinkCleaner;
 use FileImporter\Services\WikiLinkParser;
 
 /**
@@ -75,14 +76,22 @@ class WikiLinkParserTest extends \PHPUnit\Framework\TestCase {
 		$parser = new WikiLinkParser();
 		$this->assertSame( $wikiText, $parser->parse( $wikiText ), 'no cleaner registered' );
 
+		$toLowerCleaner = $this->createMock( WikiLinkCleaner::class );
+		$toLowerCleaner->method( 'process' )
+			->willReturnCallback( function ( $link ) {
+				$this->assertNotSame( '', $link, 'does not process empty strings' );
+				return strtolower( $link );
+			} );
+
+		$prefixingCleaner = $this->createMock( WikiLinkCleaner::class );
+		$prefixingCleaner->method( 'process' )
+			->willReturnCallback( function ( $link ) {
+				return 'Prefix>' . $link;
+			} );
+
 		// Dummy replacements for testing purposes only, as well as to test the execution order
-		$parser->registerWikiLinkCleaner( function ( $link ) {
-			$this->assertNotSame( '', $link, 'does not process empty strings' );
-			return strtolower( $link );
-		} );
-		$parser->registerWikiLinkCleaner( function ( $link ) {
-			return 'Prefix>' . $link;
-		} );
+		$parser->registerWikiLinkCleaner( $toLowerCleaner );
+		$parser->registerWikiLinkCleaner( $prefixingCleaner );
 		$this->assertSame( $expected, $parser->parse( $wikiText ) );
 	}
 

@@ -9,11 +9,11 @@ namespace FileImporter\Services;
 class WikiLinkParser {
 
 	/**
-	 * @var callable[]
+	 * @var WikiLinkCleaner[]
 	 */
 	private $cleaners = [];
 
-	public function registerWikiLinkCleaner( callable $cleaner ) {
+	public function registerWikiLinkCleaner( WikiLinkCleaner $cleaner ) {
 		$this->cleaners[] = $cleaner;
 	}
 
@@ -35,7 +35,7 @@ class WikiLinkParser {
 			function ( $matches ) {
 				$link = $matches[0];
 				foreach ( $this->cleaners as $cleaner ) {
-					$link = $cleaner( $link );
+					$link = $cleaner->process( $link );
 				}
 				return $link;
 			},
