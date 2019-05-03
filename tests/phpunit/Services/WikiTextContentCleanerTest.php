@@ -43,6 +43,17 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'wikitext' => '{{Info|a=|b=',
 				'expectedWikiText' => '',
 			],
+
+			'more than 2 opening brackets' => [
+				'removals' => [ 'second' ],
+				'wikitext' => '{{first|{{second|{{{third|a}}|b}}|c}}',
+				'expectedWikiText' => '{{first||c}}',
+			],
+			'more than 2 closing brackets' => [
+				'removals' => [ 'second' ],
+				'wikitext' => '{{first|{{second|b}}|c}}',
+				'expectedWikiText' => '{{first||c}}',
+			],
 		];
 	}
 
