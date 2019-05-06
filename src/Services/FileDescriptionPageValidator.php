@@ -7,13 +7,13 @@ use FileImporter\Exceptions\LocalizedImportException;
 use MediaWiki\MediaWikiServices;
 
 /**
- * @fixme This class should be renamed. It is not about WikitextContent, not even about wikitext.
- * What it does is processing the structured information as returned by the "templates" as well as
- * "categories" API. As such, it probably belongs in the FileImporter\Remote\MediaWiki namespace.
+ * This class checks a file description page for required and forbidden categories and templates. It
+ * does not have any knowledge about the wikitext syntax, but borrows parts of the JSON structure
+ * the MediaWiki query API returns.
  *
  * @license GPL-2.0-or-later
  */
-class WikitextContentValidator {
+class FileDescriptionPageValidator {
 
 	/**
 	 * @var WikitextConversions
@@ -35,7 +35,9 @@ class WikitextContentValidator {
 	}
 
 	/**
-	 * @param array[] $templates
+	 * @param array[] $templates List of arrays, each containing the elements
+	 *  [ 'ns' => int $namespaceId, 'title' => string $title ]. Remember that pages outside of the
+	 *  Template namespace can be used as templates. Such are skipped.
 	 *
 	 * @throws LocalizedImportException
 	 */
@@ -57,7 +59,8 @@ class WikitextContentValidator {
 	}
 
 	/**
-	 * @param array[] $categories
+	 * @param array[] $categories List of arrays, each containing the elements
+	 *  [ 'ns' => int $namespaceId, 'title' => string $title ].
 	 *
 	 * @throws LocalizedImportException
 	 */
@@ -79,7 +82,9 @@ class WikitextContentValidator {
 	}
 
 	/**
-	 * @param array[] $templates
+	 * @param array[] $templates List of arrays, each containing the elements
+	 *  [ 'ns' => int $namespaceId, 'title' => string $title ]. Remember that pages outside of the
+	 *  Template namespace can be used as templates. Such are skipped.
 	 *
 	 * @throws LocalizedImportException
 	 */

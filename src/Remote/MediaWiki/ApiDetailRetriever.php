@@ -15,7 +15,7 @@ use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
-use FileImporter\Services\WikitextContentValidator;
+use FileImporter\Services\FileDescriptionPageValidator;
 use Psr\Log\LoggerInterface;
 use Title;
 use MediaWiki\MediaWikiServices;
@@ -255,7 +255,7 @@ class ApiDetailRetriever implements DetailRetriever {
 					$commonsHelperConfigRetriever->getConfigWikitext()
 				);
 
-				$validator = new WikitextContentValidator(
+				$validator = new FileDescriptionPageValidator(
 					$commonHelperConfigParser->getWikitextConversions()
 				);
 
