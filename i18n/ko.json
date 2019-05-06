@@ -35,6 +35,8 @@
 	"fileimporter-textrevisions": "$1/$2 문서의 {{PLURAL:$2|판}}을 판 역사에서 가져옵니다.",
 	"fileimporter-filerevisions": "$1/$2 파일의 {{PLURAL:$2|판}}을 가져옵니다.",
 	"fileimporter-submit": "제출",
+	"fileimporter-submit-fileinfo": "파일 정보 변경",
+	"fileimporter-submit-title": "제목 바꾸기",
 	"fileimporter-resubmit": "다시 제출",
 	"fileimporter-import": "가져오기",
 	"fileimporter-cancel": "취소",

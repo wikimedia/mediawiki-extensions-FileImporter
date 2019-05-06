@@ -39,6 +39,8 @@
 	"fileimporter-textrevisions": "{{PLURAL:$2|תיובא גרסה אחת|תיובאנה $1 מתוך $2 גרסאות}} מתוך היסטוריית הגרסאות.",
 	"fileimporter-filerevisions": "{{PLURAL:$2|תיובא גרסה אחת|תיובאנה $1 מתוך $2 גרסאות}} מתוך היסטוריית הגרסאות.",
 	"fileimporter-submit": "שליחה",
+	"fileimporter-submit-fileinfo": "שינוי מידע על הקובץ",
+	"fileimporter-submit-title": "שינוי כותרת",
 	"fileimporter-resubmit": "שליחה חוזרת",
 	"fileimporter-import": "ייבוא",
 	"fileimporter-cancel": "ביטול",

@@ -19,6 +19,7 @@
 	"fileimporter-textrevisions": "$1/$2 Säit {{PLURAL:$2|Versioun gëtt|Versioune ginn}} aus der Lëscht vun de Versiounen importéiert.",
 	"fileimporter-filerevisions": "$1/$2 Fichier {{PLURAL:$2|Versioun|Versiounen}} ginn importéiert.",
 	"fileimporter-submit": "Schécken",
+	"fileimporter-submit-title": "Titel änneren",
 	"fileimporter-import": "Importéieren",
 	"fileimporter-cancel": "Ofbriechen",
 	"fileimporter-edittitle": "Titel änneren",
