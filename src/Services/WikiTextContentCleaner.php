@@ -48,9 +48,25 @@ class WikiTextContentCleaner {
 	 * @return string
 	 */
 	public function cleanHeadings( $wikiText ) {
-		return preg_replace_callback( '/^((=+)\h*)(.*?)(?=\h*\2$)/m', function ( $matches ) {
-			return $matches[1] . $this->wikiTextConversions->swapHeading( $matches[3] );
-		}, $wikiText );
+		return preg_replace_callback(
+			'/^
+				# Group 1
+				(
+					# Group 2 captures any opening equal signs, the extra + avoids backtracking
+					(=++)
+					# Consume horizontal whitespace
+					\h*+
+				)
+				# The ungreedy group 3 will capture the trimmed heading
+				(.*?)
+				# Look-ahead for what group 2 captured
+				(?=\h*\2\h*$)
+			/mx',
+			function ( $matches ) {
+				return $matches[1] . $this->wikiTextConversions->swapHeading( $matches[3] );
+			},
+			$wikiText
+		);
 	}
 
 	public function cleanTemplates( $wikiText ) {

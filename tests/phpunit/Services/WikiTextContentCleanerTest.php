@@ -281,7 +281,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 			[ '==Licensing==', '=={{int:license-header}}==' ],
 			[ "==Description==\n==Licensing==", "=={{int:filedesc}}==\n=={{int:license-header}}==" ],
 			[ '= Description =', '= {{int:filedesc}} =' ],
-			[ '===Description===', '==={{int:filedesc}}===' ],
+			[ '===Description=== ', '==={{int:filedesc}}=== ' ],
 			[ '==Description=', '==Description=' ],
 			[ '=Description==', '=Description==' ],
 		];
