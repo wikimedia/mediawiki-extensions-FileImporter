@@ -128,16 +128,16 @@ class CommonsHelperConfigParser {
 		preg_match_all(
 			'/^;\h*+([^:|\n]+)\n?:\h*+([^|\n]+)(.*)/m',
 			$wikiText,
-			$patterns,
+			$matches,
 			PREG_SET_ORDER
 		);
-		foreach ( $patterns as $pattern ) {
-			list( , $sourceTemplate, $targetTemplate, $paramPatterns ) = $pattern;
+		foreach ( $matches as $match ) {
+			list( , $sourceTemplate, $targetTemplate, $paramPatternsString ) = $match;
 			$parameterTransfers = [];
 
-			$paramPatterns = preg_split( '/\s*\|+\s*/', $paramPatterns, -1, PREG_SPLIT_NO_EMPTY );
-			foreach ( $paramPatterns as $paramPattern ) {
-				$parts = preg_split( '/\s*=\s*/', $paramPattern, 2 );
+			$paramRules = preg_split( '/\s*\|+\s*/', $paramPatternsString, -1, PREG_SPLIT_NO_EMPTY );
+			foreach ( $paramRules as $paramRule ) {
+				$parts = preg_split( '/\s*=\s*/', $paramRule, 2 );
 				if ( count( $parts ) !== 2 ) {
 					continue;
 				}
