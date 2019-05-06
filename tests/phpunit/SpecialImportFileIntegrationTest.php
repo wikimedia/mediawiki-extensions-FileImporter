@@ -16,20 +16,9 @@ use User;
 use WebRequest;
 
 /**
- * @covers \FileImporter\Html\DuplicateFilesErrorPage
- * @covers \FileImporter\Html\ErrorPage
- * @covers \FileImporter\Html\ImportIdentityFormSnippet
- * @covers \FileImporter\Html\ImportPreviewPage
- * @covers \FileImporter\Html\ImportSuccessPage
- * @covers \FileImporter\Html\InputFormPage
- * @covers \FileImporter\Html\RecoverableTitleExceptionPage
- * @covers \FileImporter\Html\SpecialPageHtmlFragment
- * @covers \FileImporter\Html\TextRevisionSnippet
- * @covers \FileImporter\Services\ImportPlanFactory
- * @covers \FileImporter\Services\SourceSite
- * @covers \FileImporter\SpecialImportFile
+ * @coversNothing
  *
- * This test makes some calls to https://commons.wikimedia.org
+ * FIXME: This test makes some calls to https://commons.wikimedia.org
  *
  * @group Database
  *
