@@ -14,7 +14,7 @@ use FileImporter\Services\Wikitext\WikiLinkParser;
 class WikiLinkParserTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
 
-	public function provideWikiText() {
+	public function provideWikitext() {
 		return [
 			'empty brackets' => [
 				'[[]]',
@@ -70,11 +70,11 @@ class WikiLinkParserTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @dataProvider provideWikiText
+	 * @dataProvider provideWikitext
 	 */
-	public function testParser( $wikiText, $expected ) {
+	public function testParser( $wikitext, $expected ) {
 		$parser = new WikiLinkParser();
-		$this->assertSame( $wikiText, $parser->parse( $wikiText ), 'no cleaner registered' );
+		$this->assertSame( $wikitext, $parser->parse( $wikitext ), 'no cleaner registered' );
 
 		$toLowerCleaner = $this->createMock( WikiLinkCleaner::class );
 		$toLowerCleaner->method( 'process' )
@@ -92,7 +92,7 @@ class WikiLinkParserTest extends \PHPUnit\Framework\TestCase {
 		// Dummy replacements for testing purposes only, as well as to test the execution order
 		$parser->registerWikiLinkCleaner( $toLowerCleaner );
 		$parser->registerWikiLinkCleaner( $prefixingCleaner );
-		$this->assertSame( $expected, $parser->parse( $wikiText ) );
+		$this->assertSame( $expected, $parser->parse( $wikitext ) );
 	}
 
 }

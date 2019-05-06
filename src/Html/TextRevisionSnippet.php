@@ -17,17 +17,17 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 
 	/**
 	 * @param TextRevision $textRevision Latest test revision
-	 * @param string|null $intendedWikiText This will override the text provided in the TextRevision
+	 * @param string|null $intendedWikitext This will override the text provided in the TextRevision
 	 *
 	 * @return string
 	 */
-	public function getHtml( TextRevision $textRevision, $intendedWikiText ) {
+	public function getHtml( TextRevision $textRevision, $intendedWikitext ) {
 		$title = Title::newFromText( $textRevision->getField( 'title' ), NS_FILE );
 
-		if ( $intendedWikiText === null ) {
+		if ( $intendedWikitext === null ) {
 			$text = $textRevision->getField( '*' );
 		} else {
-			$text = $intendedWikiText;
+			$text = $intendedWikitext;
 		}
 
 		$content = ContentHandler::makeContent(

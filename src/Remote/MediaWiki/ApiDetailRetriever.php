@@ -14,8 +14,8 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use FileImporter\Services\Wikitext\WikiTextContentCleaner;
-use FileImporter\Services\WikiTextContentValidator;
+use FileImporter\Services\Wikitext\WikitextContentCleaner;
+use FileImporter\Services\WikitextContentValidator;
 use Psr\Log\LoggerInterface;
 use Title;
 use MediaWiki\MediaWikiServices;
@@ -252,34 +252,34 @@ class ApiDetailRetriever implements DetailRetriever {
 			if ( $commonsHelperConfigRetriever->retrieveConfiguration() ) {
 				$commonHelperConfigParser = new CommonsHelperConfigParser(
 					$commonsHelperConfigRetriever->getConfigWikiUrl(),
-					$commonsHelperConfigRetriever->getConfigWikiText()
+					$commonsHelperConfigRetriever->getConfigWikitext()
 				);
 
-				$wikiTextContentValidator = new WikiTextContentValidator(
-					$commonHelperConfigParser->getWikiTextConversions()
+				$validator = new WikitextContentValidator(
+					$commonHelperConfigParser->getWikitextConversions()
 				);
 
-				$wikiTextContentValidator->hasRequiredTemplate(
+				$validator->hasRequiredTemplate(
 					array_key_exists( 'templates', $pageInfoData ) ?
 						$pageInfoData[ 'templates' ] : []
 				);
 
-				$wikiTextContentValidator->validateTemplates(
+				$validator->validateTemplates(
 					array_key_exists( 'templates', $pageInfoData ) ?
 						$pageInfoData[ 'templates' ] : []
 				);
 
-				$wikiTextContentValidator->validateCategories(
+				$validator->validateCategories(
 					array_key_exists( 'categories', $pageInfoData ) ?
 						$pageInfoData[ 'categories' ] : []
 				);
 
-				$wikiTextContentCleaner = new WikiTextContentCleaner(
-					$commonHelperConfigParser->getWikiTextConversions()
+				$cleaner = new WikitextContentCleaner(
+					$commonHelperConfigParser->getWikitextConversions()
 				);
 
-				$lastRevisionText = $wikiTextContentCleaner->cleanWikiText( $lastRevisionText );
-				$numberOfTemplatesReplaced = $wikiTextContentCleaner->getLatestNumberOfReplacements();
+				$lastRevisionText = $cleaner->cleanWikitext( $lastRevisionText );
+				$numberOfTemplatesReplaced = $cleaner->getLatestNumberOfReplacements();
 			} else {
 				throw new LocalizedImportException( [
 					'fileimporter-commonshelper-missing-config',

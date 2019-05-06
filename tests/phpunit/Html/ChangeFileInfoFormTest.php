@@ -23,7 +23,7 @@ use User;
  * @covers \FileImporter\Html\ChangeFileInfoForm
  * @covers \FileImporter\Html\ImportIdentityFormSnippet
  * @covers \FileImporter\Html\SpecialPageHtmlFragment
- * @covers \FileImporter\Html\WikiTextEditor
+ * @covers \FileImporter\Html\WikitextEditor
  *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
@@ -128,7 +128,7 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 			$form->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
 				both( withTagName( 'textarea' ) )
-					->andAlso( withAttribute( 'name' )->havingValue( 'intendedWikiText' ) )
+					->andAlso( withAttribute( 'name' )->havingValue( 'intendedWikitext' ) )
 					->andAlso( havingTextContents( $expectedInputText ) )
 			) ) )
 		);

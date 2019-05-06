@@ -18,11 +18,11 @@ class WikiLinkParser {
 	}
 
 	/**
-	 * @param string $wikiText
+	 * @param string $wikitext
 	 *
 	 * @return string
 	 */
-	public function parse( $wikiText ) {
+	public function parse( $wikitext ) {
 		return preg_replace_callback(
 			'/
 				# Look-behind for the opening [[
@@ -39,7 +39,7 @@ class WikiLinkParser {
 				}
 				return $link;
 			},
-			$wikiText
+			$wikitext
 		);
 	}
 

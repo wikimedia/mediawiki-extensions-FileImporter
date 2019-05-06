@@ -2,7 +2,7 @@
 
 namespace FileImporter\Services\Wikitext;
 
-use FileImporter\Data\WikiTextConversions;
+use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use InvalidArgumentException;
 
@@ -19,29 +19,29 @@ class CommonsHelperConfigParser {
 	/**
 	 * @var string
 	 */
-	private $wikiText;
+	private $wikitext;
 
 	/**
 	 * @param string $commonsHelperConfigUrl
-	 * @param string $wikiText
+	 * @param string $wikitext
 	 */
-	public function __construct( $commonsHelperConfigUrl, $wikiText ) {
+	public function __construct( $commonsHelperConfigUrl, $wikitext ) {
 		$this->commonsHelperConfigUrl = $commonsHelperConfigUrl;
-		$this->wikiText = $wikiText;
+		$this->wikitext = $wikitext;
 	}
 
 	/**
 	 * @throws LocalizedImportException
-	 * @return WikiTextConversions
+	 * @return WikitextConversions
 	 */
-	public function getWikiTextConversions() {
+	public function getWikitextConversions() {
 		// HTML comments must be removed first
-		$wikiText = preg_replace( '/<!--.*?-->/s', '', $this->wikiText );
+		$wikitext = preg_replace( '/<!--.*?-->/s', '', $this->wikitext );
 
 		// Scan for all level-2 headings first, relevant for properly prioritized error reporting
-		$categorySection = $this->grepSection( $wikiText, '== Categories ==', 'Categories' );
-		$templateSection = $this->grepSection( $wikiText, '== Templates ==', 'Templates' );
-		$informationSection = $this->grepSection( $wikiText, '== Information ==', 'Information' );
+		$categorySection = $this->grepSection( $wikitext, '== Categories ==', 'Categories' );
+		$templateSection = $this->grepSection( $wikitext, '== Templates ==', 'Templates' );
+		$informationSection = $this->grepSection( $wikitext, '== Information ==', 'Information' );
 
 		$badCategorySection = $this->grepSection( $categorySection, '=== Bad ===',
 			'Categories/Bad' );
@@ -58,7 +58,7 @@ class CommonsHelperConfigParser {
 		$licensingSection = $this->grepSection( $informationSection, '=== Licensing ===',
 			'Information/Licensing' );
 
-		$conversions = new WikiTextConversions(
+		$conversions = new WikitextConversions(
 			$this->getItemList( $goodTemplateSection ),
 			$this->getItemList( $badTemplateSection ),
 			$this->getItemList( $badCategorySection ),
@@ -73,14 +73,14 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @param string $wikiText
+	 * @param string $wikitext
 	 * @param string $header
 	 * @param string $sectionName
 	 *
 	 * @throws LocalizedImportException if the section could not be found
 	 * @return string
 	 */
-	private function grepSection( $wikiText, $header, $sectionName ) {
+	private function grepSection( $wikitext, $header, $sectionName ) {
 		$level = strpos( $header, '= ' );
 		if ( $level === false ) {
 			throw new InvalidArgumentException( '$header must follow this format: "== … =="' );
@@ -95,7 +95,7 @@ class CommonsHelperConfigParser {
 		// header. Stop at the same or a higher level (less equal signs), or at the end of the text.
 		$regex = '/^' . $headerRegex . '\h*$(.*?)(?=^={1,' . $level . '}[^=]|\Z)/ms';
 
-		if ( !preg_match( $regex, $wikiText, $matches ) ) {
+		if ( !preg_match( $regex, $wikitext, $matches ) ) {
 			throw new LocalizedImportException( [
 				'fileimporter-commonshelper-parsing-failed',
 				$this->commonsHelperConfigUrl,
@@ -107,27 +107,27 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @param string $wikiText
+	 * @param string $wikitext
 	 *
 	 * @return string[]
 	 */
-	private function getItemList( $wikiText ) {
+	private function getItemList( $wikitext ) {
 		// Extract non-empty first-level list elements, exclude 2nd and deeper levels
-		preg_match_all( '/^\*\h*([^\s*#:;].*?)\h*$/m', $wikiText, $matches );
+		preg_match_all( '/^\*\h*([^\s*#:;].*?)\h*$/m', $wikitext, $matches );
 		return $matches[1];
 	}
 
 	/**
-	 * @param string $wikiText
+	 * @param string $wikitext
 	 *
 	 * @return array[]
 	 */
-	private function parseTransferList( $wikiText ) {
+	private function parseTransferList( $wikitext ) {
 		$transfers = [];
 
 		preg_match_all(
 			'/^;\h*+([^:|\n]+)\n?:\h*+([^|\n]+)(.*)/m',
-			$wikiText,
+			$wikitext,
 			$matches,
 			PREG_SET_ORDER
 		);

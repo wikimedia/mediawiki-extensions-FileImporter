@@ -2,7 +2,7 @@
 
 namespace FileImporter\Tests\Services\Wikitext;
 
-use FileImporter\Data\WikiTextConversions;
+use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 
@@ -18,7 +18,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 	public function provideCommonsHelperConfig() {
 		return [
 			'empty' => [
-				'wikiText' => '',
+				'wikitext' => '',
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -27,7 +27,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "bad templates" heading' => [
-				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+				'wikitext' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n" .
 					'== Information ==',
 				'expectedGoodTemplates' => null,
@@ -38,7 +38,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "good templates" heading' => [
-				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+				'wikitext' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
@@ -48,7 +48,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "remove templates" heading' => [
-				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+				'wikitext' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n=== Bad ===\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
@@ -58,7 +58,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "transfer templates" heading' => [
-				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+				'wikitext' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
@@ -68,7 +68,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "bad categories" heading' => [
-				'wikiText' => "== Categories ==\n== Templates ==\n== Information ==",
+				'wikitext' => "== Categories ==\n== Templates ==\n== Information ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -77,7 +77,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "information" heading' => [
-				'wikiText' => "== Categories ==\n== Templates ==",
+				'wikitext' => "== Categories ==\n== Templates ==",
 				'expectedGoodTemplates' => null,
 				'expectedBadTemplates' => null,
 				'expectedBadCategories' => null,
@@ -86,7 +86,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "description" heading' => [
-				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+				'wikitext' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n" .
 					"=== Transfer ===\n== Information ==",
 				'expectedGoodTemplates' => null,
@@ -97,7 +97,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing "licensing" heading' => [
-				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+				'wikitext' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n" .
 					"=== Transfer ===\n== Information ==\n=== Description ===",
 				'expectedGoodTemplates' => null,
@@ -108,7 +108,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'missing lists' => [
-				'wikiText' => "== Categories ==\n=== Bad ===\n" .
+				'wikitext' => "== Categories ==\n=== Bad ===\n" .
 					"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n" .
 					"=== Transfer ===\n== Information ==\n=== Description ===\n" .
 					"=== Licensing ===\n",
@@ -119,7 +119,7 @@ class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 			],
 
 			'empty lists' => [
-				'wikiText' => <<<WIKITEXT
+				'wikitext' => <<<WIKITEXT
 == Templates ==
 === Good ===
 *
@@ -142,7 +142,7 @@ WIKITEXT
 			],
 
 			'simple 1-element lists' => [
-				'wikiText' => <<<WIKITEXT
+				'wikitext' => <<<WIKITEXT
 == Templates ==
 === Good ===
 * GoodTemplate
@@ -166,7 +166,7 @@ WIKITEXT
 			],
 
 			'compressed syntax' => [
-				'wikiText' => <<<WIKITEXT
+				'wikitext' => <<<WIKITEXT
 ==Templates==
 ===Good===
 * GoodTemplate
@@ -190,7 +190,7 @@ WIKITEXT
 			],
 
 			'tabs' => [
-				'wikiText' => <<<WIKITEXT
+				'wikitext' => <<<WIKITEXT
 ==	Templates	==\t
 
 ===	Good	===\t
@@ -222,7 +222,7 @@ WIKITEXT
 			],
 
 			'additional elements to ignore' => [
-				'wikiText' => <<<WIKITEXT
+				'wikitext' => <<<WIKITEXT
 <!--
 == Templates ==
 -->
@@ -266,97 +266,97 @@ WIKITEXT
 	 * @dataProvider provideCommonsHelperConfig
 	 */
 	public function testParser(
-		$wikiText,
+		$wikitext,
 		array $expectedGoodTemplates = null,
 		array $expectedBadTemplates = null,
 		array $expectedBadCategories = null,
 		array $expectedObsoleteTemplates = null,
 		$expectedException = null
 	) {
-		$parser = new CommonsHelperConfigParser( '', $wikiText );
+		$parser = new CommonsHelperConfigParser( '', $wikitext );
 		if ( $expectedException !== null ) {
 			$this->setExpectedException( LocalizedImportException::class, $expectedException );
-			$parser->getWikiTextConversions();
+			$parser->getWikitextConversions();
 		} else {
-			$expected = new WikiTextConversions(
+			$expected = new WikitextConversions(
 				$expectedGoodTemplates,
 				$expectedBadTemplates,
 				$expectedBadCategories,
 				$expectedObsoleteTemplates,
 				[]
 			);
-			$this->assertEquals( $expected, $parser->getWikiTextConversions() );
+			$this->assertEquals( $expected, $parser->getWikitextConversions() );
 		}
 	}
 
 	public function testHeadingReplacements() {
-		$wikiText = "== Categories ==\n=== Bad ===\n" .
+		$wikitext = "== Categories ==\n=== Bad ===\n" .
 			"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n=== Transfer ===\n" .
 			"== Information ==\n=== Description ===\n* A\n=== Licensing ===\n* B";
-		$parser = new CommonsHelperConfigParser( '', $wikiText );
+		$parser = new CommonsHelperConfigParser( '', $wikitext );
 
-		$expected = new WikiTextConversions( [], [], [], [], [] );
+		$expected = new WikitextConversions( [], [], [], [], [] );
 		$expected->setHeadingReplacements( [
 			'A' => '{{int:filedesc}}',
 			'B' => '{{int:license-header}}',
 		] );
-		$this->assertEquals( $expected, $parser->getWikiTextConversions() );
+		$this->assertEquals( $expected, $parser->getWikitextConversions() );
 	}
 
 	public function provideTransferRules() {
 		return [
 			'empty' => [
-				'wikiText' => '',
+				'wikitext' => '',
 				'expected' => [],
 			],
 			'empty <dt> element' => [
-				'wikiText' => ';',
+				'wikitext' => ';',
 				'expected' => [],
 			],
 			'no <dd> element' => [
-				'wikiText' => ';Source',
+				'wikitext' => ';Source',
 				'expected' => [],
 			],
 			'empty <dd> element' => [
-				'wikiText' => ';Source:',
+				'wikitext' => ';Source:',
 				'expected' => [],
 			],
 			'empty <dd> element on next line' => [
-				'wikiText' => ";Source\n:",
+				'wikitext' => ";Source\n:",
 				'expected' => [],
 			],
 			'to many newlines' => [
-				'wikiText' => ";Source\n\n:Target",
+				'wikitext' => ";Source\n\n:Target",
 				'expected' => [],
 			],
 			'incomplete parameter syntax' => [
-				'wikiText' => ';Source:Target|incomplete',
+				'wikitext' => ';Source:Target|incomplete',
 				'expected' => [ 'Source' => 'Target' ],
 			],
 			'bad parameter syntax on local side' => [
-				'wikiText' => ';Source|param:Target',
+				'wikitext' => ';Source|param:Target',
 				'expected' => [],
 			],
 			'subst' => [
-				'wikiText' => ';Source:subst:Target',
+				'wikitext' => ';Source:subst:Target',
 				'expected' => [ 'Source' => 'subst:Target' ],
 			],
 
 			'basic 1-line syntax' => [
-				'wikiText' => ';Source:Target',
+				'wikitext' => ';Source:Target',
 				'expected' => [ 'Source' => 'Target' ],
 			],
 			'basic 2-line syntax' => [
-				'wikiText' => ";Source\n:Target",
+				'wikitext' => ";Source\n:Target",
 				'expected' => [ 'Source' => 'Target' ],
 			],
 			'empty parameter list' => [
-				'wikiText' => ';Source:Target|',
+				'wikitext' => ';Source:Target|',
 				'expected' => [ 'Source' => 'Target' ],
 			],
 
 			'one basic parameter' => [
-				'wikiText' => ';Source:Target|target_param=source_param',
+				'wikitext' => ';Source:Target|target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -367,7 +367,7 @@ WIKITEXT
 				] ],
 			],
 			'additional whitespace' => [
-				'wikiText' => '; Source : Target | target_param = source_param',
+				'wikitext' => '; Source : Target | target_param = source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -378,7 +378,7 @@ WIKITEXT
 				] ],
 			],
 			'+add syntax' => [
-				'wikiText' => ';Source:Target|+target_param=source_param',
+				'wikitext' => ';Source:Target|+target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -389,7 +389,7 @@ WIKITEXT
 				] ],
 			],
 			'@language parameter syntax' => [
-				'wikiText' => ';Source:Target|@target_param=source_param',
+				'wikitext' => ';Source:Target|@target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -400,7 +400,7 @@ WIKITEXT
 				] ],
 			],
 			'+@ combination leaves a meaningless @ behind' => [
-				'wikiText' => ';Source:Target|+@target_param=source_param',
+				'wikitext' => ';Source:Target|+@target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ '@target_param' => [
@@ -411,7 +411,7 @@ WIKITEXT
 				] ],
 			],
 			'@+ combination leaves a meaningless + behind' => [
-				'wikiText' => ';Source:Target|@+target_param=source_param',
+				'wikitext' => ';Source:Target|@+target_param=source_param',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ '+target_param' => [
@@ -422,7 +422,7 @@ WIKITEXT
 				] ],
 			],
 			'%MAGIC_WORD% syntax' => [
-				'wikiText' => ';Source:Target|target_param=%MAGIC_WORD%',
+				'wikitext' => ';Source:Target|target_param=%MAGIC_WORD%',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [],
@@ -438,14 +438,14 @@ WIKITEXT
 	/**
 	 * @dataProvider provideTransferRules
 	 */
-	public function testTransferRules( $wikiText, array $expected ) {
-		$wikiText = "== Categories ==\n=== Bad ===\n" .
+	public function testTransferRules( $wikitext, array $expected ) {
+		$wikitext = "== Categories ==\n=== Bad ===\n" .
 			"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n=== Transfer ===\n" .
-			"$wikiText\n== Information ==\n=== Description ===\n=== Licensing ===";
-		$parser = new CommonsHelperConfigParser( '', $wikiText );
+			"$wikitext\n== Information ==\n=== Description ===\n=== Licensing ===";
+		$parser = new CommonsHelperConfigParser( '', $wikitext );
 
-		$expected = new WikiTextConversions( [], [], [], [], $expected );
-		$this->assertEquals( $expected, $parser->getWikiTextConversions() );
+		$expected = new WikitextConversions( [], [], [], [], $expected );
+		$this->assertEquals( $expected, $parser->getWikitextConversions() );
 	}
 
 }

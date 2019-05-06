@@ -2,7 +2,7 @@
 
 namespace FileImporter\Services;
 
-use FileImporter\Data\WikiTextConversions;
+use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use MediaWiki\MediaWikiServices;
 
@@ -13,12 +13,12 @@ use MediaWiki\MediaWikiServices;
  *
  * @license GPL-2.0-or-later
  */
-class WikiTextContentValidator {
+class WikitextContentValidator {
 
 	/**
-	 * @var WikiTextConversions
+	 * @var WikitextConversions
 	 */
-	private $wikiTextConversions;
+	private $wikitextConversions;
 
 	/**
 	 * @var string
@@ -26,10 +26,10 @@ class WikiTextContentValidator {
 	private $siteName;
 
 	/**
-	 * @param WikiTextConversions $wikiTextConversions
+	 * @param WikitextConversions $conversions
 	 */
-	public function __construct( WikiTextConversions $wikiTextConversions ) {
-		$this->wikiTextConversions = $wikiTextConversions;
+	public function __construct( WikitextConversions $conversions ) {
+		$this->wikitextConversions = $conversions;
 		// TODO: Inject
 		$this->siteName = MediaWikiServices::getInstance()->getMainConfig()->get( 'Sitename' );
 	}
@@ -46,7 +46,7 @@ class WikiTextContentValidator {
 			}
 
 			$templateTitle = $template['title'];
-			if ( $this->wikiTextConversions->isTemplateBad( $templateTitle ) ) {
+			if ( $this->wikitextConversions->isTemplateBad( $templateTitle ) ) {
 				throw new LocalizedImportException( [
 					'fileimporter-file-contains-blocked-category-template',
 					$templateTitle,
@@ -68,7 +68,7 @@ class WikiTextContentValidator {
 			}
 
 			$categoryTitle = $category['title'];
-			if ( $this->wikiTextConversions->isCategoryBad( $categoryTitle ) ) {
+			if ( $this->wikitextConversions->isCategoryBad( $categoryTitle ) ) {
 				throw new LocalizedImportException( [
 					'fileimporter-file-contains-blocked-category-template',
 					$categoryTitle,
@@ -84,7 +84,7 @@ class WikiTextContentValidator {
 	 * @throws LocalizedImportException
 	 */
 	public function hasRequiredTemplate( array $templates ) {
-		if ( !$this->wikiTextConversions->hasGoodTemplates() ) {
+		if ( !$this->wikitextConversions->hasGoodTemplates() ) {
 			return;
 		}
 
@@ -94,7 +94,7 @@ class WikiTextContentValidator {
 			}
 
 			$templateTitle = $template['title'];
-			if ( $this->wikiTextConversions->isTemplateGood( $templateTitle ) ) {
+			if ( $this->wikitextConversions->isTemplateGood( $templateTitle ) ) {
 				return;
 			}
 		}

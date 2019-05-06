@@ -21,9 +21,9 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
 		// Try showing the user provided value first if present
-		$wikiTextValue = $importPlan->getRequest()->getIntendedText();
-		if ( $wikiTextValue === null ) {
-			$wikiTextValue = $importPlan->getFileInfoText();
+		$wikitext = $importPlan->getRequest()->getIntendedText();
+		if ( $wikitext === null ) {
+			$wikitext = $importPlan->getFileInfoText();
 		}
 
 		return Html::openElement(
@@ -33,7 +33,7 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 				'method' => 'POST',
 			]
 		) .
-		( new WikiTextEditor( $this ) )->getHtml( $wikiTextValue ) .
+		( new WikitextEditor( $this ) )->getHtml( $wikitext ) .
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
 			'intendedFileName' => $importPlan->getFileName(),

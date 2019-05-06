@@ -2,22 +2,22 @@
 
 namespace FileImporter\Tests\Services;
 
-use FileImporter\Data\WikiTextConversions;
+use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
-use FileImporter\Services\WikiTextContentValidator;
+use FileImporter\Services\WikitextContentValidator;
 use PHPUnit4And6Compat;
 
 /**
- * @covers \FileImporter\Services\WikiTextContentValidator
+ * @covers \FileImporter\Services\WikitextContentValidator
  *
  * @license GPL-2.0-or-later
  */
-class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
+class WikitextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnit4And6Compat;
 
 	public function testSuccess() {
-		$conversions = new WikiTextConversions( [], [], [], [], [] );
-		$validator = new WikiTextContentValidator( $conversions );
+		$conversions = new WikitextConversions( [], [], [], [], [] );
+		$validator = new WikitextContentValidator( $conversions );
 
 		// Provide at least one title to cover the full code-path
 		$validator->hasRequiredTemplate( [ [ 'title' => 'Template:Good', 'ns' => NS_TEMPLATE ] ] );
@@ -29,32 +29,32 @@ class WikiTextContentValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testHasAtLeastOneRequiredGoodTemplate() {
-		$conversions = new WikiTextConversions( [ 'Required1', 'Required2' ], [], [], [], [] );
-		$validator = new WikiTextContentValidator( $conversions );
+		$conversions = new WikitextConversions( [ 'Required1', 'Required2' ], [], [], [], [] );
+		$validator = new WikitextContentValidator( $conversions );
 
 		$validator->hasRequiredTemplate( [ [ 'title' => 'Template:Required2', 'ns' => NS_TEMPLATE ] ] );
 		$this->addToAssertionCount( 1 );
 	}
 
 	public function testMissingRequiredGoodTemplate() {
-		$conversions = new WikiTextConversions( [ 'Required' ], [], [], [], [] );
-		$validator = new WikiTextContentValidator( $conversions );
+		$conversions = new WikitextConversions( [ 'Required' ], [], [], [], [] );
+		$validator = new WikitextContentValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );
 		$validator->hasRequiredTemplate( [] );
 	}
 
 	public function testBadTemplate() {
-		$conversions = new WikiTextConversions( [], [ 'Bad' ], [], [], [] );
-		$validator = new WikiTextContentValidator( $conversions );
+		$conversions = new WikitextConversions( [], [ 'Bad' ], [], [], [] );
+		$validator = new WikitextContentValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );
 		$validator->validateTemplates( [ [ 'title' => 'Template:Bad', 'ns' => NS_TEMPLATE ] ] );
 	}
 
 	public function testBadCategory() {
-		$conversions = new WikiTextConversions( [], [], [ 'Bad' ], [], [] );
-		$validator = new WikiTextContentValidator( $conversions );
+		$conversions = new WikitextConversions( [], [], [ 'Bad' ], [], [] );
+		$validator = new WikitextContentValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );
 		$validator->validateCategories( [ [ 'title' => 'Category:Bad', 'ns' => NS_CATEGORY ] ] );

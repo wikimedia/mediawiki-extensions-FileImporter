@@ -2,16 +2,16 @@
 
 namespace FileImporter\Tests\Services\Wikitext;
 
-use FileImporter\Data\WikiTextConversions;
-use FileImporter\Services\Wikitext\WikiTextContentCleaner;
+use FileImporter\Data\WikitextConversions;
+use FileImporter\Services\Wikitext\WikitextContentCleaner;
 
 /**
- * @covers \FileImporter\Services\Wikitext\WikiTextContentCleaner
+ * @covers \FileImporter\Services\Wikitext\WikitextContentCleaner
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
+class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
 
 	public function provideTemplateRemovals() {
@@ -19,7 +19,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 			'empty' => [
 				'removals' => [],
 				'wikitext' => '{{movetocommons}}',
-				'expectedWikiText' => '{{movetocommons}}',
+				'expectedWikitext' => '{{movetocommons}}',
 				'expectedCount' => 0,
 			],
 
@@ -29,30 +29,30 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 			'basic, case-insensitive removal' => [
 				'removals' => [ 'MoveToCommons' ],
 				'wikitext' => "before\n\n{{movetocommons}}\n\nafter",
-				'expectedWikiText' => "before\n\nafter",
+				'expectedWikitext' => "before\n\nafter",
 			],
 
 			'remove parameters and nested templates' => [
 				'removals' => [ 'a' ],
 				'wikitext' => '{{before}}{{a |p1={{b |p1=… }} |p2=… }}{{after}}',
-				'expectedWikiText' => '{{before}}{{after}}',
+				'expectedWikitext' => '{{before}}{{after}}',
 			],
 
 			'end-of-text' => [
 				'removals' => [ 'Info' ],
 				'wikitext' => '{{Info|a=|b=',
-				'expectedWikiText' => '',
+				'expectedWikitext' => '',
 			],
 
 			'more than 2 opening brackets' => [
 				'removals' => [ 'second' ],
 				'wikitext' => '{{first|{{second|{{{third|a}}|b}}|c}}',
-				'expectedWikiText' => '{{first||c}}',
+				'expectedWikitext' => '{{first||c}}',
 			],
 			'more than 2 closing brackets' => [
 				'removals' => [ 'second' ],
 				'wikitext' => '{{first|{{second|b}}|c}}',
-				'expectedWikiText' => '{{first||c}}',
+				'expectedWikitext' => '{{first||c}}',
 			],
 		];
 	}
@@ -62,14 +62,14 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testTemplateRemovals(
 		array $removals,
-		$wikiText,
-		$expectedWikiText,
+		$wikitext,
+		$expectedWikitext,
 		$expectedCount = 1
 	) {
-		$conversions = new WikiTextConversions( [], [], [], $removals, [] );
-		$cleaner = new WikiTextContentCleaner( $conversions );
+		$conversions = new WikitextConversions( [], [], [], $removals, [] );
+		$cleaner = new WikitextContentCleaner( $conversions );
 
-		$this->assertSame( $expectedWikiText, $cleaner->cleanWikiText( $wikiText ) );
+		$this->assertSame( $expectedWikitext, $cleaner->cleanWikitext( $wikitext ) );
 		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 
@@ -78,73 +78,73 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 			'nothing to do' => [
 				'replacements' => [ 'here' => 'there' ],
 				'wikitext' => 'nothing to do here',
-				'expectedWikiText' => null,
+				'expectedWikitext' => null,
 				'expectedCount' => 0,
 			],
 
 			'no substring matching' => [
 				'replacements' => [ 'a' => 'b' ],
 				'wikitext' => '{{ax}}{{ax|}}{{xa}}{{xa|}}',
-				'expectedWikiText' => null,
+				'expectedWikitext' => null,
 				'expectedCount' => 0,
 			],
 
 			'skip triple bracket parameter syntax' => [
 				'replacements' => [ 'a' => 'b' ],
 				'wikitext' => '{{{a}}}',
-				'expectedWikiText' => null,
+				'expectedWikitext' => null,
 				'expectedCount' => 0,
 			],
 
 			'skip unclosed templates' => [
 				'replacements' => [ 'a' => 'b' ],
 				'wikitext' => '{{a}',
-				'expectedWikiText' => null,
+				'expectedWikitext' => null,
 				'expectedCount' => 0,
 			],
 
 			'most trivial match' => [
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => '{{Info}}',
-				'expectedWikiText' => '{{Information}}',
+				'expectedWikitext' => '{{Information}}',
 			],
 
 			'case-insensitive' => [
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => '{{info}}',
-				'expectedWikiText' => '{{Information}}',
+				'expectedWikitext' => '{{Information}}',
 			],
 
 			'complex parameters' => [
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => '{{info|desc={{en|Desc with a [[…|link]].}}}}',
-				'expectedWikiText' => '{{Information|desc={{en|Desc with a [[…|link]].}}}}',
+				'expectedWikitext' => '{{Information|desc={{en|Desc with a [[…|link]].}}}}',
 			],
 
 			'count different replacements' => [
 				'replacements' => [ 'a' => 'b', 'x' => 'y' ],
 				'wikitext' => '{{a}}{{x|some params}}',
-				'expectedWikiText' => '{{b}}{{y|some params}}',
+				'expectedWikitext' => '{{b}}{{y|some params}}',
 				'expectedCount' => 2,
 			],
 
 			'count identical replacements' => [
 				'replacements' => [ 'a' => 'b' ],
 				'wikitext' => '{{a}}{{a|some params}}',
-				'expectedWikiText' => '{{b}}{{b|some params}}',
+				'expectedWikitext' => '{{b}}{{b|some params}}',
 				'expectedCount' => 2,
 			],
 
 			'keep multi-line syntax' => [
 				'replacements' => [ 'Info' => 'Information' ],
 				'wikitext' => "{{Info\n| param = value\n}}",
-				'expectedWikiText' => "{{Information\n| param = value\n}}",
+				'expectedWikitext' => "{{Information\n| param = value\n}}",
 			],
 
 			'replace nested templates' => [
 				'replacements' => [ 'Info' => 'Information', 'enS' => 'en' ],
 				'wikitext' => '{{Info|{{enS|…}}}}',
-				'expectedWikiText' => '{{Information|{{en|…}}}}',
+				'expectedWikitext' => '{{Information|{{en|…}}}}',
 				'expectedCount' => 2,
 			],
 
@@ -154,7 +154,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					'parameters' => [ 'Description' => [ 'sourceParameters' => 'Desc' ] ],
 				] ],
 				'wikitext' => '{{Info|Desc=…}}',
-				'expectedWikiText' => '{{Info|Description=…}}',
+				'expectedWikitext' => '{{Info|Description=…}}',
 			],
 
 			'nested templates do not shift parameter offsets' => [
@@ -169,7 +169,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					],
 				],
 				'wikitext' => '{{a |p1={{b |p1=… }} |p2=… }}',
-				'expectedWikiText' => '{{a |p1={{b |parameter1=… }} |parameter2=… }}',
+				'expectedWikitext' => '{{a |p1={{b |parameter1=… }} |parameter2=… }}',
 				'expectedCount' => 2,
 			],
 
@@ -179,7 +179,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					'parameters' => [ 'Description' => [ 'sourceParameters' => 2 ] ],
 				] ],
 				'wikitext' => '{{Info|a|b}}',
-				'expectedWikiText' => '{{Info|a|Description=b}}',
+				'expectedWikitext' => '{{Info|a|Description=b}}',
 			],
 
 			'add missing parameter' => [
@@ -191,7 +191,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					] ],
 				] ],
 				'wikitext' => '{{Bild-GFDL-Neu}}',
-				'expectedWikiText' => '{{GFDL|migration=not-eligible}}',
+				'expectedWikitext' => '{{GFDL|migration=not-eligible}}',
 			],
 
 			'add missing parameter reuses existing wikitext format' => [
@@ -200,7 +200,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					'parameters' => [ 'migration' => [ 'addIfMissing' => true ] ],
 				] ],
 				'wikitext' => "{{Bild-GFDL-Neu\n | p1 = …\n}}",
-				'expectedWikiText' => "{{GFDL\n | migration = \n | p1 = …\n}}",
+				'expectedWikitext' => "{{GFDL\n | migration = \n | p1 = …\n}}",
 			],
 
 			'reusing wikitext format with unnamed parameters' => [
@@ -209,7 +209,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					'parameters' => [ 'p1' => [ 'addIfMissing' => true ] ],
 				] ],
 				'wikitext' => '{{a | …}}',
-				'expectedWikiText' => '{{a | p1= | …}}',
+				'expectedWikitext' => '{{a | p1= | …}}',
 			],
 
 			'add missing parameter without value' => [
@@ -218,7 +218,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					'parameters' => [ 'migration' => [ 'addIfMissing' => true ] ],
 				] ],
 				'wikitext' => "{{Bild-GFDL-Neu\n}}",
-				'expectedWikiText' => "{{GFDL|migration=\n}}",
+				'expectedWikitext' => "{{GFDL|migration=\n}}",
 			],
 
 			'add missing parameter cannot replace existing' => [
@@ -230,7 +230,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					] ],
 				] ],
 				'wikitext' => '{{Bild-GFDL-Neu|migration=old}}',
-				'expectedWikiText' => '{{GFDL|migration=old}}',
+				'expectedWikitext' => '{{GFDL|migration=old}}',
 			],
 
 			// TODO: "value" should overwrite empty old value
@@ -243,7 +243,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					'parameters' => [ 'Description' => [ 'sourceParameters' => 'Desc' ] ],
 				] ],
 				'wikitext' => '{{Info|}|Desc=…}}{{Info|{|Desc=…}}',
-				'expectedWikiText' => '{{Info|}|Description=…}}{{Info|{|Description=…}}',
+				'expectedWikitext' => '{{Info|}|Description=…}}{{Info|{|Description=…}}',
 				'expectedCount' => 2,
 			],
 
@@ -253,7 +253,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					'parameters' => [ 'Description' => [ 'sourceParameters' => 'Desc' ] ],
 				] ],
 				'wikitext' => '{{Info|{{{Info|Desc=…}}}|Desc=…}}',
-				'expectedWikiText' => '{{Info|{{{Info|Desc=…}}}|Description=…}}',
+				'expectedWikitext' => '{{Info|{{{Info|Desc=…}}}|Description=…}}',
 			],
 
 			'end-of-text' => [
@@ -265,7 +265,7 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 					],
 				] ],
 				'wikitext' => '{{Info|a=|b=',
-				'expectedWikiText' => '{{Info|x=|y=',
+				'expectedWikitext' => '{{Info|x=|y=',
 			],
 		];
 	}
@@ -275,14 +275,14 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testTemplateReplacements(
 		array $replacements,
-		$wikiText,
-		$expectedWikiText,
+		$wikitext,
+		$expectedWikitext,
 		$expectedCount = 1
 	) {
-		$conversions = new WikiTextConversions( [], [], [], [], $replacements );
-		$cleaner = new WikiTextContentCleaner( $conversions );
+		$conversions = new WikitextConversions( [], [], [], [], $replacements );
+		$cleaner = new WikitextContentCleaner( $conversions );
 
-		$this->assertSame( $expectedWikiText ?: $wikiText, $cleaner->cleanWikiText( $wikiText ) );
+		$this->assertSame( $expectedWikitext ?: $wikitext, $cleaner->cleanWikitext( $wikitext ) );
 		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 
@@ -301,15 +301,15 @@ class WikiTextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideHeadingReplacements
 	 */
-	public function testHeadingReplacements( $wikiText, $expectedWikiText ) {
-		$conversions = new WikiTextConversions( [], [], [], [], [] );
+	public function testHeadingReplacements( $wikitext, $expectedWikitext ) {
+		$conversions = new WikitextConversions( [], [], [], [], [] );
 		$conversions->setHeadingReplacements( [
 			'Description' => '{{int:filedesc}}',
 			'Licensing' => '{{int:license-header}}',
 		] );
-		$cleaner = new WikiTextContentCleaner( $conversions );
+		$cleaner = new WikitextContentCleaner( $conversions );
 
-		$this->assertSame( $expectedWikiText, $cleaner->cleanWikiText( $wikiText ) );
+		$this->assertSame( $expectedWikitext, $cleaner->cleanWikitext( $wikitext ) );
 		$this->assertSame( 0, $cleaner->getLatestNumberOfReplacements() );
 	}
 

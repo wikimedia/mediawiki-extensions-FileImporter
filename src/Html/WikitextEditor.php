@@ -9,7 +9,7 @@ use Html;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class WikiTextEditor extends SpecialPageHtmlFragment {
+class WikitextEditor extends SpecialPageHtmlFragment {
 
 	/**
 	 * @param string $wikitext
@@ -81,7 +81,7 @@ class WikiTextEditor extends SpecialPageHtmlFragment {
 			'dir' => $pageLang->getDir(),
 		];
 
-		return Html::textarea( 'intendedWikiText', $wikitext, $attributes );
+		return Html::textarea( 'intendedWikitext', $wikitext, $attributes );
 	}
 
 	/**

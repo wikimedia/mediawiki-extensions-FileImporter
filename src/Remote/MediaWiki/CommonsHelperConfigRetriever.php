@@ -41,7 +41,7 @@ class CommonsHelperConfigRetriever {
 	/**
 	 * @var string|null
 	 */
-	private $configWikiText = null;
+	private $configWikitext = null;
 
 	/**
 	 * @var string|null
@@ -93,7 +93,7 @@ class CommonsHelperConfigRetriever {
 			$latestRevision = end( $currPage['revisions'] );
 			if ( array_key_exists( 'content', $latestRevision ) ) {
 				$this->configWikiUrl = $this->buildCommonsHelperConfigUrl( $this->sourceUrl );
-				$this->configWikiText = $latestRevision['content'];
+				$this->configWikitext = $latestRevision['content'];
 				return true;
 			}
 		}
@@ -104,8 +104,8 @@ class CommonsHelperConfigRetriever {
 	/**
 	 * @return string|null
 	 */
-	public function getConfigWikiText() {
-		return $this->configWikiText;
+	public function getConfigWikitext() {
+		return $this->configWikitext;
 	}
 
 	/**

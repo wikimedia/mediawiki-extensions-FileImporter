@@ -200,14 +200,14 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 
 	/**
 	 * @param User $expectedUser
-	 * @param string $expectedWikiText
+	 * @param string $expectedWikitext
 	 * @param string|null $expectedSummary
 	 *
 	 * @return WikiPageFactory
 	 */
 	private function createWikiPageFactoryMock(
 		User $expectedUser,
-		$expectedWikiText,
+		$expectedWikitext,
 		$expectedSummary
 	) {
 		$page = $this->createMock( \WikiPage::class );
@@ -216,7 +216,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$page->expects( $this->once() )
 			->method( 'doEditContent' )
 			->with(
-				new \WikitextContent( $expectedWikiText ),
+				new \WikitextContent( $expectedWikitext ),
 				$expectedSummary,
 				EDIT_UPDATE,
 				false,

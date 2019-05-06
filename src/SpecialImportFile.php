@@ -238,20 +238,20 @@ class SpecialImportFile extends SpecialPage {
 	 * @return ImportPlan
 	 */
 	private function getImportPlan() {
-		$intendedWikiText = $this->getRequest()->getVal( 'intendedWikiText' );
+		$intendedWikitext = $this->getRequest()->getVal( 'intendedWikitext' );
 
 		/**
 		 * The below could be turned on with refactoring @ https://gerrit.wikimedia.org/r/#/c/373867/
 		 * But a patch also exists to remove this code https://gerrit.wikimedia.org/r/#/c/138840/
 		 */
 		// if ( !$this->getRequest()->isUnicodeCompliantBrowser() ) {
-		// $intendedWikiText = StringUtils::unmakeSafeForUtf8Editing( $intendedWikiText );
+		// $intendedWikitext = StringUtils::unmakeSafeForUtf8Editing( $intendedWikitext );
 		// }
 
 		$importRequest = new ImportRequest(
 			$this->getRequest()->getVal( 'clientUrl' ),
 			$this->getRequest()->getVal( 'intendedFileName' ),
-			$intendedWikiText,
+			$intendedWikitext,
 			$this->getRequest()->getVal( 'intendedRevisionSummary' ),
 			$this->getRequest()->getRawVal( 'importDetailsHash', '' )
 		);

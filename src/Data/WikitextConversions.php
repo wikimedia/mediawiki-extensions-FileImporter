@@ -11,7 +11,7 @@ use InvalidArgumentException;
  *
  * @license GPL-2.0-or-later
  */
-class WikiTextConversions {
+class WikitextConversions {
 
 	/**
 	 * @var string[]

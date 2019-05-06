@@ -67,7 +67,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
 
 		$this->assertTrue( $retriever->retrieveConfiguration() );
 		$this->assertSame( "<SERVER>/wiki/$configPage", $retriever->getConfigWikiUrl() );
-		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikiText() );
+		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikitext() );
 	}
 
 	public function provideMissingResponses() {

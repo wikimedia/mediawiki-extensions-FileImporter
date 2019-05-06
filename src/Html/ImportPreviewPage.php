@@ -224,7 +224,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		return ( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
 			'intendedFileName' => $importPlan->getFileName(),
-			'intendedWikiText' => $importPlan->getFileInfoText(),
+			'intendedWikitext' => $importPlan->getFileInfoText(),
 			'importDetailsHash' => $importPlan->getDetails()->getOriginalHash(),
 		] ) )->getHtml();
 	}
