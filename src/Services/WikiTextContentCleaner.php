@@ -143,11 +143,15 @@ class WikiTextContentCleaner {
 							break 2;
 						}
 						$nesting--;
+						// Skip the second bracket, it can't be the start of another pair
+						$i++;
 					}
 					break;
 				case '{':
 					if ( $wikiText[$i + 1] === '{' ) {
 						$nesting++;
+						// Skip the second bracket, it can't be the start of another pair
+						$i++;
 					}
 					break;
 				case '|':
