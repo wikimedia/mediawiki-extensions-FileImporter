@@ -24,6 +24,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( [
+			'wgFileImporterCommonsHelperServer' => '',
 			'wgFileImporterMaxRevisions' => 4,
 			'wgFileImporterMaxAggregatedBytes' => 9,
 		] );

@@ -45,20 +45,28 @@ class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
 	 * @return SpecialPage
 	 */
 	private function getMockSpecialPage() {
+		$user = $this->createMock( User::class );
+		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
+
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getRequest' )
-			->willReturn( new FauxRequest() );
+			->willReturn( $request );
+
+		$context = $this->createMock( IContextSource::class );
+		$context->method( 'getUser' )
+			->willReturn( $user );
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( __METHOD__ ) );
 		$mock->method( 'getContext' )
-			->willReturn( $this->createMock( IContextSource::class ) );
+			->willReturn( $context );
 		$mock->method( 'getRequest' )
-			->willReturn( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) );
-		$mock->method( 'getOutput' )->willReturn( $output );
+			->willReturn( $request );
+		$mock->method( 'getOutput' )
+			->willReturn( $output );
 		$mock->method( 'getUser' )
-			->willReturn( $this->createMock( User::class ) );
+			->willReturn( $user );
 		$mock->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
 		$mock->method( 'msg' )
