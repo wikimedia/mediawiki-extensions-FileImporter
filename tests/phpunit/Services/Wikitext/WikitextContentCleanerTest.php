@@ -182,6 +182,24 @@ class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedWikitext' => '{{Info|a|Description=b}}',
 			],
 
+			'multiple source parameters' => [
+				'replacements' => [ 'Info' => [
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'Description' => [ 'sourceParameters' => [ 1, 'desc', 'Desc' ] ] ],
+				] ],
+				'wikitext' => '{{Info|1}}
+					{{Info|desc=lower}}
+					{{Info|Desc=upper}}
+					{{Info|1|desc=lower|Desc=upper|2}}
+					{{Info|Desc=upper|desc=lower|1|2}}',
+				'expectedWikitext' => '{{Info|Description=1}}
+					{{Info|Description=lower}}
+					{{Info|Description=upper}}
+					{{Info|Description=1|Description=lower|Description=upper|2}}
+					{{Info|Description=upper|Description=lower|Description=1|2}}',
+				'expectedCount' => 5,
+			],
+
 			'add missing parameter' => [
 				'replacements' => [ 'Bild-GFDL-Neu' => [
 					'targetTemplate' => 'GFDL',
