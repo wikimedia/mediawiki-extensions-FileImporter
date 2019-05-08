@@ -196,8 +196,9 @@ class WikitextConversions {
 
 		$replacements = [];
 		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
-			if ( !empty( $opt['sourceParameters'] ) ) {
-				foreach ( (array)$opt['sourceParameters'] as $sourceParameter ) {
+			$sourceParameters = (array)( $opt['sourceParameters'] ?? [] );
+			foreach ( $sourceParameters as $sourceParameter ) {
+				if ( $sourceParameter !== '' ) {
 					$replacements[$sourceParameter] = $targetParameter;
 				}
 			}
@@ -218,7 +219,8 @@ class WikitextConversions {
 
 		$additions = [];
 		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
-			if ( isset( $opt['addIfMissing'] ) && $opt['addIfMissing'] ) {
+			$addIfMissing = $opt['addIfMissing'] ?? false;
+			if ( $addIfMissing ) {
 				$additions[$targetParameter] = $opt['value'] ?? '';
 			}
 		}

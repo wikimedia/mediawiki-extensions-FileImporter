@@ -118,12 +118,24 @@ class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
 				[],
 				[]
 			],
-			'empty string' => [
-				[ 's1' => [ 'sourceParameters' => '' ] ],
+			'incomplete configuration' => [
+				[ 't1' => [] ],
 				[]
+			],
+			'empty string' => [
+				[ 't1' => [ 'sourceParameters' => '' ] ],
+				[]
+			],
+			'but the string "0" is not empty' => [
+				[ 't1' => [ 'sourceParameters' => '0' ] ],
+				[ 0 => 't1' ]
 			],
 			'empty array' => [
 				[ 't1' => [ 'sourceParameters' => [] ] ],
+				[]
+			],
+			'empty array element' => [
+				[ 't1' => [ 'sourceParameters' => [ '' ] ] ],
 				[]
 			],
 			'string' => [

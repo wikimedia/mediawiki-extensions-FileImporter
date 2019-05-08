@@ -267,11 +267,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$this->markTestSkipped( 'This test requires http access to https://commons.wikimedia.org' );
 		}
 
-		if ( !empty( $sourceSiteServicesOverride ) ) {
-			$this->setMwGlobals(
-				'wgFileImporterSourceSiteServices',
-				$sourceSiteServicesOverride
-			);
+		if ( $sourceSiteServicesOverride !== [] ) {
+			$this->setMwGlobals( 'wgFileImporterSourceSiteServices', $sourceSiteServicesOverride );
 		}
 
 		if ( $expectedExceptionDetails ) {
