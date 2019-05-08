@@ -118,6 +118,8 @@ class WikiRevisionFactory {
 	}
 
 	/**
+	 * TODO: We can almost certainly replace this with WikiLinkCleaners.
+	 *
 	 * @param string $summaryText
 	 *
 	 * @return string
