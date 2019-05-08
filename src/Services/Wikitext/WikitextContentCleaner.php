@@ -47,7 +47,7 @@ class WikitextContentCleaner {
 	 *
 	 * @return string
 	 */
-	public function cleanHeadings( $wikitext ) {
+	private function cleanHeadings( $wikitext ) {
 		return preg_replace_callback(
 			'/^
 				# Group 1
@@ -69,7 +69,7 @@ class WikitextContentCleaner {
 		);
 	}
 
-	public function cleanTemplates( $wikitext ) {
+	private function cleanTemplates( $wikitext ) {
 		$this->latestNumberOfReplacements = 0;
 
 		preg_match_all(
@@ -142,7 +142,7 @@ class WikitextContentCleaner {
 	 *     ]
 	 * ]
 	 */
-	public function parseTemplate( $wikitext, $startPosition ) {
+	private function parseTemplate( $wikitext, $startPosition ) {
 		$max = strlen( $wikitext );
 		$nesting = 0;
 		$params = [];
