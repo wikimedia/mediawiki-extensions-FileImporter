@@ -93,12 +93,9 @@ class ImportPlanValidator {
 	}
 
 	private function runPermissionTitleChecks( ImportPlan $importPlan, User $user ) {
-		$permErrors = $importPlan->getTitle()->getUserPermissionsErrors(
-			'upload',
-			$user
+		$permErrors = $importPlan->getTitle()->getUserPermissionsErrors( 'upload', $user );
 
-		);
-		if ( !empty( $permErrors ) ) {
+		if ( $permErrors !== [] ) {
 			throw new RecoverableTitleException( $permErrors[0], $importPlan );
 		}
 	}
@@ -159,7 +156,8 @@ class ImportPlanValidator {
 		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
 			$importPlan->getDetails()->getFileRevisions()->getLatest()
 		);
-		if ( !empty( $duplicateFiles ) ) {
+
+		if ( $duplicateFiles !== [] ) {
 			throw new DuplicateFilesException( $duplicateFiles );
 		}
 	}

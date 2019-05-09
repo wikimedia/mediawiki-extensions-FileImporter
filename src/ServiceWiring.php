@@ -33,11 +33,11 @@ return [
 		$sourceSiteServices = $config->get( 'FileImporterSourceSiteServices' );
 		$sourceSites = [];
 
-		if ( !empty( $sourceSiteServices ) ) {
-			foreach ( $sourceSiteServices as $serviceName ) {
-				$sourceSites[] = $services->getService( $serviceName );
-			}
-		} else {
+		foreach ( $sourceSiteServices as $serviceName ) {
+			$sourceSites[] = $services->getService( $serviceName );
+		}
+
+		if ( $sourceSites === [] ) {
 			$sourceSites[] = $services->getService( 'FileImporter-Site-DefaultMediaWiki' );
 		}
 

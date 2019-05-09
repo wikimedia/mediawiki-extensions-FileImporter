@@ -105,8 +105,9 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		if ( !empty( $this->httpOptions['proxy'] ) ) {
 			$options['proxy'] = $this->httpOptions['proxy'];
 		}
-		if ( isset( $this->httpOptions['timeout'] ) && $this->httpOptions['timeout'] !== false ) {
-			$options['timeout'] = $this->httpOptions['timeout'];
+		$timeout = $this->httpOptions['timeout'] ?? false;
+		if ( $timeout !== false ) {
+			$options['timeout'] = $timeout;
 		}
 
 		/** @var MWHttpRequest $request */
