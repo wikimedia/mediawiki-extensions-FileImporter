@@ -1,12 +1,12 @@
 <?php
 
-namespace FileImporter\Tests\Services;
+namespace FileImporter\Tests\Services\Wikitext;
 
-use FileImporter\Services\WikiLinkPrefixer;
+use FileImporter\Services\Wikitext\WikiLinkPrefixer;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
 
 /**
- * @covers \FileImporter\Services\WikiLinkPrefixer
+ * @covers \FileImporter\Services\Wikitext\WikiLinkPrefixer
  *
  * @license GPL-2.0-or-later
  */
@@ -46,6 +46,7 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 			[ ':_foo_', 'mw', ':mw:_foo_' ],
 
 			// Invalid titles
+			[ '::foo', 'mw', '::foo' ],
 			[ 'Talk:#fragment', 'mw', 'Talk:#fragment' ],
 		];
 	}

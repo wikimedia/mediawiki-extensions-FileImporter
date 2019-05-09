@@ -1,12 +1,21 @@
 <?php
 
-namespace FileImporter\Services;
+namespace FileImporter\Services\Wikitext;
 
-use FileImporter\Services\Wikitext\WikiLinkCleaner;
 use Language;
 use NamespaceInfo;
 
 /**
+ * A small parser for wiki links that is able to understand namespace prefixes in a specific
+ * language, e.g. [[Kategorie:…]] from a German wiki, and unlocalize them to their canonical English
+ * form, e.g. [[Category:…]].
+ *
+ * As of now, we intentionally do not use MediaWiki's TitleParser infrastructure for a few reasons:
+ * - It does to many things (most notably extracting known interwiki prefixes) we really don't care
+ *   about here.
+ * - We don't want to do any normalization on link elements we don't care about (basicaly everything
+ *   except the namespace) as these would show up as unrelated changes in the diff.
+ *
  * @license GPL-2.0-or-later
  */
 class NamespaceUnlocalizer implements WikiLinkCleaner {

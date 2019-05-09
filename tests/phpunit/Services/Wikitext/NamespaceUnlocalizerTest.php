@@ -1,11 +1,11 @@
 <?php
 
-namespace FileImporter\Tests\Services;
+namespace FileImporter\Tests\Services\Wikitext;
 
-use FileImporter\Services\NamespaceUnlocalizer;
+use FileImporter\Services\Wikitext\NamespaceUnlocalizer;
 
 /**
- * @covers \FileImporter\Services\NamespaceUnlocalizer
+ * @covers \FileImporter\Services\Wikitext\NamespaceUnlocalizer
  *
  * @license GPL-2.0-or-later
  */
