@@ -63,12 +63,12 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 				// Normalize to use underscores, as this is what the services require
 				$name = trim( preg_replace( '/[\s\xA0_]+/u', '_', $name ), '_' );
 
-				$index = $this->sourceLanguage->getLocalNsIndex( $name );
-				if ( $index === false || $index === NS_MAIN ) {
+				$namespaceId = $this->sourceLanguage->getLocalNsIndex( $name );
+				if ( $namespaceId === false || $namespaceId === NS_MAIN ) {
 					return $unchanged;
 				}
 
-				$canonicalName = $this->namespaceInfo->getCanonicalName( $index );
+				$canonicalName = $this->namespaceInfo->getCanonicalName( $namespaceId );
 				if ( $canonicalName === false || $canonicalName === $name ) {
 					return $unchanged;
 				}
