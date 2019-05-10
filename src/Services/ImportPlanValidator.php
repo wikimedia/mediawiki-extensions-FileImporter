@@ -13,6 +13,7 @@ use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
+use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
 use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
@@ -50,6 +51,11 @@ class ImportPlanValidator {
 	 */
 	private $commonsHelperHelpPage = null;
 
+	/**
+	 * @var WikiLinkParserFactory
+	 */
+	private $wikiLinkParserFactory;
+
 	public function __construct(
 		DuplicateFileRevisionChecker $duplicateFileChecker,
 		ImportTitleChecker $importTitleChecker,
@@ -74,6 +80,11 @@ class ImportPlanValidator {
 			$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' ) ?:
 				$commonsHelperServer;
 		}
+
+		$this->wikiLinkParserFactory = new WikiLinkParserFactory(
+			$services->getService( 'FileImporterMediaWikiHttpApiLookup' ),
+			$httpRequestExecutor
+		);
 	}
 
 	/**
@@ -94,6 +105,7 @@ class ImportPlanValidator {
 		// FIXME: The fact this does not even need an ImportPlan but only the ImportDetails is a
 		// little weird and possibly a sign this code is still misplaced here. Is this a problem?
 		$this->runCommonsHelperChecksAndConversions( $importPlan->getDetails() );
+		$this->runWikiLinkConversions( $importPlan );
 
 		$this->runBasicTitleCheck( $importPlan );
 		$this->runPermissionTitleChecks( $importPlan, $user );
@@ -138,10 +150,20 @@ class ImportPlanValidator {
 	}
 
 	private function cleanWikitext( ImportDetails $details, WikitextConversions $conversions ) {
-		$lastRevisionText = $details->getTextRevisions()->getLatest()->getField( '*' );
+		$wikitext = $details->getCleanedRevisionText();
 		$cleaner = new WikitextContentCleaner( $conversions );
-		$details->setCleanedRevisionText( $cleaner->cleanWikitext( $lastRevisionText ) );
+		$details->setCleanedRevisionText( $cleaner->cleanWikitext( $wikitext ) );
 		$details->setNumberOfTemplatesReplaced( $cleaner->getLatestNumberOfReplacements() );
+	}
+
+	private function runWikiLinkConversions( ImportPlan $importPlan ) {
+		$details = $importPlan->getDetails();
+		$sourceUrl = $details->getSourceUrl();
+		$wikitext = $details->getCleanedRevisionText();
+		$details->setCleanedRevisionText( $this->wikiLinkParserFactory->getWikiLinkParser(
+			$sourceUrl,
+			$importPlan->getInterWikiPrefix()
+		)->parse( $wikitext ) );
 	}
 
 	private function runBasicTitleCheck( ImportPlan $importPlan ) {

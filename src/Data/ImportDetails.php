@@ -68,6 +68,9 @@ class ImportDetails {
 		$this->sourceLinkTarget = $sourceLinkTarget;
 		$this->textRevisions = $textRevisions;
 		$this->fileRevisions = $fileRevisions;
+
+		$textRevision = $textRevisions->getLatest();
+		$this->cleanedRevisionText = $textRevision ? $textRevision->getField( '*' ) : null;
 	}
 
 	/**
