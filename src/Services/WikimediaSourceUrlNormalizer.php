@@ -11,23 +11,26 @@ use FileImporter\Data\SourceUrl;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikimediaSourceUrlNormalizer extends SourceUrlNormalizer {
+class WikimediaSourceUrlNormalizer implements SourceUrlNormalizer {
 
-	public function __construct() {
-		parent::__construct( function ( SourceUrl $sourceUrl ) {
-			$parts = $sourceUrl->getParsedUrl();
-			$parts['host'] = strtr( $parts['host'], [
-				'.m.' => '.',
-				'.zero.' => '.',
-			] );
-			$url = wfAssembleUrl( $parts );
+	/**
+	 * @param SourceUrl $sourceUrl
+	 *
+	 * @return SourceUrl
+	 */
+	public function normalize( SourceUrl $sourceUrl ) {
+		$parts = $sourceUrl->getParsedUrl();
+		$parts['host'] = strtr( $parts['host'], [
+			'.m.' => '.',
+			'.zero.' => '.',
+		] );
+		$url = wfAssembleUrl( $parts );
 
-			// TODO: Extract this normalization that is true for all (3rd-party) MediaWiki wikis to
-			// a MediaWikiSourceUrlNormalizer, and use it here.
-			$url = str_replace( ' ', '_', $url );
+		// TODO: Extract this normalization that is true for all (3rd-party) MediaWiki wikis to
+		// a MediaWikiSourceUrlNormalizer, and use it here.
+		$url = str_replace( ' ', '_', $url );
 
-			return new SourceUrl( $url );
-		} );
+		return new SourceUrl( $url );
 	}
 
 }
