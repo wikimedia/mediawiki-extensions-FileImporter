@@ -11,7 +11,7 @@ use FileImporter\Data\SourceUrl;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikimediaSourceUrlNormalizer implements SourceUrlNormalizer {
+class WikimediaSourceUrlNormalizer extends MediaWikiSourceUrlNormalizer {
 
 	/**
 	 * @param SourceUrl $sourceUrl
@@ -19,16 +19,12 @@ class WikimediaSourceUrlNormalizer implements SourceUrlNormalizer {
 	 * @return SourceUrl
 	 */
 	public function normalize( SourceUrl $sourceUrl ) {
-		$parts = $sourceUrl->getParsedUrl();
+		$parts = parent::normalize( $sourceUrl )->getParsedUrl();
 		$parts['host'] = strtr( $parts['host'], [
 			'.m.' => '.',
 			'.zero.' => '.',
 		] );
 		$url = wfAssembleUrl( $parts );
-
-		// TODO: Extract this normalization that is true for all (3rd-party) MediaWiki wikis to
-		// a MediaWikiSourceUrlNormalizer, and use it here.
-		$url = str_replace( ' ', '_', $url );
 
 		return new SourceUrl( $url );
 	}

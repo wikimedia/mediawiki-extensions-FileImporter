@@ -6,6 +6,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
 
 /**
+ * @covers \FileImporter\Services\MediaWikiSourceUrlNormalizer
  * @covers \FileImporter\Services\WikimediaSourceUrlNormalizer
  *
  * @license GPL-2.0-or-later
