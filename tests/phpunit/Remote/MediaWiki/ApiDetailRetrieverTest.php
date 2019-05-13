@@ -30,6 +30,41 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		] );
 	}
 
+	public function provideSourceUrls() {
+		return [
+			[ 'http://w.wiki', null ],
+			[ 'http://w.wiki/', null ],
+			[ 'http://w.wiki/A/', null ],
+			[ 'http://w.wiki/0', '0' ],
+			[ 'http://w.wiki/A', 'A' ],
+			[ 'http://w.wiki//B', 'B' ],
+			[ 'http://w.wiki/A/B', 'B' ],
+			[ 'http://w.wiki/A?query#fragment', 'A' ],
+
+			// title=… always has a higher priority, no matter what it contains.
+			[ 'http://w.wiki/A?title', null ],
+			[ 'http://w.wiki/A?title=', null ],
+			[ 'http://w.wiki/A?title=B', 'B' ],
+
+			// Yes, these different results match the behavior of MediaWiki core!
+			[ 'http://w.wiki/B+C', 'B+C' ],
+			[ 'http://w.wiki/A?title=B+C', 'B C' ],
+
+			// Make sure %… sequences are not decoded twice.
+			[ 'http://w.wiki/100%25%32%35', '100%25' ],
+			[ 'http://w.wiki/A?title=100%25%32%35', '100%25' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideSourceUrls
+	 */
+	public function testSourceUrlParsing( $sourceUrl, $expected ) {
+		$apiRetriever = $this->newInstance();
+		$title = $apiRetriever->parseTitleFromSourceUrl( new SourceUrl( $sourceUrl ) );
+		$this->assertSame( $expected, $title );
+	}
+
 	public function testInvalidSuppressedUser() {
 		$this->setMwGlobals( [
 			'wgFileImporterAccountForSuppressedUsername' => 'InValid#Name'
@@ -171,7 +206,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		return [
 			'1st request continues' => [
 				'existingData' => [
-					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/Foo' ),
+					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/F%C3%B6o' ),
 					'apiUrl' => 'APIURL',
 					'requestData' => [
 						'continue' => []
@@ -197,7 +232,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 					'continue' => 'CONTINUE'
 				],
 				'expected' => [
-					'url' => 'APIURL?action=query&format=json&titles=Foo&prop=',
+					'url' => 'APIURL?action=query&format=json&titles=F%C3%B6o&prop=',
 					'data' => [
 						'imageinfo' => [
 							[ 'size' => 1 ],

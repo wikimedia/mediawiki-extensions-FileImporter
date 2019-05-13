@@ -19,6 +19,7 @@ class AnyMediaWikiFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 			[ 'https://en.wikipedia.org/wiki/File:Foo.png#Bar', true ],
 			[ 'https://en.wikipedia.org/wiki/File:Foo.png?foo=bar', true ],
 			[ 'https://commons.wikimedia.org/w/index.php?title=File:E-2C_Hawkeye_and_Mount_Fuji.jpg', true ],
+			[ 'https://commons.wikimedia.org/w/index.php?title=', false ],
 			// These could be files? We don't know until we make a http request
 			[ 'https://commons.wikimedia.org/wiki', true ],
 			[ 'https://commons.wikimedia.org/wiki/Foo', true ],

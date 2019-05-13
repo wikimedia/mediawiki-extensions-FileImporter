@@ -27,6 +27,7 @@ use User;
  * @author Addshore
  */
 class ApiDetailRetriever implements DetailRetriever {
+	use MediaWikiSourceUrlParser;
 
 	/**
 	 * @var HttpApiLookup
@@ -117,33 +118,6 @@ class ApiDetailRetriever implements DetailRetriever {
 				$this->suppressedUsername . '"'
 			);
 		}
-	}
-
-	/**
-	 * @param SourceUrl $sourceUrl
-	 * @return string|null the string title extracted or null on failure
-	 */
-	private function getTitleFromSourceUrl( SourceUrl $sourceUrl ) {
-		$parsed = $sourceUrl->getParsedUrl();
-		$title = null;
-		$hasQueryAndTitle = null;
-
-		if ( array_key_exists( 'query', $parsed ) ) {
-			parse_str( $parsed['query'], $bits );
-			$hasQueryAndTitle = array_key_exists( 'title', $bits );
-			if ( $hasQueryAndTitle && strlen( $bits['title'] ) > 0 ) {
-				$title = $bits['title'];
-			}
-		}
-
-		if ( !$hasQueryAndTitle && array_key_exists( 'path', $parsed ) ) {
-			$bits = explode( '/', $parsed['path'] );
-			if ( count( $bits ) >= 2 && end( $bits ) !== '' ) {
-				$title = end( $bits );
-			}
-		}
-
-		return rawurldecode( $title );
 	}
 
 	/**
@@ -526,7 +500,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		return [
 			'action' => 'query',
 			'format' => 'json',
-			'titles' => $this->getTitleFromSourceUrl( $sourceUrl ),
+			'titles' => $this->parseTitleFromSourceUrl( $sourceUrl ),
 			'prop' => ''
 		];
 	}
