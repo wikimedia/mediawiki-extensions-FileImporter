@@ -34,6 +34,7 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 			// Excluded namespaces
 			[ ':File:foo', 'mw', ':File:foo' ],
 			[ 'File:foo', 'mw', 'File:foo' ],
+			[ 'Media:foo', 'mw', 'Media:foo' ],
 			[ 'Category:foo', 'mw', 'Category:foo' ],
 
 			// No need to validate the prefix
@@ -67,6 +68,8 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 		$language->method( 'getNsIndex' )
 			->willReturnCallback( function ( $name ) {
 				switch ( $name ) {
+					case 'Media':
+						return NS_MEDIA;
 					case '':
 						return NS_MAIN;
 					case 'Talk':
