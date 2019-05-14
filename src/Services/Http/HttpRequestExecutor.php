@@ -69,12 +69,13 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 
 	/**
 	 * @param string $url
+	 * @param array $parameters
 	 *
 	 * @throws HttpRequestException
 	 * @return MWHttpRequest
 	 */
-	public function execute( $url ) {
-		return $this->executeWithCallback( $url );
+	public function execute( $url, array $parameters = [] ) {
+		return $this->executeWithCallback( wfAppendQuery( $url, $parameters ) );
 	}
 
 	/**

@@ -165,7 +165,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 
 		$apiRetriever->checkRevisionCount(
 			$this->createMock( SourceUrl::class ),
-			'',
 			$input
 		);
 	}
@@ -195,7 +194,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 
 		$apiRetriever->checkRevisionCount(
 			$this->createMock( SourceUrl::class ),
-			'',
 			$input
 		);
 
@@ -207,7 +205,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			'1st request continues' => [
 				'existingData' => [
 					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/F%C3%B6o' ),
-					'apiUrl' => 'APIURL',
 					'requestData' => [
 						'continue' => []
 					],
@@ -232,12 +229,12 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 					'continue' => 'CONTINUE'
 				],
 				'expected' => [
-					'url' => wfAppendQuery( 'APIURL', [
+					'apiParameters' => [
 						'action' => 'query',
 						'format' => 'json',
 						'titles' => 'Föo',
 						'prop' => '',
-					] ),
+					],
 					'data' => [
 						'imageinfo' => [
 							[ 'size' => 1 ],
@@ -253,7 +250,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			'2nd request does not continue' => [
 				'existingData' => [
 					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/File:Foo.jpg' ),
-					'apiUrl' => 'APIURL',
 					'requestData' => [
 						'continue' => [
 							'rvcontinue' => 'rvContinueHere',
@@ -289,7 +285,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 					]
 				],
 				'expected' => [
-					'url' => wfAppendQuery( 'APIURL', [
+					'apiParameters' => [
 						'action' => 'query',
 						'format' => 'json',
 						'titles' => 'File:Foo.jpg',
@@ -302,8 +298,8 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 						'rvcontinue' => 'rvContinueHere',
 						'rvlimit' => 500,
 						'rvdir' => 'newer',
-						'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content'
-					] ),
+						'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content',
+					],
 					'data' => [
 						'imageinfo' => [
 							[ 'size' => 0 ],
@@ -331,7 +327,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		$apiRetriever = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutorWithExpectedRequest(
-				$expected[ 'url' ],
+				$expected[ 'apiParameters' ],
 				json_encode( $apiResponse )
 			),
 			new NullLogger(),
@@ -345,7 +341,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			[ $apiRetriever, 'getMoreRevisions' ],
 			[
 				$existingData['sourceUrl'],
-				$existingData['apiUrl'],
 				&$existingData['requestData'],
 				&$existingData['pageInfoData']
 			]
@@ -520,25 +515,25 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	 */
 	private function getMockHttpRequestExecutor( $titleString, $content ) {
 		return $this->getMockHttpRequestExecutorWithExpectedRequest(
-			$this->getExpectedExecuteRequestUrl( $titleString ),
+			$this->getExpectedApiParameters( $titleString ),
 			$content
 		);
 	}
 
 	/**
-	 * @param string $expectedRequestString
+	 * @param array $expectedApiParameters
 	 * @param string $content
 	 *
 	 * @return HttpRequestExecutor
 	 */
 	private function getMockHttpRequestExecutorWithExpectedRequest(
-		$expectedRequestString,
+		array $expectedApiParameters,
 		$content
 	) {
 		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->expects( $this->once() )
 			->method( 'execute' )
-			->with( $expectedRequestString )
+			->with( 'APIURL', $expectedApiParameters )
 			->willReturn( $this->getMockMWHttpRequest( $content ) );
 		return $mock;
 	}
@@ -546,10 +541,10 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	/**
 	 * @param string $titleString
 	 *
-	 * @return string
+	 * @return array
 	 */
-	private function getExpectedExecuteRequestUrl( $titleString ) {
-		return wfAppendQuery( 'APIURL', [
+	private function getExpectedApiParameters( $titleString ) {
+		return [
 			'action' => 'query',
 			'format' => 'json',
 			'titles' => $titleString,
@@ -564,7 +559,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			'tlnamespace' => NS_TEMPLATE,
 			'tllimit' => 500,
 			'cllimit' => 500,
-		] );
+		];
 	}
 
 	/**

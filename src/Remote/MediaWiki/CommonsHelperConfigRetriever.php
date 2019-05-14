@@ -68,8 +68,7 @@ class CommonsHelperConfigRetriever {
 	 * @return bool True if a config was found
 	 */
 	public function retrieveConfiguration( SourceUrl $sourceUrl ) {
-		$request = $this->buildApiRequest( $sourceUrl );
-		$response = $this->sendApiRequest( $request );
+		$response = $this->sendApiRequest( $sourceUrl );
 
 		if ( !isset( $response['query']['pages'] ) ||
 			count( $response['query']['pages'] ) !== 1
@@ -124,43 +123,33 @@ class CommonsHelperConfigRetriever {
 	}
 
 	/**
-	 * @param string $requestUrl
+	 * @param SourceUrl $sourceUrl
 	 *
 	 * @return array[]
 	 */
-	private function sendApiRequest( $requestUrl ) {
-		try {
-			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
-		} catch ( HttpRequestException $e ) {
-			throw new LocalizedImportException( [ 'fileimporter-api-failedtogetinfo',
-				$requestUrl ] );
-		}
-		$requestData = json_decode( $imageInfoRequest->getContent(), true );
-		return $requestData;
-	}
-
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return string
-	 */
-	private function buildApiRequest( SourceUrl $sourceUrl ) {
+	private function sendApiRequest( SourceUrl $sourceUrl ) {
 		// We assume the wiki holding the config pages uses the same configuration.
 		$scriptPath = $this->mainConfig->get( 'ScriptPath' );
+		$apiUrl = $this->configServer . $scriptPath . '/api.php';
+		$apiParameters = [
+			'action' => 'query',
+			'format' => 'json',
+			'titles' => $this->getQueryParamTitle( $sourceUrl ),
+			'prop' => 'revisions',
+			'formatversion' => 2,
+			'rvprop' => 'content',
+			'rvlimit' => 1,
+			'rvdir' => 'older'
+		];
 
-		return wfAppendQuery(
-			$this->configServer . $scriptPath . '/api.php',
-			[
-				'action' => 'query',
-				'format' => 'json',
-				'titles' => $this->getQueryParamTitle( $sourceUrl ),
-				'prop' => 'revisions',
-				'formatversion' => 2,
-				'rvprop' => 'content',
-				'rvlimit' => 1,
-				'rvdir' => 'older'
-			]
-		);
+		try {
+			$request = $this->httpRequestExecutor->execute( $apiUrl, $apiParameters );
+		} catch ( HttpRequestException $e ) {
+			throw new LocalizedImportException( [ 'fileimporter-api-failedtogetinfo',
+				$apiUrl ] );
+		}
+
+		return json_decode( $request->getContent(), true );
 	}
 
 	/**

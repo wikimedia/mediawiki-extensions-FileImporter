@@ -50,12 +50,12 @@ class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
 		$requestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$requestExecutor->expects( $this->once() )
 			->method( 'execute' )
-			->with( wfAppendQuery( '<API>', [
+			->with( '<API>', [
 				'format' => 'json',
 				'action' => 'query',
 				'prop' => 'revisions',
 				'titles' => 'File:<TITLE>',
-			] ) )
+			] )
 			->willReturn( $httpRequest );
 
 		$logger = $this->createMock( LoggerInterface::class );

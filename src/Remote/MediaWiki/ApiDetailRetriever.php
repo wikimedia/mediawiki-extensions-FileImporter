@@ -125,27 +125,20 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * @param string $apiUrl
-	 * @param string[] $params
-	 *
-	 * @return string
-	 */
-	private function getRequestUrl( $apiUrl, array $params ) {
-		return wfAppendQuery( $apiUrl, $params );
-	}
-
-	/**
-	 * @param string $requestUrl
+	 * @param SourceUrl $sourceUrl
+	 * @param array $apiParameters
 	 *
 	 * @return array[]
 	 * @throws ImportException
 	 */
-	private function sendApiRequest( $requestUrl ) {
+	private function sendApiRequest( SourceUrl $sourceUrl, array $apiParameters ) {
+		$apiUrl = $this->httpApiLookup->getApiUrl( $sourceUrl );
+
 		try {
-			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
+			$imageInfoRequest = $this->httpRequestExecutor->execute( $apiUrl, $apiParameters );
 		} catch ( HttpRequestException $e ) {
 			throw new LocalizedImportException( [ 'fileimporter-api-failedtogetinfo',
-				$requestUrl ] );
+				$apiUrl ] );
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 		return $requestData;
@@ -158,23 +151,20 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @throws ImportException
 	 */
 	public function getImportDetails( SourceUrl $sourceUrl ) {
-		$apiUrl = $this->httpApiLookup->getApiUrl( $sourceUrl );
-
 		$params = $this->getBaseParams( $sourceUrl );
 		$params = $this->addFileRevisionsToParams( $params );
 		$params = $this->addTextRevisionsToParams( $params );
 		$params = $this->addTemplatesToParams( $params );
 		$params = $this->addCategoriesToParams( $params );
 
-		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
-		$requestData = $this->sendApiRequest( $requestUrl );
+		$requestData = $this->sendApiRequest( $sourceUrl, $params );
 
 		if ( count( $requestData['query']['pages'] ) !== 1 ) {
 			$this->logger->warning(
 				'No pages returned by the API',
 				[
 					'sourceUrl' => $sourceUrl->getUrl(),
-					'requestUrl' => $requestUrl,
+					'apiParameters' => $params,
 				]
 			);
 			throw new LocalizedImportException( 'fileimporter-api-nopagesreturned' );
@@ -199,17 +189,17 @@ class ApiDetailRetriever implements DetailRetriever {
 				'Bad image or revision info returned by the API',
 				[
 					'sourceUrl' => $sourceUrl->getUrl(),
-					'requestUrl' => $requestUrl,
+					'apiParameters' => $params,
 				]
 			);
 			throw new LocalizedImportException( 'fileimporter-api-badinfo' );
 		}
 
-		$this->checkRevisionCount( $sourceUrl, $requestUrl, $pageInfoData );
+		$this->checkRevisionCount( $sourceUrl, $pageInfoData );
 		$this->checkMaxRevisionAggregatedBytes( $pageInfoData );
 
 		while ( array_key_exists( 'continue', $requestData ) ) {
-			$this->getMoreRevisions( $sourceUrl, $apiUrl, $requestData, $pageInfoData );
+			$this->getMoreRevisions( $sourceUrl, $requestData, $pageInfoData );
 		}
 
 		$imageInfoData = $pageInfoData['imageinfo'];
@@ -292,7 +282,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * exceeds the max revisions limit
 	 *
 	 * @param SourceUrl $sourceUrl
-	 * @param string $apiUrl
 	 * @param array[] &$requestData
 	 * @param array[] &$pageInfoData
 	 *
@@ -300,7 +289,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	 */
 	private function getMoreRevisions(
 		SourceUrl $sourceUrl,
-		$apiUrl,
 		array &$requestData,
 		array &$pageInfoData
 	) {
@@ -327,8 +315,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			$params = $this->addCategoriesToParams( $params, $clContinue );
 		}
 
-		$requestUrl = $this->getRequestUrl( $apiUrl, $params );
-		$requestData = $this->sendApiRequest( $requestUrl );
+		$requestData = $this->sendApiRequest( $sourceUrl, $params );
 
 		$newPageInfoData = end( $requestData['query']['pages'] );
 
@@ -352,7 +339,7 @@ class ApiDetailRetriever implements DetailRetriever {
 				array_merge( $pageInfoData['categories'], $newPageInfoData['categories'] );
 		}
 
-		$this->checkRevisionCount( $sourceUrl, $requestUrl, $pageInfoData );
+		$this->checkRevisionCount( $sourceUrl, $pageInfoData );
 		$this->checkMaxRevisionAggregatedBytes( $pageInfoData );
 	}
 
@@ -361,12 +348,11 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * the maximum revision limit
 	 *
 	 * @param SourceUrl $sourceUrl
-	 * @param string $requestUrl
 	 * @param array[] $pageInfoData
 	 *
 	 * @throws LocalizedImportException
 	 */
-	private function checkRevisionCount( SourceUrl $sourceUrl, $requestUrl, array $pageInfoData ) {
+	private function checkRevisionCount( SourceUrl $sourceUrl, array $pageInfoData ) {
 		if ( count( $pageInfoData['revisions'] ) > $this->maxRevisions ||
 			count( $pageInfoData['imageinfo'] ) > $this->maxRevisions ||
 			count( $pageInfoData['revisions'] ) > static::MAX_REVISIONS ||
@@ -375,7 +361,6 @@ class ApiDetailRetriever implements DetailRetriever {
 				'Too many revisions were being fetched',
 				[
 					'sourceUrl' => $sourceUrl->getUrl(),
-					'requestUrl' => $requestUrl,
 				]
 			);
 
@@ -556,8 +541,8 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		return $params + [
 			'iilimit' => static::API_RESULT_LIMIT,
-			'iiurlwidth' => '800',
-			'iiurlheight' => '400',
+			'iiurlwidth' => 800,
+			'iiurlheight' => 400,
 			'iiprop' => implode(
 				'|',
 				[

@@ -54,7 +54,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
 
 		$requestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$requestExecutor->method( 'execute' )
-			->with( wfAppendQuery( '<SERVER>/api.php', [
+			->with( '<SERVER>/api.php', [
 				'action' => 'query',
 				'format' => 'json',
 				'titles' => $configPage,
@@ -63,7 +63,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
 				'rvprop' => 'content',
 				'rvlimit' => 1,
 				'rvdir' => 'older',
-			] ) )
+			] )
 			->willReturn( $request );
 
 		$retriever = new CommonsHelperConfigRetriever(

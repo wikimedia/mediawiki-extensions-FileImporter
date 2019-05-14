@@ -37,21 +37,22 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 	 */
 	public function importAllowed( SourceUrl $sourceUrl, $intendedTitleString ) {
 		$api = $this->httpApiLookup->getApiUrl( $sourceUrl );
-
-		$requestUrl = wfAppendQuery( $api, $this->getParams( $intendedTitleString ) );
+		$apiParameters = $this->getParams( $intendedTitleString );
 
 		try {
-			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );
+			$imageInfoRequest = $this->httpRequestExecutor->execute( $api, $apiParameters );
 		} catch ( HttpRequestException $e ) {
 			$this->logger->error(
-				__METHOD__ . ' failed to check title state from: ' . $requestUrl,
+				__METHOD__ . ' failed to check title state from: ' . $api,
 				[
 					'url' => $e->getHttpRequest()->getFinalUrl(),
 					'content' => $e->getHttpRequest()->getContent(),
 					'errors' => $e->getStatusValue()->getErrors(),
+					'apiUrl' => $api,
+					'apiParameters' => $apiParameters,
 				]
 			);
-			throw new ImportException( 'Failed to check title state from: ' . $requestUrl );
+			throw new ImportException( 'Failed to check title state from: ' . $api );
 		}
 
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
