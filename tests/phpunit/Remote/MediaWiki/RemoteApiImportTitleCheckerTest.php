@@ -15,7 +15,8 @@ use Psr\Log\LoggerInterface;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class RemoteApiImportTitleCheckerTest extends \MediaWikiTestCase {
+class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	public function provideJsonResponses() {
 		return [

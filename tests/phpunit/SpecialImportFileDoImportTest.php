@@ -23,7 +23,8 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class SpecialImportFileDoImportTest extends \MediaWikiTestCase {
+class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	public function setUp() {
 		parent::setUp();
