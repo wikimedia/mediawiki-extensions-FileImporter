@@ -44,6 +44,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 				$this->getContext()
 			)
 		);
+		$editPage->setContextTitle( $this->getPageTitle() );
 
 		\Hooks::run( 'EditPage::showEditForm:initial',
 			[ &$editPage, $this->getOutput() ]
