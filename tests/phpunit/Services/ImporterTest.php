@@ -54,6 +54,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( [
+			'wgHooks' => [],
 			'wgFileImporterCommentForPostImportRevision' => 'imported from $1',
 			'wgFileImporterTextForPostImportRevision' => "imported from $1\n",
 		] );

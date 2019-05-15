@@ -7,7 +7,6 @@ use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
-use PHPUnit4And6Compat;
 use Title;
 use Wikimedia\Rdbms\IDatabase;
 
@@ -21,7 +20,6 @@ use Wikimedia\Rdbms\IDatabase;
  * @license GPL-2.0-or-later
  */
 class NullRevisionCreatorTest extends \MediaWikiTestCase {
-	use PHPUnit4And6Compat;
 
 	public function testCreateForLinkTargetSuccess() {
 		$this->setMwGlobals( 'wgHooks', [

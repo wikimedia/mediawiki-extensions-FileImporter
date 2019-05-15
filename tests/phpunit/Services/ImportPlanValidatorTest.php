@@ -18,7 +18,6 @@ use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MalformedTitleException;
-use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_MockObject;
 use Title;
 use UploadBase;
@@ -30,8 +29,13 @@ use User;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ImportPlanValidatorTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class ImportPlanValidatorTest extends \MediaWikiTestCase {
+
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( 'wgHooks', [] );
+	}
 
 	/**
 	 * @param int $callCount

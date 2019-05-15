@@ -13,7 +13,6 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  * @author Thiemo Kreuz
  */
 class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
-	use \PHPUnit4And6Compat;
 
 	// TODO: Test incompatible URLs
 	// TODO: Test the "missing" code-path

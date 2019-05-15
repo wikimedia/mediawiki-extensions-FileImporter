@@ -13,6 +13,12 @@ use FileImporter\Services\FileTextRevisionValidator;
  */
 class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 
+	protected function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( 'wgHooks', [] );
+	}
+
 	public function testSuccess() {
 		$validator = new FileTextRevisionValidator();
 		$title = \Title::makeTitle( NS_FILE, __METHOD__ );
@@ -39,8 +45,9 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$expectedUser = $this->getTestUser()->getUser();
 		$expectedContent = $this->createMock( \Content::class );
 
-		$this->mergeMwGlobalArrayValue( 'wgHooks', [
-			'EditFilterMergedContent' => [ function (
+		$this->setTemporaryHook(
+			'EditFilterMergedContent',
+			function (
 				\IContextSource $context,
 				$content,
 				\StatusValue $status,
@@ -60,8 +67,8 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 
 				// This is the way AbuseFilter communicates with the caller
 				$status->warning( new \RawMessage( '<RAW>' ) );
-			} ],
-		] );
+			}
+		);
 
 		$this->setExpectedException( ImportException::class, '<RAW>' );
 		$validator->validate( $expectedTitle, $expectedUser, $expectedContent, '<SUMMARY>', true );

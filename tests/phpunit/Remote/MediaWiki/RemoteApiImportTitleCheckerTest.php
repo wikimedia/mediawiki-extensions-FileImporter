@@ -16,7 +16,6 @@ use Psr\Log\LoggerInterface;
  * @author Thiemo Kreuz
  */
 class RemoteApiImportTitleCheckerTest extends \MediaWikiTestCase {
-	use \PHPUnit4And6Compat;
 
 	public function provideJsonResponses() {
 		return [

@@ -33,7 +33,6 @@ use WikiRevision;
  * @author Thiemo Kreuz
  */
 class ImporterComponentTest extends \MediaWikiTestCase {
-	use \PHPUnit4And6Compat;
 
 	const URL = 'http://source.url';
 	const TITLE = 'FilePageTitle';
@@ -54,6 +53,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		$this->setMwGlobals( 'wgHooks', [] );
 		$this->user = $this->getTestUser()->getUser();
 	}
 
