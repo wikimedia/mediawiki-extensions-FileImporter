@@ -232,7 +232,12 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 					'continue' => 'CONTINUE'
 				],
 				'expected' => [
-					'url' => 'APIURL?action=query&format=json&titles=F%C3%B6o&prop=',
+					'url' => wfAppendQuery( 'APIURL', [
+						'action' => 'query',
+						'format' => 'json',
+						'titles' => 'Föo',
+						'prop' => '',
+					] ),
 					'data' => [
 						'imageinfo' => [
 							[ 'size' => 1 ],
@@ -284,11 +289,21 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 					]
 				],
 				'expected' => [
-					'url' => 'APIURL?action=query&format=json&titles=File%3AFoo.jpg' .
-						'&prop=imageinfo%7Crevisions&iistart=iiStartHere&iilimit=500&iiurlwidth=800&iiurlheight=400' .
-						'&iiprop=timestamp%7Cuser%7Cuserid%7Ccomment%7Ccanonicaltitle%7Curl%7Csize%7Csha1' .
-						'&rvcontinue=rvContinueHere&rvlimit=500&rvdir=newer&rvprop=flags' .
-						'%7Ctimestamp%7Cuser%7Csha1%7Ccontentmodel%7Ccomment%7Ccontent',
+					'url' => wfAppendQuery( 'APIURL', [
+						'action' => 'query',
+						'format' => 'json',
+						'titles' => 'File:Foo.jpg',
+						'prop' => 'imageinfo|revisions',
+						'iistart' => 'iiStartHere',
+						'iilimit' => 500,
+						'iiurlwidth' => 800,
+						'iiurlheight' => 400,
+						'iiprop' => 'timestamp|user|userid|comment|canonicaltitle|url|size|sha1',
+						'rvcontinue' => 'rvContinueHere',
+						'rvlimit' => 500,
+						'rvdir' => 'newer',
+						'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content'
+					] ),
 					'data' => [
 						'imageinfo' => [
 							[ 'size' => 0 ],
@@ -534,13 +549,22 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	 * @return string
 	 */
 	private function getExpectedExecuteRequestUrl( $titleString ) {
-		return 'APIURL?action=query&format=json&titles=' . rawurlencode( $titleString ) .
-			'&prop=imageinfo%7Crevisions%7Ctemplates%7Ccategories' .
-			'&iilimit=500&iiurlwidth=800&iiurlheight=400' .
-			'&iiprop=timestamp%7Cuser%7Cuserid%7Ccomment%7Ccanonicaltitle%7Curl%7Csize%7Csha1' .
-			'&rvlimit=500&rvdir=newer&rvprop=flags%7Ctimestamp%7Cuser%7Csha1%7Ccontentmodel%7' .
-			'Ccomment%7Ccontent' .
-			'&tlnamespace=' . NS_TEMPLATE . '&tllimit=500&cllimit=500';
+		return wfAppendQuery( 'APIURL', [
+			'action' => 'query',
+			'format' => 'json',
+			'titles' => $titleString,
+			'prop' => 'imageinfo|revisions|templates|categories',
+			'iilimit' => 500,
+			'iiurlwidth' => 800,
+			'iiurlheight' => 400,
+			'iiprop' => 'timestamp|user|userid|comment|canonicaltitle|url|size|sha1',
+			'rvlimit' => 500,
+			'rvdir' => 'newer',
+			'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content',
+			'tlnamespace' => NS_TEMPLATE,
+			'tllimit' => 500,
+			'cllimit' => 500,
+		] );
 	}
 
 	/**
