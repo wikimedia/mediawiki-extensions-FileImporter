@@ -33,6 +33,16 @@ class ImportDetails {
 	private $fileRevisions;
 
 	/**
+	 * @var string[]
+	 */
+	private $templates = [];
+
+	/**
+	 * @var string[]
+	 */
+	private $categories = [];
+
+	/**
 	 * @var string|null
 	 */
 	private $cleanedRevisionText;
@@ -40,27 +50,38 @@ class ImportDetails {
 	/**
 	 * @var int
 	 */
-	private $numberOfTemplatesReplaced;
+	private $numberOfTemplatesReplaced = 0;
 
 	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param LinkTarget $sourceLinkTarget
 	 * @param TextRevisions $textRevisions
 	 * @param FileRevisions $fileRevisions
-	 * @param int $numOfReplacedTemplates
 	 */
 	public function __construct(
 		SourceUrl $sourceUrl,
 		LinkTarget $sourceLinkTarget,
 		TextRevisions $textRevisions,
-		FileRevisions $fileRevisions,
-		$numOfReplacedTemplates = 0
+		FileRevisions $fileRevisions
 	) {
 		$this->sourceUrl = $sourceUrl;
 		$this->sourceLinkTarget = $sourceLinkTarget;
 		$this->textRevisions = $textRevisions;
 		$this->fileRevisions = $fileRevisions;
-		$this->numberOfTemplatesReplaced = $numOfReplacedTemplates;
+	}
+
+	/**
+	 * @param string[] $templates
+	 */
+	public function setTemplates( array $templates ) {
+		$this->templates = $templates;
+	}
+
+	/**
+	 * @param string[] $categories
+	 */
+	public function setCategories( array $categories ) {
+		$this->categories = $categories;
 	}
 
 	/**
@@ -68,6 +89,13 @@ class ImportDetails {
 	 */
 	public function setCleanedRevisionText( $text ) {
 		$this->cleanedRevisionText = $text;
+	}
+
+	/**
+	 * @param int $replacements
+	 */
+	public function setNumberOfTemplatesReplaced( $replacements ) {
+		$this->numberOfTemplatesReplaced = $replacements;
 	}
 
 	/**
@@ -120,6 +148,28 @@ class ImportDetails {
 	}
 
 	/**
+	 * List of templates directly or indirectly transcluded in the latest revision of the file
+	 * description page.
+	 *
+	 * @return string[]
+	 */
+	public function getTemplates() {
+		return $this->templates;
+	}
+
+	/**
+	 * List of categories present in the latest revision of the file description page.
+	 *
+	 * @return string[]
+	 */
+	public function getCategories() {
+		return $this->categories;
+	}
+
+	/**
+	 * FIXME: This field must be moved to the ImportPlan! It's only needed in contexts that have
+	 * access to the ImportPlan!
+	 *
 	 * @return int
 	 */
 	public function getNumberOfTemplatesReplaced() {
@@ -127,6 +177,9 @@ class ImportDetails {
 	}
 
 	/**
+	 * FIXME: This field must be moved to the ImportPlan! It's only needed in contexts that have
+	 * access to the ImportPlan!
+	 *
 	 * @return string|null
 	 */
 	public function getCleanedRevisionText() {

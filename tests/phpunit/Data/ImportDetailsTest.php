@@ -34,9 +34,9 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			$sourceUrl,
 			$sourceLinkTarget,
 			$textRevisions,
-			$fileRevisions,
-			1
+			$fileRevisions
 		);
+		$details->setNumberOfTemplatesReplaced( 1 );
 
 		// Values provided on construction time
 		$this->assertSame( $sourceUrl, $details->getSourceUrl(), 'sourceUrl' );
