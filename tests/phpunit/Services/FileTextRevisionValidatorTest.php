@@ -23,7 +23,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$validator = new FileTextRevisionValidator();
 		$title = \Title::makeTitle( NS_FILE, __METHOD__ );
 		$user = $this->getTestUser()->getUser();
-		$content = $this->createMock( \Content::class );
+		$content = new \TextContent( '' );
 
 		$validator->validate( $title, $user, $content, '', false );
 		$this->addToAssertionCount( 1 );
@@ -33,7 +33,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$validator = new FileTextRevisionValidator();
 		$title = \Title::makeTitle( NS_MAIN, __METHOD__ );
 		$user = $this->getTestUser()->getUser();
-		$content = $this->createMock( \Content::class );
+		$content = new \TextContent( '' );
 
 		$this->setExpectedException( ImportException::class, 'Wrong text revision namespace' );
 		$validator->validate( $title, $user, $content, '', false );
@@ -43,7 +43,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$validator = new FileTextRevisionValidator();
 		$expectedTitle = \Title::makeTitle( NS_FILE, __METHOD__ );
 		$expectedUser = $this->getTestUser()->getUser();
-		$expectedContent = $this->createMock( \Content::class );
+		$expectedContent = new \TextContent( '' );
 
 		$this->setTemporaryHook(
 			'EditFilterMergedContent',
