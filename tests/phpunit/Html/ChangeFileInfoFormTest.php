@@ -14,7 +14,6 @@ use Language;
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
 use OutputPage;
-use PHPUnit4And6Compat;
 use SpecialPage;
 use Title;
 use User;
@@ -26,11 +25,12 @@ use User;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class ChangeFileInfoFormTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 
 	public function setUp() {
 		parent::setUp();
+
+		$this->setMwGlobals( 'wgHooks', [] );
 		Theme::setSingleton( new WikimediaUITheme() );
 	}
 
