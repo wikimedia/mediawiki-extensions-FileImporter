@@ -233,20 +233,9 @@ class ApiDetailRetriever implements DetailRetriever {
 					$commonHelperConfigParser->getWikitextConversions()
 				);
 
-				$validator->hasRequiredTemplate(
-					array_key_exists( 'templates', $pageInfoData ) ?
-						$pageInfoData[ 'templates' ] : []
-				);
-
-				$validator->validateTemplates(
-					array_key_exists( 'templates', $pageInfoData ) ?
-						$pageInfoData[ 'templates' ] : []
-				);
-
-				$validator->validateCategories(
-					array_key_exists( 'categories', $pageInfoData ) ?
-						$pageInfoData[ 'categories' ] : []
-				);
+				$validator->hasRequiredTemplate( $pageInfoData['templates'] ?? [] );
+				$validator->validateTemplates( $pageInfoData['templates'] ?? [] );
+				$validator->validateCategories( $pageInfoData['categories'] ?? [] );
 
 				$cleaner = new WikitextContentCleaner(
 					$commonHelperConfigParser->getWikitextConversions()
@@ -296,17 +285,10 @@ class ApiDetailRetriever implements DetailRetriever {
 		array &$requestData,
 		array &$pageInfoData
 	) {
-		$rvContinue = array_key_exists( 'rvcontinue', $requestData['continue'] ) ?
-			$requestData['continue']['rvcontinue'] : null;
-
-		$iiStart = array_key_exists( 'iistart', $requestData['continue'] ) ?
-			$requestData['continue']['iistart'] : null;
-
-		$tlContinue = array_key_exists( 'tlcontinue', $requestData['continue'] ) ?
-			$requestData['continue']['tlcontinue'] : null;
-
-		$clContinue = array_key_exists( 'clcontinue', $requestData['continue'] ) ?
-			$requestData['continue']['clcontinue'] : null;
+		$rvContinue = $requestData['continue']['rvcontinue'] ?? null;
+		$iiStart = $requestData['continue']['iistart'] ?? null;
+		$tlContinue = $requestData['continue']['tlcontinue'] ?? null;
+		$clContinue = $requestData['continue']['clcontinue'] ?? null;
 
 		$params = $this->getBaseParams( $sourceUrl );
 
