@@ -12,13 +12,14 @@ use FileImporter\FileImporterHooks;
  */
 class FileImporterHooksTest extends \MediaWikiTestCase {
 
-	protected function setUp() {
-		parent::setUp();
-
-		$this->setMwGlobals( 'wgFileImporterAccountForSuppressedUsername', '<SUPPRESSED>' );
+	public function testOnListDefinedTags() {
+		$tags = [];
+		FileImporterHooks::onListDefinedTags( $tags );
+		$this->assertSame( [ 'fileimporter' ], $tags );
 	}
 
 	public function testOnUserGetReservedNames() {
+		$this->setMwGlobals( 'wgFileImporterAccountForSuppressedUsername', '<SUPPRESSED>' );
 		$reservedUsernames = [];
 		FileImporterHooks::onUserGetReservedNames( $reservedUsernames );
 		$this->assertSame( [ '<SUPPRESSED>' ], $reservedUsernames );
