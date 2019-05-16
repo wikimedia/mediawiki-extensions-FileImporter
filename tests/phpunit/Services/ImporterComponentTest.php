@@ -169,7 +169,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 
 		$revision->expects( $this->once() )
 			->method( 'getContent' )
-			->willReturn( $this->createMock( \Content::class ) );
+			->willReturn( new \TextContent( '' ) );
 
 		return $revision;
 	}
