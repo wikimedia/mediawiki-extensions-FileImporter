@@ -137,7 +137,7 @@ class ImportPlan {
 	 *
 	 * @return string
 	 */
-	public function getInitialCleanedInfoText() {
+	private function getInitialCleanedInfoText() {
 		$text = $this->details->getCleanedRevisionText();
 		if ( $text === null ) {
 			$text = $this->getInitialFileInfoText();
