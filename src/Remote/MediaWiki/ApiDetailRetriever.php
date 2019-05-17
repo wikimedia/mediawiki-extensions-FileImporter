@@ -50,14 +50,9 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $maxBytes;
 
 	/**
-	 * @var string|null
+	 * @var CommonsHelperConfigRetriever|null
 	 */
-	private $commonsHelperServer;
-
-	/**
-	 * @var string
-	 */
-	private $commonsHelperBasePageName;
+	private $commonsHelperConfigRetriever;
 
 	/**
 	 * @var string
@@ -105,9 +100,18 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		$this->commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
-		$this->commonsHelperBasePageName = $config->get( 'FileImporterCommonsHelperBasePageName' );
-		$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' );
+		$commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
+		if ( $commonsHelperServer ) {
+			// FIXME: Inject, instead of constructing here!
+			$this->commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
+				$this->httpRequestExecutor,
+				$commonsHelperServer,
+				$config->get( 'FileImporterCommonsHelperBasePageName' )
+			);
+		}
+
+		$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' )
+			?: $commonsHelperServer;
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
 		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
 
@@ -215,18 +219,11 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$lastRevisionText = $textRevisions->getLatest()->getField( '*' );
 		$numberOfTemplatesReplaced = 0;
-		if ( $this->commonsHelperServer ) {
-			$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
-				$this->httpRequestExecutor,
-				$this->commonsHelperServer,
-				$this->commonsHelperBasePageName,
-				$sourceUrl
-			);
-
-			if ( $commonsHelperConfigRetriever->retrieveConfiguration() ) {
+		if ( $this->commonsHelperConfigRetriever ) {
+			if ( $this->commonsHelperConfigRetriever->retrieveConfiguration( $sourceUrl ) ) {
 				$commonHelperConfigParser = new CommonsHelperConfigParser(
-					$commonsHelperConfigRetriever->getConfigWikiUrl(),
-					$commonsHelperConfigRetriever->getConfigWikitext()
+					$this->commonsHelperConfigRetriever->getConfigWikiUrl(),
+					$this->commonsHelperConfigRetriever->getConfigWikitext()
 				);
 
 				$validator = new FileDescriptionPageValidator(
@@ -247,7 +244,7 @@ class ApiDetailRetriever implements DetailRetriever {
 				throw new LocalizedImportException( [
 					'fileimporter-commonshelper-missing-config',
 					$sourceUrl->getHost(),
-					$this->commonsHelperHelpPage ?: $this->commonsHelperServer
+					$this->commonsHelperHelpPage
 				] );
 			}
 		}

@@ -34,11 +34,6 @@ class CommonsHelperConfigRetriever {
 	private $configBasePageName;
 
 	/**
-	 * @var SourceUrl
-	 */
-	private $sourceUrl;
-
-	/**
 	 * @var string|null
 	 */
 	private $configWikitext = null;
@@ -52,13 +47,11 @@ class CommonsHelperConfigRetriever {
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param string $configServer Full domain including schema, e.g. "https://www.mediawiki.org"
 	 * @param string $configBasePageName Base page name, e.g. "Extension:FileImporter/Data/"
-	 * @param SourceUrl $sourceUrl
 	 */
 	public function __construct(
 		HttpRequestExecutor $httpRequestExecutor,
 		$configServer,
-		$configBasePageName,
-		SourceUrl $sourceUrl
+		$configBasePageName
 	) {
 		// TODO: Inject?
 		$this->mainConfig = MediaWikiServices::getInstance()->getMainConfig();
@@ -66,15 +59,16 @@ class CommonsHelperConfigRetriever {
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->configServer = $configServer;
 		$this->configBasePageName = $configBasePageName;
-		$this->sourceUrl = $sourceUrl;
 	}
 
 	/**
+	 * @param SourceUrl $sourceUrl
+	 *
 	 * @throws LocalizedImportException
 	 * @return bool True if a config was found
 	 */
-	public function retrieveConfiguration() {
-		$request = $this->buildApiRequest( $this->sourceUrl );
+	public function retrieveConfiguration( SourceUrl $sourceUrl ) {
+		$request = $this->buildApiRequest( $sourceUrl );
 		$response = $this->sendApiRequest( $request );
 
 		if ( !isset( $response['query']['pages'] ) ||
@@ -92,7 +86,7 @@ class CommonsHelperConfigRetriever {
 		if ( array_key_exists( 'revisions', $currPage ) ) {
 			$latestRevision = end( $currPage['revisions'] );
 			if ( array_key_exists( 'content', $latestRevision ) ) {
-				$this->configWikiUrl = $this->buildCommonsHelperConfigUrl( $this->sourceUrl );
+				$this->configWikiUrl = $this->buildCommonsHelperConfigUrl( $sourceUrl );
 				$this->configWikitext = $latestRevision['content'];
 				return true;
 			}
