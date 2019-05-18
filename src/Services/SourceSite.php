@@ -55,6 +55,7 @@ class SourceSite {
 	 * @return string
 	 */
 	public function getLinkPrefix( SourceUrl $sourceUrl ) {
+		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
 		return $this->linkPrefixLookup->getPrefix( $sourceUrl );
 	}
 
