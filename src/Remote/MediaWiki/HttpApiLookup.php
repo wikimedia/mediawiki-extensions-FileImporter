@@ -27,7 +27,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 	private $logger;
 
 	/**
-	 * @var \FileImporter\Services\Http\HttpRequestExecutor
+	 * @var HttpRequestExecutor
 	 */
 	private $httpRequestExecutor;
 
@@ -61,19 +61,22 @@ class HttpApiLookup implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
+	 * @param SourceUrl $sourceUrl A URL that points to any editable HTML page in any MediaWiki
+	 *  wiki. The page is expected to contain a <link rel="EditURI" href="…"> element.
 	 *
 	 * @throws ImportException
 	 * @return string URL of api.php
 	 */
 	public function getApiUrl( SourceUrl $sourceUrl ) {
-		if ( array_key_exists( $sourceUrl->getUrl(), $this->resultCache ) ) {
-			return $this->resultCache[ $sourceUrl->getUrl() ];
+		$pageUrl = $sourceUrl->getUrl();
+
+		if ( array_key_exists( $pageUrl, $this->resultCache ) ) {
+			return $this->resultCache[$pageUrl];
 		}
 
-		$api = $this->actuallyGetApiUrl( $sourceUrl );
+		$api = $this->actuallyGetApiUrl( $pageUrl );
 		if ( $api ) {
-			$this->resultCache[$sourceUrl->getUrl()] = $api;
+			$this->resultCache[$pageUrl] = $api;
 			return $api;
 		}
 
@@ -81,13 +84,13 @@ class HttpApiLookup implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
+	 * @param string $pageUrl
 	 *
 	 * @return string|null
 	 */
-	private function actuallyGetApiUrl( SourceUrl $sourceUrl ) {
+	private function actuallyGetApiUrl( $pageUrl ) {
 		try {
-			$req = $this->httpRequestExecutor->execute( $sourceUrl->getUrl() );
+			$req = $this->httpRequestExecutor->execute( $pageUrl );
 		} catch ( HttpRequestException $ex ) {
 			$statusCode = $ex->getHttpRequest()->getStatus();
 			$errors = $ex->getStatusValue()->getErrors();
@@ -95,10 +98,10 @@ class HttpApiLookup implements LoggerAwareInterface {
 
 			if ( $statusCode === 404 ) {
 				// TODO: Localize this message?
-				$msg = 'File not found: ' . $sourceUrl->getUrl();
+				$msg = 'File not found: ' . $pageUrl;
 			} else {
 				// TODO: Localize this message?
-				$msg = 'Failed to discover API location from: "' . $sourceUrl->getUrl() . '".';
+				$msg = 'Failed to discover API location from: "' . $pageUrl . '".';
 				if ( $statusCode !== 200 ) {
 					// TODO: Localize this message?
 					$msg .= " HTTP status code $statusCode.";
