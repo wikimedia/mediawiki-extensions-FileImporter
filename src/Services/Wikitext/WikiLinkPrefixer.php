@@ -55,6 +55,7 @@ class WikiLinkPrefixer implements WikiLinkCleaner {
 		if ( $title->inNamespace( NS_CATEGORY )
 			// The syntax for thumbnail images would break with a prefix
 			|| $title->inNamespace( NS_FILE )
+			|| $title->inNamespace( NS_MEDIA )
 			|| strcasecmp( $title->getInterwiki(), $this->interWikiPrefix ) === 0
 		) {
 			return $link;
