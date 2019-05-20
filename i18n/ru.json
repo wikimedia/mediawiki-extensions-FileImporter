@@ -6,7 +6,8 @@
 			"Okras",
 			"Edible Melon",
 			"Vlad5250",
-			"Athena Atterdag"
+			"Athena Atterdag",
+			"1233qwer1234qwer4"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -27,6 +28,7 @@
 	"fileimporter-duplicatefilesdetected-prefix": "Дубликаты",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-submit": "Отправить",
+	"fileimporter-submit-title": "Изменить заголовок",
 	"fileimporter-resubmit": "Отправить повторно",
 	"fileimporter-import": "Импортировать",
 	"fileimporter-cancel": "Отменить",
@@ -37,6 +39,7 @@
 	"fileimporter-heading-fileinfo": "Информация о файле",
 	"fileimporter-heading-filehistory": "История файла",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Файл|$1 версии файла|$1 версий файла}}, который вы сейчас пытаетесь импортировать, {{PLURAL:$1|превышает|превышают}} ограничение на максимально допустимый размер файла для импорта.",
+	"fileimporter-commonshelper-retrieval-failed": "Возникла ошибка при проверки заблокированных файлов.",
 	"fileimporter-commonshelper-parsing-failed": "Страница конфигурации для вашей вики ($1) неполная. Пожалуйста, проверьте, что она содержит раздел $2.",
 	"fileimporter-auto-replacements-summary": "Было сделано $1 автоматических замен в шаблонах",
 	"fileimporter-viewdiff": "Показать изменения",
