@@ -8,8 +8,7 @@ use MediaWiki\MediaWikiServices;
 
 /**
  * This class checks a file description page for required and forbidden categories and templates. It
- * does not have any knowledge about the wikitext syntax, but borrows parts of the JSON structure
- * the MediaWiki query API returns.
+ * does not have any knowledge about the wikitext syntax.
  *
  * @license GPL-2.0-or-later
  */
@@ -35,23 +34,16 @@ class FileDescriptionPageValidator {
 	}
 
 	/**
-	 * @param array[] $templates List of arrays, each containing the elements
-	 *  [ 'ns' => int $namespaceId, 'title' => string $title ]. Remember that pages outside of the
-	 *  Template namespace can be used as templates. Such are skipped.
+	 * @param string[] $templates List of case-insensitive page names without namespace prefix
 	 *
 	 * @throws LocalizedImportException
 	 */
 	public function validateTemplates( array $templates ) {
 		foreach ( $templates as $template ) {
-			if ( $template['ns'] !== NS_TEMPLATE ) {
-				continue;
-			}
-
-			$templateTitle = $template['title'];
-			if ( $this->wikitextConversions->isTemplateBad( $templateTitle ) ) {
+			if ( $this->wikitextConversions->isTemplateBad( $template ) ) {
 				throw new LocalizedImportException( [
 					'fileimporter-file-contains-blocked-category-template',
-					$templateTitle,
+					$template,
 					$this->siteName
 				] );
 			}
@@ -59,22 +51,16 @@ class FileDescriptionPageValidator {
 	}
 
 	/**
-	 * @param array[] $categories List of arrays, each containing the elements
-	 *  [ 'ns' => int $namespaceId, 'title' => string $title ].
+	 * @param string[] $categories List of case-insensitive page names without namespace prefix
 	 *
 	 * @throws LocalizedImportException
 	 */
 	public function validateCategories( array $categories ) {
 		foreach ( $categories as $category ) {
-			if ( $category['ns'] !== NS_CATEGORY ) {
-				continue;
-			}
-
-			$categoryTitle = $category['title'];
-			if ( $this->wikitextConversions->isCategoryBad( $categoryTitle ) ) {
+			if ( $this->wikitextConversions->isCategoryBad( $category ) ) {
 				throw new LocalizedImportException( [
 					'fileimporter-file-contains-blocked-category-template',
-					$categoryTitle,
+					$category,
 					$this->siteName
 				] );
 			}
@@ -82,9 +68,7 @@ class FileDescriptionPageValidator {
 	}
 
 	/**
-	 * @param array[] $templates List of arrays, each containing the elements
-	 *  [ 'ns' => int $namespaceId, 'title' => string $title ]. Remember that pages outside of the
-	 *  Template namespace can be used as templates. Such are skipped.
+	 * @param string[] $templates List of case-insensitive page names without namespace prefix
 	 *
 	 * @throws LocalizedImportException
 	 */
@@ -94,12 +78,7 @@ class FileDescriptionPageValidator {
 		}
 
 		foreach ( $templates as $template ) {
-			if ( $template['ns'] !== NS_TEMPLATE ) {
-				continue;
-			}
-
-			$templateTitle = $template['title'];
-			if ( $this->wikitextConversions->isTemplateGood( $templateTitle ) ) {
+			if ( $this->wikitextConversions->isTemplateGood( $template ) ) {
 				return;
 			}
 		}

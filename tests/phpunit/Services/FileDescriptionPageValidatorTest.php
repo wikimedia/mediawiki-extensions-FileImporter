@@ -20,9 +20,9 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		// Provide at least one title to cover the full code-path
-		$validator->hasRequiredTemplate( [ [ 'title' => 'Template:Good', 'ns' => NS_TEMPLATE ] ] );
-		$validator->validateTemplates( [ [ 'title' => 'Template:Good', 'ns' => NS_TEMPLATE ] ] );
-		$validator->validateCategories( [ [ 'title' => 'Category:Good', 'ns' => NS_TEMPLATE ] ] );
+		$validator->hasRequiredTemplate( [ 'Template:Good' ] );
+		$validator->validateTemplates( [ 'Template:Good' ] );
+		$validator->validateCategories( [ 'Category:Good' ] );
 
 		// Nothing else to assert here
 		$this->addToAssertionCount( 1 );
@@ -32,7 +32,7 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 		$conversions = new WikitextConversions( [ 'Required1', 'Required2' ], [], [], [], [] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
-		$validator->hasRequiredTemplate( [ [ 'title' => 'Template:Required2', 'ns' => NS_TEMPLATE ] ] );
+		$validator->hasRequiredTemplate( [ 'Template:Required2' ] );
 		$this->addToAssertionCount( 1 );
 	}
 
@@ -49,7 +49,7 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );
-		$validator->validateTemplates( [ [ 'title' => 'Template:Bad', 'ns' => NS_TEMPLATE ] ] );
+		$validator->validateTemplates( [ 'Template:Bad' ] );
 	}
 
 	public function testBadCategory() {
@@ -57,7 +57,7 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		$this->setExpectedException( LocalizedImportException::class );
-		$validator->validateCategories( [ [ 'title' => 'Category:Bad', 'ns' => NS_CATEGORY ] ] );
+		$validator->validateCategories( [ 'Category:Bad' ] );
 	}
 
 }

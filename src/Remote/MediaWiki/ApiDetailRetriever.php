@@ -230,9 +230,11 @@ class ApiDetailRetriever implements DetailRetriever {
 					$commonHelperConfigParser->getWikitextConversions()
 				);
 
-				$validator->hasRequiredTemplate( $pageInfoData['templates'] ?? [] );
-				$validator->validateTemplates( $pageInfoData['templates'] ?? [] );
-				$validator->validateCategories( $pageInfoData['categories'] ?? [] );
+				$templates = $this->reduceTitleList( $pageInfoData['templates'] ?? [], NS_TEMPLATE );
+				$categories = $this->reduceTitleList( $pageInfoData['categories'] ?? [], NS_CATEGORY );
+				$validator->hasRequiredTemplate( $templates );
+				$validator->validateTemplates( $templates );
+				$validator->validateCategories( $categories );
 
 				$cleaner = new WikitextContentCleaner(
 					$commonHelperConfigParser->getWikitextConversions()
@@ -263,6 +265,26 @@ class ApiDetailRetriever implements DetailRetriever {
 		$importDetails->setCleanedRevisionText( $lastRevisionText );
 
 		return $importDetails;
+	}
+
+	/**
+	 * @param array[] $titles
+	 * @param int $namespace
+	 *
+	 * @return string[]
+	 */
+	private function reduceTitleList( array $titles, $namespace ) {
+		return array_map(
+			function ( array $title ) {
+				return $title['title'];
+			},
+			array_filter(
+				$titles,
+				function ( array $title ) use ( $namespace ) {
+					return $title['ns'] === $namespace;
+				}
+			)
+		);
 	}
 
 	/**
