@@ -69,11 +69,10 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
 		$retriever = new CommonsHelperConfigRetriever(
 			$requestExecutor,
 			'<SERVER>',
-			'Data ',
-			new SourceUrl( $sourceUrl )
+			'Data '
 		);
 
-		$this->assertTrue( $retriever->retrieveConfiguration() );
+		$this->assertTrue( $retriever->retrieveConfiguration( new SourceUrl( $sourceUrl ) ) );
 		$this->assertSame( "<SERVER>/wiki/$configPage", $retriever->getConfigWikiUrl() );
 		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikitext() );
 	}
@@ -100,11 +99,10 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
 		$retriever = new CommonsHelperConfigRetriever(
 			$requestExecutor,
 			'',
-			'',
-			new SourceUrl( '//en.m.de' )
+			''
 		);
 
-		$this->assertFalse( $retriever->retrieveConfiguration() );
+		$this->assertFalse( $retriever->retrieveConfiguration( new SourceUrl( '//en.m.de' ) ) );
 	}
 
 	private function createMWHttpRequest( array $response ) {
