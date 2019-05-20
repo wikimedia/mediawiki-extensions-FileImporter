@@ -66,7 +66,9 @@ class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 		$expectedWikitext,
 		$expectedCount = 1
 	) {
-		$conversions = new WikitextConversions( [], [], [], $removals, [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::OBSOLETE_TEMPLATES => $removals,
+		] );
 		$cleaner = new WikitextContentCleaner( $conversions );
 
 		$this->assertSame( $expectedWikitext, $cleaner->cleanWikitext( $wikitext ) );
@@ -345,11 +347,10 @@ class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideHeadingReplacements
 	 */
 	public function testHeadingReplacements( $wikitext, $expectedWikitext ) {
-		$conversions = new WikitextConversions( [], [], [], [], [] );
-		$conversions->setHeadingReplacements( [
+		$conversions = new WikitextConversions( [ WikitextConversions::HEADING_REPLACEMENTS => [
 			'Description' => '{{int:filedesc}}',
 			'Licensing' => '{{int:license-header}}',
-		] );
+		] ] );
 		$cleaner = new WikitextContentCleaner( $conversions );
 
 		$this->assertSame( $expectedWikitext, $cleaner->cleanWikitext( $wikitext ) );

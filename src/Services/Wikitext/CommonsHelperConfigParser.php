@@ -58,18 +58,17 @@ class CommonsHelperConfigParser {
 		$licensingSection = $this->grepSection( $informationSection, '=== Licensing ===',
 			'Information/Licensing' );
 
-		$conversions = new WikitextConversions(
-			$this->getItemList( $goodTemplateSection ),
-			$this->getItemList( $badTemplateSection ),
-			$this->getItemList( $badCategorySection ),
-			$this->getItemList( $obsoleteTemplates ),
-			$this->parseTransferList( $transferTemplateSection )
-		);
-		$conversions->setHeadingReplacements(
-			array_fill_keys( $this->getItemList( $descriptionSection ), '{{int:filedesc}}' ) +
-			array_fill_keys( $this->getItemList( $licensingSection ), '{{int:license-header}}' )
-		);
-		return $conversions;
+		return new WikitextConversions( [
+			WikitextConversions::REQUIRED_TEMPLATES => $this->getItemList( $goodTemplateSection ),
+			WikitextConversions::FORBIDDEN_TEMPLATES => $this->getItemList( $badTemplateSection ),
+			WikitextConversions::OBSOLETE_TEMPLATES => $this->getItemList( $obsoleteTemplates ),
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS =>
+				$this->parseTransferList( $transferTemplateSection ),
+			WikitextConversions::FORBIDDEN_CATEGORIES => $this->getItemList( $badCategorySection ),
+			WikitextConversions::HEADING_REPLACEMENTS =>
+				array_fill_keys( $this->getItemList( $descriptionSection ), '{{int:filedesc}}' ) +
+				array_fill_keys( $this->getItemList( $licensingSection ), '{{int:license-header}}' )
+		] );
 	}
 
 	/**
