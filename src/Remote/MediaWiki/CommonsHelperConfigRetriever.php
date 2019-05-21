@@ -148,26 +148,19 @@ class CommonsHelperConfigRetriever {
 		// We assume the wiki holding the config pages uses the same configuration.
 		$scriptPath = $this->mainConfig->get( 'ScriptPath' );
 
-		return $this->configServer . $scriptPath . '/api.php?' .
-			$this->buildApiQueryParams( $this->getQueryParamTitle( $sourceUrl ) );
-	}
-
-	/**
-	 * @param string $title
-	 *
-	 * @return string
-	 */
-	private function buildApiQueryParams( $title ) {
-		return http_build_query( [
-			'action' => 'query',
-			'format' => 'json',
-			'titles' => $title,
-			'prop' => 'revisions',
-			'formatversion' => 2,
-			'rvprop' => 'content',
-			'rvlimit' => 1,
-			'rvdir' => 'older'
-		] );
+		return wfAppendQuery(
+			$this->configServer . $scriptPath . '/api.php',
+			[
+				'action' => 'query',
+				'format' => 'json',
+				'titles' => $this->getQueryParamTitle( $sourceUrl ),
+				'prop' => 'revisions',
+				'formatversion' => 2,
+				'rvprop' => 'content',
+				'rvlimit' => 1,
+				'rvdir' => 'older'
+			]
+		);
 	}
 
 	/**
