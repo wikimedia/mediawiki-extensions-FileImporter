@@ -21,6 +21,7 @@ use WebRequest;
  * FIXME: This test makes some calls to https://commons.wikimedia.org
  *
  * @group Database
+ * @group medium
  *
  * @license GPL-2.0-or-later
  * @author Addshore
