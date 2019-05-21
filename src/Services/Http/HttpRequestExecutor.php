@@ -97,7 +97,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @throws HttpRequestException
 	 * @return MWHttpRequest
 	 */
-	public function executeWithCallback( $url, $callback = null ) {
+	private function executeWithCallback( $url, $callback = null ) {
 		$options = [
 			'logger' => $this->logger,
 			'followRedirects' => true,

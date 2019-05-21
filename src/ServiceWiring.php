@@ -4,6 +4,9 @@ namespace FileImporter;
 
 use FileImporter\Remote\NullPrefixLookup;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
+use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
+use FileImporter\Remote\MediaWiki\HttpApiLookup;
+use FileImporter\Remote\MediaWiki\RemoteApiImportTitleChecker;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
@@ -140,24 +143,22 @@ return [
 	 * It will allow importing files form ANY mediawiki site.
 	 */
 	'FileImporter-Site-DefaultMediaWiki' => function ( MediaWikiServices $services ) {
-		/**
-		 * @var \FileImporter\Remote\MediaWiki\HttpApiLookup $httpApiLookup
-		 * @var HttpRequestExecutor $httpRequestExecutor
-		 */
+		/** @var HttpApiLookup $httpApiLookup */
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
+		/** @var HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		$logger = LoggerFactory::getInstance( 'FileImporter' );
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 
 		$site = new SourceSite(
 			new AnyMediaWikiFileUrlChecker(),
-			new Remote\MediaWiki\ApiDetailRetriever(
+			new ApiDetailRetriever(
 				$httpApiLookup,
 				$httpRequestExecutor,
 				$logger,
 				$maxFileSize
 			),
-			new Remote\MediaWiki\RemoteApiImportTitleChecker(
+			new RemoteApiImportTitleChecker(
 				$httpApiLookup,
 				$httpRequestExecutor,
 				$logger
@@ -174,13 +175,11 @@ return [
 	 * This only allows importing files from sites in the sites table.
 	 */
 	'FileImporter-WikimediaSitesTableSite' => function ( MediaWikiServices $services ) {
-		/**
-		 * @var SiteTableSiteLookup $siteTableLookup
-		 * @var \FileImporter\Remote\MediaWiki\HttpApiLookup $httpApiLookup
-		 * @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor
-		 */
+		/** @var SiteTableSiteLookup $siteTableLookup */
 		$siteTableLookup = $services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' );
+		/** @var HttpApiLookup $httpApiLookup */
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
+		/** @var HttpRequestExecutor $httpRequestExecutor */
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		$logger = LoggerFactory::getInstance( 'FileImporter' );
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
@@ -190,13 +189,13 @@ return [
 				$siteTableLookup,
 				$logger
 			),
-			new Remote\MediaWiki\ApiDetailRetriever(
+			new ApiDetailRetriever(
 				$httpApiLookup,
 				$httpRequestExecutor,
 				$logger,
 				$maxFileSize
 			),
-			new Remote\MediaWiki\RemoteApiImportTitleChecker(
+			new RemoteApiImportTitleChecker(
 				$httpApiLookup,
 				$httpRequestExecutor,
 				$logger
