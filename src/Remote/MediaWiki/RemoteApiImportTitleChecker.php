@@ -38,7 +38,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 	public function importAllowed( SourceUrl $sourceUrl, $intendedTitleString ) {
 		$api = $this->httpApiLookup->getApiUrl( $sourceUrl );
 
-		$requestUrl = $api . '?' . http_build_query( $this->getParams( $intendedTitleString ) );
+		$requestUrl = wfAppendQuery( $api, $this->getParams( $intendedTitleString ) );
 
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $requestUrl );

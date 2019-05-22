@@ -131,7 +131,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return string
 	 */
 	private function getRequestUrl( $apiUrl, array $params ) {
-		return $apiUrl . '?' . http_build_query( $params );
+		return wfAppendQuery( $apiUrl, $params );
 	}
 
 	/**
