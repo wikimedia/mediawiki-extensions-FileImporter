@@ -186,7 +186,14 @@ class WikitextConversions {
 	/**
 	 * @param string $templateName
 	 *
-	 * @return string[] Array mapping source to target parameter names.
+	 * @return array[] Array mapping source to target parameters:
+	 * [
+	 *     string $source => [
+	 *          'target' => string Target parameter name
+	 *          'addLanguageTemplate' => bool Whether or not to add a template like {{de|…}}
+	 *     ],
+	 *     …
+	 * ]
 	 */
 	public function getTemplateParameters( $templateName ) {
 		$templateName = $this->lowercasePageName( $templateName );
@@ -197,9 +204,14 @@ class WikitextConversions {
 		$replacements = [];
 		foreach ( $this->transferTemplates[$templateName]['parameters'] as $targetParameter => $opt ) {
 			$sourceParameters = (array)( $opt['sourceParameters'] ?? [] );
+			$addLanguageTemplate = (bool)( $opt['addLanguageTemplate'] ?? false );
+
 			foreach ( $sourceParameters as $sourceParameter ) {
 				if ( $sourceParameter !== '' ) {
-					$replacements[$sourceParameter] = $targetParameter;
+					$replacements[$sourceParameter] = [
+						'target' => $targetParameter,
+						'addLanguageTemplate' => $addLanguageTemplate
+					];
 				}
 			}
 		}
