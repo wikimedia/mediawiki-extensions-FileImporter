@@ -11,7 +11,6 @@ use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
-use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
@@ -42,24 +41,14 @@ class ImportPlanValidator {
 	private $uploadBaseFactory;
 
 	/**
+	 * @var CommonsHelperConfigRetriever|null
+	 */
+	private $commonsHelperConfigRetriever = null;
+
+	/**
 	 * @var string|null
 	 */
-	private $commonsHelperServer;
-
-	/**
-	 * @var string
-	 */
-	private $commonsHelperBasePageName;
-
-	/**
-	 * @var string
-	 */
-	private $commonsHelperHelpPage;
-
-	/**
-	 * @var HttpRequestExecutor
-	 */
-	private $httpRequestExecutor;
+	private $commonsHelperHelpPage = null;
 
 	public function __construct(
 		DuplicateFileRevisionChecker $duplicateFileChecker,
@@ -70,15 +59,21 @@ class ImportPlanValidator {
 		$this->importTitleChecker = $importTitleChecker;
 		$this->uploadBaseFactory = $uploadBaseFactory;
 
-		// FIXME: Inject?
+		// FIXME: Inject!
 		$services = MediaWikiServices::getInstance();
 		$config = $services->getMainConfig();
-		$this->commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
-		$this->commonsHelperBasePageName = $config->get( 'FileImporterCommonsHelperBasePageName' );
-		$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' );
+		$commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
-		// FIXME: Inject!
-		$this->httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+		if ( $commonsHelperServer ) {
+			$this->commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
+				$httpRequestExecutor,
+				$commonsHelperServer,
+				$config->get( 'FileImporterCommonsHelperBasePageName' )
+			);
+			$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' ) ?:
+				$commonsHelperServer;
+		}
 	}
 
 	/**
@@ -112,28 +107,23 @@ class ImportPlanValidator {
 	}
 
 	private function runCommonsHelperChecksAndConversions( ImportDetails $details ) {
-		if ( !$this->commonsHelperServer ) {
+		if ( !$this->commonsHelperConfigRetriever ) {
 			return;
 		}
 
 		$sourceUrl = $details->getSourceUrl();
-		$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
-			$this->httpRequestExecutor,
-			$this->commonsHelperServer,
-			$this->commonsHelperBasePageName
-		);
 
-		if ( !$commonsHelperConfigRetriever->retrieveConfiguration( $sourceUrl ) ) {
+		if ( !$this->commonsHelperConfigRetriever->retrieveConfiguration( $sourceUrl ) ) {
 			throw new LocalizedImportException( [
 				'fileimporter-commonshelper-missing-config',
 				$sourceUrl->getHost(),
-				$this->commonsHelperHelpPage ?: $this->commonsHelperServer
+				$this->commonsHelperHelpPage
 			] );
 		}
 
 		$commonHelperConfigParser = new CommonsHelperConfigParser(
-			$commonsHelperConfigRetriever->getConfigWikiUrl(),
-			$commonsHelperConfigRetriever->getConfigWikitext()
+			$this->commonsHelperConfigRetriever->getConfigWikiUrl(),
+			$this->commonsHelperConfigRetriever->getConfigWikitext()
 		);
 
 		$this->runLicenseChecks( $details, $commonHelperConfigParser->getWikitextConversions() );
