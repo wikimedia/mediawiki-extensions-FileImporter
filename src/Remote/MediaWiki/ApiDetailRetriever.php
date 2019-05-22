@@ -12,10 +12,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
-use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use FileImporter\Services\Wikitext\WikitextContentCleaner;
-use FileImporter\Services\FileDescriptionPageValidator;
 use Psr\Log\LoggerInterface;
 use Title;
 use MediaWiki\MediaWikiServices;
@@ -48,16 +45,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @var int
 	 */
 	private $maxBytes;
-
-	/**
-	 * @var CommonsHelperConfigRetriever|null
-	 */
-	private $commonsHelperConfigRetriever;
-
-	/**
-	 * @var string
-	 */
-	private $commonsHelperHelpPage;
 
 	/**
 	 * @var string Placeholder name replacing usernames that have been suppressed as part of
@@ -100,21 +87,8 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		$commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
-		if ( $commonsHelperServer ) {
-			// FIXME: Inject, instead of constructing here!
-			$this->commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
-				$this->httpRequestExecutor,
-				$commonsHelperServer,
-				$config->get( 'FileImporterCommonsHelperBasePageName' )
-			);
-		}
-
-		$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' )
-			?: $commonsHelperServer;
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
 		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
-
 		$this->suppressedUsername = $config->get( 'FileImporterAccountForSuppressedUsername' );
 		if ( !User::isValidUserName( $this->suppressedUsername ) ) {
 			throw new ConfigException(
@@ -206,40 +180,8 @@ class ApiDetailRetriever implements DetailRetriever {
 		$revisionsData = $pageInfoData['revisions'];
 		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
 		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
-
-		$lastRevisionText = $textRevisions->getLatest()->getField( '*' );
-		$numberOfTemplatesReplaced = 0;
-		if ( $this->commonsHelperConfigRetriever ) {
-			if ( $this->commonsHelperConfigRetriever->retrieveConfiguration( $sourceUrl ) ) {
-				$commonHelperConfigParser = new CommonsHelperConfigParser(
-					$this->commonsHelperConfigRetriever->getConfigWikiUrl(),
-					$this->commonsHelperConfigRetriever->getConfigWikitext()
-				);
-
-				$validator = new FileDescriptionPageValidator(
-					$commonHelperConfigParser->getWikitextConversions()
-				);
-
-				$templates = $this->reduceTitleList( $pageInfoData['templates'] ?? [], NS_TEMPLATE );
-				$categories = $this->reduceTitleList( $pageInfoData['categories'] ?? [], NS_CATEGORY );
-				$validator->hasRequiredTemplate( $templates );
-				$validator->validateTemplates( $templates );
-				$validator->validateCategories( $categories );
-
-				$cleaner = new WikitextContentCleaner(
-					$commonHelperConfigParser->getWikitextConversions()
-				);
-
-				$lastRevisionText = $cleaner->cleanWikitext( $lastRevisionText );
-				$numberOfTemplatesReplaced = $cleaner->getLatestNumberOfReplacements();
-			} else {
-				throw new LocalizedImportException( [
-					'fileimporter-commonshelper-missing-config',
-					$sourceUrl->getHost(),
-					$this->commonsHelperHelpPage
-				] );
-			}
-		}
+		$templates = $this->reduceTitleList( $pageInfoData['templates'] ?? [], NS_TEMPLATE );
+		$categories = $this->reduceTitleList( $pageInfoData['categories'] ?? [], NS_CATEGORY );
 
 		$splitTitle = explode( ':', $pageInfoData['title'] );
 		$titleAfterColon = end( $splitTitle );
@@ -248,11 +190,11 @@ class ApiDetailRetriever implements DetailRetriever {
 			$sourceUrl,
 			Title::newFromText( $titleAfterColon, NS_FILE ),
 			$textRevisions,
-			$fileRevisions,
-			$numberOfTemplatesReplaced
+			$fileRevisions
 		);
-
-		$importDetails->setCleanedRevisionText( $lastRevisionText );
+		// FIXME: Better use constructor parameters instead of setters?
+		$importDetails->setTemplates( $templates );
+		$importDetails->setCategories( $categories );
 
 		return $importDetails;
 	}

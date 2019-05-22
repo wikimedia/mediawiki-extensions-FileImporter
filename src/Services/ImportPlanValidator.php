@@ -2,13 +2,21 @@
 
 namespace FileImporter\Services;
 
+use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
+use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\DuplicateFilesException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
+use FileImporter\Services\Wikitext\WikitextContentCleaner;
 use MalformedTitleException;
+use MediaWiki\MediaWikiServices;
 use UploadBase;
 use User;
 
@@ -33,6 +41,26 @@ class ImportPlanValidator {
 	 */
 	private $uploadBaseFactory;
 
+	/**
+	 * @var string|null
+	 */
+	private $commonsHelperServer;
+
+	/**
+	 * @var string
+	 */
+	private $commonsHelperBasePageName;
+
+	/**
+	 * @var string
+	 */
+	private $commonsHelperHelpPage;
+
+	/**
+	 * @var HttpRequestExecutor
+	 */
+	private $httpRequestExecutor;
+
 	public function __construct(
 		DuplicateFileRevisionChecker $duplicateFileChecker,
 		ImportTitleChecker $importTitleChecker,
@@ -41,6 +69,16 @@ class ImportPlanValidator {
 		$this->duplicateFileChecker = $duplicateFileChecker;
 		$this->importTitleChecker = $importTitleChecker;
 		$this->uploadBaseFactory = $uploadBaseFactory;
+
+		// FIXME: Inject?
+		$services = MediaWikiServices::getInstance();
+		$config = $services->getMainConfig();
+		$this->commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
+		$this->commonsHelperBasePageName = $config->get( 'FileImporterCommonsHelperBasePageName' );
+		$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' );
+
+		// FIXME: Inject!
+		$this->httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 	}
 
 	/**
@@ -58,6 +96,10 @@ class ImportPlanValidator {
 	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
 	public function validate( ImportPlan $importPlan, User $user ) {
+		// FIXME: The fact this does not even need an ImportPlan but only the ImportDetails is a
+		// little weird and possibly a sign this code is still misplaced here. Is this a problem?
+		$this->runCommonsHelperChecksAndConversions( $importPlan->getDetails() );
+
 		$this->runBasicTitleCheck( $importPlan );
 		$this->runPermissionTitleChecks( $importPlan, $user );
 		// Checks the extension doesn't provide easy ways to fix
@@ -67,6 +109,49 @@ class ImportPlanValidator {
 		$this->runFileTitleCheck( $importPlan );
 		$this->runLocalTitleConflictCheck( $importPlan );
 		$this->runRemoteTitleConflictCheck( $importPlan );
+	}
+
+	private function runCommonsHelperChecksAndConversions( ImportDetails $details ) {
+		if ( !$this->commonsHelperServer ) {
+			return;
+		}
+
+		$sourceUrl = $details->getSourceUrl();
+		$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
+			$this->httpRequestExecutor,
+			$this->commonsHelperServer,
+			$this->commonsHelperBasePageName
+		);
+
+		if ( !$commonsHelperConfigRetriever->retrieveConfiguration( $sourceUrl ) ) {
+			throw new LocalizedImportException( [
+				'fileimporter-commonshelper-missing-config',
+				$sourceUrl->getHost(),
+				$this->commonsHelperHelpPage ?: $this->commonsHelperServer
+			] );
+		}
+
+		$commonHelperConfigParser = new CommonsHelperConfigParser(
+			$commonsHelperConfigRetriever->getConfigWikiUrl(),
+			$commonsHelperConfigRetriever->getConfigWikitext()
+		);
+
+		$this->runLicenseChecks( $details, $commonHelperConfigParser->getWikitextConversions() );
+		$this->cleanWikitext( $details, $commonHelperConfigParser->getWikitextConversions() );
+	}
+
+	private function runLicenseChecks( ImportDetails $details, WikitextConversions $conversions ) {
+		$validator = new FileDescriptionPageValidator( $conversions );
+		$validator->hasRequiredTemplate( $details->getTemplates() );
+		$validator->validateTemplates( $details->getTemplates() );
+		$validator->validateCategories( $details->getCategories() );
+	}
+
+	private function cleanWikitext( ImportDetails $details, WikitextConversions $conversions ) {
+		$lastRevisionText = $details->getTextRevisions()->getLatest()->getField( '*' );
+		$cleaner = new WikitextContentCleaner( $conversions );
+		$details->setCleanedRevisionText( $cleaner->cleanWikitext( $lastRevisionText ) );
+		$details->setNumberOfTemplatesReplaced( $cleaner->getLatestNumberOfReplacements() );
 	}
 
 	private function runBasicTitleCheck( ImportPlan $importPlan ) {
