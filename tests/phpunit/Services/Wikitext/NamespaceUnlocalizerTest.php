@@ -12,6 +12,14 @@ use FileImporter\Services\Wikitext\NamespaceUnlocalizer;
 class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
 
+	public function testNoOp() {
+		$cleaner = new NamespaceUnlocalizer(
+			\Language::factory( 'en' ),
+			$this->createMock( \NamespaceInfo::class )
+		);
+		$this->assertSame( 'Category:foo', $cleaner->process( 'Category:foo' ) );
+	}
+
 	public function provideLinks() {
 		return [
 			// Nothing to do
