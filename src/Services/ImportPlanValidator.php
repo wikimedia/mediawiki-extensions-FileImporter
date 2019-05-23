@@ -16,7 +16,6 @@ use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
 use MalformedTitleException;
-use MediaWiki\MediaWikiServices;
 use UploadBase;
 use User;
 
@@ -56,32 +55,29 @@ class ImportPlanValidator {
 	 */
 	private $wikiLinkParserFactory;
 
+	/**
+	 * @suppress PhanParamReqAfterOpt
+	 * @param DuplicateFileRevisionChecker $duplicateFileChecker
+	 * @param ImportTitleChecker $importTitleChecker
+	 * @param UploadBaseFactory $uploadBaseFactory
+	 * @param CommonsHelperConfigRetriever|null $commonsHelperConfigRetriever
+	 * @param string|null $commonsHelperHelpPage
+	 * @param WikiLinkParserFactory $wikiLinkParserFactory
+	 */
 	public function __construct(
 		DuplicateFileRevisionChecker $duplicateFileChecker,
 		ImportTitleChecker $importTitleChecker,
-		UploadBaseFactory $uploadBaseFactory
+		UploadBaseFactory $uploadBaseFactory,
+		CommonsHelperConfigRetriever $commonsHelperConfigRetriever = null,
+		$commonsHelperHelpPage,
+		WikiLinkParserFactory $wikiLinkParserFactory
 	) {
 		$this->duplicateFileChecker = $duplicateFileChecker;
 		$this->importTitleChecker = $importTitleChecker;
 		$this->uploadBaseFactory = $uploadBaseFactory;
-
-		// FIXME: Inject!
-		$services = MediaWikiServices::getInstance();
-		$config = $services->getMainConfig();
-		$commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-
-		if ( $commonsHelperServer ) {
-			$this->commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
-				$httpRequestExecutor,
-				$commonsHelperServer,
-				$config->get( 'FileImporterCommonsHelperBasePageName' )
-			);
-			$this->commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' ) ?:
-				$commonsHelperServer;
-		}
-
-		$this->wikiLinkParserFactory = new WikiLinkParserFactory();
+		$this->commonsHelperConfigRetriever = $commonsHelperConfigRetriever;
+		$this->commonsHelperHelpPage = $commonsHelperHelpPage;
+		$this->wikiLinkParserFactory = $wikiLinkParserFactory;
 	}
 
 	/**

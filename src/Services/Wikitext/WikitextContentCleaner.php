@@ -39,7 +39,7 @@ class WikitextContentCleaner {
 	public function cleanWikitext( $wikitext ) {
 		$wikitext = $this->cleanHeadings( $wikitext );
 		$wikitext = $this->cleanTemplates( $wikitext );
-		return $wikitext;
+		return trim( $wikitext );
 	}
 
 	/**

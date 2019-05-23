@@ -40,8 +40,8 @@ class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 
 			'end-of-text' => [
 				'removals' => [ 'Info' ],
-				'wikitext' => '{{Info|a=|b=',
-				'expectedWikitext' => '',
+				'wikitext' => "Before\n{{Info|a=|b=",
+				'expectedWikitext' => 'Before',
 			],
 
 			'more than 2 opening brackets' => [
@@ -310,7 +310,7 @@ class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 			[ '==Licensing==', '=={{int:license-header}}==' ],
 			[ "==Description==\n==Licensing==", "=={{int:filedesc}}==\n=={{int:license-header}}==" ],
 			[ '= Description =', '= {{int:filedesc}} =' ],
-			[ '===Description=== ', '==={{int:filedesc}}=== ' ],
+			[ "===Description=== \n Code", "==={{int:filedesc}}=== \n Code" ],
 			[ '==Description=', '==Description=' ],
 			[ '=Description==', '=Description==' ],
 		];

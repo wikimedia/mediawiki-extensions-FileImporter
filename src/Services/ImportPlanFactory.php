@@ -6,7 +6,10 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\Wikitext\WikiLinkParserFactory;
+use MediaWiki\MediaWikiServices;
 use User;
 
 /**
@@ -38,6 +41,20 @@ class ImportPlanFactory {
 	 * @return ImportPlan A valid ImportPlan
 	 */
 	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
+		$services = MediaWikiServices::getInstance();
+		$config = $services->getMainConfig();
+		$commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
+
+		if ( $commonsHelperServer ) {
+			$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
+				$services->getService( 'FileImporterHttpRequestExecutor' ),
+				$commonsHelperServer,
+				$config->get( 'FileImporterCommonsHelperBasePageName' )
+			);
+			$commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' ) ?:
+				$commonsHelperServer;
+		}
+
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importDetails->getSourceUrl() );
 		$interWikiPrefix = $sourceSite->getLinkPrefix( $importDetails->getSourceUrl() );
 
@@ -46,7 +63,10 @@ class ImportPlanFactory {
 		$planValidator = new ImportPlanValidator(
 			$this->duplicateFileRevisionChecker,
 			$sourceSite->getImportTitleChecker(),
-			$this->uploadBaseFactory
+			$this->uploadBaseFactory,
+			$commonsHelperConfigRetriever ?? null,
+			$commonsHelperHelpPage ?? null,
+			new WikiLinkParserFactory()
 		);
 		$planValidator->validate( $importPlan, $user );
 

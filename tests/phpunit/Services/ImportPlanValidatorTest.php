@@ -14,13 +14,17 @@ use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\DuplicateFileRevisionChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
+use FileImporter\Services\Wikitext\WikiLinkParser;
+use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MalformedTitleException;
+use MediaWiki\Linker\LinkTarget;
 use Title;
 use UploadBase;
 use User;
@@ -54,7 +58,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	 *
 	 * @return ImportTitleChecker
 	 */
-	private function getMockImportTitleChecker( $callCount, $allowed ) {
+	private function getMockImportTitleChecker( $callCount, $allowed = true ) {
 		$mock = $this->createMock( ImportTitleChecker::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'importAllowed' )
@@ -68,7 +72,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	 *
 	 * @return DuplicateFileRevisionChecker
 	 */
-	private function getMockDuplicateFileRevisionChecker( $callCount, $arrayElements ) {
+	private function getMockDuplicateFileRevisionChecker( $callCount, $arrayElements = 0 ) {
 		$mock = $this->createMock( DuplicateFileRevisionChecker::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'findDuplicates' )
@@ -83,7 +87,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	 *
 	 * @return Title
 	 */
-	private function getMockTitle( $text, $exists, array $userPermissionsErrors = [] ) {
+	private function getMockTitle( $text, $exists = false, array $userPermissionsErrors = [] ) {
 		$mock = $this->createMock( Title::class );
 		$mock->method( 'getText' )
 			->willReturn( $text );
@@ -106,11 +110,11 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @param Title $sourceTitle
+	 * @param LinkTarget $sourceTitle
 	 *
 	 * @return ImportDetails
 	 */
-	private function getMockImportDetails( Title $sourceTitle ) {
+	private function getMockImportDetails( LinkTarget $sourceTitle ) {
 		return new ImportDetails(
 			new SourceUrl( 'http://test.test' ),
 			$sourceTitle,
@@ -120,20 +124,15 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @param Title|null $planTitle
-	 * @param Title|null $sourceTitle
-	 * @param bool $getTitleFails
+	 * @param Title|false $planTitle False makes {@see ImportPlan::getTitle} throw an exception.
+	 * @param LinkTarget|null $sourceTitle Defaults to a valid title.
 	 *
 	 * @return ImportPlan
 	 */
-	private function getMockImportPlan(
-		Title $planTitle = null,
-		Title $sourceTitle = null,
-		$getTitleFails = false
-	) {
+	private function getMockImportPlan( $planTitle, LinkTarget $sourceTitle = null ) {
 		$mock = $this->createMock( ImportPlan::class );
 
-		if ( !$getTitleFails ) {
+		if ( $planTitle ) {
 			$mock->method( 'getTitle' )
 				->willReturn( $planTitle );
 		} else {
@@ -141,10 +140,10 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 				->willThrowException( new MalformedTitleException( 'mockexception' ) );
 		}
 
-		if ( $sourceTitle ) {
-			$mock->method( 'getDetails' )
-				->willReturn( $this->getMockImportDetails( $sourceTitle ) );
-		}
+		$mock->method( 'getDetails' )
+			->willReturn( $this->getMockImportDetails(
+				$sourceTitle ?: $this->getMockTitle( 'Source.JPG' )
+			) );
 
 		$mock->method( 'getRequest' )
 			->willReturn( new ImportRequest( 'http://test.test' ) );
@@ -178,8 +177,21 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		return $mock;
 	}
 
+	/**
+	 * @param WikiLinkParser|null $wikiLinkParser
+	 *
+	 * @return WikiLinkParserFactory
+	 */
+	private function getMockWikiLinkParserFactory( WikiLinkParser $wikiLinkParser = null ) {
+		$mock = $this->createMock( WikiLinkParserFactory::class );
+		$mock->expects( $this->once() )
+			->method( 'getWikiLinkParser' )
+			->willReturn( $wikiLinkParser ?: new WikiLinkParser() );
+		return $mock;
+	}
+
 	public function provideValidate() {
-		$emptyPlan = $this->getMockImportPlan();
+		$emptyPlan = $this->getMockImportPlan( false );
 
 		$allowedFileTitles = [
 			'Regular name' => 'SourceName.JPG',
@@ -191,11 +203,11 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 			$validTests["Valid Plan - '$titleString' ($description)"] = [
 				null,
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'FinalName.JPG', false ),
-					$this->getMockTitle( $titleString, false )
+					$this->getMockTitle( 'FinalName.JPG' ),
+					$this->getMockTitle( $titleString )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
-				$this->getMockImportTitleChecker( 1, true )
+				$this->getMockDuplicateFileRevisionChecker( 1 ),
+				$this->getMockImportTitleChecker( 1 )
 			];
 		}
 
@@ -203,11 +215,10 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 			'Invalid, duplicate file found' => [
 				new DuplicateFilesException( [ 'someFile' ] ),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'FinalName.JPG', false ),
-					$this->getMockTitle( 'SourceName.JPG', false )
+					$this->getMockTitle( 'FinalName.JPG' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1, 1 ),
-				$this->getMockImportTitleChecker( 0, true )
+				$this->getMockImportTitleChecker( 0 )
 			],
 			'Invalid, title exists on target site' => [
 				new RecoverableTitleException(
@@ -215,11 +226,10 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 					$emptyPlan
 				),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'FinalName.JPG', true ),
-					$this->getMockTitle( 'SourceName.JPG', false )
+					$this->getMockTitle( 'FinalName.JPG', true )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
-				$this->getMockImportTitleChecker( 0, true )
+				$this->getMockDuplicateFileRevisionChecker( 1 ),
+				$this->getMockImportTitleChecker( 0 )
 			],
 			'Invalid, title exists on source site' => [
 				new RecoverableTitleException(
@@ -227,38 +237,36 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 					$emptyPlan
 				),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'FinalName.JPG', false ),
-					$this->getMockTitle( 'SourceName.JPG', false )
+					$this->getMockTitle( 'FinalName.JPG' )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
+				$this->getMockDuplicateFileRevisionChecker( 1 ),
 				$this->getMockImportTitleChecker( 1, false )
 			],
 			'Invalid, file extension has changed' => [
 				new TitleException( 'fileimporter-filenameerror-missmatchextension' ),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'FinalName.JPG', false ),
-					$this->getMockTitle( 'SourceName.PNG', false )
+					$this->getMockTitle( 'FinalName.JPG' ),
+					$this->getMockTitle( 'SourceName.PNG' )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
-				$this->getMockImportTitleChecker( 0, true )
+				$this->getMockDuplicateFileRevisionChecker( 0 ),
+				$this->getMockImportTitleChecker( 0 )
 			],
 			'Invalid, No Extension on planned name' => [
 				new TitleException( 'fileimporter-filenameerror-noplannedextension' ),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'FinalName.JPG/Foo', false ),
-					$this->getMockTitle( 'SourceName.jpg', false )
+					$this->getMockTitle( 'FinalName.JPG/Foo' )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
-				$this->getMockImportTitleChecker( 0, true )
+				$this->getMockDuplicateFileRevisionChecker( 0 ),
+				$this->getMockImportTitleChecker( 0 )
 			],
 			'Invalid, No Extension on source name' => [
 				new TitleException( 'fileimporter-filenameerror-nosourceextension' ),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'FinalName.JPG', false ),
-					$this->getMockTitle( 'SourceName.jpg/Foo', false )
+					$this->getMockTitle( 'FinalName.JPG' ),
+					$this->getMockTitle( 'SourceName.jpg/Foo' )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
-				$this->getMockImportTitleChecker( 0, true )
+				$this->getMockDuplicateFileRevisionChecker( 0 ),
+				$this->getMockImportTitleChecker( 0 )
 			],
 			'Invalid, Bad title (includes another namespace)' => [
 				new RecoverableTitleException(
@@ -266,11 +274,10 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 					$emptyPlan
 				),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'Talk:FinalName.JPG', false ),
-					$this->getMockTitle( 'SourceName.JPG', false )
+					$this->getMockTitle( 'Talk:FinalName.JPG' )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
-				$this->getMockImportTitleChecker( 0, true )
+				$this->getMockDuplicateFileRevisionChecker( 1 ),
+				$this->getMockImportTitleChecker( 0 )
 			],
 			'Invalid, Bad filename (too long)' => [
 				new RecoverableTitleException(
@@ -278,11 +285,10 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 					$emptyPlan
 				),
 				$this->getMockImportPlan(
-					$this->getMockTitle( str_repeat( 'a', 242 ) . '.JPG', false ),
-					$this->getMockTitle( 'SourceName.JPG', false )
+					$this->getMockTitle( str_repeat( 'a', 242 ) . '.JPG' )
 				),
-				$this->getMockDuplicateFileRevisionChecker( 1, 0 ),
-				$this->getMockImportTitleChecker( 0, true ),
+				$this->getMockDuplicateFileRevisionChecker( 1 ),
+				$this->getMockImportTitleChecker( 0 ),
 				$this->getMockValidatingUploadBase( UploadBase::FILENAME_TOO_LONG, true )
 			],
 			'Invalid, Bad characters "<", getTitle throws MalformedTitleException' => [
@@ -290,13 +296,9 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 					'mockexception',
 					$emptyPlan
 				),
-				$this->getMockImportPlan(
-					$this->getMockTitle( 'Name<Name.JPG', false ),
-					$this->getMockTitle( 'SourceName.JPG', false ),
-					true
-				),
-				$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
-				$this->getMockImportTitleChecker( 0, true ),
+				$this->getMockImportPlan( false ),
+				$this->getMockDuplicateFileRevisionChecker( 0 ),
+				$this->getMockImportTitleChecker( 0 ),
 				$this->getMockValidatingUploadBase( true, true )
 			],
 		];
@@ -325,7 +327,10 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		$validator = new ImportPlanValidator(
 			$duplicateChecker,
 			$titleChecker,
-			$this->getMockUploadBaseFactory( $validatingUploadBase )
+			$this->getMockUploadBaseFactory( $validatingUploadBase ),
+			null,
+			null,
+			$this->getMockWikiLinkParserFactory()
 		);
 		$validator->validate( $plan, $this->createMock( User::class ) );
 
@@ -346,9 +351,12 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		$this->setExpectedException( RecoverableTitleException::class, '"Before"' );
 
 		$validator = new ImportPlanValidator(
-			$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
-			$this->getMockImportTitleChecker( 0, true ),
-			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() )
+			$this->getMockDuplicateFileRevisionChecker( 0 ),
+			$this->getMockImportTitleChecker( 0 ),
+			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
+			null,
+			null,
+			$this->getMockWikiLinkParserFactory()
 		);
 		$validator->validate( $importPlan, $this->createMock( User::class ) );
 	}
@@ -366,11 +374,46 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		);
 
 		$validator = new ImportPlanValidator(
-			$this->getMockDuplicateFileRevisionChecker( 0, 0 ),
-			$this->getMockImportTitleChecker( 0, true ),
-			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() )
+			$this->getMockDuplicateFileRevisionChecker( 0 ),
+			$this->getMockImportTitleChecker( 0 ),
+			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
+			null,
+			null,
+			$this->getMockWikiLinkParserFactory()
 		);
 		$validator->validate( $importPlan, $this->createMock( User::class ) );
+	}
+
+	public function testCommonsHelperAndWikiLinkParserIntegration() {
+		$importPlan = $this->getMockImportPlan( $this->getMockTitle( 'Valid.jpg' ) );
+		$importPlan->getDetails()->setCleanedRevisionText( "{{MOVE}}\nORIGINAL" );
+
+		$commonsHelperConfigRetriever = $this->createMock( CommonsHelperConfigRetriever::class );
+		$commonsHelperConfigRetriever->expects( $this->once() )
+			->method( 'retrieveConfiguration' )
+			->willReturn( true );
+		$commonsHelperConfigRetriever->method( 'getConfigWikitext' )
+			->willReturn( "==Categories==\n===Bad===\n" .
+				"==Templates==\n===Good===\n===Bad===\n===Remove===\n*MOVE\n===Transfer===\n" .
+				"==Information==\n===Description===\n===Licensing===" );
+
+		$wikiLinkParser = $this->createMock( WikiLinkParser::class );
+		$wikiLinkParser->expects( $this->once() )
+			->method( 'parse' )
+			->with( 'ORIGINAL' )
+			->willReturn( 'PARSED' );
+
+		$validator = new ImportPlanValidator(
+			$this->getMockDuplicateFileRevisionChecker( 1 ),
+			$this->getMockImportTitleChecker( 1 ),
+			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
+			$commonsHelperConfigRetriever,
+			'',
+			$this->getMockWikiLinkParserFactory( $wikiLinkParser )
+		);
+
+		$validator->validate( $importPlan, $this->createMock( User::class ) );
+		$this->assertSame( 'PARSED', $importPlan->getDetails()->getCleanedRevisionText() );
 	}
 
 }
