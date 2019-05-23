@@ -452,10 +452,6 @@ WIKITEXT
 					] ],
 				] ],
 			],
-
-			// TODO: Test + and @ when not the first character
-			// TODO: Test combinations of + and @ with a %MAGIC_WORD%
-			// TODO: Test %MAGIC_WORD% syntax when surrounded by text
 		];
 	}
 

@@ -144,7 +144,8 @@ class CommonsHelperConfigParser {
 
 				list( $targetParam, $sourceParam ) = $parts;
 
-				// TODO: The magic words "%AUTHOR%" and "%TRANSFERUSER%" are not supported yet
+				// We don't want CommonsHelper's placeholders "%AUTHOR%" and "%TRANSFERUSER%" to
+				// show up as text values. Investigation and decision are documented in T198609.
 				if ( strpos( $sourceParam, '%' ) !== false ) {
 					continue;
 				}
