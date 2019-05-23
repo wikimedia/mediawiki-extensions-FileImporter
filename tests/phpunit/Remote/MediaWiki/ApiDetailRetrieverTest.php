@@ -233,7 +233,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 						'action' => 'query',
 						'format' => 'json',
 						'titles' => 'Föo',
-						'prop' => '',
+						'prop' => 'info',
 					],
 					'data' => [
 						'imageinfo' => [
@@ -289,7 +289,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 						'action' => 'query',
 						'format' => 'json',
 						'titles' => 'File:Foo.jpg',
-						'prop' => 'imageinfo|revisions',
+						'prop' => 'info|imageinfo|revisions',
 						'iistart' => 'iiStartHere',
 						'iilimit' => 500,
 						'iiurlwidth' => 800,
@@ -548,7 +548,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			'action' => 'query',
 			'format' => 'json',
 			'titles' => $titleString,
-			'prop' => 'imageinfo|revisions|templates|categories',
+			'prop' => 'info|imageinfo|revisions|templates|categories',
 			'iilimit' => 500,
 			'iiurlwidth' => 800,
 			'iiurlheight' => 400,

@@ -32,7 +32,7 @@ class WikiLinkPrefixer implements WikiLinkCleaner {
 	 * @param TitleParser $parser
 	 */
 	public function __construct( $interWikiPrefix, TitleParser $parser ) {
-		$this->interWikiPrefix = $interWikiPrefix;
+		$this->interWikiPrefix = (string)$interWikiPrefix;
 		$this->parser = $parser;
 	}
 

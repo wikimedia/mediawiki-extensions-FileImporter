@@ -156,8 +156,6 @@ class ApiDetailRetriever implements DetailRetriever {
 			throw new LocalizedImportException( 'fileimporter-cantimportmissingfile' );
 		}
 
-		$pageTitle = $pageInfoData['title'];
-
 		if ( empty( $pageInfoData['imageinfo'] ) || empty( $pageInfoData['revisions'] ) ) {
 			$this->logger->warning(
 				'Bad image or revision info returned by the API',
@@ -169,12 +167,16 @@ class ApiDetailRetriever implements DetailRetriever {
 			throw new LocalizedImportException( 'fileimporter-api-badinfo' );
 		}
 
+		// FIXME: Isn't this misplaced here, *before* more revisions are fetched?
 		$this->checkRevisionCount( $sourceUrl, $pageInfoData );
 		$this->checkMaxRevisionAggregatedBytes( $pageInfoData );
 
 		while ( array_key_exists( 'continue', $requestData ) ) {
 			$this->getMoreRevisions( $sourceUrl, $requestData, $pageInfoData );
 		}
+
+		$pageTitle = $pageInfoData['title'];
+		$pageLanguage = $pageInfoData['pagelanguagehtmlcode'] ?? null;
 
 		$imageInfoData = $pageInfoData['imageinfo'];
 		$revisionsData = $pageInfoData['revisions'];
@@ -193,6 +195,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			$fileRevisions
 		);
 		// FIXME: Better use constructor parameters instead of setters?
+		$importDetails->setPageLanguage( $pageLanguage );
 		$importDetails->setTemplates( $templates );
 		$importDetails->setCategories( $categories );
 
@@ -429,7 +432,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			'action' => 'query',
 			'format' => 'json',
 			'titles' => $this->parseTitleFromSourceUrl( $sourceUrl ),
-			'prop' => ''
+			'prop' => 'info'
 		];
 	}
 

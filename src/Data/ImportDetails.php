@@ -23,6 +23,11 @@ class ImportDetails {
 	private $sourceLinkTarget;
 
 	/**
+	 * @var string|null
+	 */
+	private $pageLanguage;
+
+	/**
 	 * @var TextRevisions
 	 */
 	private $textRevisions;
@@ -74,6 +79,13 @@ class ImportDetails {
 	}
 
 	/**
+	 * @param string|null $languageCode
+	 */
+	public function setPageLanguage( $languageCode ) {
+		$this->pageLanguage = $languageCode;
+	}
+
+	/**
 	 * @param string[] $templates
 	 */
 	public function setTemplates( array $templates ) {
@@ -120,6 +132,13 @@ class ImportDetails {
 	 */
 	public function getSourceFileName() {
 		return pathinfo( $this->sourceLinkTarget->getText(), PATHINFO_FILENAME );
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getPageLanguage() {
+		return $this->pageLanguage;
 	}
 
 	/**

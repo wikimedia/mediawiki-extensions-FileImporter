@@ -30,8 +30,13 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 	 */
 	private $namespaceInfo;
 
-	public function __construct( Language $sourceLanguage, NamespaceInfo $namespaceInfo ) {
-		if ( $sourceLanguage->getCode() === 'en' ) {
+	/**
+	 * @suppress PhanParamReqAfterOpt
+	 * @param Language|null $sourceLanguage
+	 * @param NamespaceInfo $namespaceInfo
+	 */
+	public function __construct( Language $sourceLanguage = null, NamespaceInfo $namespaceInfo ) {
+		if ( !$sourceLanguage || $sourceLanguage->getCode() === 'en' ) {
 			return;
 		}
 

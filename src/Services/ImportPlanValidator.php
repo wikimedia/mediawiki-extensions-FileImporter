@@ -81,10 +81,7 @@ class ImportPlanValidator {
 				$commonsHelperServer;
 		}
 
-		$this->wikiLinkParserFactory = new WikiLinkParserFactory(
-			$services->getService( 'FileImporterMediaWikiHttpApiLookup' ),
-			$httpRequestExecutor
-		);
+		$this->wikiLinkParserFactory = new WikiLinkParserFactory();
 	}
 
 	/**
@@ -158,10 +155,10 @@ class ImportPlanValidator {
 
 	private function runWikiLinkConversions( ImportPlan $importPlan ) {
 		$details = $importPlan->getDetails();
-		$sourceUrl = $details->getSourceUrl();
+		$sourceLanguage = $details->getPageLanguage();
 		$wikitext = $details->getCleanedRevisionText();
 		$details->setCleanedRevisionText( $this->wikiLinkParserFactory->getWikiLinkParser(
-			$sourceUrl,
+			$sourceLanguage ? \Language::factory( $sourceLanguage ) : null,
 			$importPlan->getInterWikiPrefix()
 		)->parse( $wikitext ) );
 	}
