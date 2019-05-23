@@ -13,7 +13,9 @@ use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\DuplicateFileRevisionChecker;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
@@ -35,6 +37,15 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );
+
+		// FIXME: The following can be removed when the services are injected via the constructor.
+		$httpRequestExecutor = $this->createMock( HttpRequestExecutor::class );
+		$httpRequestExecutor->method( 'execute' )
+			->willReturn( $this->createMock( \MWHttpRequest::class ) );
+		$this->setService( 'FileImporterHttpRequestExecutor', $httpRequestExecutor );
+
+		$httpApiLookup = $this->createMock( HttpApiLookup::class );
+		$this->setService( 'FileImporterMediaWikiHttpApiLookup', $httpApiLookup );
 	}
 
 	/**
@@ -107,6 +118,8 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	 */
 	private function getMockImportDetails( Title $sourceTitle = null ) {
 		$mock = $this->createMock( ImportDetails::class );
+		$mock->method( 'getSourceUrl' )
+			->willReturn( new SourceUrl( 'http://test.test' ) );
 		$mock->method( 'getSourceLinkTarget' )
 			->willReturn( $sourceTitle );
 		$mock->method( 'getFileRevisions' )
