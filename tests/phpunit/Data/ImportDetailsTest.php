@@ -179,7 +179,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param string $revisionClass Either TextRevision::class or FileRevision::class
-	 * @param string $fieldValue All fields will return the same value
+	 * @param mixed $fieldValue All fields will return the same value
 	 *
 	 * @return TextRevision|FileRevision
 	 */

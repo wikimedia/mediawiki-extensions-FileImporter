@@ -6,6 +6,9 @@ use EditPage;
 use Html;
 
 /**
+ * TODO: It might be worth extracting this class to a library or MediaWiki core, because a duplicate
+ * already exists in \TwoColConflict\SpecialConflictTestPage\HtmlWikiTextEditor.
+ *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
