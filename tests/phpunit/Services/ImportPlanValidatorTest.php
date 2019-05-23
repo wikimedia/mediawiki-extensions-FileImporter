@@ -8,6 +8,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
+use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
@@ -20,7 +21,6 @@ use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MalformedTitleException;
-use PHPUnit_Framework_MockObject_MockObject;
 use Title;
 use UploadBase;
 use User;
@@ -68,17 +68,11 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	 *
 	 * @return DuplicateFileRevisionChecker
 	 */
-	private function getMockDuplicateFileRevisionChecker( $callCount = 0, $arrayElements = 0 ) {
+	private function getMockDuplicateFileRevisionChecker( $callCount, $arrayElements ) {
 		$mock = $this->createMock( DuplicateFileRevisionChecker::class );
-		if ( $arrayElements === 0 ) {
-			// PHP 5.5 and below can't handle array_fill with the number of elements as 0
-			$returnValue = [];
-		} else {
-			$returnValue = array_fill( 0, $arrayElements, 'value' );
-		}
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'findDuplicates' )
-			->willReturn( $returnValue );
+			->willReturn( array_fill( 0, $arrayElements, 'value' ) );
 		return $mock;
 	}
 
@@ -112,29 +106,17 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @param Title|null $sourceTitle
+	 * @param Title $sourceTitle
 	 *
 	 * @return ImportDetails
 	 */
-	private function getMockImportDetails( Title $sourceTitle = null ) {
-		$mock = $this->createMock( ImportDetails::class );
-		$mock->method( 'getSourceUrl' )
-			->willReturn( new SourceUrl( 'http://test.test' ) );
-		$mock->method( 'getSourceLinkTarget' )
-			->willReturn( $sourceTitle );
-		$mock->method( 'getFileRevisions' )
-			->willReturn( $this->getMockFileRevisions() );
-		return $mock;
-	}
-
-	/**
-	 * @return PHPUnit_Framework_MockObject_MockObject|ImportRequest
-	 */
-	private function getMockImportRequest() {
-		$mock = $this->createMock( ImportRequest::class );
-		$mock->method( 'getUrl' )
-			->willReturn( new SourceUrl( 'http://test.test' ) );
-		return $mock;
+	private function getMockImportDetails( Title $sourceTitle ) {
+		return new ImportDetails(
+			new SourceUrl( 'http://test.test' ),
+			$sourceTitle,
+			$this->createMock( TextRevisions::class ),
+			$this->getMockFileRevisions()
+		);
 	}
 
 	/**
@@ -150,6 +132,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		$getTitleFails = false
 	) {
 		$mock = $this->createMock( ImportPlan::class );
+
 		if ( !$getTitleFails ) {
 			$mock->method( 'getTitle' )
 				->willReturn( $planTitle );
@@ -158,14 +141,13 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 				->willThrowException( new MalformedTitleException( 'mockexception' ) );
 		}
 
-		$mock->method( 'getDetails' )
-			->willReturn(
-				$this->getMockImportDetails( $sourceTitle )
-			);
+		if ( $sourceTitle ) {
+			$mock->method( 'getDetails' )
+				->willReturn( $this->getMockImportDetails( $sourceTitle ) );
+		}
+
 		$mock->method( 'getRequest' )
-			->willReturn(
-				$this->getMockImportRequest()
-			);
+			->willReturn( new ImportRequest( 'http://test.test' ) );
 		return $mock;
 	}
 
@@ -353,7 +335,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	}
 
 	public function testValidateFailsWhenCoreChangesTheName() {
-		$mockRequest = $this->getMockImportRequest();
+		$mockRequest = $this->createMock( ImportRequest::class );
 		$mockRequest->expects( $this->atLeastOnce() )
 			->method( 'getIntendedName' )
 			->willReturn( 'Before#After' );
@@ -372,11 +354,11 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	}
 
 	public function testValidateFailsOnFailingTitlePermissionCheck() {
-		$mockRequest = $this->getMockImportRequest();
+		$importRequest = new ImportRequest( 'http://test.test' );
 		$mockTitle = $this->getMockTitle( 'Title', true, [ 'error' ] );
 		$mockDetails = $this->getMockImportDetails( $mockTitle );
 
-		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
+		$importPlan = new ImportPlan( $importRequest, $mockDetails, '' );
 
 		$this->setExpectedException(
 			RecoverableTitleException::class,
