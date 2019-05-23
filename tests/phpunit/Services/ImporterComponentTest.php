@@ -116,9 +116,10 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new TextRevisions( [ $textRevision ] ),
 			new FileRevisions( [ $fileRevision ] )
 		);
-		$details->setCleanedRevisionText( self::CLEANED_WIKITEXT );
 
-		return new ImportPlan( $request, $details, self::PREFIX );
+		$plan = new ImportPlan( $request, $details, self::PREFIX );
+		$plan->setCleanedLatestRevisionText( self::CLEANED_WIKITEXT );
+		return $plan;
 	}
 
 	private function newTextRevision() {

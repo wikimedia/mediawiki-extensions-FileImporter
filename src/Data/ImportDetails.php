@@ -48,16 +48,6 @@ class ImportDetails {
 	private $categories = [];
 
 	/**
-	 * @var string|null
-	 */
-	private $cleanedRevisionText;
-
-	/**
-	 * @var int
-	 */
-	private $numberOfTemplatesReplaced = 0;
-
-	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param LinkTarget $sourceLinkTarget
 	 * @param TextRevisions $textRevisions
@@ -73,9 +63,6 @@ class ImportDetails {
 		$this->sourceLinkTarget = $sourceLinkTarget;
 		$this->textRevisions = $textRevisions;
 		$this->fileRevisions = $fileRevisions;
-
-		$textRevision = $textRevisions->getLatest();
-		$this->cleanedRevisionText = $textRevision ? $textRevision->getField( '*' ) : null;
 	}
 
 	/**
@@ -97,20 +84,6 @@ class ImportDetails {
 	 */
 	public function setCategories( array $categories ) {
 		$this->categories = $categories;
-	}
-
-	/**
-	 * @param string $text
-	 */
-	public function setCleanedRevisionText( $text ) {
-		$this->cleanedRevisionText = $text;
-	}
-
-	/**
-	 * @param int $replacements
-	 */
-	public function setNumberOfTemplatesReplaced( $replacements ) {
-		$this->numberOfTemplatesReplaced = $replacements;
 	}
 
 	/**
@@ -186,26 +159,6 @@ class ImportDetails {
 	 */
 	public function getCategories() {
 		return $this->categories;
-	}
-
-	/**
-	 * FIXME: This field must be moved to the ImportPlan! It's only needed in contexts that have
-	 * access to the ImportPlan!
-	 *
-	 * @return int
-	 */
-	public function getNumberOfTemplatesReplaced() {
-		return $this->numberOfTemplatesReplaced;
-	}
-
-	/**
-	 * FIXME: This field must be moved to the ImportPlan! It's only needed in contexts that have
-	 * access to the ImportPlan!
-	 *
-	 * @return string|null
-	 */
-	public function getCleanedRevisionText() {
-		return $this->cleanedRevisionText;
 	}
 
 	/**

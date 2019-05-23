@@ -94,9 +94,7 @@ class ImportPlanValidator {
 	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
 	public function validate( ImportPlan $importPlan, User $user ) {
-		// FIXME: The fact this does not even need an ImportPlan but only the ImportDetails is a
-		// little weird and possibly a sign this code is still misplaced here. Is this a problem?
-		$this->runCommonsHelperChecksAndConversions( $importPlan->getDetails() );
+		$this->runCommonsHelperChecksAndConversions( $importPlan );
 		$this->runWikiLinkConversions( $importPlan );
 
 		$this->runBasicTitleCheck( $importPlan );
@@ -110,11 +108,12 @@ class ImportPlanValidator {
 		$this->runRemoteTitleConflictCheck( $importPlan );
 	}
 
-	private function runCommonsHelperChecksAndConversions( ImportDetails $details ) {
+	private function runCommonsHelperChecksAndConversions( ImportPlan $importPlan ) {
 		if ( !$this->commonsHelperConfigRetriever ) {
 			return;
 		}
 
+		$details = $importPlan->getDetails();
 		$sourceUrl = $details->getSourceUrl();
 
 		if ( !$this->commonsHelperConfigRetriever->retrieveConfiguration( $sourceUrl ) ) {
@@ -131,7 +130,7 @@ class ImportPlanValidator {
 		);
 
 		$this->runLicenseChecks( $details, $commonHelperConfigParser->getWikitextConversions() );
-		$this->cleanWikitext( $details, $commonHelperConfigParser->getWikitextConversions() );
+		$this->cleanWikitext( $importPlan, $commonHelperConfigParser->getWikitextConversions() );
 	}
 
 	private function runLicenseChecks( ImportDetails $details, WikitextConversions $conversions ) {
@@ -141,21 +140,21 @@ class ImportPlanValidator {
 		$validator->validateCategories( $details->getCategories() );
 	}
 
-	private function cleanWikitext( ImportDetails $details, WikitextConversions $conversions ) {
-		$wikitext = $details->getCleanedRevisionText();
+	private function cleanWikitext( ImportPlan $importPlan, WikitextConversions $conversions ) {
+		$wikitext = $importPlan->getCleanedLatestRevisionText();
 		$cleaner = new WikitextContentCleaner( $conversions );
-		$details->setCleanedRevisionText( $cleaner->cleanWikitext( $wikitext ) );
-		$details->setNumberOfTemplatesReplaced( $cleaner->getLatestNumberOfReplacements() );
+		$importPlan->setCleanedLatestRevisionText( $cleaner->cleanWikitext( $wikitext ) );
+		$importPlan->setNumberOfTemplateReplacements( $cleaner->getLatestNumberOfReplacements() );
 	}
 
 	private function runWikiLinkConversions( ImportPlan $importPlan ) {
-		$details = $importPlan->getDetails();
-		$sourceLanguage = $details->getPageLanguage();
-		$wikitext = $details->getCleanedRevisionText();
-		$details->setCleanedRevisionText( $this->wikiLinkParserFactory->getWikiLinkParser(
+		$sourceLanguage = $importPlan->getDetails()->getPageLanguage();
+		$parser = $this->wikiLinkParserFactory->getWikiLinkParser(
 			$sourceLanguage ? \Language::factory( $sourceLanguage ) : null,
 			$importPlan->getInterWikiPrefix()
-		)->parse( $wikitext ) );
+		);
+		$wikitext = $importPlan->getCleanedLatestRevisionText();
+		$importPlan->setCleanedLatestRevisionText( $parser->parse( $wikitext ) );
 	}
 
 	private function runBasicTitleCheck( ImportPlan $importPlan ) {
