@@ -7,6 +7,7 @@ use Html;
 use Linker;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
+use OOUI\IconWidget;
 use OOUI\TextInputWidget;
 use MediaWiki\MediaWikiServices;
 
@@ -104,6 +105,12 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			)
 		) .
 		$categoriesSnippet .
+		Html::rawElement(
+			'div',
+			[],
+			new IconWidget( [ 'icon' => 'info' ] ) .
+			$this->msg( 'fileimporter-category-encouragement' )->parse()
+		) .
 		Html::element(
 			'h2',
 			[],
