@@ -34,6 +34,7 @@ use SpecialPage;
 use UploadBase;
 use User;
 use UserBlockedError;
+use WebRequest;
 
 /**
  * @license GPL-2.0-or-later
@@ -134,9 +135,10 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function setupPage() {
-		$this->getOutput()->setPageTitle( wfMessage( 'fileimporter-specialpage' ) );
-		$this->getOutput()->enableOOUI();
-		$this->getOutput()->addModuleStyles( 'ext.FileImporter.Special' );
+		$output = $this->getOutput();
+		$output->setPageTitle( wfMessage( 'fileimporter-specialpage' ) );
+		$output->enableOOUI();
+		$output->addModuleStyles( 'ext.FileImporter.Special' );
 	}
 
 	/**
@@ -144,18 +146,20 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	public function execute( $subPage ) {
 		$this->setupPage();
-		$clientUrl = $this->getRequest()->getVal( 'clientUrl' );
 		$this->executeStandardChecks();
+
+		$webRequest = $this->getRequest();
+		$clientUrl = $webRequest->getVal( 'clientUrl', '' );
 
 		// Note: executions by users that don't have the rights to view the page etc will not be
 		// shown in this metric as executeStandardChecks will have already kicked them out,
 		$this->stats->increment( 'FileImporter.specialPage.execute.total' );
 		// The importSource url parameter is added to requests from the FileExporter extension.
-		if ( $this->getRequest()->getRawVal( 'importSource' ) === 'FileExporter' ) {
+		if ( $webRequest->getRawVal( 'importSource' ) === 'FileExporter' ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.fromFileExporter' );
 		}
 
-		if ( $clientUrl === null ) {
+		if ( $clientUrl === '' ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
 			$this->showLandingPage();
 			return;
@@ -163,7 +167,7 @@ class SpecialImportFile extends SpecialPage {
 
 		try {
 			$this->logger->info( 'Getting ImportPlan for URL: ' . $clientUrl );
-			$importPlan = $this->getImportPlan();
+			$importPlan = $this->makeImportPlan( $webRequest );
 		} catch ( ImportException $exception ) {
 			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
 			$this->incrementFailedImportPlanStats( $exception );
@@ -171,7 +175,7 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		switch ( $this->getRequest()->getRawVal( 'action' ) ) {
+		switch ( $webRequest->getRawVal( 'action' ) ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
 				if ( !$this->doImport( $importPlan ) ) {
 					$this->showImportPage( $importPlan );
@@ -234,26 +238,28 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
+	 * @param WebRequest $webRequest
+	 *
 	 * @throws ImportException
 	 * @return ImportPlan
 	 */
-	private function getImportPlan() {
-		$intendedWikitext = $this->getRequest()->getVal( 'intendedWikitext' );
+	private function makeImportPlan( WebRequest $webRequest ) {
+		$intendedWikitext = $webRequest->getVal( 'intendedWikitext' );
 
 		/**
 		 * The below could be turned on with refactoring @ https://gerrit.wikimedia.org/r/#/c/373867/
 		 * But a patch also exists to remove this code https://gerrit.wikimedia.org/r/#/c/138840/
 		 */
-		// if ( !$this->getRequest()->isUnicodeCompliantBrowser() ) {
+		// if ( !$webRequest->isUnicodeCompliantBrowser() ) {
 		// $intendedWikitext = StringUtils::unmakeSafeForUtf8Editing( $intendedWikitext );
 		// }
 
 		$importRequest = new ImportRequest(
-			$this->getRequest()->getVal( 'clientUrl' ),
-			$this->getRequest()->getVal( 'intendedFileName' ),
+			$webRequest->getVal( 'clientUrl' ),
+			$webRequest->getVal( 'intendedFileName' ),
 			$intendedWikitext,
-			$this->getRequest()->getVal( 'intendedRevisionSummary' ),
-			$this->getRequest()->getRawVal( 'importDetailsHash', '' )
+			$webRequest->getVal( 'intendedRevisionSummary' ),
+			$webRequest->getRawVal( 'importDetailsHash', '' )
 		);
 
 		$url = $importRequest->getUrl();
