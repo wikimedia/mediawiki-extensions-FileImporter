@@ -56,7 +56,6 @@ class ImportPlanValidator {
 	private $wikiLinkParserFactory;
 
 	/**
-	 * @suppress PhanParamReqAfterOpt
 	 * @param DuplicateFileRevisionChecker $duplicateFileChecker
 	 * @param ImportTitleChecker $importTitleChecker
 	 * @param UploadBaseFactory $uploadBaseFactory

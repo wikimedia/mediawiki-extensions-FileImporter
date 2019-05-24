@@ -31,7 +31,6 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 	private $namespaceInfo;
 
 	/**
-	 * @suppress PhanParamReqAfterOpt
 	 * @param Language|null $sourceLanguage
 	 * @param NamespaceInfo $namespaceInfo
 	 */

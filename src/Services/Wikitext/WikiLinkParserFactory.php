@@ -32,7 +32,6 @@ class WikiLinkParserFactory {
 	}
 
 	/**
-	 * @suppress PhanParamReqAfterOpt
 	 * @param Language|null $sourceLanguage
 	 * @param string $interWikiPrefix
 	 *

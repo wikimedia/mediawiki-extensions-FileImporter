@@ -83,7 +83,6 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	private $importer;
 
 	/**
-	 * @suppress PhanParamReqAfterOpt
 	 * @param Title $plannedTitle
 	 * @param User $user
 	 * @param FileRevision $fileRevision
