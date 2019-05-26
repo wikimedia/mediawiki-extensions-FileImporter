@@ -66,6 +66,7 @@
 	"fileimporter-commonshelper-parsing-failed": "Страницата со поставки на вашето вики ($1) е непотполна. Не заборавајте дека треба да го содржи одделот „$2“.",
 	"fileimporter-file-contains-blocked-category-template": "Податотеката не може да се увезе бидејќи е обележана како $1. Вакви податотеки не се дозволени на $2.",
 	"fileimporter-file-missing-required-template": "Податотеката не може да се увезе бидејќи не е означена со една од бараните лиценци.",
+	"fileimporter-category-encouragement": "Податотеките на {{SITENAME}} треба да се категоризираат за нивно полесно наиѓање. На податотекава можете да ѝ ги смените категориите во најзиниот информативен дел на страницава.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Направена е $1 автоматска замена|Направени се $1 автоматски замени}} во {{PLURAL:$1|шаблон|шаблоните}}",
 	"fileimporter-input-page-info-text": "Дознајте повеќе на [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons помошната страница].",
 	"fileimporter-viewdiff": "Прикажи промени",

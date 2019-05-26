@@ -67,6 +67,7 @@
 	"fileimporter-commonshelper-parsing-failed": "لا تحتوي صفحة التكوين الخاصة بالويكي الخاص بك ($1) على معلومات مكتملة; يُرجَى التأكد من أنها تحتوي على قسم \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "لا يمكن استيراد الملف; لأنه تم تعليمه كـ$1، $2 لا يسمح بمثل هذه الملفات.",
 	"fileimporter-file-missing-required-template": "لا يمكن استيراد الملف; لأنه غير معلَّم بأحد التراخيص المطلوبة.",
+	"fileimporter-category-encouragement": "يجب تصنيف الملفات الموجودة على {{SITENAME}}؛ هذا يجعل من السهل العثور عليها، يمكنك تغيير التصنيفات لهذا الملف عن طريق تحرير معلومات الملف في هذه الصفحة.",
 	"fileimporter-auto-replacements-summary": "$1 تم إجراء {{PLURAL:$1|تغيير تلقائي|تغييرات تلقائية}} إلى {{PLURAL:$1|قالب|قوالب}}",
 	"fileimporter-input-page-info-text": "تعرف على المزيد من خلال زيارة [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons صفحة المساعدة].",
 	"fileimporter-viewdiff": "عرض التغييرات",

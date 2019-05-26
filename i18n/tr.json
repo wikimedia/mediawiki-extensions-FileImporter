@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Hedda",
-			"Karduelis"
+			"Karduelis",
+			"Mirzali"
 		]
 	},
 	"fileimporter": "DosyaİçeAktarıcı",
@@ -64,6 +65,7 @@
 	"fileimporter-commonshelper-parsing-failed": "Viki'niz ($1) için yapılandırma sayfası, bu dosyanın Commons'a yüklenip yüklenmeyeceğini bilmek için <$2> hakkında yeterli bilgi içermez. Lütfen \"$2\" içerdiğinden emin olun.",
 	"fileimporter-file-contains-blocked-category-template": "$1 olarak işaretlendiğinden dosya içe alınamıyor. $2, bu tür dosyalara izin vermiyor.",
 	"fileimporter-file-missing-required-template": "Gerekli lisanslardan biriyle işaretlenmediği için dosya içe alınamıyor.",
+	"fileimporter-category-encouragement": "{{SITENAME}} üzerindeki dosyalar kategorize edilmelidir. Bu onları bulmak için kolaylaştırır. Bu sayfadaki dosya bilgilerini düzenleyerek bu dosya için kategorileri değiştirebilirsiniz.",
 	"fileimporter-auto-replacements-summary": "Şablonlarda $1 otomatik değişiklik yapıldı.",
 	"fileimporter-input-page-info-text": "[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons Yardım sayfamızı] ziyaret ederek daha fazla bilgi edinin.",
 	"fileimporter-viewdiff": "Değişiklikleri göster",

@@ -3,7 +3,8 @@
 		"authors": [
 			"Uziel302",
 			"Amire80",
-			"Guycn2"
+			"Guycn2",
+			"Steeve815"
 		]
 	},
 	"fileimporter": "ייבוא קבצים",
@@ -67,6 +68,7 @@
 	"fileimporter-commonshelper-parsing-failed": "דף הגדרות התצורה של אתר הוויקי הזה ($1) אינו מלא. נא לוודא שיש בו פסקת \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "לא ניתן לייבא את הקובץ, כיוון שהוא מסומן בתור $1. קבצים כאלה אינם מותרים ב{{GRAMMAR:תחילית|$2}}.",
 	"fileimporter-file-missing-required-template": "לא ניתן לייבא את הקובץ כיוון שהוא לא מסומן עם אחד הרישיונות הנדרשים.",
+	"fileimporter-category-encouragement": "קבצים ב{{SITENAME}} צריכים להיכלל בקטגוריות. הדבר מאפשר לחפש אותם בקלות רבה יותר. ביכולתך לשנות את הקטגוריות של קובץ זה על ידי עריכת המידע של הקובץ בדף זה.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|בוצע שינוי אוטומטי אחד|בוצעו $1 שינויים אוטומטיים}} בתבניות",
 	"fileimporter-input-page-info-text": "ניתן למצוא מידע נוסף ב[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons דף העזרה] שלנו.",
 	"fileimporter-viewdiff": "הצגת שינויים",
