@@ -52,6 +52,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $importerResult );
 
 		$specialImportFileMock = $this->getMockBuilder( SpecialImportFile::class )
+			->disableOriginalConstructor()
 			->setMethods( [ 'getOutput', 'getUser' ] )
 			->getMock();
 		$specialImportFileMock->method( 'getOutput' )

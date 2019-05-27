@@ -158,10 +158,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 	 * @return WikiRevisionFactory
 	 */
 	private function newWikiRevisionFactory() {
-		$mock = $this->getMockBuilder( WikiRevisionFactory::class )
-			->setConstructorArgs( [ $this->config ] )
-			->setMethods( [ 'newFromFileRevision' ] )
-			->getMock();
+		$mock = $this->createMock( WikiRevisionFactory::class );
 		$mock->method( 'newFromFileRevision' )
 			->will( $this->returnCallback(
 				function ( FileRevision $fileRevision, $src ) {
