@@ -3,6 +3,9 @@
 namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
+use FileImporter\Data\SourceUrl;
+use FileImporter\Services\WikidataTemplateLookup;
+use MediaWiki\MediaWikiServices;
 use OOUI\ButtonWidget;
 use Html;
 
@@ -22,6 +25,9 @@ class ImportSuccessPage extends SpecialPageHtmlFragment {
 	public function getHtml( ImportPlan $importPlan ) {
 		$sourceUrl = $importPlan->getRequest()->getUrl();
 		$importTitle = $importPlan->getTitle();
+		$instructions = $this->buildSuggestedTemplateInstructions(
+			$sourceUrl, $importTitle->getPrefixedText()
+		);
 
 		return Html::rawElement(
 			'div',
@@ -39,7 +45,7 @@ class ImportSuccessPage extends SpecialPageHtmlFragment {
 		Html::rawElement(
 			'p',
 			[],
-			$this->msg( 'fileimporter-imported-change-template' )->parse()
+			$instructions
 		) .
 		new ButtonWidget(
 			[
@@ -49,6 +55,22 @@ class ImportSuccessPage extends SpecialPageHtmlFragment {
 				'flags' => [ 'primary', 'progressive' ],
 			]
 		);
+	}
+
+	private function buildSuggestedTemplateInstructions( SourceUrl $sourceUrl, $targetTitle ) {
+		/** @var WikidataTemplateLookup $lookup */
+		$lookup = MediaWikiServices::getInstance()->getService( 'FileImporterTemplateLookup' );
+		$templateName = $lookup->fetchNowCommonsLocalTitle( $sourceUrl );
+
+		if ( $templateName ) {
+			return $this->msg( 'fileimporter-add-specific-template' )
+				->params( $sourceUrl->getUrl(), $templateName, $targetTitle )
+				->parse();
+		} else {
+			return $this->msg( 'fileimporter-add-unknown-template' )
+				->params( $sourceUrl->getUrl() )
+				->parse();
+		}
 	}
 
 }
