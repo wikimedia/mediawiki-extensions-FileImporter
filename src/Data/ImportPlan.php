@@ -38,6 +38,16 @@ class ImportPlan {
 	private $interWikiPrefix;
 
 	/**
+	 * @var string|null
+	 */
+	private $cleanedLatestRevisionText;
+
+	/**
+	 * @var int
+	 */
+	private $numberOfTemplateReplacements = 0;
+
+	/**
 	 * ImportPlan constructor, should not be constructed directly in production code.
 	 * Use an ImportPlanFactory instance.
 	 *
@@ -128,21 +138,8 @@ class ImportPlan {
 		if ( $text !== null ) {
 			return $text;
 		}
-		return $this->getInitialCleanedInfoText();
-	}
 
-	/**
-	 * Appends a marker to the beginning of the cleaned File Info Text indicating that
-	 * it was imported using FileImporter
-	 *
-	 * @return string
-	 */
-	private function getInitialCleanedInfoText() {
-		$text = $this->details->getCleanedRevisionText();
-		if ( $text === null ) {
-			$text = $this->getInitialFileInfoText();
-		}
-		return $this->addImportComment( $text );
+		return $this->addImportComment( $this->getCleanedLatestRevisionText() );
 	}
 
 	/**
@@ -151,6 +148,34 @@ class ImportPlan {
 	public function getInitialFileInfoText() {
 		$textRevision = $this->details->getTextRevisions()->getLatest();
 		return $textRevision ? $textRevision->getField( '*' ) : '';
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCleanedLatestRevisionText() {
+		return $this->cleanedLatestRevisionText ?? $this->getInitialFileInfoText();
+	}
+
+	/**
+	 * @param string $text
+	 */
+	public function setCleanedLatestRevisionText( $text ) {
+		$this->cleanedLatestRevisionText = $text;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getNumberOfTemplateReplacements() {
+		return $this->numberOfTemplateReplacements;
+	}
+
+	/**
+	 * @param int $replacements
+	 */
+	public function setNumberOfTemplateReplacements( $replacements ) {
+		$this->numberOfTemplateReplacements = $replacements;
 	}
 
 	/**

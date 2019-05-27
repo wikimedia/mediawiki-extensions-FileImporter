@@ -8,7 +8,6 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use TitleValue;
-use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Data\ImportPlan
@@ -97,16 +96,15 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details = $this->createMock( ImportDetails::class );
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
-		$details->method( 'getCleanedRevisionText' )
-			->willReturn( $cleanedText );
 
-		/** @var ImportPlan $plan */
-		$plan = TestingAccessWrapper::newFromObject( new ImportPlan( $request, $details, '' ) );
+		$plan = new ImportPlan( $request, $details, '' );
+		$plan->setCleanedLatestRevisionText( $cleanedText );
+
 		$this->assertSame( $originalText, $plan->getInitialFileInfoText(), 'initialFileInfoText' );
 		$this->assertSame(
 			$cleanedText ?: $originalText,
-			$plan->getInitialCleanedInfoText(),
-			'initialCleanedInfoText'
+			$plan->getCleanedLatestRevisionText(),
+			'cleanedLatestRevisionText'
 		);
 		$this->assertSame( $expectedText, $plan->getFileInfoText(), 'fileInfoText' );
 	}

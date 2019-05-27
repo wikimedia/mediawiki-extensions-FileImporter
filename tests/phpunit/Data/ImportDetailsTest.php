@@ -36,27 +36,18 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			$textRevisions,
 			$fileRevisions
 		);
-		$details->setNumberOfTemplatesReplaced( 1 );
 
 		// Values provided on construction time
 		$this->assertSame( $sourceUrl, $details->getSourceUrl(), 'sourceUrl' );
 		$this->assertSame( $sourceLinkTarget, $details->getSourceLinkTarget(), 'sourceLinkTarget' );
 		$this->assertSame( $textRevisions, $details->getTextRevisions(), 'textRevisions' );
 		$this->assertSame( $fileRevisions, $details->getFileRevisions(), 'fileRevisions' );
-		$this->assertSame( 1, $details->getNumberOfTemplatesReplaced() );
-		$this->assertNull( $details->getCleanedRevisionText() );
 
 		// Derived values
 		$this->assertSame( 'FILENAME', $details->getSourceFileName(), 'sourceFileName' );
 		$this->assertSame( 'EXT', $details->getSourceFileExtension(), 'sourceFileExtension' );
 		$this->assertSame( 'IMAGEDISPLAYURL', $details->getImageDisplayUrl(), 'imageDisplayUrl' );
 		$this->assertSame( 40, strlen( $details->getOriginalHash() ), 'originalHash' );
-	}
-
-	public function testSetCleanedRevisionText() {
-		$details = $this->minimalImportDetails();
-		$details->setCleanedRevisionText( 'WIKITEXT' );
-		$this->assertSame( 'WIKITEXT', $details->getCleanedRevisionText() );
 	}
 
 	public function testMissingExtension() {

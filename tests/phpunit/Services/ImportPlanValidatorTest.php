@@ -130,7 +130,15 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	 * @return ImportPlan
 	 */
 	private function getMockImportPlan( $planTitle, LinkTarget $sourceTitle = null ) {
-		$mock = $this->createMock( ImportPlan::class );
+		$mock = $this->getMockBuilder( ImportPlan::class )
+			->setConstructorArgs( [
+				new ImportRequest( 'http://test.test' ),
+				$this->getMockImportDetails( $sourceTitle ?: $this->getMockTitle( 'Source.JPG' ) ),
+				''
+			] )
+			// This makes this a partial mock where all other methods still call the original code.
+			->setMethods( [ 'getTitle' ] )
+			->getMock();
 
 		if ( $planTitle ) {
 			$mock->method( 'getTitle' )
@@ -140,13 +148,6 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 				->willThrowException( new MalformedTitleException( 'mockexception' ) );
 		}
 
-		$mock->method( 'getDetails' )
-			->willReturn( $this->getMockImportDetails(
-				$sourceTitle ?: $this->getMockTitle( 'Source.JPG' )
-			) );
-
-		$mock->method( 'getRequest' )
-			->willReturn( new ImportRequest( 'http://test.test' ) );
 		return $mock;
 	}
 
@@ -386,7 +387,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 
 	public function testCommonsHelperAndWikiLinkParserIntegration() {
 		$importPlan = $this->getMockImportPlan( $this->getMockTitle( 'Valid.jpg' ) );
-		$importPlan->getDetails()->setCleanedRevisionText( "{{MOVE}}\nORIGINAL" );
+		$importPlan->setCleanedLatestRevisionText( "{{MOVE}}\nORIGINAL" );
 
 		$commonsHelperConfigRetriever = $this->createMock( CommonsHelperConfigRetriever::class );
 		$commonsHelperConfigRetriever->expects( $this->once() )
@@ -413,7 +414,8 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		);
 
 		$validator->validate( $importPlan, $this->createMock( User::class ) );
-		$this->assertSame( 'PARSED', $importPlan->getDetails()->getCleanedRevisionText() );
+		$this->assertSame( 'PARSED', $importPlan->getCleanedLatestRevisionText() );
+		$this->assertSame( 1, $importPlan->getNumberOfTemplateReplacements() );
 	}
 
 }

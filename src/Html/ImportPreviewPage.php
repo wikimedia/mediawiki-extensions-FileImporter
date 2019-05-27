@@ -134,7 +134,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		$this->buildActionFormStart( self::ACTION_SUBMIT ) .
 		$importIdentityFormSnippet .
 		( $this->wasEdited( $importPlan ) ? $this->buildEditSummaryHtml(
-			$importPlan->getDetails()->getNumberOfTemplatesReplaced() ) : '' ) .
+			$importPlan->getNumberOfTemplateReplacements() ) : '' ) .
 		Html::rawElement(
 			'p',
 			[],
@@ -269,7 +269,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	 */
 	private function wasEdited( ImportPlan $importPlan ) {
 		return $importPlan->wasFileInfoTextChanged() ||
-			$importPlan->getDetails()->getNumberOfTemplatesReplaced() > 0;
+			$importPlan->getNumberOfTemplateReplacements() > 0;
 	}
 
 }
