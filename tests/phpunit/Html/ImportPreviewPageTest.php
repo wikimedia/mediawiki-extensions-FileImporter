@@ -73,8 +73,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 						havingChild( $this->thatIsInputField( 'intendedFileName', $intendedFileName ) )
 					)
 					->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'importDetailsHash' ) ) )
-					// FIXME: Don't know why the token isn't being passed through.
-					// ->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'token' ) ) )
+					->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'token' ) ) )
 					->andAlso( havingChild( $this->thatIsInputField( 'action', 'submit' ) ) )
 					->andAlso( havingChild(
 						both( withTagName( 'button' ) )
@@ -123,7 +122,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	 */
 	private function getMockSpecialPage() {
 		$user = $this->createMock( User::class );
-		$user->method( 'matchEditToken' )
+		$user->method( 'getEditToken' )
 			->willReturn( '123' );
 
 		$mock = $this->createMock( SpecialPage::class );
