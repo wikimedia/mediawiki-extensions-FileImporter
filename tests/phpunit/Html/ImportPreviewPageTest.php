@@ -2,7 +2,6 @@
 
 namespace FileImporter\Html\Test;
 
-use FauxRequest;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -11,11 +10,8 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ImportPreviewPage;
-use IContextSource;
-use Language;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use OutputPage;
 use SpecialPage;
 use Title;
 use User;
@@ -23,7 +19,7 @@ use User;
 /**
  * @coversDefaultClass \FileImporter\Html\ImportPreviewPage
  */
-class ImportPreviewPageTest extends \MediaWikiTestCase {
+class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -31,25 +27,35 @@ class ImportPreviewPageTest extends \MediaWikiTestCase {
 		Theme::setSingleton( new BlankTheme() );
 	}
 
+	public function providePlanContent() {
+		yield [ 0 ];
+		yield [ 1 ];
+	}
+
 	/**
 	 * @covers ::getHtml
+	 * @dataProvider providePlanContent
 	 */
-	public function testGetHtml() {
+	public function testGetHtml( $replacements ) {
 		$clientUrl = 'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG';
 		$dbkey = 'Chicken_In_Snow';
 		$fileName = 'Chicken In Snow';
 		$wikitext = 'foo';
+		$this->setContentLang( 'qqx' );
 
 		$importPlan = new ImportPlan(
 			new ImportRequest( $clientUrl, $fileName, $wikitext ),
 			$this->getMockImportDetails( $wikitext, $dbkey ),
 			''
 		);
+		$importPlan->setNumberOfTemplateReplacements( $replacements );
 
 		$page = new ImportPreviewPage( $this->getMockSpecialPage() );
 		$html = $page->getHtml( $importPlan );
 
 		$this->assertPreviewPage( $html, $clientUrl, $fileName );
+
+		$this->assertSummary( $html, $replacements );
 
 		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
 		$this->addToAssertionCount( 1 );
@@ -62,14 +68,14 @@ class ImportPreviewPageTest extends \MediaWikiTestCase {
 				both( withTagName( 'form' ) )
 					->andAlso( withAttribute( 'action' ) )
 					->andAlso( withAttribute( 'method' )->havingValue( 'POST' ) )
-					->andAlso( havingChild( $this->thatIsHiddenInputField( 'clientUrl', $clientUrl ) ) )
+					->andAlso( havingChild( $this->thatIsInputField( 'clientUrl', $clientUrl ) ) )
 					->andAlso(
-						havingChild( $this->thatIsHiddenInputField( 'intendedFileName', $intendedFileName ) )
+						havingChild( $this->thatIsInputField( 'intendedFileName', $intendedFileName ) )
 					)
-					->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'importDetailsHash' ) ) )
+					->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'importDetailsHash' ) ) )
 					// FIXME: Don't know why the token isn't being passed through.
-					// ->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'token' ) ) )
-					->andAlso( havingChild( $this->thatIsHiddenInputField( 'action', 'submit' ) ) )
+					// ->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'token' ) ) )
+					->andAlso( havingChild( $this->thatIsInputField( 'action', 'submit' ) ) )
 					->andAlso( havingChild(
 						both( withTagName( 'button' ) )
 							->andAlso( withAttribute( 'type' )->havingValue( 'submit' ) )
@@ -78,16 +84,36 @@ class ImportPreviewPageTest extends \MediaWikiTestCase {
 		);
 	}
 
-	private function thatIsHiddenInputField( $name, $value ) {
+	private function assertSummary( $html, $replacements ) {
+		if ( $replacements > 0 ) {
+			assertThat(
+				$html,
+				is( htmlPiece( havingChild(
+					both( withTagName( 'form' ) )
+						->andAlso( havingChild( $this->thatIsInputField(
+							'intendedRevisionSummary',
+							'(fileimporter-auto-replacements-summary: ' . $replacements . ')'
+						) ) )
+				) ) )
+			);
+		} else {
+			assertThat(
+				$html,
+				is( not( htmlPiece( havingChild( $this->thatIsInputFieldWithSomeValue(
+					'intendedRevisionSummary'
+				) ) ) ) )
+			);
+		}
+	}
+
+	private function thatIsInputField( $name, $value ) {
 		return both( withTagName( 'input' ) )
-			->andAlso( withAttribute( 'type' )->havingValue( 'hidden' ) )
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) )
 			->andAlso( withAttribute( 'value' )->havingValue( $value ) );
 	}
 
-	private function thatIsHiddenInputFieldWithSomeValue( $name ) {
+	private function thatIsInputFieldWithSomeValue( $name ) {
 		return both( withTagName( 'input' ) )
-			->andAlso( withAttribute( 'type' )->havingValue( 'hidden' ) )
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) )
 			->andAlso( withAttribute( 'value' ) );
 	}
@@ -100,31 +126,13 @@ class ImportPreviewPageTest extends \MediaWikiTestCase {
 		$user->method( 'matchEditToken' )
 			->willReturn( '123' );
 
-		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
-
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getRequest' )
-			->willReturn( $request );
-
-		$context = $this->createMock( IContextSource::class );
-		$context->method( 'getUser' )
-			->willReturn( $user );
-
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( __METHOD__ ) );
-		$mock->method( 'getContext' )
-			->willReturn( $context );
-		$mock->method( 'getRequest' )
-			->willReturn( $request );
-		$mock->method( 'getOutput' )
-			->willReturn( $output );
 		$mock->method( 'getUser' )
 			->willReturn( $user );
-		$mock->method( 'getLanguage' )
-			->willReturn( $this->createMock( Language::class ) );
 		$mock->method( 'msg' )
-			->willReturn( new \RawMessage( '' ) );
+			->willReturnCallback( 'wfMessage' );
 		return $mock;
 	}
 

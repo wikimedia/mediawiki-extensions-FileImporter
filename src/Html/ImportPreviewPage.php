@@ -215,9 +215,9 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	private function buildEditSummaryHtml( $replacements ) {
 		$summary = $replacements > 0
 			? $this->msg( 'fileimporter-auto-replacements-summary', $replacements )
+				->inContentLanguage()
 				->text()
 			: null;
-
 		return Html::element(
 			'p',
 			[],
