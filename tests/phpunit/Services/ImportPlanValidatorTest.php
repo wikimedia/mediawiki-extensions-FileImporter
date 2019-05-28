@@ -116,7 +116,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	 */
 	private function getMockImportDetails( LinkTarget $sourceTitle ) {
 		return new ImportDetails(
-			new SourceUrl( 'http://test.test' ),
+			new SourceUrl( '//w.invalid' ),
 			$sourceTitle,
 			$this->createMock( TextRevisions::class ),
 			$this->getMockFileRevisions()
@@ -132,7 +132,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	private function getMockImportPlan( $planTitle, LinkTarget $sourceTitle = null ) {
 		$mock = $this->getMockBuilder( ImportPlan::class )
 			->setConstructorArgs( [
-				new ImportRequest( 'http://test.test' ),
+				new ImportRequest( '//w.invalid' ),
 				$this->getMockImportDetails( $sourceTitle ?: $this->getMockTitle( 'Source.JPG' ) ),
 				''
 			] )
@@ -321,10 +321,6 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 			$validatingUploadBase = $this->getMockValidatingUploadBase();
 		}
 
-		if ( $expected !== null ) {
-			$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
-		}
-
 		$validator = new ImportPlanValidator(
 			$duplicateChecker,
 			$titleChecker,
@@ -333,11 +329,12 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 			null,
 			$this->getMockWikiLinkParserFactory()
 		);
-		$validator->validate( $plan, $this->createMock( User::class ) );
 
-		if ( $expected === null ) {
-			$this->addToAssertionCount( 1 );
+		if ( $expected !== null ) {
+			$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
 		}
+		$validator->validate( $plan, $this->createMock( User::class ) );
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function testValidateFailsWhenCoreChangesTheName() {
@@ -349,8 +346,6 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 
 		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
 
-		$this->setExpectedException( RecoverableTitleException::class, '"Before"' );
-
 		$validator = new ImportPlanValidator(
 			$this->getMockDuplicateFileRevisionChecker( 0 ),
 			$this->getMockImportTitleChecker( 0 ),
@@ -359,21 +354,18 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 			null,
 			$this->getMockWikiLinkParserFactory()
 		);
+
+		$this->setExpectedException( RecoverableTitleException::class, '"Before"' );
 		$validator->validate( $importPlan, $this->createMock( User::class ) );
 	}
 
 	public function testValidateFailsOnFailingTitlePermissionCheck() {
-		$importRequest = new ImportRequest( 'http://test.test' );
+		$importRequest = new ImportRequest( '//w.invalid' );
 		$mockTitle = $this->getMockTitle( 'Title', true, [ 'error' ] );
 		$mockDetails = $this->getMockImportDetails( $mockTitle );
 
 		$importPlan = new ImportPlan( $importRequest, $mockDetails, '' );
 
-		$this->setExpectedException(
-			RecoverableTitleException::class,
-			'The action you have requested is limited to users in one of the groups'
-		);
-
 		$validator = new ImportPlanValidator(
 			$this->getMockDuplicateFileRevisionChecker( 0 ),
 			$this->getMockImportTitleChecker( 0 ),
@@ -381,6 +373,11 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 			null,
 			null,
 			$this->getMockWikiLinkParserFactory()
+		);
+
+		$this->setExpectedException(
+			RecoverableTitleException::class,
+			'The action you have requested is limited to users in one of the groups'
 		);
 		$validator->validate( $importPlan, $this->createMock( User::class ) );
 	}

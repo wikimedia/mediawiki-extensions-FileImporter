@@ -18,7 +18,7 @@ use TitleValue;
 class ImportPlanTest extends \MediaWikiTestCase {
 
 	public function testConstruction() {
-		$request = $this->createMock( ImportRequest::class );
+		$request = new ImportRequest( '//w.invalid' );
 		$details = $this->createMock( ImportDetails::class );
 		$prefix = 'wiki';
 
@@ -66,10 +66,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetTitleAndFileNameFromIntendedName() {
-		$request = $this->createMock( ImportRequest::class );
-		$request->expects( $this->once() )
-			->method( 'getIntendedName' )
-			->willReturn( 'TestIntendedName' );
+		$request = new ImportRequest( '//w.invalid', 'TestIntendedName' );
 
 		$details = $this->createMock( ImportDetails::class );
 		$details->expects( $this->once() )
@@ -99,9 +96,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	public function testTextGetters( $originalText, $cleanedText, $intendedText, $expectedText ) {
 		$this->setMwGlobals( 'wgFileImporterTextForPostImportRevision', '' );
 
-		$request = $this->createMock( ImportRequest::class );
-		$request->method( 'getIntendedText' )
-			->willReturn( $intendedText );
+		$request = new ImportRequest( '//w.invalid', null, $intendedText );
 
 		$textRevision = $this->createMock( TextRevision::class );
 		$textRevision->method( 'getField' )
@@ -128,7 +123,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetInitialFileInfoTextWithNoTextRevision() {
-		$request = $this->createMock( ImportRequest::class );
+		$request = new ImportRequest( '//w.invalid' );
 
 		$textRevisions = $this->createMock( TextRevisions::class );
 		$textRevisions->method( 'getLatest' )

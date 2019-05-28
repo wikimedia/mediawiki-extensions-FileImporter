@@ -20,7 +20,7 @@ class SourceSiteTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
 
 	public function testServiceWiring() {
-		$sourceUrl = new SourceUrl( 'http://w.wiki' );
+		$sourceUrl = new SourceUrl( '//w.invalid' );
 		$sourceUrlNormalizer = $this->createMock( SourceUrlNormalizer::class );
 		$sourceUrlNormalizer->expects( $this->exactly( 3 ) )
 			->method( 'normalize' )

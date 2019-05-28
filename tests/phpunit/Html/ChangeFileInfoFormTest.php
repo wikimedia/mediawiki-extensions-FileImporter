@@ -119,7 +119,7 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 	 */
 	public function testTextDisplayedInInputBox( $userInput, $expectedInputText ) {
 		$importPlan = new ImportPlan(
-			new ImportRequest( 'http://goog', 'Foo', $userInput ),
+			new ImportRequest( '//w.invalid', 'Foo', $userInput ),
 			$this->getMockImportDetails(),
 			''
 		);

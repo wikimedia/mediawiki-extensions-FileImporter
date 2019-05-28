@@ -274,19 +274,20 @@ WIKITEXT
 		$expectedException = null
 	) {
 		$parser = new CommonsHelperConfigParser( '', $wikitext );
-		if ( $expectedException !== null ) {
+
+		if ( $expectedException ) {
 			$this->setExpectedException( LocalizedImportException::class, $expectedException );
-			$parser->getWikitextConversions();
-		} else {
-			$expected = new WikitextConversions(
-				$expectedGoodTemplates,
-				$expectedBadTemplates,
-				$expectedBadCategories,
-				$expectedObsoleteTemplates,
-				[]
-			);
-			$this->assertEquals( $expected, $parser->getWikitextConversions() );
 		}
+		$conversions = $parser->getWikitextConversions();
+
+		$expected = new WikitextConversions(
+			$expectedGoodTemplates,
+			$expectedBadTemplates,
+			$expectedBadCategories,
+			$expectedObsoleteTemplates,
+			[]
+		);
+		$this->assertEquals( $expected, $conversions );
 	}
 
 	public function testHeadingReplacements() {

@@ -115,7 +115,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 */
 	public function testTextDisplayedInInputBox( $originalInput, $userInput, $expected ) {
 		$importPlan = new ImportPlan(
-			new ImportRequest( 'http://goog', 'Foo', $userInput ),
+			new ImportRequest( '//w.invalid', 'Foo', $userInput ),
 			$this->getMockImportDetails( $originalInput ),
 			''
 		);
