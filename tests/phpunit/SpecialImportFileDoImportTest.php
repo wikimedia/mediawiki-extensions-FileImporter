@@ -101,7 +101,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 		$importPlanMock = $this->createMockImportPlan( $origHash );
 
 		$specialImportFile = $this->newSpecialPage(
-			$this->createFauxRequest( $requestData ),
+			new FauxRequest( $requestData ),
 			$this->createMockUser( $tokenCheck ),
 			$importerResult
 		);
@@ -126,14 +126,6 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( Title::newFromText( __METHOD__ ) );
 
 		return $importPlanMock;
-	}
-
-	/**
-	 * @param array $parameters
-	 * @return WebRequest
-	 */
-	private function createFauxRequest( array $parameters ) {
-		return new FauxRequest( $parameters );
 	}
 
 	/**
