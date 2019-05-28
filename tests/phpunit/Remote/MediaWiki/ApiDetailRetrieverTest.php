@@ -14,6 +14,7 @@ use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\ApiDetailRetriever
+ * @covers \FileImporter\Remote\MediaWiki\MediaWikiSourceUrlParser
  *
  * @license GPL-2.0-or-later
  * @author Addshore

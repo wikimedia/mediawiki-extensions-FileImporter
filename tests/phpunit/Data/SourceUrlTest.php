@@ -66,6 +66,7 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( trim( $url ), $sourceUrl->getUrl() );
 		$this->assertEquals( $expectedParsed, $sourceUrl->getParsedUrl() );
 		$this->assertSame( $expectedDomain, $sourceUrl->getHost() );
+		$this->assertSame( $sourceUrl->getUrl(), (string)$sourceUrl );
 	}
 
 }

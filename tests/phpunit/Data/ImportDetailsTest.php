@@ -50,6 +50,22 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( 40, strlen( $details->getOriginalHash() ), 'originalHash' );
 	}
 
+	public function testSetters() {
+		$details = $this->minimalImportDetails();
+
+		$this->assertSame( null, $details->getPageLanguage() );
+		$this->assertSame( [], $details->getTemplates() );
+		$this->assertSame( [], $details->getCategories() );
+
+		$details->setPageLanguage( 'de' );
+		$details->setTemplates( [ 'T' ] );
+		$details->setCategories( [ 'C' ] );
+
+		$this->assertSame( 'de', $details->getPageLanguage() );
+		$this->assertSame( [ 'T' ], $details->getTemplates() );
+		$this->assertSame( [ 'C' ], $details->getCategories() );
+	}
+
 	public function testMissingExtension() {
 		$this->assertSame( '', $this->minimalImportDetails()->getSourceFileExtension() );
 	}

@@ -29,6 +29,24 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$this->assertSame( $prefix, $plan->getInterWikiPrefix() );
 	}
 
+	public function testSetters() {
+		$request = new ImportRequest( '//w.invalid' );
+		$details = $this->createMock( ImportDetails::class );
+		$details->method( 'getTextRevisions' )
+			->willReturn( $this->createMock( TextRevisions::class ) );
+
+		$plan = new ImportPlan( $request, $details, '' );
+
+		$this->assertSame( '', $plan->getCleanedLatestRevisionText() );
+		$this->assertSame( 0, $plan->getNumberOfTemplateReplacements() );
+
+		$plan->setCleanedLatestRevisionText( 'T' );
+		$plan->setNumberOfTemplateReplacements( 1 );
+
+		$this->assertSame( 'T', $plan->getCleanedLatestRevisionText() );
+		$this->assertSame( 1, $plan->getNumberOfTemplateReplacements() );
+	}
+
 	public function testGetTitleAndFileNameFromInitialTitle() {
 		$request = $this->createMock( ImportRequest::class );
 		$request->expects( $this->once() )
