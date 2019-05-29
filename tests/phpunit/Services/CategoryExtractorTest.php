@@ -42,6 +42,7 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 	}
 
 	/**
+	 * @covers ::__construct
 	 * @covers ::getCategoriesGrouped
 	 * @dataProvider provideCategories
 	 */
@@ -60,6 +61,7 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 	}
 
 	/**
+	 * @covers ::__construct
 	 * @covers ::queryHiddenCategories
 	 */
 	public function testQueryHiddenCategories() {
