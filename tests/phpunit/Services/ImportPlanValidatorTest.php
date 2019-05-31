@@ -186,9 +186,12 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 *
 	 * @return WikiLinkParserFactory
 	 */
-	private function getMockWikiLinkParserFactory( WikiLinkParser $wikiLinkParser = null ) {
+	private function getMockWikiLinkParserFactory(
+		$callCount = 1,
+		WikiLinkParser $wikiLinkParser = null
+	) {
 		$mock = $this->createMock( WikiLinkParserFactory::class );
-		$mock->expects( $this->once() )
+		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'getWikiLinkParser' )
 			->willReturn( $wikiLinkParser ?: new WikiLinkParser() );
 		return $mock;
@@ -211,7 +214,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( $titleString )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1 ),
-				$this->getMockImportTitleChecker( 1 )
+				$this->getMockImportTitleChecker( 1 ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			];
 		}
 
@@ -222,7 +226,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( 'FinalName.JPG' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1, 1 ),
-				$this->getMockImportTitleChecker( 0 )
+				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			],
 			'Invalid, title exists on target site' => [
 				new RecoverableTitleException(
@@ -233,7 +238,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( 'FinalName.JPG', true )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1 ),
-				$this->getMockImportTitleChecker( 0 )
+				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			],
 			'Invalid, title exists on source site' => [
 				new RecoverableTitleException(
@@ -244,7 +250,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( 'FinalName.JPG' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1 ),
-				$this->getMockImportTitleChecker( 1, false )
+				$this->getMockImportTitleChecker( 1, false ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			],
 			'Invalid, file extension has changed' => [
 				new TitleException( 'fileimporter-filenameerror-missmatchextension' ),
@@ -253,7 +260,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( 'SourceName.PNG' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 0 ),
-				$this->getMockImportTitleChecker( 0 )
+				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			],
 			'Invalid, No Extension on planned name' => [
 				new TitleException( 'fileimporter-filenameerror-noplannedextension' ),
@@ -261,7 +269,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( 'FinalName.JPG/Foo' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 0 ),
-				$this->getMockImportTitleChecker( 0 )
+				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			],
 			'Invalid, No Extension on source name' => [
 				new TitleException( 'fileimporter-filenameerror-nosourceextension' ),
@@ -270,7 +279,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( 'SourceName.jpg/Foo' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 0 ),
-				$this->getMockImportTitleChecker( 0 )
+				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			],
 			'Invalid, Bad title (includes another namespace)' => [
 				new RecoverableTitleException(
@@ -281,7 +291,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$this->getMockTitle( 'Talk:FinalName.JPG' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1 ),
-				$this->getMockImportTitleChecker( 0 )
+				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 1 )
 			],
 			'Invalid, Bad filename (too long)' => [
 				new RecoverableTitleException(
@@ -293,6 +304,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1 ),
 				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 1 ),
 				$this->getMockValidatingUploadBase( UploadBase::FILENAME_TOO_LONG, true )
 			],
 			'Invalid, Bad characters "<", getTitle throws MalformedTitleException' => [
@@ -303,6 +315,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				$this->getMockImportPlan( false ),
 				$this->getMockDuplicateFileRevisionChecker( 0 ),
 				$this->getMockImportTitleChecker( 0 ),
+				$this->getMockWikiLinkParserFactory( 0 ),
 				$this->getMockValidatingUploadBase( true, true )
 			],
 		];
@@ -318,6 +331,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		ImportPlan $plan,
 		DuplicateFileRevisionChecker $duplicateChecker,
 		ImportTitleChecker $titleChecker,
+		WikiLinkParserFactory $wikiLinkParserFactory,
 		ValidatingUploadBase $validatingUploadBase = null
 	) {
 		if ( $validatingUploadBase === null ) {
@@ -330,7 +344,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockUploadBaseFactory( $validatingUploadBase ),
 			null,
 			null,
-			$this->getMockWikiLinkParserFactory()
+			$wikiLinkParserFactory
 		);
 
 		if ( $expected !== null ) {
@@ -344,13 +358,14 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$mockRequest = $this->createMock( ImportRequest::class );
 		$mockRequest->expects( $this->atLeastOnce() )
 			->method( 'getIntendedName' )
-			->willReturn( 'Before#After' );
-		$mockDetails = $this->getMockImportDetails( Title::makeTitle( NS_FILE, __METHOD__ ) );
+			->willReturn( 'Before.jpg#After' );
+		$mockDetails = $this->getMockImportDetails(
+			Title::makeTitle( NS_FILE, 'SourceName.jpg' ) );
 
 		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
 
 		$validator = new ImportPlanValidator(
-			$this->getMockDuplicateFileRevisionChecker( 0 ),
+			$this->getMockDuplicateFileRevisionChecker( 1 ),
 			$this->getMockImportTitleChecker( 0 ),
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
 			null,
@@ -413,7 +428,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
 			$commonsHelperConfigRetriever,
 			'',
-			$this->getMockWikiLinkParserFactory( $wikiLinkParser )
+			$this->getMockWikiLinkParserFactory( 1, $wikiLinkParser )
 		);
 
 		$validator->validate( $importPlan, $this->getTestUser()->getUser() );

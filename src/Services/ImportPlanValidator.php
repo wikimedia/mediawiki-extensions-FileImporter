@@ -83,9 +83,9 @@ class ImportPlanValidator {
 	/**
 	 * Validate the ImportPlan by running various checks.
 	 * The order of the checks is vaguely important as some can be actively solved in the extension
-	 * and other can not be.
-	 * It is frustrating to the user if fix 1 thing only to then be shown another error that can not
-	 * be easily fixed.
+	 * and others cannot.
+	 * It's frustrating to the user if they fix one thing, only to be shown another error that
+	 * cannot be easily fixed.
 	 *
 	 * @param ImportPlan $importPlan The plan to be validated
 	 * @param User $user User that executes the import
@@ -95,15 +95,20 @@ class ImportPlanValidator {
 	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
 	public function validate( ImportPlan $importPlan, User $user ) {
+		// Have to run this first because other tests don't make sense without basic title sanity.
+		$this->runBasicTitleCheck( $importPlan );
+
+		// Conversions
 		$this->runCommonsHelperChecksAndConversions( $importPlan );
 		$this->runWikiLinkConversions( $importPlan );
 
-		$this->runBasicTitleCheck( $importPlan );
+		// Unrecoverable errors
 		$this->runPermissionTitleChecks( $importPlan, $user );
-		// Checks the extension doesn't provide easy ways to fix
 		$this->runFileExtensionCheck( $importPlan );
 		$this->runDuplicateFilesCheck( $importPlan );
-		// Checks that can be fixed in the extension
+
+		// Solvable errors
+		$this->runAutomaticTitleChanges( $importPlan );
 		$this->runFileTitleCheck( $importPlan );
 		$this->runLocalTitleConflictCheck( $importPlan );
 		$this->runRemoteTitleConflictCheck( $importPlan );
@@ -171,21 +176,24 @@ class ImportPlanValidator {
 	private function runBasicTitleCheck( ImportPlan $importPlan ) {
 		try {
 			$importPlan->getTitle();
-			if ( $importPlan->getRequest()->getIntendedName() !== null &&
-				$importPlan->getFileName() !== $importPlan->getRequest()->getIntendedName()
-			) {
-				throw new RecoverableTitleException(
-					[
-						'fileimporter-filenameerror-automaticchanges',
-						$importPlan->getRequest()->getIntendedName(),
-						$importPlan->getFileName()
-					],
-					$importPlan
-				);
-			}
 		} catch ( MalformedTitleException $e ) {
 			throw new RecoverableTitleException(
 				$e->getMessageObject(),
+				$importPlan
+			);
+		}
+	}
+
+	private function runAutomaticTitleChanges( ImportPlan $importPlan ) {
+		if ( $importPlan->getRequest()->getIntendedName() !== null &&
+			$importPlan->getFileName() !== $importPlan->getRequest()->getIntendedName()
+		) {
+			throw new RecoverableTitleException(
+				[
+					'fileimporter-filenameerror-automaticchanges',
+					$importPlan->getRequest()->getIntendedName(),
+					$importPlan->getFileName()
+				],
 				$importPlan
 			);
 		}
