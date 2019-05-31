@@ -47,25 +47,34 @@ class FileImporterUploadBaseTest extends \MediaWikiTestCase {
 
 		return [
 			// File vs title checks
-			'validPNG' => [ 'Foo.png', $this->getGetImagePath( 'imagepng' ), true ],
-			'validGIF' => [ 'Foo.gif', $this->getGetImagePath( 'imagegif' ), true ],
-			'validJPEG' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagejpeg' ), true ],
-			'PNGwithBadExtension' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagepng' ), false ],
-			'GIFwithBadExtension' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagegif' ), false ],
-			'JPEGwithBadExtension' => [ 'Foo.gif', $this->getGetImagePath( 'imagejpeg' ), false ],
+			'validPNG' => [ 'Foo.png', $this->getGetImagePath( 'imagepng' ), true, null ],
+			'validGIF' => [ 'Foo.gif', $this->getGetImagePath( 'imagegif' ), true, null ],
+			'validJPEG' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagejpeg' ), true, null ],
+			'PNGwithBadExtension' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagepng' ),
+				false, 'filetype-mime-mismatch' ],
+			'GIFwithBadExtension' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagegif' ),
+				false, 'filetype-mime-mismatch' ],
+			'JPEGwithBadExtension' => [ 'Foo.gif', $this->getGetImagePath( 'imagejpeg' ),
+				false, 'filetype-mime-mismatch' ],
 		];
 	}
 
 	/**
 	 * @dataProvider providePerformFileChecks
 	 */
-	public function testPerformFileChecks( $targetTitle, $tempPath, $expected ) {
+	public function testPerformFileChecks( $targetTitle, $tempPath,
+		$expectedSuccess, $expectedError
+	) {
 		$base = new ValidatingUploadBase(
 			new NullLogger(),
 			new TitleValue( NS_FILE, $targetTitle ),
 				$tempPath
 		);
-		$this->assertSame( $expected, $base->validateFile() );
+		$status = $base->validateFile();
+		$this->assertSame( $expectedSuccess, $status->isOK() );
+		if ( $expectedError ) {
+			$this->assertTrue( $status->hasMessage( $expectedError ) );
+		}
 		// Delete the file that we created post test
 		unlink( $tempPath );
 	}

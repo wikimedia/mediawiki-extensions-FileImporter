@@ -263,7 +263,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			->willReturn( true );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateFile' )
-			->willReturn( true );
+			->willReturn( \StatusValue::newGood() );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateUpload' )
 			->with( $expectedUser, $expectedTextRevision )

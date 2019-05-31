@@ -4,6 +4,7 @@ namespace FileImporter\Operations;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\ValidationException;
 use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\Http\HttpRequestExecutor;
@@ -152,14 +153,18 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @throws ValidationException
 	 */
 	public function validate() {
-		$result = $this->uploadBase->validateTitle() === true &&
-			$this->uploadBase->validateFile() === true;
-
-		if ( !$result ) {
+		$result = $this->uploadBase->validateTitle();
+		if ( $result !== true ) {
 			$this->logger->error(
-				__METHOD__ . ' failed to validate.',
+				__METHOD__ . " failed to validate title, error code {$result}",
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
+			return false;
+		}
+
+		$fileValidationStatus = $this->uploadBase->validateFile();
+		if ( !$fileValidationStatus->isOK() ) {
+			throw new LocalizedImportException( $fileValidationStatus->getMessage() );
 		}
 
 		$uploadValidationStatus = $this->uploadBase->validateUpload(
@@ -168,10 +173,10 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		);
 
 		if ( !$uploadValidationStatus->isGood() ) {
-			throw new ValidationException( $uploadValidationStatus->getHTML() );
+			throw new LocalizedImportException( $uploadValidationStatus->getMessage() );
 		}
 
-		return $result;
+		return true;
 	}
 
 	/**
