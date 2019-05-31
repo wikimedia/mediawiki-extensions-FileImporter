@@ -17,7 +17,7 @@ use Title;
 use User;
 
 /**
- * @coversDefaultClass \FileImporter\Html\ImportPreviewPage
+ * @covers \FileImporter\Html\ImportPreviewPage
  */
 class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 
@@ -33,7 +33,6 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	/**
-	 * @covers ::getHtml
 	 * @dataProvider providePlanContent
 	 */
 	public function testGetHtml( $replacements ) {
