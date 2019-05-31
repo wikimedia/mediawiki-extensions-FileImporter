@@ -20,6 +20,11 @@ class WikitextContentCleaner {
 	 */
 	private $wikitextConversions;
 
+	/**
+	 * @var string|false
+	 */
+	private $sourceWikiLanguageTemplate = false;
+
 	public function __construct( WikitextConversions $conversions ) {
 		$this->wikitextConversions = $conversions;
 	}
@@ -29,6 +34,13 @@ class WikitextContentCleaner {
 	 */
 	public function getLatestNumberOfReplacements() {
 		return $this->latestNumberOfReplacements;
+	}
+
+	/**
+	 * @param string $template
+	 */
+	public function setSourceWikiLanguageTemplate( $template ) {
+		$this->sourceWikiLanguageTemplate = $template;
 	}
 
 	/**
@@ -104,8 +116,10 @@ class WikitextContentCleaner {
 			$wikitext = $this->renameTemplateParameters(
 				$wikitext,
 				$parseResult['parameters'],
-				$this->wikitextConversions->getTemplateParameters( $oldTemplateName )
+				$this->wikitextConversions->getTemplateParameters( $oldTemplateName ),
+				$this->sourceWikiLanguageTemplate
 			);
+
 			$wikitext = $this->addRequiredTemplateParameters(
 				$wikitext,
 				$this->wikitextConversions->getRequiredTemplateParameters( $oldTemplateName ),
@@ -137,6 +151,9 @@ class WikitextContentCleaner {
 	 *                 parameter name needs to be placed for unnamed parameters,
 	 *             'number' => positive integer number, only present for unnamed parameters,
 	 *             'name' => optional string name of the parameter,
+	 *             'valueOffset' => int Absolute position of the value's first non-whitespace
+	 *                 character in the wikitext
+	 *             'value' => string Trimmed value, might be an empty string
 	 *         ],
 	 *         …
 	 *     ]
@@ -153,13 +170,17 @@ class WikitextContentCleaner {
 			switch ( $wikitext[$i] ) {
 				case '}':
 					if ( $wikitext[$i + 1] === '}' ) {
+						if ( $p !== -1 ) {
+							$this->scanValue( $wikitext, $i, $params[$p] );
+						}
+
 						if ( !$nesting ) {
 							$max = $i + 2;
 							// Found the closing }}, abort the switch and the for-loop
 							break 2;
 						}
 						$nesting--;
-						// Skip the second bracket, it can't be the start of another pair
+						// Skip the second bracket, it can't be the end of another pair
 						$i++;
 					}
 					break;
@@ -172,8 +193,13 @@ class WikitextContentCleaner {
 					break;
 				case '|':
 					if ( !$nesting ) {
+						if ( $p !== -1 ) {
+							$this->scanValue( $wikitext, $i, $params[$p] );
+						}
+
 						$params[++$p] = [ 'number' => ++$number, 'offset' => $i + 1 ];
 						$params[$p]['format'] = $this->scanFormatSnippet( $wikitext, $i ) . '_=';
+						$params[$p]['valueOffset'] = $i + 1;
 					}
 					break;
 				case '=':
@@ -188,7 +214,7 @@ class WikitextContentCleaner {
 						$params[$p]['offset'] += strlen( $name ) - strlen( $params[$p]['name'] );
 						$params[$p]['format'] = rtrim( $params[$p]['format'], '=' )
 							. $this->scanFormatSnippet( $wikitext, $i );
-						// TODO: Value replacements are currently not supported.
+						$params[$p]['valueOffset'] = $i + 1;
 					}
 					break;
 			}
@@ -224,12 +250,33 @@ class WikitextContentCleaner {
 
 	/**
 	 * @param string $wikitext
+	 * @param int $end
+	 * @param array &$param
+	 */
+	private function scanValue( $wikitext, $end, array &$param ) {
+		// To not place replacements for empty values in the next line, we skip horizontal
+		// whitespace only
+		preg_match( '/(?!\h)/', $wikitext, $matches, PREG_OFFSET_CAPTURE, $param['valueOffset'] );
+		$newOffset = $matches[0][1];
+		$param['valueOffset'] = $newOffset;
+		$param['value'] = rtrim( substr( $wikitext, $newOffset, $end - $newOffset ) );
+	}
+
+	/**
+	 * @param string $wikitext
 	 * @param array[] $parameters "parameters" list as returned by {@see parseTemplateParameters}
-	 * @param string[] $replacements Array mapping old to new parameter names
+	 * @param array[] $replacements Array mapping old to new parameters, as returned by
+	 *  {@see WikitextConversions::getTemplateParameters}
+	 * @param string|false $languageTemplate a template name representing the source wiki's language
 	 *
 	 * @return string
 	 */
-	private function renameTemplateParameters( $wikitext, array $parameters, array $replacements ) {
+	private function renameTemplateParameters(
+		$wikitext,
+		array $parameters,
+		array $replacements,
+		$languageTemplate
+	) {
 		if ( $replacements === [] ) {
 			return $wikitext;
 		}
@@ -239,7 +286,14 @@ class WikitextContentCleaner {
 			$from = $parameters[$i]['name'] ?? $parameters[$i]['number'];
 
 			if ( isset( $replacements[$from] ) ) {
-				$to = $replacements[$from];
+				if ( $languageTemplate && $replacements[$from]['addLanguageTemplate'] ) {
+					$start = $parameters[$i]['valueOffset'];
+					$end = $start + strlen( $parameters[$i]['value'] );
+					$wikitext = substr_replace( $wikitext, '}}', $end, 0 );
+					$wikitext = substr_replace( $wikitext, '{{' . $languageTemplate . '|', $start, 0 );
+				}
+
+				$to = $replacements[$from]['target'];
 				$offset = $parameters[$i]['offset'];
 				if ( isset( $parameters[$i]['name'] ) ) {
 					$wikitext = substr_replace( $wikitext, $to, $offset, strlen( $from ) );

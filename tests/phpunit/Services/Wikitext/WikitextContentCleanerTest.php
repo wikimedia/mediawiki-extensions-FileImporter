@@ -200,6 +200,30 @@ class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 				'expectedCount' => 5,
 			],
 
+			'add language template' => [
+				'replacements' => [ 'Info' => [
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'desc' => [
+						'sourceParameters' => 'desc',
+						'addLanguageTemplate' => true
+					] ],
+				] ],
+				'wikitext' => "{{Info|desc = foo \n|desc = \n}}",
+				'expectedWikitext' => "{{Info|desc = {{de|foo}} \n|desc = {{de|}}\n}}",
+			],
+
+			'add language template to unnamed parameter' => [
+				'replacements' => [ 'Info' => [
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'desc' => [
+						'sourceParameters' => 1,
+						'addLanguageTemplate' => true
+					] ],
+				] ],
+				'wikitext' => '{{Info| foo }}',
+				'expectedWikitext' => '{{Info|desc= {{de|foo}} }}',
+			],
+
 			'add missing parameter' => [
 				'replacements' => [ 'Bild-GFDL-Neu' => [
 					'targetTemplate' => 'GFDL',
@@ -299,6 +323,7 @@ class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
 	) {
 		$conversions = new WikitextConversions( [], [], [], [], $replacements );
 		$cleaner = new WikitextContentCleaner( $conversions );
+		$cleaner->setSourceWikiLanguageTemplate( 'de' );
 
 		$this->assertSame( $expectedWikitext ?: $wikitext, $cleaner->cleanWikitext( $wikitext ) );
 		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );

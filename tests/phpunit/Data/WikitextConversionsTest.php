@@ -152,11 +152,14 @@ class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideTemplateParameterReplacements
 	 */
-	public function testGetTemplateParameters( array $replacements, $expected ) {
+	public function testGetTemplateParameters( array $replacements, array $expected ) {
 		$conversions = new WikitextConversions( [], [], [], [], [ 's' => [
 			'targetTemplate' => 't',
 			'parameters' => $replacements,
 		] ] );
+		$expected = array_map( function ( $target ) {
+			return [ 'target' => $target, 'addLanguageTemplate' => false ];
+		}, $expected );
 		$this->assertSame( $expected, $conversions->getTemplateParameters( 's' ) );
 	}
 
@@ -188,7 +191,7 @@ class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideRequiredTemplateParameters
 	 */
-	public function testGetRequiredTemplateParameters( array $replacements, $expected ) {
+	public function testGetRequiredTemplateParameters( array $replacements, array $expected ) {
 		$conversions = new WikitextConversions( [], [], [], [], [ 's' => [
 			'targetTemplate' => 't',
 			'parameters' => $replacements,

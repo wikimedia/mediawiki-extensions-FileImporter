@@ -143,6 +143,16 @@ class ImportPlanValidator {
 	private function cleanWikitext( ImportPlan $importPlan, WikitextConversions $conversions ) {
 		$wikitext = $importPlan->getCleanedLatestRevisionText();
 		$cleaner = new WikitextContentCleaner( $conversions );
+
+		$sourceLanguage = $importPlan->getDetails()->getPageLanguage();
+		if ( $sourceLanguage ) {
+			// FIXME: Extract this to a service, e.g. an "TitleExistsChecker".
+			$languageTemplate = \Title::makeTitleSafe( NS_TEMPLATE, $sourceLanguage );
+			if ( $languageTemplate->exists() ) {
+				$cleaner->setSourceWikiLanguageTemplate( $sourceLanguage );
+			}
+		}
+
 		$importPlan->setCleanedLatestRevisionText( $cleaner->cleanWikitext( $wikitext ) );
 		$importPlan->setNumberOfTemplateReplacements( $cleaner->getLatestNumberOfReplacements() );
 	}
