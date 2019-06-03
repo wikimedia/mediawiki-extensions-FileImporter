@@ -37,51 +37,64 @@
 	],
 	"config": {
 		"FileImporterRequiredRight": {
-			"value": "upload"
+			"value": "upload",
+			"public": true
 		},
 		"FileImporterInBeta": {
-			"value": true
+			"value": true,
+			"public": true
 		},
 		"FileImporterInterWikiMap": {
-			"value": []
+			"value": [],
+			"public": true
 		},
 		"FileImporterShowInputScreen": {
 			"value": false,
-			"description": "Whether or not to show the source URL input page."
+			"description": "Whether or not to show the source URL input page.",
+			"public": true
 		},
 		"FileImporterSourceSiteServices": {
-			"value": []
+			"value": [],
+			"public": true
 		},
 		"FileImporterCommonsHelperServer": {
 			"value": "",
-			"description": "Location of CommonsHelper2-compatible configuration pages to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable."
+			"description": "Location of CommonsHelper2-compatible configuration pages to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable.",
+			"public": true
 		},
 		"FileImporterCommonsHelperBasePageName": {
 			"value": "Extension:FileImporter/Data/",
-			"description": "Base page name of CommonsHelper2-compatible configuration pages to use."
+			"description": "Base page name of CommonsHelper2-compatible configuration pages to use.",
+			"public": true
 		},
 		"FileImporterCommonsHelperHelpPage": {
 			"value": "",
-			"description": "Location of the help page for the CommonsHelper2-compatible configuration page management."
+			"description": "Location of the help page for the CommonsHelper2-compatible configuration page management.",
+			"public": true
 		},
 		"FileImporterAccountForSuppressedUsername": {
-			"value": "FileImporterSuppressed"
+			"value": "FileImporterSuppressed",
+			"public": true
 		},
 		"FileImporterCommentForPostImportRevision": {
 			"value": "Imported with FileImporter from $1",
-			"description": "Text used for the edit summary of a post import revision."
+			"description": "Text used for the edit summary of a post import revision.",
+			"public": true
 		},
 		"FileImporterTextForPostImportRevision": {
 			"value": "<!--This file was moved here using FileImporter from $1-->\n",
-			"description": "Text added to the top of the imported page's wikitext."
+			"description": "Text added to the top of the imported page's wikitext.",
+			"public": true
 		},
 		"FileImporterMaxRevisions": {
 			"value": 100,
-			"description": "Maximum number of revisions (file or text) a file can have in order to be imported."
+			"description": "Maximum number of revisions (file or text) a file can have in order to be imported.",
+			"public": true
 		},
 		"FileImporterMaxAggregatedBytes": {
 			"value": 250000000,
-			"description": "Maximum aggregated size of versions a file can have in order to be imported."
+			"description": "Maximum aggregated size of versions a file can have in order to be imported.",
+			"public": true
 		}
 	},
 	"ResourceModules": {
