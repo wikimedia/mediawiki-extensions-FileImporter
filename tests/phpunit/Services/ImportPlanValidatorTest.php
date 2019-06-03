@@ -25,9 +25,9 @@ use FileImporter\Services\Wikitext\WikiLinkParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
+use MediaWikiLangTestCase;
 use Title;
 use UploadBase;
-use User;
 
 /**
  * @covers \FileImporter\Services\ImportPlanValidator
@@ -35,12 +35,15 @@ use User;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ImportPlanValidatorTest extends \MediaWikiTestCase {
+class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( 'wgHooks', [] );
+		$this->setMwGlobals( [
+			'wgHooks' => [],
+			'wgGroupPermissions' => [ '*' => [ 'upload' => true ] ],
+		] );
 
 		// FIXME: The following can be removed when the services are injected via the constructor.
 		$httpRequestExecutor = $this->createMock( HttpRequestExecutor::class );
@@ -83,18 +86,18 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 	/**
 	 * @param string $text
 	 * @param bool $exists
-	 * @param array $userPermissionsErrors
+	 * @param array $titleRestrictions
 	 *
 	 * @return Title
 	 */
-	private function getMockTitle( $text, $exists = false, array $userPermissionsErrors = [] ) {
+	private function getMockTitle( $text, $exists = false ) {
 		$mock = $this->createMock( Title::class );
 		$mock->method( 'getText' )
 			->willReturn( $text );
 		$mock->method( 'exists' )
 			->willReturn( $exists );
-		$mock->method( 'getUserPermissionsErrors' )
-			->willReturn( $userPermissionsErrors );
+		$mock->method( 'getRestrictions' )
+			->willReturn( [] );
 		return $mock;
 	}
 
@@ -333,7 +336,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		if ( $expected !== null ) {
 			$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
 		}
-		$validator->validate( $plan, $this->createMock( User::class ) );
+		$validator->validate( $plan, $this->getTestUser()->getUser() );
 		$this->addToAssertionCount( 1 );
 	}
 
@@ -356,12 +359,15 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 		);
 
 		$this->setExpectedException( RecoverableTitleException::class, '"Before"' );
-		$validator->validate( $importPlan, $this->createMock( User::class ) );
+		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
 	}
 
-	public function testValidateFailsOnFailingTitlePermissionCheck() {
+	public function testValidateFailsOnFailingPermissionCheck() {
+		$this->setMwGlobals( [
+			'wgGroupPermissions' => [ '*' => [ 'upload' => false ] ],
+		] );
 		$importRequest = new ImportRequest( '//w.invalid' );
-		$mockTitle = $this->getMockTitle( 'Title', true, [ 'error' ] );
+		$mockTitle = $this->getMockTitle( 'Title.jpg', true );
 		$mockDetails = $this->getMockImportDetails( $mockTitle );
 
 		$importPlan = new ImportPlan( $importRequest, $mockDetails, '' );
@@ -377,9 +383,9 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 
 		$this->setExpectedException(
 			RecoverableTitleException::class,
-			'The action you have requested is limited to users in one of the groups'
+			'You are not allowed to execute the action you have requested'
 		);
-		$validator->validate( $importPlan, $this->createMock( User::class ) );
+		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
 	}
 
 	public function testCommonsHelperAndWikiLinkParserIntegration() {
@@ -410,7 +416,7 @@ class ImportPlanValidatorTest extends \MediaWikiTestCase {
 			$this->getMockWikiLinkParserFactory( $wikiLinkParser )
 		);
 
-		$validator->validate( $importPlan, $this->createMock( User::class ) );
+		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
 		$this->assertSame( 'PARSED', $importPlan->getCleanedLatestRevisionText() );
 		$this->assertSame( 1, $importPlan->getNumberOfTemplateReplacements() );
 	}

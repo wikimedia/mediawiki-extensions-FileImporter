@@ -16,6 +16,7 @@ use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
 use MalformedTitleException;
+use MediaWiki\MediaWikiServices;
 use UploadBase;
 use User;
 
@@ -191,7 +192,8 @@ class ImportPlanValidator {
 	}
 
 	private function runPermissionTitleChecks( ImportPlan $importPlan, User $user ) {
-		$permErrors = $importPlan->getTitle()->getUserPermissionsErrors( 'upload', $user );
+		$permErrors = MediaWikiServices::getInstance()->getPermissionManager()
+			->getPermissionErrors( 'upload', $user, $importPlan->getTitle() );
 
 		if ( $permErrors !== [] ) {
 			throw new RecoverableTitleException( $permErrors[0], $importPlan );
