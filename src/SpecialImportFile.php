@@ -177,8 +177,10 @@ class SpecialImportFile extends SpecialPage {
 
 		switch ( $webRequest->getRawVal( 'action' ) ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
-				if ( !$this->doImport( $importPlan ) ) {
-					$this->showImportPage( $importPlan );
+				try {
+					$this->doImport( $importPlan );
+				} catch ( ImportException $ex ) {
+					$this->handleImportException( $ex, $clientUrl );
 				}
 				break;
 			case ImportPreviewPage::ACTION_EDIT_TITLE:
@@ -269,6 +271,9 @@ class SpecialImportFile extends SpecialPage {
 		return $this->importPlanFactory->newPlan( $importRequest, $importDetails, $this->getUser() );
 	}
 
+	/**
+	 * @throws ImportException
+	 */
 	private function doImport( ImportPlan $importPlan ) {
 		$out = $this->getOutput();
 		$importDetails = $importPlan->getDetails();
@@ -286,20 +291,17 @@ class SpecialImportFile extends SpecialPage {
 			return false;
 		}
 
-		try {
-			$result = $this->importer->import(
-				$this->getUser(),
-				$importPlan
-			);
-		} catch ( ImportException $exception ) {
-			$this->showWarningMessage( $this->getWarningMessage( $exception ) );
-			return false;
-		}
+		$result = $this->importer->import(
+			$this->getUser(),
+			$importPlan
+		);
 
 		if ( $result ) {
 			$out->setPageTitle( $importPlan->getTitle()->getPrefixedText() );
 			$out->addHTML( ( new ImportSuccessPage( $this ) )->getHtml( $importPlan ) );
 		} else {
+			// FIXME: This line is probably unreachable, since import either throws an exception
+			// or returns true.
 			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );
 		}
 
