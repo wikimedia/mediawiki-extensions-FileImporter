@@ -21,6 +21,11 @@ use User;
  */
 class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 
+	const CLIENT_URL = '//w.invalid/';
+	const NAME = 'Chicken In Snow';
+	const INITIAL_TEXT = 'Foo';
+	const HASH = 'ORIGINAL_HASH';
+
 	public function setUp() {
 		parent::setUp();
 
@@ -28,23 +33,21 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	public function providePlanContent() {
-		yield [ 0 ];
-		yield [ 1 ];
+		yield [ self::INITIAL_TEXT, 0 ];
+		yield [ self::INITIAL_TEXT, 1 ];
+		yield [ 'Bar', 0 ];
+		yield [ 'Bar', 1 ];
 	}
 
 	/**
 	 * @dataProvider providePlanContent
 	 */
-	public function testGetHtml( $replacements ) {
-		$clientUrl = 'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG';
-		$dbkey = 'Chicken_In_Snow';
-		$fileName = 'Chicken In Snow';
-		$wikitext = 'foo';
+	public function testGetHtml( $submittedText, $replacements ) {
 		$this->setContentLang( 'qqx' );
 
 		$importPlan = new ImportPlan(
-			new ImportRequest( $clientUrl, $fileName, $wikitext ),
-			$this->getMockImportDetails( $wikitext, $dbkey ),
+			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
+			$this->getMockImportDetails( $submittedText ),
 			''
 		);
 		$importPlan->setNumberOfTemplateReplacements( $replacements );
@@ -52,26 +55,39 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$page = new ImportPreviewPage( $this->getMockSpecialPage() );
 		$html = $page->getHtml( $importPlan );
 
-		$this->assertPreviewPage( $html, $clientUrl, $fileName );
-
-		$this->assertSummary( $html, $replacements );
+		$this->assertPreviewPageText( $html );
+		$this->assertPreviewPageForm( $html );
+		$this->assertSummary( $html, $submittedText, $replacements );
 
 		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
 		$this->addToAssertionCount( 1 );
 	}
 
-	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {
+	private function assertPreviewPageText( $html ) {
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild(
+				both( withTagName( 'div' ) )
+					->andAlso( withAttribute( 'class' )->havingValue( 'mw-importfile-parsedContent' ) )
+			) ) )
+		);
+	}
+
+	private function assertPreviewPageForm( $html ) {
 		assertThat(
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'form' ) )
 					->andAlso( withAttribute( 'action' ) )
 					->andAlso( withAttribute( 'method' )->havingValue( 'POST' ) )
-					->andAlso( havingChild( $this->thatIsInputField( 'clientUrl', $clientUrl ) ) )
+					->andAlso( havingChild( $this->thatIsInputField( 'clientUrl', self::CLIENT_URL ) ) )
 					->andAlso(
-						havingChild( $this->thatIsInputField( 'intendedFileName', $intendedFileName ) )
+						havingChild( $this->thatIsInputField( 'intendedFileName', self::NAME ) )
 					)
-					->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'importDetailsHash' ) ) )
+					->andAlso( havingChild( $this->thatIsInputField(
+						'importDetailsHash',
+						self::HASH
+					) ) )
 					->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'token' ) ) )
 					->andAlso( havingChild( $this->thatIsInputField( 'action', 'submit' ) ) )
 					->andAlso( havingChild(
@@ -82,7 +98,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		);
 	}
 
-	private function assertSummary( $html, $replacements ) {
+	private function assertSummary( $html, $submittedText, $replacements ) {
 		if ( $replacements > 0 ) {
 			assertThat(
 				$html,
@@ -91,6 +107,17 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 						->andAlso( havingChild( $this->thatIsInputField(
 							'intendedRevisionSummary',
 							'(fileimporter-auto-replacements-summary: ' . $replacements . ')'
+						) ) )
+				) ) )
+			);
+		} elseif ( $submittedText !== self::INITIAL_TEXT ) {
+			assertThat(
+				$html,
+				is( htmlPiece( havingChild(
+					both( withTagName( 'form' ) )
+						->andAlso( havingChild( $this->thatIsInputField(
+							'intendedRevisionSummary',
+							''
 						) ) )
 				) ) )
 			);
@@ -137,22 +164,22 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	/**
 	 * @return ImportDetails
 	 */
-	private function getMockImportDetails( $wikitext, $title ) {
+	private function getMockImportDetails( $wikitext ) {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
-			->willReturn( $this->getMockTextRevisions( $wikitext, $title ) );
+			->willReturn( $this->getMockTextRevisions( $wikitext, self::NAME ) );
 		$mock->method( 'getFileRevisions' )
 			->willReturn( $this->getMockFileRevisions() );
 		$mock->method( 'getOriginalHash' )
-			->willReturn( 'ORIGINAL_HASH' );
+			->willReturn( self::HASH );
 		return $mock;
 	}
 
 	/**
 	 * @return TextRevisions
 	 */
-	private function getMockTextRevisions( $wikitext, $title ) {
-		$mockTextRevision = $this->getMockTextRevision( $wikitext, $title );
+	private function getMockTextRevisions( $wikitext ) {
+		$mockTextRevision = $this->getMockTextRevision( $wikitext, self::NAME );
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $mockTextRevision );
