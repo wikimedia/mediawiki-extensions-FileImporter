@@ -83,12 +83,9 @@ class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $expected, $conversions->isCategoryBad( $requested ) );
 	}
 
-	/**
-	 * @dataProvider provideCaseInsensitivePageNames
-	 */
-	public function testIsObsoleteTemplate( $listed, $requested, $expected ) {
-		$conversions = new WikitextConversions( [], [], [], [ $listed ], [] );
-		$this->assertSame( $expected, $conversions->isObsoleteTemplate( $requested ) );
+	public function testIsObsoleteTemplate() {
+		$conversions = new WikitextConversions( [], [], [], [ 'Л_Г И' ], [] );
+		$this->assertTrue( $conversions->isObsoleteTemplate( 'л г_и' ) );
 	}
 
 	public function provideTemplateReplacements() {
