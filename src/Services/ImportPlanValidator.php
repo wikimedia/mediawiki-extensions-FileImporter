@@ -98,17 +98,17 @@ class ImportPlanValidator {
 		// Have to run this first because other tests don't make sense without basic title sanity.
 		$this->runBasicTitleCheck( $importPlan );
 
-		// Conversions
-		$this->runCommonsHelperChecksAndConversions( $importPlan );
-		$this->runWikiLinkConversions( $importPlan );
-
 		// Unrecoverable errors
 		$this->runPermissionTitleChecks( $importPlan, $user );
 		$this->runFileExtensionCheck( $importPlan );
 		$this->runDuplicateFilesCheck( $importPlan );
 
+		// Conversions
+		$this->runCommonsHelperChecksAndConversions( $importPlan );
+		$this->runWikiLinkConversions( $importPlan );
+
 		// Solvable errors
-		$this->runAutomaticTitleChanges( $importPlan );
+		$this->warnOnAutomaticTitleChanges( $importPlan );
 		$this->runFileTitleCheck( $importPlan );
 		$this->runLocalTitleConflictCheck( $importPlan );
 		$this->runRemoteTitleConflictCheck( $importPlan );
@@ -184,7 +184,7 @@ class ImportPlanValidator {
 		}
 	}
 
-	private function runAutomaticTitleChanges( ImportPlan $importPlan ) {
+	private function warnOnAutomaticTitleChanges( ImportPlan $importPlan ) {
 		if ( $importPlan->getRequest()->getIntendedName() !== null &&
 			$importPlan->getFileName() !== $importPlan->getRequest()->getIntendedName()
 		) {
