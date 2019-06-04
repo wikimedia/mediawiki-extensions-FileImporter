@@ -4,7 +4,6 @@ namespace FileImporter\Data;
 
 use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
-use RuntimeException;
 use Title;
 
 /**
@@ -92,7 +91,6 @@ class ImportPlan {
 
 	/**
 	 * @throws MalformedTitleException if title parsing failed
-	 * @throws RuntimeException if Title::newFromLinkTarget returned null when given a TitleValue
 	 * @return Title
 	 */
 	public function getTitle() {
@@ -100,10 +98,6 @@ class ImportPlan {
 			$titleParser = MediaWikiServices::getInstance()->getTitleParser();
 			$titleValue = $titleParser->parseTitle( $this->getTitleText(), NS_FILE );
 			$this->title = Title::newFromLinkTarget( $titleValue );
-
-			if ( $this->title === null ) {
-				throw new RuntimeException( __METHOD__ . ' failed to get a Title object.' );
-			}
 		}
 
 		return $this->title;
