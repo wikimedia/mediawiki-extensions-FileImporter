@@ -122,13 +122,13 @@ class WikitextConversions {
 	}
 
 	/**
-	 * @param string $pageName Case-insensitive page name with the canonical English "Template:…"
-	 *  prefix
+	 * @param string $pageName Case-insensitive page name. All prefixes are ignored. Titles like
+	 *  "Template:A" and "User:A" are considered equal.
 	 *
 	 * @return bool
 	 */
 	public function isTemplateGood( $pageName ) {
-		$pageName = $this->removeNamespaceFromString( $pageName );
+		$pageName = $this->removePrefixes( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->goodTemplates );
 	}
 
@@ -140,39 +140,38 @@ class WikitextConversions {
 	}
 
 	/**
-	 * @param string $pageName Case-insensitive page name with the canonical English "Template:…"
-	 *  prefix
+	 * @param string $pageName Case-insensitive page name. All prefixes are ignored. Titles like
+	 *  "Template:A" and "User:A" are considered equal.
 	 *
 	 * @return bool
 	 */
 	public function isTemplateBad( $pageName ) {
-		$pageName = $this->removeNamespaceFromString( $pageName );
+		$pageName = $this->removePrefixes( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->badTemplates );
 	}
 
 	/**
-	 * @param string $pageName Case-insensitive page name with the canonical English "Category:…"
-	 *  prefix
+	 * @param string $pageName Case-insensitive page name. All prefixes are ignored. Titles like
+	 *  "Category:A" and "User:A" are considered equal.
 	 *
 	 * @return bool
 	 */
 	public function isCategoryBad( $pageName ) {
-		$pageName = $this->removeNamespaceFromString( $pageName );
+		$pageName = $this->removePrefixes( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->badCategories );
 	}
 
 	/**
-	 * @param string $pageName
+	 * @param string $pageName Case-insensitive page name. Prefixes are significant.
 	 *
 	 * @return bool
 	 */
 	public function isObsoleteTemplate( $pageName ) {
-		$pageName = $this->removeNamespaceFromString( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->obsoleteTemplates );
 	}
 
 	/**
-	 * @param string $templateName
+	 * @param string $templateName Case-insensitive page name. Prefixes are significant.
 	 *
 	 * @return string|false
 	 */
@@ -184,7 +183,7 @@ class WikitextConversions {
 	}
 
 	/**
-	 * @param string $templateName
+	 * @param string $templateName Case-insensitive page name. Prefixes are significant.
 	 *
 	 * @return array[] Array mapping source to target parameters:
 	 * [
@@ -219,7 +218,7 @@ class WikitextConversions {
 	}
 
 	/**
-	 * @param string $templateName
+	 * @param string $templateName Case-insensitive page name. Prefixes are significant.
 	 *
 	 * @return string[] Array mapping required target parameter names to static string values.
 	 */
@@ -262,7 +261,7 @@ class WikitextConversions {
 	 *
 	 * @return string
 	 */
-	private function removeNamespaceFromString( $title ) {
+	private function removePrefixes( $title ) {
 		$splitTitle = explode( ':', $title );
 		return end( $splitTitle );
 	}
