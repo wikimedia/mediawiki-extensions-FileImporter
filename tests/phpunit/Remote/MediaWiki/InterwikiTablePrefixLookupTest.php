@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Remote\MediaWiki\Test;
+namespace FileImporter\Tests\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;

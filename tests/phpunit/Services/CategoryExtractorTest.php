@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services\Test;
+namespace FileImporter\Tests\Services;
 
 use FileImporter\Services\CategoryExtractor;
 use MediaWiki\MediaWikiServices;

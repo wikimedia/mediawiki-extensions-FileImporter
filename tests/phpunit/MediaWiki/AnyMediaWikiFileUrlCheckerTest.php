@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\MediaWiki\Test;
+namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;

@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Test;
+namespace FileImporter\Tests;
 
 use FauxRequest;
 use FileImporter\Exceptions\HttpRequestException;

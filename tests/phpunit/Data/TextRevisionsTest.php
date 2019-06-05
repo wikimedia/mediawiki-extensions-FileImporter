@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Data\Test;
+namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
