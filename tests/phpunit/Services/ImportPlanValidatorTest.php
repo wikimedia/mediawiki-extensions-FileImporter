@@ -27,6 +27,7 @@ use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
 use MediaWikiLangTestCase;
 use Title;
+use TitleValue;
 use UploadBase;
 
 /**
@@ -86,7 +87,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	/**
 	 * @param string $text
 	 * @param bool $exists
-	 * @param array $titleRestrictions
 	 *
 	 * @return Title
 	 */
@@ -360,8 +360,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$mockRequest->expects( $this->atLeastOnce() )
 			->method( 'getIntendedName' )
 			->willReturn( 'Before.jpg#After' );
-		$mockDetails = $this->getMockImportDetails(
-			Title::makeTitle( NS_FILE, 'SourceName.jpg' ) );
+		$mockDetails = $this->getMockImportDetails( new TitleValue( NS_FILE, 'SourceName.jpg' ) );
 
 		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
 

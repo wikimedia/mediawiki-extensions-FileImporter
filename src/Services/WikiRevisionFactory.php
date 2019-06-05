@@ -62,10 +62,7 @@ class WikiRevisionFactory {
 	 */
 	public function newFromFileRevision( FileRevision $fileRevision, $src ) {
 		$revision = $this->getWikiRevision();
-		$revision->setTitle( Title::newFromText(
-			$this->removeNamespaceFromString( $fileRevision->getField( 'name' ) ),
-			NS_FILE )
-		);
+		$revision->setTitle( $this->makeTitle( $fileRevision->getField( 'name' ) ) );
 		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
 		$revision->setFileSrc( $src, true );
 		$revision->setSha1Base36( $fileRevision->getField( 'sha1' ) );
@@ -86,10 +83,7 @@ class WikiRevisionFactory {
 	 */
 	public function newFromTextRevision( TextRevision $textRevision ) {
 		$revision = $this->getWikiRevision();
-		$revision->setTitle( Title::newFromText(
-			$this->removeNamespaceFromString( $textRevision->getField( 'title' ) ),
-			NS_FILE
-		) );
+		$revision->setTitle( $this->makeTitle( $textRevision->getField( 'title' ) ) );
 		$revision->setTimestamp( $textRevision->getField( 'timestamp' ) );
 		$revision->setSha1Base36( $textRevision->getField( 'sha1' ) );
 		// create user with CentralAuth/SUL if nonexistent and use the prefix only as fallback
@@ -110,11 +104,11 @@ class WikiRevisionFactory {
 	/**
 	 * @param string $title
 	 *
-	 * @return string
+	 * @return Title|null
 	 */
-	private function removeNamespaceFromString( $title ) {
+	private function makeTitle( $title ) {
 		$splitTitle = explode( ':', $title );
-		return end( $splitTitle );
+		return Title::makeTitleSafe( NS_FILE, end( $splitTitle ) );
 	}
 
 	/**
