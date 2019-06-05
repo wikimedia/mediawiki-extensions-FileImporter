@@ -213,28 +213,32 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
+	 * @suppress PhanTypeMismatchArgument Phan doesn't understand the switch-true-case-instanceof
+	 * @suppress PhanUndeclaredMethod Phan doesn't understand the switch-true-case-instanceof
 	 * @param ImportException $exception
 	 * @param string $url
 	 */
 	private function handleImportException( ImportException $exception, $url ) {
-		if ( $exception instanceof DuplicateFilesException ) {
-				$this->getOutput()->addHTML( ( new DuplicateFilesErrorPage( $this ) )->getHtml(
+		switch ( true ) {
+			case $exception instanceof DuplicateFilesException:
+				$html = ( new DuplicateFilesErrorPage( $this ) )->getHtml(
 					$exception->getFiles(),
 					$url
-				) );
-				return;
+				);
+				break;
+			case $exception instanceof RecoverableTitleException:
+				$html = ( new RecoverableTitleExceptionPage( $this ) )->getHtml(
+					$exception
+				);
+				break;
+			default:
+				$html = ( new ErrorPage( $this ) )->getHtml(
+					$this->getWarningMessage( $exception ),
+					$url
+				);
 		}
 
-		if ( $exception instanceof RecoverableTitleException ) {
-			$this->getOutput()->addHTML( ( new RecoverableTitleExceptionPage( $this ) )->getHtml(
-				$exception
-			) );
-			return;
-		}
-
-		$this->getOutput()->addHTML(
-			( new ErrorPage( $this ) )->getHtml( $this->getWarningMessage( $exception ), $url )
-		);
+		$this->getOutput()->addHTML( $html );
 	}
 
 	/**
