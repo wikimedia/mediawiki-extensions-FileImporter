@@ -58,7 +58,7 @@ class ValidatingUploadBase extends UploadBase {
 	}
 
 	/**
-	 * @return bool Is the file valid?
+	 * @return Status
 	 */
 	public function validateFile() {
 		$fileVerification = $this->verifyFile();
@@ -67,10 +67,10 @@ class ValidatingUploadBase extends UploadBase {
 			$this->logger->info(
 				__METHOD__ . ' checks failed', [ 'fileVerification' => $fileVerification ]
 			);
-			return false;
+			return call_user_func_array( [ Status::class, 'newFatal' ], $fileVerification );
 		}
 
-		return true;
+		return Status::newGood();
 	}
 
 	/**
