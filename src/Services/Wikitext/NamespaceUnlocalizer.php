@@ -60,7 +60,7 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 				# Ungreedy group 2 captures the first prefix
 				([^\v:]+?)
 				# Must be followed by a colon and something plausible
-				(?=\h*+:[^\v:])
+				(?=\h*+:[^\v:]+$)
 			/x',
 			function ( $matches ) {
 				list( $unchanged, $colon, $name ) = $matches;
