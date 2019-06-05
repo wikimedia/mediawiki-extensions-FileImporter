@@ -118,12 +118,14 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 * @return ImportDetails
 	 */
 	private function getMockImportDetails( LinkTarget $sourceTitle ) {
-		return new ImportDetails(
+		$details = new ImportDetails(
 			new SourceUrl( '//w.invalid' ),
 			$sourceTitle,
 			$this->createMock( TextRevisions::class ),
 			$this->getMockFileRevisions()
 		);
+		$details->setPageLanguage( 'de' );
+		return $details;
 	}
 
 	/**
@@ -405,8 +407,13 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	public function testCommonsHelperAndWikiLinkParserIntegration() {
+		$this->setTemporaryHook( 'TitleExists', function ( LinkTarget $title, &$exists ) {
+			$this->assertSame( 'De', $title->getDBkey() );
+			$exists = true;
+		} );
+
 		$importPlan = $this->getMockImportPlan( $this->getMockTitle( 'Valid.jpg' ) );
-		$importPlan->setCleanedLatestRevisionText( "{{MOVE}}\nORIGINAL" );
+		$importPlan->setCleanedLatestRevisionText( "{{MOVE}}\n{{INFO|foo}}" );
 
 		$commonsHelperConfigRetriever = $this->createMock( CommonsHelperConfigRetriever::class );
 		$commonsHelperConfigRetriever->expects( $this->once() )
@@ -415,12 +422,12 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$commonsHelperConfigRetriever->method( 'getConfigWikitext' )
 			->willReturn( "==Categories==\n===Bad===\n" .
 				"==Templates==\n===Good===\n===Bad===\n===Remove===\n*MOVE\n===Transfer===\n" .
-				"==Information==\n===Description===\n===Licensing===" );
+				";INFO:INFO|@desc=1\n==Information==\n===Description===\n===Licensing===" );
 
 		$wikiLinkParser = $this->createMock( WikiLinkParser::class );
 		$wikiLinkParser->expects( $this->once() )
 			->method( 'parse' )
-			->with( 'ORIGINAL' )
+			->with( '{{INFO|desc={{de|foo}}}}' )
 			->willReturn( 'PARSED' );
 
 		$validator = new ImportPlanValidator(
@@ -434,7 +441,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
 		$this->assertSame( 'PARSED', $importPlan->getCleanedLatestRevisionText() );
-		$this->assertSame( 1, $importPlan->getNumberOfTemplateReplacements() );
+		$this->assertSame( 2, $importPlan->getNumberOfTemplateReplacements() );
 	}
 
 }
