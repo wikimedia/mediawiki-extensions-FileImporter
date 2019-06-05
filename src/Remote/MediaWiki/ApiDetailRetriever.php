@@ -190,7 +190,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$importDetails = new ImportDetails(
 			$sourceUrl,
-			Title::newFromText( $titleAfterColon, NS_FILE ),
+			Title::makeTitleSafe( NS_FILE, $titleAfterColon ),
 			$textRevisions,
 			$fileRevisions
 		);
