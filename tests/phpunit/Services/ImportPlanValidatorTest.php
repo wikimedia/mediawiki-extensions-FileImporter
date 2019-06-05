@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services\Test;
+namespace FileImporter\Tests\Services;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;

@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Remote\MediaWiki\Test;
+namespace FileImporter\Tests\Remote\MediaWiki;
 
 use ConfigException;
 use FileImporter\Data\SourceUrl;

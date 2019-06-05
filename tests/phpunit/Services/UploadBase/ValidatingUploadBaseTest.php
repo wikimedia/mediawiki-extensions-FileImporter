@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Services\UploadBase\Test;
+namespace FileImporter\Tests\Services\UploadBase;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWiki\Linker\LinkTarget;

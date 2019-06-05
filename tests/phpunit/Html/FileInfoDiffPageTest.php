@@ -1,6 +1,6 @@
 <?php
 
-namespace FileImporter\Html\Test;
+namespace FileImporter\Tests\Html;
 
 use DerivativeContext;
 use FauxRequest;
