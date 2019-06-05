@@ -8,44 +8,28 @@ use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use HashSiteStore;
+use MWHttpRequest;
 use PermissionsError;
 use Site;
 use SpecialPage;
 use SpecialPageTestBase;
+use StatusValue;
 use User;
 use WebRequest;
 
 /**
  * @coversNothing
  *
- * FIXME: This test makes some calls to https://commons.wikimedia.org
- *
- * @group Database
- * @group medium
- *
  * @license GPL-2.0-or-later
  * @author Addshore
  */
 class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 
-	private static $hasAccessToCommons;
-
-	public static function setUpBeforeClass() {
-		parent::setUpBeforeClass();
-		try {
-			$requestExecutor = new HttpRequestExecutor( [], 0 );
-			$requestExecutor->execute( 'https://commons.wikimedia.org' );
-			self::$hasAccessToCommons = true;
-		} catch ( HttpRequestException $e ) {
-			self::$hasAccessToCommons = false;
-		}
-	}
-
 	public function setUp() {
 		parent::setUp();
 
 		$this->setMwGlobals( [
-			'wgEnableUploads' => true ,
+			'wgEnableUploads' => true,
 			'wgFileImporterShowInputScreen' => true,
 		] );
 
@@ -53,7 +37,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$hashSiteStore = new HashSiteStore( [ $commonsSite ] );
 		$siteTableSiteLookup = new SiteTableSiteLookup( $hashSiteStore );
 		$this->setService( 'FileImporterMediaWikiSiteTableSiteLookup', $siteTableSiteLookup );
-		$this->tablesUsed[] = 'user_groups';
 	}
 
 	/**
@@ -74,12 +57,50 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	}
 
 	/**
-	 * Returns a new instance of the special page under test.
-	 *
 	 * @return SpecialPage
 	 */
 	protected function newSpecialPage() {
 		return new SpecialImportFile();
+	}
+
+	/**
+	 * @return HttpRequestException
+	 */
+	private function getPageNotFoundHttpException() {
+		$httpRequestMock = $this->createMock( MWHttpRequest::class );
+		$httpRequestMock->method( 'getStatus' )->willReturn( 404 );
+
+		$statusValueMock = $this->createMock( StatusValue::class );
+		$statusValueMock->method( 'getErrors' )->willReturn( [] );
+
+		return new HttpRequestException( $statusValueMock, $httpRequestMock );
+	}
+
+	/**
+	 * @param string $fileName
+	 *
+	 * @return MWHttpRequest
+	 */
+	private function getHttpRequestMock( $fileName ) {
+		$httpRequestMock = $this->createMock( MWHttpRequest::class );
+		$httpRequestMock->method( 'getContent' )->willReturn(
+			file_get_contents( __DIR__ . '/res/IntegrationTests/' . $fileName )
+		);
+		return $httpRequestMock;
+	}
+
+	/**
+	 * @return MWHttpRequest[]
+	 */
+	private function getSuccessfulHttpRequestExecutorCalls() {
+		return [
+			// HttpApiLookup::actuallyGetApiUrl
+			$this->getHttpRequestMock( 'apiLookup.html' ),
+			// ApiDetailRetriever::sendApiRequest
+			$this->getHttpRequestMock( 'detailRetriever.json' ),
+			// RemoteApiImportTitleChecker::importAllowed
+			$this->getHttpRequestMock( 'titleChecker.json' )
+		];
 	}
 
 	public function provideTestData() {
@@ -136,7 +157,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					);
 				},
 				[],
-				true
+				[ $this->throwException( $this->getPageNotFoundHttpException() ) ],
 			],
 			'Good file' => [
 				new FauxRequest( [
@@ -157,7 +178,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					);
 				},
 				[],
-				true
+				$this->getSuccessfulHttpRequestExecutorCalls(),
 			],
 			'Good file & Good target title' => [
 				new FauxRequest( [
@@ -181,7 +202,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					);
 				},
 				[],
-				true
+				$this->getSuccessfulHttpRequestExecutorCalls(),
 			],
 		];
 	}
@@ -262,11 +283,13 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$expectedExceptionDetails = null,
 		$htmlAssertionCallable,
 		array $sourceSiteServicesOverride = [],
-		$requiresAccessToCommons = false
+		array $httpRequestMockResponses = []
 	) {
-		if ( $requiresAccessToCommons && !self::$hasAccessToCommons ) {
-			$this->markTestSkipped( 'This test requires http access to https://commons.wikimedia.org' );
-		}
+		$httpRequestExecutorMock = $this->createMock( HttpRequestExecutor::class );
+		$httpRequestExecutorMock->method( 'execute' )->will(
+			$this->onConsecutiveCalls( ...$httpRequestMockResponses )
+		);
+		$this->setService( 'FileImporterHttpRequestExecutor', $httpRequestExecutorMock );
 
 		if ( $sourceSiteServicesOverride !== [] ) {
 			$this->setMwGlobals( 'wgFileImporterSourceSiteServices', $sourceSiteServicesOverride );
