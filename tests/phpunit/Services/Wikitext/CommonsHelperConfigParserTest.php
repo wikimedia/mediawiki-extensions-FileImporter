@@ -296,11 +296,10 @@ WIKITEXT
 			"== Information ==\n=== Description ===\n* A\n=== Licensing ===\n* B";
 		$parser = new CommonsHelperConfigParser( '', $wikitext );
 
-		$expected = new WikitextConversions( [], [], [], [], [] );
-		$expected->setHeadingReplacements( [
+		$expected = new WikitextConversions( [ WikitextConversions::HEADING_REPLACEMENTS => [
 			'A' => '{{int:filedesc}}',
 			'B' => '{{int:license-header}}',
-		] );
+		] ] );
 		$this->assertEquals( $expected, $parser->getWikitextConversions() );
 	}
 

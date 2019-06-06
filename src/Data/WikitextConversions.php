@@ -13,6 +13,13 @@ use InvalidArgumentException;
  */
 class WikitextConversions {
 
+	const REQUIRED_TEMPLATES = 'requiredTemplates';
+	const FORBIDDEN_TEMPLATES = 'forbiddenTemplates';
+	const OBSOLETE_TEMPLATES = 'obsoleteTemplates';
+	const TEMPLATE_TRANSFORMATIONS = 'templateTransformations';
+	const FORBIDDEN_CATEGORIES = 'forbiddenCategories';
+	const HEADING_REPLACEMENTS = 'headingReplacements';
+
 	/**
 	 * @var string[]
 	 */
@@ -44,31 +51,49 @@ class WikitextConversions {
 	private $transferTemplates = [];
 
 	/**
-	 * @param string[] $goodTemplates List of case-insensitive page names without namespace prefix
-	 * @param string[] $badTemplates List of case-insensitive page names without namespace prefix
-	 * @param string[] $badCategories List of case-insensitive page names without namespace prefix
-	 * @param string[] $obsoleteTemplates List of case-insensitive page names without namespace prefix
-	 * @param array[] $transferTemplates List mapping source template names without namespace prefix
-	 *  to replacement rules in the following format:
-	 *  string $sourceTemplate => [
-	 *      'targetTemplate' => string,
-	 *      'parameters' => [
-	 *          string $targetParameter => [
-	 *              'addIfMissing' => bool,
-	 *              'addLanguageTemplate' => bool,
-	 *              'sourceParameters' => string|string[],
-	 *          ],
-	 *          …
-	 *      ],
-	 *  ]
+	 * @param array[] $conversions A nested array structure in the following format:
+	 * [
+	 *     self::REQUIRED_TEMPLATES => string[] List of case-insensitive page names without
+	 *         namespace prefix
+	 *     self::FORBIDDEN_TEMPLATES => string[] List of case-insensitive page names without
+	 *         namespace prefix
+	 *     self::OBSOLETE_TEMPLATES => string[] List of case-insensitive page names without
+	 *         namespace prefix
+	 *     self::TEMPLATE_TRANSFORMATIONS => array[] List mapping source template names without
+	 *         namespace prefix to replacement rules in the following format:
+	 *         string $sourceTemplate => [
+	 *             'targetTemplate' => string
+	 *             'parameters' => [
+	 *                 string $targetParameter => [
+	 *                     'addIfMissing' => bool
+	 *                     'addLanguageTemplate' => bool
+	 *                     'sourceParameters' => string[]|string
+	 *                 ],
+	 *                 …
+	 *             ]
+	 *         ],
+	 *         …
+	 *     self::FORBIDDEN_CATEGORIES => string[] List of case-insensitive page names without
+	 *         namespace prefix
+	 *     self::HEADING_REPLACEMENTS => string[] Straight 1:1 mapping of source to target headings
+	 *         without any `==` syntax
+	 * ]
 	 */
-	public function __construct(
-		array $goodTemplates,
-		array $badTemplates,
-		array $badCategories,
-		array $obsoleteTemplates,
-		array $transferTemplates
-	) {
+	public function __construct( array $conversions ) {
+		// FIXME: Backwards-compatibility with the old signature, still used in some tests. Remove
+		// when not needed any more.
+		if ( func_num_args() > 1 ) {
+			list( $goodTemplates, $badTemplates, $badCategories, $obsoleteTemplates,
+				$transferTemplates ) = func_get_args();
+		} else {
+			$goodTemplates = $conversions[self::REQUIRED_TEMPLATES] ?? [];
+			$badTemplates = $conversions[self::FORBIDDEN_TEMPLATES] ?? [];
+			$obsoleteTemplates = $conversions[self::OBSOLETE_TEMPLATES] ?? [];
+			$transferTemplates = $conversions[self::TEMPLATE_TRANSFORMATIONS] ?? [];
+			$badCategories = $conversions[self::FORBIDDEN_CATEGORIES] ?? [];
+			$this->headingReplacements = $conversions[self::HEADING_REPLACEMENTS] ?? [];
+		}
+
 		foreach ( $goodTemplates as $pageName ) {
 			$this->goodTemplates[$this->lowercasePageName( $pageName )] = true;
 		}
@@ -102,14 +127,6 @@ class WikitextConversions {
 			$to['targetTemplate'] = $this->normalizePageName( $to['targetTemplate'] );
 			$this->transferTemplates[$from] = $to;
 		}
-	}
-
-	/**
-	 * @param string[] $headingReplacements Straight 1:1 mapping of source to target headings
-	 *  without any `==` syntax
-	 */
-	public function setHeadingReplacements( array $headingReplacements ) {
-		$this->headingReplacements = $headingReplacements;
 	}
 
 	/**

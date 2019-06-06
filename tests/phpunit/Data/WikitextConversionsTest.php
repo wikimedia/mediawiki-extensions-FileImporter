@@ -24,9 +24,9 @@ class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testHeadingReplacements() {
-		$conversions = new WikitextConversions( [], [], [], [], [] );
-		$this->assertSame( 'a', $conversions->swapHeading( 'a' ) );
-		$conversions->setHeadingReplacements( [ 'a' => 'b' ] );
+		$conversions = new WikitextConversions( [ WikitextConversions::HEADING_REPLACEMENTS => [
+			'a' => 'b',
+		] ] );
 		$this->assertSame( 'b', $conversions->swapHeading( 'a' ) );
 	}
 
@@ -63,7 +63,9 @@ class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideHasGoodTemplates
 	 */
 	public function testHasGoodTemplates( array $goodTemplates, $expected ) {
-		$conversions = new WikitextConversions( $goodTemplates, [], [], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::REQUIRED_TEMPLATES => $goodTemplates,
+		] );
 		$this->assertSame( $expected, $conversions->hasGoodTemplates() );
 	}
 
