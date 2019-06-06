@@ -44,7 +44,6 @@
 	"fileimporter-filemissinginrevision": "Nelze importovat soubor, protože nejméně jedné jeho revizi chybí platný soubor s obrázkem.",
 	"fileimporter-import-wait": "Export může trvat několik minut.",
 	"fileimporter-imported-success-banner": "Tento soubor byl úspěšně importován na {{GRAMMAR:4sg|{{SITENAME}}}}. Klepnutím na následující odkaz zobrazíte soubor: $1.",
-	"fileimporter-imported-change-template": "Žádáme vás, abyste se vrátili k původnímu souboru a provedli následující kroky:\n# Odstraňte šablonu, která naznačuje, že by tento soubor měl být zkopírován na {{GRAMMAR:4sg|{{SITENAME}}}}.\n# Přidejte šablonu oznamující, že tento soubor je nyní k dispozici na {{GRAMMAR:6sg|{{SITENAME}}}}.\nDěkujeme!",
 	"fileimporter-go-to-original-file-button": "Vrátit se k původnímu souboru",
 	"fileimporter-commonshelper-retrieval-failed": "Při kontrole blokovaných souborů došlo k chybě.",
 	"fileimporter-file-contains-blocked-category-template": "Soubor nelze importovat, protože je označen jako $1. $2 tyto soubory nepovoluje.",

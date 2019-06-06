@@ -58,7 +58,6 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Il file|Le $1 versioni del file}} che stai cercando di importare {{PLURAL:$1|eccede|eccedono}} i limiti che l'importazione può gestire.",
 	"fileimporter-import-wait": "L'importazione potrebbe impiegare alcuni minuti.",
 	"fileimporter-imported-success-banner": "Questo file è stato importato con successo a {{SITENAME}}. Clicca nel collegamento seguente per vedere il file: $1",
-	"fileimporter-imported-change-template": "Ti chiediamo cortesemente di ritornare al file originale e procedere come segue: \n# Rimuovi ogni template che suggerisca che questo file dovrebbe essere copiato da {{SITENAME}}.\n# Aggiungi un template che dichiari che ora questo file è disponibile su {{SITENAME}}.\nGrazie mille!",
 	"fileimporter-go-to-original-file-button": "Ritorna al file originale",
 	"fileimporter-commonshelper-parsing-failed": "La pagina di configurazione per il tuo wiki ($1) è incompleta. Assicurati che contenga una sezione \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Il file non può essere importato, perché è contrassegnato come $1. $2 non consente tali file.",

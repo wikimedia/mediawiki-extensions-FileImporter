@@ -58,7 +58,6 @@
 	"fileimporter-filetoolarge": "Şu anda almaya çalıştığınız {{PLURAL:$1|dosya sürüm|dosya sürümleri}}, içe aktarmanın işleyebileceği dosya boyutu sınırını {{PLURAL:$1|aşıyor|aştı}}.",
 	"fileimporter-import-wait": "İçe aktarma birkaç dakika sürebilir.",
 	"fileimporter-imported-success-banner": "Bu dosya {{SITENAME}} sayfasına başarıyla alındı. Dosyayı görüntülemek için şu bağlantıyı tıklayın: $1",
-	"fileimporter-imported-change-template": "Özgün dosyaya dönmenizi ve aşağıdakileri yapmanızı rica ederiz:\n# Bu dosyanın {{SITENAME}} sayfasına kopyalanması gerektiğini gösteren herhangi bir şablonu kaldırın.\n# Bu dosyanın {{SITENAME}} üzerinde kullanıma hazır olduğunu bildiren bir şablon ekleyin.\nÇok teşekkür ederiz!",
 	"fileimporter-go-to-original-file-button": "Özgün dosyaya dön",
 	"fileimporter-commonshelper-retrieval-failed": "Engellenen dosyaları denetlerken bir hata oluştu.",
 	"fileimporter-commonshelper-missing-config": "Dosyaları kaynak viki'den ($1) içe aktarmak henüz mümkün değil. $2 sayfasında viki için bir yapılandırma yok.",

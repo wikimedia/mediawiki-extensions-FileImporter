@@ -38,7 +38,6 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Fail|$1 failiversiooni}}, mida üritad importida, {{PLURAL:$1|ületab|ületavad}} failisuuruse piirmäära, millega impordiriist toime tuleb.",
 	"fileimporter-import-wait": "Impordiks võib kuluda mõni minut.",
 	"fileimporter-imported-success-banner": "See fail on imporditud edukalt asukohta {{SITENAME}}. Et faili vaadata, klõpsa järgmisel lingil: $1",
-	"fileimporter-imported-change-template": "Nüüd oleks hea, kui lähed tagasi lähtefaili juurde ja teed järgmist.\n# Eemaldad mallid, mis soovitavad faili kopeerimist asukohta {{SITENAME}}.\n# Lisad malli, mis annab teada, et fail on nüüd saadaval asukohas {{SITENAME}}.\nSuur tänu!",
 	"fileimporter-go-to-original-file-button": "Naase lähtefaili juurde",
 	"fileimporter-commonshelper-parsing-failed": "Sinu viki häälestuslehekülg ($1) ei ole täielik. Palun veendu, et seal on alaosa \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Faili ei saa importida, sest selle juures on märge \"$1\". $2 ei luba selliseid faile.",

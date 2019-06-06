@@ -56,7 +56,6 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|datoteka, ki jo|$1 različici datoteke, ki ju|različice datoteke, ki jih|različic datoteke, ki jih}} želiš uvoziti {{PLURAL:$1|presega|presegata|presegajo|presega}} omejitev velikosti datoteke, ki je na voljo za uvoz.",
 	"fileimporter-import-wait": "Uvoz lahko traja nekaj minut.",
 	"fileimporter-imported-success-banner": "Ta datoteka je bila uspešno uvožena na {{SITENAME}}. Za njen ogled klikni na: $1",
-	"fileimporter-imported-change-template": "Vljudno te prosimo, da se vrneš na izvirno datoteko in storiš sledeče:\n# Odstrani vse predloge, ki sporočajo, da je to datoteko potrebno skopirati na {{SITENAME}}.\n# Dodaj predlogo, ki sporoča, da je ta datoteka sedaj na voljo na {{SITENAME}}.\nIskrena hvala!",
 	"fileimporter-go-to-original-file-button": "Vrni se na izvirno datoteko",
 	"fileimporter-commonshelper-retrieval-failed": "Pri preverjanju blokiranih datotek je prišlo do napake.",
 	"fileimporter-commonshelper-parsing-failed": "Stran z nastavitvami za vaš wiki ($1) ni popolna. Prosimo, prepričajte se, da vsebuje razdelek »$2«.",

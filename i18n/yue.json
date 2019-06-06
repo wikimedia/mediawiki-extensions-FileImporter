@@ -56,7 +56,6 @@
 	"fileimporter-filetoolarge": "你想匯入嗰$1個檔案版本大得滯，匯入工具頂唔順。",
 	"fileimporter-import-wait": "匯入可能要幾分鐘。",
 	"fileimporter-imported-success-banner": "成功將呢個檔案匯入{{SITENAME}}。請撳呢條拎，去睇個檔案：$1",
-	"fileimporter-imported-change-template": "麻煩你返去原檔，做以下幾樣嘢：\n# 拎走啲提議將個檔案抄去{{SITENAME}}嘅模；\n# 加個模去話俾人知，{{SITENAME}}而家有呢個檔案嘅抄本。\n唔該晒！",
 	"fileimporter-go-to-original-file-button": "返去原檔",
 	"fileimporter-commonshelper-retrieval-failed": "檢查封鎖檔案嗰陣出錯。",
 	"fileimporter-commonshelper-missing-config": "而家未可以由來源 wiki（$1）匯入檔案。$2冇相應嘅設定版。",

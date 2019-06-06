@@ -60,7 +60,6 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|الملف|$1 مراجعات من الملف}} الذي تحاول استيراده حاليا {{PLURAL:$1|يتجاوز|تتجاوز}} حد حجم الملف الذي يمكن أن يعالجه الاستيراد.",
 	"fileimporter-import-wait": "قد يستغرق الاستيراد بضع دقائق.",
 	"fileimporter-imported-success-banner": "تم استيراد هذا الملف بنجاح إلى {{SITENAME}}، انقر فوق الرابط التالي لعرض الملف: $1",
-	"fileimporter-imported-change-template": "نطلب منك العودة إلى الملف الأصلي والقيام بما يلي: \n# أزل أي قالب يشير إلى أنه يجب نسخ هذا الملف إلى {{SITENAME}}. \n# أضف قالبا يعلن أن هذا الملف متاح الآن على {{SITENAME}}. \nشكرا جزيلا لك!",
 	"fileimporter-go-to-original-file-button": "العودة إلى الملف الأصلي",
 	"fileimporter-commonshelper-retrieval-failed": "حدث خطأ أثناء التحقق من الملفات المحظورة.",
 	"fileimporter-commonshelper-missing-config": "استيراد الملفات من الويكي المصدر ($1) غير ممكن بعد; لا يوجد تكوين للويكي في $2.",

@@ -54,7 +54,6 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|El ficheru|$1 versiones del ficheru}} que tas tentando importar {{PLURAL:$1|pasa|pasen}} la llende de tamañu máximu que puede xestionar la importación.",
 	"fileimporter-import-wait": "La importación puede tardar dellos minutos.",
 	"fileimporter-imported-success-banner": "El ficheru importóse correutamente a {{SITENAME}}. Visita l'enllaz siguiente para velu: $1",
-	"fileimporter-imported-change-template": "Pidímoste que vuelvas al ficheru orixinal y faigas lo siguiente:\n# Quita cualquier plantía que suxera qu'esti ficheru tendría de copiase a {{SITENAME}}.\n# Añade una plantía que declare qu'esti ficheru yá ta disponible'n {{SITENAME}}.\n¡Munches gracies!",
 	"fileimporter-go-to-original-file-button": "Volver al ficheru orixinal",
 	"fileimporter-commonshelper-retrieval-failed": "Asocedió un error al comprobar los ficheros bloquiaos.",
 	"fileimporter-commonshelper-parsing-failed": "El ficheru de configuración de la wiki ($1) nun contien información bastante sobro <$2> pa determinar si esti ficheru puede agospiase'n Commons.",

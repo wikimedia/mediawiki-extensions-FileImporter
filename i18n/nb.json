@@ -55,7 +55,6 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Fila|De $1 filversjonene}} du prøver å importere overskrider filstørrelsen som kan importeres.",
 	"fileimporter-import-wait": "Importeringen kan ta noen minutter.",
 	"fileimporter-imported-success-banner": "Denne fila har blitt importert til {{SITENAME}}. Klikk følgende lenke for å se fila: $1",
-	"fileimporter-imported-change-template": "Vi ber om at du går tilbake til originalfila og gjør følgende:\n# Fjerner maler som antyder at fila bør kopieres til {{SITENAME}}.\n# Legger til en mal som viser at fila nå er tilgjengelig på {{SITENAME}}.\nTusen takk!",
 	"fileimporter-go-to-original-file-button": "Gå tilbake til originalfila",
 	"fileimporter-commonshelper-retrieval-failed": "En feil oppsto under kontroll etter blokkerte filer.",
 	"fileimporter-commonshelper-parsing-failed": "Konfigurasjonsfila for din wiki ($1) inneholder ikke nok informasjon om <$2> for å vite om denne fila kan puttes på Commons.",
