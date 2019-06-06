@@ -19,6 +19,7 @@ use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use FileImporter\Services\WikidataTemplateLookup;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
 use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
@@ -217,6 +218,15 @@ return [
 		);
 
 		return $site;
+	},
+
+	'FileImporterTemplateLookup' => function ( MediaWikiServices $services ) {
+		return new WikidataTemplateLookup(
+			$services->getMainConfig(),
+			$services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' ),
+			$services->getService( 'FileImporterHttpRequestExecutor' ),
+			LoggerFactory::getInstance( 'FileImporter' )
+		);
 	},
 
 ];
