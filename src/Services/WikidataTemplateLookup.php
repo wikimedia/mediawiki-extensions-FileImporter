@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FileImporter\Services;
 
 use Config;
@@ -10,6 +9,16 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 
+/**
+ * FIXME: Rename the class to something like WikibaseSiteLinkLookup, and just remove all occurences
+ * of "NowCommons" as well as "Template" from this code. Reasoning: Even if this code was written
+ * for a very specific purpose (the NowCommons template), this class does not contain any knowledge
+ * about templates, and no knowledge about a specific Wikibase installation.
+ *
+ * This service fetches an Item from a Wikibase instance (both specified via configuration), and
+ * returns the sitelink that matches a given source URL, if such a sitelink exists. In other words:
+ * It checks if the source site contains a localized version of a page, and returns it.
+ */
 class WikidataTemplateLookup {
 
 	/** @var SiteTableSiteLookup */
@@ -65,17 +74,16 @@ class WikidataTemplateLookup {
 	 */
 	private function fetchLocalTemplateForSource( $entityId, SourceUrl $sourceUrl ) {
 		$sourceSite = $this->siteLookup->getSite( $sourceUrl );
-		if ( $sourceSite === null ) {
+		if ( !$sourceSite || !$entityId ) {
 			return null;
 		}
-		$siteId = $sourceSite->getGlobalId();
-		$localPageName = $this->fetchSiteLinkPageName( $entityId, $siteId );
+
+		$localPageName = $this->fetchSiteLinkPageName( $entityId, $sourceSite->getGlobalId() );
 		if ( $localPageName === null ) {
 			return null;
 		}
 
-		$strippedTitle = $this->removeNamespaceFromString( $localPageName );
-		return $strippedTitle;
+		return $this->removePrefixes( $localPageName );
 	}
 
 	/**
@@ -84,35 +92,10 @@ class WikidataTemplateLookup {
 	 * @return string|null
 	 */
 	private function fetchSiteLinkPageName( $entityId, $siteId ) {
-		$item = $this->getWikidataEntity( $entityId );
-
-		return array_reduce(
-			[ 'entities', $entityId, 'sitelinks', $siteId, 'title' ],
-			function ( $data, $index ) {
-				return $data[$index] ?? null;
-			},
-			$item
-		);
-	}
-
-	/**
-	 * @param string $entityId
-	 * @return array
-	 */
-	private function getWikidataEntity( $entityId ) {
-		$requestUrl = $this->buildEntityUrl( $entityId );
-		$response = $this->requestExecutor->execute( $requestUrl );
-		$content = $response->getContent();
-		$data = json_decode( $content, true );
-		return $data;
-	}
-
-	/**
-	 * @param string $entityId
-	 * @return string
-	 */
-	private function buildEntityUrl( $entityId ) {
-		return $this->entityEndpoint . $entityId;
+		$url = $this->entityEndpoint . $entityId;
+		$response = $this->requestExecutor->execute( $url );
+		$entityData = json_decode( $response->getContent(), true );
+		return $entityData['entities'][$entityId]['sitelinks'][$siteId]['title'] ?? null;
 	}
 
 	/**
@@ -121,7 +104,7 @@ class WikidataTemplateLookup {
 	 *
 	 * @return string
 	 */
-	private function removeNamespaceFromString( $title ) {
+	private function removePrefixes( $title ) {
 		$splitTitle = explode( ':', $title );
 		return end( $splitTitle );
 	}
