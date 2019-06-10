@@ -59,6 +59,8 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Податотеката|$1 податотечни верзии}} од увозот ја {{PLURAL:$1|надминува|надминуваат}} големинската граница.",
 	"fileimporter-import-wait": "Увозот може да потрае неколку минути.",
 	"fileimporter-imported-success-banner": "Податотеката е успешно увезена во {{SITENAME}}. Можете да ја видите на следнава врска: $1",
+	"fileimporter-add-unknown-template": "[$1 Вратете се на изворната податотека] и ставете ѝ шаблон кој изјавува дека истата сега е на {{SITENAME}}.",
+	"fileimporter-add-specific-template": "[$1 Вратете се на изворната податотека] и ставете ѝ го следниов шаблон кој изјавува дека истата сега е на {{SITENAME}}: <code><nowiki>{{$2|$3}}</nowiki></code>",
 	"fileimporter-go-to-original-file-button": "Назад на изворната податотека",
 	"fileimporter-commonshelper-retrieval-failed": "Се појави грешка при проверката на блокирани податотеки.",
 	"fileimporter-commonshelper-missing-config": "Засега не е можен увоз на податотеки од изворното вики ($1). Нема поставка за викито на $2.",
