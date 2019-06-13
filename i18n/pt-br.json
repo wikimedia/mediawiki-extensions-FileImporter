@@ -58,6 +58,8 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|O |As $1 versões do}} arquivo que está a tentar importar {{PLURAL:$1|excede|excedem}} o limite de tamanho que a importação consegue tratar.",
 	"fileimporter-import-wait": "A importação pode demorar alguns minutos.",
 	"fileimporter-imported-success-banner": "O ficheiro foi importado para a wiki {{SITENAME}}. Para vê-lo, clique a seguinte hiperligação: $1",
+	"fileimporter-add-unknown-template": "Por favor [$1 retorne ao arquivo original] e adicione uma predefinição para declarar que o arquivo está agora {{SITENAME}}.",
+	"fileimporter-add-specific-template": "Por favor [$1 retorne ao arquivo original] e adicione a seguinte predefinição para declarar que o arquivo está agora {{SITENAME}}: <code><nowiki>{{$2|$3}}</nowiki></code>",
 	"fileimporter-go-to-original-file-button": "Voltar ao arquivo original",
 	"fileimporter-commonshelper-retrieval-failed": "Ocorreu um erro ao verificar a existência de arquivos bloqueados.",
 	"fileimporter-commonshelper-missing-config": "Ainda não é possível importar arquivos da wiki de origem ($1). Não há configuração para a wiki em $2.",
