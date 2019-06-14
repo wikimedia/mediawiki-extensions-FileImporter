@@ -20,6 +20,8 @@ use WebRequest;
 /**
  * @coversNothing
  *
+ * TODO: Rename to make it clear that we're only testing preview, not submit.
+ *
  * @license GPL-2.0-or-later
  * @author Addshore
  */

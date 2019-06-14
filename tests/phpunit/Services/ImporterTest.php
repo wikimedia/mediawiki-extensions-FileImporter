@@ -80,13 +80,12 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		$this->assertFalse( $title->exists() );
 
-		$result = $importer->import(
+		$importer->import(
 			$this->targetUser,
 			$plan
 		);
 
 		// assert page was locally created
-		$this->assertTrue( $result );
 		$this->assertTrue( $title->exists() );
 		$this->assertTrue( $title->isWikitextPage() );
 

@@ -2,7 +2,6 @@
 
 namespace FileImporter\Services;
 
-use Exception;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
@@ -113,35 +112,9 @@ class Importer {
 	 * @param User $user user to use for the import
 	 * @param ImportPlan $importPlan A valid ImportPlan object.
 	 *
-	 * @return bool success
 	 * @throws ImportException|RuntimeException
 	 */
-	public function import(
-		User $user,
-		ImportPlan $importPlan
-	) {
-		try {
-			$result = $this->importInternal( $user, $importPlan );
-			$this->stats->increment( 'FileImporter.import.result.success' );
-			return $result;
-		} catch ( Exception $e ) {
-			// Catch all exception and re throw them after counting them
-			$this->stats->increment( 'FileImporter.import.result.exception' );
-			throw $e;
-		}
-	}
-
-	/**
-	 * @param User $user user to use for the import
-	 * @param ImportPlan $importPlan A valid ImportPlan object.
-	 *
-	 * @return bool success
-	 * @throws ImportException|RuntimeException
-	 */
-	private function importInternal(
-		User $user,
-		ImportPlan $importPlan
-	) {
+	public function import( User $user, ImportPlan $importPlan ) {
 		$this->wikiRevisionFactory->setInterWikiPrefix( $importPlan->getInterWikiPrefix() );
 
 		$importStart = microtime( true );
@@ -203,8 +176,6 @@ class Importer {
 			'FileImporter.import.timing.wholeImport',
 			( microtime( true ) - $importStart ) * 1000
 		);
-
-		return true;
 	}
 
 	/**

@@ -6,8 +6,10 @@ use FauxRequest;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Importer;
 use FileImporter\SpecialImportFile;
+use Liuggio\StatsdClient\Factory\StatsdDataFactory;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
@@ -48,8 +50,10 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $fauxRequest );
 
 		$importerMock = $this->createMock( Importer::class );
-		$importerMock->method( 'import' )
-			->willReturn( $importerResult );
+		if ( $importerResult === false ) {
+			$importerMock->method( 'import' )
+				->willThrowException( new LocalizedImportException( 'test-error' ) );
+		}
 
 		$specialImportFileMock = $this->getMockBuilder( SpecialImportFile::class )
 			->disableOriginalConstructor()
@@ -63,6 +67,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 		/** @var SpecialImportFile $specialImportFileMock */
 		$specialImportFileMock = TestingAccessWrapper::newFromObject( $specialImportFileMock );
 		$specialImportFileMock->importer = $importerMock;
+		$specialImportFileMock->stats = $this->createMock( StatsdDataFactory::class );
 
 		return $specialImportFileMock;
 	}

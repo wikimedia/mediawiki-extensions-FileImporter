@@ -78,7 +78,9 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		$this->assertTrue( $importer->import( $this->user, $importPlan ) );
+		$importer->import( $this->user, $importPlan );
+
+		$this->assertTrue( true );
 	}
 
 	public function testImportingOneFileRevisionWithUserProvidedValues() {
@@ -102,7 +104,9 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		$this->assertTrue( $importer->import( $this->user, $importPlan ) );
+		$importer->import( $this->user, $importPlan );
+
+		$this->assertTrue( true );
 	}
 
 	private function newImportPlan(

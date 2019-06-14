@@ -8,7 +8,6 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
-use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Html\ErrorPage;
 use FileImporter\Html\ChangeFileInfoForm;
@@ -41,6 +40,11 @@ use WebRequest;
  * @author Addshore
  */
 class SpecialImportFile extends SpecialPage {
+
+	const ERROR_UPLOAD_DISABLED = 'uploadDisabled';
+	const ERROR_USER_PERMISSIONS = 'userPermissionsError';
+	const ERROR_LOCAL_BLOCK = 'userBlocked';
+	const ERROR_GLOBAL_BLOCK = 'userGloballyBlocked';
 
 	/**
 	 * @var SourceSiteLocator
@@ -107,6 +111,7 @@ class SpecialImportFile extends SpecialPage {
 	private function executeStandardChecks() {
 		# Check uploading enabled
 		if ( !UploadBase::isEnabled() ) {
+			$this->logErrorStats( self::ERROR_UPLOAD_DISABLED, false );
 			throw new ErrorPageError( 'uploaddisabled', 'uploaddisabledtext' );
 		}
 
@@ -114,19 +119,19 @@ class SpecialImportFile extends SpecialPage {
 		$user = $this->getUser();
 		$permissionRequired = UploadBase::isAllowed( $user );
 		if ( $permissionRequired !== true ) {
-			$this->stats->increment( 'FileImporter.specialPage.execute.fail.userPermissionsError' );
+			$this->logErrorStats( self::ERROR_USER_PERMISSIONS, false );
 			throw new PermissionsError( $permissionRequired );
 		}
 
 		# Check blocks
 		if ( $user->isBlocked() ) {
-			$this->stats->increment( 'FileImporter.specialPage.execute.fail.userBlocked' );
+			$this->logErrorStats( self::ERROR_LOCAL_BLOCK, false );
 			throw new UserBlockedError( $user->getBlock() );
 		}
 
 		// Global blocks
 		if ( $user->isBlockedGlobally() ) {
-			$this->stats->increment( 'FileImporter.specialPage.execute.fail.userGloballyBlocked' );
+			$this->logErrorStats( self::ERROR_GLOBAL_BLOCK, false );
 			throw new UserBlockedError( $user->getGlobalBlock() );
 		}
 
@@ -162,26 +167,45 @@ class SpecialImportFile extends SpecialPage {
 		if ( $clientUrl === '' ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
 			$this->showLandingPage();
+
 			return;
 		}
 
 		try {
 			$this->logger->info( 'Getting ImportPlan for URL: ' . $clientUrl );
 			$importPlan = $this->makeImportPlan( $webRequest );
-		} catch ( ImportException $exception ) {
-			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
-			$this->incrementFailedImportPlanStats( $exception );
-			$this->handleImportException( $exception, $clientUrl );
-			return;
-		}
 
-		switch ( $webRequest->getRawVal( 'action' ) ) {
+			$action = $webRequest->getRawVal( 'action' );
+			$this->logger->info( "Performing {$action} on ImportPlan for URL: {$clientUrl}" );
+			$this->handleAction( $action, $importPlan );
+		}
+		catch ( ImportException $exception ) {
+			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
+			$this->logErrorStats( $exception->getCode(),
+				$exception instanceof RecoverableTitleException );
+
+			if ( $exception instanceof DuplicateFilesException ) {
+				$this->getOutput()->addHTML(
+					( new DuplicateFilesErrorPage( $this ) )->getHtml(
+						$exception->getFiles(),
+						$clientUrl ) );
+			} elseif ( $exception instanceof RecoverableTitleException ) {
+				$this->getOutput()->addHTML(
+					( new RecoverableTitleExceptionPage( $this ) )->getHtml(
+						$exception ) );
+			} else {
+				$this->getOutput()->addHTML(
+					( new ErrorPage( $this ) )->getHtml(
+						$this->getWarningMessage( $exception ),
+						$clientUrl ) );
+			}
+		}
+	}
+
+	private function handleAction( $action, $importPlan ) {
+		switch ( $action ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
-				try {
-					$this->doImport( $importPlan );
-				} catch ( ImportException $ex ) {
-					$this->handleImportException( $ex, $clientUrl );
-				}
+				$this->doImport( $importPlan );
 				break;
 			case ImportPreviewPage::ACTION_EDIT_TITLE:
 				$this->getOutput()->addHTML(
@@ -201,46 +225,6 @@ class SpecialImportFile extends SpecialPage {
 			default:
 				$this->showImportPage( $importPlan );
 		}
-	}
-
-	private function incrementFailedImportPlanStats( Exception $exception ) {
-		if ( $exception instanceof LocalizedImportException ) {
-			$messageKey = $exception->getMessageObject()->getKey();
-			$statKey = str_replace( 'fileimporter-', '', $messageKey );
-		} else {
-			$statKey = substr( strrchr( get_class( $exception ), '\\' ), 1 );
-		}
-		$this->stats->increment( 'FileImporter.specialPage.execute.fail.plan.total' );
-		$this->stats->increment( 'FileImporter.specialPage.execute.fail.plan.byType.' . $statKey );
-	}
-
-	/**
-	 * @suppress PhanTypeMismatchArgument Phan doesn't understand the switch-true-case-instanceof
-	 * @suppress PhanUndeclaredMethod Phan doesn't understand the switch-true-case-instanceof
-	 * @param ImportException $exception
-	 * @param string $url
-	 */
-	private function handleImportException( ImportException $exception, $url ) {
-		switch ( true ) {
-			case $exception instanceof DuplicateFilesException:
-				$html = ( new DuplicateFilesErrorPage( $this ) )->getHtml(
-					$exception->getFiles(),
-					$url
-				);
-				break;
-			case $exception instanceof RecoverableTitleException:
-				$html = ( new RecoverableTitleExceptionPage( $this ) )->getHtml(
-					$exception
-				);
-				break;
-			default:
-				$html = ( new ErrorPage( $this ) )->getHtml(
-					$this->getWarningMessage( $exception ),
-					$url
-				);
-		}
-
-		$this->getOutput()->addHTML( $html );
 	}
 
 	/**
@@ -276,8 +260,14 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * @throws ImportException
+	 * @param string $type
+	 * @param bool $isRecoverable
 	 */
+	private function logErrorStats( $type, $isRecoverable ) {
+		$this->stats->increment( 'FileImporter.error.byRecoverable.'
+			. wfBoolToStr( $isRecoverable ) . '.byType.' . $type );
+	}
+
 	private function doImport( ImportPlan $importPlan ) {
 		$out = $this->getOutput();
 		$importDetails = $importPlan->getDetails();
@@ -287,29 +277,37 @@ class SpecialImportFile extends SpecialPage {
 
 		if ( !$this->getUser()->matchEditToken( $token ) ) {
 			$this->showWarningMessage( wfMessage( 'fileimporter-badtoken' )->parse() );
+			$this->logErrorStats( 'badToken', true );
 			return false;
 		}
 
 		if ( $importDetails->getOriginalHash() !== $importDetailsHash ) {
 			$this->showWarningMessage( wfMessage( 'fileimporter-badimporthash' )->parse() );
+			$this->logErrorStats( 'badImportHash', true );
 			return false;
 		}
 
-		$result = $this->importer->import(
-			$this->getUser(),
-			$importPlan
-		);
+		try {
+			$this->importer->import(
+				$this->getUser(),
+				$importPlan
+			);
+			$this->stats->increment( 'FileImporter.import.result.success' );
 
-		if ( $result ) {
 			$out->setPageTitle( $importPlan->getTitle()->getPrefixedText() );
 			$out->addHTML( ( new ImportSuccessPage( $this ) )->getHtml( $importPlan ) );
-		} else {
-			// FIXME: This line is probably unreachable, since import either throws an exception
-			// or returns true.
-			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );
-		}
 
-		return $result;
+			return true;
+		} catch ( ImportException $exception ) {
+			$this->logErrorStats(
+				$exception->getCode(),
+				$exception instanceof RecoverableTitleException );
+
+			$this->showWarningMessage( $this->getWarningMessage( $exception ) );
+			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );
+
+			return false;
+		}
 	}
 
 	/**
