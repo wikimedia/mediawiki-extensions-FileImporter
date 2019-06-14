@@ -2,15 +2,16 @@
 
 namespace FileImporter\Data;
 
-use FileImporter\Exceptions\ValidationException;
+use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportOperation;
-use RuntimeException;
 
 /**
  * @license GPL-2.0-or-later
  * @author Addshore
  */
 class ImportOperations implements ImportOperation {
+
+	const ERROR_OUT_OF_ORDER = 'outOfOrder';
 
 	/**
 	 * @var ImportOperation[]
@@ -37,7 +38,8 @@ class ImportOperations implements ImportOperation {
 	 */
 	private function throwExceptionOnBadState( $expectedState ) {
 		if ( $this->state !== $expectedState ) {
-			throw new RuntimeException( __CLASS__ . ' methods run out of order' );
+			throw new ImportException(
+				__CLASS__ . ' methods run out of order', self::ERROR_OUT_OF_ORDER );
 		}
 	}
 
@@ -65,7 +67,6 @@ class ImportOperations implements ImportOperation {
 	/**
 	 * Method to validate prepared content that should be committed.
 	 * @return bool success
-	 * @throws ValidationException
 	 */
 	public function validate() {
 		$this->throwExceptionOnBadState( self::PREPARE_RUN );

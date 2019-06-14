@@ -3,7 +3,6 @@
 namespace FileImporter\Operations;
 
 use FileImporter\Data\TextRevision;
-use FileImporter\Exceptions\ValidationException;
 use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
@@ -93,7 +92,6 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	/**
 	 * Method to validate prepared data that should be committed.
 	 * @return bool success
-	 * @throws ValidationException
 	 */
 	public function validate() {
 		$this->textRevisionValidator->validate(

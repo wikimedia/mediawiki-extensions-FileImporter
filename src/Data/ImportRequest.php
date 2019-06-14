@@ -2,8 +2,8 @@
 
 namespace FileImporter\Data;
 
+use FileImporter\Exceptions\InvalidArgumentException;
 use FileImporter\Exceptions\LocalizedImportException;
-use InvalidArgumentException;
 use Wikimedia\Assert\Assert;
 
 /**

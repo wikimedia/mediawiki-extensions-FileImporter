@@ -10,6 +10,8 @@ use File;
  */
 class DuplicateFilesException extends ImportException {
 
+	const ERROR_CODE = 'duplicateFiles';
+
 	private $files;
 
 	/**
@@ -18,7 +20,7 @@ class DuplicateFilesException extends ImportException {
 	public function __construct( array $duplicateFiles ) {
 		$this->files = $duplicateFiles;
 
-		parent::__construct();
+		parent::__construct( 'File already on wiki', self::ERROR_CODE );
 	}
 
 	/**

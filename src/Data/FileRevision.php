@@ -14,6 +14,9 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class FileRevision {
 
+	const ERROR_MISSING_FIELD = 'revisionMissingField';
+	const ERROR_UNKNOWN_FIELD = 'revisionUnknownField';
+
 	private static $fieldNames = [
 		'name',
 		'description',
@@ -44,8 +47,8 @@ class FileRevision {
 		$diff = array_diff_key( array_flip( self::$fieldNames ), $fields );
 		if ( $diff !== [] ) {
 			throw new InvalidArgumentException(
-				__CLASS__ . ': Missing ' . key( $diff ) . ' field on construction'
-			);
+				__CLASS__ . ': Missing ' . key( $diff ) . ' field on construction',
+				self::ERROR_MISSING_FIELD );
 		}
 	}
 
@@ -57,7 +60,8 @@ class FileRevision {
 	 */
 	public function getField( $name ) {
 		if ( !in_array( $name, self::$fieldNames ) ) {
-			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested' );
+			throw new InvalidArgumentException(
+				__CLASS__ . ': Unrecognized field requested', self::ERROR_UNKNOWN_FIELD );
 		}
 		return $this->fields[$name];
 	}

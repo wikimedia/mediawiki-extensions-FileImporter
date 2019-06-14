@@ -2,7 +2,7 @@
 
 namespace FileImporter\Data;
 
-use InvalidArgumentException;
+use FileImporter\Exceptions\InvalidArgumentException;
 
 /**
  * Class representing a (possibly unnormalized) URL passed into the extension for importing. Can be
@@ -16,6 +16,8 @@ use InvalidArgumentException;
  * @author Addshore
  */
 class SourceUrl {
+
+	const ERROR_SOURCE_URL_UNPARSEABLE = 'sourceUrlUnparseable';
 
 	/**
 	 * @var string
@@ -35,7 +37,8 @@ class SourceUrl {
 		$this->url = trim( $url );
 		$this->parsed = wfParseUrl( $this->url );
 		if ( !$this->parsed ) {
-			throw new InvalidArgumentException( '$url is not parsable' );
+			throw new InvalidArgumentException( '$url is not parsable',
+				self::ERROR_SOURCE_URL_UNPARSEABLE );
 		}
 	}
 

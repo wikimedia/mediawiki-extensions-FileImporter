@@ -15,6 +15,8 @@ use Psr\Log\LoggerInterface;
  */
 class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
+	const ERROR_TITLE_STATE = 'noTitleStateFetched';
+
 	private $httpApiLookup;
 	private $httpRequestExecutor;
 	private $logger;
@@ -52,7 +54,8 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 					'apiParameters' => $apiParameters,
 				]
 			);
-			throw new ImportException( 'Failed to check title state from: ' . $api );
+			throw new ImportException(
+				'Failed to check title state from: ' . $api, self::ERROR_TITLE_STATE );
 		}
 
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );

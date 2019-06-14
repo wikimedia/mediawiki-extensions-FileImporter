@@ -6,7 +6,6 @@ use Exception;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
-use FileImporter\Exceptions\ValidationException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
 use FileImporter\Exceptions\ImportException;
@@ -29,6 +28,12 @@ use WikiPage;
  * @author Addshore
  */
 class Importer {
+
+	const ERROR_OPERATION_COMMIT = 'operationCommit';
+	const ERROR_OPERATION_PREPARE = 'operationPrepare';
+	const ERROR_OPERATION_VALIDATE = 'operationValidate';
+	const ERROR_NO_NEW_PAGE = 'noPageCreated';
+	const ERROR_FAILED_POST_IMPORT_EDIT = 'failedPostImportEdit';
 
 	/**
 	 * @var WikiPageFactory
@@ -271,7 +276,8 @@ class Importer {
 	private function prepareImportOperations( ImportOperations $importOperations ) {
 		if ( !$importOperations->prepare() ) {
 			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
-			throw new RuntimeException( 'Failed to prepare operations.' );
+			throw new ImportException( 'Failed to prepare operations.',
+				self::ERROR_OPERATION_PREPARE );
 		}
 
 		$this->logger->info( __METHOD__ . ' operations prepared.' );
@@ -280,7 +286,8 @@ class Importer {
 	private function validateImportOperations( ImportOperations $importOperations ) {
 		if ( !$importOperations->validate() ) {
 			$this->logger->error( __METHOD__ . 'Failed to validate operations.' );
-			throw new RuntimeException( 'Failed to validate operations.' );
+			throw new ImportException( 'Failed to validate operations.',
+				self::ERROR_OPERATION_VALIDATE );
 		}
 
 		$this->logger->info( __METHOD__ . ' operations validated.' );
@@ -289,7 +296,8 @@ class Importer {
 	private function commitImportOperations( ImportOperations $importOperations ) {
 		if ( !$importOperations->commit() ) {
 			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
-			throw new RuntimeException( 'Failed to commit operations.' );
+			throw new ImportException( 'Failed to commit operations.',
+				self::ERROR_OPERATION_COMMIT );
 		}
 
 		$this->logger->info( __METHOD__ . ' operations committed.' );
@@ -298,8 +306,6 @@ class Importer {
 	/**
 	 * @param User $user
 	 * @param ImportPlan $importPlan
-	 *
-	 * @throws ValidationException
 	 */
 	private function validateFileInfoText(
 		User $user,
@@ -317,7 +323,7 @@ class Importer {
 	/**
 	 * @param ImportPlan $importPlan
 	 *
-	 * @throws RuntimeException
+	 * @throws ImportException
 	 * @return WikiPage
 	 */
 	private function getPageFromImportPlan( ImportPlan $importPlan ) {
@@ -328,9 +334,9 @@ class Importer {
 		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate );
 
 		if ( $page === null ) {
-			throw new RuntimeException(
-				'Failed to create import edit with page id: ' . $articleIdForUpdate
-			);
+			throw new ImportException(
+				'Failed to create import edit with page id: ' . $articleIdForUpdate,
+				self::ERROR_NO_NEW_PAGE );
 		}
 
 		return $page;
@@ -383,7 +389,8 @@ class Importer {
 
 		if ( !$editResult->isOK() ) {
 			$this->logger->error( __METHOD__ . ' Failed to create user edit.' );
-			throw new RuntimeException( 'Failed to create user edit' );
+			throw new ImportException(
+				'Failed to create user edit', self::ERROR_FAILED_POST_IMPORT_EDIT );
 		}
 	}
 

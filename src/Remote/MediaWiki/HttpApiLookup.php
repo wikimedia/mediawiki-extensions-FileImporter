@@ -21,6 +21,8 @@ use Psr\Log\NullLogger;
  */
 class HttpApiLookup implements LoggerAwareInterface {
 
+	const ERROR_CANNOT_FIND_SOURCE_API = 'noSourceApiFound';
+
 	/**
 	 * @var LoggerInterface
 	 */
@@ -52,12 +54,13 @@ class HttpApiLookup implements LoggerAwareInterface {
 	/**
 	 * @param string $message
 	 * @param array $context
+	 * @param string $code
 	 *
 	 * @return ImportException
 	 */
-	private function loggedError( $message, array $context = [] ) {
+	private function loggedError( $message, array $context = [], $code ) {
 		$this->logger->error( $message, $context );
-		return new ImportException( $message );
+		return new ImportException( $message, $code );
 	}
 
 	/**
@@ -80,7 +83,10 @@ class HttpApiLookup implements LoggerAwareInterface {
 			return $api;
 		}
 
-		throw $this->loggedError( 'Failed to get MediaWiki API from SourceUrl' );
+		throw $this->loggedError(
+			'Failed to get MediaWiki API from SourceUrl',
+			[],
+			self::ERROR_CANNOT_FIND_SOURCE_API );
 	}
 
 	/**
@@ -117,7 +123,8 @@ class HttpApiLookup implements LoggerAwareInterface {
 					'statusCode' => $statusCode,
 					'previousMessage' => $error ? $error['message'] : '',
 					'responseContent' => $ex->getHttpRequest()->getContent(),
-				]
+				],
+				$statusCode
 			);
 		}
 

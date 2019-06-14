@@ -21,14 +21,17 @@ class LocalizedImportException extends ImportException implements ILocalizedExce
 
 	/**
 	 * @param string|array|MessageSpecifier $messageSpec See Message::newFromSpecifier
-	 * @param int $code Exception code
 	 * @param Exception|null $previous The previous exception used for the exception chaining.
 	 */
-	public function __construct( $messageSpec, $code = 0, $previous = null ) {
+	public function __construct( $messageSpec, $previous = null ) {
 		$this->messageSpec = $messageSpec;
+		$msg = $this->getMessageObject();
+		$code = str_replace( 'fileimporter-', '', $msg->getKey() );
 
-		$msg = $this->getMessageObject()->inLanguage( 'en' )->useDatabase( false )->text();
-		parent::__construct( $msg, $code, $previous );
+		parent::__construct(
+			$msg->inLanguage( 'en' )->useDatabase( false )->text(),
+			$code,
+			$previous );
 	}
 
 	/**

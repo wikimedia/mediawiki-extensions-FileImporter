@@ -2,10 +2,10 @@
 
 namespace FileImporter\Services\Http;
 
+use FileImporter\Exceptions\ImportException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use RuntimeException;
 
 /**
  * This should not be used directly.
@@ -17,6 +17,9 @@ use RuntimeException;
  * @author Addshore
  */
 class FileChunkSaver implements LoggerAwareInterface {
+
+	const ERROR_CHUNK_OPEN = 'chunkNotOpened';
+	const ERROR_CHUNK_SAVE = 'chunkNotSaved';
 
 	/**
 	 * @var string
@@ -75,7 +78,8 @@ class FileChunkSaver implements LoggerAwareInterface {
 
 			if ( !$this->handle ) {
 				$this->logger->debug( 'File creation failed "' . $this->filePath . '"' );
-				throw new RuntimeException( 'Failed to open file "' . $this->filePath . '"' );
+				throw new ImportException(
+					'Failed to open file "' . $this->filePath . '"', self::ERROR_CHUNK_OPEN );
 			} else {
 				$this->logger->debug( 'File created "' . $this->filePath . '"' );
 			}
@@ -91,7 +95,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	 * @param mixed $req
 	 * @param string $buffer
 	 *
-	 * @throws RuntimeException
+	 * @throws ImportException
 	 * @return int Number of bytes handled
 	 */
 	public function saveFileChunk( $req, $buffer ) {
@@ -127,7 +131,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	private function closeHandleLogAndThrowException( $message ) {
 		$this->closeHandle();
 		$this->logger->debug( $message );
-		throw new RuntimeException( $message );
+		throw new ImportException( $message, self::ERROR_CHUNK_SAVE );
 	}
 
 	private function closeHandle() {

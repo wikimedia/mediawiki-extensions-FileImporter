@@ -14,6 +14,9 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class TextRevision {
 
+	const ERROR_TEXT_FIELD_MISSING = 'textFieldMissing';
+	const ERROR_TEXT_FIELD_UNKNOWN = 'textFieldUnknown';
+
 	private static $fieldNames = [
 		'minor',
 		'user',
@@ -44,8 +47,8 @@ class TextRevision {
 		$diff = array_diff_key( array_flip( self::$fieldNames ), $fields );
 		if ( $diff !== [] ) {
 			throw new InvalidArgumentException(
-				__CLASS__ . ': Missing ' . key( $diff ) . ' field on construction'
-			);
+				__CLASS__ . ': Missing ' . key( $diff ) . ' field on construction',
+				self::ERROR_TEXT_FIELD_MISSING );
 		}
 	}
 
@@ -57,7 +60,8 @@ class TextRevision {
 	 */
 	public function setField( $name, $value ) {
 		if ( !in_array( $name, self::$fieldNames ) ) {
-			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested' );
+			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested',
+				self::ERROR_TEXT_FIELD_UNKNOWN );
 		}
 		$this->fields[$name] = $value;
 	}
@@ -70,7 +74,8 @@ class TextRevision {
 	 */
 	public function getField( $name ) {
 		if ( !in_array( $name, self::$fieldNames ) ) {
-			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested' );
+			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested',
+				self::ERROR_TEXT_FIELD_UNKNOWN );
 		}
 		return $this->fields[$name];
 	}

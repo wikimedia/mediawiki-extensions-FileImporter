@@ -4,17 +4,19 @@ namespace FileImporter\Services;
 
 use CommentStoreComment;
 use FileImporter\Data\FileRevision;
+use FileImporter\Exceptions\ImportException;
 use ManualLogEntry;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
-use RuntimeException;
 use Title;
 use User;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 class NullRevisionCreator {
+
+	const ERROR_REVISION_CREATE = 'noNullRevisionCreated';
 
 	/**
 	 * @var IDatabase
@@ -37,7 +39,7 @@ class NullRevisionCreator {
 	 * @param User $user
 	 * @param string $summary
 	 *
-	 * @throws RuntimeException e.g. when the $title was not created before
+	 * @throws ImportException e.g. when the $title was not created before
 	 */
 	public function createForLinkTarget(
 		Title $title,
@@ -54,7 +56,8 @@ class NullRevisionCreator {
 		);
 
 		if ( !$nullRevision ) {
-			throw new RuntimeException( 'Failed to create import revision' );
+			throw new ImportException(
+				'Failed to create import revision', self::ERROR_REVISION_CREATE );
 		}
 
 		if ( $nullRevision instanceof MutableRevisionRecord ) {

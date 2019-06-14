@@ -5,7 +5,6 @@ namespace FileImporter\Operations;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use FileImporter\Exceptions\LocalizedImportException;
-use FileImporter\Exceptions\ValidationException;
 use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
@@ -150,7 +149,6 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	/**
 	 * Method to validate prepared data that should be committed.
 	 * @return bool success
-	 * @throws ValidationException
 	 */
 	public function validate() {
 		$result = $this->uploadBase->validateTitle();

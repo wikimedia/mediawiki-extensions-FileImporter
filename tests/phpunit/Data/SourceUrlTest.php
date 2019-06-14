@@ -3,7 +3,7 @@
 namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\SourceUrl;
-use InvalidArgumentException;
+use FileImporter\Exceptions\InvalidArgumentException;
 use PHPUnit4And6Compat;
 
 /**
