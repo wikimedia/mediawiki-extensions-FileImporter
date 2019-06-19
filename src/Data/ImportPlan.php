@@ -47,6 +47,11 @@ class ImportPlan {
 	private $numberOfTemplateReplacements = 0;
 
 	/**
+	 * @var array
+	 */
+	private $actionStats = [];
+
+	/**
 	 * ImportPlan constructor, should not be constructed directly in production code.
 	 * Use an ImportPlanFactory instance.
 	 *
@@ -189,6 +194,27 @@ class ImportPlan {
 		return wfMsgReplaceArgs(
 				$config->get( 'FileImporterTextForPostImportRevision' ), [ $this->request->getUrl() ]
 			) . $text;
+	}
+
+	/**
+	 * @param string $actionKey
+	 */
+	public function setActionIsPerformed( $actionKey ) {
+		$this->actionStats[$actionKey] = 1;
+	}
+
+	/**
+	 * @param array $stats
+	 */
+	public function setActionStats( array $stats ) {
+		$this->actionStats = $stats;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getActionStats() {
+		return $this->actionStats;
 	}
 
 }

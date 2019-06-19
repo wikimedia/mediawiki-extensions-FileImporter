@@ -21,6 +21,7 @@ class ImportIdentityFormSnippet {
 		'clientUrl',
 		'intendedFileName',
 		'intendedWikitext',
+		'actionStats',
 		'importDetailsHash',
 	];
 

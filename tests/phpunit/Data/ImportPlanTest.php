@@ -39,12 +39,27 @@ class ImportPlanTest extends \MediaWikiTestCase {
 
 		$this->assertSame( '', $plan->getCleanedLatestRevisionText() );
 		$this->assertSame( 0, $plan->getNumberOfTemplateReplacements() );
+		$this->assertSame( [], $plan->getActionStats() );
 
 		$plan->setCleanedLatestRevisionText( 'T' );
 		$plan->setNumberOfTemplateReplacements( 1 );
+		$plan->setActionStats( [ 'a' => 1 ] );
 
 		$this->assertSame( 'T', $plan->getCleanedLatestRevisionText() );
 		$this->assertSame( 1, $plan->getNumberOfTemplateReplacements() );
+		$this->assertSame( [ 'a' => 1 ], $plan->getActionStats() );
+	}
+
+	public function testAddActionStat() {
+		$request = new ImportRequest( '//w.invalid' );
+		$details = $this->createMock( ImportDetails::class );
+		$plan = new ImportPlan( $request, $details, '' );
+
+		$plan->setActionIsPerformed( 'lorem' );
+		$this->assertSame( [ 'lorem' => 1 ], $plan->getActionStats() );
+
+		$plan->setActionIsPerformed( 'lorem' );
+		$this->assertSame( [ 'lorem' => 1 ], $plan->getActionStats() );
 	}
 
 	public function testGetTitleAndFileNameFromInitialTitle() {
