@@ -26,14 +26,6 @@
   * This should be taken with a pinch of salt as people can refresh the page or send their link to another user and multiple hits will occur here.
 * **{PREFIX}.specialPage.execute.noClientUrl.{AGGREGATION}** - Number of special page loads where no client url has been provided.
 
-* **{PREFIX}.specialPage.execute.fail.userPermissionsError.{AGGREGATION}** - Number of special page loads where the user can not view the special page due to not having the correct permissions.
-* **{PREFIX}.specialPage.execute.fail.userBlocked.{AGGREGATION}** - Number of special page loads where the user can not view the special page due to being blocked on the wiki.
-* **{PREFIX}.specialPage.execute.fail.userGloballyBlocked.{AGGREGATION}** - Number of special page loads where the user can not view the special page due to being globally blocked.
-* **{PREFIX}.specialPage.execute.fail.plan.total.{AGGREGATION}** - Number of special page loads the import plan creation failed, this could be due to any number of reasons (bad title, filetype, missing revs etc.)
-* **{PREFIX}.specialPage.execute.fail.plan.total.byType.{FAILTYPE}.{AGGREGATION}** - Number of special page loads the import plan creation failed on split by type of failure.
-  * The {FAILTYPE} will be the suffix of the i18n message used for the exception in case of translatable exceptions. These can be looked up in the en.json file in this repo. eg. 'filenameerror-toolong'
-  * The {FAILTYPE} will be the short exception name in case of non translatable exceptions. eg. 'DuplicateFilesException'
-
 ##### Importing
 
 * **{PREFIX}.import.result.success.{AGGREGATION}** - Imports that resulted in success
@@ -50,3 +42,13 @@
 * **{PREFIX}.import.details.fileRevisions.{AGGREGATION}** - Number of file revisions imported.
 * **{PREFIX}.import.details.individualFileSizes.{AGGREGATION}** - Individual file revision sizes (bytes).
 * **{PREFIX}.import.details.totalFileSizes.{AGGREGATION}** - Total size of all revisions in a single import (bytes).
+
+##### Errors
+
+All errors are logged this group of metrics.  A few errors are "recoverable",
+meaning that the user can complete the import by making trivial changes to the
+file title, for example.  Unrecoverable errors cannot be resolved without going
+outside of the workflow, for example being granted upload permissions.  Errors
+are broken down by type, and are catalogued on a [wiki page](https://www.mediawiki.org/wiki/Extension:FileImporter/Errors).
+
+* **{PREFIX}.error.byRecoverable.{true/false}.byType.{error-key}'
