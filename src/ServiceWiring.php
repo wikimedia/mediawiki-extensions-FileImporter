@@ -18,6 +18,7 @@ use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\FileTextRevisionValidator;
+use FileImporter\Services\SuccessCache;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikidataTemplateLookup;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
@@ -226,6 +227,12 @@ return [
 			$services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' ),
 			$services->getService( 'FileImporterHttpRequestExecutor' ),
 			LoggerFactory::getInstance( 'FileImporter' )
+		);
+	},
+
+	'FileImporterSuccessCache' => function ( MediaWikiServices $services ) {
+		return new SuccessCache(
+			$services->getMainObjectStash()
 		);
 	},
 

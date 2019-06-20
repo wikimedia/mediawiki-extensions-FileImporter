@@ -57,7 +57,7 @@
 	"fileimporter-filemissinginrevision": "Can't import file because at least one of its revisions is missing an image file.",
 	"fileimporter-filetoolarge": "The {{PLURAL:$1|file|$1 file versions}} you are currently trying to import {{PLURAL:$1|exceeds|exceed}} the file size limit the import can handle.",
 	"fileimporter-import-wait": "The import may take a few minutes.",
-	"fileimporter-imported-success-banner": "This file has been successfully imported to {{SITENAME}}. Click the following link to view the file: $1",
+	"fileimporter-imported-success-banner": "This file has been successfully imported to {{SITENAME}}.",
 	"fileimporter-add-unknown-template": "Please [$1 return to the original file] and add a template to declare that the file is now on {{SITENAME}}.",
 	"fileimporter-add-specific-template": "Please [$1 return to the original file] and add the following template to declare that the file is now on {{SITENAME}}: <code><nowiki>{{$2|$3}}</nowiki></code>",
 	"fileimporter-go-to-original-file-button": "Return to original file",

@@ -15,7 +15,7 @@ use FileImporter\Html\ChangeFileNameForm;
 use FileImporter\Html\DuplicateFilesErrorPage;
 use FileImporter\Html\FileInfoDiffPage;
 use FileImporter\Html\ImportPreviewPage;
-use FileImporter\Html\ImportSuccessPage;
+use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Html\InputFormPage;
 use FileImporter\Html\RecoverableTitleExceptionPage;
 use FileImporter\Html\InfoPage;
@@ -294,10 +294,13 @@ class SpecialImportFile extends SpecialPage {
 				$importPlan
 			);
 			$this->stats->increment( 'FileImporter.import.result.success' );
-
-			$out->setPageTitle( $importPlan->getTitle()->getPrefixedText() );
-			$out->addHTML( ( new ImportSuccessPage( $this ) )->getHtml( $importPlan ) );
 			$this->logActionStats( $importPlan );
+
+			$out->redirect(
+				( new ImportSuccessSnippet() )->getRedirectWithNotice(
+					$importPlan->getTitle(),
+					$importPlan->getRequest()->getUrl()->getUrl()
+				) );
 
 			return true;
 		} catch ( ImportException $exception ) {

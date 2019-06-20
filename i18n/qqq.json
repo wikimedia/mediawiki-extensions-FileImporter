@@ -63,7 +63,7 @@
 	"fileimporter-filemissinginrevision": "Error message shown when the file contains at least one revision with a missing image file.",
 	"fileimporter-filetoolarge": "Text shown when a user tries to import a file with a history of one or more file versions that exceed the maximum file size limit.\n\nParameters:\n* $1 - Number of file revisions to be imported, could be used with PLURAL",
 	"fileimporter-import-wait": "Text shown during the file preview informing the user that the import may take a few minutes.",
-	"fileimporter-imported-success-banner": "Text shown when an import was completed successfully which includes a link to the file's new location.\n\nParameters:\n* $1 - Internal link to the file info page of the imported file.",
+	"fileimporter-imported-success-banner": "Text shown when an import was completed successfully which includes a link to the file's new location.",
 	"fileimporter-add-unknown-template": "Suggested action on the success screen, for marking the source wiki file when a \"NowCommons\" template is unavailable.\n\nParameters:\n* $1 - Link to the original file.",
 	"fileimporter-add-specific-template": "Suggested action on the success screen, for marking the source wiki file when the \"NowCommons\" template is known.\n\nParameters:\n* $1 - Link to the original file.\n* $2 - Suggested template name on the source wiki.\n* $3 - New file name on the target wiki.",
 	"fileimporter-go-to-original-file-button": "Text for the button linking back to the original file shown on both the success and error screen.",
