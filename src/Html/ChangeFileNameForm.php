@@ -62,6 +62,7 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
 			'intendedWikitext' => $importPlan->getFileInfoText(),
+			'actionStats' => json_encode( $importPlan->getActionStats() ),
 			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
 		] ) )->getHtml() .
 		new ButtonInputWidget(

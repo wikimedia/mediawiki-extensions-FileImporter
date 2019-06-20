@@ -88,6 +88,10 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 						'importDetailsHash',
 						self::HASH
 					) ) )
+					->andAlso( havingChild( $this->thatIsInputField(
+						'actionStats',
+						'[]'
+					) ) )
 					->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'token' ) ) )
 					->andAlso( havingChild( $this->thatIsInputField( 'action', 'submit' ) ) )
 					->andAlso( havingChild(

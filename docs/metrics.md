@@ -26,6 +26,11 @@
   * This should be taken with a pinch of salt as people can refresh the page or send their link to another user and multiple hits will occur here.
 * **{PREFIX}.specialPage.execute.noClientUrl.{AGGREGATION}** - Number of special page loads where no client url has been provided.
 
+##### Special Page Interaction
+
+* **{PREFIX}.specialPage.action.edittitle.{AGGREGATION}** - Incremented on successful import, if the edit title screen was used at least once.
+* **{PREFIX}.specialPage.action.editinfo.{AGGREGATION}** - Incremented on successful import, if the edit file info screen was used at least once.
+
 ##### Importing
 
 * **{PREFIX}.import.result.success.{AGGREGATION}** - Imports that resulted in success

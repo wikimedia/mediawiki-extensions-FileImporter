@@ -202,17 +202,19 @@ class SpecialImportFile extends SpecialPage {
 		}
 	}
 
-	private function handleAction( $action, $importPlan ) {
+	private function handleAction( $action, ImportPlan $importPlan ) {
 		switch ( $action ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
 				$this->doImport( $importPlan );
 				break;
 			case ImportPreviewPage::ACTION_EDIT_TITLE:
+				$importPlan->setActionIsPerformed( ImportPreviewPage::ACTION_EDIT_TITLE );
 				$this->getOutput()->addHTML(
 					( new ChangeFileNameForm( $this ) )->getHtml( $importPlan )
 				);
 				break;
 			case ImportPreviewPage::ACTION_EDIT_INFO:
+				$importPlan->setActionIsPerformed( ImportPreviewPage::ACTION_EDIT_INFO );
 				$this->getOutput()->addHTML(
 					( new ChangeFileInfoForm( $this ) )->getHtml( $importPlan )
 				);
@@ -246,7 +248,16 @@ class SpecialImportFile extends SpecialPage {
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $url );
 		$importDetails = $sourceSite->retrieveImportDetails( $url );
 
-		return $this->importPlanFactory->newPlan( $importRequest, $importDetails, $this->getUser() );
+		$importPlan = $this->importPlanFactory->newPlan(
+			$importRequest,
+			$importDetails,
+			$this->getUser()
+		);
+		$importPlan->setActionStats(
+			json_decode( $webRequest->getVal( 'actionStats', '[]' ), true )
+		);
+
+		return $importPlan;
 	}
 
 	/**
@@ -286,6 +297,7 @@ class SpecialImportFile extends SpecialPage {
 
 			$out->setPageTitle( $importPlan->getTitle()->getPrefixedText() );
 			$out->addHTML( ( new ImportSuccessPage( $this ) )->getHtml( $importPlan ) );
+			$this->logActionStats( $importPlan );
 
 			return true;
 		} catch ( ImportException $exception ) {
@@ -297,6 +309,17 @@ class SpecialImportFile extends SpecialPage {
 			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );
 
 			return false;
+		}
+	}
+
+	private function logActionStats( ImportPlan $importPlan ) {
+		// currently the value should always be 1 is not really of interest here
+		foreach ( $importPlan->getActionStats() as $key => $value ) {
+			if ( $key === ImportPreviewPage::ACTION_EDIT_TITLE ||
+				$key === ImportPreviewPage::ACTION_EDIT_INFO
+			) {
+				$this->stats->increment( 'FileImporter.specialPage.action.' . $key );
+			}
 		}
 	}
 

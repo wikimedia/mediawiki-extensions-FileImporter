@@ -128,11 +128,20 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 		assertThat(
 			$form->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
-				both( withTagName( 'textarea' ) )
-					->andAlso( withAttribute( 'name' )->havingValue( 'intendedWikitext' ) )
-					->andAlso( havingTextContents( $expectedInputText ) )
+				both( withTagName( 'form' ) )
+					->andAlso( havingChild(
+						both( withTagName( 'textarea' ) )
+							->andAlso( withAttribute( 'name' )->havingValue( 'intendedWikitext' ) )
+							->andAlso( havingTextContents( $expectedInputText ) )
+					) )
+					->andAlso( havingChild(
+						both( withTagName( 'input' ) )
+							->andAlso( withAttribute( 'name' )->havingValue( 'actionStats' ) )
+							->andAlso( withAttribute( 'value' )->havingValue( '[]' ) )
+					) )
 			) ) )
 		);
+
 		// Avoid marking as a risky test
 		$this->addToAssertionCount( 1 );
 	}

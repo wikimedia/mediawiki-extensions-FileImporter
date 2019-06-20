@@ -37,6 +37,7 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
 			'intendedFileName' => $importPlan->getFileName(),
+			'actionStats' => json_encode( $importPlan->getActionStats() ),
 			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
 		] ) )->getHtml() .
 		new ButtonInputWidget(

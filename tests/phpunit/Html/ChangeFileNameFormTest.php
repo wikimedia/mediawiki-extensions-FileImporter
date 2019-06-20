@@ -99,15 +99,25 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $this->getMockImportDetails() );
 		$importPlan->method( 'getFileName' )
 			->willReturn( $fileName );
+		$importPlan->method( 'getActionStats' )
+			->willReturn( [] );
 
 		$form = new ChangeFileNameForm( $this->getMockSpecialPage() );
 
 		assertThat(
 			$form->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
-				both( withTagName( 'input' ) )
-					->andAlso( withAttribute( 'name' )->havingValue( 'intendedFileName' ) )
-					->andAlso( withAttribute( 'value' )->havingValue( $expectedInputText ) )
+				both( withTagName( 'form' ) )
+					->andAlso( havingChild(
+						both( withTagName( 'input' ) )
+							->andAlso( withAttribute( 'name' )->havingValue( 'intendedFileName' ) )
+							->andAlso( withAttribute( 'value' )->havingValue( $expectedInputText ) )
+					) )
+					->andAlso( havingChild(
+						both( withTagName( 'input' ) )
+							->andAlso( withAttribute( 'name' )->havingValue( 'actionStats' ) )
+							->andAlso( withAttribute( 'value' )->havingValue( '[]' ) )
+					) )
 			) ) )
 		);
 		// Avoid marking as a risky test
