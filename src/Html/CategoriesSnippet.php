@@ -5,6 +5,7 @@ namespace FileImporter\Html;
 use Html;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
+use OOUI\IconWidget;
 use RequestContext;
 use SpecialPage;
 use Title;
@@ -44,7 +45,11 @@ class CategoriesSnippet {
 		// TODO: Gracefully handle an empty list of categories, pending decisions about the desired
 		// behavior.
 		if ( $this->visibleCategories === [] && $this->hiddenCategories === [] ) {
-			return $output;
+			return Html::rawElement(
+				'div',
+				[],
+				new IconWidget( [ 'icon' => 'info' ] ) .
+				$this->context->msg( 'fileimporter-category-encouragement' )->parse() );
 		}
 
 		$categoryLinks = $this->buildCategoryLinks( $this->visibleCategories );
