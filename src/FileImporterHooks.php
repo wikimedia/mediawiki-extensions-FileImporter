@@ -38,6 +38,7 @@ class FileImporterHooks {
 			return;
 		}
 
+		$output->addModuleStyles( 'ext.FileImporter.Success' );
 		$output->prependHTML(
 			( new ImportSuccessSnippet() )->getHtml(
 				$output->getContext(), $title ) );
