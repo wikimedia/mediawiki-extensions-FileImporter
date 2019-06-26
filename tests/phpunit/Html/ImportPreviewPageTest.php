@@ -93,10 +93,11 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 						'[]'
 					) ) )
 					->andAlso( havingChild( $this->thatIsInputFieldWithSomeValue( 'token' ) ) )
-					->andAlso( havingChild( $this->thatIsInputField( 'action', 'submit' ) ) )
 					->andAlso( havingChild(
 						both( withTagName( 'button' ) )
 							->andAlso( withAttribute( 'type' )->havingValue( 'submit' ) )
+							->andAlso( withAttribute( 'name' )->havingValue( 'action' ) )
+							->andAlso( withAttribute( 'value' )->havingValue( 'submit' ) )
 						) )
 			) ) )
 		);

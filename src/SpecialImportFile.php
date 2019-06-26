@@ -175,7 +175,7 @@ class SpecialImportFile extends SpecialPage {
 			$this->logger->info( 'Getting ImportPlan for URL: ' . $clientUrl );
 			$importPlan = $this->makeImportPlan( $webRequest );
 
-			$action = $webRequest->getRawVal( 'action' );
+			$action = $webRequest->getRawVal( ImportPreviewPage::ACTION_BUTTON );
 			$this->logger->info( "Performing {$action} on ImportPlan for URL: {$clientUrl}" );
 			$this->handleAction( $action, $importPlan );
 		}

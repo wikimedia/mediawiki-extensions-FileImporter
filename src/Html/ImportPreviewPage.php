@@ -18,6 +18,7 @@ use MediaWiki\MediaWikiServices;
  */
 class ImportPreviewPage extends SpecialPageHtmlFragment {
 
+	const ACTION_BUTTON = 'action';
 	const ACTION_EDIT_TITLE = 'edittitle';
 	const ACTION_EDIT_INFO = 'editinfo';
 	const ACTION_SUBMIT = 'submit';
@@ -35,10 +36,17 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		$details = $importPlan->getDetails();
 		$textRevisionsCount = count( $details->getTextRevisions()->toArray() );
 		$fileRevisionsCount = count( $details->getFileRevisions()->toArray() );
-		$importIdentityFormSnippet = $this->buildImportIdentityFormSnippet( $importPlan );
 		$categoriesSnippet = $this->buildCategoriesSnippet( $importPlan );
 
-		return Html::rawElement(
+		return Html::openElement(
+			'form',
+			[
+				'action' => $this->getPageTitle()->getLocalURL(),
+				'method' => 'POST',
+			]
+		) .
+		$this->buildImportIdentityFormSnippet( $importPlan ) .
+		Html::rawElement(
 			'p',
 			[],
 			$this->msg( 'fileimporter-previewnote' )->parse()
@@ -53,19 +61,15 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				],
 				$title->getText()
 			) .
-			$this->buildActionFormStart(
-				self::ACTION_EDIT_TITLE,
-				'mw-importfile-rightAlign'
-			) .
-			$importIdentityFormSnippet .
 			new ButtonInputWidget(
 				[
-					'classes' => [ 'mw-importfile-edit-button' ],
+					'classes' => [ 'mw-importfile-rightAlign' ],
 					'label' => $this->msg( 'fileimporter-edittitle' )->plain(),
 					'type' => 'submit',
+					'name' => self::ACTION_BUTTON,
+					'value' => self::ACTION_EDIT_TITLE
 				]
-			) .
-			Html::closeElement( 'form' )
+			)
 		) .
 		Linker::makeExternalImage(
 			$details->getImageDisplayUrl(),
@@ -81,19 +85,15 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				],
 				$this->msg( 'fileimporter-heading-fileinfo' )->plain()
 			) .
-			$this->buildActionFormStart(
-				self::ACTION_EDIT_INFO,
-				'mw-importfile-rightAlign'
-			) .
-			$importIdentityFormSnippet .
 			new ButtonInputWidget(
 				[
-					'classes' => [ 'mw-importfile-edit-button' ],
+					'classes' => [ 'mw-importfile-rightAlign' ],
 					'label' => $this->msg( 'fileimporter-editinfo' )->plain(),
 					'type' => 'submit',
+					'name' => self::ACTION_BUTTON,
+					'value' => self::ACTION_EDIT_INFO
 				]
-			) .
-			Html::closeElement( 'form' )
+			)
 		) .
 		Html::rawElement(
 			'div',
@@ -124,8 +124,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			'div',
 			[ 'class' => 'mw-importfile-importOptions' ]
 		) .
-		$this->buildActionFormStart( self::ACTION_SUBMIT ) .
-		$importIdentityFormSnippet .
 		( $this->wasEdited( $importPlan ) ? $this->buildEditSummaryHtml(
 			$importPlan->getNumberOfTemplateReplacements() ) : '' ) .
 		Html::rawElement(
@@ -153,6 +151,8 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'label' => $this->msg( 'fileimporter-import' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
+				'name' => self::ACTION_BUTTON,
+				'value' => self::ACTION_SUBMIT
 			]
 		) .
 		( $this->wasEdited( $importPlan ) ? $this->buildShowChangesButtonHtml() : '' ) .
@@ -168,29 +168,8 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			[],
 			$this->msg( 'fileimporter-import-wait' )->plain()
 		) .
-		Html::closeElement( 'form' ) .
-		Html::closeElement(
-			'div'
-		);
-	}
-
-	private function buildActionFormStart( $action, $class = '' ) {
-		return Html::openElement(
-			'form',
-			[
-				'class' => $class,
-				'action' => $this->getPageTitle()->getLocalURL(),
-				'method' => 'POST',
-			]
-		) .
-		Html::element(
-			'input',
-			[
-				'type' => 'hidden',
-				'name' => 'action',
-				'value' => $action,
-			]
-		);
+		Html::closeElement( 'div' ) .
+		Html::closeElement( 'form' );
 	}
 
 	private function buildShowChangesButtonHtml() {
@@ -198,7 +177,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			[
 				'classes' => [ 'mw-importfile-import-diff' ],
 				'label' => $this->msg( 'fileimporter-viewdiff' )->plain(),
-				'name' => 'action',
+				'name' => self::ACTION_BUTTON,
 				'value' => self::ACTION_VIEW_DIFF,
 				'type' => 'submit',
 			]
