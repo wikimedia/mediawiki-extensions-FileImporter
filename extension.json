@@ -112,6 +112,11 @@
 			"styles": [
 				"modules/ext.FileImporter.Special.less"
 			]
+		},
+		"ext.FileImporter.Success": {
+			"styles": [
+				"modules/ext.FileImporter.Success.less"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

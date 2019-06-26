@@ -71,13 +71,15 @@ class ImportSuccessSnippet {
 
 		return Html::rawElement(
 			'div',
-			[ 'class' => 'mw-importfile-success-banner successbox' ],
-			$context->msg( 'fileimporter-imported-success-banner' )->escaped() .
-			Html::rawElement(
-				'p',
-				[],
-				$instructions
-			)
+			[ 'class' => 'mw-importfile-success-banner' ],
+				Html::successBox(
+					$context->msg( 'fileimporter-imported-success-banner' )->escaped() .
+					Html::rawElement(
+						'p',
+						[],
+						$instructions
+					)
+				)
 		);
 	}
 
