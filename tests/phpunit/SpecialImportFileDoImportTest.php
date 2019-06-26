@@ -7,7 +7,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\LocalizedImportException;
-use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
+use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
 use FileImporter\Services\Importer;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
@@ -57,7 +57,7 @@ class SpecialImportFileDoImportTest extends MediaWikiUnitTestCase {
 				->willThrowException( new LocalizedImportException( 'test-error' ) );
 		}
 
-		$postImportHandler = $this->createMock( NowCommonsHelperPostImportHandler::class );
+		$postImportHandler = $this->createMock( CentralAuthPostImportHandler::class );
 		$postImportHandler->method( 'execute' )
 			->willReturn( \Status::newGood() );
 

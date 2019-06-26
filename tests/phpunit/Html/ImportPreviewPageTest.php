@@ -10,6 +10,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ImportPreviewPage;
+use FileImporter\Services\WikidataTemplateLookup;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use SpecialPage;
@@ -61,6 +62,64 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 
 		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
 		$this->addToAssertionCount( 1 );
+	}
+
+	public function testGetHtml_doNotEditSourceWiki() {
+		$this->setMwGlobals( [
+			'wgFileImporterSourceWikiTemplating' => false,
+		] );
+		$importPlan = new ImportPlan(
+			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
+			$this->getMockImportDetails( 'Bar' ),
+			''
+		);
+		$importPlan->setNumberOfTemplateReplacements( 0 );
+
+		$page = new ImportPreviewPage( $this->getMockSpecialPage() );
+		$html = $page->getHtml( $importPlan );
+
+		assertThat(
+			$html,
+			is( htmlPiece( not( havingChild(
+				$this->thatIsInputFieldWithSomeValue( 'automateSourceWikiCleanup' )
+			) ) ) )
+		);
+
+		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
+		$this->addToAssertionCount( 1 );
+	}
+
+	public function testGetHtml_canEditSourceWiki() {
+		$this->setMwGlobals( [
+			'wgFileImporterSourceWikiTemplating' => true,
+		] );
+		$this->setService( 'FileImporterTemplateLookup', $this->getMockTemplateLookup() );
+		$importPlan = new ImportPlan(
+			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
+			$this->getMockImportDetails( 'Bar' ),
+			''
+		);
+		$importPlan->setNumberOfTemplateReplacements( 0 );
+
+		$page = new ImportPreviewPage( $this->getMockSpecialPage() );
+		$html = $page->getHtml( $importPlan );
+
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild(
+				$this->thatIsInputFieldWithSomeValue( 'automateSourceWikiCleanup' )
+			) ) )
+		);
+
+		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
+		$this->addToAssertionCount( 1 );
+	}
+
+	private function getMockTemplateLookup() {
+		$mock = $this->createMock( WikidataTemplateLookup::class );
+		$mock->method( 'fetchNowCommonsLocalTitle' )
+			->willReturn( 'TestNowCommons' );
+		return $mock;
 	}
 
 	private function assertPreviewPageText( $html ) {
