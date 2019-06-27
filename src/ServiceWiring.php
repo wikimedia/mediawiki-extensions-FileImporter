@@ -2,6 +2,7 @@
 
 namespace FileImporter;
 
+use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
 use FileImporter\Remote\NullPrefixLookup;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
@@ -161,6 +162,9 @@ return [
 		$logger = LoggerFactory::getInstance( 'FileImporter' );
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 
+		/** @var WikidataTemplateLookup $templateLookup */
+		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
+
 		$site = new SourceSite(
 			new AnyMediaWikiFileUrlChecker(),
 			new ApiDetailRetriever(
@@ -175,7 +179,8 @@ return [
 				$logger
 			),
 			new WikimediaSourceUrlNormalizer(),
-			new NullPrefixLookup()
+			new NullPrefixLookup(),
+			new NowCommonsHelperPostImportHandler( $templateLookup )
 		);
 
 		return $site;
@@ -194,6 +199,9 @@ return [
 		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		$logger = LoggerFactory::getInstance( 'FileImporter' );
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
+
+		/** @var WikidataTemplateLookup $templateLookup */
+		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
 
 		$site = new SourceSite(
 			new SiteTableSourceUrlChecker(
@@ -215,7 +223,8 @@ return [
 			new InterwikiTablePrefixLookup(
 				$services->getInterwikiLookup(),
 				$logger
-			)
+			),
+			new NowCommonsHelperPostImportHandler( $templateLookup )
 		);
 
 		return $site;

@@ -6,6 +6,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Interfaces\SourceUrlChecker;
 use FileImporter\Interfaces\LinkPrefixLookup;
 
@@ -24,19 +25,22 @@ class SourceSite {
 	private $importTitleChecker;
 	private $sourceUrlNormalizer;
 	private $linkPrefixLookup;
+	private $postImportHandler;
 
 	public function __construct(
 		SourceUrlChecker $sourceUrlChecker,
 		DetailRetriever $detailRetriever,
 		ImportTitleChecker $importTitleChecker,
 		SourceUrlNormalizer $sourceUrlNormalizer,
-		LinkPrefixLookup $linkPrefixLookup
+		LinkPrefixLookup $linkPrefixLookup,
+		PostImportHandler $postImportHandler
 	) {
 		$this->sourceUrlChecker = $sourceUrlChecker;
 		$this->detailRetriever = $detailRetriever;
 		$this->importTitleChecker = $importTitleChecker;
 		$this->sourceUrlNormalizer = $sourceUrlNormalizer;
 		$this->linkPrefixLookup = $linkPrefixLookup;
+		$this->postImportHandler = $postImportHandler;
 	}
 
 	/**
@@ -74,6 +78,13 @@ class SourceSite {
 	 */
 	public function getImportTitleChecker() {
 		return $this->importTitleChecker;
+	}
+
+	/**
+	 * @return PostImportHandler
+	 */
+	public function getPostImportHandler() {
+		return $this->postImportHandler;
 	}
 
 }

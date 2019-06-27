@@ -269,6 +269,10 @@ class SpecialImportFile extends SpecialPage {
 			. wfBoolToStr( $isRecoverable ) . '.byType.' . $type );
 	}
 
+	/**
+	 * @param ImportPlan $importPlan
+	 * @return bool
+	 */
 	private function doImport( ImportPlan $importPlan ) {
 		$out = $this->getOutput();
 		$importDetails = $importPlan->getDetails();
@@ -296,10 +300,12 @@ class SpecialImportFile extends SpecialPage {
 			$this->stats->increment( 'FileImporter.import.result.success' );
 			$this->logActionStats( $importPlan );
 
+			$postImportResult = $this->performPostImportActions( $importPlan );
+
 			$out->redirect(
 				( new ImportSuccessSnippet() )->getRedirectWithNotice(
 					$importPlan->getTitle(),
-					$importPlan->getRequest()->getUrl()->getUrl()
+					$postImportResult
 				) );
 
 			return true;
@@ -324,6 +330,19 @@ class SpecialImportFile extends SpecialPage {
 				$this->stats->increment( 'FileImporter.specialPage.action.' . $key );
 			}
 		}
+	}
+
+	/**
+	 * @param ImportPlan $importPlan
+	 * @return \StatusValue
+	 */
+	private function performPostImportActions( ImportPlan $importPlan ) {
+		$sourceSite = $importPlan->getRequest()->getUrl();
+		$postImportHandler = $this->sourceSiteLocator->getSourceSite( $sourceSite )
+			->getPostImportHandler();
+
+		// TODO handle errors
+		return $postImportHandler->execute( $importPlan, $this->getUser() );
 	}
 
 	/**

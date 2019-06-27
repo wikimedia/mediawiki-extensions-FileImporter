@@ -7,7 +7,10 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\LocalizedImportException;
+use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
 use FileImporter\Services\Importer;
+use FileImporter\Services\SourceSite;
+use FileImporter\Services\SourceSiteLocator;
 use FileImporter\SpecialImportFile;
 use Liuggio\StatsdClient\Factory\StatsdDataFactory;
 use OOUI\BlankTheme;
@@ -55,6 +58,18 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 				->willThrowException( new LocalizedImportException( 'test-error' ) );
 		}
 
+		$postImportHandler = $this->createMock( NowCommonsHelperPostImportHandler::class );
+		$postImportHandler->method( 'execute' )
+			->willReturn( \Status::newGood() );
+
+		$sourceSiteMock = $this->createMock( SourceSite::class );
+		$sourceSiteMock->method( 'getPostImportHandler' )
+			->willReturn( $postImportHandler );
+
+		$sourceSiteLocatorMock = $this->createMock( SourceSiteLocator::class );
+		$sourceSiteLocatorMock->method( 'getSourceSite' )
+			->willReturn( $sourceSiteMock );
+
 		$specialImportFileMock = $this->getMockBuilder( SpecialImportFile::class )
 			->disableOriginalConstructor()
 			->setMethods( [ 'getOutput', 'getUser' ] )
@@ -67,6 +82,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 		/** @var SpecialImportFile $specialImportFileMock */
 		$specialImportFileMock = TestingAccessWrapper::newFromObject( $specialImportFileMock );
 		$specialImportFileMock->importer = $importerMock;
+		$specialImportFileMock->sourceSiteLocator = $sourceSiteLocatorMock;
 		$specialImportFileMock->stats = $this->createMock( StatsdDataFactory::class );
 
 		return $specialImportFileMock;

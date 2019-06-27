@@ -5,14 +5,15 @@ namespace FileImporter\Services;
 
 use BagOStuff;
 use IExpiringStore;
+use StatusValue;
 use Title;
 
 /**
- * Save the source URL to cache so that it can be looked up from the success page.
+ * Save the import results to cache so that they can be looked up from the success page.
  */
 class SuccessCache {
 
-	const CACHE_KEY = 'fileimporter_sourceurl';
+	const CACHE_KEY = 'fileImporter_result';
 
 	/** @var BagOStuff $cache */
 	private $cache;
@@ -21,14 +22,18 @@ class SuccessCache {
 		$this->cache = $cache;
 	}
 
-	public function stashSourceUrl( Title $targetTitle, $url ) {
+	public function stashImportResult( Title $targetTitle, StatusValue $importResult ) {
 		$this->cache->set(
 			$this->makeCacheKey( $targetTitle ),
-			$url,
+			$importResult,
 			IExpiringStore::TTL_DAY );
 	}
 
-	public function fetchSourceUrl( Title $targetTitle ) {
+	/**
+	 * @param Title $targetTitle
+	 * @return StatusValue
+	 */
+	public function fetchImportResult( Title $targetTitle ) {
 		return $this->cache->get(
 			$this->makeCacheKey( $targetTitle ) );
 	}

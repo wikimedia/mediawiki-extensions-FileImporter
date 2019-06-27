@@ -2,12 +2,12 @@
 
 namespace FileImporter\Html;
 
-use FileImporter\Data\SourceUrl;
 use FileImporter\Services\SuccessCache;
-use FileImporter\Services\WikidataTemplateLookup;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
 use Html;
+use Message;
+use StatusValue;
 use Title;
 
 /**
@@ -22,25 +22,21 @@ class ImportSuccessSnippet {
 
 	/** @var SuccessCache $cache */
 	private $cache;
-	/** @var WikidataTemplateLookup $templateLookup */
-	private $templateLookup;
 
 	public function __construct() {
 		$this->cache = MediaWikiServices::getInstance()
 			->getService( 'FileImporterSuccessCache' );
-		$this->templateLookup = MediaWikiServices::getInstance()
-			->getService( 'FileImporterTemplateLookup' );
 	}
 
 	/**
 	 * Prepares an URL for redirect and stashes additional information for retrieval from that page.
 	 *
 	 * @param Title $targetTitle
-	 * @param string $sourceUrl
+	 * @param StatusValue $importResult
 	 * @return string Target file URL for redirect, including special parameter to show our notice.
 	 */
-	public function getRedirectWithNotice( Title $targetTitle, $sourceUrl ) {
-		$this->cache->stashSourceUrl( $targetTitle, $sourceUrl );
+	public function getRedirectWithNotice( Title $targetTitle, StatusValue $importResult ) {
+		$this->cache->stashImportResult( $targetTitle, $importResult );
 		return $targetTitle->getInternalURL( [ self::NOTICE_URL_KEY => 1 ] );
 	}
 
@@ -51,28 +47,17 @@ class ImportSuccessSnippet {
 	 * @return string
 	 */
 	public function getHtml( IContextSource $context, Title $targetTitle ) {
-		$sourceUrl = $this->cache->fetchSourceUrl( $targetTitle );
-		if ( $sourceUrl === false ) {
+		$importResult = $this->cache->fetchImportResult( $targetTitle );
+		if ( !$importResult->isGood() ) {
 			return '';
 		}
-
-		/** @var WikidataTemplateLookup $lookup */
-		$templateName = $this->templateLookup->fetchNowCommonsLocalTitle( new SourceUrl( $sourceUrl ) );
-
-		if ( $templateName ) {
-			$instructions = $context->msg( 'fileimporter-add-specific-template' )
-				->params( $sourceUrl, $templateName, $targetTitle )
-				->parse();
-		} else {
-			$instructions = $context->msg( 'fileimporter-add-unknown-template' )
-				->params( $sourceUrl )
-				->parse();
-		}
+		/** @var Message $statusMessage */
+		$statusMessage = $importResult->getValue();
 
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-success-banner' ],
-			Html::successBox( $instructions )
+			Html::successBox( $statusMessage->parse() )
 		);
 	}
 

@@ -3,11 +3,13 @@
 namespace FileImporter\Tests\Services;
 
 use FileImporter\Data\ImportDetails;
+use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Interfaces\LinkPrefixLookup;
 use FileImporter\Interfaces\SourceUrlChecker;
+use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceUrlNormalizer;
 
@@ -16,8 +18,7 @@ use FileImporter\Services\SourceUrlNormalizer;
  *
  * @license GPL-2.0-or-later
  */
-class SourceSiteTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class SourceSiteTest extends \MediaWikiTestCase {
 
 	public function testServiceWiring() {
 		$sourceUrl = new SourceUrl( '//w.invalid' );
@@ -48,12 +49,22 @@ class SourceSiteTest extends \PHPUnit\Framework\TestCase {
 			->with( $sourceUrl )
 			->willReturn( 'PREFIX' );
 
+		$postImportHandler = $this->createMock( NowCommonsHelperPostImportHandler::class );
+		$postImportHandler->expects( $this->once() )
+			->method( 'execute' );
+
 		$site = new SourceSite(
 			$sourceUrlChecker,
 			$detailRetriever,
 			$importTitleChecker,
 			$sourceUrlNormalizer,
-			$linkPrefixLookup
+			$linkPrefixLookup,
+			$postImportHandler
+		);
+
+		$site->getPostImportHandler()->execute(
+			$this->createMock( ImportPlan::class ),
+			$this->createMock( \User::class )
 		);
 
 		$this->assertTrue( $site->isSourceSiteFor( $sourceUrl ) );
