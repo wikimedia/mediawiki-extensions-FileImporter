@@ -36,6 +36,11 @@ class WikidataTemplateLookup {
 	/** @var string */
 	private $nowCommonsEntityId;
 
+	/**
+	 * @var string[][] Array mapping site id and entity id to a template title name
+	 */
+	private $templateCache = [];
+
 	public function __construct(
 		Config $config,
 		SiteTableSiteLookup $siteLookup,
@@ -92,10 +97,17 @@ class WikidataTemplateLookup {
 	 * @return string|null
 	 */
 	private function fetchSiteLinkPageName( $entityId, $siteId ) {
+		if ( isset( $this->templateCache[$siteId][$entityId] ) ) {
+			return $this->templateCache[$siteId][$entityId];
+		}
+
 		$url = $this->entityEndpoint . $entityId;
 		$response = $this->requestExecutor->execute( $url );
 		$entityData = json_decode( $response->getContent(), true );
-		return $entityData['entities'][$entityId]['sitelinks'][$siteId]['title'] ?? null;
+		$this->templateCache[$siteId][$entityId] =
+			$entityData['entities'][$entityId]['sitelinks'][$siteId]['title'] ?? null;
+
+		return $this->templateCache[$siteId][$entityId];
 	}
 
 	/**

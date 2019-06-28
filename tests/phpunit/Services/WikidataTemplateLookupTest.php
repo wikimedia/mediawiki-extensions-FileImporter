@@ -40,10 +40,14 @@ class WikidataTemplateLookupTest extends MediaWikiTestCase {
 
 		$content = file_get_contents( __DIR__ . '/../../data/NowCommons_entity.json' );
 		$mockResponse = $this->createMock( MWHttpRequest::class );
-		$mockResponse->method( 'getContent' )
+		$mockResponse
+			->expects( $this->once() )
+			->method( 'getContent' )
 			->willReturn( $content );
 		$mockRequestExecutor = $this->createMock( HttpRequestExecutor::class );
-		$mockRequestExecutor->method( 'execute' )
+		$mockRequestExecutor
+			->expects( $this->once() )
+			->method( 'execute' )
 			->with( $this->equalTo( 'https://wikidata.invalid/wiki/Special:EntityData/Q123' ) )
 			->willReturn( $mockResponse );
 
@@ -56,6 +60,9 @@ class WikidataTemplateLookupTest extends MediaWikiTestCase {
 
 		$sourceUrl = new SourceUrl(
 			'https://bat-smg.wikipedia.org/wiki/Abruozdielis:Country_house_at_sunset.jpg' );
+
+		// make sure API will only be hit once on multiple calls
+		$lookup->fetchNowCommonsLocalTitle( $sourceUrl );
 		$localTitle = $lookup->fetchNowCommonsLocalTitle( $sourceUrl );
 
 		$this->assertEquals( 'Vikitekuo', $localTitle );
