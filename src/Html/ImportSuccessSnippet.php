@@ -48,16 +48,23 @@ class ImportSuccessSnippet {
 	 */
 	public function getHtml( IContextSource $context, Title $targetTitle ) {
 		$importResult = $this->cache->fetchImportResult( $targetTitle );
-		if ( !$importResult->isGood() ) {
+		if ( !$importResult->isOK() ) {
 			return '';
 		}
 		/** @var Message $statusMessage */
 		$statusMessage = $importResult->getValue();
 
+		$html = Html::successBox( $context->msg( $statusMessage )->parse() );
+
+		$warnings = $importResult->getErrorsByType( 'warning' );
+		foreach ( $warnings as $warning ) {
+			$warningMessage = new Message( $warning['message'], $warning['params'] );
+			$html .= Html::warningBox( $context->msg( $warningMessage )->parse() );
+		}
 		return Html::rawElement(
 			'div',
-			[ 'class' => 'mw-importfile-success-banner' ],
-			Html::successBox( $statusMessage->parse() )
+			[ 'class' => 'mw-ext-fileimporter-noticebox' ],
+			$html
 		);
 	}
 

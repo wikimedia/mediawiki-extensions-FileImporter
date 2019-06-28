@@ -362,6 +362,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @param string $html
 	 */
 	private function showWarningMessage( $html ) {
+		// TODO: replace with Html::warningBox
 		$this->getOutput()->addHTML(
 			Html::rawElement(
 				'div',
