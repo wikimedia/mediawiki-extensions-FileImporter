@@ -26,6 +26,7 @@
 	"fileimporter-cancel": "Annulle",
 	"fileimporter-edittitle": "Cange 'u titole",
 	"fileimporter-import-wait": "'A 'mbortazione pò purtà cchiù de quacche minute.",
+	"fileimporter-imported-success-banner": "Stu file ha state 'mbortate jndr'à {{SITENAME}}",
 	"fileimporter-go-to-original-file-button": "Tuèrne a 'u file origgenale",
 	"fileimporter-viewdiff": "'Ndruche le cangiaminde",
 	"fileimporter-to-preview": "Tuèrne a l'andeprime"

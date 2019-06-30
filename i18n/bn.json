@@ -43,7 +43,7 @@
 	"fileimporter-heading-fileinfo": "ফাইলের তথ্য",
 	"fileimporter-heading-filehistory": "ফাইলের ইতিহাস",
 	"fileimporter-import-wait": "আমদানি করতে কয়েক মিনিট সময় লাগতে পারে।",
-	"fileimporter-imported-success-banner": "এই ফাইলটি সফলভাবে {{SITENAME}} সাইটে আমদানি করা হয়েছে। ফাইলটি দেখতে নিম্নলিখিত লিঙ্কে ক্লিক করুন: $1",
+	"fileimporter-imported-success-banner": "এই ফাইলটি সফলভাবে {{SITENAME}} সাইটে আমদানি করা হয়েছে।",
 	"fileimporter-go-to-original-file-button": "মূল ফাইলে ফেরত যান",
 	"fileimporter-file-missing-required-template": "ফাইলটি আমদানি করা যাবে না, কারণ এটি প্রয়োজনীয় লাইসেন্সগুলির কোন একটি দ্বারা চিহ্নিত নয়।",
 	"fileimporter-auto-replacements-summary": "টেমপ্লেটসমূহে $1টি স্বয়ংক্রিয় {{PLURAL:$1|পরিবর্তন}} {{PLURAL:$1|করা}} হয়েছে",
