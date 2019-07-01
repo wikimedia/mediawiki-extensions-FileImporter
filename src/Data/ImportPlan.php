@@ -57,6 +57,11 @@ class ImportPlan {
 	private $automateSourceWikiCleanUp = true;
 
 	/**
+	 * @var bool
+	 */
+	private $automateSourceWikiDelete = false;
+
+	/**
 	 * ImportPlan constructor, should not be constructed directly in production code.
 	 * Use an ImportPlanFactory instance.
 	 *
@@ -194,6 +199,20 @@ class ImportPlan {
 	 */
 	public function setAutomateSourceWikiCleanUp( $bool ) {
 		$this->automateSourceWikiCleanUp = $bool;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getAutomateSourceWikiDelete() {
+		return $this->automateSourceWikiDelete;
+	}
+
+	/**
+	 * @param bool $bool
+	 */
+	public function setAutomateSourceWikiDelete( $bool ) {
+		$this->automateSourceWikiDelete = $bool;
 	}
 
 	/**

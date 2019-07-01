@@ -259,6 +259,9 @@ class SpecialImportFile extends SpecialPage {
 		$importPlan->setAutomateSourceWikiCleanUp(
 			$webRequest->getBool( 'automateSourceWikiCleanup' )
 		);
+		$importPlan->setAutomateSourceWikiDelete(
+			$webRequest->getBool( 'automateSourceWikiDelete' )
+		);
 
 		return $importPlan;
 	}

@@ -3,13 +3,10 @@
 namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
-use FileImporter\Data\SourceUrl;
 use Html;
 use Linker;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
-use OOUI\CheckboxInputWidget;
-use OOUI\FieldLayout;
 use OOUI\TextInputWidget;
 use MediaWiki\MediaWikiServices;
 
@@ -33,18 +30,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
-		/** @var SourceUrl $sourceUrl */
-		$sourceUrl = $importPlan->getRequest()->getUrl();
-		/** @var WikidataTemplateLookup $lookup */
-		$lookup = MediaWikiServices::getInstance()->getService( 'FileImporterTemplateLookup' );
-		/** @var Config $config */
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-
-		$fileMovedTemplateName = $lookup->fetchNowCommonsLocalTitle( $sourceUrl );
-		$automatableCleanup =
-			$config->get( 'FileImporterSourceWikiTemplating' ) &&
-			$fileMovedTemplateName;
-
 		$text = $importPlan->getFileInfoText();
 		$title = $importPlan->getTitle();
 
@@ -135,8 +120,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				]
 			)->parse()
 		) .
-		( $automatableCleanup ? $this->buildCleanUpSourceWikiSection(
-			$fileMovedTemplateName, $importPlan->getAutomateSourceWikiCleanUp() ) : '' ) .
+		( new SourceWikiCleanupSnippet() )->getHtml( $importPlan, $this->getUser() ) .
 		Html::openElement(
 			'div',
 			[ 'class' => 'mw-importfile-importOptions' ]
@@ -217,35 +201,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'name' => 'intendedRevisionSummary',
 				'classes' => [ 'mw-importfile-import-summary' ],
 				'value' => $summary,
-			]
-		);
-	}
-
-	private function buildCleanUpSourceWikiSection( $templateName, $selected ) {
-		return Html::element(
-			'h2',
-			[],
-			$this->msg( 'fileimporter-heading-cleanup' )->plain()
-		) .
-		Html::rawElement(
-			'p',
-			[],
-			$this->msg(
-				'fileimporter-cleanup-text',
-				$templateName
-			)->parse()
-		) .
-		new FieldLayout(
-			new CheckboxInputWidget(
-				[
-					'name' => 'automateSourceWikiCleanup',
-					'selected' => $selected,
-					'value' => true
-				]
-			),
-			[
-				'label' => $this->msg( 'fileimporter-cleanup-checkboxlabel' )->parse(),
-				'align' => 'inline'
 			]
 		);
 	}

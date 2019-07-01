@@ -46,6 +46,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 				'actionStats' => json_encode( $importPlan->getActionStats() ),
 				'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
 				'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
+				'automateSourceWikiDelete' => $importPlan->getAutomateSourceWikiDelete(),
 			] ) )->getHtml() .
 			new ButtonInputWidget(
 				[

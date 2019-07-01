@@ -3,9 +3,11 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\ImportPlan;
+use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
 use Message;
+use MessageSpecifier;
 use Psr\Log\LoggerInterface;
 use StatusValue;
 use User;
@@ -50,12 +52,28 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 	 * @return StatusValue
 	 */
 	public function execute( ImportPlan $importPlan, User $user ) {
-		if ( $importPlan->getAutomateSourceWikiCleanUp() ) {
+		if ( $importPlan->getAutomateSourceWikiDelete() ) {
+			return $this->deleteSourceFile( $importPlan, $user );
+		} elseif ( $importPlan->getAutomateSourceWikiCleanUp() ) {
 			return $this->addNowCommonsToSource( $importPlan, $user );
+		} else {
+			// Note this may also be triggered if the above methods fail.
+			return $this->manualTemplateFallback( $importPlan, $user );
 		}
+	}
 
-		$fallbackPostImport = new NowCommonsHelperPostImportHandler( $this->templateLookup );
-		return $fallbackPostImport->execute( $importPlan, $user );
+	private function manualTemplateFallback(
+		ImportPlan $importPlan,
+		User $user,
+		MessageSpecifier $warningMsg = null
+	) {
+		/** @var StatusValue $status */
+		$status = ( new NowCommonsHelperPostImportHandler( $this->templateLookup ) )
+			->execute( $importPlan, $user );
+		if ( $warningMsg ) {
+			$status->warning( $warningMsg );
+		}
+		return $status;
 	}
 
 	/**
@@ -84,20 +102,52 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 			]
 		);
 
-		if ( $result === null ) {
+		if ( $result !== null ) {
+			return $this->successMessage( $sourceUrl );
+		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import edit.' );
 
-			$fallbackPostImport = new NowCommonsHelperPostImportHandler( $this->templateLookup );
-			$fallbackStatus = $fallbackPostImport->execute( $importPlan, $user );
-			$fallbackStatus->warning( 'fileimporter-cleanup-failed' );
-			return $fallbackStatus;
+			return $this->manualTemplateFallback(
+				$importPlan, $user, new Message( 'fileimporter-cleanup-failed' ) );
 		}
+	}
 
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param User $user
+	 * @return StatusValue
+	 */
+	private function deleteSourceFile( ImportPlan $importPlan, User $user ) {
+		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
+		$summary = wfMessage( 'fileimporter-delete-summary' )
+			->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
+
+		$result = $this->remoteAction->executeDeleteAction(
+			$sourceUrl,
+			$user,
+			[
+				'title' => $importPlan->getTitle()->getPrefixedText(),
+				'reason' => $summary,
+			]
+		);
+
+		if ( $result !== null ) {
+			return $this->successMessage( $sourceUrl );
+		} else {
+			$this->logger->error( __METHOD__ . ' failed to do post import delete.' );
+
+			$status = $this->successMessage( $sourceUrl );
+			$status->warning(
+				'fileimporter-delete-failed',
+				$sourceUrl->getHost(),
+				$sourceUrl->getUrl() );
+			return $status;
+		}
+	}
+
+	private function successMessage( SourceUrl $sourceUrl ) {
 		return StatusValue::newGood(
-			new Message(
-				'fileimporter-imported-success-banner',
-				[ $sourceUrl->getUrl() ]
-			)
+			new Message( 'fileimporter-imported-success-banner' )
 		);
 	}
 

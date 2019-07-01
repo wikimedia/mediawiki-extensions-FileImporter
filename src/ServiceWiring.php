@@ -175,7 +175,8 @@ return [
 
 		$postImportHandler =
 			ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
-			$services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' ) ?
+			( $services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' )
+				|| $services->getMainConfig()->get( 'FileImporterSourceWikiDeletion' ) ) ?
 				new CentralAuthPostImportHandler(
 					$remoteApiActionExecutor,
 					$templateLookup,
@@ -228,7 +229,8 @@ return [
 
 		$postImportHandler =
 			ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
-			$services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' ) ?
+			( $services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' )
+				|| $services->getMainConfig()->get( 'FileImporterSourceWikiDeletion' ) ) ?
 				new CentralAuthPostImportHandler(
 					$remoteApiActionExecutor,
 					$templateLookup,

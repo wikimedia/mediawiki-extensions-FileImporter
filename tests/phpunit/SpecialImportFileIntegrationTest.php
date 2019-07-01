@@ -33,6 +33,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$this->setMwGlobals( [
 			'wgEnableUploads' => true,
 			'wgFileImporterShowInputScreen' => true,
+			'wgFileImporterSourceWikiDeletion' => false,
+			'wgFileImporterSourceWikiTemplating' => false,
 		] );
 
 		$commonsSite = $this->getMockSite( 'commonswiki', 'commons.wikimedia.org' );
