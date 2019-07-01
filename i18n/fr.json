@@ -6,7 +6,8 @@
 			"Gomoko",
 			"Benoit Rochon",
 			"Verdy p",
-			"Alno"
+			"Alno",
+			"Derugon"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -62,7 +63,7 @@
 	"fileimporter-filemissinginrevision": "Impossible d’importer le fichier parce qu’il manque un fichier image à au moins une de ses révisions.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|La version|Les $1 versions}} du fichier que vous essayez d’importer actuellement {{PLURAL:$1|dépasse|dépassent}} la taille maximale autorisée.",
 	"fileimporter-import-wait": "L'import peut durer quelques minutes.",
-	"fileimporter-imported-success-banner": "Ce fichier a bien été importé vers {{SITENAME}}. Cliquer sur le lien suivant pour afficher le fichier : $1",
+	"fileimporter-imported-success-banner": "Ce fichier a bien été importé vers {{SITENAME}}.",
 	"fileimporter-add-unknown-template": "Importé avec succès. Pour déclarer que le fichier est désormais sur {{SITENAME}}, veuillez revenir sur [$1  le fichier d’origine] et ajouter un modèle.",
 	"fileimporter-add-specific-template": "Importé avec succès. Pour déclarer que le fichier est désormais sur {{SITENAME}}, veuillez revenir sur [$1 le fichier d’origine] et ajouter le modèle suivant : <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Revenir au fichier d’origine",
