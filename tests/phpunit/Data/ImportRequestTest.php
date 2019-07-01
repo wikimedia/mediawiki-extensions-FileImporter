@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\LocalizedImportException;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Data\ImportRequest
@@ -11,8 +12,7 @@ use FileImporter\Exceptions\LocalizedImportException;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class ImportRequestTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class ImportRequestTest extends MediaWikiUnitTestCase {
 
 	public function testConstructor() {
 		$url = 'https://ar.wikipedia.org/wiki/ملف:1967+TUN.jpg';

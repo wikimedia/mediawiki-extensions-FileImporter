@@ -8,7 +8,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
-use PHPUnit4And6Compat;
+use MediaWikiUnitTestCase;
 use TitleValue;
 
 /**
@@ -17,8 +17,7 @@ use TitleValue;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class ImportDetailsTest extends MediaWikiUnitTestCase {
 
 	public function testValueObject() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );

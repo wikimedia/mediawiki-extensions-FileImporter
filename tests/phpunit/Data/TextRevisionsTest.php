@@ -4,7 +4,7 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
-use PHPUnit4And6Compat;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Data\TextRevisions
@@ -12,8 +12,7 @@ use PHPUnit4And6Compat;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class TextRevisionsTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class TextRevisionsTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @param string $timestamp

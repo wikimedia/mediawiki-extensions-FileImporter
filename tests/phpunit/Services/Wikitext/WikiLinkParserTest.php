@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\WikiLinkCleaner;
 use FileImporter\Services\Wikitext\WikiLinkParser;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Services\Wikitext\WikiLinkParser
@@ -11,8 +12,7 @@ use FileImporter\Services\Wikitext\WikiLinkParser;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikiLinkParserTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class WikiLinkParserTest extends MediaWikiUnitTestCase {
 
 	public function provideWikitext() {
 		return [

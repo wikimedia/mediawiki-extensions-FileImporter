@@ -13,6 +13,7 @@ use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\SpecialImportFile;
 use Liuggio\StatsdClient\Factory\StatsdDataFactory;
+use MediaWikiUnitTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
@@ -27,8 +28,7 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class SpecialImportFileDoImportTest extends MediaWikiUnitTestCase {
 
 	public function setUp() {
 		parent::setUp();

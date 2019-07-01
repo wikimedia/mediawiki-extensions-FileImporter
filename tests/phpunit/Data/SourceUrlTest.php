@@ -4,7 +4,7 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\InvalidArgumentException;
-use PHPUnit4And6Compat;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Data\SourceUrl
@@ -12,8 +12,7 @@ use PHPUnit4And6Compat;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class SourceUrlTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class SourceUrlTest extends MediaWikiUnitTestCase {
 
 	public function provideInvalidConstruction() {
 		return [

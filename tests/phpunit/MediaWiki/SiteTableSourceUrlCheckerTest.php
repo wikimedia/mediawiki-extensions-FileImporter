@@ -6,6 +6,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
 use HashSiteStore;
+use MediaWikiUnitTestCase;
 use Site;
 
 /**
@@ -14,7 +15,7 @@ use Site;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
+class SiteTableSourceUrlCheckerTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @param string[] $knownSites

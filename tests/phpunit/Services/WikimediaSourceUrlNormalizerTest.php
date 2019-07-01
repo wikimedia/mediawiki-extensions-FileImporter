@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Services;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Services\MediaWikiSourceUrlNormalizer
@@ -12,7 +13,7 @@ use FileImporter\Services\WikimediaSourceUrlNormalizer;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikimediaSourceUrlNormalizerTest extends \PHPUnit\Framework\TestCase {
+class WikimediaSourceUrlNormalizerTest extends MediaWikiUnitTestCase {
 
 	public function provideUrls() {
 		return [

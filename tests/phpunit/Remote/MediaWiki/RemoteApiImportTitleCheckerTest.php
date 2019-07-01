@@ -6,6 +6,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\RemoteApiImportTitleChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWikiUnitTestCase;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 
@@ -15,8 +16,7 @@ use Psr\Log\LoggerInterface;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class RemoteApiImportTitleCheckerTest extends MediaWikiUnitTestCase {
 
 	public function provideJsonResponses() {
 		return [

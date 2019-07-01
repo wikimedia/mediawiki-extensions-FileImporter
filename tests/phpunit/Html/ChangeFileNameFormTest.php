@@ -9,9 +9,9 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
+use MediaWikiUnitTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use PHPUnit4And6Compat;
 use SpecialPage;
 use Title;
 
@@ -22,8 +22,7 @@ use Title;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class ChangeFileNameFormTest extends MediaWikiUnitTestCase {
 
 	public function setUp() {
 		parent::setUp();

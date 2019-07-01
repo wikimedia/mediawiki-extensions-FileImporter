@@ -4,7 +4,7 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\TextRevision;
 use FileImporter\Exceptions\InvalidArgumentException;
-use PHPUnit4And6Compat;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Data\TextRevision
@@ -12,8 +12,7 @@ use PHPUnit4And6Compat;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class TextRevisionTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class TextRevisionTest extends MediaWikiUnitTestCase {
 
 	private static $requiredFieldNames = [
 		'*',

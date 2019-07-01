@@ -4,6 +4,7 @@ namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
+use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker
@@ -11,7 +12,7 @@ use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class AnyMediaWikiFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
+class AnyMediaWikiFileUrlCheckerTest extends MediaWikiUnitTestCase {
 
 	public function provideTestCheck() {
 		return [
