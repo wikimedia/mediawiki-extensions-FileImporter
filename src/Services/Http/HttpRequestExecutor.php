@@ -78,6 +78,10 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		return $this->executeWithCallback( wfAppendQuery( $url, $parameters ) );
 	}
 
+	public function executePost( $url, array $postData ) {
+		return $this->executeWithCallback( $url, null, $postData );
+	}
+
 	/**
 	 * @param string $url
 	 * @param string $filePath
@@ -94,11 +98,12 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	/**
 	 * @param string $url
 	 * @param callable|null $callback
+	 * @param array|null $postData
 	 *
 	 * @throws HttpRequestException
 	 * @return MWHttpRequest
 	 */
-	private function executeWithCallback( $url, $callback = null ) {
+	private function executeWithCallback( $url, $callback = null, $postData = null ) {
 		$options = [
 			'logger' => $this->logger,
 			'followRedirects' => true,
@@ -109,6 +114,10 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		$timeout = $this->httpOptions['timeout'] ?? false;
 		if ( $timeout !== false ) {
 			$options['timeout'] = $timeout;
+		}
+		if ( $postData !== null ) {
+			$options['method'] = 'POST';
+			$options['postData'] = $postData;
 		}
 
 		/** @var MWHttpRequest $request */

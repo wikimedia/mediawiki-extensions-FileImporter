@@ -1,4 +1,4 @@
-{
+    {
 	"name": "FileImporter",
 	"version": "1.0.0",
 	"author": [
@@ -104,6 +104,11 @@
 		"FileImporterMaxAggregatedBytes": {
 			"value": 250000000,
 			"description": "Maximum aggregated size of versions a file can have in order to be imported.",
+			"public": true
+		},
+		"FileImporterSourceWikiTemplating": {
+			"value": false,
+			"description": "When set to true, FileImporter offers an option to automatically edit the source file after a successful import.",
 			"public": true
 		}
 	},

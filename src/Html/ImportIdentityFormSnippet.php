@@ -23,6 +23,7 @@ class ImportIdentityFormSnippet {
 		'intendedWikitext',
 		'actionStats',
 		'importDetailsHash',
+		'automateSourceWikiCleanup'
 	];
 
 	/**
