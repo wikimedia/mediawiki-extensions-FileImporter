@@ -7,17 +7,17 @@ use LinkBatch;
 use Parser;
 use ParserOptions;
 use Title;
-use Wikimedia\Rdbms\LoadBalancer;
+use Wikimedia\Rdbms\ILoadBalancer;
 
 class CategoryExtractor {
 
 	/** @var Parser */
 	private $parser;
 
-	/** @var LoadBalancer */
+	/** @var ILoadBalancer */
 	private $loadBalancer;
 
-	public function __construct( Parser $parser, LoadBalancer $loadBalancer ) {
+	public function __construct( Parser $parser, ILoadBalancer $loadBalancer ) {
 		$this->parser = $parser;
 		$this->loadBalancer = $loadBalancer;
 	}
