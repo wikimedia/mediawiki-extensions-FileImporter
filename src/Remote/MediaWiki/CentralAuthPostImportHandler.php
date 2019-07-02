@@ -6,6 +6,7 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
+use IBufferingStatsdDataFactory;
 use Message;
 use MessageSpecifier;
 use Psr\Log\LoggerInterface;
@@ -14,6 +15,10 @@ use User;
 
 class CentralAuthPostImportHandler implements PostImportHandler {
 
+	const STATSD_SOURCE_WIKI_DELETE_FAIL = 'FileImporter.import.postImport.delete.failed';
+	const STATSD_SOURCE_WIKI_DELETE_SUCCESS = 'FileImporter.import.postImport.delete.successful';
+	const STATSD_SOURCE_WIKI_EDIT_FAIL = 'FileImporter.import.postImport.edit.failed';
+	const STATSD_SOURCE_WIKI_EDIT_SUCCESS = 'FileImporter.import.postImport.edit.successful';
 	const ERROR_FAILED_SOURCE_EDIT = 'sourceEditFailed';
 
 	/**
@@ -32,18 +37,26 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 	private $templateLookup;
 
 	/**
+	 * @var IBufferingStatsdDataFactory
+	 */
+	private $statsd;
+
+	/**
 	 * @param RemoteApiActionExecutor $remoteAction
 	 * @param WikidataTemplateLookup $templateLookup
 	 * @param LoggerInterface $logger
+	 * @param IBufferingStatsdDataFactory $statsd
 	 */
 	public function __construct(
 		RemoteApiActionExecutor $remoteAction,
 		WikidataTemplateLookup $templateLookup,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+		IBufferingStatsdDataFactory $statsd
 	) {
 		$this->remoteAction = $remoteAction;
 		$this->templateLookup = $templateLookup;
 		$this->logger = $logger;
+		$this->statsd = $statsd;
 	}
 
 	/**
@@ -103,9 +116,11 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 		);
 
 		if ( $result !== null ) {
+			$this->statsd->increment( self::STATSD_SOURCE_WIKI_EDIT_SUCCESS );
 			return $this->successMessage( $sourceUrl );
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import edit.' );
+			$this->statsd->increment( self::STATSD_SOURCE_WIKI_EDIT_FAIL );
 
 			return $this->manualTemplateFallback(
 				$importPlan, $user, new Message( 'fileimporter-cleanup-failed' ) );
@@ -132,9 +147,11 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 		);
 
 		if ( $result !== null ) {
+			$this->statsd->increment( self::STATSD_SOURCE_WIKI_DELETE_SUCCESS );
 			return $this->successMessage( $sourceUrl );
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import delete.' );
+			$this->statsd->increment( self::STATSD_SOURCE_WIKI_DELETE_FAIL );
 
 			$status = $this->successMessage( $sourceUrl );
 			$status->warning(

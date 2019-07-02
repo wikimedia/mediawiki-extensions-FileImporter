@@ -48,6 +48,11 @@
 * **{PREFIX}.import.details.individualFileSizes.{AGGREGATION}** - Individual file revision sizes (bytes).
 * **{PREFIX}.import.details.totalFileSizes.{AGGREGATION}** - Total size of all revisions in a single import (bytes).
 
+* **{PREFIX}.import.postImport.delete.failed.{AGGREGATION}** - Post-imports where we failed to delete the remote source file.
+* **{PREFIX}.import.postImport.delete.successful.{AGGREGATION}** - Post-imports where we were able to delete the remote source file.
+* **{PREFIX}.import.postImport.edit.failed.{AGGREGATION}** - Post-imports where we failed to edit the remote source file.
+* **{PREFIX}.import.postImport.edit.successful.{AGGREGATION}** - Post-imports where we were able to edit the remote source file.
+
 ##### Errors
 
 All errors are logged this group of metrics.  A few errors are "recoverable",

@@ -10,6 +10,7 @@ use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWikiTestCase;
 use Message;
+use NullStatsdDataFactory;
 use Psr\Log\NullLogger;
 use StatusValue;
 use Title;
@@ -29,7 +30,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$this->createMock( RemoteApiActionExecutor::class ),
 			$mockTemplateLookup,
-			new NullLogger()
+			new NullLogger(),
+			new NullStatsdDataFactory()
 		);
 
 		$url = 'http://w.invalid/w/foo' . mt_rand();
@@ -70,7 +72,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$mockRemoteAction,
 			$mockTemplateLookup,
-			new NullLogger()
+			new NullLogger(),
+			new NullStatsdDataFactory()
 		);
 
 		$this->assertEquals(
@@ -97,7 +100,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$mockRemoteAction,
 			$mockTemplateLookup,
-			new NullLogger()
+			new NullLogger(),
+			new NullStatsdDataFactory()
 		);
 
 		$expectedStatus = StatusValue::newGood(
@@ -135,7 +139,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$mockRemoteAction,
 			$this->createMock( WikidataTemplateLookup::class ),
-			new NullLogger()
+			new NullLogger(),
+			new NullStatsdDataFactory()
 		);
 
 		$this->assertEquals(
@@ -160,7 +165,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$mockRemoteAction,
 			$this->createMock( WikidataTemplateLookup::class ),
-			new NullLogger()
+			new NullLogger(),
+			new NullStatsdDataFactory()
 		);
 
 		$expectedStatus = StatusValue::newGood(

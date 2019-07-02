@@ -180,7 +180,8 @@ return [
 				new CentralAuthPostImportHandler(
 					$remoteApiActionExecutor,
 					$templateLookup,
-					$logger
+					$logger,
+					$services->getStatsdDataFactory()
 				) :
 				new NowCommonsHelperPostImportHandler( $templateLookup );
 
@@ -234,7 +235,8 @@ return [
 				new CentralAuthPostImportHandler(
 					$remoteApiActionExecutor,
 					$templateLookup,
-					$logger
+					$logger,
+					$services->getStatsdDataFactory()
 				) :
 				new NowCommonsHelperPostImportHandler( $templateLookup );
 
