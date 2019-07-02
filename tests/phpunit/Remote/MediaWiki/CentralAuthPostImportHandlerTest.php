@@ -9,7 +9,9 @@ use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWikiTestCase;
+use Message;
 use Psr\Log\NullLogger;
+use StatusValue;
 use Title;
 use User;
 
@@ -30,15 +32,21 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		// TODO assert return Status object
-		$postImportHandler->execute(
-			$this->createImportPlanMock( false ),
-			$this->createMock( User::class )
+		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$this->assertEquals(
+			StatusValue::newGood(
+				new Message( 'fileimporter-add-unknown-template', [ $url ] )
+			),
+			$postImportHandler->execute(
+				$this->createImportPlanMock( false, $url ),
+				$this->createMock( User::class )
+			)
 		);
 	}
 
-	public function testExecute_remoteActionSucceeds() {
-		$mockImportPlan = $this->createImportPlanMock( true );
+	public function testExecute_remoteEditSucceeds() {
+		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$mockImportPlan = $this->createImportPlanMock( true, $url );
 		$mockUser = $this->createMock( User::class );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
@@ -65,12 +73,17 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		// TODO assert return Status object
-		$postImportHandler->execute( $mockImportPlan, $mockUser );
+		$this->assertEquals(
+			StatusValue::newGood(
+				new Message( 'fileimporter-imported-success-banner' )
+			),
+			$postImportHandler->execute( $mockImportPlan, $mockUser )
+		);
 	}
 
-	public function testExecute_remoteActionFails() {
-		$mockImportPlan = $mockImportPlan = $this->createImportPlanMock( true );
+	public function testExecute_remoteEditFails() {
+		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$mockImportPlan = $mockImportPlan = $this->createImportPlanMock( true, $url );
 		$mockUser = $this->createMock( User::class );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
@@ -87,18 +100,30 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			new NullLogger()
 		);
 
-		// TODO assert return Status object
-		$postImportHandler->execute( $mockImportPlan, $mockUser );
+		$expectedStatus = StatusValue::newGood(
+			new Message(
+				'fileimporter-add-specific-template',
+				[ $url, 'TestNowCommons', 'TestTitle2' ]
+			)
+		);
+		$expectedStatus->warning( new Message( 'fileimporter-cleanup-failed' ) );
+		$this->assertEquals(
+			$expectedStatus,
+			$postImportHandler->execute( $mockImportPlan, $mockUser )
+		);
 	}
 
-	private function createImportPlanMock( $autoCleanup ) {
+	private function createImportPlanMock( $autoCleanup, $url = '' ) {
 		$mockTitle = $this->createMock( Title::class );
 		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'TestTitle' );
 
+		$mockSourceUrl = $this->createMock( SourceUrl::class );
+		$mockSourceUrl->method( 'getUrl' )
+			->willReturn( $url );
 		$mockDetails = $this->createMock( ImportDetails::class );
 		$mockDetails->method( 'getSourceUrl' )
-			->willReturn( $this->createMock( SourceUrl::class ) );
+			->willReturn( $mockSourceUrl );
 		$mockDetails->method( 'getPageLanguage' )
 			->willReturn( 'qqx' );
 		$mockImportPlan = $this->createMock( ImportPlan::class );
