@@ -4,6 +4,7 @@ namespace FileImporter\Remote\MediaWiki;
 
 use Config;
 use FileImporter\Data\SourceUrl;
+use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Interfaces\LinkPrefixLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\Interwiki\InterwikiLookup;
@@ -44,6 +45,11 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $interwikiTableMap;
 
 	/**
+	 * @var string[] Array mapping a base domain to a best-fit url
+	 */
+	private $baseDomainToUrlMap;
+
+	/**
 	 * @var Config
 	 */
 	private $config;
@@ -74,46 +80,43 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @return string Interwiki prefix or empty string on failure.
 	 */
 	public function getPrefix( SourceUrl $sourceUrl ) {
-		// TODO: Implement a stable two level prefix retriever to get the prefix
-
 		$host = $sourceUrl->getHost();
 
-		return $this->getPrefixFromLegacyConfig( $host );
+		// TODO: Wrap this class in a caching lookup to save each successful host -> prefix mapping.
+
+		return $this->getPrefixFromLegacyConfig( $host ) ??
+			$this->getPrefixFromInterwikiTable( $host ) ??
+			$this->getTwoHopPrefixThroughIntermediary( $host ) ??
+			'';
 	}
 
 	/**
 	 * Lookup the host in hardcoded configuration.
 	 *
-	 * @deprecated This configuration will go away once the dynamic lookup is in place.
+	 * @deprecated This configuration will go away once dynamic lookup is in place.
 	 * @param string $host
 	 * @return string
 	 */
 	private function getPrefixFromLegacyConfig( $host ) {
 		$interwikiConfigMap = $this->config->get( 'FileImporterInterWikiMap' );
 
-		if ( !isset( $interwikiConfigMap[$host] ) ) {
-			$this->logger->warning(
-				'Host {host} not in FileImporterInterWikiMap.',
-				[
-					'host' => $host,
-				]
-			);
-			return $this->getPrefixFromInterwikiTable( $host );
-		}
-
-		$prefixes = explode( ':', $interwikiConfigMap[$host], 2 );
-		if ( !$this->interwikiLookup->isValidInterwiki( $prefixes[0] ) ) {
-			$this->logger->warning(
-				'Configured prefix {prefix} not valid.',
-				[
+		if ( isset( $interwikiConfigMap[$host] ) ) {
+			$prefixes = explode( ':', $interwikiConfigMap[$host], 2 );
+			if ( !$this->interwikiLookup->isValidInterwiki( $prefixes[0] ) ) {
+				$this->logger->warning( 'Configured prefix {prefix} not valid.', [
 					'host' => $host,
 					'prefix' => $interwikiConfigMap[$host]
-				]
-			);
-			return '';
-		}
+				] );
 
-		return $interwikiConfigMap[$host];
+				return null;
+			}
+
+			return $interwikiConfigMap[$host];
+		} else {
+			$this->logger->debug( 'Host {host} not in FileImporterInterWikiMap, proceeding with lookup.', [
+				'host' => $host ] );
+			return null;
+		}
 	}
 
 	/**
@@ -121,7 +124,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 *
 	 * @param string $host
 	 *
-	 * @return string
+	 * @return string|null
 	 */
 	private function getPrefixFromInterwikiTable( $host ) {
 		if ( $this->interwikiTableMap === null ) {
@@ -130,21 +133,116 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 		if ( isset( $this->interwikiTableMap[$host] ) ) {
 			return $this->interwikiTableMap[$host];
+		} else {
+			$this->logger->debug(
+				'Host {host} does not match any local interwiki entry.',
+				[
+					'host' => $host,
+				]
+			);
+
+			return null;
+		}
+	}
+
+	/**
+	 * Lookup host by hopping through its base domain's interwiki.
+	 *
+	 * This is an optimization for Wikimedia projects which are split into
+	 * third-level subdomains by language, and often not present in the
+	 * target wiki's local Interwiki table.
+	 *
+	 * @param string $host
+	 *
+	 * @return string|null
+	 */
+	private function getTwoHopPrefixThroughIntermediary( $host ) {
+		if ( $this->baseDomainToUrlMap === null ) {
+			$this->baseDomainToUrlMap = $this->prefetchBaseDomainToHostMap();
 		}
 
-		$this->logger->warning(
-			'Host {host} does not match any interwiki entry.',
+		// TODO: The second-level-domain-based intermediate host-guessing logic should be in its own
+		// class, and pluggable.
+		list( $base, ) = $this->getBaseDomain( $host );
+		if ( isset( $this->baseDomainToUrlMap[$base] ) ) {
+			$prefix = $this->getPrefixFromInterwikiTable( $this->baseDomainToUrlMap[$base] );
+
+			if ( $prefix !== null ) {
+				$secondHop = $this->fetchSecondHopPrefix( $prefix, $host );
+				if ( $secondHop !== null ) {
+					// TODO: It would be luxurious to find the shortest matching prefix.
+					$fullPrefix = $prefix . ':' . $secondHop;
+					$this->logger->info( 'Calculated two-hop interwiki prefix {prefix} to {host}', [
+						'host' => $host,
+						'prefix' => $fullPrefix,
+					] );
+					return $fullPrefix;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Fetch the next interwiki prefix from the first hop's API.
+	 *
+	 * @param string $intermediateWikiPrefix first hop
+	 * @param string $host final host
+	 *
+	 * @return string|null
+	 */
+	private function fetchSecondHopPrefix( $intermediateWikiPrefix, $host ) {
+		$intermediateWikiApiUrl = $this->interwikiLookup->fetch( $intermediateWikiPrefix )->getAPI();
+		if ( $intermediateWikiApiUrl === '' ) {
+			$this->logger->debug( 'Missing API URL for interwiki {prefix}, scraping from mainpage.', [
+				'prefix' => $intermediateWikiPrefix ] );
+			$intermediateWikiUrl = $this->interwikiLookup->fetch( $intermediateWikiPrefix )->getURL();
+			$intermediateWikiApiUrl = $this->httpApiLookup->getApiUrl(
+				new SourceUrl( $intermediateWikiUrl ) );
+		}
+
+		try {
+			$this->logger->debug( 'Making API request to pull interwiki links from {api}.', [
+				'api' => $intermediateWikiApiUrl ] );
+			$response = $this->httpRequestExecutor->execute(
+				$intermediateWikiApiUrl,
+				[
+					'action' => 'query',
+					'format' => 'json',
+					'meta' => 'siteinfo',
+					'siprop' => 'interwikimap'
+				]
+			);
+
+			$responseInterwikiMap = json_decode( $response->getContent(), true );
+			foreach ( $responseInterwikiMap['query']['interwikimap'] ?? [] as $entry ) {
+				if ( isset( $entry['url'] ) ) {
+					if ( parse_url( $entry['url'], PHP_URL_HOST ) === $host ) {
+						return $entry['prefix'];
+					}
+				}
+			}
+		} catch ( HttpRequestException $e ) {
+			$this->logger->warning( 'Failed to make API request to {api}.', [
+				'api' => $intermediateWikiApiUrl ] );
+		}
+
+		$this->logger->info(
+			'Failed to find second interwiki hop from {api} to {host}.',
 			[
-				'host' => $host,
+				'api' => $intermediateWikiApiUrl,
+				'host' => $host
 			]
 		);
-		return '';
+
+		return null;
 	}
 
 	/**
 	 * @return string[]
+	 * FIXME: made public to allow test mocking :(
 	 */
-	private function prefetchInterwikiMap() {
+	public function prefetchInterwikiMap() {
 		$urls = [];
 		$map = [];
 
@@ -153,15 +251,13 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 			$host = parse_url( $row['iw_url'], PHP_URL_HOST );
 
 			if ( isset( $urls[$host] ) && $urls[$host] !== $row['iw_url'] ) {
-				// FIXME: This is noisy and useless in production.
+				// FIXME: This is noisy and unactionable in production.  We should just take the
+				// first match and move on.
 				$this->logger->debug(
-					'Skipping host {host} because it matches more than one interwiki URL: {url1} and {url2}.',
-					[
+					'Skipping host {host} because it matches more than one interwiki URL: {url1} and {url2}.', [
 						'host' => $host,
 						'url1' => $urls[$host],
-						'url2' => $row['iw_url'],
-					]
-				);
+						'url2' => $row['iw_url'] ] );
 				$map[$host] = '';
 				continue;
 			}
@@ -173,6 +269,43 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		}
 
 		return $map;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private function prefetchBaseDomainToHostMap() {
+		if ( $this->interwikiTableMap === null ) {
+			$this->interwikiTableMap = $this->prefetchInterwikiMap();
+		}
+
+		$maps = [];
+		foreach ( $this->interwikiTableMap as $host => $prefix ) {
+			list( $base, $hostSplit ) = $this->getBaseDomain( $host );
+
+			if ( isset( $maps[$base] ) ) {
+				if ( count( $hostSplit ) === 3 && $hostSplit[0] === 'en' ) {
+					$maps[$base] = $host;
+				}
+			} else {
+				$maps[$base] = $host;
+			}
+		}
+
+		return $maps;
+	}
+
+	/**
+	 * @param String $host
+	 *
+	 * @return array of the base domain and the exploded input
+	 */
+	private function getBaseDomain( $host ) {
+		$hostSplit = explode( '.', $host );
+		$tld = $hostSplit[count( $hostSplit ) - 1];
+		$domain = $hostSplit[count( $hostSplit ) - 2];
+		$base = $domain . '.' . $tld;
+		return [ $base, $hostSplit ];
 	}
 
 	/**

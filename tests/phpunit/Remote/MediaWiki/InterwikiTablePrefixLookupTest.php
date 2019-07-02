@@ -3,12 +3,16 @@
 namespace FileImporter\Tests\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
+use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use Interwiki;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
 use MediaWiki\MediaWikiServices;
+use MWHttpRequest;
 use Psr\Log\NullLogger;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup
@@ -18,7 +22,7 @@ use Psr\Log\NullLogger;
  */
 class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
-	public function provideGetPrefixFromConfig() {
+	public function provideGetPrefixFromLegacyConfig() {
 		return [
 			'interWikiMap contains host' => [
 				[ 'de.wikipedia.org' => 'wiki:de' ],
@@ -42,9 +46,12 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @dataProvider provideGetPrefixFromConfig
+	 * @deprecated
+	 * @dataProvider provideGetPrefixFromLegacyConfig
 	 */
-	public function testGetPrefixFromConfig( array $global, $source, $validPrefix, $expected ) {
+	public function testGetPrefixFromLegacyConfig(
+		array $global, $source, $validPrefix, $expected
+	) {
 		$this->setMwGlobals( [
 			'wgFileImporterInterWikiMap' => $global,
 		] );
@@ -57,12 +64,13 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			MediaWikiServices::getInstance()->getMainConfig()
 		);
 
-		$this->assertSame( $expected, $sourceUrlPrefixer->getPrefix(
-			new SourceUrl( $source ) )
+		$this->assertSame(
+			$expected,
+			$sourceUrlPrefixer->getPrefix( new SourceUrl( $source ) )
 		);
 	}
 
-	public function provideGetPrefixFromTable() {
+	public function provideGetPrefixFromLocalTable() {
 		return [
 			'interWiki table contains host' => [
 				[
@@ -81,7 +89,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 						'iw_prefix' => 'wiki'
 					],
 				],
-				'//wikipedia.org/wiki/',
+				'//wikivoyage.org/wiki/',
 				''
 			],
 			'accept aliases with identical URLs' => [
@@ -142,23 +150,24 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @dataProvider provideGetPrefixFromTable
+	 * @dataProvider provideGetPrefixFromLocalTable
 	 */
-	public function testGetPrefixFromTable( array $iwMap, $source, $expected ) {
+	public function testGetPrefixFromLocalTable( array $iwMap, $source, $expected ) {
 		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $iwMap ),
 			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
+			$this->createInterwikiApi(),
 			new NullLogger(),
 			MediaWikiServices::getInstance()->getMainConfig()
 		);
 
-		$this->assertSame( $expected, $sourceUrlPrefixer->getPrefix(
-			new SourceUrl( $source ) )
+		$this->assertSame(
+			$expected,
+			$sourceUrlPrefixer->getPrefix( new SourceUrl( $source ) )
 		);
 	}
 
-	public function testGetPrefixFromTableCache() {
+	public function testGetPrefixFromLocalTableCache() {
 		$iwMock = $this->createMock( InterwikiLookupAdapter::class );
 		$iwMock->expects( $this->once() )
 			->method( 'getAllPrefixes' )
@@ -177,8 +186,10 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			MediaWikiServices::getInstance()->getMainConfig()
 		);
 
-		$sourceUrlPrefixer->getPrefix( $sourceUrl );
-		$sourceUrlPrefixer->getPrefix( $sourceUrl );
+		$this->assertSame(
+			'wiki',
+			$sourceUrlPrefixer->getPrefix( $sourceUrl )
+		);
 	}
 
 	/**
@@ -192,8 +203,185 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			->willReturn( $validPrefix );
 		$mock->method( 'getAllPrefixes' )
 			->willReturn( $iwMap );
+		$mockInterwiki = $this->createMock( Interwiki::class );
+		$mockInterwiki->method( 'getAPI' )
+			->willReturn( '//w.invalid/w/api.php' );
+		$mock->method( 'fetch' )->willReturn( $mockInterwiki );
 
 		return $mock;
+	}
+
+	public function provideIntermediaryCases() {
+		return [
+			'Successful get through base domain' => [
+				[
+					[
+						'iw_url' => 'https://en.wikisource.org/wiki/$1',
+						'iw_prefix' => 'wikisource'
+					],
+				],
+				[
+					[
+						'prefix' => 'fr',
+						'url' => 'https://fr.wikisource.org/wiki/$1'
+					]
+				],
+				'//fr.wikisource.org/wiki/',
+				'wikisource:fr'
+			],
+			'fail after hop' => [
+				[
+					[
+						'iw_url' => 'https://en.wikisource.org/wiki/$1',
+						'iw_prefix' => 'wikisource'
+					],
+				],
+				[
+					[
+						'prefix' => 'fr',
+						'url' => 'https://fr.wikisource.org/wiki/$1'
+					]
+				],
+				'//invalid.wikisource.org/wiki/',
+				''
+			],
+			// TODO: assert never() calls an intermediary API
+			'fail without hop' => [
+				[
+					[
+						'iw_url' => 'https://en.wikisource.org/wiki/$1',
+						'iw_prefix' => 'wikisource'
+					],
+				],
+				[],
+				'//en.wikiinvalid.invalid/wiki/',
+				''
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider provideIntermediaryCases
+	 *
+	 * @param array $localIwMap
+	 * @param array $remoteIwMap
+	 * @param string $source
+	 * @param string $expectedPrefix
+	 */
+	public function testGetPrefix_throughIntermediary(
+		array $localIwMap, array $remoteIwMap, $source, $expectedPrefix
+	) {
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+			$this->createInterWikiLookupMock( true, $localIwMap ),
+			$this->createMock( HttpApiLookup::class ),
+			$this->createInterwikiApi( $remoteIwMap ),
+			new NullLogger(),
+			MediaWikiServices::getInstance()->getMainConfig()
+		);
+
+		$this->assertSame(
+			$expectedPrefix,
+			$sourceUrlPrefixer->getPrefix( new SourceUrl( $source ) )
+		);
+	}
+
+	private function createInterwikiApi( array $iwMap = [] ) : HttpRequestExecutor {
+		$remoteContent = $this->createMock( MWHttpRequest::class );
+		$remoteContent->method( 'getContent' )
+			->willReturn( json_encode( [ 'query' => [ 'interwikimap' => $iwMap ] ] ) );
+		$httpRequestExecutor = $this->createMock( HttpRequestExecutor::class );
+		$httpRequestExecutor->method( 'execute' )->willReturn( $remoteContent );
+		return $httpRequestExecutor;
+	}
+
+	public function testGetPrefix_secondHop_apiFallback() {
+		$mockLookup = $this->createMock( InterwikiLookupAdapter::class );
+		$mockLookup->method( 'isValidInterwiki' )
+			->willReturn( true );
+		$mockLookup->method( 'getAllPrefixes' )
+			->willReturn( [
+				[
+					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_prefix' => 'wikisource'
+				],
+			] );
+		$mockInterwiki = $this->createMock( Interwiki::class );
+		$mockInterwiki->method( 'getAPI' )
+			->willReturn( '' );
+		$mockInterwiki->method( 'getURL' )
+			->willReturn( '//en.wikisource.org/wiki/' );
+		$mockLookup->method( 'fetch' )->willReturn( $mockInterwiki );
+
+		$mockApiLookup = $this->createMock( HttpApiLookup::class );
+		$mockApiLookup
+			->expects( $this->once() )
+			->method( 'getApiUrl' )
+			->willReturn( '//w.invalid/w/api.php' );
+
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+			$mockLookup,
+			$mockApiLookup,
+			$this->createInterwikiApi( [
+				[
+					'prefix' => 'fr',
+					'url' => 'https://fr.wikisource.org/wiki/$1'
+				],
+			] ),
+			new NullLogger(),
+			MediaWikiServices::getInstance()->getMainConfig()
+		);
+
+		$this->assertSame(
+			'wikisource:fr',
+			$sourceUrlPrefixer->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
+		);
+	}
+
+	public function testGetPrefix_secondHop_networkFail() {
+		$mockRequestExecutor = $this->createMock( HttpRequestExecutor::class );
+		$mockRequestExecutor->method( 'execute' )
+			->willThrowException( $this->createMock( HttpRequestException::class ) );
+
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+			$this->createInterWikiLookupMock( true, [
+				[
+					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_prefix' => 'wikisource'
+				],
+			] ),
+			$this->createMock( HttpApiLookup::class ),
+			$mockRequestExecutor,
+			new NullLogger(),
+			MediaWikiServices::getInstance()->getMainConfig()
+		);
+
+		$this->assertSame(
+			'',
+			$sourceUrlPrefixer->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
+		);
+	}
+
+	public function testPrefetchBaseDomainToUrlMap() {
+		$mockLookup = $this->getMockBuilder( InterwikiTablePrefixLookup::class )
+			->disableOriginalConstructor()
+			->setMethods( [ 'prefetchInterwikiMap' ] )
+			->getMock();
+		$mockLookup->method( 'prefetchInterwikiMap' )
+			->willReturn( [
+				'fr.wikisource.org' => 'fr',
+				'en.wikisource.org' => 'wikisource',
+				'en.wikisource.org' => 'en',
+			] );
+		$mockLookup = TestingAccessWrapper::newFromObject( $mockLookup );
+
+		$expected = [
+			'wikisource.org' => 'en.wikisource.org',
+		];
+
+		$this->assertSame(
+			$expected,
+			$mockLookup->prefetchBaseDomainToHostMap()
+		);
 	}
 
 }
