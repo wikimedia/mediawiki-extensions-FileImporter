@@ -38,7 +38,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 				new Message( 'fileimporter-add-unknown-template', [ $url ] )
 			),
 			$postImportHandler->execute(
-				$this->createImportPlanMock( false, $url ),
+				$this->createImportPlanMock( false, false, $url ),
 				$this->createMock( User::class )
 			)
 		);
@@ -46,7 +46,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 
 	public function testExecute_remoteEditSucceeds() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
-		$mockImportPlan = $this->createImportPlanMock( true, $url );
+		$mockImportPlan = $this->createImportPlanMock( true, false, $url );
 		$mockUser = $this->createMock( User::class );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
@@ -83,7 +83,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 
 	public function testExecute_remoteEditFails() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
-		$mockImportPlan = $mockImportPlan = $this->createImportPlanMock( true, $url );
+		$mockImportPlan = $mockImportPlan = $this->createImportPlanMock( true, false, $url );
 		$mockUser = $this->createMock( User::class );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
@@ -113,12 +113,74 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		);
 	}
 
-	private function createImportPlanMock( $autoCleanup, $url = '' ) {
+	public function testExecute_remoteDeleteSucceeds() {
+		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$mockImportPlan = $this->createImportPlanMock( false, true, $url );
+		$mockUser = $this->createMock( User::class );
+
+		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
+		$mockRemoteAction->expects( $this->once() )
+			->method( 'executeDeleteAction' )
+			->with(
+				$this->anything(),
+				$this->equalTo( $mockUser ),
+				$this->equalTo( [
+					'title' => 'TestTitle',
+					'reason' => '(fileimporter-delete-summary)',
+				] )
+			)
+			// FIXME: not a realistic result, but we don't care yet.
+			->willReturn( true );
+
+		$postImportHandler = new CentralAuthPostImportHandler(
+			$mockRemoteAction,
+			$this->createMock( WikidataTemplateLookup::class ),
+			new NullLogger()
+		);
+
+		$this->assertEquals(
+			StatusValue::newGood(
+				new Message( 'fileimporter-imported-success-banner' )
+			),
+			$postImportHandler->execute( $mockImportPlan, $mockUser )
+		);
+	}
+
+	public function testExecute_remoteDeleteFails() {
+		$host = 'w.' . mt_rand() . '.invalid';
+		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$mockImportPlan = $mockImportPlan = $this->createImportPlanMock( false, true, $url, $host );
+		$mockUser = $this->createMock( User::class );
+
+		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
+		$mockRemoteAction->expects( $this->once() )
+			->method( 'executeDeleteAction' )
+			->willReturn( null );
+
+		$postImportHandler = new CentralAuthPostImportHandler(
+			$mockRemoteAction,
+			$this->createMock( WikidataTemplateLookup::class ),
+			new NullLogger()
+		);
+
+		$expectedStatus = StatusValue::newGood(
+			new Message( 'fileimporter-imported-success-banner' )
+		);
+		$expectedStatus->warning( 'fileimporter-delete-failed', $host, $url );
+		$this->assertEquals(
+			$expectedStatus,
+			$postImportHandler->execute( $mockImportPlan, $mockUser )
+		);
+	}
+
+	private function createImportPlanMock( $autoCleanup, $autoDelete, $url = '', $host = '' ) {
 		$mockTitle = $this->createMock( Title::class );
 		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'TestTitle' );
 
 		$mockSourceUrl = $this->createMock( SourceUrl::class );
+		$mockSourceUrl->method( 'getHost' )
+			->willReturn( $host );
 		$mockSourceUrl->method( 'getUrl' )
 			->willReturn( $url );
 		$mockDetails = $this->createMock( ImportDetails::class );
@@ -129,6 +191,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$mockImportPlan = $this->createMock( ImportPlan::class );
 		$mockImportPlan->method( 'getAutomateSourceWikiCleanUp' )
 			->willReturn( $autoCleanup );
+		$mockImportPlan->method( 'getAutomateSourceWikiDelete' )
+			->willReturn( $autoDelete );
 		$mockImportPlan->method( 'getDetails' )
 			->willReturn( $mockDetails );
 		$mockImportPlan->method( 'getTitle' )
