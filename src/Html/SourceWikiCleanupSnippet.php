@@ -60,6 +60,7 @@ class SourceWikiCleanupSnippet {
 
 		if ( $canAutomateDelete ) {
 			$automateDeleteSelected = $importPlan->getAutomateSourceWikiDelete();
+			$importPlan->setActionIsPerformed( 'offeredSourceDelete' );
 
 			$html .= Html::rawElement(
 					'p',
@@ -82,6 +83,7 @@ class SourceWikiCleanupSnippet {
 		} elseif ( $canAutomateEdit ) {
 			$automateEditSelected = $importPlan->getAutomateSourceWikiCleanUp() ||
 				$this->isFreshImport( $importPlan->getRequest() );
+			$importPlan->setActionIsPerformed( 'offeredSourceEdit' );
 
 			$html .= Html::rawElement(
 					'p',

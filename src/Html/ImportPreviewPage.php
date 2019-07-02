@@ -45,7 +45,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'method' => 'POST',
 			]
 		) .
-		$this->buildImportIdentityFormSnippet( $importPlan ) .
 		Html::rawElement(
 			'p',
 			[],
@@ -169,6 +168,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			[],
 			$this->msg( 'fileimporter-import-wait' )->plain()
 		) .
+		$this->buildImportIdentityFormSnippet( $importPlan ) .
 		Html::closeElement( 'div' ) .
 		Html::closeElement( 'form' );
 	}

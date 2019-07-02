@@ -30,6 +30,8 @@
 
 * **{PREFIX}.specialPage.action.edittitle.{AGGREGATION}** - Incremented on successful import, if the edit title screen was used at least once.
 * **{PREFIX}.specialPage.action.editinfo.{AGGREGATION}** - Incremented on successful import, if the edit file info screen was used at least once.
+* **{PREFIX}.specialPage.action.offeredSourceDelete.{AGGREGATION}** - Number of successful imports where the remote delete feature was offered.
+* **{PREFIX}.specialPage.action.offeredSourceEdit.{AGGREGATION}** - Number of successful imports where the remote edit feature was offered.
 
 ##### Importing
 
