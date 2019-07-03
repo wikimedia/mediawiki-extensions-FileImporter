@@ -2,6 +2,7 @@
 
 namespace FileImporter;
 
+use CentralIdLookup;
 use FileImporter\Remote\MediaWiki\CentralAuthTokenProvider;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
@@ -40,7 +41,8 @@ return [
 		$service = new Remote\MediaWiki\RemoteApiRequestExecutor(
 			$httpApiLookup,
 			$httpRequestExecutor,
-			new CentralAuthTokenProvider()
+			new CentralAuthTokenProvider(),
+			CentralIdLookup::factory()
 		);
 		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
 		return $service;

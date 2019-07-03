@@ -2,29 +2,26 @@
 
 namespace FileImporter\Tests\Remote\MediaWiki;
 
+use CentralIdLookup;
 use Exception;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\CentralAuthTokenProvider;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWikiTestCase;
 use MWHttpRequest;
-use PHPUnit4And6Compat;
 use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor
  */
-class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class RemoteApiRequestExecutorTest extends MediaWikiTestCase {
 
 	public function testGetCsrfToken_success() {
 		$centralAuthToken = 'abc' . mt_rand();
 		$csrfToken = 'abc' . mt_rand();
-		$mockHttpApiLookup = $this->createMock( HttpApiLookup::class );
-		$mockHttpApiLookup
-			->method( 'getApiUrl' )
-			->willReturn( 'https://w.invalid/w/api.php' );
+
 		$mockResponse = $this->createMock( MWHttpRequest::class );
 		$mockResponse
 			->method( 'getContent' )
@@ -44,13 +41,13 @@ class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 					'format=json&centralauthtoken=' . $centralAuthToken
 			)
 			->willReturn( $mockResponse );
-		$mockCentralAuthTokenProvider = $this->createMock( CentralAuthTokenProvider::class );
-		$mockCentralAuthTokenProvider
-			->method( 'getToken' )
-			->willReturn( $centralAuthToken );
 
 		$apiRequestExecutor = new RemoteApiRequestExecutor(
-			$mockHttpApiLookup, $mockHttpRequestExecutor, $mockCentralAuthTokenProvider );
+			$this->createHttpApiLookup(),
+			$mockHttpRequestExecutor,
+			$this->createCentralAuthTokenProvider( $centralAuthToken ),
+			$this->createCentralIdLookup()
+		);
 
 		$this->assertEquals(
 			$csrfToken,
@@ -60,11 +57,7 @@ class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function testGetCsrfToken_failedCentralAuth() {
-		$mockHttpApiLookup = $this->createMock( HttpApiLookup::class );
-		$mockHttpApiLookup
-			->method( 'getApiUrl' )
-			->willReturn( 'https://w.invalid/w/api.php' );
+	public function testGetCsrfToken_failedCentralAuthToken() {
 		$mockHttpRequestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$mockHttpRequestExecutor
 			->expects( $this->never() )
@@ -75,7 +68,11 @@ class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			->willThrowException( new Exception() );
 
 		$apiRequestExecutor = new RemoteApiRequestExecutor(
-			$mockHttpApiLookup, $mockHttpRequestExecutor, $mockCentralAuthTokenProvider );
+			$this->createHttpApiLookup(),
+			$mockHttpRequestExecutor,
+			$mockCentralAuthTokenProvider,
+			$this->createCentralIdLookup()
+		);
 
 		$this->assertNull(
 			$apiRequestExecutor->getCsrfToken(
@@ -86,10 +83,7 @@ class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 
 	public function testGetCsrfToken_failedCsrfToken() {
 		$centralAuthToken = 'abc' . mt_rand();
-		$mockHttpApiLookup = $this->createMock( HttpApiLookup::class );
-		$mockHttpApiLookup
-			->method( 'getApiUrl' )
-			->willReturn( 'https://w.invalid/w/api.php' );
+
 		$mockResponse = $this->createMock( MWHttpRequest::class );
 		$mockResponse
 			->method( 'getContent' )
@@ -107,13 +101,13 @@ class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 				'format=json&centralauthtoken=' . $centralAuthToken
 			)
 			->willReturn( $mockResponse );
-		$mockCentralAuthTokenProvider = $this->createMock( CentralAuthTokenProvider::class );
-		$mockCentralAuthTokenProvider
-			->method( 'getToken' )
-			->willReturn( $centralAuthToken );
 
 		$apiRequestExecutor = new RemoteApiRequestExecutor(
-			$mockHttpApiLookup, $mockHttpRequestExecutor, $mockCentralAuthTokenProvider );
+			$this->createHttpApiLookup(),
+			$mockHttpRequestExecutor,
+			$this->createCentralAuthTokenProvider( $centralAuthToken ),
+			$this->createCentralIdLookup()
+		);
 
 		$this->assertNull(
 			$apiRequestExecutor->getCsrfToken(
@@ -123,16 +117,12 @@ class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testExecute_successPost() {
-		$this->markTestSkipped( 'canUseCentralAuth not easily testable yet.' );
 		$queryParams = [ 'a' => 'foo' ];
 		$expectedResult = [ 'foo' => 'bar' ];
 
 		$centralAuthToken = 'abc' . mt_rand();
 		$csrfToken = 'abc' . mt_rand();
-		$mockHttpApiLookup = $this->createMock( HttpApiLookup::class );
-		$mockHttpApiLookup
-			->method( 'getApiUrl' )
-			->willReturn( 'https://w.invalid/w/api.php' );
+
 		$mockResponse = $this->createMock( MWHttpRequest::class );
 		$mockResponse
 			->method( 'getContent' )
@@ -158,22 +148,59 @@ class RemoteApiRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 				$queryParams
 			)
 			->willReturn( $mockPostResponse );
-		$mockCentralAuthTokenProvider = $this->createMock( CentralAuthTokenProvider::class );
-		$mockCentralAuthTokenProvider
-			->method( 'getToken' )
-			->willReturn( $centralAuthToken );
+		$mockUser = $this->createMock( User::class );
+		$mockUser->method( 'isSafeToLoad' )
+			->willReturn( true );
 
 		$apiRequestExecutor = new RemoteApiRequestExecutor(
-			$mockHttpApiLookup, $mockHttpRequestExecutor, $mockCentralAuthTokenProvider );
+			$this->createHttpApiLookup(),
+			$mockHttpRequestExecutor,
+			$this->createCentralAuthTokenProvider( $centralAuthToken ),
+			$this->createCentralIdLookup()
+		);
 
 		$this->assertEquals(
 			$expectedResult,
 			$apiRequestExecutor->execute(
 				$this->createMock( SourceUrl::class ),
-				$this->createMock( User::class ),
+				$mockUser,
 				$queryParams,
 				true )
 		);
+	}
+
+	/**
+	 * @return HttpApiLookup
+	 */
+	private function createHttpApiLookup() {
+		$mockHttpApiLookup = $this->createMock( HttpApiLookup::class );
+		$mockHttpApiLookup
+			->method( 'getApiUrl' )
+			->willReturn( 'https://w.invalid/w/api.php' );
+		return $mockHttpApiLookup;
+	}
+
+	/**
+	 * @param string $centralAuthToken
+	 * @return CentralAuthTokenProvider
+	 */
+	private function createCentralAuthTokenProvider( $centralAuthToken ) {
+		$mockCentralAuthTokenProvider = $this->createMock( CentralAuthTokenProvider::class );
+		$mockCentralAuthTokenProvider
+			->method( 'getToken' )
+			->willReturn( $centralAuthToken );
+		return $mockCentralAuthTokenProvider;
+	}
+
+	/**
+	 * @return CentralIdLookup
+	 */
+	private function createCentralIdLookup() {
+		$mockCentralIdLookup = $this->createMock( CentralIdLookup::class );
+		$mockCentralIdLookup
+			->method( 'centralIdFromLocalUser' )
+			->willReturn( 1 );
+		return $mockCentralIdLookup;
 	}
 
 }
