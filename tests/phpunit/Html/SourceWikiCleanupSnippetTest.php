@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Html;
 
+use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
@@ -123,6 +124,20 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 			$snippet->isSourceDeleteAllowed(
 				$this->createMock( SourceUrl::class ),
 				new User() ) );
+	}
+
+	public function testIsFreshImport_true() {
+		$request = new ImportRequest( '//w.invalid', null, null, null, '' );
+
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$this->assertTrue( $snippet->isFreshImport( $request ) );
+	}
+
+	public function testIsFreshImport_false() {
+		$request = new ImportRequest( '//w.invalid', null, null, null, 'a' );
+
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$this->assertFalse( $snippet->isFreshImport( $request ) );
 	}
 
 }

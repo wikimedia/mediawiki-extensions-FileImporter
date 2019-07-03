@@ -5,6 +5,7 @@ namespace FileImporter\Html;
 
 use Config;
 use FileImporter\Data\ImportPlan;
+use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
@@ -33,6 +34,11 @@ class SourceWikiCleanupSnippet {
 			'FileImporterMediaWikiRemoteApiActionExecutor' );
 	}
 
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param User $user
+	 * @return string
+	 */
 	public function getHtml( ImportPlan $importPlan, User $user ) {
 		/** @var IContextSource $context */
 		$context = RequestContext::getMain();
@@ -74,7 +80,8 @@ class SourceWikiCleanupSnippet {
 					]
 				);
 		} elseif ( $canAutomateEdit ) {
-			$automateEditSelected = $importPlan->getAutomateSourceWikiCleanUp();
+			$automateEditSelected = $importPlan->getAutomateSourceWikiCleanUp() ||
+				$this->isFreshImport( $importPlan->getRequest() );
 
 			$html .= Html::rawElement(
 					'p',
@@ -102,11 +109,28 @@ class SourceWikiCleanupSnippet {
 		return $html;
 	}
 
+	/**
+	 * @param ImportRequest $importRequest
+	 * @return bool
+	 */
+	private function isFreshImport( ImportRequest $importRequest ) {
+		return $importRequest->getImportDetailsHash() === '';
+	}
+
+	/**
+	 * @param SourceUrl $sourceUrl
+	 * @return bool
+	 */
 	private function isSourceEditAllowed( SourceUrl $sourceUrl ) {
 		return $this->config->get( 'FileImporterSourceWikiTemplating' ) &&
 			( $this->lookup->fetchNowCommonsLocalTitle( $sourceUrl ) !== null );
 	}
 
+	/**
+	 * @param SourceUrl $sourceUrl
+	 * @param User $user
+	 * @return bool
+	 */
 	private function isSourceDeleteAllowed( SourceUrl $sourceUrl, User $user ) {
 		return $this->config->get( 'FileImporterSourceWikiDeletion' ) &&
 			in_array(
