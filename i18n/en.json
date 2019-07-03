@@ -58,7 +58,7 @@
 	"fileimporter-cleanup-failed": "Editing, the source wiki automatically was not possible please follow the instructions above.",
 	"fileimporter-delete-text": "You have the rights to delete the file on the source wiki. If you want FileImporter to delete the file in your name, select this option:",
 	"fileimporter-delete-checkboxlabel": "Delete file on source wiki in my name",
-	"fileimporter-delete-summary": "This file is now on Wikimedia Commons (moved with FileImporter).",
+	"fileimporter-delete-summary": "This file is now on {{SITENAME}} (moved with FileImporter).",
 	"fileimporter-delete-failed": "The file could not be deleted automatically on $1. Please return to [$2 the original file] and delete it manually.",
 	"fileimporter-revision-removed-text": "Suppressed text removed by FileImporter.",
 	"fileimporter-revision-removed-comment": "Suppressed comment removed by FileImporter.",
