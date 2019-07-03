@@ -57,7 +57,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 				$this->equalTo( $mockUser ),
 				$this->equalTo( [
 					'title' => 'TestTitle',
-					'appendtext' => '{{TestNowCommons|TestTitle2}}',
+					'appendtext' => "\n{{TestNowCommons|TestTitle2}}",
 					'summary' => '(fileimporter-cleanup-summary)',
 				] )
 			)

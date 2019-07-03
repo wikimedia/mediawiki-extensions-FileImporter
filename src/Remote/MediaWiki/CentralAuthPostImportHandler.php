@@ -90,7 +90,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage( 'fileimporter-cleanup-summary' )
 			->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
-		$text = '{{' . $templateName . '|' . $importPlan->getTitleText() . '}}';
+		$text = "\n{{" . $templateName . '|' . $importPlan->getTitleText() . '}}';
 
 		$result = $this->remoteAction->executeEditAction(
 			$sourceUrl,
