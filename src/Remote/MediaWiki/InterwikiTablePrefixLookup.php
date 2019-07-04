@@ -60,6 +60,18 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		// TODO: Implement a stable two level prefix retriever to get the prefix
 
 		$host = $sourceUrl->getHost();
+
+		return $this->getPrefixFromLegacyConfig( $host );
+	}
+
+	/**
+	 * Lookup the host in hardcoded configuration.
+	 *
+	 * @deprecated This configuration will go away once the dynamic lookup is in place.
+	 * @param string $host
+	 * @return string
+	 */
+	private function getPrefixFromLegacyConfig( $host ) {
 		$interwikiConfigMap = $this->config->get( 'FileImporterInterWikiMap' );
 
 		if ( !isset( $interwikiConfigMap[$host] ) ) {
