@@ -259,7 +259,8 @@ return [
 			new WikimediaSourceUrlNormalizer(),
 			new InterwikiTablePrefixLookup(
 				$services->getInterwikiLookup(),
-				$logger
+				$logger,
+				$services->getMainConfig()
 			),
 			$postImportHandler
 		);

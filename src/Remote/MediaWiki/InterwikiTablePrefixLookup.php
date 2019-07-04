@@ -2,12 +2,11 @@
 
 namespace FileImporter\Remote\MediaWiki;
 
+use Config;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\LinkPrefixLookup;
 use MediaWiki\Interwiki\InterwikiLookup;
-use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * This LinkPrefixLookup implementation will allow interwiki references
@@ -34,15 +33,23 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $interwikiTableMap = null;
 
 	/**
+	 * @var Config
+	 */
+	private $config;
+
+	/**
 	 * @param InterwikiLookup $interwikiLookup
 	 * @param LoggerInterface|null $logger
+	 * @param Config $config
 	 */
 	public function __construct(
 		InterwikiLookup $interwikiLookup,
-		LoggerInterface $logger = null
+		LoggerInterface $logger,
+		Config $config
 	) {
 		$this->interwikiLookup = $interwikiLookup;
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger;
+		$this->config = $config;
 	}
 
 	/**
@@ -52,8 +59,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		// TODO: Implement a stable two level prefix retriever to get the prefix
 
 		$host = $sourceUrl->getHost();
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$interwikiConfigMap = $config->get( 'FileImporterInterWikiMap' );
+		$interwikiConfigMap = $this->config->get( 'FileImporterInterWikiMap' );
 
 		if ( !isset( $interwikiConfigMap[$host] ) ) {
 			$this->logger->warning(
