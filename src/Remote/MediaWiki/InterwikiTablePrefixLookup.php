@@ -30,7 +30,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	/**
 	 * @var string[] Array mapping full host name to interwiki prefix
 	 */
-	private $interwikiTableMap = null;
+	private $interwikiTableMap;
 
 	/**
 	 * @var Config
@@ -54,6 +54,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 	/**
 	 * @inheritDoc
+	 * @return string Interwiki prefix or empty string on failure.
 	 */
 	public function getPrefix( SourceUrl $sourceUrl ) {
 		// TODO: Implement a stable two level prefix retriever to get the prefix
@@ -87,6 +88,8 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	}
 
 	/**
+	 * Lookup host in the local interwiki table.
+	 *
 	 * @param string $host
 	 *
 	 * @return string
@@ -121,8 +124,9 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 			$host = parse_url( $row['iw_url'], PHP_URL_HOST );
 
 			if ( isset( $urls[$host] ) && $urls[$host] !== $row['iw_url'] ) {
-				$this->logger->warning(
-					'Host {host} matches at least two interwiki entries, {url1} and {url2}.',
+				// FIXME: This is noisy and useless in production.
+				$this->logger->debug(
+					'Skipping host {host} because it matches more than one interwiki URL: {url1} and {url2}.',
 					[
 						'host' => $host,
 						'url1' => $urls[$host],
