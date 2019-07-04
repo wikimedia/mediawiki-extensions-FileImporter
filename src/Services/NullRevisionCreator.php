@@ -110,7 +110,7 @@ class NullRevisionCreator {
 		$logEntry->setTimestamp( $revision->getTimestamp() );
 		$logEntry->setComment( $revision->getComment()->text );
 		$logEntry->setAssociatedRevId( $revision->getId() );
-		$logEntry->setTags( 'fileimporter' );
+		$logEntry->addTags( 'fileimporter' );
 
 		$logEntryId = $logEntry->insert( $this->dbw );
 		$logEntry->publish( $logEntryId );
