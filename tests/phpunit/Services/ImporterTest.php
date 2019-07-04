@@ -67,7 +67,8 @@ class ImporterTest extends \MediaWikiTestCase {
 		parent::tearDownAfterClass();
 
 		// avoid file leftovers when repeatedly run on a local system
-		$file = wfLocalFile( self::TITLE );
+		$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
+			->newFile( self::TITLE );
 		if ( $file->exists() ) {
 			$file->delete( 'This was just from a PHPUnit test.' );
 		}
@@ -137,7 +138,8 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertTextRevisionLogEntry( $nullRevision, 'upload', 'upload' );
 
 		// assert file was imported correctly
-		$latestFileRevision = wfLocalFile( $title );
+		$latestFileRevision = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
+			->newFile( $title );
 		$fileHistory = $latestFileRevision->getHistory();
 		$this->assertCount( 1, $fileHistory );
 		$firstFileRevision = $fileHistory[0];
