@@ -5,6 +5,7 @@ namespace FileImporter\Remote\MediaWiki;
 use Config;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\LinkPrefixLookup;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\Interwiki\InterwikiLookup;
 use Psr\Log\LoggerInterface;
 
@@ -23,6 +24,16 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $interwikiLookup;
 
 	/**
+	 * @var HttpApiLookup
+	 */
+	private $httpApiLookup;
+
+	/**
+	 * @var HttpRequestExecutor
+	 */
+	private $httpRequestExecutor;
+
+	/**
 	 * @var LoggerInterface
 	 */
 	private $logger;
@@ -39,15 +50,21 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 	/**
 	 * @param InterwikiLookup $interwikiLookup
+	 * @param HttpApiLookup $httpApiLookup
+	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param LoggerInterface|null $logger
 	 * @param Config $config
 	 */
 	public function __construct(
 		InterwikiLookup $interwikiLookup,
+		HttpApiLookup $httpApiLookup,
+		HttpRequestExecutor $httpRequestExecutor,
 		LoggerInterface $logger,
 		Config $config
 	) {
 		$this->interwikiLookup = $interwikiLookup;
+		$this->httpApiLookup = $httpApiLookup;
+		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = $logger;
 		$this->config = $config;
 	}

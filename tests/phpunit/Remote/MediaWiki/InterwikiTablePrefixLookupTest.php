@@ -3,7 +3,9 @@
 namespace FileImporter\Tests\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
+use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
@@ -49,6 +51,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( $validPrefix, [] ),
+			$this->createMock( HttpApiLookup::class ),
+			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
 			MediaWikiServices::getInstance()->getMainConfig()
 		);
@@ -143,6 +147,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	public function testGetPrefixFromTable( array $iwMap, $source, $expected ) {
 		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $iwMap ),
+			$this->createMock( HttpApiLookup::class ),
+			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
 			MediaWikiServices::getInstance()->getMainConfig()
 		);
@@ -165,6 +171,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
 			$iwMock,
+			$this->createMock( HttpApiLookup::class ),
+			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
 			MediaWikiServices::getInstance()->getMainConfig()
 		);
