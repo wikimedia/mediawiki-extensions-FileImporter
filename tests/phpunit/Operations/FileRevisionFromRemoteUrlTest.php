@@ -117,7 +117,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$this->assertFalse( $firstRevision->isMinor() );
 
 		// assert file was imported correctly
-		$file = wfFindFile( $title );
+		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
 		$this->assertTrue( $file !== false );
 		$this->assertSame( self::TITLE, $file->getName() );
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
