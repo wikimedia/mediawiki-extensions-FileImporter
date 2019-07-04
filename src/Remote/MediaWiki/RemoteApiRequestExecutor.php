@@ -36,14 +36,21 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 */
 	private $centralAuthTokenProvider;
 
+	/**
+	 * @var CentralIdLookup
+	 */
+	private $centralIdLookup;
+
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
-		CentralAuthTokenProvider $centralAuthTokenProvider
+		CentralAuthTokenProvider $centralAuthTokenProvider,
+		CentralIdLookup $centralIdLookup
 	) {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->centralAuthTokenProvider = $centralAuthTokenProvider;
+		$this->centralIdLookup = $centralIdLookup;
 		$this->logger = new NullLogger();
 	}
 
@@ -78,9 +85,10 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @return int
 	 */
 	private function getCentralId( User $user ) {
-		$lookup = CentralIdLookup::factory();
-		$id = $lookup->centralIdFromLocalUser( $user, CentralIdLookup::AUDIENCE_RAW );
-		return $id;
+		return $this->centralIdLookup->centralIdFromLocalUser(
+			$user,
+			CentralIdLookup::AUDIENCE_RAW
+		);
 	}
 
 	/**

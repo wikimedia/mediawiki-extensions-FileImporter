@@ -51,6 +51,11 @@ class RemoteApiActionExecutor {
 		);
 	}
 
+	/**
+	 * @param SourceUrl $sourceUrl
+	 * @param User $user
+	 * @return array|null
+	 */
 	public function executeUserRightsAction( SourceUrl $sourceUrl, User $user ) {
 		return $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
