@@ -2,12 +2,16 @@
 
 namespace FileImporter\Tests\Html;
 
+use FileImporter\Data\ImportDetails;
+use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWikiTestCase;
+use OOUI\BlankTheme;
+use OOUI\Theme;
 use User;
 use Wikimedia\TestingAccessWrapper;
 
@@ -19,35 +23,80 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		// Theme::setSingleton( new BlankTheme() );
+		Theme::setSingleton( new BlankTheme() );
+	}
+
+	public function provideNoSnippetSetups() {
+		yield [ false, false, false, false ];
+		yield [ false, false, true, true ];
+		yield [ true, true, false, false ];
+	}
+
+	/**
+	 * @dataProvider provideNoSnippetSetups
+	 */
+	public function testGetHtml_noCleanupSnippet(
+		$templateKnown,
+		$userCanDelete,
+		$editEnabled,
+		$deleteEnabled
+	) {
+		$this->setupServicesAndGlobals(
+			$templateKnown,
+			$userCanDelete,
+			$editEnabled,
+			$deleteEnabled
+		);
+
+		$snippet = new SourceWikiCleanupSnippet();
+		$this->assertEquals(
+			'',
+			$snippet->getHtml(
+				$this->createImportPlan(),
+				$this->createMock( User::class )
+			)
+		);
+	}
+
+	public function testGetHtml_editPreselected() {
+		$this->setupServicesAndGlobals( true, false, true, false );
+
+		$snippet = new SourceWikiCleanupSnippet();
+		$html = $snippet->getHtml(
+			$this->createImportPlan(),
+			$this->createMock( User::class )
+		);
+
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild(
+				both( withTagName( 'input' ) )
+					->andAlso( withAttribute( 'name' )->havingValue( 'automateSourceWikiCleanup' ) )
+					->andAlso( withAttribute( 'value' ) )
+					->andAlso( withAttribute( 'checked' )->havingValue( 'checked' ) )
+			) ) )
+		);
+
+		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function testIsSourceEditAllowed_lookupSucceeds() {
-		$this->setMwGlobals( 'wgFileImporterSourceWikiTemplating', true );
-		$mockLookup = $this->createMock( WikidataTemplateLookup::class );
-		$mockLookup
-			->expects( $this->once() )
-			->method( 'fetchNowCommonsLocalTitle' )
-			->willReturn( 'template title' );
-		$this->setService( 'FileImporterTemplateLookup', $mockLookup );
+		$this->setupServicesAndGlobals( true, false, true, false );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertTrue(
-			$snippet->isSourceEditAllowed( $this->createMock( SourceUrl::class ) ) );
+			$snippet->isSourceEditAllowed( $this->createMock( SourceUrl::class ) )
+		);
 	}
 
 	public function testIsSourceEditAllowed_lookupFails() {
-		$this->setMwGlobals( 'wgFileImporterSourceWikiTemplating', true );
-		$mockLookup = $this->createMock( WikidataTemplateLookup::class );
-		$mockLookup
-			->expects( $this->once() )
-			->method( 'fetchNowCommonsLocalTitle' )
-			->willReturn( null );
-		$this->setService( 'FileImporterTemplateLookup', $mockLookup );
+		$this->setupServicesAndGlobals( false, false, true, false );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertFalse(
-			$snippet->isSourceEditAllowed( $this->createMock( SourceUrl::class ) ) );
+			$snippet->isSourceEditAllowed( $this->createMock( SourceUrl::class ) )
+		);
 	}
 
 	public function testIsSourceEditAllowed_configShortCircuits() {
@@ -64,13 +113,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceDeleteAllowed_success() {
-		$this->setMwGlobals( 'wgFileImporterSourceWikiDeletion', true );
-		$mockApi = $this->createMock( RemoteApiActionExecutor::class );
-		$mockApi
-			->expects( $this->once() )
-			->method( 'executeUserRightsAction' )
-			->willReturn( [ 'query' => [ 'userinfo' => [ 'rights' => [ 'delete', 'edit' ] ] ] ] );
-		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
+		$this->setupServicesAndGlobals( false, true, false, true );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertTrue(
@@ -96,13 +139,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceDeleteAllowed_apiFailure() {
-		$this->setMwGlobals( 'wgFileImporterSourceWikiDeletion', true );
-		$mockApi = $this->createMock( RemoteApiActionExecutor::class );
-		$mockApi
-			->expects( $this->once() )
-			->method( 'executeUserRightsAction' )
-			->willReturn( null );
-		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
+		$this->setupServicesAndGlobals( false, false, false, true );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertFalse(
@@ -138,6 +175,43 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 		$this->assertFalse( $snippet->isFreshImport( $request ) );
+	}
+
+	private function createImportPlan() {
+		$importPlan = new ImportPlan(
+			new ImportRequest( '//w.invalid' ),
+			$this->createMock( ImportDetails::class ),
+			''
+		);
+
+		return $importPlan;
+	}
+
+	private function setupServicesAndGlobals(
+		$templateKnown,
+		$userCanDelete,
+		$editEnabled,
+		$deleteEnabled
+	) {
+		$this->setMwGlobals( [
+			'wgFileImporterSourceWikiTemplating' => $editEnabled,
+			'wgFileImporterSourceWikiDeletion' => $deleteEnabled,
+		] );
+
+		$templateResult = $templateKnown ? 'TestNowCommons' : null;
+		$rightsApiResult = $userCanDelete ?
+			[ 'query' => [ 'userinfo' => [ 'rights' => [ 'delete' ] ] ] ] : null;
+
+		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
+		$mockTemplateLookup
+			->method( 'fetchNowCommonsLocalTitle' )
+			->willReturn( $templateResult );
+		$this->setService( 'FileImporterTemplateLookup', $mockTemplateLookup );
+		$mockApiExecutor = $this->createMock( RemoteApiActionExecutor::class );
+		$mockApiExecutor
+			->method( 'executeUserRightsAction' )
+			->willReturn( $rightsApiResult );
+		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApiExecutor );
 	}
 
 }

@@ -99,17 +99,11 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 			$this->getMockImportDetails( 'Bar' ),
 			''
 		);
-		$importPlan->setNumberOfTemplateReplacements( 0 );
 
 		$page = new ImportPreviewPage( $this->getMockSpecialPage() );
 		$html = $page->getHtml( $importPlan );
 
-		assertThat(
-			$html,
-			is( htmlPiece( havingChild(
-				$this->thatIsInputFieldWithSomeValue( 'automateSourceWikiCleanup' )
-			) ) )
-		);
+		$this->assertSelectedCheckbox( $html, 'automateSourceWikiCleanup' );
 
 		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
 		$this->addToAssertionCount( 1 );
@@ -158,6 +152,18 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 							->andAlso( withAttribute( 'name' )->havingValue( 'action' ) )
 							->andAlso( withAttribute( 'value' )->havingValue( 'submit' ) )
 						) )
+			) ) )
+		);
+	}
+
+	private function assertSelectedCheckbox( $html, $name ) {
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild(
+				both( withTagName( 'input' ) )
+					->andAlso( withAttribute( 'name' )->havingValue( $name ) )
+					->andAlso( withAttribute( 'value' ) )
+					->andAlso( withAttribute( 'checked' )->havingValue( 'checked' ) )
 			) ) )
 		);
 	}

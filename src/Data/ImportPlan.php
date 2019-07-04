@@ -54,7 +54,7 @@ class ImportPlan {
 	/**
 	 * @var bool
 	 */
-	private $automateSourceWikiCleanUp = true;
+	private $automateSourceWikiCleanUp = false;
 
 	/**
 	 * @var bool
