@@ -10,9 +10,9 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
-use Http;
 use ManualLogEntry;
 use MediaWiki\User\UserIdentityValue;
+use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use TempFSFile;
@@ -121,7 +121,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 */
 	public function prepare() {
 		$fileUrl = $this->fileRevision->getField( 'url' );
-		if ( !Http::isValidURI( $fileUrl ) ) {
+		if ( !MWHttpRequest::isValidURI( $fileUrl ) ) {
 			// invalid URL detected
 			return false;
 		}
