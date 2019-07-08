@@ -55,7 +55,7 @@
 	"fileimporter-cleanup-text": "You can declare on the source wiki that this file has been imported to {{SITENAME}}. This is done by adding a <code><nowiki>{{$1}}</nowiki></code> template to the original file page in your name.",
 	"fileimporter-cleanup-checkboxlabel": "Mark source wiki file as imported to {{SITENAME}}",
 	"fileimporter-cleanup-summary": "This file is now on {{SITENAME}} (moved with FileImporter).",
-	"fileimporter-cleanup-failed": "Editing, the source wiki automatically was not possible please follow the instructions above.",
+	"fileimporter-cleanup-failed": "Editing the source wiki automatically was not possible.",
 	"fileimporter-delete-text": "You have the rights to delete the file on the source wiki. If you want FileImporter to delete the file in your name, select this option:",
 	"fileimporter-delete-checkboxlabel": "Delete file on source wiki in my name",
 	"fileimporter-delete-summary": "This file is now on {{SITENAME}} (moved with FileImporter).",
