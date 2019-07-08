@@ -192,11 +192,20 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @return string|null
 	 */
 	private function fetchSecondHopPrefix( $intermediateWikiPrefix, $host ) {
-		$intermediateWikiApiUrl = $this->interwikiLookup->fetch( $intermediateWikiPrefix )->getAPI();
+		$this->logger->debug( 'Fetching second hop to {host} via {prefix}', [
+			'host' => $host,
+			'prefix' => $intermediateWikiPrefix ] );
+		$intermediateWiki = $this->interwikiLookup->fetch( $intermediateWikiPrefix );
+		if ( !$intermediateWiki ) {
+			$this->logger->warning( 'Missing interwiki entry for {prefix}', [
+				'prefix' => $intermediateWikiPrefix ] );
+			return null;
+		}
+		$intermediateWikiApiUrl = $intermediateWiki->getAPI();
 		if ( $intermediateWikiApiUrl === '' ) {
 			$this->logger->debug( 'Missing API URL for interwiki {prefix}, scraping from mainpage.', [
 				'prefix' => $intermediateWikiPrefix ] );
-			$intermediateWikiUrl = $this->interwikiLookup->fetch( $intermediateWikiPrefix )->getURL();
+			$intermediateWikiUrl = $intermediateWiki->getURL();
 			$intermediateWikiApiUrl = $this->httpApiLookup->getApiUrl(
 				new SourceUrl( $intermediateWikiUrl ) );
 		}
@@ -243,26 +252,12 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * FIXME: made public to allow test mocking :(
 	 */
 	public function prefetchInterwikiMap() {
-		$urls = [];
 		$map = [];
 
 		foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {
 			// This assumes all URLs in the interwiki (or sites) table are valid.
 			$host = parse_url( $row['iw_url'], PHP_URL_HOST );
 
-			if ( isset( $urls[$host] ) && $urls[$host] !== $row['iw_url'] ) {
-				// FIXME: This is noisy and unactionable in production.  We should just take the
-				// first match and move on.
-				$this->logger->debug(
-					'Skipping host {host} because it matches more than one interwiki URL: {url1} and {url2}.', [
-						'host' => $host,
-						'url1' => $urls[$host],
-						'url2' => $row['iw_url'] ] );
-				$map[$host] = '';
-				continue;
-			}
-
-			$urls[$host] = $row['iw_url'];
 			if ( !isset( $map[$host] ) || $this->isSmaller( $row['iw_prefix'], $map[$host] ) ) {
 				$map[$host] = $row['iw_prefix'];
 			}
