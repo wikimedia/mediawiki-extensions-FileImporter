@@ -128,7 +128,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 				'//www.wikia.com/',
 				'2-wikia'
 			],
-			'refuse ambiguous hosts' => [
+			'be sloppy about ambiguous hosts' => [
 				[
 					[
 						'iw_url' => 'http://www.tejo.org/vikio/$1',
@@ -144,7 +144,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 					],
 				],
 				'//www.tejo.org/',
-				''
+				'3rd'
 			],
 		];
 	}
@@ -351,6 +351,33 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			] ),
 			$this->createMock( HttpApiLookup::class ),
 			$mockRequestExecutor,
+			new NullLogger(),
+			MediaWikiServices::getInstance()->getMainConfig()
+		);
+
+		$this->assertSame(
+			'',
+			$sourceUrlPrefixer->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
+		);
+	}
+
+	public function testGetPrefix_secondHop_interwikiCorrupt() {
+		$mockInterwikiLookup = $this->createMock( InterwikiLookupAdapter::class );
+		$mockInterwikiLookup->method( 'isValidInterwiki' )
+			->willReturn( true );
+		$mockInterwikiLookup->method( 'getAllPrefixes' )
+			->willReturn( [
+				[
+					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_prefix' => 'wikisource'
+				],
+			] );
+		$mockInterwikiLookup->method( 'fetch' )->willReturn( null );
+
+		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+			$mockInterwikiLookup,
+			$this->createMock( HttpApiLookup::class ),
+			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
 			MediaWikiServices::getInstance()->getMainConfig()
 		);
