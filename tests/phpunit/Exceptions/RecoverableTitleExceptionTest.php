@@ -4,7 +4,7 @@ namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Data\ImportPlan;
 use FileImporter\Exceptions\RecoverableTitleException;
-use MediaWikiUnitTestCase;
+use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Exceptions\RecoverableTitleException
@@ -12,7 +12,8 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class RecoverableTitleExceptionTest extends MediaWikiUnitTestCase {
+class RecoverableTitleExceptionTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function testException() {
 		$importPlan = $this->createMock( ImportPlan::class );

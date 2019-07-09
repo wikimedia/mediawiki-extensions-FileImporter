@@ -5,7 +5,6 @@ namespace FileImporter\Tests\Services\Wikitext;
 use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Services\Wikitext\CommonsHelperConfigParser
@@ -13,7 +12,8 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class CommonsHelperConfigParserTest extends MediaWikiUnitTestCase {
+class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	public function provideCommonsHelperConfig() {
 		return [

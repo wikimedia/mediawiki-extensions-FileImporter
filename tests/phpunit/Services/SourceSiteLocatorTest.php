@@ -6,7 +6,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\SourceUrlException;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
-use MediaWikiUnitTestCase;
+use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Services\SourceSiteLocator
@@ -14,7 +14,8 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class SourceSiteLocatorTest extends MediaWikiUnitTestCase {
+class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function testNoSitesGiven() {
 		$url = new SourceUrl( '//wikimedia.de' );

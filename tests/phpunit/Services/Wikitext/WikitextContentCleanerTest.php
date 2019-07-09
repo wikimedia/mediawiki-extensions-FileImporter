@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Data\WikitextConversions;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Services\Wikitext\WikitextContentCleaner
@@ -12,7 +11,8 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikitextContentCleanerTest extends MediaWikiUnitTestCase {
+class WikitextContentCleanerTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	public function provideTemplateRemovals() {
 		return [

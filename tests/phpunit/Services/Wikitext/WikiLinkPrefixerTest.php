@@ -4,14 +4,14 @@ namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\WikiLinkPrefixer;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Services\Wikitext\WikiLinkPrefixer
  *
  * @license GPL-2.0-or-later
  */
-class WikiLinkPrefixerTest extends MediaWikiUnitTestCase {
+class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	public function provideLinks() {
 		return [

@@ -3,7 +3,7 @@
 namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Exceptions\HttpRequestException;
-use MediaWikiUnitTestCase;
+use PHPUnit4And6Compat;
 use MWHttpRequest;
 use StatusValue;
 
@@ -13,7 +13,8 @@ use StatusValue;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class HttpRequestExceptionTest extends MediaWikiUnitTestCase {
+class HttpRequestExceptionTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function testException() {
 		$statusValue = new StatusValue();

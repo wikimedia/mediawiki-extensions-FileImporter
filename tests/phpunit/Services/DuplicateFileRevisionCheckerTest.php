@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Services;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Services\DuplicateFileRevisionChecker;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Services\DuplicateFileRevisionChecker
@@ -12,7 +11,8 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class DuplicateFileRevisionCheckerTest extends MediaWikiUnitTestCase {
+class DuplicateFileRevisionCheckerTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	public function testFindDuplicates() {
 		$fileRevision = $this->createMock( FileRevision::class );

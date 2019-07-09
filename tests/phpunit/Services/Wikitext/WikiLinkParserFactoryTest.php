@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use Language;
-use MediaWikiUnitTestCase;
 
 /**
  * Note this test (intentionally) uses actual Language objects, which does make this an integration
@@ -15,7 +14,7 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikiLinkParserFactoryTest extends MediaWikiUnitTestCase {
+class WikiLinkParserFactoryTest extends \PHPUnit\Framework\TestCase {
 
 	public function testInterwikiPrefixing() {
 		$factory = new WikiLinkParserFactory();

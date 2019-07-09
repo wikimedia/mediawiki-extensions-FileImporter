@@ -5,14 +5,15 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\FileDescriptionPageValidator;
-use MediaWikiUnitTestCase;
+use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Services\FileDescriptionPageValidator
  *
  * @license GPL-2.0-or-later
  */
-class FileDescriptionPageValidatorTest extends MediaWikiUnitTestCase {
+class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function testSuccess() {
 		$conversions = new WikitextConversions( [], [], [], [], [] );
