@@ -45,9 +45,11 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $interwikiTableMap;
 
 	/**
-	 * @var string[] Array mapping a base domain to a best-fit url
+	 * @var string[] Array mapping parent domain to a representative URL.  The idea is that, for
+	 * example, a site matching *.wiktionary.* will have interwiki links to each language version
+	 * of wiktionary.
 	 */
-	private $baseDomainToUrlMap;
+	private $parentDomainToUrlMap;
 
 	/**
 	 * @var Config
@@ -146,7 +148,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	}
 
 	/**
-	 * Lookup host by hopping through its base domain's interwiki.
+	 * Lookup host by hopping through its parent domain's interwiki.
 	 *
 	 * This is an optimization for Wikimedia projects which are split into
 	 * third-level subdomains by language, and often not present in the
@@ -157,15 +159,15 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @return string|null
 	 */
 	private function getTwoHopPrefixThroughIntermediary( $host ) {
-		if ( $this->baseDomainToUrlMap === null ) {
-			$this->baseDomainToUrlMap = $this->prefetchBaseDomainToHostMap();
+		if ( $this->parentDomainToUrlMap === null ) {
+			$this->parentDomainToUrlMap = $this->prefetchParentDomainToHostMap();
 		}
 
-		// TODO: The second-level-domain-based intermediate host-guessing logic should be in its own
+		// TODO: The sub-domain-based intermediate host-guessing logic should be in its own
 		// class, and pluggable.
-		list( $base, ) = $this->getBaseDomain( $host );
-		if ( isset( $this->baseDomainToUrlMap[$base] ) ) {
-			$prefix = $this->getPrefixFromInterwikiTable( $this->baseDomainToUrlMap[$base] );
+		$parent = $this->getParentDomain( $host );
+		if ( isset( $this->parentDomainToUrlMap[$parent] ) ) {
+			$prefix = $this->getPrefixFromInterwikiTable( $this->parentDomainToUrlMap[$parent] );
 
 			if ( $prefix !== null ) {
 				$secondHop = $this->fetchSecondHopPrefix( $prefix, $host );
@@ -269,38 +271,29 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	/**
 	 * @return string[]
 	 */
-	private function prefetchBaseDomainToHostMap() {
+	private function prefetchParentDomainToHostMap() {
 		if ( $this->interwikiTableMap === null ) {
 			$this->interwikiTableMap = $this->prefetchInterwikiMap();
 		}
 
 		$maps = [];
 		foreach ( $this->interwikiTableMap as $host => $prefix ) {
-			list( $base, $hostSplit ) = $this->getBaseDomain( $host );
-
-			if ( isset( $maps[$base] ) ) {
-				if ( count( $hostSplit ) === 3 && $hostSplit[0] === 'en' ) {
-					$maps[$base] = $host;
-				}
-			} else {
-				$maps[$base] = $host;
-			}
+			$parentDomain = $this->getParentDomain( $host );
+			$maps[$parentDomain] = $host;
 		}
 
 		return $maps;
 	}
 
 	/**
-	 * @param String $host
+	 * @param string $host
 	 *
-	 * @return array of the base domain and the exploded input
+	 * @return string New hostname with the minor sub-*-domain removed.
 	 */
-	private function getBaseDomain( $host ) {
+	private function getParentDomain( $host ) {
 		$hostSplit = explode( '.', $host );
-		$tld = $hostSplit[count( $hostSplit ) - 1];
-		$domain = $hostSplit[count( $hostSplit ) - 2];
-		$base = $domain . '.' . $tld;
-		return [ $base, $hostSplit ];
+		array_shift( $hostSplit );
+		return implode( '.', $hostSplit );
 	}
 
 	/**

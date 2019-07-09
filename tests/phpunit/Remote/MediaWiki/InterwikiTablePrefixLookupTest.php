@@ -213,7 +213,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 	public function provideIntermediaryCases() {
 		return [
-			'Successful get through base domain' => [
+			'Successful get through parent domain' => [
 				[
 					[
 						'iw_url' => 'https://en.wikisource.org/wiki/$1',
@@ -227,6 +227,26 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 					]
 				],
 				'//fr.wikisource.org/wiki/',
+				'wikisource:fr'
+			],
+			'Successful get through parent domain, labs' => [
+				[
+					[
+						'iw_url' => 'https://en.wikisource.beta.wmflabs.org/wiki/$1',
+						'iw_prefix' => 'wikisource'
+					],
+				],
+				[
+					[
+						'prefix' => 'fr',
+						'url' => 'https://fr.wikisource.beta.wmflabs.org/wiki/$1'
+					],
+					[
+						'prefix' => 'guc',
+						'url' => 'https://tools.wmflabs.org/guc/$1'
+					]
+				],
+				'//fr.wikisource.beta.wmflabs.org/wiki/',
 				'wikisource:fr'
 			],
 			'fail after hop' => [
@@ -388,7 +408,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		);
 	}
 
-	public function testPrefetchBaseDomainToUrlMap() {
+	public function testPrefetchParentDomainToUrlMap() {
 		$mockLookup = $this->getMockBuilder( InterwikiTablePrefixLookup::class )
 			->disableOriginalConstructor()
 			->setMethods( [ 'prefetchInterwikiMap' ] )
@@ -407,7 +427,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			$expected,
-			$mockLookup->prefetchBaseDomainToHostMap()
+			$mockLookup->prefetchParentDomainToHostMap()
 		);
 	}
 
