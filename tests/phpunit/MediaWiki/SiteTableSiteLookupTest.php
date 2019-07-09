@@ -5,7 +5,7 @@ namespace FileImporter\Tests\MediaWiki;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use HashSiteStore;
-use MediaWikiUnitTestCase;
+use PHPUnit4And6Compat;
 use Site;
 
 /**
@@ -14,7 +14,8 @@ use Site;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class SiteTableSiteLookupTest extends MediaWikiUnitTestCase {
+class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @param string $globalId

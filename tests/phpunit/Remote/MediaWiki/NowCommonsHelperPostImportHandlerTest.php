@@ -7,7 +7,6 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler
@@ -15,7 +14,8 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class NowCommonsHelperPostImportHandlerTest extends MediaWikiUnitTestCase {
+class NowCommonsHelperPostImportHandlerTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	const URL = 'http://w.invalid';
 	const TITLE = 'FilePageTitle';

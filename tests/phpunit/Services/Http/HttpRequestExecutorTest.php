@@ -4,8 +4,8 @@ namespace FileImporter\Tests\Services\Http;
 
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use MediaWikiUnitTestCase;
 use MWHttpRequest;
+use PHPUnit4And6Compat;
 use Psr\Log\LoggerInterface;
 use Status;
 
@@ -16,7 +16,8 @@ use Status;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class HttpRequestExecutorTest extends MediaWikiUnitTestCase {
+class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function provideTestExecute() {
 		return [

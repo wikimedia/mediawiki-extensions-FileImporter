@@ -4,14 +4,14 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\WikitextConversions;
 use InvalidArgumentException;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Data\WikitextConversions
  *
  * @license GPL-2.0-or-later
  */
-class WikitextConversionsTest extends MediaWikiUnitTestCase {
+class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
+	use \PHPUnit4And6Compat;
 
 	public function testInvalidTargetTemplateName() {
 		$this->setExpectedException( InvalidArgumentException::class, 'targetTemplate' );

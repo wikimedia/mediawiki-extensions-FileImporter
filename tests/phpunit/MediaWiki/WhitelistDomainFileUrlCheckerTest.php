@@ -4,7 +4,6 @@ namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker
@@ -12,7 +11,7 @@ use MediaWikiUnitTestCase;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class WhitelistDomainFileUrlCheckerTest extends MediaWikiUnitTestCase {
+class WhitelistDomainFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestCheck() {
 		return [

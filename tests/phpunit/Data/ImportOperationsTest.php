@@ -4,7 +4,7 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\ImportOperations;
 use FileImporter\Interfaces\ImportOperation;
-use MediaWikiUnitTestCase;
+use PHPUnit4And6Compat;
 use RuntimeException;
 
 /**
@@ -13,7 +13,8 @@ use RuntimeException;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class ImportOperationsTest extends MediaWikiUnitTestCase {
+class ImportOperationsTest extends \PHPUnit\Framework\TestCase {
+	use PHPUnit4And6Compat;
 
 	public function testFailureOnEmptyOperations() {
 		$operations = new ImportOperations();
