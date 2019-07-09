@@ -207,7 +207,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		if ( $intermediateWikiApiUrl === '' ) {
 			$this->logger->debug( 'Missing API URL for interwiki {prefix}, scraping from mainpage.', [
 				'prefix' => $intermediateWikiPrefix ] );
-			$intermediateWikiUrl = $intermediateWiki->getURL();
+			$intermediateWikiUrl = $intermediateWiki->getURL( '' );
 			$intermediateWikiApiUrl = $this->httpApiLookup->getApiUrl(
 				new SourceUrl( $intermediateWikiUrl ) );
 		}
