@@ -147,6 +147,13 @@ class HttpApiLookup implements LoggerAwareInterface {
 			}
 		}
 
+		$this->logger->error(
+			htmlspecialchars( 'Failed to discover API location from: "' . $pageUrl . '".' ),
+			[
+				'responseContent' => $req->getContent(),
+			]
+		);
+
 		return null;
 	}
 
