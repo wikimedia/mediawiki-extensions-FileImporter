@@ -11,8 +11,7 @@ use FileImporter\Services\Wikitext\WikiLinkParser;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikiLinkParserTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class WikiLinkParserTest extends \MediaWikiUnitTestCase {
 
 	public function provideWikitext() {
 		return [

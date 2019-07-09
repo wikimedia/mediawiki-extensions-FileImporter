@@ -5,13 +5,13 @@ namespace FileImporter\Tests\Remote\MediaWiki;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor;
-use MediaWikiTestCase;
+use MediaWikiUnitTestCase;
 use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteApiActionExecutor
  */
-class RemoteApiActionExecutorTest extends MediaWikiTestCase {
+class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 
 	public function testExecuteEditAction_noToken() {
 		$mockRequestExecutor = $this->createMock( RemoteApiRequestExecutor::class );

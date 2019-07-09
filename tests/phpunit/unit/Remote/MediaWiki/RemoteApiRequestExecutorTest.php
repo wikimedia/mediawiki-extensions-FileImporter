@@ -9,14 +9,14 @@ use FileImporter\Remote\MediaWiki\CentralAuthTokenProvider;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use MediaWikiTestCase;
+use MediaWikiUnitTestCase;
 use MWHttpRequest;
 use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor
  */
-class RemoteApiRequestExecutorTest extends MediaWikiTestCase {
+class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 
 	public function testGetCsrfToken_success() {
 		$centralAuthToken = 'abc' . mt_rand();

@@ -14,8 +14,7 @@ use FileImporter\Services\WikidataTemplateLookup;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class NowCommonsHelperPostImportHandlerTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class NowCommonsHelperPostImportHandlerTest extends \MediaWikiUnitTestCase {
 
 	const URL = 'http://w.invalid';
 	const TITLE = 'FilePageTitle';

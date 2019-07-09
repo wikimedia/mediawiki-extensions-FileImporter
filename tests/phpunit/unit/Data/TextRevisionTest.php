@@ -2,48 +2,60 @@
 
 namespace FileImporter\Tests\Data;
 
-use FileImporter\Data\FileRevision;
+use FileImporter\Data\TextRevision;
 use FileImporter\Exceptions\InvalidArgumentException;
-use PHPUnit4And6Compat;
 
 /**
- * @covers \FileImporter\Data\FileRevision
+ * @covers \FileImporter\Data\TextRevision
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class FileRevisionTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class TextRevisionTest extends \MediaWikiUnitTestCase {
 
 	private static $requiredFieldNames = [
-		'description',
-		'name',
+		'*',
+		'comment',
+		'contentformat',
+		'contentmodel',
+		'minor',
 		'sha1',
-		'size',
-		'thumburl',
 		'timestamp',
-		'url',
+		'title',
 		'user',
 	];
 
 	public function testGetters() {
 		$fields = array_flip( self::$requiredFieldNames );
-		$instance = new FileRevision( $fields );
+		$instance = new TextRevision( $fields );
 
 		$this->assertSame( $fields, $instance->getFields(), 'getFields' );
 
-		foreach ( self::$requiredFieldNames as $expected => $field ) {
+		foreach ( $fields as $field => $expected ) {
 			$this->assertSame( $expected, $instance->getField( $field ), "getField($field)" );
 		}
+	}
+
+	public function testSetField() {
+		$instance = new TextRevision( array_flip( self::$requiredFieldNames ) );
+		$instance->setField( 'comment', 'changed' );
+		$this->assertSame( 'changed', $instance->getField( 'comment' ) );
 	}
 
 	public function testSetAndGetNonExistingField() {
 		// The class should accept additional fields, but getField should warn when accessing them
 		$fields = array_flip( self::$requiredFieldNames ) + [ 'invalid' => null ];
-		$instance = new FileRevision( $fields );
+		$instance = new TextRevision( $fields );
 
 		$this->setExpectedException( InvalidArgumentException::class );
 		$instance->getField( 'invalid' );
+	}
+
+	public function testSetNonExistingField() {
+		$instance = new TextRevision( array_flip( self::$requiredFieldNames ) );
+
+		$this->setExpectedException( InvalidArgumentException::class );
+		$instance->setField( 'invalid', null );
 	}
 
 	public function provideMissingField() {
@@ -59,7 +71,7 @@ class FileRevisionTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testMissingField( array $fields, $expectedMessage ) {
 		$this->setExpectedException( InvalidArgumentException::class, $expectedMessage );
-		new FileRevision( $fields );
+		new TextRevision( $fields );
 	}
 
 }

@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
-use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Data\FileRevisions
@@ -12,8 +11,7 @@ use PHPUnit4And6Compat;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class FileRevisionsTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
+class FileRevisionsTest extends \MediaWikiUnitTestCase {
 
 	/**
 	 * @param string $timestamp

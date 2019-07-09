@@ -10,8 +10,7 @@ use InvalidArgumentException;
  *
  * @license GPL-2.0-or-later
  */
-class WikitextConversionsTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
+class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 
 	public function testInvalidTargetTemplateName() {
 		$this->setExpectedException( InvalidArgumentException::class, 'targetTemplate' );
