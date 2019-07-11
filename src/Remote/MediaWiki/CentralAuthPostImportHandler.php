@@ -109,7 +109,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 			$sourceUrl,
 			$user,
 			[
-				'title' => $importPlan->getTitle()->getPrefixedText(),
+				'title' => $importPlan->getOriginalTitle()->getPrefixedText(),
 				'appendtext' => $text,
 				'summary' => $summary,
 			]
@@ -141,7 +141,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 			$sourceUrl,
 			$user,
 			[
-				'title' => $importPlan->getTitle()->getPrefixedText(),
+				'title' => $importPlan->getOriginalTitle()->getPrefixedText(),
 				'reason' => $summary,
 			]
 		);

@@ -32,6 +32,11 @@ class ImportPlan {
 	private $title = null;
 
 	/**
+	 * @var Title|null
+	 */
+	private $originalTitle = null;
+
+	/**
 	 * @var string
 	 */
 	private $interWikiPrefix;
@@ -105,14 +110,37 @@ class ImportPlan {
 	}
 
 	/**
+	 * @param string $titleText
 	 * @throws MalformedTitleException if title parsing failed
+	 * @return Title
+	 */
+	private function getTitleFromText( $titleText ) {
+		$titleParser = MediaWikiServices::getInstance()->getTitleParser();
+		$titleValue = $titleParser->parseTitle( $titleText, NS_FILE );
+		return Title::newFromLinkTarget( $titleValue );
+	}
+
+	/**
+	 * @return Title
+	 */
+	public function getOriginalTitle() {
+		if ( $this->originalTitle === null ) {
+			$this->originalTitle = $this->getTitleFromText(
+				$this->details->getSourceLinkTarget()->getText()
+			);
+		}
+
+		return $this->originalTitle;
+	}
+
+	/**
 	 * @return Title
 	 */
 	public function getTitle() {
 		if ( $this->title === null ) {
-			$titleParser = MediaWikiServices::getInstance()->getTitleParser();
-			$titleValue = $titleParser->parseTitle( $this->getTitleText(), NS_FILE );
-			$this->title = Title::newFromLinkTarget( $titleValue );
+			$this->title = $this->getTitleFromText(
+				$this->getTitleText()
+			);
 		}
 
 		return $this->title;

@@ -58,7 +58,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 				$this->anything(),
 				$this->equalTo( $mockUser ),
 				$this->equalTo( [
-					'title' => 'TestTitle',
+					'title' => 'TestTitleOriginal',
 					'appendtext' => "\n{{TestNowCommons|TestTitle2}}",
 					'summary' => '(fileimporter-cleanup-summary: http://TestUrl)',
 				] )
@@ -129,7 +129,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 				$this->anything(),
 				$this->equalTo( $mockUser ),
 				$this->equalTo( [
-					'title' => 'TestTitle',
+					'title' => 'TestTitleOriginal',
 					'reason' => '(fileimporter-delete-summary: http://TestUrl)',
 				] )
 			)
@@ -186,16 +186,22 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$mockTitle->method( 'getFullURL' )
 			->willReturn( 'http://TestUrl' );
 
+		$mockOriginalTitle = $this->createMock( Title::class );
+		$mockOriginalTitle->method( 'getPrefixedText' )
+			->willReturn( 'TestTitleOriginal' );
+
 		$mockSourceUrl = $this->createMock( SourceUrl::class );
 		$mockSourceUrl->method( 'getHost' )
 			->willReturn( $host );
 		$mockSourceUrl->method( 'getUrl' )
 			->willReturn( $url );
+
 		$mockDetails = $this->createMock( ImportDetails::class );
 		$mockDetails->method( 'getSourceUrl' )
 			->willReturn( $mockSourceUrl );
 		$mockDetails->method( 'getPageLanguage' )
 			->willReturn( 'qqx' );
+
 		$mockImportPlan = $this->createMock( ImportPlan::class );
 		$mockImportPlan->method( 'getAutomateSourceWikiCleanUp' )
 			->willReturn( $autoCleanup );
@@ -205,6 +211,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			->willReturn( $mockDetails );
 		$mockImportPlan->method( 'getTitle' )
 			->willReturn( $mockTitle );
+		$mockImportPlan->method( 'getOriginalTitle' )
+			->willReturn( $mockOriginalTitle );
 		$mockImportPlan->method( 'getTitleText' )
 			->willReturn( 'TestTitle2' );
 
