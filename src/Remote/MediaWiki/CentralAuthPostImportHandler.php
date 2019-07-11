@@ -101,7 +101,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 		);
 
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
-		$summary = wfMessage( 'fileimporter-cleanup-summary' )
+		$summary = wfMessage( 'fileimporter-cleanup-summary', $importPlan->getTitle()->getFullURL() )
 			->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 		$text = "\n{{" . $templateName . '|' . $importPlan->getTitleText() . '}}';
 
@@ -134,7 +134,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 	 */
 	private function deleteSourceFile( ImportPlan $importPlan, User $user ) {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
-		$summary = wfMessage( 'fileimporter-delete-summary' )
+		$summary = wfMessage( 'fileimporter-delete-summary', $importPlan->getTitle()->getFullURL() )
 			->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 
 		$result = $this->remoteAction->executeDeleteAction(
