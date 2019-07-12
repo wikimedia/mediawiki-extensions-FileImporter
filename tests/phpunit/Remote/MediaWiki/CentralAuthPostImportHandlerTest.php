@@ -60,7 +60,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 				$this->equalTo( [
 					'title' => 'TestTitle',
 					'appendtext' => "\n{{TestNowCommons|TestTitle2}}",
-					'summary' => '(fileimporter-cleanup-summary)',
+					'summary' => '(fileimporter-cleanup-summary: http://TestUrl)',
 				] )
 			)
 			// FIXME: not a realistic result, but we don't care yet.
@@ -130,7 +130,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 				$this->equalTo( $mockUser ),
 				$this->equalTo( [
 					'title' => 'TestTitle',
-					'reason' => '(fileimporter-delete-summary)',
+					'reason' => '(fileimporter-delete-summary: http://TestUrl)',
 				] )
 			)
 			// FIXME: not a realistic result, but we don't care yet.
@@ -183,6 +183,8 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$mockTitle = $this->createMock( Title::class );
 		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'TestTitle' );
+		$mockTitle->method( 'getFullURL' )
+			->willReturn( 'http://TestUrl' );
 
 		$mockSourceUrl = $this->createMock( SourceUrl::class );
 		$mockSourceUrl->method( 'getHost' )
