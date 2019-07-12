@@ -55,7 +55,7 @@
 	"fileimporter-cleanup-text": "Você pode declarar na wiki de origem que esse arquivo foi importado para {{SITENAME}}. Isso é feito adicionando uma predefinição <code><nowiki>{{$1}}</nowiki></code> para a página do arquivo original em seu nome.",
 	"fileimporter-cleanup-checkboxlabel": "Marcar o arquivo da wiki de origem como importado para {{SITENAME}}",
 	"fileimporter-cleanup-summary": "Este arquivo está agora em {{SITENAME}} (movido com FileImporter).",
-	"fileimporter-cleanup-failed": "Editando, a fonte da wiki automaticamente não foi possível, por favor siga as instruções acima.",
+	"fileimporter-cleanup-failed": "Editar a wiki de origem automaticamente não foi possível.",
 	"fileimporter-delete-text": "Você tem o direito de excluir o arquivo na wiki de origem. Se você quiser que o FileImporter exclua o arquivo em seu nome, selecione esta opção:",
 	"fileimporter-delete-checkboxlabel": "Excluir arquivo na wiki de origem em meu nome",
 	"fileimporter-delete-summary": "Este arquivo está agora no Wikimedia Commons (movido com FileImporter).",

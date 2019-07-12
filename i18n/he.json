@@ -54,6 +54,8 @@
 	"fileimporter-previewnote": "זוהי תצוגה מקדימה של קובץ שייובא. נא לבדוק את הדף לפרטי פרטים לפני ייבוא.",
 	"fileimporter-heading-fileinfo": "מידע על הקובץ",
 	"fileimporter-heading-filehistory": "היסטוריית הקובץ",
+	"fileimporter-heading-cleanup": "לנקות את הוויקי המקורי",
+	"fileimporter-cleanup-text": "באפשרותך להצהיר עכשיו בווקיקי המקורי שהקובץ הזה הועבר ל{{GRAMMAR:$1|{{SITENAME}}}}. זה נעשה באמצעות הוספת התבנית <code><nowiki>{{$1}}</nowiki></code> לדף הקובץ המקורי בשמך.",
 	"fileimporter-revision-removed-text": "טקסט מועלם הוסר על־ידי מייבא הקבצים.",
 	"fileimporter-revision-removed-comment": "תקציר מועלם הוסר על־ידי מייבא הקבצים.",
 	"fileimporter-in-beta": "ייבוא הקבצים במצב בטא: אנחנו בדקנו אותו בתשומת לב, אבל ייתכן שעדיין יש בו בעיות מסוימות. אם מצאת בעיות, אנא [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter דווחו אותן בדף העזרה שלנו], ויהיה מושלם אם תספקו צעדים לשחזור הבעיה, כדי שנוכל להבין ולתקן אותה.",

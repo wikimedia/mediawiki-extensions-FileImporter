@@ -57,7 +57,7 @@
 	"fileimporter-cleanup-text": "يمكنك أن تعلن على الويكي المصدر أنه تم استيراد هذا الملف إلى {{SITENAME}}، يتم ذلك عن طريق إضافة قالب <code><nowiki>{{$1}}</nowiki></code> إلى صفحة الملف الأصلية باسمك.",
 	"fileimporter-cleanup-checkboxlabel": "تعليم ملف الويكي المصدر كمستورد إلى {{SITENAME}}",
 	"fileimporter-cleanup-summary": "هذا الملف موجود الآن على {{SITENAME}} (تم نقله باستخدام مستورد الملفات).",
-	"fileimporter-cleanup-failed": "التحرير، الويكي المصدر لم يكن ممكنا تلقائيا يُرجَى اتباع التعليمات المذكورة أعلاه.",
+	"fileimporter-cleanup-failed": "التحرير، الويكي المصدر لم يكن ممكنا تلقائيا.",
 	"fileimporter-delete-text": "لديك صلاحيات حذف الملف على الويكي المصدر، إذا كنت ترغب في أن يقوم مستورد الملفات بحذف الملف باسمك، فحدد هذا الخيار:",
 	"fileimporter-delete-checkboxlabel": "احذف الملف على الويكي المصدر باسمي",
 	"fileimporter-delete-summary": "هذا الملف موجود الآن على ويكيميديا ​​كومنز (تم نقله باستخدام مستورد الملفات).",

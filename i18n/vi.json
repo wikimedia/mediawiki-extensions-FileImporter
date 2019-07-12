@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Leduyquang753"
+			"Leduyquang753",
+			"Tuanminh01"
 		]
 	},
+	"fileimporter-cleanup-failed": "Chỉnh sửa wiki nguồn tự động là không thể.",
 	"fileimporter-commonshelper-missing-config": "Nhập tệp từ wiki gốc ($1) hiện chưa thể thực hiện được. Không có thiết lập nào cho wiki tại $2."
 }

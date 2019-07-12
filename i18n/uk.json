@@ -56,7 +56,7 @@
 	"fileimporter-heading-filehistory": "Історія файлу",
 	"fileimporter-cleanup-checkboxlabel": "Позначити файл із вихідної вікі, як імпортований до {{SITENAME}}",
 	"fileimporter-cleanup-summary": "Цей файл зараз на {{SITENAME}} (переміщено за допомогою FileImporter).",
-	"fileimporter-cleanup-failed": "Неможливо здійснити автоматичне редагування на вихідній вікі, будь ласка, виконайте вищенаведені інструкції.",
+	"fileimporter-cleanup-failed": "Автоматичне редагування вихідної вікі не було можливим.",
 	"fileimporter-delete-text": "Ви маєте права на вилучення файлу із вихідної вікі. Якщо Ви бажаєте, щоб FileImporter зробив це від Вашого імені, оберіть цю опцію:",
 	"fileimporter-delete-checkboxlabel": "Вилучити файл із вихідної вікі від мого імені",
 	"fileimporter-delete-summary": "Цей файл зараз на {{SITENAME}} (переміщено за допомогою FileImporter).",
