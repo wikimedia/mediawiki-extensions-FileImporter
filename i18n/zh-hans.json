@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"水獭很懒",
-			"A Chinese Wikipedian"
+			"A Chinese Wikipedian",
+			"WQL"
 		]
 	},
 	"fileimporter": "文件导入器",
@@ -56,13 +57,13 @@
 	"fileimporter-filemissinginrevision": "不能导入文件，因为至少一个修订版本缺少图片文件。",
 	"fileimporter-filetoolarge": "您当前正尝试导入的{{PLURAL:$1|文件|$1个文件版本}}超过了导入可以处理的文件大小限制。",
 	"fileimporter-import-wait": "导入可能需要数分钟。",
-	"fileimporter-imported-success-banner": "此文件已成功导入至{{SITENAME}}。点击以下链接以查看文件：$1",
+	"fileimporter-imported-success-banner": "此文件已成功导入至{{SITENAME}}。",
 	"fileimporter-go-to-original-file-button": "返回原始文件",
 	"fileimporter-commonshelper-retrieval-failed": "检查被封禁的文件时发生错误。",
 	"fileimporter-commonshelper-parsing-failed": "您wiki的配置页面（$1）并不完整，请确保其中包含“$2”等部分。",
 	"fileimporter-file-contains-blocked-category-template": "文件不能导入，因为它被标记为$1。$2不允许这类文件。",
 	"fileimporter-file-missing-required-template": "文件不能导入，因为它未被标记为所需许可协议之一。",
-	"fileimporter-auto-replacements-summary": "已替换$1个模板名为{{SITENAME}}模板名",
+	"fileimporter-auto-replacements-summary": "$1个对模板的自动修改已经完成",
 	"fileimporter-input-page-info-text": "访问我们的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 帮助页面]了解更多。",
 	"fileimporter-viewdiff": "显示更改",
 	"fileimporter-to-preview": "返回预览"
