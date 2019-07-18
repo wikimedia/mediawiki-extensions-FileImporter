@@ -7,7 +7,8 @@
 			"Edible Melon",
 			"Vlad5250",
 			"Athena Atterdag",
-			"1233qwer1234qwer4"
+			"1233qwer1234qwer4",
+			"Saimongoltinio"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -45,9 +46,9 @@
 	"fileimporter-heading-filehistory": "История файла",
 	"fileimporter-cleanup-text": "Вы можете заявить на исходной вики, что этот файл был импортирован в {{SITENAME}}. Сделать это можно, добавив шаблон <code><nowiki>{{$1}}</nowiki></code> на страницу оригинального файла от вашего имени.",
 	"fileimporter-cleanup-checkboxlabel": "Пометить файл исходной вики, как импортированный в {{SITENAME}}",
-	"fileimporter-cleanup-summary": "Этот файл теперь находится на {{SITENAME}} (перемещён через FileImporter).",
+	"fileimporter-cleanup-summary": "Этот файл теперь находится на {{SITENAME}} @$1 (перемещён через FileImporter).",
 	"fileimporter-delete-checkboxlabel": "Удалить файл из исходной вики от моего имени",
-	"fileimporter-delete-summary": "Этот файл теперь находится на {{SITENAME}} (перемещён через FileImporter).",
+	"fileimporter-delete-summary": "Этот файл теперь находится на {{SITENAME}} $1(перемещён через FileImporter).",
 	"fileimporter-delete-failed": "Файл не был автоматически удалён на $1. Пожалуйста, вернитесь [$2 к оригинальному файлу] и удалите его вручную.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Файл|$1 версии файла|$1 версий файла}}, который вы сейчас пытаетесь импортировать, {{PLURAL:$1|превышает|превышают}} ограничение на максимально допустимый размер файла для импорта.",
 	"fileimporter-imported-success-banner": "Этот файл успешно импортирован в {{SITENAME}}.",
