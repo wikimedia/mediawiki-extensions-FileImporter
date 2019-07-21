@@ -33,6 +33,7 @@ use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use ObjectCache;
 use RepoGroup;
 use UploadBase;
 
@@ -280,9 +281,7 @@ return [
 	},
 
 	'FileImporterSuccessCache' => function ( MediaWikiServices $services ) {
-		return new SuccessCache(
-			$services->getMainObjectStash()
-		);
+		return new SuccessCache( ObjectCache::getInstance( 'db-replicated' ) );
 	},
 
 ];
