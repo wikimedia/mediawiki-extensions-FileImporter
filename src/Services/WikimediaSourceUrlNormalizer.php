@@ -22,7 +22,6 @@ class WikimediaSourceUrlNormalizer extends MediaWikiSourceUrlNormalizer {
 		$parts = parent::normalize( $sourceUrl )->getParsedUrl();
 		$parts['host'] = strtr( $parts['host'], [
 			'.m.' => '.',
-			'.zero.' => '.',
 		] );
 		$url = wfAssembleUrl( $parts );
 
