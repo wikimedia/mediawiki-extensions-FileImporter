@@ -61,7 +61,7 @@
 	"fileimporter-filemissinginrevision": "Impossibile importare il file perché almeno una delle sue versioni manca di un file immagine.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Il file|Le $1 versioni del file}} che stai cercando di importare {{PLURAL:$1|eccede|eccedono}} i limiti che l'importazione può gestire.",
 	"fileimporter-import-wait": "L'importazione potrebbe impiegare alcuni minuti.",
-	"fileimporter-imported-success-banner": "Questo file è stato importato con successo su {{SITENAME}}.",
+	"fileimporter-imported-success-banner": "Questo file è stato importato su {{SITENAME}}.",
 	"fileimporter-go-to-original-file-button": "Ritorna al file originale",
 	"fileimporter-commonshelper-parsing-failed": "La pagina di configurazione per il tuo wiki ($1) è incompleta. Assicurati che contenga una sezione \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Il file non può essere importato, perché è contrassegnato come $1. $2 non consente tali file.",

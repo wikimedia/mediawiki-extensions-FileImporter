@@ -3,7 +3,8 @@
 		"authors": [
 			"烈羽",
 			"Liuxinyu970226",
-			"Kly"
+			"Kly",
+			"Winston Sung"
 		]
 	},
 	"fileimporter": "檔案匯入器",
@@ -59,7 +60,7 @@
 	"fileimporter-filemissinginrevision": "因為至少有一個修訂內容缺少圖片檔案，因此無法匯入。",
 	"fileimporter-filetoolarge": "您正嘗試匯入的{{PLURAL:$1|檔案|$1 個檔案版本}}，{{PLURAL:$1|超出|超出}}了可處理的匯入檔案大小限制。",
 	"fileimporter-import-wait": "匯入可能會花上幾分鐘。",
-	"fileimporter-imported-success-banner": "此檔案已成功匯入到 {{SITENAME}}。",
+	"fileimporter-imported-success-banner": "此檔案已匯入到 {{SITENAME}}。",
 	"fileimporter-go-to-original-file-button": "返回至原始檔案",
 	"fileimporter-commonshelper-retrieval-failed": "檢查被封鎖檔案時發生錯誤。",
 	"fileimporter-commonshelper-missing-config": "目前尚無法從來源 wiki（$1）匯入檔案，在 $2 裡沒有用於 wiki 的設置。",
