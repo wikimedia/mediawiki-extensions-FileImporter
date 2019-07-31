@@ -39,8 +39,6 @@ class SuccessCache {
 	}
 
 	private function makeCacheKey( Title $targetTitle ) {
-		// TODO see if this should be fixed differently
-		// @phan-suppress-next-line PhanParamTooMany
 		return $this->cache->makeKey(
 			__CLASS__,
 			self::CACHE_KEY,
