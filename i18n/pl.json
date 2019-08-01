@@ -8,7 +8,7 @@
 			"Railfail536"
 		]
 	},
-	"fileimporter": "FileImporter",
+	"fileimporter": "Importer plików",
 	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
 	"fileimporter-specialpage": "Import pliku",
 	"fileimporter-importfailed": "Import nieudany",
@@ -36,6 +36,8 @@
 	"fileimporter-editsummary": "Opis zmian:",
 	"fileimporter-heading-fileinfo": "Informacje o pliku",
 	"fileimporter-heading-filehistory": "Historia pliku",
+	"fileimporter-cleanup-summary": "Ten plik znajduje się teraz na {{grammar:MS.lp|{{SITENAME}}}} jako $1 (przeniesiony importerem plików)",
+	"fileimporter-delete-summary": "Ten plik znajduje się teraz na {{grammar:MS.lp|{{SITENAME}}}} jako $1 (przeniesiony importerem plików)",
 	"fileimporter-filetoolarge": "Plik, który próbujesz zaimportować, przekracza maksymalny limit rozmiaru pliku.",
 	"fileimporter-import-wait": "Importowanie może potrwać kilka minut.",
 	"fileimporter-go-to-original-file-button": "Powróć do oryginalnego pliku",

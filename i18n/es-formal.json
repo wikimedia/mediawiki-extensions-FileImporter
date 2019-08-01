@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"fileimporter-add-specific-template": "Se ha efectuado la importación. Para declarar que el archivo está ahora en {{SITENAME}}, vuelva al [$1 archivo original] y añada esta plantilla: <code><nowiki>{{$2|$3}}</nowiki></code>."
+}
