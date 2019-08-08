@@ -69,7 +69,7 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|El archivo|Las $1 versiones del archivo}} que estás tratando de importar {{PLURAL:$1|excede|exceden}} el tamaño máximo permitido por la herramienta de importación.",
 	"fileimporter-import-wait": "La importación puede demorar unos minutos.",
 	"fileimporter-imported-success-banner": "El archivo se importó en {{SITENAME}}.",
-	"fileimporter-add-unknown-template": "El archivo fue importado. Para declarar que el archivo está ahora en {{SITENAME}}, vuelve al [$1 archivo original] y añade una plantilla.",
+	"fileimporter-add-unknown-template": "Se ha importado el archivo. Para declarar que el archivo está ahora en {{SITENAME}}, vuelve al [$1 archivo original] y añádele una plantilla.",
 	"fileimporter-add-specific-template": "Se ha efectuado la importación. Para declarar que el archivo está ahora en {{SITENAME}}, vuelve al [$1 archivo original] y añade esta plantilla: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Volver al archivo original",
 	"fileimporter-commonshelper-retrieval-failed": "Se produjo un error al buscar archivos bloqueados.",
