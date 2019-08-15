@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mirin"
+		]
+	},
+	"fileimporter": "DosierEnportilo",
+	"tag-fileimporter": "Enportita per DosierEnportilo",
+	"fileimporter-specialpage": "Enporti dosieron",
+	"fileimporter-importfailed": "Enportado malsukcesis",
+	"fileimporter-cantparseurl": "Ne povas analizi la donitan retadreson: $1",
+	"fileimporter-cantimporturl": "Ne povas enporti la donitan retadreson",
+	"fileimporter-exampleprefix": "Ekzemplo",
+	"fileimporter-submit": "Sendi",
+	"fileimporter-submit-fileinfo": "Ŝanĝi informon pri dosiero",
+	"fileimporter-submit-title": "Ŝanĝi titolon",
+	"fileimporter-resubmit": "Resendi",
+	"fileimporter-import": "Enporti",
+	"fileimporter-cancel": "Nuligi",
+	"fileimporter-edittitle": "Redakti Titolon",
+	"fileimporter-editinfo": "Redakti Informon pri Dosiero",
+	"fileimporter-extensionlabel": "Dosiersufikso:",
+	"fileimporter-newfilename": "Nova dosiernomo:",
+	"fileimporter-newfilename-placeholder": "Iu Dosiernomo",
+	"fileimporter-editsummary": "Resumo de redakto:",
+	"fileimporter-heading-fileinfo": "Informo pri dosiero",
+	"fileimporter-heading-filehistory": "Historio de dosiero",
+	"fileimporter-go-to-original-file-button": "Reen al originala dosiero",
+	"fileimporter-viewdiff": "Montri ŝanĝojn"
+}
