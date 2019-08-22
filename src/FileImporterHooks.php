@@ -52,6 +52,7 @@ class FileImporterHooks {
 	 */
 	public static function onListDefinedTags( array &$tags ) {
 		$tags[] = 'fileimporter';
+		$tags[] = 'fileimporter-imported';
 	}
 
 	/**

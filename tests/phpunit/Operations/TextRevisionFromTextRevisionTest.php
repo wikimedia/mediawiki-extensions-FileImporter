@@ -114,6 +114,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 			'comment' => 'Original upload comment of Test.png',
 			'*' => 'Original text of Test.png',
 			'title' => 'Test.png',
+			'tags' => [],
 		] );
 	}
 

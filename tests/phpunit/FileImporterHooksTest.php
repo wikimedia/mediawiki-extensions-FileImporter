@@ -15,7 +15,9 @@ class FileImporterHooksTest extends \MediaWikiTestCase {
 	public function testOnListDefinedTags() {
 		$tags = [];
 		FileImporterHooks::onListDefinedTags( $tags );
-		$this->assertSame( [ 'fileimporter' ], $tags );
+		$this->assertSame(
+			[ 'fileimporter', 'fileimporter-imported' ],
+			$tags );
 	}
 
 	public function testOnUserGetReservedNames() {

@@ -3,6 +3,7 @@
 namespace FileImporter\Tests\Services;
 
 use Article;
+use ChangeTags;
 use DatabaseLogEntry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
@@ -46,6 +47,10 @@ class ImporterTest extends \MediaWikiTestCase {
 
 	protected function setUp() {
 		parent::setUp();
+
+		$this->tablesUsed[] = 'change_tag';
+		$this->tablesUsed[] = 'change_tag_def';
+		$this->tablesUsed[] = 'logging';
 
 		$this->setMwGlobals( [
 			'wgHooks' => [],
@@ -94,6 +99,14 @@ class ImporterTest extends \MediaWikiTestCase {
 			$firstRevision->getContent()->serialize()
 		);
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
+		$tags = ChangeTags::getTags(
+			wfGetDB( DB_MASTER ),
+			null,
+			$firstRevision->getId()
+		);
+		sort( $tags );
+		$expectedTags = [ 'fileimporter-imported', 'tag1', 'tag2' ];
+		$this->assertSame( $expectedTags, array_intersect( $tags, $expectedTags ) );
 
 		// assert import user revision was created correctly
 		$article = Article::newFromID( $title->getArticleID() );
@@ -122,6 +135,9 @@ class ImporterTest extends \MediaWikiTestCase {
 			'This is my text!',
 			$secondRevision->getContent()->serialize()
 		);
+		$expectedTags = [ 'fileimporter-imported' ];
+		$tags = ChangeTags::getTags( wfGetDB( DB_MASTER ), null, $secondRevision->getId() );
+		$this->assertSame( $expectedTags, array_intersect( $tags, $expectedTags ) );
 
 		// assert import log entry was created correctly
 		$this->assertTextRevisionLogEntry( $nullRevision, 'import', 'interwiki', 'fileimporter' );
@@ -179,7 +195,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( $revision->getUser(), $logEntry->getPerformer()->getId() );
 
 		if ( $expectedTag !== null ) {
-			$this->assertFileImporterTagWasAdded( $logEntry->getId(), $revision->getId() );
+			$this->assertFileImporterTagWasAdded( $logEntry->getId(), $revision->getId(), $expectedTag );
 		}
 	}
 
@@ -204,14 +220,14 @@ class ImporterTest extends \MediaWikiTestCase {
 	 * @param int $logId
 	 * @param int $revId
 	 */
-	private function assertFileImporterTagWasAdded( $logId, $revId ) {
+	private function assertFileImporterTagWasAdded( $logId, $revId, $expectedTag ) {
 		$this->assertSame( 1, $this->db->selectRowCount(
 			[ 'change_tag', 'change_tag_def' ],
 			'*',
 			[
 				'ct_log_id' => $logId,
 				'ct_rev_id' => $revId,
-				'ctd_name' => 'fileimporter',
+				'ctd_name' => $expectedTag,
 			],
 			__METHOD__,
 			[],
@@ -257,7 +273,10 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 
 		if ( $expectedTag !== null ) {
-			$this->assertSame( $expectedTag, $row->ts_tags, $expectedTag . ' tag was added' );
+			$this->assertContains(
+				$expectedTag,
+				explode( ',', $row->ts_tags ),
+				$expectedTag . ' tag was added' );
 		}
 		return DatabaseLogEntry::newFromRow( $row );
 	}
@@ -356,6 +375,7 @@ class ImporterTest extends \MediaWikiTestCase {
 				'comment' => 'I like more text',
 				'*' => 'This is my text!',
 				'title' => 'test.jpg',
+				'tags' => [],
 			] ),
 			new TextRevision( [
 				'minor' => '',
@@ -367,6 +387,7 @@ class ImporterTest extends \MediaWikiTestCase {
 				'comment' => 'Original upload comment of Test.png',
 				'*' => 'Original text of test.jpg',
 				'title' => 'test.jpg',
+				'tags' => [ 'tag1', 'tag2' ],
 			] ),
 		] );
 	}

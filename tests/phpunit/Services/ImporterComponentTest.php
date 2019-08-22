@@ -137,6 +137,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			'comment' => null,
 			'*' => null,
 			'title' => null,
+			'tags' => [],
 		] );
 	}
 
