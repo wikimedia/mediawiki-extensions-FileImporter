@@ -299,7 +299,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 						'rvcontinue' => 'rvContinueHere',
 						'rvlimit' => 500,
 						'rvdir' => 'newer',
-						'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content',
+						'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content|tags',
 					],
 					'data' => [
 						'imageinfo' => [
@@ -452,6 +452,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 								'comment' => 'comment',
 								'*' => '*',
 								'title' => $titleString,
+								'tags' => [ 'tag1', 'tag2' ],
 							],
 						],
 					]
@@ -554,7 +555,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			'iiprop' => 'timestamp|user|userid|comment|canonicaltitle|url|size|sha1',
 			'rvlimit' => 500,
 			'rvdir' => 'newer',
-			'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content',
+			'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content|tags',
 			'tlnamespace' => NS_TEMPLATE,
 			'tllimit' => 500,
 			'cllimit' => 500,

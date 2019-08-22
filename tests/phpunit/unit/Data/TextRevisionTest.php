@@ -23,6 +23,7 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 		'timestamp',
 		'title',
 		'user',
+		'tags',
 	];
 
 	public function testGetters() {

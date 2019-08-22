@@ -27,6 +27,7 @@ class TextRevision {
 		'comment',
 		'*',
 		'title',
+		'tags',
 	];
 
 	/**

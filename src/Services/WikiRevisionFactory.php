@@ -91,6 +91,9 @@ class WikiRevisionFactory {
 		$revision->setFormat( $textRevision->getField( 'contentformat' ) );
 		$revision->setMinor( $textRevision->getField( 'minor' ) );
 		$revision->setText( $textRevision->getField( '*' ) );
+		$revision->setTags(
+			array_merge( $textRevision->getField( 'tags' ), [ 'fileimporter-imported' ] )
+		);
 
 		return $revision;
 	}

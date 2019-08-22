@@ -66,6 +66,7 @@
 						"contentformat": "text/x-wiki",
 						"contentmodel": "wikitext",
 						"sha1": "bc8214142b503eb1169494a74c8ebfbc9d0f6c0c",
+						"tags": [],
 						"timestamp": "2008-04-19T18:49:25Z",
 						"user": "Addshore"
 					},
@@ -76,6 +77,7 @@
 						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "faeda28878ba71a4371651df8ae465489f4090ae",
+						"tags": [],
 						"timestamp": "2008-04-19T18:59:03Z",
 						"user": "Addshore"
 					},
@@ -86,6 +88,7 @@
 						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "75262ef03d1ff422de560570739e8558f70b76a3",
+						"tags": [],
 						"timestamp": "2008-08-05T06:57:08Z",
 						"user": "BotMultichill"
 					},
@@ -96,6 +99,7 @@
 						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "fbd0db7f3020f5e417d3a8d328df755f0553e358",
+						"tags": [],
 						"timestamp": "2008-11-26T20:28:54Z",
 						"user": "Kilom691"
 					},
@@ -106,6 +110,7 @@
 						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "450bc9f34e42a3a3a0ff2b2056538381e467d2d3",
+						"tags": [],
 						"timestamp": "2009-04-29T18:50:06Z",
 						"user": "Slobot"
 					},
@@ -116,6 +121,7 @@
 						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "cd8d41c27053eb2b8b0eef08bf4805e55d1dc624",
+						"tags": [],
 						"timestamp": "2009-08-08T13:33:13Z",
 						"user": "Emijrpbot"
 					},
@@ -126,6 +132,7 @@
 						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "4914282635e00725c8410ec7f7956953faead4ae",
+						"tags": [],
 						"timestamp": "2014-07-14T04:06:56Z",
 						"user": "YaCBot"
 					},
@@ -135,6 +142,7 @@
 						"contentformat": "text/x-wiki",
 						"contentmodel": "wikitext",
 						"sha1": "5ecdadb69b69fe195549872cc302e9b028f65271",
+						"tags": [],
 						"timestamp": "2019-01-10T16:17:23Z",
 						"user": "Addshore"
 					},
@@ -144,6 +152,7 @@
 						"contentformat": "text/x-wiki",
 						"contentmodel": "wikitext",
 						"sha1": "635319c346ff44dbeedfaa0c97e9d8a9dd17b89c",
+						"tags": [],
 						"timestamp": "2019-01-10T16:19:06Z",
 						"user": "Addshore"
 					},
@@ -153,6 +162,7 @@
 						"contentformat": "text/x-wiki",
 						"contentmodel": "wikitext",
 						"sha1": "b18208459b75af6db3f51b7ff5e4eb9167ce2144",
+						"tags": [],
 						"timestamp": "2019-01-10T16:25:04Z",
 						"user": "Addshore"
 					}

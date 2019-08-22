@@ -189,6 +189,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			'comment' => 'TestComment [[Link]]',
 			'*' => 'TestText',
 			'title' => 'File:TestTitle',
+			'tags' => [],
 		] );
 	}
 
