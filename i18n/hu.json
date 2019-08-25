@@ -51,7 +51,7 @@
 	"fileimporter-filemissinginrevision": "Nem lehet importálni a fájlt, mert legalább egy változatához nem tartozik képfájl.",
 	"fileimporter-filetoolarge": "Az éppen importálni próbált {{PLURAL:$1|fájl|$1 fájlverzió}} túllépi azt a fájlmérethatárt, amit az importálás még képes kezelni.",
 	"fileimporter-import-wait": "Az importálás pár percet igényelhet.",
-	"fileimporter-imported-success-banner": "A fájl sikeresen importálva a(z) {{SITENAME}} wikibe. Kattints a következő linkre a fájl megtekintéséhez: $1",
+	"fileimporter-imported-success-banner": "A fájl importálva a(z) {{SITENAME}} wikibe.",
 	"fileimporter-go-to-original-file-button": "Visszatérés az eredeti fájlhoz",
 	"fileimporter-commonshelper-retrieval-failed": "Hiba történt a blokkolt fájlok ellenőrzése közben.",
 	"fileimporter-commonshelper-missing-config": "Az importálás a forráswikiből ($1) még nem lehetséges. Nincs konfiguráció a wikihez a $2 címen.",
