@@ -42,6 +42,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 			( new ImportIdentityFormSnippet( [
 				'clientUrl' => $importPlan->getRequest()->getUrl(),
 				'intendedFileName' => $importPlan->getFileName(),
+				'intendedRevisionSummary' => $importPlan->getRequest()->getIntendedSummary(),
 				'intendedWikitext' => $importPlan->getFileInfoText(),
 				'actionStats' => json_encode( $importPlan->getActionStats() ),
 				'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),

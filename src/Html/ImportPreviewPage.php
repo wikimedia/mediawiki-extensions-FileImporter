@@ -124,8 +124,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			'div',
 			[ 'class' => 'mw-importfile-importOptions' ]
 		) .
-		( $this->wasEdited( $importPlan ) ? $this->buildEditSummaryHtml(
-			$importPlan->getNumberOfTemplateReplacements() ) : '' ) .
+		$this->buildEditSummaryHtml( $importPlan ) .
 		Html::rawElement(
 			'p',
 			[],
@@ -185,12 +184,23 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		);
 	}
 
-	private function buildEditSummaryHtml( $replacements ) {
-		$summary = $replacements > 0
-			? $this->msg( 'fileimporter-auto-replacements-summary', $replacements )
-				->inContentLanguage()
-				->text()
-			: null;
+	private function buildEditSummaryHtml( ImportPlan $importPlan ) {
+		$summary = $importPlan->getRequest()->getIntendedSummary();
+		if ( $summary === null ) {
+			$replacements = $importPlan->getNumberOfTemplateReplacements();
+			$summary = $replacements > 0
+				? $this->msg(
+					'fileimporter-auto-replacements-summary',
+					$replacements
+				)->inContentLanguage()->text()
+				: null;
+		}
+		if ( $summary === null
+			&& !$this->wasEdited( $importPlan )
+		) {
+			return '';
+		}
+
 		return Html::element(
 			'p',
 			[],

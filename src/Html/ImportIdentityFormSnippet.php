@@ -20,6 +20,7 @@ class ImportIdentityFormSnippet {
 	private static $identityKeys = [
 		'clientUrl',
 		'intendedFileName',
+		'intendedRevisionSummary',
 		'intendedWikitext',
 		'actionStats',
 		'importDetailsHash',

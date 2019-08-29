@@ -64,6 +64,7 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 			'intendedWikitext' => $importPlan->getFileInfoText(),
 			'actionStats' => json_encode( $importPlan->getActionStats() ),
 			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
+			'intendedRevisionSummary' => $importPlan->getRequest()->getIntendedSummary(),
 			'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
 			'automateSourceWikiDelete' => $importPlan->getAutomateSourceWikiDelete(),
 		] ) )->getHtml() .
