@@ -7,7 +7,8 @@
 			"Benoit Rochon",
 			"Verdy p",
 			"Alno",
-			"Derugon"
+			"Derugon",
+			"Thibaut120094"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -30,7 +31,7 @@
 	"fileimporter-filenameerror-default": "Il y a un problème non reconnu avec le nom de votre fichier.",
 	"fileimporter-filenameerror-illegal": "Le nom du fichier que vous essayez actuellement d'importer est invalide.",
 	"fileimporter-filenameerror-toolong": "Le nom du fichier que vous essayez actuellement d'importer est trop long.",
-	"fileimporter-filenameerror-automaticchanges": "Le nom du fichier a été modifié automatiquement de « $1 » en « $2 »",
+	"fileimporter-filenameerror-automaticchanges": "Le nom du fichier a été modifié automatiquement de « $1 » en « $2 »",
 	"fileimporter-filenameerror-nosourceextension": "Le nom du fichier source n’a pas d’extension.",
 	"fileimporter-filenameerror-noplannedextension": "Le nom du fichier cible n’a pas d’extension.",
 	"fileimporter-filenameerror-missmatchextension": "L’extension du fichier cible ne correspond pas à celle du fichier d’origine.",
@@ -78,7 +79,7 @@
 	"fileimporter-go-to-original-file-button": "Revenir au fichier d’origine",
 	"fileimporter-commonshelper-retrieval-failed": "Erreur durant le contrôle des fichiers bloqués.",
 	"fileimporter-commonshelper-missing-config": "Importer des fichiers du wiki source ($1) n'est pas encore possible. Il n'y a pas de configuration pour le wiki à $2.",
-	"fileimporter-commonshelper-parsing-failed": "La page de configuration pour votre wiki ($1) est incomplète. Assurez-vous qu’elle comporte une section « $2 ».",
+	"fileimporter-commonshelper-parsing-failed": "La page de configuration pour votre wiki ($1) est incomplète. Assurez-vous qu’elle comporte une section « $2 ».",
 	"fileimporter-file-contains-blocked-category-template": "Le fichier n’a pas pu être importé, parce qu’il est marqué $1. $2 n’autorise pas de tels fichiers.",
 	"fileimporter-file-missing-required-template": "Le fichier ne peut pas être importé, car il n'est placé sous aucune des licences autorisées.",
 	"fileimporter-category-encouragement": "Les fichiers sur {{SITENAME}} doivent être catégorisés. Cela permet de les trouver plus facilement. Vous pouvez modifier les catégories pour ce fichier en modifiant ses informations sur cette page.",
