@@ -67,18 +67,10 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 			$this->createMock( User::class )
 		);
 
-		assertThat(
-			$html,
-			is( htmlPiece( havingChild(
-				both( withTagName( 'input' ) )
-					->andAlso( withAttribute( 'name' )->havingValue( 'automateSourceWikiCleanup' ) )
-					->andAlso( withAttribute( 'value' ) )
-					->andAlso( withAttribute( 'checked' )->havingValue( 'checked' ) )
-			) ) )
+		$this->assertContains(
+			" name='automateSourceWikiCleanup' value='1' checked='checked'",
+			$html
 		);
-
-		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
-		$this->addToAssertionCount( 1 );
 	}
 
 	public function testIsSourceEditAllowed_lookupSucceeds() {

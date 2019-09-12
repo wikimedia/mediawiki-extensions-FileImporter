@@ -78,15 +78,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$page = new ImportPreviewPage( $this->getMockSpecialPage() );
 		$html = $page->getHtml( $importPlan );
 
-		assertThat(
-			$html,
-			is( htmlPiece( not( havingChild(
-				$this->thatIsInputFieldWithSomeValue( 'automateSourceWikiCleanup' )
-			) ) ) )
-		);
-
-		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
-		$this->addToAssertionCount( 1 );
+		$this->assertNotContains( 'automateSourceWikiCleanup', $html );
 	}
 
 	public function testGetHtml_canEditSourceWiki() {
@@ -104,9 +96,6 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$html = $page->getHtml( $importPlan );
 
 		$this->assertSelectedCheckbox( $html, 'automateSourceWikiCleanup' );
-
-		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
-		$this->addToAssertionCount( 1 );
 	}
 
 	private function getMockTemplateLookup() {
@@ -117,13 +106,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function assertPreviewPageText( $html ) {
-		assertThat(
-			$html,
-			is( htmlPiece( havingChild(
-				both( withTagName( 'div' ) )
-					->andAlso( withAttribute( 'class' )->havingValue( 'mw-importfile-parsedContent' ) )
-			) ) )
-		);
+		$this->assertContains( '<div class="mw-importfile-parsedContent">', $html );
 	}
 
 	private function assertPreviewPageForm( $html ) {
@@ -157,47 +140,17 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function assertSelectedCheckbox( $html, $name ) {
-		assertThat(
-			$html,
-			is( htmlPiece( havingChild(
-				both( withTagName( 'input' ) )
-					->andAlso( withAttribute( 'name' )->havingValue( $name ) )
-					->andAlso( withAttribute( 'value' ) )
-					->andAlso( withAttribute( 'checked' )->havingValue( 'checked' ) )
-			) ) )
-		);
+		$this->assertContains( " name='$name' value='1' checked='checked'", $html );
 	}
 
 	private function assertSummary( $html, $submittedText, $replacements ) {
 		if ( $replacements > 0 ) {
-			assertThat(
-				$html,
-				is( htmlPiece( havingChild(
-					both( withTagName( 'form' ) )
-						->andAlso( havingChild( $this->thatIsInputField(
-							'intendedRevisionSummary',
-							'(fileimporter-auto-replacements-summary: ' . $replacements . ')'
-						) ) )
-				) ) )
-			);
+			$this->assertContains( " name='intendedRevisionSummary'" .
+				" value='(fileimporter-auto-replacements-summary: $replacements)'", $html );
 		} elseif ( $submittedText !== self::INITIAL_TEXT ) {
-			assertThat(
-				$html,
-				is( htmlPiece( havingChild(
-					both( withTagName( 'form' ) )
-						->andAlso( havingChild( $this->thatIsInputField(
-							'intendedRevisionSummary',
-							''
-						) ) )
-				) ) )
-			);
+			$this->assertContains( " name='intendedRevisionSummary' value=''", $html );
 		} else {
-			assertThat(
-				$html,
-				is( not( htmlPiece( havingChild( $this->thatIsInputFieldWithSomeValue(
-					'intendedRevisionSummary'
-				) ) ) ) )
-			);
+			$this->assertNotContains( 'intendedRevisionSummary', $html );
 		}
 	}
 
@@ -209,8 +162,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 
 	private function thatIsInputFieldWithSomeValue( $name ) {
 		return both( withTagName( 'input' ) )
-			->andAlso( withAttribute( 'name' )->havingValue( $name ) )
-			->andAlso( withAttribute( 'value' ) );
+			->andAlso( withAttribute( 'name' )->havingValue( $name ) );
 	}
 
 	/**
