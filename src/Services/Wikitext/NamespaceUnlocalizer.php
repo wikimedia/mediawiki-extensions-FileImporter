@@ -68,7 +68,12 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 				$name = trim( preg_replace( '/[\s\xA0_]+/u', '_', $name ), '_' );
 
 				$namespaceId = $this->sourceLanguage->getLocalNsIndex( $name );
-				if ( $namespaceId === false || $namespaceId === NS_MAIN ) {
+				if ( $namespaceId === false
+					|| $namespaceId === NS_MAIN
+					// The Project namespace shouldn't be "unlocalized" because it is not localized,
+					// but configured via $wgMetaNamespace or $wgSitename.
+					|| $namespaceId === NS_PROJECT
+				) {
 					return $unchanged;
 				}
 

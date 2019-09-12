@@ -26,6 +26,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 			[ '', '' ],
 			[ 'foo', 'foo' ],
 			[ 'Category:foo', 'Category:foo' ],
+			[ 'Wikipedia:foo', 'Wikipedia:foo' ],
 
 			// Successfull replacements
 			[ 'Kategorie:foo', 'Category:foo' ],
@@ -73,6 +74,8 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 		$language->method( 'getLocalNsIndex' )
 			->willReturnCallback( function ( $name ) {
 				switch ( strtolower( $name ) ) {
+					case 'wikipedia':
+						return NS_PROJECT;
 					case 'kategorie':
 						return NS_CATEGORY;
 					case 'kategorie_diskussion':
@@ -86,6 +89,8 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 		$namespaceInfo->method( 'getCanonicalName' )
 			->willReturnCallback( function ( $index ) {
 				switch ( $index ) {
+					case NS_PROJECT:
+						return 'Project';
 					case NS_CATEGORY:
 						return 'Category';
 					case NS_CATEGORY_TALK:
