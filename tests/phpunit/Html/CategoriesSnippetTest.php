@@ -15,6 +15,7 @@ class CategoriesSnippetTest extends MediaWikiTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->setUserLang( 'qqx' );
 		Theme::setSingleton( new BlankTheme() );
 	}
 
@@ -22,40 +23,17 @@ class CategoriesSnippetTest extends MediaWikiTestCase {
 		$categoriesSnippet = new CategoriesSnippet( [], [] );
 		$html = $categoriesSnippet->getHtml();
 
-		assertThat(
-			$html,
-			is( htmlPiece(
-				havingChild(
-					withClass( 'oo-ui-iconWidget' )
-				)
-			) )
-		);
-
-		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
-		$this->addToAssertionCount( 1 );
+		$this->assertContains( '(fileimporter-category-encouragement)', $html );
 	}
 
 	public function testGetHtml_hasOneCategory() {
 		$category = 'Puppies ' . mt_rand();
 		$categoriesSnippet = new CategoriesSnippet( [ $category ], [] );
 		$html = $categoriesSnippet->getHtml();
-		assertThat(
-			$html,
-			is( htmlPiece(
-				both( havingChild(
-					withClass( 'catlinks' )
-				) )
-					->andAlso( havingChild(
-						havingTextContents( $category )
-					) )
-					->andAlso( not( havingChild(
-						withClass( 'oo-ui-iconWidget' )
-					) ) )
-			) )
-		);
 
-		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
-		$this->addToAssertionCount( 1 );
+		$this->assertNotContains( '(fileimporter-category-encouragement)', $html );
+		$this->assertContains( ' class="catlinks"', $html );
+		$this->assertContains( ">$category</a>", $html );
 	}
 
 	// FIXME: This misses a test for hidden categories!

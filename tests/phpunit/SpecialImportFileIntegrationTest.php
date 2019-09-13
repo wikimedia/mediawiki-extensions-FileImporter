@@ -124,7 +124,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertLandingPagePreset( $html );
+					$this->assertContains( '<p>', $html );
 				}
 			],
 			'Bad domain (not in allowed sites)' => [
@@ -175,10 +175,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow'
 					);
-					$this->assertTagExistsWithTextContents(
-						$html,
-						'h2',
-						'Chicken In Snow.JPG'
+					$this->assertContains(
+						'<h2 class="mw-importfile-header-title">Chicken In Snow.JPG</h2>',
+						$html
 					);
 				},
 				[],
@@ -199,10 +198,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow CHANGED'
 					);
-					$this->assertTagExistsWithTextContents(
-						$html,
-						'h2',
-						'Chicken In Snow CHANGED.JPG'
+					$this->assertContains(
+						'<h2 class="mw-importfile-header-title">Chicken In Snow CHANGED.JPG</h2>',
+						$html
 					);
 				},
 				[],
@@ -211,35 +209,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		];
 	}
 
-	private function assertTagExistsWithTextContents( $html, $tagName, $value ) {
-		assertThat(
-			$html,
-			is( htmlPiece( havingChild( both(
-				withTagName( $tagName ) )
-				->andAlso( havingTextContents( $value ) )
-			) ) )
-		);
-	}
-
-	private function assertLandingPagePreset( $html ) {
-		assertThat(
-			$html,
-			is( htmlPiece( havingChild( withTagName( 'p' ) ) ) )
-		);
-	}
-
 	private function assertWarningBox( $html, $text ) {
-		assertThat(
-			$html,
-			is( htmlPiece( havingChild(
-				both( withTagName( 'div' ) )
-					->andAlso( withClass( 'errorbox' ) )
-					->andAlso( havingChild(
-						both( withTagName( 'p' ) )
-							->andAlso( havingTextContents( startsWith( $text ) ) )
-					) )
-			) ) )
-		);
+		$this->assertContains( '<div class="mw-importfile-error-banner errorbox"><p>' .
+			htmlspecialchars( $text ) . '</p></div>', $html );
 	}
 
 	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {

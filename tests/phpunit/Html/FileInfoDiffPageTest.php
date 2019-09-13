@@ -105,8 +105,16 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 
 	public function provideTestTextDisplayedInInputBox() {
 		return [
-			[ 'This is old text.', 'This is new text.', 'This is new text.' ],
-			[ 'This is old text.', 'This is old text.', '(diff-empty)' ],
+			[
+				'This is old text.',
+				'This is new text.',
+				'<div>This is <ins class="diffchange diffchange-inline">new'
+			],
+			[
+				'This is old text.',
+				'This is old text.',
+				'<div class="mw-diff-empty">(diff-empty)</div>'
+			],
 		];
 	}
 
@@ -121,15 +129,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 		);
 		$diffPage = new FileInfoDiffPage( $this->getMockSpecialPage() );
 
-		assertThat(
-			$diffPage->getHtml( $importPlan ),
-			is( htmlPiece( havingChild(
-				both( withTagName( 'div' ) )
-					->andAlso( havingTextContents( $expected ) )
-			) ) )
-		);
-		// Avoid marking as a risky test
-		$this->addToAssertionCount( 1 );
+		$this->assertContains( $expected, $diffPage->getHtml( $importPlan ) );
 	}
 
 }
