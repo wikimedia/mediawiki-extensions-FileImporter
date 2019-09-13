@@ -80,7 +80,7 @@
 	"fileimporter-commonshelper-missing-config": "Error message shown when the configuration page, used to prevent the import of files with bad categories or templates, is missing.\n\nParameters:\n* $1 - Source wiki hostname (not the name of the configuration page)\n* $2 - Link to the configuration root path",
 	"fileimporter-commonshelper-parsing-failed": "Error message shown when the configuration page, used to prevent the import of files with bad categories/templates, is incomplete.\n\nParameters:\n* $1 - Configuration file url.\n* $2 - Name of the section missing from the configuration page.",
 	"fileimporter-file-contains-blocked-category-template": "Error message shown when the file contains a blocked category/template.\n\nParameters:\n* $1 - Blocked category/template name.\n* $2 - Name of the target wiki.",
-	"fileimporter-file-missing-required-template": "Error message shown when the file is missing a template (license template) required to import the file.",
+	"fileimporter-file-missing-required-template": "Error message shown when the file is missing a template (license template) required to import the file.\n\nParameters:\n* $1 - Name of the target wiki.",
 	"fileimporter-category-encouragement": "Message shown near the category box while importing, which encourages the user to include categories.",
 	"fileimporter-auto-replacements-summary": "Automatic summary line protocolling how many automatic changes have been done.\n\nParameters:\n* $1 - Number of changes done, could be used with PLURAL.",
 	"fileimporter-input-page-info-text": "Message shown to the user when visiting the URL input page.",

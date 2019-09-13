@@ -6,6 +6,7 @@ use ErrorPageError;
 use Exception;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
+use FileImporter\Exceptions\CommunityPolicyException;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
@@ -185,20 +186,20 @@ class SpecialImportFile extends SpecialPage {
 				$exception instanceof RecoverableTitleException );
 
 			if ( $exception instanceof DuplicateFilesException ) {
-				$this->getOutput()->addHTML(
-					( new DuplicateFilesErrorPage( $this ) )->getHtml(
-						$exception->getFiles(),
-						$clientUrl ) );
+				$html = ( new DuplicateFilesErrorPage( $this ) )->getHtml(
+					$exception->getFiles(),
+					$clientUrl
+				);
 			} elseif ( $exception instanceof RecoverableTitleException ) {
-				$this->getOutput()->addHTML(
-					( new RecoverableTitleExceptionPage( $this ) )->getHtml(
-						$exception ) );
+				$html = ( new RecoverableTitleExceptionPage( $this ) )->getHtml( $exception );
 			} else {
-				$this->getOutput()->addHTML(
-					( new ErrorPage( $this ) )->getHtml(
-						$this->getWarningMessage( $exception ),
-						$clientUrl ) );
+				$html = ( new ErrorPage( $this ) )->getHtml(
+					$this->getWarningMessage( $exception ),
+					$clientUrl,
+					$exception instanceof CommunityPolicyException ? 'warning' : 'error'
+				);
 			}
+			$this->getOutput()->addHTML( $html );
 		}
 	}
 

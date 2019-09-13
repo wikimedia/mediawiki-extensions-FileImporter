@@ -3,7 +3,7 @@
 namespace FileImporter\Services;
 
 use FileImporter\Data\WikitextConversions;
-use FileImporter\Exceptions\LocalizedImportException;
+use FileImporter\Exceptions\CommunityPolicyException;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -36,12 +36,12 @@ class FileDescriptionPageValidator {
 	/**
 	 * @param string[] $templates List of case-insensitive page names without namespace prefix
 	 *
-	 * @throws LocalizedImportException
+	 * @throws CommunityPolicyException
 	 */
 	public function validateTemplates( array $templates ) {
 		foreach ( $templates as $template ) {
 			if ( $this->wikitextConversions->isTemplateBad( $template ) ) {
-				throw new LocalizedImportException( [
+				throw new CommunityPolicyException( [
 					'fileimporter-file-contains-blocked-category-template',
 					$template,
 					$this->siteName
@@ -53,12 +53,12 @@ class FileDescriptionPageValidator {
 	/**
 	 * @param string[] $categories List of case-insensitive page names without namespace prefix
 	 *
-	 * @throws LocalizedImportException
+	 * @throws CommunityPolicyException
 	 */
 	public function validateCategories( array $categories ) {
 		foreach ( $categories as $category ) {
 			if ( $this->wikitextConversions->isCategoryBad( $category ) ) {
-				throw new LocalizedImportException( [
+				throw new CommunityPolicyException( [
 					'fileimporter-file-contains-blocked-category-template',
 					$category,
 					$this->siteName
@@ -70,7 +70,7 @@ class FileDescriptionPageValidator {
 	/**
 	 * @param string[] $templates List of case-insensitive page names without namespace prefix
 	 *
-	 * @throws LocalizedImportException
+	 * @throws CommunityPolicyException
 	 */
 	public function hasRequiredTemplate( array $templates ) {
 		if ( !$this->wikitextConversions->hasGoodTemplates() ) {
@@ -83,7 +83,10 @@ class FileDescriptionPageValidator {
 			}
 		}
 
-		throw new LocalizedImportException( 'fileimporter-file-missing-required-template' );
+		throw new CommunityPolicyException( [
+			'fileimporter-file-missing-required-template',
+			$this->siteName
+		] );
 	}
 
 }
