@@ -263,7 +263,7 @@ return [
 				$httpApiLookup,
 				$httpRequestExecutor,
 				$logger,
-				$services->getMainConfig()
+				$services->getMainConfig()->get( 'FileImporterInterWikiMap' )
 			),
 			$postImportHandler
 		);
