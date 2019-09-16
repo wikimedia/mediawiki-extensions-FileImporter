@@ -2,14 +2,14 @@
 
 namespace FileImporter\Remote\MediaWiki;
 
+use CentralIdLookup;
+use Exception;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use User;
-use \Exception;
-use \CentralIdLookup;
 
 /**
  * Use CentralAuth to execute API calls on a sibling wiki.
