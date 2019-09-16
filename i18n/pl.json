@@ -42,7 +42,7 @@
 	"fileimporter-filetoolarge": "Plik, który próbujesz zaimportować, przekracza maksymalny limit rozmiaru pliku.",
 	"fileimporter-import-wait": "Importowanie może potrwać kilka minut.",
 	"fileimporter-go-to-original-file-button": "Powróć do oryginalnego pliku",
-	"fileimporter-file-contains-blocked-category-template": "Nie można zaimportować pliku, ponieważ jest oznaczony jako $1. $2 nie zezwala na takie pliki.",
-	"fileimporter-file-missing-required-template": "Plik nie może zostać zaimportowany, ponieważ nie jest oznaczony jedną z wymaganych licencji.",
+	"fileimporter-file-contains-blocked-category-template": "Nie można przetransferować tego pliku na $2, ponieważ jest oznaczony jako $1. $2 nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź politykę społeczności $2 oraz strony dyskusji dotyczące licencjonowania.",
+	"fileimporter-file-missing-required-template": "Nie można przetransferować pliku na $1, ponieważ nie jest oznaczony kompatybilną licencją. $1 nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź politykę społeczności $2 oraz strony dyskusji dotyczące licencjonowania.",
 	"fileimporter-viewdiff": "Pokaż zmiany"
 }
