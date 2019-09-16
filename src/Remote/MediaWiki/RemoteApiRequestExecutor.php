@@ -154,22 +154,32 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @param array $params API request params
 	 * @param bool $usePost
-	 * @return array
+	 * @return array|null
 	 */
 	private function doRequest( SourceUrl $sourceUrl, User $user, array $params, $usePost ) {
+		$result = null;
+
 		try {
 			$requestUrl = $this->getAuthorizedApiUrl( $sourceUrl, $user );
+			$this->logger->debug( 'Got cross-wiki, authorized API URL: ' . $requestUrl );
 			if ( $usePost ) {
 				$request = $this->httpRequestExecutor->executePost( $requestUrl, $params );
 			} else {
 				$request = $this->httpRequestExecutor->execute( $requestUrl, $params );
 			}
-			return json_decode( $request->getContent(), true );
+			$result = json_decode( $request->getContent(), true );
+			if ( $result === null ) {
+				$this->logger->error( __METHOD__ . ' failed to decode response from ' .
+					$request->getFinalUrl() );
+			}
 		} catch ( Exception $ex ) {
-			$this->logger->error( __METHOD__ . 'failed to do remote request: ' .
+			$this->logger->error(
+				__METHOD__ . ' failed to do remote request to ' . $sourceUrl->getHost() .
+				'with params ' . json_encode( $params ) . ': ' .
 				$ex->getMessage() );
-			return null;
 		}
+
+		return $result;
 	}
 
 }
