@@ -9,7 +9,6 @@ use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Interwiki;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
-use MediaWiki\MediaWikiServices;
 use MWHttpRequest;
 use Psr\Log\NullLogger;
 use Wikimedia\TestingAccessWrapper;
@@ -50,18 +49,14 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	 * @dataProvider provideGetPrefixFromLegacyConfig
 	 */
 	public function testGetPrefixFromLegacyConfig(
-		array $global, $source, $validPrefix, $expected
+		array $interWikiMap, $source, $validPrefix, $expected
 	) {
-		$this->setMwGlobals( [
-			'wgFileImporterInterWikiMap' => $global,
-		] );
-
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( $validPrefix, [] ),
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			$interWikiMap
 		);
 
 		$this->assertSame(
@@ -158,7 +153,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			$this->createMock( HttpApiLookup::class ),
 			$this->createInterwikiApi(),
 			new NullLogger(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			[]
 		);
 
 		$this->assertSame(
@@ -183,7 +178,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			[]
 		);
 
 		$this->assertSame(
@@ -296,7 +291,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			$this->createMock( HttpApiLookup::class ),
 			$this->createInterwikiApi( $remoteIwMap ),
 			new NullLogger(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			[]
 		);
 
 		$this->assertSame(
@@ -348,7 +343,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 				],
 			] ),
 			new NullLogger(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			[]
 		);
 
 		$this->assertSame(
@@ -372,7 +367,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			$this->createMock( HttpApiLookup::class ),
 			$mockRequestExecutor,
 			new NullLogger(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			[]
 		);
 
 		$this->assertSame(
@@ -399,7 +394,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
-			MediaWikiServices::getInstance()->getMainConfig()
+			[]
 		);
 
 		$this->assertSame(

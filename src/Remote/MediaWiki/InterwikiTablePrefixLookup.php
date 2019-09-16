@@ -2,7 +2,6 @@
 
 namespace FileImporter\Remote\MediaWiki;
 
-use Config;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Interfaces\LinkPrefixLookup;
@@ -52,29 +51,29 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $parentDomainToUrlMap;
 
 	/**
-	 * @var Config
+	 * @var string[]
 	 */
-	private $config;
+	private $interWikiConfigMap;
 
 	/**
 	 * @param InterwikiLookup $interwikiLookup
 	 * @param HttpApiLookup $httpApiLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param LoggerInterface|null $logger
-	 * @param Config $config
+	 * @param string[] $interWikiConfigMap
 	 */
 	public function __construct(
 		InterwikiLookup $interwikiLookup,
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
 		LoggerInterface $logger,
-		Config $config
+		array $interWikiConfigMap
 	) {
 		$this->interwikiLookup = $interwikiLookup;
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = $logger;
-		$this->config = $config;
+		$this->interWikiConfigMap = $interWikiConfigMap;
 	}
 
 	/**
@@ -100,20 +99,18 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @return string
 	 */
 	private function getPrefixFromLegacyConfig( $host ) {
-		$interwikiConfigMap = $this->config->get( 'FileImporterInterWikiMap' );
-
-		if ( isset( $interwikiConfigMap[$host] ) ) {
-			$prefixes = explode( ':', $interwikiConfigMap[$host], 2 );
+		if ( isset( $this->interWikiConfigMap[$host] ) ) {
+			$prefixes = explode( ':', $this->interWikiConfigMap[$host], 2 );
 			if ( !$this->interwikiLookup->isValidInterwiki( $prefixes[0] ) ) {
 				$this->logger->warning( 'Configured prefix {prefix} not valid.', [
 					'host' => $host,
-					'prefix' => $interwikiConfigMap[$host]
+					'prefix' => $this->interWikiConfigMap[$host]
 				] );
 
 				return null;
 			}
 
-			return $interwikiConfigMap[$host];
+			return $this->interWikiConfigMap[$host];
 		} else {
 			$this->logger->debug( 'Host {host} not in FileImporterInterWikiMap, proceeding with lookup.', [
 				'host' => $host ] );
