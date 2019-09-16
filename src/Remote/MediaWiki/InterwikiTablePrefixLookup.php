@@ -248,9 +248,8 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 	/**
 	 * @return string[]
-	 * FIXME: made public to allow test mocking :(
 	 */
-	public function prefetchInterwikiMap() {
+	private function prefetchInterwikiMap() {
 		$map = [];
 
 		foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {

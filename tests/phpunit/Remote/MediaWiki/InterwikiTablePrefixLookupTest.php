@@ -404,15 +404,21 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	}
 
 	public function testPrefetchParentDomainToUrlMap() {
-		$mockLookup = $this->getMockBuilder( InterwikiTablePrefixLookup::class )
-			->disableOriginalConstructor()
-			->setMethods( [ 'prefetchInterwikiMap' ] )
-			->getMock();
-		$mockLookup->method( 'prefetchInterwikiMap' )
-			->willReturn( [
+		$mockLookup = new InterwikiTablePrefixLookup(
+			$this->createInterWikiLookupMock( true, [
+				[
+					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_prefix' => 'wikisource'
+				],
+			] ),
+			$this->createMock( HttpApiLookup::class ),
+			$this->createMock( HttpRequestExecutor::class ),
+			new NullLogger(),
+			[
 				'fr.wikisource.org' => null,
 				'en.wikisource.org' => null,
-			] );
+			]
+		);
 		/** @var InterwikiTablePrefixLookup $mockLookup */
 		$mockLookup = TestingAccessWrapper::newFromObject( $mockLookup );
 
