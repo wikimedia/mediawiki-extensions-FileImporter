@@ -134,6 +134,7 @@ class ImportPlan {
 	}
 
 	/**
+	 * @throws MalformedTitleException
 	 * @return Title
 	 */
 	public function getTitle() {

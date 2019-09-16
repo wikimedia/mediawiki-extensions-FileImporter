@@ -92,13 +92,13 @@ class FileChunkSaver implements LoggerAwareInterface {
 	 * Callback: save a chunk of the result of a HTTP request to the file.
 	 * Intended for use with Http::request
 	 *
-	 * @param mixed $req
+	 * @param int $curlResource Required by the cURL library, see CURLOPT_WRITEFUNCTION
 	 * @param string $buffer
 	 *
 	 * @throws ImportException
 	 * @return int Number of bytes handled
 	 */
-	public function saveFileChunk( $req, $buffer ) {
+	public function saveFileChunk( $curlResource, $buffer ) {
 		$handle = $this->getHandle();
 		$this->logger->debug( 'Received chunk of ' . strlen( $buffer ) . ' bytes' );
 		$nbytes = fwrite( $handle, $buffer );
