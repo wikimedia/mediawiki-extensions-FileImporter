@@ -29,7 +29,7 @@ class NowCommonsHelperPostImportHandler implements PostImportHandler {
 	/**
 	 * @param ImportPlan $importPlan
 	 * @param User $user
-	 * @return \StatusValue
+	 * @return StatusValue
 	 */
 	public function execute( ImportPlan $importPlan, User $user ) {
 		/** @var SourceUrl $sourceUrl */

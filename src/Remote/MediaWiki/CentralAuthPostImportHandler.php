@@ -3,7 +3,6 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\ImportPlan;
-use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
 use IBufferingStatsdDataFactory;
@@ -19,7 +18,6 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 	const STATSD_SOURCE_WIKI_DELETE_SUCCESS = 'FileImporter.import.postImport.delete.successful';
 	const STATSD_SOURCE_WIKI_EDIT_FAIL = 'FileImporter.import.postImport.edit.failed';
 	const STATSD_SOURCE_WIKI_EDIT_SUCCESS = 'FileImporter.import.postImport.edit.successful';
-	const ERROR_FAILED_SOURCE_EDIT = 'sourceEditFailed';
 
 	/**
 	 * @var LoggerInterface
@@ -117,7 +115,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 
 		if ( $result !== null ) {
 			$this->statsd->increment( self::STATSD_SOURCE_WIKI_EDIT_SUCCESS );
-			return $this->successMessage( $sourceUrl );
+			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import edit.' );
 			$this->statsd->increment( self::STATSD_SOURCE_WIKI_EDIT_FAIL );
@@ -148,12 +146,12 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 
 		if ( $result !== null ) {
 			$this->statsd->increment( self::STATSD_SOURCE_WIKI_DELETE_SUCCESS );
-			return $this->successMessage( $sourceUrl );
+			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import delete.' );
 			$this->statsd->increment( self::STATSD_SOURCE_WIKI_DELETE_FAIL );
 
-			$status = $this->successMessage( $sourceUrl );
+			$status = $this->successMessage();
 			$status->warning(
 				'fileimporter-delete-failed',
 				$sourceUrl->getHost(),
@@ -162,7 +160,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 		}
 	}
 
-	private function successMessage( SourceUrl $sourceUrl ) {
+	private function successMessage() {
 		return StatusValue::newGood(
 			new Message( 'fileimporter-imported-success-banner' )
 		);

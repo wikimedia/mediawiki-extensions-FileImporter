@@ -189,7 +189,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	private function getMockImportDetails( $wikitext ) {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
-			->willReturn( $this->getMockTextRevisions( $wikitext, self::NAME ) );
+			->willReturn( $this->getMockTextRevisions( $wikitext ) );
 		$mock->method( 'getFileRevisions' )
 			->willReturn( $this->getMockFileRevisions() );
 		$mock->method( 'getOriginalHash' )

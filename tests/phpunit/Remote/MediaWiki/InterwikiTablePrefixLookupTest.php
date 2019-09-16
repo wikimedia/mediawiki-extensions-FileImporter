@@ -415,10 +415,10 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			->getMock();
 		$mockLookup->method( 'prefetchInterwikiMap' )
 			->willReturn( [
-				'fr.wikisource.org' => 'fr',
-				'en.wikisource.org' => 'wikisource',
-				'en.wikisource.org' => 'en',
+				'fr.wikisource.org' => null,
+				'en.wikisource.org' => null,
 			] );
+		/** @var InterwikiTablePrefixLookup $mockLookup */
 		$mockLookup = TestingAccessWrapper::newFromObject( $mockLookup );
 
 		$expected = [
