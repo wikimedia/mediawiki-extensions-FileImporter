@@ -56,7 +56,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			'wgFileImporterInterWikiMap' => $global,
 		] );
 
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( $validPrefix, [] ),
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
@@ -66,7 +66,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			$expected,
-			$sourceUrlPrefixer->getPrefix( new SourceUrl( $source ) )
+			$prefixLookup->getPrefix( new SourceUrl( $source ) )
 		);
 	}
 
@@ -153,7 +153,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	 * @dataProvider provideGetPrefixFromLocalTable
 	 */
 	public function testGetPrefixFromLocalTable( array $iwMap, $source, $expected ) {
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $iwMap ),
 			$this->createMock( HttpApiLookup::class ),
 			$this->createInterwikiApi(),
@@ -163,7 +163,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			$expected,
-			$sourceUrlPrefixer->getPrefix( new SourceUrl( $source ) )
+			$prefixLookup->getPrefix( new SourceUrl( $source ) )
 		);
 	}
 
@@ -178,7 +178,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$sourceUrl = new SourceUrl( '//de.wikipedia.org/wiki' );
 
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+		$prefixLookup = new InterwikiTablePrefixLookup(
 			$iwMock,
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
@@ -188,7 +188,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			'wiki',
-			$sourceUrlPrefixer->getPrefix( $sourceUrl )
+			$prefixLookup->getPrefix( $sourceUrl )
 		);
 	}
 
@@ -291,7 +291,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	public function testGetPrefix_throughIntermediary(
 		array $localIwMap, array $remoteIwMap, $source, $expectedPrefix
 	) {
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $localIwMap ),
 			$this->createMock( HttpApiLookup::class ),
 			$this->createInterwikiApi( $remoteIwMap ),
@@ -301,7 +301,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			$expectedPrefix,
-			$sourceUrlPrefixer->getPrefix( new SourceUrl( $source ) )
+			$prefixLookup->getPrefix( new SourceUrl( $source ) )
 		);
 	}
 
@@ -338,7 +338,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			->method( 'getApiUrl' )
 			->willReturn( '//w.invalid/w/api.php' );
 
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+		$prefixLookup = new InterwikiTablePrefixLookup(
 			$mockLookup,
 			$mockApiLookup,
 			$this->createInterwikiApi( [
@@ -353,7 +353,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			'wikisource:fr',
-			$sourceUrlPrefixer->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
+			$prefixLookup->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
 		);
 	}
 
@@ -362,7 +362,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		$mockRequestExecutor->method( 'execute' )
 			->willThrowException( $this->createMock( HttpRequestException::class ) );
 
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, [
 				[
 					'iw_url' => 'https://en.wikisource.org/wiki/$1',
@@ -377,7 +377,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			'',
-			$sourceUrlPrefixer->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
+			$prefixLookup->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
 		);
 	}
 
@@ -394,7 +394,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			] );
 		$mockInterwikiLookup->method( 'fetch' )->willReturn( null );
 
-		$sourceUrlPrefixer = new InterwikiTablePrefixLookup(
+		$prefixLookup = new InterwikiTablePrefixLookup(
 			$mockInterwikiLookup,
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
@@ -404,7 +404,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 
 		$this->assertSame(
 			'',
-			$sourceUrlPrefixer->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
+			$prefixLookup->getPrefix( new SourceUrl( '//fr.wikisource.org/wiki/' ) )
 		);
 	}
 
