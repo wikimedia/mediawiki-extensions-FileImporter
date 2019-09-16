@@ -39,6 +39,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			$this->assertInstanceOf( LoggerInterface::class, $options['logger'] );
 			$this->assertTrue( $options['followRedirects'] );
 			$this->assertSame( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
+			$this->assertContains( 'FileImporter', $options['userAgent'] );
 
 			$request = $this->createMock( MWHttpRequest::class );
 			$status = Status::newGood();
@@ -78,6 +79,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			$this->assertEquals( 'POST', $options['method'] );
 			$this->assertEquals( $postData, $options['postData'] );
 			$this->assertSame( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
+			$this->assertContains( 'FileImporter', $options['userAgent'] );
 
 			$request = $this->createMock( MWHttpRequest::class );
 			$status = Status::newGood();
