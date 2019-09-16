@@ -119,6 +119,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 			$options['method'] = 'POST';
 			$options['postData'] = $postData;
 		}
+		$options['userAgent'] = $this->buildUserAgentString();
 
 		/** @var MWHttpRequest $request */
 		$request = call_user_func(
@@ -136,6 +137,11 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		}
 
 		return $request;
+	}
+
+	private function buildUserAgentString() {
+		// TODO: Pull URL and version from ExtensionRegistry.
+		return 'mw-ext-FileImporter/* (https://www.mediawiki.org/wiki/Extension:FileImporter)';
 	}
 
 }
