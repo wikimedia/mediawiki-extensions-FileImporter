@@ -36,7 +36,7 @@ class HttpApiLookupTest extends \MediaWikiTestCase {
 		$sourceUrl = new SourceUrl( '//source.url' );
 
 		$url1 = $lookup->getApiUrl( $sourceUrl );
-		$this->assertSame( '//edit.uri', $url1, 'first call' );
+		$this->assertSame( 'https://edit.uri', $url1, 'first call' );
 
 		$url2 = $lookup->getApiUrl( $sourceUrl );
 		$this->assertSame( $url1, $url2, 'second call' );
