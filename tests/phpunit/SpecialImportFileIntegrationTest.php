@@ -33,6 +33,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$this->setMwGlobals( [
 			'wgEnableUploads' => true,
 			'wgFileImporterShowInputScreen' => true,
+			'wgFileImporterCommonsHelperServer' => '',
 			'wgFileImporterSourceWikiDeletion' => false,
 			'wgFileImporterSourceWikiTemplating' => false,
 		] );
@@ -257,9 +258,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		array $httpRequestMockResponses = []
 	) {
 		$httpRequestExecutorMock = $this->createMock( HttpRequestExecutor::class );
-		$httpRequestExecutorMock->method( 'execute' )->will(
-			$this->onConsecutiveCalls( ...$httpRequestMockResponses )
-		);
+		$httpRequestExecutorMock->expects( $this->atMost( 3 ) )
+			->method( 'execute' )
+			->willReturnOnConsecutiveCalls( ...$httpRequestMockResponses );
 		$this->setService( 'FileImporterHttpRequestExecutor', $httpRequestExecutorMock );
 
 		if ( $sourceSiteServicesOverride !== [] ) {

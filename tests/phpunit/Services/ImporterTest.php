@@ -305,7 +305,7 @@ class ImporterTest extends \MediaWikiTestCase {
 			->setMethods( [ 'newFromFileRevision' ] )
 			->getMock();
 		$mock->method( 'newFromFileRevision' )
-			->will( $this->returnCallback(
+			->willReturnCallback(
 				function ( FileRevision $fileRevision, $src ) {
 					$realFactory = new WikiRevisionFactory( $this->config );
 
@@ -316,7 +316,7 @@ class ImporterTest extends \MediaWikiTestCase {
 
 					return $realFactory->newFromFileRevision( $fileRevision, $tempFile );
 				}
-			) );
+			);
 		return $mock;
 	}
 
