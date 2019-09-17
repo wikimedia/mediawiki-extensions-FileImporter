@@ -6,7 +6,6 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
-use HashConfig;
 use ImportableOldRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
@@ -90,7 +89,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 			$title,
 			$this->getTestUser()->getUser(),
 			$this->newTextRevision(),
-			new WikiRevisionFactory( new HashConfig() ),
+			new WikiRevisionFactory(),
 			$oldRevisionImporter,
 			$this->newFileTextRevisionValidator(),
 			$logger

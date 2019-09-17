@@ -26,16 +26,6 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 	const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
 	const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59csb9c5a3cf55.png';
 
-	/**
-	 * @var \Config
-	 */
-	private $config;
-
-	protected function setUp() {
-		parent::setUp();
-		$this->config = new \HashConfig( [ 'EnableUploads' => true ] );
-	}
-
 	public function provideTestNewFileRevisionFromRemoteUrl() {
 		return [
 			[ null ],
@@ -156,7 +146,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$mock->method( 'newFromFileRevision' )
 			->will( $this->returnCallback(
 				function ( FileRevision $fileRevision, $src ) {
-					$realFactory = new WikiRevisionFactory( $this->config );
+					$realFactory = new WikiRevisionFactory();
 
 					$tempFile = $this->getNewTempFile();
 					// the file will be moved or deleted in the process so create a copy

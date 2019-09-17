@@ -2,10 +2,10 @@
 
 namespace FileImporter\Services;
 
-use Config;
 use ExternalUserNames;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
+use HashConfig;
 use Title;
 use User;
 use WikiRevision;
@@ -15,11 +15,6 @@ use WikiRevision;
  * @author Addshore
  */
 class WikiRevisionFactory {
-
-	/**
-	 * @var Config
-	 */
-	private $config;
 
 	/**
 	 * @var string
@@ -34,13 +29,12 @@ class WikiRevisionFactory {
 	// TODO: should be changed back to lowercase when T221235 is fixed.
 	const DEFAULT_USERNAME_PREFIX = 'Imported';
 
-	public function __construct( Config $config ) {
-		$this->config = $config;
+	public function __construct() {
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
 	}
 
 	private function getWikiRevision() {
-		return new WikiRevision( $this->config );
+		return new WikiRevision( new HashConfig() );
 	}
 
 	/**

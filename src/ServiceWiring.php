@@ -123,7 +123,7 @@ return [
 	},
 
 	'FileImporterWikiRevisionFactory' => function ( MediaWikiServices $services ) {
-		return new WikiRevisionFactory( $services->getMainConfig() );
+		return new WikiRevisionFactory();
 	},
 
 	'FileImporterNullRevisionCreator' => function ( MediaWikiServices $services ) {

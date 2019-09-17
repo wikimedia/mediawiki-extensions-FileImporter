@@ -3,7 +3,6 @@
 namespace FileImporter\Tests\Services;
 
 use Article;
-use Config;
 use DatabaseLogEntry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
@@ -41,11 +40,6 @@ class ImporterTest extends \MediaWikiTestCase {
 	const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59cb9c5a3cf55.png';
 
 	/**
-	 * @var Config
-	 */
-	private $config;
-
-	/**
 	 * @var User
 	 */
 	private $targetUser;
@@ -59,7 +53,6 @@ class ImporterTest extends \MediaWikiTestCase {
 			'wgFileImporterTextForPostImportRevision' => "imported from $1\n",
 		] );
 
-		$this->config = new \HashConfig( [ 'EnableUploads' => true ] );
 		$this->targetUser = $this->getTestUser()->getUser();
 	}
 
@@ -287,7 +280,7 @@ class ImporterTest extends \MediaWikiTestCase {
 
 		return new Importer(
 			new WikiPageFactory(),
-			$this->newWikiRevisionFactory( $this->config ),
+			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterNullRevisionCreator' ),
 			$this->newHttpRequestExecutor(),
 			$services->getService( 'FileImporterUploadBaseFactory' ),
@@ -299,15 +292,14 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 	}
 
-	private function newWikiRevisionFactory( Config $config ) : WikiRevisionFactory {
+	private function newWikiRevisionFactory() : WikiRevisionFactory {
 		$mock = $this->getMockBuilder( WikiRevisionFactory::class )
-			->setConstructorArgs( [ $config ] )
 			->setMethods( [ 'newFromFileRevision' ] )
 			->getMock();
 		$mock->method( 'newFromFileRevision' )
 			->will( $this->returnCallback(
 				function ( FileRevision $fileRevision, $src ) {
-					$realFactory = new WikiRevisionFactory( $this->config );
+					$realFactory = new WikiRevisionFactory();
 
 					$tempFile = $this->getNewTempFile();
 					$srcFile = $fileRevision->getFields()['_test_file_src'];

@@ -5,7 +5,6 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use FileImporter\Services\WikiRevisionFactory;
-use MediaWiki\MediaWikiServices;
 use User;
 use Wikimedia\TestingAccessWrapper;
 
@@ -32,8 +31,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 	 * @dataProvider provideNewFromWithPrefix
 	 */
 	public function testNewFromTextWithPrefix( $prefix, $expected ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$wikiRevisionFactory = new WikiRevisionFactory();
 		$testUserName = $this->getRandomUserName();
 
 		if ( $prefix !== null ) {
@@ -44,7 +42,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			$this->createTextRevision( $testUserName )
 		);
 
-		$this->assertSame( true, $revision->getMinor() );
+		$this->assertTrue( $revision->getMinor() );
 		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
@@ -63,8 +61,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 	 * @dataProvider provideNewFromWithPrefix
 	 */
 	public function testNewFromFileWithPrefix( $prefix, $expected ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$wikiRevisionFactory = new WikiRevisionFactory();
 		$testUserName = $this->getRandomUserName();
 
 		if ( $prefix !== null ) {
@@ -100,8 +97,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			} ]
 		] );
 
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$wikiRevisionFactory = new WikiRevisionFactory();
 		$wikiRevisionFactory->setInterWikiPrefix( 'prefix' );
 
 		$textRevision = $wikiRevisionFactory->newFromTextRevision(
@@ -124,8 +120,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 	public function testExistingUserAttribution() {
 		$existingUser = $this->getTestUser()->getUser();
 
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$wikiRevisionFactory = new WikiRevisionFactory( $config );
+		$wikiRevisionFactory = new WikiRevisionFactory();
 		$wikiRevisionFactory->setInterWikiPrefix( 'prefix' );
 
 		$textRevision = $wikiRevisionFactory->newFromTextRevision(
@@ -175,11 +170,8 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 	 * @dataProvider providePrefixCommentLinks
 	 */
 	public function testPrefixCommentLinks( $prefix, $input, $expected ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
 		/** @var WikiRevisionFactory $wikiRevisionFactory */
-		$wikiRevisionFactory = TestingAccessWrapper::newFromObject(
-			new WikiRevisionFactory( $config )
-		);
+		$wikiRevisionFactory = TestingAccessWrapper::newFromObject( new WikiRevisionFactory() );
 
 		$wikiRevisionFactory->setInterWikiPrefix( $prefix );
 
