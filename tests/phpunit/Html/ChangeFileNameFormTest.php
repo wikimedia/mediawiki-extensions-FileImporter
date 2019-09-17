@@ -35,10 +35,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 		parent::tearDown();
 	}
 
-	/**
-	 * @return SpecialPage
-	 */
-	private function getMockSpecialPage() {
+	private function getMockSpecialPage() : SpecialPage {
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( __METHOD__ ) );
@@ -49,30 +46,21 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return ImportDetails
-	 */
-	private function getMockImportDetails() {
+	private function getMockImportDetails() : ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions() );
 		return $mock;
 	}
 
-	/**
-	 * @return TextRevisions
-	 */
-	private function getMockTextRevisions() {
+	private function getMockTextRevisions() : TextRevisions {
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $this->getMockTextRevision() );
 		return $mock;
 	}
 
-	/**
-	 * @return TextRevision
-	 */
-	private function getMockTextRevision() {
+	private function getMockTextRevision() : TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturn( '' );

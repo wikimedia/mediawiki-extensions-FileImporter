@@ -21,7 +21,7 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return SiteTableSourceUrlChecker
 	 */
-	private function getSiteTableSourceUrlChecker( array $knownSites ) {
+	private function getSiteTableSourceUrlChecker( array $knownSites ) : SiteTableSourceUrlChecker {
 		$sites = [];
 		foreach ( $knownSites as $siteCode => $linkPath ) {
 			$site = new Site();

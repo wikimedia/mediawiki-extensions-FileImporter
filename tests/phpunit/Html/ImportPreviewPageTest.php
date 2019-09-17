@@ -165,10 +165,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) );
 	}
 
-	/**
-	 * @return SpecialPage
-	 */
-	private function getMockSpecialPage() {
+	private function getMockSpecialPage() : SpecialPage {
 		$user = $this->createMock( User::class );
 		$user->method( 'getEditToken' )
 			->willReturn( '123' );
@@ -183,10 +180,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return ImportDetails
-	 */
-	private function getMockImportDetails( $wikitext ) {
+	private function getMockImportDetails( $wikitext ) : ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions( $wikitext ) );
@@ -197,10 +191,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return TextRevisions
-	 */
-	private function getMockTextRevisions( $wikitext ) {
+	private function getMockTextRevisions( $wikitext ) : TextRevisions {
 		$mockTextRevision = $this->getMockTextRevision( $wikitext, self::NAME );
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
@@ -210,10 +201,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return TextRevision
-	 */
-	private function getMockTextRevision( $wikitext, $title ) {
+	private function getMockTextRevision( $wikitext, $title ) : TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturnCallback( function ( $field ) use ( $wikitext, $title ) {
@@ -233,10 +221,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return FileRevisions
-	 */
-	private function getMockFileRevisions() {
+	private function getMockFileRevisions() : FileRevisions {
 		$mockFileRevision = $this->getMockFileRevision();
 		$mock = $this->createMock( FileRevisions::class );
 		$mock->method( 'getLatest' )
@@ -246,10 +231,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return FileRevision
-	 */
-	private function getMockFileRevision() {
+	private function getMockFileRevision() : FileRevision {
 		$mock = $this->createMock( FileRevision::class );
 		return $mock;
 	}

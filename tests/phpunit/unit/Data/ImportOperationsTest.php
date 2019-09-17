@@ -76,7 +76,7 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 	 *
 	 * @return ImportOperation
 	 */
-	private function newImportOperation( $calls, $success = false ) {
+	private function newImportOperation( $calls, $success = false ) : ImportOperation {
 		$mock = $this->getMock( ImportOperation::class );
 		$mock->expects( $this->exactly( $calls ) )
 			->method( 'prepare' )

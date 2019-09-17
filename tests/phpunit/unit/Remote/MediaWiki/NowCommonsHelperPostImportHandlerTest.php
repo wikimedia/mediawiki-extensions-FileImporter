@@ -75,7 +75,10 @@ class NowCommonsHelperPostImportHandlerTest extends \MediaWikiUnitTestCase {
 	 * @param string|null $templateResult
 	 * @return WikidataTemplateLookup
 	 */
-	private function createWikidataTemplateLookup( $sourceUrl, $templateResult ) {
+	private function createWikidataTemplateLookup(
+		SourceUrl $sourceUrl,
+		$templateResult
+	) : WikidataTemplateLookup {
 		$mock = $this->createMock( WikidataTemplateLookup::class );
 		$mock
 			->method( 'fetchNowCommonsLocalTitle' )

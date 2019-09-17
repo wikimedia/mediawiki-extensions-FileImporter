@@ -18,7 +18,7 @@ class TextRevisionsTest extends \MediaWikiUnitTestCase {
 	 *
 	 * @return TextRevision
 	 */
-	private function newTextRevision( $timestamp = '' ) {
+	private function newTextRevision( $timestamp = '' ) : TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->with( 'timestamp' )

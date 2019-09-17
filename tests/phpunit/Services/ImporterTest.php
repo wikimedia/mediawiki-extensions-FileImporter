@@ -233,7 +233,12 @@ class ImporterTest extends \MediaWikiTestCase {
 	 * @param string|null $expectedTag
 	 * @return DatabaseLogEntry
 	 */
-	private function getLogType( $pageId, $type, $timestamp, $expectedTag = null ) {
+	private function getLogType(
+		$pageId,
+		$type,
+		$timestamp,
+		$expectedTag = null
+	) : DatabaseLogEntry {
 		$queryInfo = DatabaseLogEntry::getSelectQueryData();
 		$queryInfo['conds'] += [
 			'log_page' => $pageId,
@@ -264,10 +269,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		return DatabaseLogEntry::newFromRow( $row );
 	}
 
-	/**
-	 * @return Importer
-	 */
-	private function newImporter() {
+	private function newImporter() : Importer {
 		$services = MediaWikiServices::getInstance();
 		$logger = new NullLogger();
 
@@ -297,11 +299,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 	}
 
-	/**
-	 * @param Config $config
-	 * @return WikiRevisionFactory
-	 */
-	private function newWikiRevisionFactory( Config $config ) {
+	private function newWikiRevisionFactory( Config $config ) : WikiRevisionFactory {
 		$mock = $this->getMockBuilder( WikiRevisionFactory::class )
 			->setConstructorArgs( [ $config ] )
 			->setMethods( [ 'newFromFileRevision' ] )
@@ -322,19 +320,13 @@ class ImporterTest extends \MediaWikiTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return HttpRequestExecutor
-	 */
-	private function newHttpRequestExecutor() {
+	private function newHttpRequestExecutor() : HttpRequestExecutor {
 		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->method( 'executeAndSave' )->willReturn( true );
 		return $mock;
 	}
 
-	/**
-	 * @return ImportPlan
-	 */
-	private function newImportPlan() {
+	private function newImportPlan() : ImportPlan {
 		$sourceUrl = new SourceUrl( 'http://example.com/Test.png' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, self::TITLE );
 
@@ -360,10 +352,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 	}
 
-	/**
-	 * @return TextRevisions
-	 */
-	private function newTextRevisions() {
+	private function newTextRevisions() : TextRevisions {
 		return new TextRevisions( [
 			new TextRevision( [
 				'minor' => '',
@@ -390,10 +379,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		] );
 	}
 
-	/**
-	 * @return FileRevisions
-	 */
-	private function newFileRevisions() {
+	private function newFileRevisions() : FileRevisions {
 		return new FileRevisions( [
 			new FileRevision( [
 				'name' => 'File:test.jpg',
