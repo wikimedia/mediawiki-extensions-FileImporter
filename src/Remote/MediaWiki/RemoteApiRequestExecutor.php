@@ -157,7 +157,10 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @return array|null
 	 */
 	private function doRequest( SourceUrl $sourceUrl, User $user, array $params, $usePost ) {
+		/** @var array|null $result */
 		$result = null;
+		/** @var \MWHttpRequest|null $request */
+		$request = null;
 
 		try {
 			$requestUrl = $this->getAuthorizedApiUrl( $sourceUrl, $user );
@@ -173,10 +176,16 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 					$request->getFinalUrl() );
 			}
 		} catch ( Exception $ex ) {
-			$this->logger->error(
-				__METHOD__ . ' failed to do remote request to ' . $sourceUrl->getHost() .
-				' with params ' . json_encode( $params ) . ': ' .
-				$ex->getMessage() );
+			if ( $request === null ) {
+				$msg = __METHOD__ . ' failed to do remote request to ' . $sourceUrl->getHost() .
+					' with params ' . json_encode( $params ) . ': ' . $ex->getMessage();
+			} else {
+				$msg = __METHOD__ . ' failed to do remote request to ' . $request->getFinalUrl() .
+					' with params ' . json_encode( $params ) .
+					' and response headers ' . json_encode( $request->getResponseHeaders() ) .
+					': ' . $ex->getMessage();
+			}
+			$this->logger->error( $msg );
 		}
 
 		return $result;
