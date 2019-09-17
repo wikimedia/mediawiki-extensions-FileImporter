@@ -30,6 +30,11 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
+		// TODO: Inject
+		$config = $this->getContext()->getConfig();
+		$sourceEditingEnabled = $config->get( 'FileImporterSourceWikiTemplating' );
+		$sourceDeletionEnabled = $config->get( 'FileImporterSourceWikiDeletion' );
+
 		$text = $importPlan->getFileInfoText();
 		$title = $importPlan->getTitle();
 
@@ -119,7 +124,10 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				]
 			)->parse()
 		) .
-		( new SourceWikiCleanupSnippet() )->getHtml( $importPlan, $this->getUser() ) .
+		( new SourceWikiCleanupSnippet(
+			$sourceEditingEnabled,
+			$sourceDeletionEnabled
+		) )->getHtml( $importPlan, $this->getUser() ) .
 		Html::openElement(
 			'div',
 			[ 'class' => 'mw-importfile-importOptions' ]

@@ -41,15 +41,10 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		$editEnabled,
 		$deleteEnabled
 	) {
-		$this->setupServicesAndGlobals(
-			$templateKnown,
-			$userCanDelete,
-			$editEnabled,
-			$deleteEnabled
-		);
+		$this->setupServicesAndGlobals( $templateKnown, $userCanDelete );
 
-		$snippet = new SourceWikiCleanupSnippet();
-		$this->assertEquals(
+		$snippet = new SourceWikiCleanupSnippet( $editEnabled, $deleteEnabled );
+		$this->assertSame(
 			'',
 			$snippet->getHtml(
 				$this->createImportPlan(),
@@ -59,7 +54,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testGetHtml_editPreselected() {
-		$this->setupServicesAndGlobals( true, false, true, false );
+		$this->setupServicesAndGlobals( true, false );
 
 		$snippet = new SourceWikiCleanupSnippet();
 		$html = $snippet->getHtml(
@@ -74,7 +69,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceEditAllowed_lookupSucceeds() {
-		$this->setupServicesAndGlobals( true, false, true, false );
+		$this->setupServicesAndGlobals( true, false );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertTrue(
@@ -83,7 +78,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceEditAllowed_lookupFails() {
-		$this->setupServicesAndGlobals( false, false, true, false );
+		$this->setupServicesAndGlobals( false, false );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertFalse(
@@ -92,20 +87,19 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceEditAllowed_configShortCircuits() {
-		$this->setMwGlobals( 'wgFileImporterSourceWikiTemplating', false );
 		$mockLookup = $this->createMock( WikidataTemplateLookup::class );
 		$mockLookup
 			->expects( $this->never() )
 			->method( 'fetchNowCommonsLocalTitle' );
 		$this->setService( 'FileImporterTemplateLookup', $mockLookup );
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet( false ) );
 
 		$this->assertFalse(
 			$snippet->isSourceEditAllowed( $this->createMock( SourceUrl::class ) ) );
 	}
 
 	public function testIsSourceDeleteAllowed_success() {
-		$this->setupServicesAndGlobals( false, true, false, true );
+		$this->setupServicesAndGlobals( false, true );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertTrue(
@@ -115,7 +109,6 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceDeleteAllowed_notAllowed() {
-		$this->setMwGlobals( 'wgFileImporterSourceWikiDeletion', true );
 		$mockApi = $this->createMock( RemoteApiActionExecutor::class );
 		$mockApi
 			->expects( $this->once() )
@@ -131,7 +124,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceDeleteAllowed_apiFailure() {
-		$this->setupServicesAndGlobals( false, false, false, true );
+		$this->setupServicesAndGlobals( false, false );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
 
 		$this->assertFalse(
@@ -141,13 +134,12 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 	}
 
 	public function testIsSourceDeleteAllowed_configShortCircuits() {
-		$this->setMwGlobals( 'wgFileImporterSourceWikiDeletion', false );
 		$mockApi = $this->createMock( RemoteApiActionExecutor::class );
 		$mockApi
 			->expects( $this->never() )
 			->method( 'executeUserRightsAction' );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet( true, false ) );
 
 		$this->assertFalse(
 			$snippet->isSourceDeleteAllowed(
@@ -179,17 +171,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		return $importPlan;
 	}
 
-	private function setupServicesAndGlobals(
-		$templateKnown,
-		$userCanDelete,
-		$editEnabled,
-		$deleteEnabled
-	) {
-		$this->setMwGlobals( [
-			'wgFileImporterSourceWikiTemplating' => $editEnabled,
-			'wgFileImporterSourceWikiDeletion' => $deleteEnabled,
-		] );
-
+	private function setupServicesAndGlobals( $templateKnown, $userCanDelete ) {
 		$templateResult = $templateKnown ? 'TestNowCommons' : null;
 		$rightsApiResult = $userCanDelete ?
 			[ 'query' => [ 'userinfo' => [ 'rights' => [ 'delete' ] ] ] ] : null;
