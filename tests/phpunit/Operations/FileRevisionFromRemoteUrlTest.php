@@ -145,19 +145,13 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		return $fileRevisionFromRemoteUrl;
 	}
 
-	/**
-	 * @return HttpRequestExecutor
-	 */
-	private function newHttpRequestExecutor() {
+	private function newHttpRequestExecutor() : HttpRequestExecutor {
 		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->method( 'executeAndSave' )->willReturn( true );
 		return $mock;
 	}
 
-	/**
-	 * @return WikiRevisionFactory
-	 */
-	private function newWikiRevisionFactory() {
+	private function newWikiRevisionFactory() : WikiRevisionFactory {
 		$mock = $this->createMock( WikiRevisionFactory::class );
 		$mock->method( 'newFromFileRevision' )
 			->will( $this->returnCallback(
@@ -178,7 +172,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 	 * @param string $url
 	 * @return FileRevision
 	 */
-	private function newFileRevision( $url = 'NULL' ) {
+	private function newFileRevision( $url = 'NULL' ) : FileRevision {
 		return new FileRevision( [
 			'name' => 'File:test.jpg',
 			'description' => 'Original upload comment of Test.png',
@@ -191,10 +185,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		] );
 	}
 
-	/**
-	 * @return TextRevision
-	 */
-	private function newTextRevision() {
+	private function newTextRevision() : TextRevision {
 		return new TextRevision( [
 			'minor' => '',
 			'user' => '',
@@ -208,10 +199,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		] );
 	}
 
-	/**
-	 * @return ImportableUploadRevisionImporter
-	 */
-	private function newUploadRevisionImporter() {
+	private function newUploadRevisionImporter() : ImportableUploadRevisionImporter {
 		return new ImportableUploadRevisionImporter(
 			true,
 			new NullLogger()

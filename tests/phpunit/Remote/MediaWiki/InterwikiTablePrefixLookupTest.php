@@ -192,7 +192,10 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	 * @param array[] $iwMap
 	 * @return InterwikiLookupAdapter
 	 */
-	private function createInterWikiLookupMock( $validPrefix, array $iwMap ) {
+	private function createInterWikiLookupMock(
+		$validPrefix,
+		array $iwMap
+	) : InterwikiLookupAdapter {
 		$mock = $this->createMock( InterwikiLookupAdapter::class );
 		$mock->method( 'isValidInterwiki' )
 			->willReturn( $validPrefix );

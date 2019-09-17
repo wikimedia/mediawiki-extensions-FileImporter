@@ -40,10 +40,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 		parent::tearDown();
 	}
 
-	/**
-	 * @return SpecialPage
-	 */
-	private function getMockSpecialPage() {
+	private function getMockSpecialPage() : SpecialPage {
 		$title = Title::newFromText( __METHOD__ );
 
 		$mock = $this->createMock( SpecialPage::class );
@@ -60,11 +57,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @param Title $title
-	 * @return IContextSource
-	 */
-	private function getTestContext( Title $title ) {
+	private function getTestContext( Title $title ) : IContextSource {
 		$context = new DerivativeContext( RequestContext::getMain() );
 		$context->setTitle( $title );
 		return $context;
@@ -74,7 +67,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 * @param string $originalInput
 	 * @return ImportDetails
 	 */
-	private function getMockImportDetails( $originalInput ) {
+	private function getMockImportDetails( $originalInput ) : ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions( $originalInput ) );
@@ -85,7 +78,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 * @param string $originalInput
 	 * @return TextRevisions
 	 */
-	private function getMockTextRevisions( $originalInput ) {
+	private function getMockTextRevisions( $originalInput ) : TextRevisions {
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $this->getMockTextRevision( $originalInput ) );
@@ -96,7 +89,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 * @param string $originalInput
 	 * @return TextRevision
 	 */
-	private function getMockTextRevision( $originalInput ) {
+	private function getMockTextRevision( $originalInput ) : TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturn( $originalInput );

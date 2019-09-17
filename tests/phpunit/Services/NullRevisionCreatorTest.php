@@ -95,10 +95,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 		);
 	}
 
-	/**
-	 * @return IDatabase
-	 */
-	private function createIDatabaseMock() {
+	private function createIDatabaseMock() : IDatabase {
 		$dbw = $this->createMock( IDatabase::class );
 		$dbw->method( 'insertId' )
 			->willReturn( 1 );

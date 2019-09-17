@@ -49,7 +49,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 *
 	 * @return Site
 	 */
-	private function getMockSite( $globalId, $domain ) {
+	private function getMockSite( $globalId, $domain ) : Site {
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
 			->willReturn( $globalId );
@@ -60,17 +60,11 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		return $mockSite;
 	}
 
-	/**
-	 * @return SpecialPage
-	 */
-	protected function newSpecialPage() {
+	protected function newSpecialPage() : SpecialPage {
 		return new SpecialImportFile();
 	}
 
-	/**
-	 * @return HttpRequestException
-	 */
-	private function getPageNotFoundHttpException() {
+	private function getPageNotFoundHttpException() : HttpRequestException {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
 		$httpRequestMock->method( 'getStatus' )->willReturn( 404 );
 
@@ -85,7 +79,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 *
 	 * @return MWHttpRequest
 	 */
-	private function getHttpRequestMock( $fileName ) {
+	private function getHttpRequestMock( $fileName ) : MWHttpRequest {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
 		$httpRequestMock->method( 'getContent' )->willReturn(
 			file_get_contents( __DIR__ . '/res/IntegrationTests/' . $fileName )

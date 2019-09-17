@@ -159,7 +159,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	 *
 	 * @return WikiRevision
 	 */
-	private function createWikiRevisionMock( $expectedLogActions = 0 ) {
+	private function createWikiRevisionMock( $expectedLogActions = 0 ) : WikiRevision {
 		$revision = $this->createMock( WikiRevision::class );
 
 		$revision->expects( $this->exactly( $expectedLogActions ) )
@@ -179,18 +179,11 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $revision;
 	}
 
-	/**
-	 * @param TextRevision $expectedTextRevision
-	 * @param FileRevision $expectedFileRevision
-	 * @param WikiRevision $returnedWikiRevision
-	 *
-	 * @return WikiRevisionFactory
-	 */
 	private function createWikiRevisionFactoryMock(
 		TextRevision $expectedTextRevision,
 		FileRevision $expectedFileRevision,
 		WikiRevision $returnedWikiRevision
-	) {
+	) : WikiRevisionFactory {
 		$factory = $this->createMock( WikiRevisionFactory::class );
 		$factory->expects( $this->once() )
 			->method( 'newFromTextRevision' )
@@ -214,7 +207,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		User $expectedUser,
 		$expectedWikitext,
 		$expectedSummary
-	) {
+	) : WikiPageFactory {
 		$page = $this->createMock( \WikiPage::class );
 		$page->expects( $this->never() )
 			->method( 'getTitle' );
@@ -237,10 +230,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $factory;
 	}
 
-	/**
-	 * @return HttpRequestExecutor
-	 */
-	private function createHttpRequestExecutorMock() {
+	private function createHttpRequestExecutorMock() : HttpRequestExecutor {
 		$request = $this->createMock( \MWHttpRequest::class );
 
 		$executor = $this->createMock( HttpRequestExecutor::class );
@@ -251,16 +241,10 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $executor;
 	}
 
-	/**
-	 * @param User $expectedUser
-	 * @param TextRevision $expectedTextRevision
-	 *
-	 * @return UploadBaseFactory
-	 */
 	private function createUploadBaseFactoryMock(
 		User $expectedUser,
 		TextRevision $expectedTextRevision
-	) {
+	) : UploadBaseFactory {
 		$uploadBase = $this->createMock( ValidatingUploadBase::class );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateTitle' )
@@ -281,12 +265,9 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $factory;
 	}
 
-	/**
-	 * @param WikiRevision $expectedWikiRevision
-	 *
-	 * @return UploadRevisionImporter
-	 */
-	private function createUploadRevisionImporterMock( WikiRevision $expectedWikiRevision ) {
+	private function createUploadRevisionImporterMock(
+		WikiRevision $expectedWikiRevision
+	) : UploadRevisionImporter {
 		$importer = $this->createMock( UploadRevisionImporter::class );
 		$importer->expects( $this->once() )
 			->method( 'import' )
@@ -295,12 +276,9 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $importer;
 	}
 
-	/**
-	 * @param WikiRevision $expectedWikiRevision
-	 *
-	 * @return OldRevisionImporter
-	 */
-	private function createOldRevisionImporterMock( WikiRevision $expectedWikiRevision ) {
+	private function createOldRevisionImporterMock(
+		WikiRevision $expectedWikiRevision
+	) : OldRevisionImporter {
 		$importer = $this->createMock( OldRevisionImporter::class );
 		$importer->expects( $this->once() )
 			->method( 'import' )
@@ -309,12 +287,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $importer;
 	}
 
-	/**
-	 * @param User $expectedUser
-	 *
-	 * @return NullRevisionCreator
-	 */
-	private function createNullRevisionCreatorMock( User $expectedUser ) {
+	private function createNullRevisionCreatorMock( User $expectedUser ) : NullRevisionCreator {
 		$creator = $this->createMock( NullRevisionCreator::class );
 		$creator->expects( $this->once() )
 			->method( 'createForLinkTarget' )

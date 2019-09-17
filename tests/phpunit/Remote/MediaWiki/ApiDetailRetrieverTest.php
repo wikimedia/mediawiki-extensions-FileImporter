@@ -490,18 +490,16 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	 * @return ApiDetailRetriever
 	 */
 	private function newInstance() {
-		return TestingAccessWrapper::newFromObject( new ApiDetailRetriever(
+		$apiDetailRetriever = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->createMock( HttpRequestExecutor::class ),
 			new NullLogger(),
 			0
-		) );
+		);
+		return TestingAccessWrapper::newFromObject( $apiDetailRetriever );
 	}
 
-	/**
-	 * @return HttpApiLookup
-	 */
-	private function getMockHttpApiLookup() {
+	private function getMockHttpApiLookup() : HttpApiLookup {
 		$mock = $this->createMock( HttpApiLookup::class );
 		$mock->method( 'getApiUrl' )
 			->willReturn( 'APIURL' );
@@ -514,7 +512,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	 *
 	 * @return HttpRequestExecutor
 	 */
-	private function getMockHttpRequestExecutor( $titleString, $content ) {
+	private function getMockHttpRequestExecutor( $titleString, $content ) : HttpRequestExecutor {
 		return $this->getMockHttpRequestExecutorWithExpectedRequest(
 			$this->getExpectedApiParameters( $titleString ),
 			$content
@@ -530,7 +528,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	private function getMockHttpRequestExecutorWithExpectedRequest(
 		array $expectedApiParameters,
 		$content
-	) {
+	) : HttpRequestExecutor {
 		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->expects( $this->once() )
 			->method( 'execute' )
@@ -568,7 +566,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	 *
 	 * @return MWHttpRequest
 	 */
-	private function getMockMWHttpRequest( $content ) {
+	private function getMockMWHttpRequest( $content ) : MWHttpRequest {
 		$mock = $this->createMock( MWHttpRequest::class );
 		$mock->method( 'getContent' )
 			->willReturn( $content );
