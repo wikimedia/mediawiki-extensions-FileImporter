@@ -1,9 +1,7 @@
 <?php
 
-
 namespace FileImporter\Html;
 
-use Config;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
@@ -19,15 +17,27 @@ use User;
 
 class SourceWikiCleanupSnippet {
 
-	/** @var Config $config */
-	private $config;
+	/** @var bool */
+	private $sourceEditingEnabled;
+	/** @var bool */
+	private $sourceDeletionEnabled;
 	/** @var WikidataTemplateLookup $lookup */
 	private $lookup;
 	/** @var RemoteApiActionExecutor $remoteActionApi */
 	private $remoteActionApi;
 
-	public function __construct() {
-		$this->config = MediaWikiServices::getInstance()->getMainConfig();
+	/**
+	 * @param bool $sourceEditingEnabled
+	 * @param bool $sourceDeletionEnabled
+	 */
+	public function __construct(
+		$sourceEditingEnabled = true,
+		$sourceDeletionEnabled = true
+	) {
+		$this->sourceEditingEnabled = $sourceEditingEnabled;
+		$this->sourceDeletionEnabled = $sourceDeletionEnabled;
+
+		// TODO: Inject
 		$this->lookup = MediaWikiServices::getInstance()->getService(
 			'FileImporterTemplateLookup' );
 		$this->remoteActionApi = MediaWikiServices::getInstance()->getService(
@@ -124,7 +134,7 @@ class SourceWikiCleanupSnippet {
 	 * @return bool
 	 */
 	private function isSourceEditAllowed( SourceUrl $sourceUrl ) {
-		return $this->config->get( 'FileImporterSourceWikiTemplating' ) &&
+		return $this->sourceEditingEnabled &&
 			( $this->lookup->fetchNowCommonsLocalTitle( $sourceUrl ) !== null );
 	}
 
@@ -134,7 +144,7 @@ class SourceWikiCleanupSnippet {
 	 * @return bool
 	 */
 	private function isSourceDeleteAllowed( SourceUrl $sourceUrl, User $user ) {
-		return $this->config->get( 'FileImporterSourceWikiDeletion' ) &&
+		return $this->sourceDeletionEnabled &&
 			in_array(
 				'delete',
 				( $this->remoteActionApi->executeUserRightsAction(

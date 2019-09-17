@@ -166,6 +166,13 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function getMockSpecialPage() : SpecialPage {
+		$context = $this->createMock( \IContextSource::class );
+		$context->method( 'getConfig' )
+			->willReturn( new \HashConfig( [
+				'FileImporterSourceWikiTemplating' => true,
+				'FileImporterSourceWikiDeletion' => true,
+			] ) );
+
 		$user = $this->createMock( User::class );
 		$user->method( 'getEditToken' )
 			->willReturn( '123' );
@@ -173,6 +180,8 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( __METHOD__ ) );
+		$mock->method( 'getContext' )
+			->willReturn( $context );
 		$mock->method( 'getUser' )
 			->willReturn( $user );
 		$mock->method( 'msg' )
