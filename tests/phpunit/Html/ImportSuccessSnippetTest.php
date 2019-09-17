@@ -22,10 +22,13 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		$this->setService( 'FileImporterSuccessCache', $mockCache );
 
 		$snippet = new ImportSuccessSnippet();
-		$this->assertEquals( '',
+		$this->assertSame(
+			'',
 			$snippet->getHtml(
 				RequestContext::getMain(),
-				$this->createMock( Title::class ) ) );
+				$this->createMock( Title::class )
+			)
+		);
 	}
 
 	public function testGetHtml_successful() {
@@ -40,7 +43,8 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
 			RequestContext::getMain(),
-			$this->createMock( Title::class ) );
+			$this->createMock( Title::class )
+		);
 
 		assertThat(
 			$html,
@@ -58,7 +62,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		);
 
 		// We did Hamcrest assertions, just chill.
-		$this->assertTrue( true );
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function testGetHtml_warnings() {
@@ -75,7 +79,8 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
 			RequestContext::getMain(),
-			$this->createMock( Title::class ) );
+			$this->createMock( Title::class )
+		);
 
 		assertThat(
 			$html,
@@ -94,7 +99,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		);
 
 		// We did Hamcrest assertions, just chill.
-		$this->assertTrue( true );
+		$this->addToAssertionCount( 1 );
 	}
 
 }

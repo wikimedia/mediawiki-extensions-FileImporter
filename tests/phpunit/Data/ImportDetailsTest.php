@@ -53,7 +53,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	public function testSetters() {
 		$details = $this->minimalImportDetails();
 
-		$this->assertSame( null, $details->getPageLanguage() );
+		$this->assertNull( $details->getPageLanguage() );
 		$this->assertSame( [], $details->getTemplates() );
 		$this->assertSame( [], $details->getCategories() );
 
