@@ -76,9 +76,9 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			''
 		);
 
-		$this->assertSame( false, $revision->getMinor() );
+		$this->assertFalse( $revision->getMinor() );
 		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
-		$this->assertSame( false, $revision->getUserObj() );
+		$this->assertFalse( $revision->getUserObj() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
 		$this->assertSame( 'TestFileName', $revision->getTitle()->getText() );
