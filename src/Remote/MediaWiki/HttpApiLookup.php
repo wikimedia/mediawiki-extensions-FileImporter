@@ -143,6 +143,11 @@ class HttpApiLookup implements LoggerAwareInterface {
 			if ( $element->getAttribute( 'rel' ) === 'EditURI' ) {
 				$editUri = $element->getAttribute( 'href' );
 				$api = str_replace( '?action=rsd', '', $editUri );
+				// Prepend to protocol-relative URLs, since Wikimedia sites will all redirect to
+				// https anyway.
+				if ( substr( $api, 0, 2 ) == '//' ) {
+					$api = 'https:' . $api;
+				}
 				return $api;
 			}
 		}
