@@ -175,7 +175,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		} catch ( Exception $ex ) {
 			$this->logger->error(
 				__METHOD__ . ' failed to do remote request to ' . $sourceUrl->getHost() .
-				'with params ' . json_encode( $params ) . ': ' .
+				' with params ' . json_encode( $params ) . ': ' .
 				$ex->getMessage() );
 		}
 
