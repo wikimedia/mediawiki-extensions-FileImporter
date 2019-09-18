@@ -20,6 +20,7 @@ use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Html\InputFormPage;
 use FileImporter\Html\RecoverableTitleExceptionPage;
 use FileImporter\Html\InfoPage;
+use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
@@ -332,7 +333,9 @@ class SpecialImportFile extends SpecialPage {
 		// currently the value should always be 1 is not really of interest here
 		foreach ( $importPlan->getActionStats() as $key => $value ) {
 			if ( $key === ImportPreviewPage::ACTION_EDIT_TITLE ||
-				$key === ImportPreviewPage::ACTION_EDIT_INFO
+				$key === ImportPreviewPage::ACTION_EDIT_INFO ||
+				$key === SourceWikiCleanupSnippet::ACTION_OFFERED_SOURCE_DELETE ||
+				$key === SourceWikiCleanupSnippet::ACTION_OFFERED_SOURCE_EDIT
 			) {
 				$this->stats->increment( 'FileImporter.specialPage.action.' . $key );
 			}

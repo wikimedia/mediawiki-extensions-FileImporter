@@ -17,6 +17,9 @@ use User;
 
 class SourceWikiCleanupSnippet {
 
+	const ACTION_OFFERED_SOURCE_DELETE = 'offeredSourceDelete';
+	const ACTION_OFFERED_SOURCE_EDIT = 'offeredSourceEdit';
+
 	/** @var bool */
 	private $sourceEditingEnabled;
 	/** @var bool */
@@ -70,7 +73,7 @@ class SourceWikiCleanupSnippet {
 
 		if ( $canAutomateDelete ) {
 			$automateDeleteSelected = $importPlan->getAutomateSourceWikiDelete();
-			$importPlan->setActionIsPerformed( 'offeredSourceDelete' );
+			$importPlan->setActionIsPerformed( self::ACTION_OFFERED_SOURCE_DELETE );
 
 			$html .= Html::rawElement(
 					'p',
@@ -93,7 +96,7 @@ class SourceWikiCleanupSnippet {
 		} elseif ( $canAutomateEdit ) {
 			$automateEditSelected = $importPlan->getAutomateSourceWikiCleanUp() ||
 				$this->isFreshImport( $importPlan->getRequest() );
-			$importPlan->setActionIsPerformed( 'offeredSourceEdit' );
+			$importPlan->setActionIsPerformed( self::ACTION_OFFERED_SOURCE_EDIT );
 
 			$html .= Html::rawElement(
 					'p',
