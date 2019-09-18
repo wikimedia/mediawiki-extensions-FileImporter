@@ -2,7 +2,6 @@
 
 namespace FileImporter\Services\Wikitext;
 
-use Language;
 use NamespaceInfo;
 
 /**
@@ -21,9 +20,9 @@ use NamespaceInfo;
 class NamespaceUnlocalizer implements WikiLinkCleaner {
 
 	/**
-	 * @var Language|null
+	 * @var NamespaceNameLookup
 	 */
-	private $sourceLanguage;
+	private $namespaceNameLookup;
 
 	/**
 	 * @var NamespaceInfo|null
@@ -31,15 +30,14 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 	private $namespaceInfo;
 
 	/**
-	 * @param Language|null $sourceLanguage
+	 * @param NamespaceNameLookup $namespaceNameLookup
 	 * @param NamespaceInfo $namespaceInfo
 	 */
-	public function __construct( Language $sourceLanguage = null, NamespaceInfo $namespaceInfo ) {
-		if ( !$sourceLanguage || $sourceLanguage->getCode() === 'en' ) {
-			return;
-		}
-
-		$this->sourceLanguage = $sourceLanguage;
+	public function __construct(
+		NamespaceNameLookup $namespaceNameLookup,
+		NamespaceInfo $namespaceInfo
+	) {
+		$this->namespaceNameLookup = $namespaceNameLookup;
 		$this->namespaceInfo = $namespaceInfo;
 	}
 
@@ -49,10 +47,6 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 	 * @return string
 	 */
 	public function process( $link ) {
-		if ( !$this->sourceLanguage ) {
-			return $link;
-		}
-
 		return preg_replace_callback(
 			'/^
 				# Group 1 captures an optional leading colon, the extra + avoid backtracking
@@ -67,7 +61,7 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 				// Normalize to use underscores, as this is what the services require
 				$name = trim( preg_replace( '/[\s\xA0_]+/u', '_', $name ), '_' );
 
-				$namespaceId = $this->sourceLanguage->getLocalNsIndex( $name );
+				$namespaceId = $this->namespaceNameLookup->getIndex( $name );
 				if ( $namespaceId === false
 					|| $namespaceId === NS_MAIN
 					// The Project namespace shouldn't be "unlocalized" because it is not localized,
