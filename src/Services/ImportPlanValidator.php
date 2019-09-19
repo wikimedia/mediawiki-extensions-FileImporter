@@ -163,9 +163,8 @@ class ImportPlanValidator {
 	}
 
 	private function runWikiLinkConversions( ImportPlan $importPlan ) {
-		$sourceLanguage = $importPlan->getDetails()->getPageLanguage();
 		$parser = $this->wikiLinkParserFactory->getWikiLinkParser(
-			$sourceLanguage ? \Language::factory( $sourceLanguage ) : null,
+			$importPlan->getDetails()->getPageLanguage(),
 			$importPlan->getInterWikiPrefix()
 		);
 		$wikitext = $importPlan->getCleanedLatestRevisionText();

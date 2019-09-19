@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Services\Wikitext;
 
+use FileImporter\Services\Wikitext\NamespaceNameLookup;
 use FileImporter\Services\Wikitext\NamespaceUnlocalizer;
 
 /**
@@ -11,14 +12,6 @@ use FileImporter\Services\Wikitext\NamespaceUnlocalizer;
  */
 class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 	use \PHPUnit4And6Compat;
-
-	public function testNoOp() {
-		$cleaner = new NamespaceUnlocalizer(
-			\Language::factory( 'en' ),
-			$this->createMock( \NamespaceInfo::class )
-		);
-		$this->assertSame( 'Category:foo', $cleaner->process( 'Category:foo' ) );
-	}
 
 	public function provideLinks() {
 		return [
@@ -70,20 +63,14 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideLinks
 	 */
 	public function testInterwikiPrefixing( $link, $expected ) {
-		$language = $this->createMock( \Language::class );
-		$language->method( 'getLocalNsIndex' )
-			->willReturnCallback( function ( $name ) {
-				switch ( strtolower( $name ) ) {
-					case 'wikipedia':
-						return NS_PROJECT;
-					case 'kategorie':
-						return NS_CATEGORY;
-					case 'kategorie_diskussion':
-						return NS_CATEGORY_TALK;
-					default:
-						return false;
-				}
-			} );
+		$namespaceNameLookup = $this->createMock( NamespaceNameLookup::class );
+		$namespaceNameLookup->method( 'getIndex' )
+			->willReturnMap( [
+				[ 'Kategorie', NS_CATEGORY ],
+				[ 'Kategorie_Diskussion', NS_CATEGORY_TALK ],
+				[ 'kategorie_diskussion', NS_CATEGORY_TALK ],
+				[ 'Wikipedia', NS_PROJECT ],
+			] );
 
 		$namespaceInfo = $this->createMock( \NamespaceInfo::class );
 		$namespaceInfo->method( 'getCanonicalName' )
@@ -100,7 +87,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 				}
 			} );
 
-		$cleaner = new NamespaceUnlocalizer( $language, $namespaceInfo );
+		$cleaner = new NamespaceUnlocalizer( $namespaceNameLookup, $namespaceInfo );
 		$this->assertSame( $expected, $cleaner->process( $link ) );
 	}
 

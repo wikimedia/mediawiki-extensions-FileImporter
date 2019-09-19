@@ -3,7 +3,6 @@
 namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
-use Language;
 
 /**
  * Note this test (intentionally) uses actual Language objects, which does make this an integration
@@ -24,13 +23,13 @@ class WikiLinkParserFactoryTest extends \PHPUnit\Framework\TestCase {
 
 	public function testNamespaceUnlocalization() {
 		$factory = new WikiLinkParserFactory();
-		$parser = $factory->getWikiLinkParser( Language::factory( 'de' ), '' );
+		$parser = $factory->getWikiLinkParser( 'de', '' );
 		$this->assertSame( '[[User:Me]]', $parser->parse( '[[Benutzer:Me]]' ) );
 	}
 
 	public function testWikiLinkNormalization() {
 		$factory = new WikiLinkParserFactory();
-		$parser = $factory->getWikiLinkParser( Language::factory( 'de' ), 'PREFIX' );
+		$parser = $factory->getWikiLinkParser( 'de', 'PREFIX' );
 		$this->assertSame( '[[:PREFIX:User:Me]]', $parser->parse( '[[Benutzer:Me]]' ) );
 	}
 
