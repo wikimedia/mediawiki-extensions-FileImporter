@@ -452,7 +452,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 								'comment' => 'comment',
 								'*' => '*',
 								'title' => $titleString,
-								'tags' => [ 'tag1', 'tag2' ],
+								'tags' => [],
 							],
 						],
 					]

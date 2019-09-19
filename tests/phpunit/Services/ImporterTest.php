@@ -99,14 +99,8 @@ class ImporterTest extends \MediaWikiTestCase {
 			$firstRevision->getContent()->serialize()
 		);
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
-		$tags = ChangeTags::getTags(
-			wfGetDB( DB_MASTER ),
-			null,
-			$firstRevision->getId()
-		);
-		sort( $tags );
-		$expectedTags = [ 'fileimporter-imported', 'tag1', 'tag2' ];
-		$this->assertSame( $expectedTags, array_intersect( $tags, $expectedTags ) );
+		$tags = ChangeTags::getTags( $this->db, null, $firstRevision->getId() );
+		$this->assertEmpty( array_diff( [ 'fileimporter-imported', 'tag1', 'tag2' ], $tags ) );
 
 		// assert import user revision was created correctly
 		$article = Article::newFromID( $title->getArticleID() );
@@ -135,9 +129,8 @@ class ImporterTest extends \MediaWikiTestCase {
 			'This is my text!',
 			$secondRevision->getContent()->serialize()
 		);
-		$expectedTags = [ 'fileimporter-imported' ];
-		$tags = ChangeTags::getTags( wfGetDB( DB_MASTER ), null, $secondRevision->getId() );
-		$this->assertSame( $expectedTags, array_intersect( $tags, $expectedTags ) );
+		$tags = ChangeTags::getTags( $this->db, null, $secondRevision->getId() );
+		$this->assertEmpty( array_diff( [ 'fileimporter-imported' ], $tags ) );
 
 		// assert import log entry was created correctly
 		$this->assertTextRevisionLogEntry( $nullRevision, 'import', 'interwiki', 'fileimporter' );
