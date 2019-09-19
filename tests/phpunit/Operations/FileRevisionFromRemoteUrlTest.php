@@ -186,6 +186,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 			'comment' => '',
 			'*' => '',
 			'title' => '',
+			'tags' => [],
 		] );
 	}
 

@@ -464,6 +464,7 @@ class ApiDetailRetriever implements DetailRetriever {
 					'contentmodel',
 					'comment',
 					'content',
+					'tags',
 				]
 			)
 		];

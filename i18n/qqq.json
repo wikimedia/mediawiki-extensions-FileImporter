@@ -14,6 +14,8 @@
 	"fileimporter-desc": "{{desc|name=FileImporter|url=https://www.mediawiki.org/wiki/Extension:FileImporter}}",
 	"tag-fileimporter": "Short label for edits marked with the \"fileimporter\" tag.",
 	"tag-fileimporter-description": "Description explaining the \"fileimporter\" tag.",
+	"tag-fileimporter-imported": "Short label for edits marked with the \"fileimporter-imported\" tag.",
+	"tag-fileimporter-imported-description": "Description explaining the \"fileimporter-imported\" tag.",
 	"fileimporter-specialpage": "Title for the File Import special page.",
 	"fileimporter-importfailed": "Error message for cases where when a generic import failure occurs.",
 	"fileimporter-api-badinfo": "Error message when the remote API returns bad image or revision info.",
