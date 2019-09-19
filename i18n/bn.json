@@ -3,7 +3,8 @@
 		"authors": [
 			"Elias Ahmmad",
 			"Aftabuzzaman",
-			"আফতাবুজ্জামান"
+			"আফতাবুজ্জামান",
+			"Nokib Sarkar"
 		]
 	},
 	"fileimporter": "ফাইল আমদানিকারক",
@@ -50,7 +51,7 @@
 	"fileimporter-import-wait": "আমদানি করতে কয়েক মিনিট সময় লাগতে পারে।",
 	"fileimporter-imported-success-banner": "এই ফাইলটি {{SITENAME}} সাইটে আমদানি করা হয়েছে।",
 	"fileimporter-go-to-original-file-button": "মূল ফাইলে ফেরত যান",
-	"fileimporter-file-missing-required-template": "ফাইলটি আমদানি করা যাবে না, কারণ এটি প্রয়োজনীয় লাইসেন্সগুলির কোন একটি দ্বারা চিহ্নিত নয়।",
+	"fileimporter-file-missing-required-template": "এই ফাইলটি $1 তে স্থানান্তর করা যাবে না, কারণ এটি একটি সামঞ্জস্যপূর্ণ লাইসেন্সের সাথে চিহ্নিত নয়। $1 এই ফাইলগুলিকে অনুমতি দেয় না। এটি সম্ভবত মীমাংসা হতে পারে, কিন্তু সম্ভবত সম্ভবত ফাইল সামঞ্জস্যপূর্ণ নয়। দয়া করে [[Project:Licensing| $2 সম্প্রদায়ের সঙ্গে লাইসেন্সের ব্যাপারে আলোচনা করুন]]",
 	"fileimporter-auto-replacements-summary": "টেমপ্লেটসমূহে $1টি স্বয়ংক্রিয় {{PLURAL:$1|পরিবর্তন}} {{PLURAL:$1|করা}} হয়েছে",
 	"fileimporter-viewdiff": "পরিবর্তনসমূহ দেখান",
 	"fileimporter-to-preview": "প্রাকদর্শনে ফিরুন"

@@ -5,7 +5,8 @@
 			"Matma Rex",
 			"Bhatakati aatma",
 			"Smtchahal",
-			"Sachinkatiyar"
+			"Sachinkatiyar",
+			"Nilesh shukla"
 		]
 	},
 	"fileimporter": "फ़ाइल आयातक",
@@ -18,5 +19,6 @@
 	"fileimporter-editsummary": "संपादन सारांश",
 	"fileimporter-heading-filehistory": "फ़ाइल का इतिहास",
 	"fileimporter-filemissinginrevision": "संचिका आयात नहीं की जा सकती क्योंकि उसके कम से कम एक संशोधन में कोई चित्र संचिका नहीं है।",
-	"fileimporter-import-wait": "आयात में कुछ मिनट लग सकते हैं।"
+	"fileimporter-import-wait": "आयात में कुछ मिनट लग सकते हैं।",
+	"fileimporter-file-contains-blocked-category-template": "इस फ़ाइल को $2 में स्थानांतरित नहीं किया जा सकता है, क्योंकि इसे $1 के रूप में चिह्नित किया गया है। $2 ऐसी फ़ाइलों की अनुमति नहीं देता है। यह समाधेय हो सकता है,लेकिन संभवत: इसका मतलब यह हो सकता है कि फ़ाइल उपयुक्त नहीं है। कृपया $2 सामुदायिक नीति से परामर्श करें और लाइसेंस के बारे में बात करें।"
 }
