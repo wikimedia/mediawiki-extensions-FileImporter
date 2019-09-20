@@ -5,7 +5,7 @@
 		]
 	},
 	"fileimporter": "FileImporter",
-	"tag-fileimporter": "Importēts ar FileImporter",
+	"tag-fileimporter-imported": "Importēts ar FileImporter",
 	"fileimporter-specialpage": "Importēt failu",
 	"fileimporter-importfailed": "Imports neizdevās",
 	"fileimporter-cantimportmissingfile": "Nevar importēt trūkstošu failu.",

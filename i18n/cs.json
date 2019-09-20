@@ -4,13 +4,14 @@
 			"Meliganai",
 			"Ilimanaq29",
 			"Matěj Suchánek",
-			"Patriccck"
+			"Patriccck",
+			"MrJaroslavik"
 		]
 	},
 	"fileimporter": "Exportér souborů",
 	"fileimporter-desc": "Jednoduchý export souborů z jiných projektů",
-	"tag-fileimporter": "Exportováno pomocí Exportéru souborů",
 	"tag-fileimporter-description": "Soubory importované z jiné wiki, včetně historie souborů a stránek",
+	"tag-fileimporter-imported": "Exportováno pomocí Exportéru souborů",
 	"fileimporter-specialpage": "Exportér souborů",
 	"fileimporter-importfailed": "Export selhal",
 	"fileimporter-cantimportmissingfile": "Nelze exportovat chybějící soubor.",
@@ -43,7 +44,7 @@
 	"fileimporter-in-beta": "Exportér souborů je ve verzi beta: Vyzkoušeli jsme jej pečlivě, ale stále může mít nějaké problémy. Pokud se setkáte s problémy, prosím, informujte [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter na naší stránce nápovědy] – ideálně si přečtěte krok za krokem, jak problém nahlásit, abychom jej pochopili a opravili.",
 	"fileimporter-filemissinginrevision": "Nelze importovat soubor, protože nejméně jedné jeho revizi chybí platný soubor s obrázkem.",
 	"fileimporter-import-wait": "Export může trvat několik minut.",
-	"fileimporter-imported-success-banner": "Tento soubor byl úspěšně importován na {{GRAMMAR:4sg|{{SITENAME}}}}.",
+	"fileimporter-imported-success-banner": "Tento soubor byl importován na {{GRAMMAR:4sg|{{SITENAME}}}}.",
 	"fileimporter-go-to-original-file-button": "Vrátit se k původnímu souboru",
 	"fileimporter-commonshelper-retrieval-failed": "Při kontrole blokovaných souborů došlo k chybě.",
 	"fileimporter-file-contains-blocked-category-template": "Soubor nelze importovat, protože je označen jako $1. $2 tyto soubory nepovoluje.",

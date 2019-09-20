@@ -6,7 +6,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Кхечу сайташкара файлаш атта импортяр",
-	"tag-fileimporter": "FileImporter гӀоьнца импортйина",
+	"tag-fileimporter-imported": "FileImporter гӀоьнца импортйина",
 	"fileimporter-specialpage": "Файл импортян",
 	"fileimporter-importfailed": "Импортяран гӀалат",
 	"fileimporter-api-failedtogetinfo": "Файлан хаамаш каро аьтту цахийли чура: $1",
