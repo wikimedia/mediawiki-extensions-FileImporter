@@ -169,7 +169,6 @@ class SpecialImportFile extends SpecialPage {
 		if ( $clientUrl === '' ) {
 			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
 			$this->showLandingPage();
-
 			return;
 		}
 
@@ -178,7 +177,9 @@ class SpecialImportFile extends SpecialPage {
 			$importPlan = $this->makeImportPlan( $webRequest );
 
 			$action = $webRequest->getRawVal( ImportPreviewPage::ACTION_BUTTON );
-			$this->logger->info( "Performing {$action} on ImportPlan for URL: {$clientUrl}" );
+			if ( $action ) {
+				$this->logger->info( "Performing $action on ImportPlan for URL: $clientUrl" );
+			}
 			$this->handleAction( $action, $importPlan );
 		}
 		catch ( ImportException $exception ) {
@@ -204,6 +205,10 @@ class SpecialImportFile extends SpecialPage {
 		}
 	}
 
+	/**
+	 * @param string|null $action
+	 * @param ImportPlan $importPlan
+	 */
 	private function handleAction( $action, ImportPlan $importPlan ) {
 		switch ( $action ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
