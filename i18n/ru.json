@@ -14,7 +14,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
-	"tag-fileimporter": "Импортировано с помощью FileImporter",
+	"tag-fileimporter-imported": "Импортировано с помощью FileImporter",
 	"fileimporter-specialpage": "Импортировать файл",
 	"fileimporter-importfailed": "Ошибка импортирования",
 	"fileimporter-api-badinfo": "Приложение дало неправильную информацию об изображении или ревизии.",

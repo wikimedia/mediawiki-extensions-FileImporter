@@ -5,7 +5,7 @@
 		]
 	},
 	"fileimporter": "DosierEnportilo",
-	"tag-fileimporter": "Enportita per DosierEnportilo",
+	"tag-fileimporter-imported": "Enportita per DosierEnportilo",
 	"fileimporter-specialpage": "Enporti dosieron",
 	"fileimporter-importfailed": "Enportado malsukcesis",
 	"fileimporter-cantparseurl": "Ne povas analizi la donitan retadreson: $1",

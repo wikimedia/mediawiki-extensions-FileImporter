@@ -6,7 +6,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "'Nu mode facile de 'mbortà le file da otre site",
-	"tag-fileimporter": "'Mbortande cu FileImporter",
+	"tag-fileimporter-imported": "'Mbortande cu FileImporter",
 	"fileimporter-specialpage": "'Mborte file",
 	"fileimporter-importfailed": "'Mbortazione fallite",
 	"fileimporter-api-badinfo": "Immaggine brutte o 'mbormazione d'a revisione turnate da l'API.",
