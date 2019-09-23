@@ -51,6 +51,10 @@ class WikiLinkPrefixerTest extends \MediaWikiIntegrationTestCase {
 			[ ': foo ', 'mw', ':mw: foo ' ],
 			[ ':_foo_', 'mw', ':mw:_foo_' ],
 
+			// We can't know (yet) if the existing prefix is a namespace or duplicate interwiki
+			[ ':mw:foo', 'w:mw', ':w:mw:mw:foo' ],
+			[ 'commons:Commons:foo', 'w', ':w:commons:Commons:foo' ],
+
 			// Invalid titles
 			[ '::invalid', 'mw', '::invalid' ],
 		];

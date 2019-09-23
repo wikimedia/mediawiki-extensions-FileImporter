@@ -21,6 +21,7 @@ class WikiLinkParserFactory {
 
 	public function __construct() {
 		$services = MediaWikiServices::getInstance();
+		// FIXME: This needs to be a parser in the context of the *source* wiki
 		$this->parser = $services->getTitleParser();
 		$this->namespaceInfo = $services->getNamespaceInfo();
 		$this->languageFactory = $services->getLanguageFactory();
