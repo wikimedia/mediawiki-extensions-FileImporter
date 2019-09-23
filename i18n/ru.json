@@ -9,12 +9,15 @@
 			"Athena Atterdag",
 			"1233qwer1234qwer4",
 			"Saimongoltinio",
-			"Movses"
+			"Movses",
+			"Katunchik"
 		]
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
+	"tag-fileimporter-description": "Изменения и сообщения журнала, добавленные после импорта из другой Википедии",
 	"tag-fileimporter-imported": "Импортировано с помощью FileImporter",
+	"tag-fileimporter-imported-description": "Изменения, импортированные из другой Википедии",
 	"fileimporter-specialpage": "Импортировать файл",
 	"fileimporter-importfailed": "Ошибка импортирования",
 	"fileimporter-api-badinfo": "Приложение дало неправильную информацию об изображении или ревизии.",
@@ -59,8 +62,8 @@
 	"fileimporter-commonshelper-retrieval-failed": "Возникла ошибка при проверки заблокированных файлов.",
 	"fileimporter-commonshelper-missing-config": "Импорт файлов из исходной вики ($1) ещё невозможен. Не существует конфигурация вики на $2.",
 	"fileimporter-commonshelper-parsing-failed": "Страница конфигурации для вашей вики ($1) неполная. Пожалуйста, проверьте, что она содержит раздел $2.",
-	"fileimporter-file-contains-blocked-category-template": "Файл не может быть импортирован, поскольку он отмечен как $1. Такие файлы не разрешены на $2.",
-	"fileimporter-file-missing-required-template": "Файл не может быть импортирован, поскольку он не отмечен одной из требуемых лицензий.",
+	"fileimporter-file-contains-blocked-category-template": "Этот файл нельзя передать в $2, поскольку он помечен как $1. $2 не позволяет передачу таких файлов. Проблема может быть разрешена, но, скорее всего, это означает, что файл несовместим. Пожалуйста, обратитесь к [[Project:Licensing|the $2 community policy and talk pages about licensing]].",
+	"fileimporter-file-missing-required-template": "Этот файл нельзя передать в $1, поскольку он не помечен совместимой лицензией. $1 не позволяет передачу таких файлов. Проблема может быть разрешена, но, скорее всего, это означает, что файл несовместим. Пожалуйста, обратитесь к [[Project:Licensing|the $1 community policy and talk pages about licensing]].",
 	"fileimporter-category-encouragement": "Файлы на {{SITENAME}} требуется категоризировать. Это позволит легче их найти. Вы можете изменить категории для этого файла, отредактировав файловую информацию на этой странице.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Была выполнена $1 автоматическая замена|Были выполнены $1 автоматические замены|Были выполнены $1 автоматических замен}} в шаблонах",
 	"fileimporter-input-page-info-text": "Узнайте больше на нашей [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons справочной странице].",

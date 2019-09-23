@@ -11,6 +11,8 @@
 	},
 	"fileimporter": "Importer plików",
 	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
+	"tag-fileimporter-description": "Wersje i wpisy rejestru dodane po imporcie z innej wiki",
+	"tag-fileimporter-imported-description": "Wersje zaimportowane z innej wiki",
 	"fileimporter-specialpage": "Import pliku",
 	"fileimporter-importfailed": "Import nieudany",
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL: $1",
@@ -42,7 +44,7 @@
 	"fileimporter-filetoolarge": "Plik, który próbujesz zaimportować, przekracza maksymalny limit rozmiaru pliku.",
 	"fileimporter-import-wait": "Importowanie może potrwać kilka minut.",
 	"fileimporter-go-to-original-file-button": "Powróć do oryginalnego pliku",
-	"fileimporter-file-contains-blocked-category-template": "Nie można przetransferować tego pliku na $2, ponieważ jest oznaczony jako $1. $2 nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź politykę społeczności $2 oraz strony dyskusji dotyczące licencjonowania.",
-	"fileimporter-file-missing-required-template": "Nie można przetransferować pliku na $1, ponieważ nie jest oznaczony kompatybilną licencją. $1 nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź politykę społeczności $2 oraz strony dyskusji dotyczące licencjonowania.",
+	"fileimporter-file-contains-blocked-category-template": "Nie można przetransferować tego pliku na $2, ponieważ jest oznaczony jako $1. $2 nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź [[Project:Licensing|politykę społeczności $2 oraz strony dyskusji dotyczące licencjonowania]].",
+	"fileimporter-file-missing-required-template": "Nie można przetransferować pliku na $1, ponieważ nie jest oznaczony kompatybilną licencją. $1 nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź [[Project:Licensing|politykę społeczności $1 oraz strony dyskusji dotyczące licencjonowania]].",
 	"fileimporter-viewdiff": "Pokaż zmiany"
 }

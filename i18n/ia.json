@@ -4,7 +4,11 @@
 			"McDutchie"
 		]
 	},
+	"tag-fileimporter-description": "Versiones e messages de registro addite post importation ab un altere wiki",
+	"tag-fileimporter-imported-description": "Versiones importate ab un altere wiki",
 	"fileimporter-add-unknown-template": "Le importation ha succedite. Pro declarar que le file se trova ora sur {{SITENAME}}, per favor retorna al [$1 file original] e adde un patrono.",
 	"fileimporter-add-specific-template": "Le importation ha succedite. Pro declarar que le file se trova ora sur {{SITENAME}}, per favor retorna al [$1 file original] e adde iste patrono: <code><nowiki>{{$2|$3}}</nowiki></code>.",
-	"fileimporter-commonshelper-missing-config": "Non es ancora possibile importar files ab le wiki de origine ($1). Il non ha configuration pro le wiki a $2."
+	"fileimporter-commonshelper-missing-config": "Non es ancora possibile importar files ab le wiki de origine ($1). Il non ha configuration pro le wiki a $2.",
+	"fileimporter-file-contains-blocked-category-template": "Le file non pote esser transferite a $2 perque illo ha essite marcate como $1. $2 non permitte tal files. Isto poterea esser resolvibile, ma multo probabilemente significa que le file non es compatibile. Per favor, consulta [[Project:Licensing|le politica communitari de $2 e le paginas de discussion sur le licentias]].",
+	"fileimporter-file-missing-required-template": "Le file non pote esser transferite a $1 perque illo non ha essite marcate con un licentia compatibile. $1 non permitte tal files. Isto poterea esser resolvibile, ma multo probabilemente significa que le file non es compatibile. Per favor, consulta [[Project:Licensing|le politica communitari de $1 e le paginas de discussion sur le licentias]]."
 }
