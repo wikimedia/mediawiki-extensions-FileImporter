@@ -161,6 +161,8 @@ class WikitextContentCleaner {
 	 */
 	private function parseTemplate( $wikitext, $startPosition ) {
 		$max = strlen( $wikitext );
+		// Templates can be nested, but links can not
+		$inWikiLink = false;
 		$nesting = 0;
 		$params = [];
 		$p = -1;
@@ -168,6 +170,16 @@ class WikitextContentCleaner {
 
 		for ( $i = $startPosition; $i < $max; $i++ ) {
 			switch ( $wikitext[$i] ) {
+				case '[':
+					if ( substr( $wikitext, $i + 1, 1 ) === '[' ) {
+						$inWikiLink = true;
+					}
+					break;
+				case ']':
+					if ( substr( $wikitext, $i + 1, 1 ) === ']' ) {
+						$inWikiLink = false;
+					}
+					break;
 				case '}':
 					if ( $wikitext[$i + 1] === '}' ) {
 						if ( $p !== -1 ) {
@@ -192,7 +204,7 @@ class WikitextContentCleaner {
 					}
 					break;
 				case '|':
-					if ( !$nesting ) {
+					if ( !$inWikiLink && !$nesting ) {
 						if ( $p !== -1 ) {
 							$this->scanValue( $wikitext, $i, $params[$p] );
 						}

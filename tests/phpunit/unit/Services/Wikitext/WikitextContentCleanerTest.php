@@ -209,8 +209,8 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 						'addLanguageTemplate' => true
 					] ],
 				] ],
-				'wikitext' => "{{Info|desc = foo \n|desc = \n}}",
-				'expectedWikitext' => "{{Info|desc = {{de|foo}} \n|desc = {{de|}}\n}}",
+				'wikitext' => "{{Info|desc = foo [[…|x=1]] \n|desc = \n}}",
+				'expectedWikitext' => "{{Info|desc = {{de|foo [[…|x=1]]}} \n|desc = {{de|}}\n}}",
 			],
 
 			'add language template to unnamed parameter' => [
@@ -221,8 +221,8 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 						'addLanguageTemplate' => true
 					] ],
 				] ],
-				'wikitext' => '{{Info| foo }}',
-				'expectedWikitext' => '{{Info|desc= {{de|foo}} }}',
+				'wikitext' => '{{Info| foo [[…|x]] }}',
+				'expectedWikitext' => '{{Info|desc= {{de|foo [[…|x]]}} }}',
 			],
 
 			'add missing parameter' => [
@@ -307,8 +307,8 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 						'y' => [ 'sourceParameters' => 'b' ],
 					],
 				] ],
-				'wikitext' => '{{Info|a=|b=',
-				'expectedWikitext' => '{{Info|x=|y=',
+				'wikitext' => '{{Info|a=|b=[[]',
+				'expectedWikitext' => '{{Info|x=|y=[[]',
 			],
 		];
 	}
