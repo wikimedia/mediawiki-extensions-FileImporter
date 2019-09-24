@@ -12,6 +12,7 @@
 	},
 	"fileimporter": "{{name}}",
 	"fileimporter-desc": "{{desc|name=FileImporter|url=https://www.mediawiki.org/wiki/Extension:FileImporter}}",
+	"tag-fileimporter": "Short label for edits marked with the \"fileimporter\" tag.",
 	"tag-fileimporter-description": "Description explaining the \"fileimporter\" tag.",
 	"tag-fileimporter-imported": "Short label for edits marked with the \"fileimporter-imported\" tag.",
 	"tag-fileimporter-imported-description": "Description explaining the \"fileimporter-imported\" tag.",
