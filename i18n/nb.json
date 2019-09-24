@@ -7,6 +7,7 @@
 	},
 	"fileimporter": "Filimportering",
 	"fileimporter-desc": "Enkel importering av filer fra andre sider",
+	"tag-fileimporter": "Modifisert av FileImporter",
 	"tag-fileimporter-description": "Filer importert fra en annen wiki, inkludert fil- og sidehistorikk",
 	"tag-fileimporter-imported": "Importert med FileImporter",
 	"fileimporter-specialpage": "Importer fil",

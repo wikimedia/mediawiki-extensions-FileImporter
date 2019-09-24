@@ -6,6 +6,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"tag-fileimporter-imported": "Importēts ar FileImporter",
+	"tag-fileimporter-imported-description": "No citas vikivietnes importētas versijas",
 	"fileimporter-specialpage": "Importēt failu",
 	"fileimporter-importfailed": "Imports neizdevās",
 	"fileimporter-cantimportmissingfile": "Nevar importēt trūkstošu failu.",

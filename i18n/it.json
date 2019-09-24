@@ -9,12 +9,15 @@
 			"Sakretsu",
 			"Wim b",
 			"Ghebbro",
-			"Annibale covini gerolamo"
+			"Annibale covini gerolamo",
+			"Fringio"
 		]
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importa facilmente file da altri siti",
+	"tag-fileimporter": "Modificato da FileImporter",
 	"tag-fileimporter-imported": "Importato con FileImporter",
+	"tag-fileimporter-imported-description": "Versioni importate da un altro wiki",
 	"fileimporter-specialpage": "Importa file",
 	"fileimporter-importfailed": "Importazione fallita",
 	"fileimporter-api-failedtogetinfo": "Impossibile recuperare le informazioni sul file da: $1",
