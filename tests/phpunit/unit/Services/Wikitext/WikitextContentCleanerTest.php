@@ -299,6 +299,20 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 				'expectedWikitext' => '{{Info|{{{Info|Desc=…}}}|Description=…}}',
 			],
 
+			'previously misdetected nested …}} as end of parameter' => [
+				'replacements' => [ 'Info' => [
+					'targetTemplate' => 'Info',
+					'parameters' => [
+						'x' => [
+							'sourceParameters' => 'a',
+							'addLanguageTemplate' => true
+						],
+					],
+				] ],
+				'wikitext' => '{{Info|a={{q}}more }',
+				'expectedWikitext' => '{{Info|x={{de|{{q}}more}} }',
+			],
+
 			'end-of-text' => [
 				'replacements' => [ 'Info' => [
 					'targetTemplate' => 'Info',
