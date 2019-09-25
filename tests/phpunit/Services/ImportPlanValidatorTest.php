@@ -162,20 +162,16 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	/**
-	 * @param bool $validTitle
-	 * @param bool $validFile
+	 * @param bool|int $validTitle Numeric error code or true on success
 	 *
 	 * @return ValidatingUploadBase
 	 */
-	private function getMockValidatingUploadBase(
-		$validTitle = true,
-		$validFile = true
-	) : ValidatingUploadBase {
+	private function getMockValidatingUploadBase( $validTitle = true ) : ValidatingUploadBase {
 		$mock = $this->createMock( ValidatingUploadBase::class );
 		$mock->method( 'validateTitle' )
 			->willReturn( $validTitle );
 		$mock->method( 'validateFile' )
-			->willReturn( $validFile );
+			->willReturn( true );
 		return $mock;
 	}
 
@@ -304,7 +300,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				$this->getMockDuplicateFileRevisionChecker( 1 ),
 				$this->getMockImportTitleChecker(),
 				$this->getMockWikiLinkParserFactory( 1 ),
-				$this->getMockValidatingUploadBase( UploadBase::FILENAME_TOO_LONG, true )
+				$this->getMockValidatingUploadBase( UploadBase::FILENAME_TOO_LONG )
 			],
 			'Invalid, Bad characters "<", getTitle throws MalformedTitleException' => [
 				new RecoverableTitleException(
@@ -315,7 +311,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				$this->getMockDuplicateFileRevisionChecker(),
 				$this->getMockImportTitleChecker(),
 				$this->getMockWikiLinkParserFactory(),
-				$this->getMockValidatingUploadBase( true, true )
+				$this->getMockValidatingUploadBase()
 			],
 		];
 

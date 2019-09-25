@@ -52,13 +52,13 @@ class HttpApiLookup implements LoggerAwareInterface {
 	}
 
 	/**
+	 * @param string $code
 	 * @param string $message
 	 * @param array $context
-	 * @param string $code
 	 *
 	 * @return ImportException
 	 */
-	private function loggedError( $message, array $context = [], $code ) {
+	private function loggedError( $code, $message, array $context = [] ) {
 		$this->logger->error( $message, $context );
 		return new ImportException( $message, $code );
 	}
@@ -84,9 +84,9 @@ class HttpApiLookup implements LoggerAwareInterface {
 		}
 
 		throw $this->loggedError(
-			'Failed to get MediaWiki API from SourceUrl',
-			[],
-			self::ERROR_CANNOT_FIND_SOURCE_API );
+			self::ERROR_CANNOT_FIND_SOURCE_API,
+			'Failed to get MediaWiki API from SourceUrl'
+		);
 	}
 
 	/**
@@ -118,13 +118,13 @@ class HttpApiLookup implements LoggerAwareInterface {
 			}
 
 			throw $this->loggedError(
+				$statusCode,
 				htmlspecialchars( $msg ),
 				[
 					'statusCode' => $statusCode,
 					'previousMessage' => $error ? $error['message'] : '',
 					'responseContent' => $ex->getHttpRequest()->getContent(),
-				],
-				$statusCode
+				]
 			);
 		}
 

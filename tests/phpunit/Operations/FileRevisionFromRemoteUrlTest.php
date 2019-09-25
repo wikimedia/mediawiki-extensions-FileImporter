@@ -40,7 +40,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$fileRevisionFromRemoteUrl = new FileRevisionFromRemoteUrl(
 			Title::newFromText( __METHOD__ ),
 			$this->getTestUser()->getUser(),
-			$this->newFileRevision(),
+			$this->newFileRevision( 'NULL' ),
 			$textRevision,
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( WikiRevisionFactory::class ),
@@ -162,7 +162,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 	 * @param string $url
 	 * @return FileRevision
 	 */
-	private function newFileRevision( $url = 'NULL' ) : FileRevision {
+	private function newFileRevision( $url ) : FileRevision {
 		return new FileRevision( [
 			'name' => 'File:test.jpg',
 			'description' => 'Original upload comment of Test.png',

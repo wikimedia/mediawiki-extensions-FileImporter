@@ -179,7 +179,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		);
 	}
 
-	private function createImportPlanMock( $autoCleanup, $autoDelete, $url = '', $host = '' ) {
+	private function createImportPlanMock( $autoCleanup, $autoDelete, $url, $host = '' ) {
 		$mockTitle = $this->createMock( Title::class );
 		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'TestTitle' );
