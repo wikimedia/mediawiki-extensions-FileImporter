@@ -135,6 +135,7 @@ class WikitextContentCleaner {
 			);
 		}
 
+		// Collapse any amount of line breaks to a maximum of two (= one empty line)
 		return preg_replace( '/\n\s*\n\s*\n/', "\n\n", $wikitext );
 	}
 
@@ -169,66 +170,59 @@ class WikitextContentCleaner {
 		$number = 0;
 
 		for ( $i = $startPosition; $i < $max; $i++ ) {
-			switch ( $wikitext[$i] ) {
-				case '[':
-					if ( substr( $wikitext, $i + 1, 1 ) === '[' ) {
-						$inWikiLink = true;
-					}
-					break;
-				case ']':
-					if ( substr( $wikitext, $i + 1, 1 ) === ']' ) {
-						$inWikiLink = false;
-					}
-					break;
-				case '}':
-					if ( $wikitext[$i + 1] === '}' ) {
-						if ( $p !== -1 ) {
-							$this->scanValue( $wikitext, $i, $params[$p] );
-						}
+			$currentChar = $wikitext[$i];
+			$currentPair = substr( $wikitext, $i, 2 );
 
-						if ( !$nesting ) {
-							$max = $i + 2;
-							// Found the closing }}, abort the switch and the for-loop
-							break 2;
-						}
-						$nesting--;
-						// Skip the second bracket, it can't be the end of another pair
-						$i++;
+			if ( $currentPair === '[[' ) {
+				$inWikiLink = true;
+			} elseif ( $currentPair === ']]' ) {
+				$inWikiLink = false;
+			} elseif ( $currentPair === '{{' ) {
+				$nesting++;
+				// Skip the second bracket, it can't be the start of another pair
+				$i++;
+			} elseif ( $currentPair === '}}' || $currentPair === '}' ) {
+				if ( !$nesting ) {
+					if ( isset( $params[$p] ) ) {
+						$this->scanValue( $wikitext, $i, $params[$p] );
 					}
-					break;
-				case '{':
-					if ( $wikitext[$i + 1] === '{' ) {
-						$nesting++;
-						// Skip the second bracket, it can't be the start of another pair
-						$i++;
-					}
-					break;
-				case '|':
-					if ( !$inWikiLink && !$nesting ) {
-						if ( $p !== -1 ) {
-							$this->scanValue( $wikitext, $i, $params[$p] );
-						}
 
-						$params[++$p] = [ 'number' => ++$number, 'offset' => $i + 1 ];
-						$params[$p]['format'] = $this->scanFormatSnippet( $wikitext, $i ) . '_=';
-						$params[$p]['valueOffset'] = $i + 1;
-					}
+					// Note this parser intentionally accepts incomplete, cut-off templates
+					$max = min( $max, $i + 2 );
 					break;
-				case '=':
-					if ( !$nesting && $p !== -1 && !isset( $params[$p]['name'] ) ) {
-						unset( $params[$p]['number'] );
-						$number--;
+				}
 
-						$offset = $params[$p]['offset'];
-						$name = rtrim( substr( $wikitext, $offset, $i - $offset ) );
-						$params[$p]['name'] = ltrim( $name );
-						// Skip (optional) whitespace between | and the parameter name
-						$params[$p]['offset'] += strlen( $name ) - strlen( $params[$p]['name'] );
-						$params[$p]['format'] = rtrim( $params[$p]['format'], '=' )
-							. $this->scanFormatSnippet( $wikitext, $i );
-						$params[$p]['valueOffset'] = $i + 1;
-					}
-					break;
+				$nesting--;
+				// Skip the second bracket, it can't be the end of another pair
+				$i++;
+			} elseif ( $currentChar === '|' && !$inWikiLink && !$nesting ) {
+				if ( isset( $params[$p] ) ) {
+					$this->scanValue( $wikitext, $i, $params[$p] );
+				}
+
+				$params[++$p] = [
+					'number' => ++$number,
+					'offset' => $i + 1,
+					'format' => $this->scanFormatSnippet( $wikitext, $i ) . '_=',
+					'valueOffset' => $i + 1,
+					'value' => substr( $wikitext, $i + 1 ),
+				];
+			} elseif ( $currentChar === '='
+				&& !$nesting
+				&& isset( $params[$p] )
+				&& !isset( $params[$p]['name'] )
+			) {
+				unset( $params[$p]['number'] );
+				$number--;
+
+				$offset = $params[$p]['offset'];
+				$name = rtrim( substr( $wikitext, $offset, $i - $offset ) );
+				$params[$p]['name'] = ltrim( $name );
+				// Skip (optional) whitespace between | and the parameter name
+				$params[$p]['offset'] += strlen( $name ) - strlen( $params[$p]['name'] );
+				$params[$p]['format'] = rtrim( $params[$p]['format'], '=' )
+					. $this->scanFormatSnippet( $wikitext, $i );
+				$params[$p]['valueOffset'] = $i + 1;
 			}
 		}
 
