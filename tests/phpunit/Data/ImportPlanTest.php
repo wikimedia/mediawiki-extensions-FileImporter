@@ -39,18 +39,24 @@ class ImportPlanTest extends \MediaWikiTestCase {
 
 		$this->assertSame( '', $plan->getCleanedLatestRevisionText() );
 		$this->assertSame( 0, $plan->getNumberOfTemplateReplacements() );
+		$this->assertFalse( $plan->getAutomateSourceWikiCleanUp() );
+		$this->assertFalse( $plan->getAutomateSourceWikiDelete() );
 		$this->assertSame( [], $plan->getActionStats() );
 
 		$plan->setCleanedLatestRevisionText( 'T' );
 		$plan->setNumberOfTemplateReplacements( 1 );
+		$plan->setAutomateSourceWikiCleanUp( true );
+		$plan->setAutomateSourceWikiDelete( true );
 		$plan->setActionStats( [ 'a' => 1 ] );
 
 		$this->assertSame( 'T', $plan->getCleanedLatestRevisionText() );
 		$this->assertSame( 1, $plan->getNumberOfTemplateReplacements() );
+		$this->assertTrue( $plan->getAutomateSourceWikiCleanUp() );
+		$this->assertTrue( $plan->getAutomateSourceWikiDelete() );
 		$this->assertSame( [ 'a' => 1 ], $plan->getActionStats() );
 	}
 
-	public function testAddActionStat() {
+	public function testSetActionIsPerformed() {
 		$request = new ImportRequest( '//w.invalid' );
 		$details = $this->createMock( ImportDetails::class );
 		$plan = new ImportPlan( $request, $details, '' );
@@ -69,13 +75,13 @@ class ImportPlanTest extends \MediaWikiTestCase {
 			->willReturn( null );
 
 		$details = $this->createMock( ImportDetails::class );
-		$details->expects( $this->once() )
-			->method( 'getSourceLinkTarget' )
+		$details->method( 'getSourceLinkTarget' )
 			->willReturn( new TitleValue( NS_FILE, 'TestFileName.EXT' ) );
 
 		$plan = new ImportPlan( $request, $details, '' );
 
 		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
+		$this->assertSame( 'TestFileName.EXT', $plan->getOriginalTitle()->getText() );
 		$this->assertSame( 'TestFileName.EXT', $plan->getTitle()->getText() );
 		$this->assertSame( 'TestFileName', $plan->getFileName() );
 	}
@@ -84,8 +90,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$request = new ImportRequest( '//w.invalid', 'TestIntendedName' );
 
 		$details = $this->createMock( ImportDetails::class );
-		$details->expects( $this->once() )
-			->method( 'getSourceFileExtension' )
+		$details->method( 'getSourceFileExtension' )
 			->willReturn( 'EXT' );
 
 		$plan = new ImportPlan( $request, $details, '' );
@@ -93,22 +98,29 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
 		$this->assertSame( 'TestIntendedName.EXT', $plan->getTitle()->getText() );
 		$this->assertSame( 'TestIntendedName', $plan->getFileName() );
+		$this->assertSame( 'EXT', $plan->getFileExtension() );
 	}
 
 	public function provideTexts() {
 		return [
-			[ 'Some Text', 'Some Text', null, 'Some Text' ],
-			[ 'Some Text', 'Some Text', 'Some Other Text', 'Some Other Text' ],
-			[ 'Some Text', 'Some Text', '', '' ],
-			[ 'Some unclean Text', 'Some Text', null, 'Some Text' ],
-			[ 'Some Text', null, null, 'Some Text' ],
+			[ 'Some Text', 'Some Text', null, 'Some Text', false ],
+			[ 'Some Text', 'Some Text', 'Some Other Text', 'Some Other Text', true ],
+			[ 'Some Text', 'Some Text', '', '', true ],
+			[ 'Some unclean Text', 'Some Text', null, 'Some Text', true ],
+			[ 'Some Text', null, null, 'Some Text', false ],
 		];
 	}
 
 	/**
 	 * @dataProvider provideTexts
 	 */
-	public function testTextGetters( $originalText, $cleanedText, $intendedText, $expectedText ) {
+	public function testTextGetters(
+		$originalText,
+		$cleanedText,
+		$intendedText,
+		$expectedText,
+		$expectedChangedSignal
+	) {
 		$this->setMwGlobals( 'wgFileImporterTextForPostImportRevision', '' );
 
 		$request = new ImportRequest( '//w.invalid', null, $intendedText );
@@ -135,6 +147,11 @@ class ImportPlanTest extends \MediaWikiTestCase {
 			'cleanedLatestRevisionText'
 		);
 		$this->assertSame( $expectedText, $plan->getFileInfoText(), 'fileInfoText' );
+		$this->assertSame(
+			$expectedChangedSignal,
+			$plan->wasFileInfoTextChanged(),
+			'wasFileInfoTextChanged'
+		);
 	}
 
 	public function testGetInitialFileInfoTextWithNoTextRevision() {
