@@ -390,7 +390,6 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 					'iw_prefix' => 'wikisource'
 				],
 			] );
-		$mockInterwikiLookup->method( 'fetch' )->willReturn( null );
 
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$mockInterwikiLookup,

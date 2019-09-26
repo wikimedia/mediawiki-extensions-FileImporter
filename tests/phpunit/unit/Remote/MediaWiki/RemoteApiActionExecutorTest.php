@@ -16,9 +16,6 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 	public function testExecuteEditAction_noToken() {
 		$mockRequestExecutor = $this->createMock( RemoteApiRequestExecutor::class );
 		$mockRequestExecutor
-			->method( 'getCsrfToken' )
-			->willReturn( null );
-		$mockRequestExecutor
 			->expects( $this->never() )
 			->method( 'execute' );
 
