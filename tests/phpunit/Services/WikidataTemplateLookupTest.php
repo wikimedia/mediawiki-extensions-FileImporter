@@ -70,8 +70,6 @@ class WikidataTemplateLookupTest extends MediaWikiTestCase {
 
 	public function testFetchLocalTemplateForSource_noSite() {
 		$mockSiteLookup = $this->createMock( SiteTableSiteLookup::class );
-		$mockSiteLookup->method( 'getSite' )
-			->willReturn( null );
 
 		$lookup = new WikidataTemplateLookup(
 			$this->createMock( Config::class ),

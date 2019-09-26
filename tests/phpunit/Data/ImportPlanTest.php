@@ -65,8 +65,7 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	public function testGetTitleAndFileNameFromInitialTitle() {
 		$request = $this->createMock( ImportRequest::class );
 		$request->expects( $this->once() )
-			->method( 'getIntendedName' )
-			->willReturn( null );
+			->method( 'getIntendedName' );
 
 		$details = $this->createMock( ImportDetails::class );
 		$details->expects( $this->once() )
@@ -141,8 +140,6 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$request = new ImportRequest( '//w.invalid' );
 
 		$textRevisions = $this->createMock( TextRevisions::class );
-		$textRevisions->method( 'getLatest' )
-			->willReturn( null );
 
 		$details = $this->createMock( ImportDetails::class );
 		$details->method( 'getTextRevisions' )

@@ -78,8 +78,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$revisionStore = $this->createMock( RevisionStore::class );
 		$revisionStore->expects( $this->once() )
-			->method( 'newNullRevision' )
-			->willReturn( null );
+			->method( 'newNullRevision' );
 
 		$revisionStore->expects( $this->never() )
 			->method( 'insertRevisionOn' );

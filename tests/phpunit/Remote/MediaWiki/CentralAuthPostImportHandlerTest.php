@@ -24,8 +24,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 	public function testExecute_noCleanupRequested() {
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
 		$mockTemplateLookup->expects( $this->once() )
-			->method( 'fetchNowCommonsLocalTitle' )
-			->willReturn( null );
+			->method( 'fetchNowCommonsLocalTitle' );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$this->createMock( RemoteApiActionExecutor::class ),
@@ -91,8 +90,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
-			->method( 'executeEditAction' )
-			->willReturn( null );
+			->method( 'executeEditAction' );
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
 		$mockTemplateLookup->method( 'fetchNowCommonsLocalTitle' )
 			->willReturn( 'TestNowCommons' );
@@ -159,8 +157,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
-			->method( 'executeDeleteAction' )
-			->willReturn( null );
+			->method( 'executeDeleteAction' );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$mockRemoteAction,
