@@ -30,6 +30,9 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 			[ ':mw:foo', 'mw', ':mw:foo' ],
 			[ 'mw:foo', 'mw', 'mw:foo' ],
 			[ 'MW:foo', 'mw', 'MW:foo' ],
+			[ 'w:de:foo', 'w:de', 'w:de:foo' ],
+			[ ' : w:de : foo', 'w:de', ' : w:de : foo' ],
+			[ '::w:de:foo', 'w:de', '::w:de:foo' ],
 
 			// Excluded namespaces
 			[ ':File:foo', 'mw', ':File:foo' ],

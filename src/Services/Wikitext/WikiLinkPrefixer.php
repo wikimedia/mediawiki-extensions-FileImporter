@@ -42,7 +42,10 @@ class WikiLinkPrefixer implements WikiLinkCleaner {
 	 * @return string
 	 */
 	public function process( $link ) {
-		if ( $this->interWikiPrefix === '' ) {
+		if ( $this->interWikiPrefix === ''
+			// Bail out early if the prefix is already there; the extra + avoid backtracking
+			|| preg_match( '{^\h*+:?\h*+' . preg_quote( $this->interWikiPrefix ) . '\h*+:}i', $link )
+		) {
 			return $link;
 		}
 
