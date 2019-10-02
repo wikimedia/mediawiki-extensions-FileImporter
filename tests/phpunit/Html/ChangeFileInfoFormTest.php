@@ -28,6 +28,7 @@ use User;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class ChangeFileInfoFormTest extends \MediaWikiTestCase {
+	use \HamcrestPHPUnitIntegration;
 
 	public function setUp() {
 		parent::setUp();
@@ -113,7 +114,7 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 		);
 		$form = new ChangeFileInfoForm( $this->getMockSpecialPage() );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$form->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
 				both( withTagName( 'form' ) )
@@ -129,9 +130,6 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 					) )
 			) ) )
 		);
-
-		// Avoid marking as a risky test
-		$this->addToAssertionCount( 1 );
 	}
 
 }

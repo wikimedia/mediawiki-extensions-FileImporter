@@ -13,6 +13,7 @@ use Title;
  * @covers \FileImporter\Html\ImportSuccessSnippet
  */
 class ImportSuccessSnippetTest extends MediaWikiTestCase {
+	use \HamcrestPHPUnitIntegration;
 
 	public function testGetHtml_notOK() {
 		$mockCache = $this->createMock( SuccessCache::class );
@@ -46,7 +47,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 			$this->createMock( Title::class )
 		);
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece(
 				both( havingChild(
@@ -60,9 +61,6 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 				) ) )
 			) )
 		);
-
-		// We did Hamcrest assertions, just chill.
-		$this->addToAssertionCount( 1 );
 	}
 
 	public function testGetHtml_warnings() {
@@ -82,7 +80,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 			$this->createMock( Title::class )
 		);
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece(
 				both( havingChild(
@@ -97,9 +95,6 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 				) )
 			) )
 		);
-
-		// We did Hamcrest assertions, just chill.
-		$this->addToAssertionCount( 1 );
 	}
 
 }
