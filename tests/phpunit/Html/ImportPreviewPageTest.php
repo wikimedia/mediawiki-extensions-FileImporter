@@ -59,9 +59,6 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$this->assertPreviewPageText( $html );
 		$this->assertPreviewPageForm( $html );
 		$this->assertSummary( $html, $submittedText, $replacements );
-
-		// Without this line, PHPUnit doesn't count Hamcrest assertions and marks the test as risky.
-		$this->addToAssertionCount( 1 );
 	}
 
 	public function testGetHtml_doNotEditSourceWiki() {

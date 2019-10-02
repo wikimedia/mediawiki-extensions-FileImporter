@@ -346,7 +346,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
 		}
 		$validator->validate( $plan, $this->getTestUser()->getUser() );
-		$this->addToAssertionCount( 1 );
 	}
 
 	public function testValidateFailsWhenCoreChangesTheName() {

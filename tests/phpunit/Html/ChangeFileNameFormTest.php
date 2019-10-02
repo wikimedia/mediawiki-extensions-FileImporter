@@ -23,6 +23,7 @@ use Title;
  * @author Addshore
  */
 class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
+	use \HamcrestPHPUnitIntegration;
 	use PHPUnit4And6Compat;
 
 	public function setUp() {
@@ -92,7 +93,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 		$form = new ChangeFileNameForm( $this->getMockSpecialPage() );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$form->getHtml( $importPlan ),
 			is( htmlPiece( havingChild(
 				both( withTagName( 'form' ) )
@@ -108,8 +109,6 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 					) )
 			) ) )
 		);
-		// Avoid marking as a risky test
-		$this->addToAssertionCount( 1 );
 	}
 
 }

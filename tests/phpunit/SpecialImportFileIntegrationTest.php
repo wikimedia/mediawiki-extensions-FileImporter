@@ -290,8 +290,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		);
 
 		$htmlAssertionCallable( $html );
-		// assertion to avoid phpunit showing hamcrest test as risky
-		$this->addToAssertionCount( 1 );
 	}
 
 }
