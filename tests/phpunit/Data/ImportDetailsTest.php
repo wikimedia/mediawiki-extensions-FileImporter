@@ -8,7 +8,6 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
-use PHPUnit4And6Compat;
 use TitleValue;
 
 /**
@@ -18,7 +17,6 @@ use TitleValue;
  * @author Thiemo Kreuz
  */
 class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
 
 	public function testValueObject() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
@@ -71,7 +69,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testInvalidFileRevisionTimestamp() {
-		$this->setExpectedException( \LogicException::class );
+		$this->expectException( \LogicException::class );
 		$this->minimalImportDetails()->getImageDisplayUrl();
 	}
 

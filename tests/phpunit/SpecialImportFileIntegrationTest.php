@@ -268,10 +268,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		}
 
 		if ( $expectedExceptionDetails ) {
-			$this->setExpectedException(
-				$expectedExceptionDetails['name'],
-				$expectedExceptionDetails['message']
-			);
+			$this->expectException( $expectedExceptionDetails['name'] );
+			$this->expectExceptionMessage( $expectedExceptionDetails['message'] );
 		}
 
 		if ( $userOrBool instanceof User ) {

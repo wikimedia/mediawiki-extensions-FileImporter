@@ -38,7 +38,7 @@ class FileChunkSaverTest extends \MediaWikiTestCase {
 		$saver = $this->createChunkSaver( $maxBytes );
 
 		if ( !is_int( $expectedResult ) ) {
-			$this->setExpectedException( $expectedResult );
+			$this->expectException( $expectedResult );
 		}
 
 		$this->assertSame( $expectedResult, $saver->saveFileChunk( null, $buffer ) );
@@ -49,7 +49,7 @@ class FileChunkSaverTest extends \MediaWikiTestCase {
 		/** @var FileChunkSaver $saver */
 		$saver = TestingAccessWrapper::newFromObject( $saver );
 
-		$this->setExpectedException( RuntimeException::class );
+		$this->expectException( RuntimeException::class );
 
 		$saver->getHandle();
 	}

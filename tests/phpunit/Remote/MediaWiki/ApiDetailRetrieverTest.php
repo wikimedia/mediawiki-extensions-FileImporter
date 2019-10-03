@@ -70,7 +70,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		$this->setMwGlobals( [
 			'wgFileImporterAccountForSuppressedUsername' => 'InValid#Name'
 		] );
-		$this->setExpectedException( ConfigException::class );
+		$this->expectException( ConfigException::class );
 
 		$this->newInstance();
 	}
@@ -78,7 +78,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	public function testCheckMaxRevisionAggregatedBytes_setMax() {
 		$apiRetriever = $this->newInstance();
 
-		$this->setExpectedException( LocalizedImportException::class );
+		$this->expectException( LocalizedImportException::class );
 		$apiRetriever->checkMaxRevisionAggregatedBytes( [ 'imageinfo' => [ [ 'size' => 1000 ] ] ] );
 	}
 
@@ -134,7 +134,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	public function testCheckMaxRevisionAggregatedBytes_fails( array $input ) {
 		$apiRetriever = $this->newInstance();
 
-		$this->setExpectedException( LocalizedImportException::class );
+		$this->expectException( LocalizedImportException::class );
 
 		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
 	}
@@ -162,7 +162,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	public function testCheckRevisionCount_fails( array $input ) {
 		$apiRetriever = $this->newInstance();
 
-		$this->setExpectedException( LocalizedImportException::class );
+		$this->expectException( LocalizedImportException::class );
 
 		$apiRetriever->checkRevisionCount(
 			$this->createMock( SourceUrl::class ),
@@ -387,7 +387,8 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			0
 		);
 
-		$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
+		$this->expectException( get_class( $expected ) );
+		$this->expectExceptionMessage( $expected->getMessage() );
 
 		$service->getImportDetails( new SourceUrl( 'http://foo.bar/wiki/File:Foo.jpg' ) );
 	}

@@ -6,7 +6,6 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\SourceUrlException;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
-use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Services\SourceSiteLocator
@@ -15,13 +14,12 @@ use PHPUnit4And6Compat;
  * @author Thiemo Kreuz
  */
 class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
 
 	public function testNoSitesGiven() {
 		$url = new SourceUrl( '//wikimedia.de' );
 		$locator = new SourceSiteLocator( [] );
 
-		$this->setExpectedException( SourceUrlException::class );
+		$this->expectException( SourceUrlException::class );
 		$locator->getSourceSite( $url );
 	}
 
@@ -30,7 +28,7 @@ class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
 		$site = $this->newSourceSite( false );
 		$locator = new SourceSiteLocator( [ $site ] );
 
-		$this->setExpectedException( SourceUrlException::class );
+		$this->expectException( SourceUrlException::class );
 		$locator->getSourceSite( $url );
 	}
 

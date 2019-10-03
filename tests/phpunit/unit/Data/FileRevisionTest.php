@@ -40,7 +40,7 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 		$fields = array_flip( self::$requiredFieldNames ) + [ 'invalid' => null ];
 		$instance = new FileRevision( $fields );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$instance->getField( 'invalid' );
 	}
 
@@ -56,7 +56,8 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideMissingField
 	 */
 	public function testMissingField( array $fields, $expectedMessage ) {
-		$this->setExpectedException( InvalidArgumentException::class, $expectedMessage );
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( $expectedMessage );
 		new FileRevision( $fields );
 	}
 

@@ -5,7 +5,6 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\FileDescriptionPageValidator;
-use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Services\FileDescriptionPageValidator
@@ -13,7 +12,6 @@ use PHPUnit4And6Compat;
  * @license GPL-2.0-or-later
  */
 class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
 
 	public function testSuccess() {
 		$conversions = new WikitextConversions( [], [], [], [], [] );
@@ -40,7 +38,7 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 		$conversions = new WikitextConversions( [ 'Required' ], [], [], [], [] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
-		$this->setExpectedException( LocalizedImportException::class );
+		$this->expectException( LocalizedImportException::class );
 		$validator->hasRequiredTemplate( [] );
 	}
 
@@ -48,7 +46,7 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 		$conversions = new WikitextConversions( [], [ 'Bad' ], [], [], [] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
-		$this->setExpectedException( LocalizedImportException::class );
+		$this->expectException( LocalizedImportException::class );
 		$validator->validateTemplates( [ 'Template:Bad' ] );
 	}
 
@@ -56,7 +54,7 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 		$conversions = new WikitextConversions( [], [], [ 'Bad' ], [], [] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
-		$this->setExpectedException( LocalizedImportException::class );
+		$this->expectException( LocalizedImportException::class );
 		$validator->validateCategories( [ 'Category:Bad' ] );
 	}
 

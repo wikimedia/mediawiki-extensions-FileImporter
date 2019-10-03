@@ -35,7 +35,8 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$user = $this->getTestUser()->getUser();
 		$content = new \TextContent( '' );
 
-		$this->setExpectedException( ImportException::class, 'Wrong text revision namespace' );
+		$this->expectException( ImportException::class );
+		$this->expectExceptionMessage( 'Wrong text revision namespace' );
 		$validator->validate( $title, $user, $content, '', false );
 	}
 
@@ -70,7 +71,8 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 			}
 		);
 
-		$this->setExpectedException( ImportException::class, '<RAW>' );
+		$this->expectException( ImportException::class );
+		$this->expectExceptionMessage( '<RAW>' );
 		$validator->validate( $expectedTitle, $expectedUser, $expectedContent, '<SUMMARY>', true );
 	}
 

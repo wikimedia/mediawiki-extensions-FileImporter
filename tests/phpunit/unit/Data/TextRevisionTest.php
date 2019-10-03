@@ -48,14 +48,14 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 		$fields = array_flip( self::$requiredFieldNames ) + [ 'invalid' => null ];
 		$instance = new TextRevision( $fields );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$instance->getField( 'invalid' );
 	}
 
 	public function testSetNonExistingField() {
 		$instance = new TextRevision( array_flip( self::$requiredFieldNames ) );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$instance->setField( 'invalid', null );
 	}
 
@@ -71,7 +71,8 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideMissingField
 	 */
 	public function testMissingField( array $fields, $expectedMessage ) {
-		$this->setExpectedException( InvalidArgumentException::class, $expectedMessage );
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( $expectedMessage );
 		new TextRevision( $fields );
 	}
 

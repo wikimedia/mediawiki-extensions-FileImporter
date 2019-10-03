@@ -12,7 +12,6 @@ use FileImporter\Exceptions\LocalizedImportException;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class ImportRequestTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
 
 	public function testConstructor() {
 		$url = 'https://ar.wikipedia.org/wiki/ملف:1967+TUN.jpg';
@@ -26,7 +25,7 @@ class ImportRequestTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testInvalidUrl() {
-		$this->setExpectedException( LocalizedImportException::class );
+		$this->expectException( LocalizedImportException::class );
 		new ImportRequest( 'invalid' );
 	}
 

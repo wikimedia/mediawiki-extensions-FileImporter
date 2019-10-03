@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\InvalidArgumentException;
-use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Data\SourceUrl
@@ -13,7 +12,6 @@ use PHPUnit4And6Compat;
  * @author Addshore
  */
 class SourceUrlTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
 
 	public function provideInvalidConstruction() {
 		return [
@@ -25,7 +23,7 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideInvalidConstruction
 	 */
 	public function testInvalidConstruction( $input ) {
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		new SourceUrl( $input );
 	}
 

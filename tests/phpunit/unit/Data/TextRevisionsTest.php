@@ -27,7 +27,7 @@ class TextRevisionsTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotBeEmpty() {
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		new TextRevisions( [] );
 	}
 

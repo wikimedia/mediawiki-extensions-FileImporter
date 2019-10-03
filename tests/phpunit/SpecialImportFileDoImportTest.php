@@ -28,7 +28,6 @@ use Wikimedia\TestingAccessWrapper;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
 
 	public function setUp() {
 		parent::setUp();

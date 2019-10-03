@@ -343,7 +343,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		);
 
 		if ( $expected !== null ) {
-			$this->setExpectedException( get_class( $expected ), $expected->getMessage() );
+			$this->expectException( get_class( $expected ) );
+			$this->expectExceptionMessage( $expected->getMessage() );
 		}
 		$validator->validate( $plan, $this->getTestUser()->getUser() );
 	}
@@ -366,7 +367,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockWikiLinkParserFactory( 1 )
 		);
 
-		$this->setExpectedException( RecoverableTitleException::class, '"Before"' );
+		$this->expectException( RecoverableTitleException::class );
+		$this->expectExceptionMessage( '"Before"' );
 		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
 	}
 
@@ -389,10 +391,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockWikiLinkParserFactory()
 		);
 
-		$this->setExpectedException(
-			RecoverableTitleException::class,
-			'You are not allowed to execute the action you have requested'
-		);
+		$this->expectException( RecoverableTitleException::class );
+		$this->expectExceptionMessage( 'You are not allowed to execute the action you have requested' );
 		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
 	}
 

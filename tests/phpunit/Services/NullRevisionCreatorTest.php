@@ -85,7 +85,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator( $revisionStore, $dbw );
 
-		$this->setExpectedException( \RuntimeException::class );
+		$this->expectException( \RuntimeException::class );
 		$nullRevisionCreator->createForLinkTarget(
 			Title::makeTitle( NS_FILE, __METHOD__ ),
 			$this->createMock( FileRevision::class ),

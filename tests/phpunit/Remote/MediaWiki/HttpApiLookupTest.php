@@ -67,7 +67,8 @@ class HttpApiLookupTest extends \MediaWikiTestCase {
 
 		$lookup = new HttpApiLookup( $executor );
 
-		$this->setExpectedException( ImportException::class, $expectedMessage );
+		$this->expectException( ImportException::class );
+		$this->expectExceptionMessage( $expectedMessage );
 		$lookup->getApiUrl( new SourceUrl( '//source.url' ) );
 	}
 

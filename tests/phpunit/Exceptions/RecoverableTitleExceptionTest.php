@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Data\ImportPlan;
 use FileImporter\Exceptions\RecoverableTitleException;
-use PHPUnit4And6Compat;
 
 /**
  * @covers \FileImporter\Exceptions\RecoverableTitleException
@@ -13,7 +12,6 @@ use PHPUnit4And6Compat;
  * @author Thiemo Kreuz
  */
 class RecoverableTitleExceptionTest extends \PHPUnit\Framework\TestCase {
-	use PHPUnit4And6Compat;
 
 	public function testException() {
 		$importPlan = $this->createMock( ImportPlan::class );

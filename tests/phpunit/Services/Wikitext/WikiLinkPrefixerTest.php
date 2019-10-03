@@ -11,7 +11,6 @@ use MediaWiki\Interwiki\InterwikiLookupAdapter;
  * @license GPL-2.0-or-later
  */
 class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
 
 	public function provideLinks() {
 		return [

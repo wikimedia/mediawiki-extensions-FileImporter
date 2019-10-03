@@ -34,26 +34,26 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 		$operations->add( $this->createMock( ImportOperation::class ) );
 		$operations->prepare();
 
-		$this->setExpectedException( RuntimeException::class );
+		$this->expectException( RuntimeException::class );
 		$operations->add( $this->createMock( ImportOperation::class ) );
 	}
 
 	public function testIncorrectCallOrder_validate() {
 		$operations = new ImportOperations();
-		$this->setExpectedException( RuntimeException::class );
+		$this->expectException( RuntimeException::class );
 		$operations->validate();
 	}
 
 	public function testIncorrectCallOrder_commit() {
 		$operations = new ImportOperations();
-		$this->setExpectedException( RuntimeException::class );
+		$this->expectException( RuntimeException::class );
 		$operations->commit();
 	}
 
 	public function testIncorrectCallOrder_prepareCommit() {
 		$operations = new ImportOperations();
 		$operations->prepare();
-		$this->setExpectedException( RuntimeException::class );
+		$this->expectException( RuntimeException::class );
 		$operations->commit();
 	}
 

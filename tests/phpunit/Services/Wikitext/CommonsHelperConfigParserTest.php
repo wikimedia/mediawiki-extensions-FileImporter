@@ -13,7 +13,6 @@ use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
  * @author Thiemo Kreuz
  */
 class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
-	use \PHPUnit4And6Compat;
 
 	public function provideCommonsHelperConfig() {
 		return [
@@ -276,7 +275,8 @@ WIKITEXT
 		$parser = new CommonsHelperConfigParser( '', $wikitext );
 
 		if ( $expectedException ) {
-			$this->setExpectedException( LocalizedImportException::class, $expectedException );
+			$this->expectException( LocalizedImportException::class );
+			$this->expectExceptionMessage( $expectedException );
 		}
 		$conversions = $parser->getWikitextConversions();
 

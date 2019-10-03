@@ -13,12 +13,14 @@ use InvalidArgumentException;
 class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 
 	public function testInvalidTargetTemplateName() {
-		$this->setExpectedException( InvalidArgumentException::class, 'targetTemplate' );
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'targetTemplate' );
 		new WikitextConversions( [], [], [], [], [ [ 'targetTemplate' => '' ] ] );
 	}
 
 	public function testMissingTemplateParameters() {
-		$this->setExpectedException( InvalidArgumentException::class, 'parameters' );
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'parameters' );
 		new WikitextConversions( [], [], [], [], [ [ 'targetTemplate' => 'a' ] ] );
 	}
 
