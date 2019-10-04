@@ -82,14 +82,13 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 
 	/**
 	 * @see MessageLocalizer::msg
-	 * @suppress PhanCommentParamWithoutRealParam issue with $params
 	 *
 	 * @param string|string[]|\MessageSpecifier $key
-	 * @param mixed $params,... Any number of message parameters
+	 * @param mixed ...$params Any number of message parameters
 	 *
 	 * @return Message
 	 */
-	public function msg( $key ) {
+	public function msg( $key, ...$params ) {
 		return call_user_func_array( [ $this->specialPage, 'msg' ], func_get_args() );
 	}
 
