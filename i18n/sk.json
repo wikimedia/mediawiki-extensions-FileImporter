@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Patriccck"
+			"Patriccck",
+			"Vlad5250"
 		]
 	},
 	"fileimporter": "Exportér súborov",
@@ -10,7 +11,9 @@
 	"tag-fileimporter-imported": "Importované s nástrojom Exportér súborov",
 	"fileimporter-specialpage": "Exportér súborov",
 	"fileimporter-importfailed": "Export zlyhal",
+	"fileimporter-exampleprefix": "Príklad",
 	"fileimporter-submit": "Odoslať",
+	"fileimporter-submit-title": "Zmeniť názov",
 	"fileimporter-resubmit": "Znovu odoslať",
 	"fileimporter-import": "Export",
 	"fileimporter-cancel": "Zrušiť",
@@ -25,5 +28,6 @@
 	"fileimporter-heading-filehistory": "História súboru",
 	"fileimporter-revision-removed-text": "Potlačený text odobratý aplikácií Exportér súborov.",
 	"fileimporter-in-beta": "Exportér súborov je vo verzii beta: Vyskúšali sme ho starostlivo, ale stále môže mať nejaké problémy. Ak sa stretnete s problémami, prosím, informujte [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter na našej stránke nápovedy] – ideálne si prečítajte krok za krokom, ako problém nahlásiť, aby sme ho pochopili a opravili.",
-	"fileimporter-import-wait": "Export môže trvať niekoľko minút."
+	"fileimporter-import-wait": "Export môže trvať niekoľko minút.",
+	"fileimporter-viewdiff": "Zobraziť zmeny"
 }
