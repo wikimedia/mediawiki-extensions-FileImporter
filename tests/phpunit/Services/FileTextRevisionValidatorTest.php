@@ -13,7 +13,7 @@ use FileImporter\Services\FileTextRevisionValidator;
  */
 class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );

@@ -68,7 +68,7 @@ class ImportPlanValidator {
 		DuplicateFileRevisionChecker $duplicateFileChecker,
 		ImportTitleChecker $importTitleChecker,
 		UploadBaseFactory $uploadBaseFactory,
-		CommonsHelperConfigRetriever $commonsHelperConfigRetriever = null,
+		?CommonsHelperConfigRetriever $commonsHelperConfigRetriever,
 		$commonsHelperHelpPage,
 		WikiLinkParserFactory $wikiLinkParserFactory
 	) {

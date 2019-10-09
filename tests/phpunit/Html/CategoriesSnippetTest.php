@@ -12,7 +12,7 @@ use OOUI\Theme;
  */
 class CategoriesSnippetTest extends MediaWikiTestCase {
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->setUserLang( 'qqx' );

@@ -9,6 +9,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileInfoForm;
+use HamcrestPHPUnitIntegration;
 use IContextSource;
 use Language;
 use OOUI\BlankTheme;
@@ -28,16 +29,16 @@ use User;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class ChangeFileInfoFormTest extends \MediaWikiTestCase {
-	use \HamcrestPHPUnitIntegration;
+	use HamcrestPHPUnitIntegration;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function tearDown() {
+	public function tearDown() : void {
 		Theme::setSingleton( null );
 
 		parent::tearDown();

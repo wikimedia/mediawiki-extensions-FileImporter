@@ -9,6 +9,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
+use HamcrestPHPUnitIntegration;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use SpecialPage;
@@ -22,14 +23,14 @@ use Title;
  * @author Addshore
  */
 class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
-	use \HamcrestPHPUnitIntegration;
+	use HamcrestPHPUnitIntegration;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function tearDown() {
+	public function tearDown() : void {
 		Theme::setSingleton( null );
 		parent::tearDown();
 	}

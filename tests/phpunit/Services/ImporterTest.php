@@ -45,7 +45,7 @@ class ImporterTest extends \MediaWikiTestCase {
 	 */
 	private $targetUser;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->tablesUsed[] = 'change_tag';

@@ -50,7 +50,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	 */
 	private $user;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );

@@ -38,7 +38,7 @@ use UploadBase;
  */
 class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( [
@@ -322,14 +322,14 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 * @dataProvider provideValidate
 	 */
 	public function testValidate(
-		ImportException $expected = null,
+		?ImportException $expected,
 		ImportPlan $plan,
 		DuplicateFileRevisionChecker $duplicateChecker,
 		ImportTitleChecker $titleChecker,
 		WikiLinkParserFactory $wikiLinkParserFactory,
 		ValidatingUploadBase $validatingUploadBase = null
 	) {
-		if ( $validatingUploadBase === null ) {
+		if ( !$validatingUploadBase ) {
 			$validatingUploadBase = $this->getMockValidatingUploadBase();
 		}
 
@@ -342,7 +342,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$wikiLinkParserFactory
 		);
 
-		if ( $expected !== null ) {
+		if ( $expected ) {
 			$this->expectException( get_class( $expected ) );
 			$this->expectExceptionMessage( $expected->getMessage() );
 		}
