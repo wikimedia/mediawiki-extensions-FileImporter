@@ -2,17 +2,45 @@
 	"@metadata": {
 		"authors": [
 			"Otokoume",
-			"Omotecho"
+			"Omotecho",
+			"Kkairri"
 		]
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "他のサイトからファイルを容易にインポートする",
+	"tag-fileimporter": "FileImporterによる修正",
+	"tag-fileimporter-description": "履歴と記録のメッセージは他のウィキからインポートした後に追加されます。",
+	"tag-fileimporter-imported": "FileImporterによるインポート",
+	"tag-fileimporter-imported-description": "履歴は他のウィキからインポートしました",
 	"fileimporter-specialpage": "ファイルのインポート",
 	"fileimporter-importfailed": "インポートに失敗しました",
 	"fileimporter-api-badinfo": "画像または版情報が正しくありません。",
+	"fileimporter-api-toomanyrevisions": "APIによって大量の履歴が検出されたため、インポートできません。",
 	"fileimporter-cantparseurl": "指定された URL: $1 を解析できません",
 	"fileimporter-cantimporturl": "指定された URL をインポートできません",
+	"fileimporter-cantimportfromsharedrepo": "共有リポジトリからはファイルはインポートできません。",
+	"fileimporter-cantimportmissingfile": "消失したファイルはインポートできません。",
+	"fileimporter-cantimportfilehidden": "版指定削除されたファイルが履歴に存在するため、インポートできません。",
+	"fileimporter-badtoken": "CSRFトークンが一致しません",
+	"fileimporter-badimporthash": "インポートハッシュが一致しません。最初からやり直してみてください。",
+	"fileimporter-filenameerror-default": "ファイル名に関する不明な問題があります。",
+	"fileimporter-filenameerror-illegal": "あなたがインポートしようとしているファイル名は不適切です。",
+	"fileimporter-filenameerror-toolong": "あなたがインポートしようとしているファイル名は長すぎます。",
+	"fileimporter-filenameerror-automaticchanges": "ファイル名は自動的に \"$1\" から \"$2\" に変更されました。",
+	"fileimporter-localtitleexists": "あなたがインポートしようとしているファイル名のファイルが、すでにこのウィキに存在します。",
+	"fileimporter-duplicatefilesdetected": "あなたがインポートしようとしているファイルが、既にこのウィキに存在します。",
+	"fileimporter-duplicatefilesdetected-prefix": "複製",
 	"fileimporter-exampleprefix": "例",
+	"fileimporter-textrevisions": "$1/$2{{PLURAL:$2|版}}のページが元のページの履歴からインポートされます。",
+	"fileimporter-filerevisions": "$1/$2{{PLURAL:$2|版}}のファイルがインポートされます。",
 	"fileimporter-submit": "送信",
-	"fileimporter-import": "インポート"
+	"fileimporter-import": "インポート",
+	"fileimporter-cancel": "キャンセル",
+	"fileimporter-edittitle": "タイトルを編集",
+	"fileimporter-editinfo": "ファイルの情報を編集",
+	"fileimporter-editsummary": "編集の要約:",
+	"fileimporter-previewnote": "インポートされようとしているファイルのプレビューを表示しています。インポートの前にページの細部をご確認ください。",
+	"fileimporter-heading-fileinfo": "ファイルの情報",
+	"fileimporter-heading-filehistory": "ファイルの履歴",
+	"fileimporter-heading-cleanup": "ウィキ構文を整理"
 }
