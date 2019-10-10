@@ -16,7 +16,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  */
 class HttpApiLookupTest extends \MediaWikiTestCase {
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->setContentLang( 'qqx' );

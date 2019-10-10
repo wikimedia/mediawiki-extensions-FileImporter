@@ -21,7 +21,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

@@ -97,7 +97,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		Title $plannedTitle,
 		User $user,
 		FileRevision $fileRevision,
-		TextRevision $textRevision = null,
+		?TextRevision $textRevision,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
 		UploadBaseFactory $uploadBaseFactory,

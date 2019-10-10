@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Html;
 
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
+use HamcrestPHPUnitIntegration;
 use MediaWikiTestCase;
 use RequestContext;
 use StatusValue;
@@ -13,7 +14,7 @@ use Title;
  * @covers \FileImporter\Html\ImportSuccessSnippet
  */
 class ImportSuccessSnippetTest extends MediaWikiTestCase {
-	use \HamcrestPHPUnitIntegration;
+	use HamcrestPHPUnitIntegration;
 
 	public function testGetHtml_notOK() {
 		$mockCache = $this->createMock( SuccessCache::class );
