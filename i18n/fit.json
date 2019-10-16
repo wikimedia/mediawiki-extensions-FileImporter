@@ -4,5 +4,9 @@
 			"Pyscowicz"
 		]
 	},
-	"fileimporter-import": "Importeeraa"
+	"fileimporter-specialpage": "Importeeraa fiili",
+	"fileimporter-import": "Importeeraa",
+	"fileimporter-cancel": "Lopeta",
+	"fileimporter-heading-filehistory": "Fiilin histuuria",
+	"fileimporter-to-preview": "Takashii etukatteluun"
 }
