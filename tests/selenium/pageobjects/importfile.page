@@ -1,0 +1,13 @@
+const Page = require( 'wdio-mediawiki/Page' ),
+	UserLoginPage = require( 'wdio-mediawiki/LoginPage' );
+
+class ImportFilePage extends Page {
+	openImportFile( clientUrl ) {
+		UserLoginPage.loginAdmin();
+		super.openTitle( 'Special:ImportFile', { clientUrl: clientUrl } );
+	}
+
+	getEditFileInfoButton() { return $( 'button[value=editinfo]' ); }
+}
+
+module.exports = new ImportFilePage();
