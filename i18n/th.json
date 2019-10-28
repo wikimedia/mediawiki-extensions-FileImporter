@@ -12,6 +12,5 @@
 	"fileimporter-extensionlabel": "นามสกุลไฟล์:",
 	"fileimporter-newfilename": "ชื่อไฟล์ใหม่:",
 	"fileimporter-newfilename-placeholder": "ชื่อไฟล์สักชื่อหนึ่ง",
-	"fileimporter-cleanup-summary": "This file is now on {{SITENAME}} as $1 (moved with FileImporter).",
 	"fileimporter-commonshelper-parsing-failed": "หน้าการกำหนดค่าสำหรับวิกิของคุณ ($1) ไม่มีข้อมูลเพียงพอที่จะรู้ว่าไฟล์นี้สามารถใส่ในคอมมอนส์ได้หรือไม่ โปรดตรวจสอบให้แน่ใจว่ามีส่วน \"$2\""
 }
