@@ -42,7 +42,7 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 	public function checkSourceUrl( SourceUrl $sourceUrl ) {
 		$site = $this->siteTableSiteLookup->getSite( $sourceUrl );
 
-		if ( $site === null ) {
+		if ( !$site ) {
 			$this->logger->error( __METHOD__ . ' failed site check for URL: ' . $sourceUrl->getUrl() );
 			return false;
 		}

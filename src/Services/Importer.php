@@ -304,7 +304,7 @@ class Importer {
 		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE );
 		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate );
 
-		if ( $page === null ) {
+		if ( !$page ) {
 			throw new ImportException(
 				'Failed to create import edit with page id: ' . $articleIdForUpdate,
 				self::ERROR_NO_NEW_PAGE );

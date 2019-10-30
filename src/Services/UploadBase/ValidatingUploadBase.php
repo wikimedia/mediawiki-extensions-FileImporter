@@ -50,7 +50,7 @@ class ValidatingUploadBase extends UploadBase {
 	 * @return bool|int True if the title is valid, or int error code from UploadBase::getTitle if not
 	 */
 	public function validateTitle() {
-		if ( $this->getTitle() === null ) {
+		if ( !$this->getTitle() ) {
 			return $this->mTitleError;
 		}
 
@@ -82,7 +82,7 @@ class ValidatingUploadBase extends UploadBase {
 	public function validateUpload( User $user, TextRevision $textRevision = null ) {
 		$error = null;
 
-		if ( $textRevision === null ) {
+		if ( !$textRevision ) {
 			Hooks::run( 'UploadStashFile', [
 				$this,
 				$user,
