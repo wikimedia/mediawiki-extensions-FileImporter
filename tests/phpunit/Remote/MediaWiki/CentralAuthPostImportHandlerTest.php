@@ -58,7 +58,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 				$this->equalTo( $mockUser ),
 				$this->equalTo( [
 					'title' => 'TestTitleOriginal',
-					'appendtext' => "\n{{TestNowCommons|TestTitle2}}",
+					'appendtext' => "\n{{TestNowCommons&#60;script&#62;|TestTitleEdited&#60;script&#62;}}",
 					'summary' => '(fileimporter-cleanup-summary: http://TestUrl)',
 				] )
 			)
@@ -66,7 +66,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			->willReturn( true );
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
 		$mockTemplateLookup->method( 'fetchNowCommonsLocalTitle' )
-			->willReturn( 'TestNowCommons' );
+			->willReturn( 'TestNowCommons<script>' );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$mockRemoteAction,
@@ -105,7 +105,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$expectedStatus = StatusValue::newGood(
 			new Message(
 				'fileimporter-add-specific-template',
-				[ $url, 'TestNowCommons', 'TestTitle2' ]
+				[ $url, 'TestNowCommons', 'TestTitleEdited<script>' ]
 			)
 		);
 		$expectedStatus->warning( new Message( 'fileimporter-cleanup-failed' ) );
@@ -211,7 +211,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$mockImportPlan->method( 'getOriginalTitle' )
 			->willReturn( $mockOriginalTitle );
 		$mockImportPlan->method( 'getTitleText' )
-			->willReturn( 'TestTitle2' );
+			->willReturn( 'TestTitleEdited<script>' );
 
 		return $mockImportPlan;
 	}
