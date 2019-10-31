@@ -65,7 +65,7 @@
 	"fileimporter-cleanup-failed": "無法自動編輯來源wiki。",
 	"fileimporter-delete-text": "你擁有在來源wiki刪除此檔案的權限，如果你想要檔案匯入器使用你的名稱刪除此檔案，選擇此選項：",
 	"fileimporter-delete-checkboxlabel": "使用我的名稱在來源wiki上刪除檔案",
-	"fileimporter-delete-summary": "此檔案目前在{{SITENAME}}的 $1 （使用檔案匯入器移動）　",
+	"fileimporter-delete-summary": "此檔案目前在{{SITENAME}}的 $1 （使用檔案匯入器移動）。",
 	"fileimporter-delete-failed": "此檔案無法在$1自動刪除。請返回[$2 原始檔案]並手動刪除它。",
 	"fileimporter-revision-removed-text": "由檔案匯入器移除的被遮蔽文字。",
 	"fileimporter-revision-removed-comment": "由檔案匯入器移除的被遮蔽評論。",
