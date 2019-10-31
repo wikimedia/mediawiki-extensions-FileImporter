@@ -360,16 +360,16 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * @param Exception $e
+	 * @param Exception $ex
 	 *
 	 * @return string HTML
 	 */
-	private function getWarningMessage( Exception $e ) {
-		if ( $e instanceof ILocalizedException ) {
-			return $e->getMessageObject()->parse();
-		} else {
-			return htmlspecialchars( $e->getMessage() );
+	private function getWarningMessage( Exception $ex ) {
+		if ( $ex instanceof ILocalizedException ) {
+			return $ex->getMessageObject()->parse();
 		}
+
+		return htmlspecialchars( $ex->getMessage() );
 	}
 
 	/**

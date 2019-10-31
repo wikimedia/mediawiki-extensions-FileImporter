@@ -98,15 +98,16 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getTitleText() {
-		if ( $this->title === null ) {
-			$intendedFileName = $this->request->getIntendedName();
-			if ( $intendedFileName ) {
-				return $intendedFileName . '.' . $this->details->getSourceFileExtension();
-			} else {
-				return $this->details->getSourceLinkTarget()->getText();
-			}
+		if ( $this->title ) {
+			return $this->title->getText();
 		}
-		return $this->title->getText();
+
+		$intendedFileName = $this->request->getIntendedName();
+		if ( $intendedFileName ) {
+			return $intendedFileName . '.' . $this->details->getSourceFileExtension();
+		}
+
+		return $this->details->getSourceLinkTarget()->getText();
 	}
 
 	/**
