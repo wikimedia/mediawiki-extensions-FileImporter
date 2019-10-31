@@ -17,7 +17,7 @@ class WikiPageFactory {
 	/**
 	 * @param int $pageId
 	 *
-	 * @return WikiPage
+	 * @return WikiPage|null
 	 */
 	public function newFromId( $pageId ) {
 		// T181391: Read from master, as the page has only just been created, and in multi-DB setups
