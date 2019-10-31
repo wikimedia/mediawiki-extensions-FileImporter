@@ -174,17 +174,20 @@ return [
 		/** @var WikidataTemplateLookup $templateLookup */
 		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
 
-		$postImportHandler =
-			ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
-			( $services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' )
-				|| $services->getMainConfig()->get( 'FileImporterSourceWikiDeletion' ) ) ?
-				new CentralAuthPostImportHandler(
-					$remoteApiActionExecutor,
-					$templateLookup,
-					$logger,
-					$services->getStatsdDataFactory()
-				) :
-				new NowCommonsHelperPostImportHandler( $templateLookup );
+		$postImportHandler = new NowCommonsHelperPostImportHandler( $templateLookup );
+		$config = $services->getMainConfig();
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
+			( $config->get( 'FileImporterSourceWikiTemplating' ) ||
+				$config->get( 'FileImporterSourceWikiDeletion' ) )
+		) {
+			$postImportHandler = new CentralAuthPostImportHandler(
+				$postImportHandler,
+				$templateLookup,
+				$remoteApiActionExecutor,
+				$logger,
+				$services->getStatsdDataFactory()
+			);
+		}
 
 		$site = new SourceSite(
 			new AnyMediaWikiFileUrlChecker(),
@@ -229,17 +232,20 @@ return [
 		/** @var WikidataTemplateLookup $templateLookup */
 		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
 
-		$postImportHandler =
-			ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
-			( $services->getMainConfig()->get( 'FileImporterSourceWikiTemplating' )
-				|| $services->getMainConfig()->get( 'FileImporterSourceWikiDeletion' ) ) ?
-				new CentralAuthPostImportHandler(
-					$remoteApiActionExecutor,
-					$templateLookup,
-					$logger,
-					$services->getStatsdDataFactory()
-				) :
-				new NowCommonsHelperPostImportHandler( $templateLookup );
+		$postImportHandler = new NowCommonsHelperPostImportHandler( $templateLookup );
+		$config = $services->getMainConfig();
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
+			( $config->get( 'FileImporterSourceWikiTemplating' ) ||
+				$config->get( 'FileImporterSourceWikiDeletion' ) )
+		) {
+			$postImportHandler = new CentralAuthPostImportHandler(
+				$postImportHandler,
+				$templateLookup,
+				$remoteApiActionExecutor,
+				$logger,
+				$services->getStatsdDataFactory()
+			);
+		}
 
 		$site = new SourceSite(
 			new SiteTableSourceUrlChecker(

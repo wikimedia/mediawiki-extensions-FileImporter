@@ -20,14 +20,9 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 	const STATSD_SOURCE_WIKI_EDIT_SUCCESS = 'FileImporter.import.postImport.edit.successful';
 
 	/**
-	 * @var LoggerInterface
+	 * @var PostImportHandler
 	 */
-	private $logger;
-
-	/**
-	 * @var RemoteApiActionExecutor
-	 */
-	private $remoteAction;
+	private $fallbackHandler;
 
 	/**
 	 * @var WikidataTemplateLookup
@@ -35,24 +30,37 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 	private $templateLookup;
 
 	/**
+	 * @var RemoteApiActionExecutor
+	 */
+	private $remoteAction;
+
+	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
+	/**
 	 * @var IBufferingStatsdDataFactory
 	 */
 	private $statsd;
 
 	/**
-	 * @param RemoteApiActionExecutor $remoteAction
+	 * @param PostImportHandler $fallbackHandler
 	 * @param WikidataTemplateLookup $templateLookup
+	 * @param RemoteApiActionExecutor $remoteAction
 	 * @param LoggerInterface $logger
 	 * @param IBufferingStatsdDataFactory $statsd
 	 */
 	public function __construct(
-		RemoteApiActionExecutor $remoteAction,
+		PostImportHandler $fallbackHandler,
 		WikidataTemplateLookup $templateLookup,
+		RemoteApiActionExecutor $remoteAction,
 		LoggerInterface $logger,
 		IBufferingStatsdDataFactory $statsd
 	) {
-		$this->remoteAction = $remoteAction;
+		$this->fallbackHandler = $fallbackHandler;
 		$this->templateLookup = $templateLookup;
+		$this->remoteAction = $remoteAction;
 		$this->logger = $logger;
 		$this->statsd = $statsd;
 	}
@@ -78,9 +86,7 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 		User $user,
 		MessageSpecifier $warningMsg = null
 	) {
-		/** @var StatusValue $status */
-		$status = ( new NowCommonsHelperPostImportHandler( $this->templateLookup ) )
-			->execute( $importPlan, $user );
+		$status = $this->fallbackHandler->execute( $importPlan, $user );
 		if ( $warningMsg ) {
 			$status->warning( $warningMsg );
 		}
