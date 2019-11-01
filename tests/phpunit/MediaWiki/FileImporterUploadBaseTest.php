@@ -3,7 +3,6 @@
 namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
-use Psr\Log\NullLogger;
 use TitleValue;
 use UploadBase;
 
@@ -35,7 +34,6 @@ class FileImporterUploadBaseTest extends \MediaWikiTestCase {
 	 */
 	public function testPerformTitleChecks( $targetTitle, $expected ) {
 		$base = new ValidatingUploadBase(
-			new NullLogger(),
 			new TitleValue( NS_FILE, $targetTitle ),
 			''
 		);
@@ -66,9 +64,8 @@ class FileImporterUploadBaseTest extends \MediaWikiTestCase {
 		$expectedSuccess, $expectedError
 	) {
 		$base = new ValidatingUploadBase(
-			new NullLogger(),
 			new TitleValue( NS_FILE, $targetTitle ),
-				$tempPath
+			$tempPath
 		);
 		$status = $base->validateFile();
 		$this->assertSame( $expectedSuccess, $status->isOK() );

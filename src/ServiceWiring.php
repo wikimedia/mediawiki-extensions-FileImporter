@@ -115,8 +115,8 @@ return [
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
 			new FileTextRevisionValidator(),
-			$services->getStatsdDataFactory(),
-			$logger
+			$logger,
+			$services->getStatsdDataFactory()
 		);
 		return $importer;
 	},
@@ -193,8 +193,8 @@ return [
 			new ApiDetailRetriever(
 				$httpApiLookup,
 				$httpRequestExecutor,
-				$logger,
-				$maxFileSize
+				$maxFileSize,
+				$logger
 			),
 			new RemoteApiImportTitleChecker(
 				$httpApiLookup,
@@ -254,8 +254,8 @@ return [
 			new ApiDetailRetriever(
 				$httpApiLookup,
 				$httpRequestExecutor,
-				$logger,
-				$maxFileSize
+				$maxFileSize,
+				$logger
 			),
 			new RemoteApiImportTitleChecker(
 				$httpApiLookup,
@@ -267,8 +267,8 @@ return [
 				$services->getInterwikiLookup(),
 				$httpApiLookup,
 				$httpRequestExecutor,
-				$logger,
-				$services->getMainConfig()->get( 'FileImporterInterWikiMap' )
+				$services->getMainConfig()->get( 'FileImporterInterWikiMap' ),
+				$logger
 			),
 			$postImportHandler
 		);

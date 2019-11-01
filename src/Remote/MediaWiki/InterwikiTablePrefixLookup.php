@@ -8,6 +8,7 @@ use FileImporter\Interfaces\LinkPrefixLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\Interwiki\InterwikiLookup;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * This LinkPrefixLookup implementation will allow interwiki references
@@ -34,11 +35,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $httpRequestExecutor;
 
 	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
 	 * @var string[] Array mapping full host name to interwiki prefix
 	 */
 	private $interwikiTableMap;
@@ -56,24 +52,29 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private $interWikiConfigMap;
 
 	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
+	/**
 	 * @param InterwikiLookup $interwikiLookup
 	 * @param HttpApiLookup $httpApiLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param LoggerInterface|null $logger
 	 * @param string[] $interWikiConfigMap
+	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
 		InterwikiLookup $interwikiLookup,
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
-		LoggerInterface $logger,
-		array $interWikiConfigMap
+		array $interWikiConfigMap = [],
+		LoggerInterface $logger = null
 	) {
 		$this->interwikiLookup = $interwikiLookup;
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->logger = $logger;
 		$this->interWikiConfigMap = $interWikiConfigMap;
+		$this->logger = $logger ?: new NullLogger();
 	}
 
 	/**

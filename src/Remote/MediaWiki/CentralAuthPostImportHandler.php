@@ -8,7 +8,9 @@ use FileImporter\Services\WikidataTemplateLookup;
 use IBufferingStatsdDataFactory;
 use Message;
 use MessageSpecifier;
+use NullStatsdDataFactory;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use StatusValue;
 use User;
 
@@ -48,21 +50,21 @@ class CentralAuthPostImportHandler implements PostImportHandler {
 	 * @param PostImportHandler $fallbackHandler
 	 * @param WikidataTemplateLookup $templateLookup
 	 * @param RemoteApiActionExecutor $remoteAction
-	 * @param LoggerInterface $logger
-	 * @param IBufferingStatsdDataFactory $statsd
+	 * @param LoggerInterface|null $logger
+	 * @param IBufferingStatsdDataFactory|null $statsd
 	 */
 	public function __construct(
 		PostImportHandler $fallbackHandler,
 		WikidataTemplateLookup $templateLookup,
 		RemoteApiActionExecutor $remoteAction,
-		LoggerInterface $logger,
-		IBufferingStatsdDataFactory $statsd
+		LoggerInterface $logger = null,
+		IBufferingStatsdDataFactory $statsd = null
 	) {
 		$this->fallbackHandler = $fallbackHandler;
 		$this->templateLookup = $templateLookup;
 		$this->remoteAction = $remoteAction;
-		$this->logger = $logger;
-		$this->statsd = $statsd;
+		$this->logger = $logger ?: new NullLogger();
+		$this->statsd = $statsd ?: new NullStatsdDataFactory();
 	}
 
 	/**

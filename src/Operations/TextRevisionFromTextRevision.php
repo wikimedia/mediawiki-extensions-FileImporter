@@ -8,6 +8,7 @@ use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use WikiRevision;
 use Title;
 use User;
@@ -39,11 +40,6 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	private $wikiRevisionFactory;
 
 	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
 	 * @var WikiRevision|null
 	 */
 	private $wikiRevision;
@@ -58,6 +54,11 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 */
 	private $textRevisionValidator;
 
+	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
 	public function __construct(
 		Title $plannedTitle,
 		User $user,
@@ -65,7 +66,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		WikiRevisionFactory $wikiRevisionFactory,
 		OldRevisionImporter $importer,
 		FileTextRevisionValidator $textRevisionValidator,
-		LoggerInterface $logger
+		LoggerInterface $logger = null
 	) {
 		$this->plannedTitle = $plannedTitle;
 		$this->user = $user;
@@ -73,7 +74,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->importer = $importer;
 		$this->textRevisionValidator = $textRevisionValidator;
-		$this->logger = $logger;
+		$this->logger = $logger ?: new NullLogger();
 	}
 
 	/**

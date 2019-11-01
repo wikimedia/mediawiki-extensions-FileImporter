@@ -29,7 +29,7 @@ class UploadBaseFactory {
 	 * @return ValidatingUploadBase
 	 */
 	public function newValidatingUploadBase( LinkTarget $targetTitle, $tempPath ) {
-		return new ValidatingUploadBase( $this->logger, $targetTitle, $tempPath );
+		return new ValidatingUploadBase( $targetTitle, $tempPath, $this->logger );
 	}
 
 }

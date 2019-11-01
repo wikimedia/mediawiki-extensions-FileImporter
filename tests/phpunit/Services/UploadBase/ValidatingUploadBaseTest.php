@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Services\UploadBase;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWiki\Linker\LinkTarget;
-use Psr\Log\NullLogger;
 use TitleValue;
 use UploadBase;
 
@@ -40,7 +39,6 @@ class ValidatingUploadBaseTest extends \MediaWikiTestCase {
 	 */
 	public function testValidateTitle( LinkTarget $linkTarget, $expected ) {
 		$base = new ValidatingUploadBase(
-			new NullLogger(),
 			$linkTarget,
 			''
 		);

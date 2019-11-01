@@ -10,7 +10,6 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use Interwiki;
 use MediaWiki\Interwiki\InterwikiLookupAdapter;
 use MWHttpRequest;
-use Psr\Log\NullLogger;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -55,7 +54,6 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			$this->createInterWikiLookupMock( $validPrefix, [] ),
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
-			new NullLogger(),
 			$interWikiMap
 		);
 
@@ -151,9 +149,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $iwMap ),
 			$this->createMock( HttpApiLookup::class ),
-			$this->createInterwikiApi(),
-			new NullLogger(),
-			[]
+			$this->createInterwikiApi()
 		);
 
 		$this->assertSame(
@@ -176,9 +172,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$iwMock,
 			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
-			new NullLogger(),
-			[]
+			$this->createMock( HttpRequestExecutor::class )
 		);
 
 		$this->assertSame(
@@ -292,9 +286,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $localIwMap ),
 			$this->createMock( HttpApiLookup::class ),
-			$this->createInterwikiApi( $remoteIwMap ),
-			new NullLogger(),
-			[]
+			$this->createInterwikiApi( $remoteIwMap )
 		);
 
 		$this->assertSame(
@@ -344,9 +336,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 					'prefix' => 'fr',
 					'url' => 'https://fr.wikisource.org/wiki/$1'
 				],
-			] ),
-			new NullLogger(),
-			[]
+			] )
 		);
 
 		$this->assertSame(
@@ -368,9 +358,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 				],
 			] ),
 			$this->createMock( HttpApiLookup::class ),
-			$mockRequestExecutor,
-			new NullLogger(),
-			[]
+			$mockRequestExecutor
 		);
 
 		$this->assertSame(
@@ -394,9 +382,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$mockInterwikiLookup,
 			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
-			new NullLogger(),
-			[]
+			$this->createMock( HttpRequestExecutor::class )
 		);
 
 		$this->assertSame(
@@ -415,7 +401,6 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 			] ),
 			$this->createMock( HttpApiLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
-			new NullLogger(),
 			[
 				'fr.wikisource.org' => null,
 				'en.wikisource.org' => null,

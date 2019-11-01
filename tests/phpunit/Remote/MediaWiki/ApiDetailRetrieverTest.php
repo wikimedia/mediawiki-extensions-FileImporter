@@ -9,7 +9,6 @@ use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MWHttpRequest;
-use Psr\Log\NullLogger;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -331,7 +330,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 				$expected[ 'apiParameters' ],
 				json_encode( $apiResponse )
 			),
-			new NullLogger(),
 			0
 		);
 
@@ -383,7 +381,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( 'File:Foo.jpg', json_encode( $content ) ),
-			new NullLogger(),
 			0
 		);
 
@@ -474,7 +471,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( $titleString, $content ),
-			new NullLogger(),
 			0
 		);
 		$importDetails = $service->getImportDetails( $sourceUrl );
@@ -495,7 +491,6 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		$apiDetailRetriever = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->createMock( HttpRequestExecutor::class ),
-			new NullLogger(),
 			0
 		);
 		return TestingAccessWrapper::newFromObject( $apiDetailRetriever );

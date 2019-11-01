@@ -21,7 +21,6 @@ use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Revision\RevisionRecord;
 use OldRevisionImporter;
-use Psr\Log\NullLogger;
 use UploadRevisionImporter;
 use User;
 use WikiRevision;
@@ -73,9 +72,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
-			new FileTextRevisionValidator(),
-			new \NullStatsdDataFactory(),
-			new NullLogger()
+			new FileTextRevisionValidator()
 		);
 
 		$importer->import( $this->user, $importPlan );
@@ -97,9 +94,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
-			new FileTextRevisionValidator(),
-			new \NullStatsdDataFactory(),
-			new NullLogger()
+			new FileTextRevisionValidator()
 		);
 
 		$importer->import( $this->user, $importPlan );

@@ -7,6 +7,7 @@ use Hooks;
 use LogicException;
 use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Status;
 use UploadBase;
 use User;
@@ -28,14 +29,14 @@ class ValidatingUploadBase extends UploadBase {
 	private $logger;
 
 	/**
-	 * @param LoggerInterface $logger
 	 * @param LinkTarget $targetTitle
 	 * @param string $tempPath
+	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
-		LoggerInterface $logger,
 		LinkTarget $targetTitle,
-		$tempPath
+		$tempPath,
+		LoggerInterface $logger = null
 	) {
 		$this->initializePathInfo(
 			$targetTitle->getText(),
@@ -43,7 +44,7 @@ class ValidatingUploadBase extends UploadBase {
 			null,
 			false
 		);
-		$this->logger = $logger;
+		$this->logger = $logger ?: new NullLogger();
 	}
 
 	/**
