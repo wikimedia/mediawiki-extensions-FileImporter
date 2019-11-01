@@ -17,7 +17,6 @@ use OOUI\Theme;
 use OutputPage;
 use SpecialPage;
 use Title;
-use User;
 
 /**
  * @covers \FileImporter\Html\ChangeFileInfoForm
@@ -45,7 +44,7 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 	}
 
 	private function getMockSpecialPage() : SpecialPage {
-		$user = $this->createMock( User::class );
+		$user = $this->getTestUser()->getUser();
 		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
 
 		$output = $this->createMock( OutputPage::class );

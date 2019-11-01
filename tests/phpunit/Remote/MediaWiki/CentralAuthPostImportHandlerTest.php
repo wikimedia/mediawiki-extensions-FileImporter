@@ -5,16 +5,15 @@ namespace FileImporter\Tests\Remote\MediaWiki;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
+use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWikiTestCase;
-use Message;
 use NullStatsdDataFactory;
 use Psr\Log\NullLogger;
 use StatusValue;
 use Title;
-use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler
@@ -22,33 +21,35 @@ use User;
 class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 
 	public function testExecute_noCleanupRequested() {
+		$fallbackHandler = $this->createMock( PostImportHandler::class );
+		$fallbackHandler->expects( $this->once() )
+			->method( 'execute' )
+			->willReturn( StatusValue::newGood() );
+
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
-		$mockTemplateLookup->expects( $this->once() )
+		$mockTemplateLookup->expects( $this->never() )
 			->method( 'fetchNowCommonsLocalTitle' );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
-			$this->createMock( RemoteApiActionExecutor::class ),
+			$fallbackHandler,
 			$mockTemplateLookup,
+			$this->createMock( RemoteApiActionExecutor::class ),
 			new NullLogger(),
 			new NullStatsdDataFactory()
 		);
 
 		$url = 'http://w.invalid/w/foo' . mt_rand();
-		$this->assertEquals(
-			StatusValue::newGood(
-				new Message( 'fileimporter-add-unknown-template', [ $url ] )
-			),
-			$postImportHandler->execute(
-				$this->createImportPlanMock( false, false, $url ),
-				$this->createMock( User::class )
-			)
+		$status = $postImportHandler->execute(
+			$this->createImportPlanMock( false, false, $url ),
+			$this->getTestUser()->getUser()
 		);
+		$this->assertTrue( $status->isGood() );
 	}
 
 	public function testExecute_remoteEditSucceeds() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( true, false, $url );
-		$mockUser = $this->createMock( User::class );
+		$mockUser = $this->getTestUser()->getUser();
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
@@ -65,60 +66,55 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			// FIXME: not a realistic result, but we don't care yet.
 			->willReturn( true );
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
-		$mockTemplateLookup->method( 'fetchNowCommonsLocalTitle' )
+		$mockTemplateLookup->expects( $this->once() )
+			->method( 'fetchNowCommonsLocalTitle' )
 			->willReturn( 'TestNowCommons<script>' );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
-			$mockRemoteAction,
+			$this->createMock( PostImportHandler::class ),
 			$mockTemplateLookup,
+			$mockRemoteAction,
 			new NullLogger(),
 			new NullStatsdDataFactory()
 		);
 
-		$this->assertEquals(
-			StatusValue::newGood(
-				new Message( 'fileimporter-imported-success-banner' )
-			),
-			$postImportHandler->execute( $mockImportPlan, $mockUser )
-		);
+		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
+		$this->assertTrue( $status->isGood() );
 	}
 
 	public function testExecute_remoteEditFails() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
-		$mockImportPlan = $mockImportPlan = $this->createImportPlanMock( true, false, $url );
-		$mockUser = $this->createMock( User::class );
+		$mockImportPlan = $this->createImportPlanMock( true, false, $url );
+		$mockUser = $this->getTestUser()->getUser();
+
+		$fallbackHandler = $this->createMock( PostImportHandler::class );
+		$fallbackHandler->expects( $this->once() )
+			->method( 'execute' )
+			->willReturn( StatusValue::newGood() );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
 			->method( 'executeEditAction' );
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
-		$mockTemplateLookup->method( 'fetchNowCommonsLocalTitle' )
-			->willReturn( 'TestNowCommons' );
+		$mockTemplateLookup->expects( $this->once() )
+			->method( 'fetchNowCommonsLocalTitle' );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
-			$mockRemoteAction,
+			$fallbackHandler,
 			$mockTemplateLookup,
+			$mockRemoteAction,
 			new NullLogger(),
 			new NullStatsdDataFactory()
 		);
 
-		$expectedStatus = StatusValue::newGood(
-			new Message(
-				'fileimporter-add-specific-template',
-				[ $url, 'TestNowCommons', 'TestTitleEdited<script>' ]
-			)
-		);
-		$expectedStatus->warning( new Message( 'fileimporter-cleanup-failed' ) );
-		$this->assertEquals(
-			$expectedStatus,
-			$postImportHandler->execute( $mockImportPlan, $mockUser )
-		);
+		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
+		$this->assertTrue( $status->hasMessage( 'fileimporter-cleanup-failed' ) );
 	}
 
 	public function testExecute_remoteDeleteSucceeds() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( false, true, $url );
-		$mockUser = $this->createMock( User::class );
+		$mockUser = $this->getTestUser()->getUser();
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
@@ -135,45 +131,37 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			->willReturn( true );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
-			$mockRemoteAction,
+			$this->createMock( PostImportHandler::class ),
 			$this->createMock( WikidataTemplateLookup::class ),
+			$mockRemoteAction,
 			new NullLogger(),
 			new NullStatsdDataFactory()
 		);
 
-		$this->assertEquals(
-			StatusValue::newGood(
-				new Message( 'fileimporter-imported-success-banner' )
-			),
-			$postImportHandler->execute( $mockImportPlan, $mockUser )
-		);
+		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
+		$this->assertTrue( $status->isGood() );
 	}
 
 	public function testExecute_remoteDeleteFails() {
 		$host = 'w.' . mt_rand() . '.invalid';
 		$url = 'http://w.invalid/w/foo' . mt_rand();
-		$mockImportPlan = $mockImportPlan = $this->createImportPlanMock( false, true, $url, $host );
-		$mockUser = $this->createMock( User::class );
+		$mockImportPlan = $this->createImportPlanMock( false, true, $url, $host );
+		$mockUser = $this->getTestUser()->getUser();
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
 			->method( 'executeDeleteAction' );
 
 		$postImportHandler = new CentralAuthPostImportHandler(
-			$mockRemoteAction,
+			$this->createMock( PostImportHandler::class ),
 			$this->createMock( WikidataTemplateLookup::class ),
+			$mockRemoteAction,
 			new NullLogger(),
 			new NullStatsdDataFactory()
 		);
 
-		$expectedStatus = StatusValue::newGood(
-			new Message( 'fileimporter-imported-success-banner' )
-		);
-		$expectedStatus->warning( 'fileimporter-delete-failed', $host, $url );
-		$this->assertEquals(
-			$expectedStatus,
-			$postImportHandler->execute( $mockImportPlan, $mockUser )
-		);
+		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
+		$this->assertTrue( $status->hasMessage( 'fileimporter-delete-failed' ) );
 	}
 
 	private function createImportPlanMock( $autoCleanup, $autoDelete, $url, $host = '' ) {
