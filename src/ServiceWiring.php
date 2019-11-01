@@ -41,8 +41,7 @@ use UploadBase;
 return [
 
 	'FileImporterSourceSiteLocator' => function ( MediaWikiServices $services ) {
-		$config = $services->getMainConfig();
-		$sourceSiteServices = $config->get( 'FileImporterSourceSiteServices' );
+		$sourceSiteServices = $services->getMainConfig()->get( 'FileImporterSourceSiteServices' );
 		$sourceSites = [];
 
 		foreach ( $sourceSiteServices as $serviceName ) {

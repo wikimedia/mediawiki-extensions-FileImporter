@@ -3,7 +3,6 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\ImportPlan;
-use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
 use Message;
@@ -20,24 +19,19 @@ class NowCommonsHelperPostImportHandler implements PostImportHandler {
 	/**
 	 * @param WikidataTemplateLookup $templateLookup
 	 */
-	public function __construct(
-		WikidataTemplateLookup $templateLookup
-	) {
+	public function __construct( WikidataTemplateLookup $templateLookup ) {
 		$this->templateLookup = $templateLookup;
 	}
 
 	/**
 	 * @param ImportPlan $importPlan
 	 * @param User $user
+	 *
 	 * @return StatusValue
 	 */
 	public function execute( ImportPlan $importPlan, User $user ) {
-		/** @var SourceUrl $sourceUrl */
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
-		/** @var string $templateName */
 		$templateName = $this->templateLookup->fetchNowCommonsLocalTitle( $sourceUrl );
-		/** @var string $targetTitle */
-		$targetTitle = $importPlan->getTitleText();
 
 		if ( $templateName ) {
 			return StatusValue::newGood(
@@ -46,18 +40,18 @@ class NowCommonsHelperPostImportHandler implements PostImportHandler {
 					[
 						$sourceUrl->getUrl(),
 						$templateName,
-						$targetTitle
+						$importPlan->getTitleText()
 					]
 				)
 			);
-		} else {
-			return StatusValue::newGood(
-				new Message(
-					'fileimporter-add-unknown-template',
-					[ $sourceUrl->getUrl() ]
-				)
-			);
 		}
+
+		return StatusValue::newGood(
+			new Message(
+				'fileimporter-add-unknown-template',
+				[ $sourceUrl->getUrl() ]
+			)
+		);
 	}
 
 }
