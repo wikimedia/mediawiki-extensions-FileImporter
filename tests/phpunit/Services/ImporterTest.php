@@ -61,7 +61,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->targetUser = $this->getTestUser()->getUser();
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass() : void {
 		parent::tearDownAfterClass();
 
 		// avoid file leftovers when repeatedly run on a local system
