@@ -125,7 +125,7 @@ class ImportPlan {
 	 * @return Title
 	 */
 	public function getOriginalTitle() {
-		if ( $this->originalTitle === null ) {
+		if ( !$this->originalTitle ) {
 			$this->originalTitle = $this->getTitleFromText(
 				$this->details->getSourceLinkTarget()->getText()
 			);
@@ -139,10 +139,8 @@ class ImportPlan {
 	 * @return Title
 	 */
 	public function getTitle() {
-		if ( $this->title === null ) {
-			$this->title = $this->getTitleFromText(
-				$this->getTitleText()
-			);
+		if ( !$this->title ) {
+			$this->title = $this->getTitleFromText( $this->getTitleText() );
 		}
 
 		return $this->title;

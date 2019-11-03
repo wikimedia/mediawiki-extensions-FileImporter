@@ -176,7 +176,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 					$request->getFinalUrl() );
 			}
 		} catch ( Exception $ex ) {
-			if ( $request === null ) {
+			if ( !$request ) {
 				$msg = __METHOD__ . ' failed to do remote request to ' . $sourceUrl->getHost() .
 					' with params ' . json_encode( $params ) . ': ' . $ex->getMessage();
 			} else {
