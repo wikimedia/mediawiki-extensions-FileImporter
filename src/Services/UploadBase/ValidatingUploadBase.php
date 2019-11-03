@@ -100,6 +100,7 @@ class ValidatingUploadBase extends UploadBase {
 			] );
 		}
 
+		// @phan-suppress-next-line PhanImpossibleCondition May set by hook
 		if ( $error ) {
 			if ( !is_array( $error ) ) {
 				$error = [ $error ];

@@ -313,7 +313,11 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 	}
 
-	private function checkMaxRevisionAggregatedBytes( $pageInfoData ) {
+	/**
+	 * @param array[] $pageInfoData
+	 * @phan-param array{imageinfo:array{size:int}[]} $pageInfoData
+	 */
+	private function checkMaxRevisionAggregatedBytes( array $pageInfoData ) {
 		$aggregatedFileBytes = 0;
 		foreach ( $pageInfoData['imageinfo'] as $fileVersion ) {
 			$aggregatedFileBytes += $fileVersion['size'];

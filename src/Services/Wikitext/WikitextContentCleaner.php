@@ -215,6 +215,7 @@ class WikitextContentCleaner {
 				unset( $params[$p]['number'] );
 				$number--;
 
+				// @phan-suppress-next-line PhanTypeArraySuspiciousNull
 				$offset = $params[$p]['offset'];
 				$name = rtrim( substr( $wikitext, $offset, $i - $offset ) );
 				$params[$p]['name'] = ltrim( $name );
