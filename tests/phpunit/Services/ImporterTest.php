@@ -61,8 +61,8 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->targetUser = $this->getTestUser()->getUser();
 	}
 
-	public static function tearDownAfterClass() : void {
-		parent::tearDownAfterClass();
+	protected function tearDown() : void {
+		parent::tearDown();
 
 		// avoid file leftovers when repeatedly run on a local system
 		$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
