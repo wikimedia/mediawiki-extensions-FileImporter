@@ -10,8 +10,6 @@ use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWikiTestCase;
-use NullStatsdDataFactory;
-use Psr\Log\NullLogger;
 use StatusValue;
 use Title;
 
@@ -33,9 +31,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$fallbackHandler,
 			$mockTemplateLookup,
-			$this->createMock( RemoteApiActionExecutor::class ),
-			new NullLogger(),
-			new NullStatsdDataFactory()
+			$this->createMock( RemoteApiActionExecutor::class )
 		);
 
 		$url = 'http://w.invalid/w/foo' . mt_rand();
@@ -73,9 +69,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$this->createMock( PostImportHandler::class ),
 			$mockTemplateLookup,
-			$mockRemoteAction,
-			new NullLogger(),
-			new NullStatsdDataFactory()
+			$mockRemoteAction
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
@@ -102,9 +96,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$fallbackHandler,
 			$mockTemplateLookup,
-			$mockRemoteAction,
-			new NullLogger(),
-			new NullStatsdDataFactory()
+			$mockRemoteAction
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
@@ -133,9 +125,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$this->createMock( PostImportHandler::class ),
 			$this->createMock( WikidataTemplateLookup::class ),
-			$mockRemoteAction,
-			new NullLogger(),
-			new NullStatsdDataFactory()
+			$mockRemoteAction
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
@@ -155,9 +145,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$postImportHandler = new CentralAuthPostImportHandler(
 			$this->createMock( PostImportHandler::class ),
 			$this->createMock( WikidataTemplateLookup::class ),
-			$mockRemoteAction,
-			new NullLogger(),
-			new NullStatsdDataFactory()
+			$mockRemoteAction
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );

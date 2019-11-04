@@ -76,13 +76,10 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 	}
 
 	private function newTextRevisionFromTextRevision( Title $title ) {
-		$services = MediaWikiServices::getInstance();
-		$logger = new NullLogger();
-
 		$oldRevisionImporter = new ImportableOldRevisionImporter(
 			true,
-			$logger,
-			$services->getDBLoadBalancer()
+			new NullLogger(),
+			MediaWikiServices::getInstance()->getDBLoadBalancer()
 		);
 
 		return new TextRevisionFromTextRevision(
@@ -91,8 +88,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 			$this->newTextRevision(),
 			new WikiRevisionFactory(),
 			$oldRevisionImporter,
-			$this->newFileTextRevisionValidator(),
-			$logger
+			$this->newFileTextRevisionValidator()
 		);
 	}
 

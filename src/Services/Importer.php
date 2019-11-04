@@ -12,8 +12,10 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use NullStatsdDataFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use RuntimeException;
 use Title;
 use UploadRevisionImporter;
@@ -60,11 +62,6 @@ class Importer {
 	private $uploadBaseFactory;
 
 	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
 	 * @var OldRevisionImporter
 	 */
 	private $oldRevisionImporter;
@@ -80,6 +77,11 @@ class Importer {
 	private $textRevisionValidator;
 
 	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
+	/**
 	 * @var StatsdDataFactoryInterface
 	 */
 	private $stats;
@@ -93,8 +95,8 @@ class Importer {
 		OldRevisionImporter $oldRevisionImporter,
 		UploadRevisionImporter $uploadRevisionImporter,
 		FileTextRevisionValidator $textRevisionValidator,
-		StatsdDataFactoryInterface $statsdDataFactory,
-		LoggerInterface $logger
+		LoggerInterface $logger = null,
+		StatsdDataFactoryInterface $statsdDataFactory = null
 	) {
 		$this->wikiPageFactory = $wikiPageFactory;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
@@ -104,8 +106,8 @@ class Importer {
 		$this->oldRevisionImporter = $oldRevisionImporter;
 		$this->uploadRevisionImporter = $uploadRevisionImporter;
 		$this->textRevisionValidator = $textRevisionValidator;
-		$this->stats = $statsdDataFactory;
-		$this->logger = $logger;
+		$this->logger = $logger ?: new NullLogger();
+		$this->stats = $statsdDataFactory ?: new NullStatsdDataFactory();
 	}
 
 	/**

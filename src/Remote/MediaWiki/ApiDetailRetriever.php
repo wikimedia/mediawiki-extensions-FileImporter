@@ -14,6 +14,7 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use MediaWiki\MediaWikiServices;
 use ConfigException;
 use TitleValue;
@@ -37,14 +38,14 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $httpRequestExecutor;
 
 	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
 	 * @var int
 	 */
 	private $maxBytes;
+
+	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
 
 	/**
 	 * @var string Placeholder name replacing usernames that have been suppressed as part of
@@ -69,21 +70,21 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * @param HttpApiLookup $httpApiLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param LoggerInterface $logger
 	 * @param int $maxBytes
+	 * @param LoggerInterface|null $logger
 	 *
 	 * @throws ConfigException
 	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
-		LoggerInterface $logger,
-		$maxBytes
+		$maxBytes,
+		LoggerInterface $logger = null
 	) {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->logger = $logger;
 		$this->maxBytes = $maxBytes;
+		$this->logger = $logger ?: new NullLogger();
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 

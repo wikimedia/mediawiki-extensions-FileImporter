@@ -276,17 +276,16 @@ class ImporterTest extends \MediaWikiTestCase {
 
 	private function newImporter() : Importer {
 		$services = MediaWikiServices::getInstance();
-		$logger = new NullLogger();
 
 		$uploadRevisionImporter = new ImportableUploadRevisionImporter(
 			true,
-			$logger
+			new NullLogger()
 		);
 		$uploadRevisionImporter->setNullRevisionCreation( false );
 
 		$oldRevisionImporter = new ImportableOldRevisionImporter(
 			true,
-			$logger,
+			new NullLogger(),
 			$services->getDBLoadBalancer()
 		);
 
@@ -298,9 +297,7 @@ class ImporterTest extends \MediaWikiTestCase {
 			$services->getService( 'FileImporterUploadBaseFactory' ),
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
-			new FileTextRevisionValidator(),
-			new \NullStatsdDataFactory(),
-			$logger
+			new FileTextRevisionValidator()
 		);
 	}
 
