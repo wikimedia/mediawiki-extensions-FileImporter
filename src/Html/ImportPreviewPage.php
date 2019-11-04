@@ -3,6 +3,7 @@
 namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
+use FileImporter\Services\CategoryExtractor;
 use Html;
 use Linker;
 use OOUI\ButtonInputWidget;
@@ -243,6 +244,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	 * no categories.
 	 */
 	private function buildCategoriesSnippet( ImportPlan $importPlan ) {
+		/** @var CategoryExtractor $categoryExtractor */
 		$categoryExtractor = MediaWikiServices::getInstance()
 			->getService( 'FileImporterCategoryExtractor' );
 		list( $visibleCategories, $hiddenCategories ) = $categoryExtractor->getCategoriesGrouped(
