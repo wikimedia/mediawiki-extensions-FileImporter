@@ -95,30 +95,12 @@ class ImportPlan {
 	}
 
 	/**
+	 * @deprecated
+	 * @throws MalformedTitleException
 	 * @return string
 	 */
 	public function getTitleText() {
-		if ( $this->title ) {
-			return $this->title->getText();
-		}
-
-		$intendedFileName = $this->request->getIntendedName();
-		if ( $intendedFileName ) {
-			return $intendedFileName . '.' . $this->details->getSourceFileExtension();
-		}
-
-		return $this->details->getSourceLinkTarget()->getText();
-	}
-
-	/**
-	 * @param string $titleText
-	 * @throws MalformedTitleException if title parsing failed
-	 * @return Title
-	 */
-	private function getTitleFromText( $titleText ) {
-		$titleParser = MediaWikiServices::getInstance()->getTitleParser();
-		$titleValue = $titleParser->parseTitle( $titleText, NS_FILE );
-		return Title::newFromLinkTarget( $titleValue );
+		return $this->getTitle()->getText();
 	}
 
 	/**
@@ -126,9 +108,7 @@ class ImportPlan {
 	 */
 	public function getOriginalTitle() {
 		if ( !$this->originalTitle ) {
-			$this->originalTitle = $this->getTitleFromText(
-				$this->details->getSourceLinkTarget()->getText()
-			);
+			$this->originalTitle = Title::newFromLinkTarget( $this->details->getSourceLinkTarget() );
 		}
 
 		return $this->originalTitle;
@@ -140,7 +120,16 @@ class ImportPlan {
 	 */
 	public function getTitle() {
 		if ( !$this->title ) {
-			$this->title = $this->getTitleFromText( $this->getTitleText() );
+			$intendedFileName = $this->request->getIntendedName();
+			if ( $intendedFileName ) {
+				$linkTarget = MediaWikiServices::getInstance()->getTitleParser()->parseTitle(
+					$intendedFileName . '.' . $this->details->getSourceFileExtension(),
+					NS_FILE
+				);
+			} else {
+				$linkTarget = $this->details->getSourceLinkTarget();
+			}
+			$this->title = Title::newFromLinkTarget( $linkTarget );
 		}
 
 		return $this->title;
