@@ -14,9 +14,9 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Psr\Log\LoggerInterface;
-use Title;
 use MediaWiki\MediaWikiServices;
 use ConfigException;
+use TitleValue;
 use User;
 
 /**
@@ -190,7 +190,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$importDetails = new ImportDetails(
 			$sourceUrl,
-			Title::makeTitleSafe( NS_FILE, $titleAfterColon ),
+			new TitleValue( NS_FILE, $titleAfterColon ),
 			$textRevisions,
 			$fileRevisions
 		);
