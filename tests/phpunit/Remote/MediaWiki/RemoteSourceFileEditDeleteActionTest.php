@@ -6,17 +6,17 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\PostImportHandler;
-use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
+use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWikiTestCase;
 use StatusValue;
 use Title;
 
 /**
- * @covers \FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler
+ * @covers \FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction
  */
-class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
+class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 
 	public function testExecute_noCleanupRequested() {
 		$fallbackHandler = $this->createMock( PostImportHandler::class );
@@ -28,7 +28,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$mockTemplateLookup->expects( $this->never() )
 			->method( 'fetchNowCommonsLocalTitle' );
 
-		$postImportHandler = new CentralAuthPostImportHandler(
+		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$fallbackHandler,
 			$mockTemplateLookup,
 			$this->createMock( RemoteApiActionExecutor::class )
@@ -66,7 +66,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			->method( 'fetchNowCommonsLocalTitle' )
 			->willReturn( 'TestNowCommons<script>' );
 
-		$postImportHandler = new CentralAuthPostImportHandler(
+		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$this->createMock( PostImportHandler::class ),
 			$mockTemplateLookup,
 			$mockRemoteAction
@@ -93,7 +93,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$mockTemplateLookup->expects( $this->once() )
 			->method( 'fetchNowCommonsLocalTitle' );
 
-		$postImportHandler = new CentralAuthPostImportHandler(
+		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$fallbackHandler,
 			$mockTemplateLookup,
 			$mockRemoteAction
@@ -122,7 +122,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 			// FIXME: not a realistic result, but we don't care yet.
 			->willReturn( true );
 
-		$postImportHandler = new CentralAuthPostImportHandler(
+		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$this->createMock( PostImportHandler::class ),
 			$this->createMock( WikidataTemplateLookup::class ),
 			$mockRemoteAction
@@ -142,7 +142,7 @@ class CentralAuthPostImportHandlerTest extends MediaWikiTestCase {
 		$mockRemoteAction->expects( $this->once() )
 			->method( 'executeDeleteAction' );
 
-		$postImportHandler = new CentralAuthPostImportHandler(
+		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$this->createMock( PostImportHandler::class ),
 			$this->createMock( WikidataTemplateLookup::class ),
 			$mockRemoteAction

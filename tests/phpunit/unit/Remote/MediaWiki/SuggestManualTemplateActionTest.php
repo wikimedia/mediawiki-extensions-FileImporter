@@ -5,16 +5,16 @@ namespace FileImporter\Tests\Remote\MediaWiki;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
-use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
+use FileImporter\Remote\MediaWiki\SuggestManualTemplateAction;
 use FileImporter\Services\WikidataTemplateLookup;
 
 /**
- * @covers \FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler
+ * @covers \FileImporter\Remote\MediaWiki\SuggestManualTemplateAction
  *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class NowCommonsHelperPostImportHandlerTest extends \MediaWikiUnitTestCase {
+class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 
 	const URL = 'http://w.invalid';
 	const TITLE = 'FilePageTitle';
@@ -46,7 +46,7 @@ class NowCommonsHelperPostImportHandlerTest extends \MediaWikiUnitTestCase {
 			->method( 'getTitleText' )
 			->willReturn( self::TITLE );
 
-		$importHandler = new NowCommonsHelperPostImportHandler(
+		$importHandler = new SuggestManualTemplateAction(
 			$this->createWikidataTemplateLookup( $sourceUrlMock, $templateResult )
 		);
 

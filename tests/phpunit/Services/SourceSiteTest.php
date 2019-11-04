@@ -9,7 +9,7 @@ use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Interfaces\LinkPrefixLookup;
 use FileImporter\Interfaces\SourceUrlChecker;
-use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
+use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceUrlNormalizer;
 
@@ -49,7 +49,7 @@ class SourceSiteTest extends \MediaWikiTestCase {
 			->with( $sourceUrl )
 			->willReturn( 'PREFIX' );
 
-		$postImportHandler = $this->createMock( CentralAuthPostImportHandler::class );
+		$postImportHandler = $this->createMock( RemoteSourceFileEditDeleteAction::class );
 		$postImportHandler->expects( $this->once() )
 			->method( 'execute' );
 

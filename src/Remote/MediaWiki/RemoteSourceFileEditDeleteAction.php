@@ -14,7 +14,10 @@ use Psr\Log\NullLogger;
 use StatusValue;
 use User;
 
-class CentralAuthPostImportHandler implements PostImportHandler {
+/**
+ * Delete the source file, or edit to add the {{NowCommons}} template.
+ */
+class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 
 	const STATSD_SOURCE_WIKI_DELETE_FAIL = 'FileImporter.import.postImport.delete.failed';
 	const STATSD_SOURCE_WIKI_DELETE_SUCCESS = 'FileImporter.import.postImport.delete.successful';

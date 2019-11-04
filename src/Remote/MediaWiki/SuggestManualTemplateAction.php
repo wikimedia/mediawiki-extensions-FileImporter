@@ -9,7 +9,11 @@ use Message;
 use StatusValue;
 use User;
 
-class NowCommonsHelperPostImportHandler implements PostImportHandler {
+/**
+ * Display an educated guess about how to correctly mark a source file as having been imported to
+ * Commons.
+ */
+class SuggestManualTemplateAction implements PostImportHandler {
 
 	/**
 	 * @var WikidataTemplateLookup

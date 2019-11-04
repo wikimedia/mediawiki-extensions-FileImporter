@@ -5,14 +5,14 @@ namespace FileImporter;
 use ExtensionRegistry;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
-use FileImporter\Remote\MediaWiki\CentralAuthPostImportHandler;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
-use FileImporter\Remote\MediaWiki\NowCommonsHelperPostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Remote\MediaWiki\RemoteApiImportTitleChecker;
+use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Remote\MediaWiki\SiteTableSourceUrlChecker;
+use FileImporter\Remote\MediaWiki\SuggestManualTemplateAction;
 use FileImporter\Remote\NullPrefixLookup;
 use FileImporter\Services\CategoryExtractor;
 use FileImporter\Services\DuplicateFileRevisionChecker;
@@ -173,13 +173,13 @@ return [
 		/** @var WikidataTemplateLookup $templateLookup */
 		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
 
-		$postImportHandler = new NowCommonsHelperPostImportHandler( $templateLookup );
+		$postImportHandler = new SuggestManualTemplateAction( $templateLookup );
 		$config = $services->getMainConfig();
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
 			( $config->get( 'FileImporterSourceWikiTemplating' ) ||
 				$config->get( 'FileImporterSourceWikiDeletion' ) )
 		) {
-			$postImportHandler = new CentralAuthPostImportHandler(
+			$postImportHandler = new RemoteSourceFileEditDeleteAction(
 				$postImportHandler,
 				$templateLookup,
 				$remoteApiActionExecutor,
@@ -231,13 +231,13 @@ return [
 		/** @var WikidataTemplateLookup $templateLookup */
 		$templateLookup = $services->getService( 'FileImporterTemplateLookup' );
 
-		$postImportHandler = new NowCommonsHelperPostImportHandler( $templateLookup );
+		$postImportHandler = new SuggestManualTemplateAction( $templateLookup );
 		$config = $services->getMainConfig();
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) &&
 			( $config->get( 'FileImporterSourceWikiTemplating' ) ||
 				$config->get( 'FileImporterSourceWikiDeletion' ) )
 		) {
-			$postImportHandler = new CentralAuthPostImportHandler(
+			$postImportHandler = new RemoteSourceFileEditDeleteAction(
 				$postImportHandler,
 				$templateLookup,
 				$remoteApiActionExecutor,
