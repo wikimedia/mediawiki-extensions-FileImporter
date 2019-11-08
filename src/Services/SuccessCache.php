@@ -1,10 +1,11 @@
 <?php
 
-
 namespace FileImporter\Services;
 
 use BagOStuff;
 use IExpiringStore;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use StatusValue;
 use Title;
 
@@ -18,31 +19,52 @@ class SuccessCache {
 	/** @var BagOStuff $cache */
 	private $cache;
 
-	public function __construct( BagOStuff $cache ) {
-		$this->cache = $cache;
-	}
+	/** @var LoggerInterface */
+	private $logger;
 
-	public function stashImportResult( Title $targetTitle, StatusValue $importResult ) {
-		$this->cache->set(
-			$this->makeCacheKey( $targetTitle ),
-			$importResult,
-			IExpiringStore::TTL_DAY );
+	public function __construct( BagOStuff $cache, LoggerInterface $logger = null ) {
+		$this->cache = $cache;
+		$this->logger = $logger ?: new NullLogger();
 	}
 
 	/**
 	 * @param Title $targetTitle
-	 * @return StatusValue
+	 * @param StatusValue $importResult
+	 *
+	 * @return bool If caching was successfull or not.
 	 */
-	public function fetchImportResult( Title $targetTitle ) {
-		return $this->cache->get(
-			$this->makeCacheKey( $targetTitle ) );
+	public function stashImportResult( Title $targetTitle, StatusValue $importResult ) {
+		$key = $this->makeCacheKey( $targetTitle );
+		$this->logger->debug( __METHOD__ . ': Import result cached at ' . $key );
+		return $this->cache->set( $key, $importResult, IExpiringStore::TTL_DAY );
 	}
 
+	/**
+	 * @param Title $targetTitle
+	 *
+	 * @return StatusValue|null
+	 */
+	public function fetchImportResult( Title $targetTitle ) {
+		$key = $this->makeCacheKey( $targetTitle );
+		$importResult = $this->cache->get( $key );
+		if ( !( $importResult instanceof StatusValue ) ) {
+			$this->logger->error( __METHOD__ . ': Failed to retrieve import result from ' . $key );
+			return null;
+		}
+		return $importResult;
+	}
+
+	/**
+	 * @param Title $targetTitle
+	 *
+	 * @return string
+	 */
 	private function makeCacheKey( Title $targetTitle ) {
 		return $this->cache->makeKey(
 			__CLASS__,
 			self::CACHE_KEY,
-			$targetTitle->getPrefixedDBkey() );
+			$targetTitle->getPrefixedDBkey()
+		);
 	}
 
 }

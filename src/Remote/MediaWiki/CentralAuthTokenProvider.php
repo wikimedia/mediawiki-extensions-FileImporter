@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FileImporter\Remote\MediaWiki;
 
 use ApiMain;

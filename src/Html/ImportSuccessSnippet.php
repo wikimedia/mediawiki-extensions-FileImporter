@@ -24,8 +24,7 @@ class ImportSuccessSnippet {
 	private $cache;
 
 	public function __construct() {
-		$this->cache = MediaWikiServices::getInstance()
-			->getService( 'FileImporterSuccessCache' );
+		$this->cache = MediaWikiServices::getInstance()->getService( 'FileImporterSuccessCache' );
 	}
 
 	/**
@@ -33,6 +32,7 @@ class ImportSuccessSnippet {
 	 *
 	 * @param Title $targetTitle
 	 * @param StatusValue $importResult
+	 *
 	 * @return string Target file URL for redirect, including special parameter to show our notice.
 	 */
 	public function getRedirectWithNotice( Title $targetTitle, StatusValue $importResult ) {
@@ -48,9 +48,10 @@ class ImportSuccessSnippet {
 	 */
 	public function getHtml( IContextSource $context, Title $targetTitle ) {
 		$importResult = $this->cache->fetchImportResult( $targetTitle );
-		if ( !$importResult->isOK() ) {
+		if ( !$importResult || !$importResult->isOK() ) {
 			return '';
 		}
+
 		/** @var Message $statusMessage */
 		$statusMessage = $importResult->getValue();
 
@@ -61,6 +62,7 @@ class ImportSuccessSnippet {
 			$warningMessage = new Message( $warning['message'], $warning['params'] );
 			$html .= Html::warningBox( $context->msg( $warningMessage )->parse() );
 		}
+
 		return Html::rawElement(
 			'div',
 			[ 'class' => 'mw-ext-fileimporter-noticebox' ],

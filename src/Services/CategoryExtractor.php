@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FileImporter\Services;
 
 use LinkBatch;

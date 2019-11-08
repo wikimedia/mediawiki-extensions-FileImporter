@@ -286,7 +286,10 @@ return [
 	},
 
 	'FileImporterSuccessCache' => function ( MediaWikiServices $services ) {
-		return new SuccessCache( ObjectCache::getInstance( 'db-replicated' ) );
+		return new SuccessCache(
+			ObjectCache::getInstance( 'db-replicated' ),
+			LoggerFactory::getInstance( 'FileImporter' )
+		);
 	},
 
 ];
