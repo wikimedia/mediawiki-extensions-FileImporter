@@ -37,11 +37,14 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 			$textRevision->getField( 'contentformat' )
 		);
 
+		$parserOptions = new ParserOptions( $this->getUser(), $this->getLanguage() );
+		$parserOptions->setIsPreview( true );
+
+		$content = $content->preSaveTransform( $title, $this->getUser(), $parserOptions );
 		$parseResult = $content->getParserOutput(
 			$title,
 			null,
-			new ParserOptions(),
-			true
+			$parserOptions
 		);
 
 		return $parseResult->getText(
