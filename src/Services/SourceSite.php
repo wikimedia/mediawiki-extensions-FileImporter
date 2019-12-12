@@ -6,9 +6,9 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Interfaces\ImportTitleChecker;
+use FileImporter\Interfaces\LinkPrefixLookup;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Interfaces\SourceUrlChecker;
-use FileImporter\Interfaces\LinkPrefixLookup;
 
 /**
  * A SourceSite object is composed of services which can import files from configurable URLs. The

@@ -2,6 +2,7 @@
 
 namespace FileImporter\Remote\MediaWiki;
 
+use ConfigException;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -13,10 +14,9 @@ use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use MediaWiki\MediaWikiServices;
-use ConfigException;
 use TitleValue;
 use User;
 
@@ -59,8 +59,8 @@ class ApiDetailRetriever implements DetailRetriever {
 	private $maxRevisions;
 
 	/**
-	* @var int
-	*/
+	 * @var int
+	 */
 	private $maxAggregatedBytes;
 
 	const API_RESULT_LIMIT = 500;

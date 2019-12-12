@@ -83,8 +83,8 @@ class WikitextConversions {
 		// FIXME: Backwards-compatibility with the old signature, still used in some tests. Remove
 		// when not needed any more.
 		if ( func_num_args() > 1 ) {
-			list( $goodTemplates, $badTemplates, $badCategories, $obsoleteTemplates,
-				$transferTemplates ) = func_get_args();
+			[ $goodTemplates, $badTemplates, $badCategories, $obsoleteTemplates,
+				$transferTemplates ] = func_get_args();
 		} else {
 			$goodTemplates = $conversions[self::REQUIRED_TEMPLATES] ?? [];
 			$badTemplates = $conversions[self::FORBIDDEN_TEMPLATES] ?? [];

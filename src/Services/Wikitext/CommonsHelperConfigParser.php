@@ -131,7 +131,7 @@ class CommonsHelperConfigParser {
 			PREG_SET_ORDER
 		);
 		foreach ( $matches as $match ) {
-			list( , $sourceTemplate, $targetTemplate, $paramPatternsString ) = $match;
+			[ , $sourceTemplate, $targetTemplate, $paramPatternsString ] = $match;
 			$parameterTransfers = [];
 
 			$paramRules = preg_split( '/\s*\|+\s*/', $paramPatternsString, -1, PREG_SPLIT_NO_EMPTY );
@@ -141,7 +141,7 @@ class CommonsHelperConfigParser {
 					continue;
 				}
 
-				list( $targetParam, $sourceParam ) = $parts;
+				[ $targetParam, $sourceParam ] = $parts;
 
 				// We don't want CommonsHelper's placeholders "%AUTHOR%" and "%TRANSFERUSER%" to
 				// show up as text values. Investigation and decision are documented in T198609.
@@ -150,7 +150,7 @@ class CommonsHelperConfigParser {
 				}
 
 				preg_match( '/^(?:(\+)|(@))?(.*)/', $targetParam, $matches );
-				list( , $addIfMissing, $addLanguageTemplate, $targetParam ) = $matches;
+				[ , $addIfMissing, $addLanguageTemplate, $targetParam ] = $matches;
 
 				if ( !isset( $parameterTransfers[$targetParam] ) ) {
 					$parameterTransfers[$targetParam] = [];

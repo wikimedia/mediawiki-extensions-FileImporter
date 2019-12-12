@@ -3,9 +3,9 @@
 namespace FileImporter\Html;
 
 use FileImporter\Services\SuccessCache;
+use Html;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
-use Html;
 use Message;
 use StatusValue;
 use Title;
@@ -20,7 +20,7 @@ class ImportSuccessSnippet {
 
 	const NOTICE_URL_KEY = 'fileImporterSuccess';
 
-	/** @var SuccessCache $cache */
+	/** @var SuccessCache */
 	private $cache;
 
 	public function __construct() {

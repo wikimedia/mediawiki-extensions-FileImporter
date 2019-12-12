@@ -24,9 +24,9 @@ class SourceWikiCleanupSnippet {
 	private $sourceEditingEnabled;
 	/** @var bool */
 	private $sourceDeletionEnabled;
-	/** @var WikidataTemplateLookup $lookup */
+	/** @var WikidataTemplateLookup */
 	private $lookup;
-	/** @var RemoteApiActionExecutor $remoteActionApi */
+	/** @var RemoteApiActionExecutor */
 	private $remoteActionApi;
 
 	/**
