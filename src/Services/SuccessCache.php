@@ -16,7 +16,7 @@ class SuccessCache {
 
 	const CACHE_KEY = 'fileImporter_result';
 
-	/** @var BagOStuff $cache */
+	/** @var BagOStuff */
 	private $cache;
 
 	/** @var LoggerInterface */

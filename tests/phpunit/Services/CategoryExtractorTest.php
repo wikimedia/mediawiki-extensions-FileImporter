@@ -53,7 +53,7 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 		);
 
 		$title = Title::makeTitle( NS_FILE, 'Foo' );
-		list( $outVisibleCategories, $outHiddenCategories ) =
+		[ $outVisibleCategories, $outHiddenCategories ] =
 			$extractor->getCategoriesGrouped( '', $title );
 
 		$this->assertEquals( $visibleCategories, array_values( $outVisibleCategories ) );

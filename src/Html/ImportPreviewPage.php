@@ -6,10 +6,10 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Services\CategoryExtractor;
 use Html;
 use Linker;
+use MediaWiki\MediaWikiServices;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
 use OOUI\TextInputWidget;
-use MediaWiki\MediaWikiServices;
 
 /**
  * Page displaying the preview of the import before it has happened.
@@ -247,7 +247,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		/** @var CategoryExtractor $categoryExtractor */
 		$categoryExtractor = MediaWikiServices::getInstance()
 			->getService( 'FileImporterCategoryExtractor' );
-		list( $visibleCategories, $hiddenCategories ) = $categoryExtractor->getCategoriesGrouped(
+		[ $visibleCategories, $hiddenCategories ] = $categoryExtractor->getCategoriesGrouped(
 			$importPlan->getFileInfoText(),
 			$importPlan->getTitle()
 		);

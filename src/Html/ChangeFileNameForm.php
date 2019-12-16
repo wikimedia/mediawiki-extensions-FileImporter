@@ -4,9 +4,9 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use Html;
+use OOUI\ButtonInputWidget;
 use OOUI\FieldLayout;
 use OOUI\FieldsetLayout;
-use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
 
 /**

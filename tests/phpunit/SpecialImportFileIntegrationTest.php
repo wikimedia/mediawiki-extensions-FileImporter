@@ -280,7 +280,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$user = $this->getTestUser()->getUser();
 		}
 
-		list( $html, ) = $this->executeSpecialPage(
+		[ $html, ] = $this->executeSpecialPage(
 			'',
 			$request,
 			'en',

@@ -9,9 +9,9 @@ use FileImporter\Services\WikiRevisionFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use WikiRevision;
 use Title;
 use User;
+use WikiRevision;
 
 /**
  * @license GPL-2.0-or-later

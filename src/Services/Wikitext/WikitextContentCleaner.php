@@ -94,7 +94,7 @@ class WikitextContentCleaner {
 
 		// Replacements must be applied in reverse order to not mess with the captured offsets!
 		for ( $i = count( $matches[1] ); $i-- > 0; ) {
-			list( $oldTemplateName, $offset ) = $matches[1][$i];
+			[ $oldTemplateName, $offset ] = $matches[1][$i];
 
 			$isObsolete = $this->wikitextConversions->isObsoleteTemplate( $oldTemplateName );
 			$newTemplateName = $this->wikitextConversions->swapTemplate( $oldTemplateName );
