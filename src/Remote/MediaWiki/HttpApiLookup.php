@@ -119,7 +119,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 
 			throw $this->loggedError(
 				$statusCode,
-				htmlspecialchars( $msg ),
+				$msg,
 				[
 					'statusCode' => $statusCode,
 					'previousMessage' => $error ? $error['message'] : '',
@@ -149,7 +149,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 		}
 
 		$this->logger->error(
-			htmlspecialchars( 'Failed to discover API location from: "' . $pageUrl . '".' ),
+			'Failed to discover API location from: "' . $pageUrl . '".',
 			[
 				'responseContent' => $req->getContent(),
 			]
