@@ -103,14 +103,12 @@ class HttpApiLookup implements LoggerAwareInterface {
 			$error = reset( $errors );
 
 			if ( $statusCode === 404 ) {
-				// TODO: Localize this message?
-				$msg = 'File not found: ' . $pageUrl;
+				$msg = wfMessage( 'fileimporter-api-file-notfound', $pageUrl )->plain();
 			} else {
-				// TODO: Localize this message?
-				$msg = 'Failed to discover API location from: "' . $pageUrl . '".';
+				$msg = wfMessage( 'fileimporter-api-failedtofindapi', $pageUrl )->plain();
 				if ( $statusCode !== 200 ) {
-					// TODO: Localize this message?
-					$msg .= " HTTP status code $statusCode.";
+					$msg .= ' ' . wfMessage( 'fileimporter-http-statuscode', $statusCode )->plain();
+
 				}
 				if ( $error ) {
 					$msg .= ' ' . wfMessage( $error['message'], $error['params'] )->plain();

@@ -44,9 +44,9 @@ class HttpApiLookupTest extends \MediaWikiTestCase {
 
 	public function provideHttpRequestErrors() {
 		return [
-			[ 404, 'File not found: //source.url' ],
-			[ 200, 'Failed to discover API location from: "//source.url".' ],
-			[ 418, 'HTTP status code 418.' ],
+			[ 404, 'fileimporter-api-file-notfound: //source.url' ],
+			[ 200, 'fileimporter-api-failedtofindapi: //source.url' ],
+			[ 418, 'fileimporter-http-statuscode: 418' ],
 			[ 301, '(error-message)' ],
 		];
 	}

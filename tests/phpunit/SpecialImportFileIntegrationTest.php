@@ -154,7 +154,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				function ( $html ) {
 					$this->assertWarningBox(
 						$html,
-						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar'
+						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar.'
 					);
 				},
 				[],
