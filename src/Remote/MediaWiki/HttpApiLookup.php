@@ -118,7 +118,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 			}
 
 			throw $this->loggedError(
-				$statusCode,
+				(string)$statusCode,
 				$msg,
 				[
 					'statusCode' => $statusCode,

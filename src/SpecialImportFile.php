@@ -188,8 +188,10 @@ class SpecialImportFile extends SpecialPage {
 		}
 		catch ( ImportException $exception ) {
 			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
-			$this->logErrorStats( $exception->getCode(),
-				$exception instanceof RecoverableTitleException );
+			$this->logErrorStats(
+				(string)$exception->getCode(),
+				$exception instanceof RecoverableTitleException
+			);
 
 			if ( $exception instanceof DuplicateFilesException ) {
 				$html = ( new DuplicateFilesErrorPage( $this ) )->getHtml(
@@ -328,8 +330,9 @@ class SpecialImportFile extends SpecialPage {
 			return true;
 		} catch ( ImportException $exception ) {
 			$this->logErrorStats(
-				$exception->getCode(),
-				$exception instanceof RecoverableTitleException );
+				(string)$exception->getCode(),
+				$exception instanceof RecoverableTitleException
+			);
 
 			$this->showWarningMessage( $this->getWarningMessage( $exception ) );
 			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );

@@ -179,7 +179,9 @@ class ApiDetailRetriever implements DetailRetriever {
 		$pageTitle = $pageInfoData['title'];
 		$pageLanguage = $pageInfoData['pagelanguagehtmlcode'] ?? null;
 
+		// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset Guaranteed to be set
 		$imageInfoData = $pageInfoData['imageinfo'];
+		// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset Guaranteed to be set
 		$revisionsData = $pageInfoData['revisions'];
 		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
 		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
@@ -362,22 +364,21 @@ class ApiDetailRetriever implements DetailRetriever {
 				}
 			}
 
-			/**
-			 * Convert from API sha1 format to DB sha1 format.
-			 * The conversion can be se inside ApiQueryImageInfo.
-			 *  - API sha1 format is base 16 padded to 40 chars
-			 *  - DB sha1 format is base 36 padded to 31 chars
-			 */
-			$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
+			if ( isset( $revisionInfo['sha1'] ) ) {
+				// Convert from API sha1 format to DB sha1 format. The conversion can be se inside
+				// ApiQueryImageInfo.
+				// * API sha1 format is base 16 padded to 40 chars
+				// * DB sha1 format is base 36 padded to 31 chars
+				$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
+			}
 
 			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
 				$revisionInfo['comment'] = wfMessage( 'fileimporter-revision-removed-comment' )
 					->plain();
 			}
 
-			$revisionInfo['bits'] = $revisionInfo['size'];
 			$revisionInfo['name'] = $pageTitle;
-			$revisionInfo['description'] = $revisionInfo['comment'];
+			$revisionInfo['description'] = $revisionInfo['comment'] ?? null;
 
 			$revisions[] = new FileRevision( $revisionInfo );
 		}
@@ -402,7 +403,7 @@ class ApiDetailRetriever implements DetailRetriever {
 					->plain();
 			}
 
-			if ( array_key_exists( 'sha1hidden', $revisionInfo ) ) {
+			if ( array_key_exists( 'sha1hidden', $revisionInfo ) && isset( $revisionInfo['*'] ) ) {
 				$revisionInfo['sha1'] = \Wikimedia\base_convert(
 					sha1( $revisionInfo['*'] ), 16, 36, 31
 				);

@@ -176,8 +176,8 @@ class ImportDetails {
 		$hashes = [
 			sha1( $this->sourceLinkTarget->getText() ),
 			sha1( $this->sourceUrl->getUrl() ),
-			sha1( count( $this->getTextRevisions()->toArray() ) ),
-			sha1( count( $this->getFileRevisions()->toArray() ) ),
+			sha1( (string)count( $this->getTextRevisions()->toArray() ) ),
+			sha1( (string)count( $this->getFileRevisions()->toArray() ) ),
 		];
 
 		foreach ( $this->getTextRevisions()->toArray() as $textRevision ) {

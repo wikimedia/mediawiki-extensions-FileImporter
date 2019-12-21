@@ -97,7 +97,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 *
 	 * @deprecated This configuration will go away once dynamic lookup is in place.
 	 * @param string $host
-	 * @return string
+	 * @return string|null
 	 */
 	private function getPrefixFromLegacyConfig( $host ) {
 		if ( isset( $this->interWikiConfigMap[$host] ) ) {

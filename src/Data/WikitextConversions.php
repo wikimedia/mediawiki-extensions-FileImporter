@@ -26,22 +26,22 @@ class WikitextConversions {
 	private $headingReplacements = [];
 
 	/**
-	 * @var string[]
+	 * @var true[] A string => true map for performance reasons
 	 */
 	private $goodTemplates = [];
 
 	/**
-	 * @var string[]
+	 * @var true[] A string => true map for performance reasons
 	 */
 	private $badTemplates = [];
 
 	/**
-	 * @var string[]
+	 * @var true[] A string => true map for performance reasons
 	 */
 	private $badCategories = [];
 
 	/**
-	 * @var string[]
+	 * @var true[] A string => true map for performance reasons
 	 */
 	private $obsoleteTemplates = [];
 

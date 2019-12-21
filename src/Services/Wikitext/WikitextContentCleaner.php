@@ -215,12 +215,12 @@ class WikitextContentCleaner {
 				unset( $params[$p]['number'] );
 				$number--;
 
-				// @phan-suppress-next-line PhanTypeArraySuspiciousNull
 				$offset = $params[$p]['offset'];
 				$name = rtrim( substr( $wikitext, $offset, $i - $offset ) );
 				$params[$p]['name'] = ltrim( $name );
 				// Skip (optional) whitespace between | and the parameter name
 				$params[$p]['offset'] += strlen( $name ) - strlen( $params[$p]['name'] );
+				// @phan-suppress-next-line PhanTypeMismatchArgumentInternal "format" is guaranteed
 				$params[$p]['format'] = rtrim( $params[$p]['format'], '=' )
 					. $this->scanFormatSnippet( $wikitext, $i );
 				$params[$p]['valueOffset'] = $i + 1;

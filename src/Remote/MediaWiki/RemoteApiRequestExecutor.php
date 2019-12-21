@@ -123,7 +123,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
-	 * @return string
+	 * @return string|null
 	 */
 	public function getCsrfToken( SourceUrl $sourceUrl, User $user ) {
 		try {
