@@ -3,7 +3,8 @@
 		"authors": [
 			"Mainframe98",
 			"Patio",
-			"KlaasZ4usV"
+			"KlaasZ4usV",
+			"Mbch331"
 		]
 	},
 	"fileimporter-desc": "Eenvoudig bestanden van andere sites importeren",
@@ -44,7 +45,7 @@
 	"fileimporter-filemissinginrevision": "Kan het bestand niet importeren omdat er ten minste één versie van de afbeelding ontbreekt.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Het bestand|De bestanden}} die probeert te importeren {{PLURAL:$1|overschrijdt|overschrijden}} de limiet op de bestandsgrootte.",
 	"fileimporter-import-wait": "De invoer zal enkele minuten duren.",
-	"fileimporter-imported-success-banner": "Het bestand is succesvol geïmporteerd op {{SITENAME}}. Klik op de volgende koppeling om het bestand te bekijken: $1",
+	"fileimporter-imported-success-banner": "Het bestand is succesvol geïmporteerd op {{SITENAME}}.",
 	"fileimporter-go-to-original-file-button": "Terug naar het originele bestand",
 	"fileimporter-file-contains-blocked-category-template": "Dit bestand kan niet worden geïmporteerd, omdat het is als $1 gemarkeerd. $2 staat deze bestanden niet toe.",
 	"fileimporter-input-page-info-text": "Leer meer door onze [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons hulppagina] te bezoeken.",
