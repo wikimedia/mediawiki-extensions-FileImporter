@@ -17,6 +17,7 @@ use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
 use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
+use RequestContext;
 use UploadBase;
 use User;
 
@@ -206,6 +207,15 @@ class ImportPlanValidator {
 		}
 	}
 
+	private function getAllowedFileExtensions() {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$list = RequestContext::getMain()->getLanguage();
+		$fileExtensions = array_unique( $config->get( 'FileExtensions' ) );
+		$allowedExtensions = $list->listToText( $fileExtensions );
+
+		return $allowedExtensions;
+	}
+
 	private function runFileTitleCheck( ImportPlan $importPlan ) {
 		$plannedTitleText = $importPlan->getTitle()->getText();
 		if ( $plannedTitleText != wfStripIllegalFilenameChars( $plannedTitleText ) ) {
@@ -219,9 +229,15 @@ class ImportPlanValidator {
 			$importPlan->getTitle(),
 			''
 		);
-
+		$allowedExtensions = $this->getAllowedFileExtensions();
 		$titleCheckResult = $base->validateTitle();
-		if ( $titleCheckResult !== true ) {
+
+		// Return early if the extension is not allowed on the destination wiki
+		if ( $titleCheckResult === UploadBase::FILETYPE_BADTYPE ) {
+				$errorMessage = wfMessage( 'fileimporter-filenameerror-notallowed',
+					$importPlan->getFileExtension(), $allowedExtensions );
+				throw new TitleException( $errorMessage );
+		} elseif ( $titleCheckResult !== true ) {
 			switch ( $titleCheckResult ) {
 				case UploadBase::ILLEGAL_FILENAME:
 					$errorMessage = 'fileimporter-filenameerror-illegal';
