@@ -230,13 +230,10 @@ class ImportPlanValidator {
 			$importPlan->getTitle(),
 			''
 		);
-		$titleCheckResult = $base->validateTitle();
-		// This can't be done in the switch below because it doesn't do strict comparisons
-		if ( $titleCheckResult === true ) {
-			return;
-		}
+		switch ( $base->validateTitle() ) {
+			case UploadBase::OK:
+				return;
 
-		switch ( $titleCheckResult ) {
 			case UploadBase::FILETYPE_BADTYPE:
 				// Stop the import early if the extension is not allowed on the destination wiki
 				throw new TitleException( [

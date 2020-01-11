@@ -48,14 +48,10 @@ class ValidatingUploadBase extends UploadBase {
 	}
 
 	/**
-	 * @return true|int True if the title is valid, or int error code from UploadBase::getTitle if not
+	 * @return int 0 if valid, a non-zero error code from UploadBase::getTitle() if not
 	 */
-	public function validateTitle() {
-		if ( !$this->getTitle() ) {
-			return $this->mTitleError;
-		}
-
-		return true;
+	public function validateTitle() : int {
+		return $this->getTitle() ? UploadBase::OK : $this->mTitleError;
 	}
 
 	/**
