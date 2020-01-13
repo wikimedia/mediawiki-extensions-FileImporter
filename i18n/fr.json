@@ -9,7 +9,8 @@
 			"Alno",
 			"Derugon",
 			"Thibaut120094",
-			"Djiboun"
+			"Djiboun",
+			"Pamputt"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -34,6 +35,7 @@
 	"fileimporter-filenameerror-default": "Il y a un problème non reconnu avec le nom de votre fichier.",
 	"fileimporter-filenameerror-illegal": "Le nom du fichier que vous essayez actuellement d'importer est invalide.",
 	"fileimporter-filenameerror-toolong": "Le nom du fichier que vous essayez actuellement d'importer est trop long.",
+	"fileimporter-filenameerror-notallowed": "Vous essayez d’importer un fichier avec l’extension <code>$1</code>. Les fichiers avec cette extension ne sont pas autorisés dans ce wiki. Les extensions autorisées sont : $2.",
 	"fileimporter-filenameerror-automaticchanges": "Le nom du fichier a été modifié automatiquement de « $1 » en « $2 »",
 	"fileimporter-filenameerror-nosourceextension": "Le nom du fichier source n’a pas d’extension.",
 	"fileimporter-filenameerror-noplannedextension": "Le nom du fichier cible n’a pas d’extension.",

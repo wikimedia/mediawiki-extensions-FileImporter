@@ -26,6 +26,7 @@
 	"fileimporter-filenameerror-default": "Nepoznati problem s imenom Vaše datoteke.",
 	"fileimporter-filenameerror-illegal": "Ime datoteke koju pokušavate uvesti je nevaljalo.",
 	"fileimporter-filenameerror-toolong": "Ime datoteke koju pokušavate uvesti je predugo.",
+	"fileimporter-filenameerror-notallowed": "Pokušavate uvesti datoteku s datotečnim formatom <code>$1</code>. Datoteke s tom ekstenzijom nisu dopuštene na ovom wikiju. Dopušteni su datotečni formati: $2.",
 	"fileimporter-filenameerror-automaticchanges": "Ime datoteke automatski je promijenjeno iz \"$1\" u \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "Odredišno ime datoteke nema nastavak.",
 	"fileimporter-filenameerror-noplannedextension": "Željeno ime datoteke nema nastavak.",

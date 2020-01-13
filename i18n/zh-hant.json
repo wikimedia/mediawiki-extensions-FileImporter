@@ -31,6 +31,7 @@
 	"fileimporter-filenameerror-default": "您的檔案名稱裡存在未知問題。",
 	"fileimporter-filenameerror-illegal": "您正嘗試匯入的檔案名稱無效。",
 	"fileimporter-filenameerror-toolong": "您正嘗試匯入的檔案名稱太長。",
+	"fileimporter-filenameerror-notallowed": "您正嘗試以 <code>$1</code> 副檔名來匯入資料。此 wiki 上不允許帶有該附檔名的檔案。允許的附檔名為：$2。",
 	"fileimporter-filenameerror-automaticchanges": "檔案名稱已自動從「$1」更改成「$2」。",
 	"fileimporter-filenameerror-nosourceextension": "來源檔案名稱沒有副檔名。",
 	"fileimporter-filenameerror-noplannedextension": "計劃的檔案名稱沒有副檔名。",

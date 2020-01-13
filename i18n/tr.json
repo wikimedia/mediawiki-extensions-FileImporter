@@ -29,6 +29,7 @@
 	"fileimporter-filenameerror-default": "Dosya adınızla ilgili bilinmeyen bir sorun var.",
 	"fileimporter-filenameerror-illegal": "Şu anda içe almaya çalıştığınız dosya adı geçersiz.",
 	"fileimporter-filenameerror-toolong": "Şu anda içe almaya çalıştığınız dosya adı çok uzun.",
+	"fileimporter-filenameerror-notallowed": "<code>$1</code> uzantılı bir dosyayı içe aktarmaya çalışıyorsunuz. Bu vikide bu uzantıya sahip dosyalara izin verilmiyor. İzin verilen uzantılar: $2.",
 	"fileimporter-filenameerror-automaticchanges": "Dosya adı otomatik olarak \"$1\" adından $2 adına çevrildi.",
 	"fileimporter-filenameerror-nosourceextension": "Kaynak dosya adının bir uzantısı yok.",
 	"fileimporter-filenameerror-noplannedextension": "Planlanan dosya adının bir uzantısı yok.",

@@ -6,11 +6,13 @@
 			"A Chinese Wikipedian",
 			"WQL",
 			"A2093064",
-			"Xiplus"
+			"Xiplus",
+			"VulpesVulpes825"
 		]
 	},
 	"fileimporter": "文件导入器",
 	"fileimporter-desc": "从其他网站轻松导入文件",
+	"tag-fileimporter": "已由FileImporter修改",
 	"fileimporter-specialpage": "导入文件",
 	"fileimporter-importfailed": "导入失败",
 	"fileimporter-api-badinfo": "API返回了错误的图片或修订版本信息。",

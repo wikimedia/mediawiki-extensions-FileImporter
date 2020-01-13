@@ -29,6 +29,7 @@
 	"fileimporter-filenameerror-default": "יש בעיה בלתי־ידועה עם שם הקובץ שלך.",
 	"fileimporter-filenameerror-illegal": "שם הקובץ {{GENDER:|שאת|שאתה}} מנסה לייבא אינו תקין.",
 	"fileimporter-filenameerror-toolong": "שם הקובץ {{GENDER:|שאת|שאתה}} מנסה לייבא ארוך מדי.",
+	"fileimporter-filenameerror-notallowed": "{{GENDER:אתה|את}} מנסה לייבא קובץ עם ההרבחה <code>$1</code>. קבצים עם ההרחבה הזאת אינם מורשים בוויקי הזה. ההרחבות המורשות הן: $2.",
 	"fileimporter-filenameerror-automaticchanges": "שם הקובץ שוּנה באופן אוטומטי מהשם \"$1\" לשם \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "לקובץ המקור אין סיומת.",
 	"fileimporter-filenameerror-noplannedextension": "לשם הקובץ המתוכנן אין סיומת.",

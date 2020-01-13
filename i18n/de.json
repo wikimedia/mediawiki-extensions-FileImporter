@@ -28,6 +28,7 @@
 	"fileimporter-filenameerror-default": "Es gibt ein unbekanntes Problem mit deinem Dateinamen.",
 	"fileimporter-filenameerror-illegal": "Der Dateiname, den du derzeit versuchst zu importieren, ist ungültig.",
 	"fileimporter-filenameerror-toolong": "Der Dateiname, den du derzeit versuchst zu importieren, ist zu lang.",
+	"fileimporter-filenameerror-notallowed": "Du versuchst, eine Datei mit der Erweiterung <code>$1<code> zu importieren. Dateien mit dieser Erweiterung sind in diesem Wiki nicht erlaubt. Die erlaubten Erweiterungen sind: $2.",
 	"fileimporter-filenameerror-automaticchanges": "Der Dateiname wurde automatisch von „$1“ in „$2“ geändert",
 	"fileimporter-filenameerror-nosourceextension": "Der ursprüngliche Dateiname hat keine Erweiterung.",
 	"fileimporter-filenameerror-noplannedextension": "Der gewünschte Dateiname hat keine Erweiterung.",

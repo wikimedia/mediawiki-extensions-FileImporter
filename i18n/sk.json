@@ -2,12 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Patriccck",
-			"Vlad5250"
+			"Vlad5250",
+			"TomášPolonec"
 		]
 	},
 	"fileimporter": "Exportér súborov",
 	"fileimporter-desc": "Jednoduché importovanie súborov z iných stránok",
-	"tag-fileimporter-description": "Súbory importované z inej wiki vrátane histórie súborov a stránok",
+	"tag-fileimporter-description": "Verzie a záznamy pridané po naimportovaní z inej wiki",
 	"tag-fileimporter-imported": "Importované s nástrojom Exportér súborov",
 	"fileimporter-specialpage": "Exportér súborov",
 	"fileimporter-importfailed": "Export zlyhal",
