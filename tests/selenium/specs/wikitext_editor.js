@@ -3,7 +3,7 @@ const assert = require( 'assert' ),
 	ImportFilePage = require( '../pageobjects/importfile.page' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 
-	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Phalke.jpg'
+	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Phalke.jpg';
 
 describe( 'ChangeFileInfo page', () => {
 	it( 'WikiEditor toolbar visible', () => {
