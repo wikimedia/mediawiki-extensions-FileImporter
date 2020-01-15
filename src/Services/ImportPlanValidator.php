@@ -207,13 +207,14 @@ class ImportPlanValidator {
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	private function getAllowedFileExtensions() {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$list = RequestContext::getMain()->getLanguage();
 		$fileExtensions = array_unique( $config->get( 'FileExtensions' ) );
-		$allowedExtensions = $list->listToText( $fileExtensions );
-
-		return $allowedExtensions;
+		$language = RequestContext::getMain()->getLanguage();
+		return $language->listToText( $fileExtensions );
 	}
 
 	private function runFileTitleCheck( ImportPlan $importPlan ) {
@@ -229,28 +230,32 @@ class ImportPlanValidator {
 			$importPlan->getTitle(),
 			''
 		);
-		$allowedExtensions = $this->getAllowedFileExtensions();
 		$titleCheckResult = $base->validateTitle();
-
-		// Return early if the extension is not allowed on the destination wiki
-		if ( $titleCheckResult === UploadBase::FILETYPE_BADTYPE ) {
-				$errorMessage = wfMessage( 'fileimporter-filenameerror-notallowed',
-					$importPlan->getFileExtension(), $allowedExtensions );
-				throw new TitleException( $errorMessage );
-		} elseif ( $titleCheckResult !== true ) {
-			switch ( $titleCheckResult ) {
-				case UploadBase::ILLEGAL_FILENAME:
-					$errorMessage = 'fileimporter-filenameerror-illegal';
-					break;
-				case UploadBase::FILENAME_TOO_LONG:
-					$errorMessage = 'fileimporter-filenameerror-toolong';
-					break;
-				default:
-					$errorMessage = 'fileimporter-filenameerror-default';
-					break;
-			}
-			throw new RecoverableTitleException( $errorMessage, $importPlan );
+		// This can't be done in the switch below because it doesn't do strict comparisons
+		if ( $titleCheckResult === true ) {
+			return;
 		}
+
+		switch ( $titleCheckResult ) {
+			case UploadBase::FILETYPE_BADTYPE:
+				// Stop the import early if the extension is not allowed on the destination wiki
+				throw new TitleException( [
+					'fileimporter-filenameerror-notallowed',
+					$importPlan->getFileExtension(),
+					$this->getAllowedFileExtensions()
+				] );
+
+			case UploadBase::ILLEGAL_FILENAME:
+				$errorMessage = 'fileimporter-filenameerror-illegal';
+				break;
+			case UploadBase::FILENAME_TOO_LONG:
+				$errorMessage = 'fileimporter-filenameerror-toolong';
+				break;
+			default:
+				$errorMessage = 'fileimporter-filenameerror-default';
+				break;
+		}
+		throw new RecoverableTitleException( $errorMessage, $importPlan );
 	}
 
 	private function runFileExtensionCheck( ImportPlan $importPlan ) {
