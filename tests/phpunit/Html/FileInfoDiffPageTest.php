@@ -122,7 +122,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 		);
 		$diffPage = new FileInfoDiffPage( $this->getMockSpecialPage() );
 
-		$this->assertContains( $expected, $diffPage->getHtml( $importPlan ) );
+		$this->assertStringContainsString( $expected, $diffPage->getHtml( $importPlan ) );
 	}
 
 }

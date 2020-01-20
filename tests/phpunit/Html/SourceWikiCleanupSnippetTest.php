@@ -62,7 +62,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 			$this->createMock( User::class )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			" name='automateSourceWikiCleanup' value='1' checked='checked'",
 			$html
 		);

@@ -23,7 +23,7 @@ class CategoriesSnippetTest extends MediaWikiTestCase {
 		$categoriesSnippet = new CategoriesSnippet( [], [] );
 		$html = $categoriesSnippet->getHtml();
 
-		$this->assertContains( '(fileimporter-category-encouragement)', $html );
+		$this->assertStringContainsString( '(fileimporter-category-encouragement)', $html );
 	}
 
 	public function testGetHtml_hasOneCategory() {
@@ -31,9 +31,9 @@ class CategoriesSnippetTest extends MediaWikiTestCase {
 		$categoriesSnippet = new CategoriesSnippet( [ $category ], [] );
 		$html = $categoriesSnippet->getHtml();
 
-		$this->assertNotContains( '(fileimporter-category-encouragement)', $html );
-		$this->assertContains( ' class="catlinks"', $html );
-		$this->assertContains( ">$category</a>", $html );
+		$this->assertStringNotContainsString( '(fileimporter-category-encouragement)', $html );
+		$this->assertStringContainsString( ' class="catlinks"', $html );
+		$this->assertStringContainsString( ">$category</a>", $html );
 	}
 
 	// FIXME: This misses a test for hidden categories!

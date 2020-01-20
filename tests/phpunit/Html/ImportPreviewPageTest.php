@@ -75,7 +75,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$page = new ImportPreviewPage( $this->getMockSpecialPage() );
 		$html = $page->getHtml( $importPlan );
 
-		$this->assertNotContains( 'automateSourceWikiCleanup', $html );
+		$this->assertStringNotContainsString( 'automateSourceWikiCleanup', $html );
 	}
 
 	public function testGetHtml_canEditSourceWiki() {
@@ -103,7 +103,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function assertPreviewPageText( $html ) {
-		$this->assertContains( '<div class="mw-importfile-parsedContent">', $html );
+		$this->assertStringContainsString( '<div class="mw-importfile-parsedContent">', $html );
 	}
 
 	private function assertPreviewPageForm( $html ) {
@@ -137,17 +137,17 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function assertSelectedCheckbox( $html, $name ) {
-		$this->assertContains( " name='$name' value='1' checked='checked'", $html );
+		$this->assertStringContainsString( " name='$name' value='1' checked='checked'", $html );
 	}
 
 	private function assertSummary( $html, $submittedText, $replacements ) {
 		if ( $replacements > 0 ) {
-			$this->assertContains( " name='intendedRevisionSummary'" .
+			$this->assertStringContainsString( " name='intendedRevisionSummary'" .
 				" value='(fileimporter-auto-replacements-summary: $replacements)'", $html );
 		} elseif ( $submittedText !== self::INITIAL_TEXT ) {
-			$this->assertContains( " name='intendedRevisionSummary' value=''", $html );
+			$this->assertStringContainsString( " name='intendedRevisionSummary' value=''", $html );
 		} else {
-			$this->assertNotContains( 'intendedRevisionSummary', $html );
+			$this->assertStringNotContainsString( 'intendedRevisionSummary', $html );
 		}
 	}
 
