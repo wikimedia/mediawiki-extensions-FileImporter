@@ -4,7 +4,8 @@
 			"Uziel302",
 			"Amire80",
 			"Guycn2",
-			"Steeve815"
+			"Steeve815",
+			"ערן"
 		]
 	},
 	"fileimporter": "ייבוא קבצים",
@@ -60,11 +61,11 @@
 	"fileimporter-heading-cleanup": "לנקות את הוויקי המקורי",
 	"fileimporter-cleanup-text": "באפשרותך להצהיר עכשיו בווקיקי המקורי שהקובץ הזה הועבר ל{{GRAMMAR:$1|{{SITENAME}}}}. זה נעשה באמצעות הוספת התבנית <code><nowiki>{{$1}}</nowiki></code> לדף הקובץ המקורי בשמך.",
 	"fileimporter-cleanup-checkboxlabel": "לסמן את הקובץ בוויקי המקורי בתור מיובא ל{{GRAMMAR:תחילית|{{SITENAME}}}}",
-	"fileimporter-cleanup-summary": "עכשיו הקובץ הזה ב{{GRAMMAR:תחילית|{{SITENAME}}}} בתור $1 (הועבר עם FileImporter)",
+	"fileimporter-cleanup-summary": "קובץ זה מופיע כעת ב־{{SITENAME}} בתור $1 (הועבר עם FileImporter)",
 	"fileimporter-cleanup-failed": "עריכה אוטומטית של הוויקי המקורי לא הייתה אפשרית.",
 	"fileimporter-delete-text": "יש לך הרשאות למחוק את הקובץ בוויקי המקורי. אם רצית ש־FileImporter ימחק את הקובץ בשמך, נא לבחור את האפשרות הזאת:",
 	"fileimporter-delete-checkboxlabel": "למחוק את הקובץ בוויקי המקורי בשמי",
-	"fileimporter-delete-summary": "הקובץ הזה ב־{{GRAMMAR:תחילית:{{SITENAME}}}} בתור $1 (הועבר עם FileImporter).",
+	"fileimporter-delete-summary": "קובץ זה נמצא כעת ב־{{SITENAME}} בשם $1 (הועבר עם FileImporter).",
 	"fileimporter-delete-failed": "לא היה אפשר למחוק את הקובץ הזה אוטומטית ב{{GRAMMAR:תחילית|$1}}. נא לחזור ל[$2 קובץ המקורי] ולמחוק אותו ידנית.",
 	"fileimporter-revision-removed-text": "טקסט מועלם הוסר על־ידי מייבא הקבצים.",
 	"fileimporter-revision-removed-comment": "תקציר מועלם הוסר על־ידי מייבא הקבצים.",
