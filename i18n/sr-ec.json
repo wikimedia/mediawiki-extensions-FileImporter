@@ -7,7 +7,7 @@
 		]
 	},
 	"fileimporter": "Увозник датотека",
-	"fileimporter-desc": "Омогућава лако увожење датотека са других локација",
+	"fileimporter-desc": "Омогућава лако увожење датотека с других пројеката",
 	"tag-fileimporter-description": "Измене и поруке дневника додате након увоза са другог викија",
 	"tag-fileimporter-imported": "увезено помоћу Увозника датотека",
 	"fileimporter-specialpage": "Увоз датотека",
