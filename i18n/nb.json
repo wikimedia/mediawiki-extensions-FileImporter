@@ -27,6 +27,7 @@
 	"fileimporter-filenameerror-default": "Det er et ukjent problem med navnet på fila di.",
 	"fileimporter-filenameerror-illegal": "Navnet på fila du prøver å importere er ugyldig.",
 	"fileimporter-filenameerror-toolong": "Navnet på fila du prøver å importere er for langt.",
+	"fileimporter-filenameerror-notallowed": "Du prøver å importere en fil med filendelsen <code>$1</code>. Filer med denne filendelsen er ikke tillatt på denne wikien. De tillatte filendelsene er: $2.",
 	"fileimporter-filenameerror-automaticchanges": "Filnavnet ble automatisk endret fra «$1» til «$2»",
 	"fileimporter-filenameerror-nosourceextension": "Kildefilnavnet har ingen filendelse.",
 	"fileimporter-filenameerror-noplannedextension": "Det planlagte filnavnet har ingen filendelse.",
