@@ -93,6 +93,10 @@ class SpecialImportFile extends SpecialPage {
 		$this->stats = $services->getStatsdDataFactory();
 	}
 
+	public function doesWrites() {
+		return true;
+	}
+
 	/**
 	 * @inheritDoc
 	 */
