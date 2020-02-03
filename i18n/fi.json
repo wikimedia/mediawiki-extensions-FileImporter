@@ -5,7 +5,16 @@
 			"Kyykaarme"
 		]
 	},
+	"tag-fileimporter": "FileImporterin muokkaama",
+	"tag-fileimporter-imported": "Tuotu FileImporterilla",
+	"fileimporter-cantimportfilehidden": "Tiedostoa ei voida tuoda, koska sen historiassa on ainakin yksi häivytetty tiedosto.",
+	"fileimporter-filenameerror-automaticchanges": "Tiedostonimi \"$1\" muutettiin automaattisesti nimeksi \"$2\"",
+	"fileimporter-filenameerror-nosourceextension": "Lähdetiedoston nimessä ei ole tiedostopäätettä.",
+	"fileimporter-filenameerror-missmatchextension": "Kohdetiedoston pääte ei vastaa alkuperäisen tiedoston päätettä.",
 	"fileimporter-resubmit": "Lähetä uudestaan",
+	"fileimporter-heading-filehistory": "Tiedoston historia",
+	"fileimporter-delete-text": "Sinulla on oikeudet poistaa tämä tiedosto lähdewikistä. Jos haluat FileImporterin poistavan tiedoston sinun nimissäsi, valitse tämä vaihtoehto:",
+	"fileimporter-delete-checkboxlabel": "Poista tiedosto lähdewikistä minun nimissäni",
 	"fileimporter-delete-summary": "Tämä tiedosto on nyt {{SITENAME}}issa nimellä $1 (siirretty FileImporterilla).",
 	"fileimporter-viewdiff": "Näytä muutokset",
 	"fileimporter-to-preview": "Takaisin esikatseluun"
