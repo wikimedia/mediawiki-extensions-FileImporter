@@ -30,6 +30,7 @@
 	"fileimporter-filenameerror-default": "З Вашою назвою файлу сталася невідома помилка.",
 	"fileimporter-filenameerror-illegal": "Назва файлу, на яку Ви зараз намагаєтесь імпортувати, є недійсною.",
 	"fileimporter-filenameerror-toolong": "Назва файлу, на яку Ви зараз намагаєтесь імпортувати, є надто довгою.",
+	"fileimporter-filenameerror-notallowed": "Ви намагаєтесь імпортувати файл із розширенням <code>$1</code>. Файли з цим розширенням не дозволені в цій вікі. Дозволені лише такі розширення: $2.",
 	"fileimporter-filenameerror-automaticchanges": "Назву файлу автоматично змінено з «$1» на «$2»",
 	"fileimporter-filenameerror-nosourceextension": "Вихідна назва файлу не має розширення.",
 	"fileimporter-filenameerror-noplannedextension": "Запланована назва файлу не має розширення.",
