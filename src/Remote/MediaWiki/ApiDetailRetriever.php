@@ -145,7 +145,9 @@ class ApiDetailRetriever implements DetailRetriever {
 			throw new LocalizedImportException( 'fileimporter-api-nopagesreturned' );
 		}
 
+		/** @var array $pageInfoData */
 		$pageInfoData = end( $requestData['query']['pages'] );
+		'@phan-var array $pageInfoData';
 
 		if ( array_key_exists( 'missing', $pageInfoData ) ) {
 			if (
@@ -179,9 +181,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		$pageTitle = $pageInfoData['title'];
 		$pageLanguage = $pageInfoData['pagelanguagehtmlcode'] ?? null;
 
-		// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset Guaranteed to be set
 		$imageInfoData = $pageInfoData['imageinfo'];
-		// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset Guaranteed to be set
 		$revisionsData = $pageInfoData['revisions'];
 		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );
 		$textRevisions = $this->getTextRevisionsFromRevisionsInfo( $revisionsData, $pageTitle );
