@@ -105,7 +105,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		// assert import user revision was created correctly
 		$article = Article::newFromID( $title->getArticleID() );
 
-		$lastRevision = $article->getRevision();
+		$lastRevision = $article->getPage()->getRevision();
 		$nullRevision = $lastRevision->getPrevious();
 		$secondRevision = $nullRevision->getPrevious();
 
