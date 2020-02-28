@@ -5,7 +5,8 @@
 			"Amire80",
 			"Guycn2",
 			"Steeve815",
-			"ערן"
+			"ערן",
+			"דגש חזק"
 		]
 	},
 	"fileimporter": "ייבוא קבצים",
@@ -59,7 +60,7 @@
 	"fileimporter-heading-fileinfo": "מידע על הקובץ",
 	"fileimporter-heading-filehistory": "היסטוריית הקובץ",
 	"fileimporter-heading-cleanup": "לנקות את הוויקי המקורי",
-	"fileimporter-cleanup-text": "באפשרותך להצהיר עכשיו בווקיקי המקורי שהקובץ הזה הועבר ל{{GRAMMAR:$1|{{SITENAME}}}}. זה נעשה באמצעות הוספת התבנית <code><nowiki>{{$1}}</nowiki></code> לדף הקובץ המקורי בשמך.",
+	"fileimporter-cleanup-text": "באפשרותך להצהיר עכשיו באתר הוויקי המקורי שהקובץ הזה הועבר ל{{GRAMMAR:$1|{{SITENAME}}}}. זה ייעשה באמצעות הוספת התבנית <code><nowiki>{{$1}}</nowiki></code> לדף הקובץ המקורי בשמך.",
 	"fileimporter-cleanup-checkboxlabel": "לסמן את הקובץ בוויקי המקורי בתור מיובא ל{{GRAMMAR:תחילית|{{SITENAME}}}}",
 	"fileimporter-cleanup-summary": "קובץ זה מופיע כעת ב־{{SITENAME}} בתור $1 (הועבר עם FileImporter)",
 	"fileimporter-cleanup-failed": "עריכה אוטומטית של הוויקי המקורי לא הייתה אפשרית.",
