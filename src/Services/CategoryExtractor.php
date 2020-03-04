@@ -6,6 +6,7 @@ use LinkBatch;
 use Parser;
 use ParserOptions;
 use Title;
+use User;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 class CategoryExtractor {
@@ -25,13 +26,18 @@ class CategoryExtractor {
 	 * Find categories for a given page.
 	 *
 	 * @param string $text Body of the page to scan.
-	 * @param Title $title Title of the page to scan.
+	 * @param Title $title Page title for context, because parsing might depend on this
+	 * @param User $user User for context, because parsing might depend on this
 	 *
 	 * @return array Two lists of category names, grouped by local visibility.
 	 * 		[ $visibleCategories, $hiddenCategories ]
 	 */
-	public function getCategoriesGrouped( $text, Title $title ) {
-		$categoryMap = $this->parser->parse( $text, $title, new ParserOptions() )->getCategories();
+	public function getCategoriesGrouped( $text, Title $title, User $user ) {
+		$categoryMap = $this->parser->parse(
+			$text,
+			$title,
+			new ParserOptions( $user )
+		)->getCategories();
 		$allCategories = array_keys( $categoryMap );
 
 		$hiddenCategories = $this->queryHiddenCategories( $allCategories );

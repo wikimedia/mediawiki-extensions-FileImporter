@@ -249,7 +249,8 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			->getService( 'FileImporterCategoryExtractor' );
 		[ $visibleCategories, $hiddenCategories ] = $categoryExtractor->getCategoriesGrouped(
 			$importPlan->getFileInfoText(),
-			$importPlan->getTitle()
+			$importPlan->getTitle(),
+			$this->getUser()
 		);
 		return ( new CategoriesSnippet(
 			$visibleCategories,

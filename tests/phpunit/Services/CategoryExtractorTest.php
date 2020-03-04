@@ -8,6 +8,7 @@ use MediaWikiTestCase;
 use Parser;
 use ParserOutput;
 use Title;
+use User;
 use WikiCategoryPage;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\LoadBalancer;
@@ -54,7 +55,7 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 
 		$title = Title::makeTitle( NS_FILE, 'Foo' );
 		[ $outVisibleCategories, $outHiddenCategories ] =
-			$extractor->getCategoriesGrouped( '', $title );
+			$extractor->getCategoriesGrouped( '', $title, $this->createMock( User::class ) );
 
 		$this->assertEquals( $visibleCategories, array_values( $outVisibleCategories ) );
 		$this->assertEquals( $hiddenCategories, array_values( $outHiddenCategories ) );
