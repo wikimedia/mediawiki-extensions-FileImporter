@@ -150,14 +150,15 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 	}
 
 	private function setHiddencat( $page_id ) {
-		$this->db->replace(
+		$this->db->insert(
 			'page_props',
-			[ 'pp_page' => $page_id ],
-			[ [
+			[
 				'pp_page' => $page_id,
 				'pp_propname' => 'hiddencat',
-				'pp_value' => true,
-			] ]
+				'pp_value' => 1,
+			],
+			__METHOD__,
+			[ 'IGNORE' ]
 		);
 	}
 
