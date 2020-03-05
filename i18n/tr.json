@@ -59,7 +59,7 @@
 	"fileimporter-heading-filehistory": "Dosya geçmişi",
 	"fileimporter-heading-cleanup": "Kaynak wikiyi temizle",
 	"fileimporter-cleanup-text": "Kaynak wiki'de bu dosyanın {{SITENAME}} klasörüne aktarıldığını bildirebilirsiniz. Bu işlem, adınızdaki orijinal dosya sayfasına bir <code><nowiki>{{$1}}</nowiki></code> şablonu ekleyerek yapılır.",
-	"fileimporter-cleanup-checkboxlabel": "Kaynak wiki dosyasını {{SITENAME}} klasörüne içe aktarılmış olarak işaretle",
+	"fileimporter-cleanup-checkboxlabel": "Kaynak viki dosyasını {{SITENAME}} klasörüne içe aktarılmış olarak işaretle",
 	"fileimporter-cleanup-summary": "Bu dosya şimdi {{SITENAME}} tarihinde $1 olarak (FileImporter ile taşındı).",
 	"fileimporter-cleanup-failed": "Kaynak wikiyi otomatik olarak düzenlemek mümkün değildi.",
 	"fileimporter-delete-text": "Kaynak wiki'deki dosyayı silme haklarına sahipsiniz. FileImporter'ın adınızdaki dosyayı silmesini istiyorsanız, bu seçeneği belirleyin:",
