@@ -34,7 +34,6 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use ObjectCache;
-use RepoGroup;
 use UploadBase;
 
 // TODO: Alphabetize.
@@ -77,7 +76,7 @@ return [
 	},
 
 	'FileImporterDuplicateFileRevisionChecker' => function ( MediaWikiServices $services ) {
-		$localRepo = RepoGroup::singleton()->getLocalRepo();
+		$localRepo = $services->getRepoGroup()->getLocalRepo();
 		return new DuplicateFileRevisionChecker( $localRepo );
 	},
 
