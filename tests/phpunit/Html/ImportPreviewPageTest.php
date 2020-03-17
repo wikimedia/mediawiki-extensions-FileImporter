@@ -11,6 +11,7 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Services\WikidataTemplateLookup;
+use HamcrestPHPUnitIntegration;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use SpecialPage;
@@ -21,6 +22,7 @@ use User;
  * @covers \FileImporter\Html\ImportPreviewPage
  */
 class ImportPreviewPageTest extends \MediaWikiLangTestCase {
+	use HamcrestPHPUnitIntegration;
 
 	const CLIENT_URL = '//w.invalid/';
 	const NAME = 'Chicken In Snow';
@@ -107,7 +109,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function assertPreviewPageForm( $html ) {
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'form' ) )

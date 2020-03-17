@@ -7,6 +7,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
+use HamcrestPHPUnitIntegration;
 use HashSiteStore;
 use MWHttpRequest;
 use PermissionsError;
@@ -26,6 +27,7 @@ use WebRequest;
  * @author Addshore
  */
 class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
+	use HamcrestPHPUnitIntegration;
 
 	public function setUp() : void {
 		parent::setUp();
@@ -210,7 +212,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	}
 
 	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'form' ) )
