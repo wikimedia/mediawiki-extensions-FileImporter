@@ -67,8 +67,8 @@ class HttpApiLookup implements LoggerAwareInterface {
 	 * @param SourceUrl $sourceUrl A URL that points to any editable HTML page in any MediaWiki
 	 *  wiki. The page is expected to contain a <link rel="EditURI" href="…"> element.
 	 *
-	 * @throws ImportException
 	 * @return string URL of api.php
+	 * @throws ImportException
 	 */
 	public function getApiUrl( SourceUrl $sourceUrl ) {
 		$pageUrl = $sourceUrl->getUrl();

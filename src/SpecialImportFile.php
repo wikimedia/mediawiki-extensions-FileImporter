@@ -245,8 +245,8 @@ class SpecialImportFile extends SpecialPage {
 	/**
 	 * @param WebRequest $webRequest
 	 *
-	 * @throws ImportException
 	 * @return ImportPlan
+	 * @throws ImportException
 	 */
 	private function makeImportPlan( WebRequest $webRequest ) {
 		$importRequest = new ImportRequest(

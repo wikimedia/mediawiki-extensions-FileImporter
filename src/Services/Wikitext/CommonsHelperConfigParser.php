@@ -31,8 +31,8 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @throws LocalizedImportException
 	 * @return WikitextConversions
+	 * @throws LocalizedImportException
 	 */
 	public function getWikitextConversions() {
 		// HTML comments must be removed first
@@ -76,8 +76,8 @@ class CommonsHelperConfigParser {
 	 * @param string $header
 	 * @param string $sectionName
 	 *
-	 * @throws LocalizedImportException if the section could not be found
 	 * @return string
+	 * @throws LocalizedImportException if the section could not be found
 	 */
 	private function grepSection( $wikitext, $header, $sectionName ) {
 		$level = strpos( $header, '= ' );

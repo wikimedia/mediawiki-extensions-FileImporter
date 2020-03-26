@@ -37,8 +37,8 @@ class ImportPlanFactory {
 	 * @param ImportDetails $importDetails
 	 * @param User $user
 	 *
-	 * @throws ImportException
 	 * @return ImportPlan A valid ImportPlan
+	 * @throws ImportException
 	 */
 	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
 		$services = MediaWikiServices::getInstance();

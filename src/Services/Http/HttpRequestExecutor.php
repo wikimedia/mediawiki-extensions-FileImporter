@@ -71,8 +71,8 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @param string $url
 	 * @param array $parameters
 	 *
-	 * @throws HttpRequestException
 	 * @return MWHttpRequest
+	 * @throws HttpRequestException
 	 */
 	public function execute( $url, array $parameters = [] ) {
 		return $this->executeWithCallback( wfAppendQuery( $url, $parameters ) );
@@ -86,8 +86,8 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @param string $url
 	 * @param string $filePath
 	 *
-	 * @throws HttpRequestException
 	 * @return MWHttpRequest
+	 * @throws HttpRequestException
 	 */
 	public function executeAndSave( $url, $filePath ) {
 		$chunkSaver = new FileChunkSaver( $filePath, $this->maxFileSize );
@@ -100,8 +100,8 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @param callable|null $callback
 	 * @param array|null $postData
 	 *
-	 * @throws HttpRequestException
 	 * @return MWHttpRequest
+	 * @throws HttpRequestException
 	 */
 	private function executeWithCallback( $url, $callback = null, $postData = null ) {
 		$options = [

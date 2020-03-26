@@ -64,8 +64,8 @@ class CommonsHelperConfigRetriever {
 	/**
 	 * @param SourceUrl $sourceUrl
 	 *
-	 * @throws LocalizedImportException
 	 * @return bool True if a config was found
+	 * @throws LocalizedImportException
 	 */
 	public function retrieveConfiguration( SourceUrl $sourceUrl ) {
 		$response = $this->sendApiRequest( $sourceUrl );

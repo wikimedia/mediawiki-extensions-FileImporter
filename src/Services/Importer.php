@@ -296,8 +296,8 @@ class Importer {
 	/**
 	 * @param ImportPlan $importPlan
 	 *
-	 * @throws ImportException
 	 * @return WikiPage
+	 * @throws ImportException
 	 */
 	private function getPageFromImportPlan( ImportPlan $importPlan ) {
 		/**

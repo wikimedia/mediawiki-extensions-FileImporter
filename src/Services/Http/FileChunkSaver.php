@@ -95,8 +95,8 @@ class FileChunkSaver implements LoggerAwareInterface {
 	 * @param int $curlResource Required by the cURL library, see CURLOPT_WRITEFUNCTION
 	 * @param string $buffer
 	 *
-	 * @throws ImportException
 	 * @return int Number of bytes handled
+	 * @throws ImportException
 	 */
 	public function saveFileChunk( $curlResource, $buffer ) {
 		$handle = $this->getHandle();

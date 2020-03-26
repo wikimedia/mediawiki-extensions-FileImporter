@@ -96,8 +96,8 @@ class ImportPlan {
 
 	/**
 	 * @deprecated
-	 * @throws MalformedTitleException
 	 * @return string
+	 * @throws MalformedTitleException
 	 */
 	public function getTitleText() {
 		return $this->getTitle()->getText();
@@ -115,8 +115,8 @@ class ImportPlan {
 	}
 
 	/**
-	 * @throws MalformedTitleException
 	 * @return Title
+	 * @throws MalformedTitleException
 	 */
 	public function getTitle() {
 		if ( !$this->title ) {
