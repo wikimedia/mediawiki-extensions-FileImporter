@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"WikiPhoenix",
-			"Umeaboy"
+			"Umeaboy",
+			"Technic2"
 		]
 	},
 	"fileimporter": "Filimporterare",
@@ -25,7 +26,7 @@
 	"fileimporter-filenameerror-default": "Det är ett okänt fel med ditt filnamn.",
 	"fileimporter-filenameerror-illegal": "Filnamnet du försöker importera är ogiltigt.",
 	"fileimporter-filenameerror-toolong": "Filnamnet du försöker importera är för långt.",
-	"fileimporter-filenameerror-automaticchanges": "Filnamnet du försöker importera kommer att ändras automatiskt till \"$1\" p.g.a. att ogiltiga tecken används.",
+	"fileimporter-filenameerror-automaticchanges": "Filnamnet ändrades automatiskt från \"$1\" till \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "Källfilens namn har inte en filändelse.",
 	"fileimporter-filenameerror-noplannedextension": "Det planerade filnamnet har inte en filändelse.",
 	"fileimporter-filenameerror-missmatchextension": "Målfilens filändelse matchar inte originalfilens filändelse.",
@@ -60,10 +61,10 @@
 	"fileimporter-filemissinginrevision": "Kan inte importera fil eftersom minst en av dess sidversioner saknar en bildfil.",
 	"fileimporter-filetoolarge": "Filen du försöker importera överstrider gränsen för maximal filstorlek.",
 	"fileimporter-import-wait": "Importeringen kan ta några minuter.",
-	"fileimporter-imported-success-banner": "Denna fil har importerats till {{SITENAME}}. Klicka på följande länk för att visa filen: $1",
+	"fileimporter-imported-success-banner": "Denna fil har importerats till {{SITENAME}}.",
 	"fileimporter-go-to-original-file-button": "Återvänd till originalfilen",
 	"fileimporter-commonshelper-retrieval-failed": "Ett fel uppstod under kontroll efter blockerade filer.",
-	"fileimporter-commonshelper-parsing-failed": "Konfigurationsfilen för din wiki ($1) innehåller inte tillräckligt mycket info om <$2> för att veta om denna fil kan läggas upp på Commons.",
+	"fileimporter-commonshelper-parsing-failed": "Konfigurationsfilen för din wiki ($1) är ofärdig. Se till att den innehåller sektionen \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Denna fil kan inte importera, eftersom den är markerad som $1. $2 tillåter inte dessa filer.",
 	"fileimporter-file-missing-required-template": "Filen kan inte importeras, eftersom den är inte markerad med en av de begärda licenserna. Lägg till en av dessa mallar om det går.",
 	"fileimporter-auto-replacements-summary": "$1 {{PLURAL:$1|automatisk ändring|automatiska ändringar}} {{PLURAL:$1|gjordes}} i mallar",
