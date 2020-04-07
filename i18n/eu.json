@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Subi",
-			"Mikel Ibaiba"
+			"Mikel Ibaiba",
+			"Subi"
 		]
 	},
 	"fileimporter-cantparseurl": "Ezin da emandako URL-a aztertu: $1",

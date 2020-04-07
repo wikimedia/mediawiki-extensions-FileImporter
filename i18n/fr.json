@@ -1,16 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hashar",
-			"Wladek92",
-			"Gomoko",
-			"Benoit Rochon",
-			"Verdy p",
 			"Alno",
+			"Benoit Rochon",
 			"Derugon",
-			"Thibaut120094",
 			"Djiboun",
-			"Pamputt"
+			"Gomoko",
+			"Hashar",
+			"Pamputt",
+			"Thibaut120094",
+			"Verdy p",
+			"Wladek92"
 		]
 	},
 	"fileimporter": "FileImporter",

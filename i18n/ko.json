@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"SeoJeongHo",
-			"Ykhwong",
 			"Ellif",
+			"Jango",
+			"SeoJeongHo",
 			"Tkwiki",
-			"Jango"
+			"Ykhwong"
 		]
 	},
 	"fileimporter-desc": "쉽게 다른 사이트에서 파일 가져오기",
