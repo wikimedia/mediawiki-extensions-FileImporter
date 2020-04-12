@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Services;
 
 use Article;
 use ChangeTags;
+use CommentStoreComment;
 use DatabaseLogEntry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
@@ -21,6 +22,8 @@ use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Revision\SlotRecord;
 use Psr\Log\NullLogger;
 use TitleValue;
 use User;
@@ -79,6 +82,7 @@ class ImporterTest extends \MediaWikiTestCase {
 	}
 
 	public function testImport() {
+		$revisionLookup = MediaWikiServices::getInstance()->getRevisionLookup();
 		$importer = $this->newImporter();
 		$plan = $this->newImportPlan();
 		$title = $plan->getTitle();
@@ -95,14 +99,19 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertTrue( $title->isWikitextPage() );
 
 		// assert original revision was imported correctly
-		$firstRevision = $title->getFirstRevision();
+		$firstRevision = $revisionLookup->getFirstRevision( $title );
 
 		$this->assertFalse( $firstRevision->isMinor() );
-		$this->assertSame( 'testprefix>SourceUser1', $firstRevision->getUserText() );
-		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
+		$this->assertNotNull( $firstRevision->getUser() );
+		$this->assertSame( 'testprefix>SourceUser1', $firstRevision->getUser()->getName() );
+		$this->assertInstanceOf( CommentStoreComment::class, $firstRevision->getComment() );
+		$this->assertSame(
+			'Original upload comment of Test.png',
+			$firstRevision->getComment()->text
+		);
 		$this->assertSame(
 			'Original text of test.jpg',
-			$firstRevision->getContent()->serialize()
+			$firstRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
 		$tags = ChangeTags::getTags( $this->db, null, $firstRevision->getId() );
@@ -111,29 +120,41 @@ class ImporterTest extends \MediaWikiTestCase {
 		// assert import user revision was created correctly
 		$article = Article::newFromID( $title->getArticleID() );
 
-		$lastRevision = $article->getPage()->getRevision();
-		$nullRevision = $lastRevision->getPrevious();
-		$secondRevision = $nullRevision->getPrevious();
+		$lastRevision = $article->getPage()->getRevisionRecord();
+		$nullRevision = $revisionLookup->getPreviousRevision( $lastRevision );
+		$secondRevision = $revisionLookup->getPreviousRevision( $nullRevision );
 
-		$this->assertSame( $this->targetUser->getName(), $lastRevision->getUserText() );
-		$this->assertSame( 'User import comment', $lastRevision->getComment() );
+		$this->assertNotNull( $lastRevision->getUser() );
+		$this->assertSame( $this->targetUser->getName(), $lastRevision->getUser()->getName() );
+		$this->assertInstanceOf( CommentStoreComment::class, $lastRevision->getComment() );
+		$this->assertSame(
+			'User import comment',
+			$lastRevision->getComment()->text
+		);
 		$this->assertSame(
 			"imported from http://example.com/Test.png\nThis is my text!",
-			$lastRevision->getContent()->serialize()
+			$lastRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
 
 		// assert null revision was created correctly
-		$this->assertSame( $this->targetUser->getName(), $nullRevision->getUserText() );
+		$this->assertNotNull( $nullRevision->getUser() );
+		$this->assertSame( $this->targetUser->getName(), $nullRevision->getUser()->getName() );
+		$this->assertInstanceOf( CommentStoreComment::class, $nullRevision->getComment() );
 		$this->assertSame(
 			'imported from http://example.com/Test.png',
-			$nullRevision->getComment()
+			$nullRevision->getComment()->text
 		);
 
-		$this->assertSame( 'testprefix>TextChangeUser', $secondRevision->getUserText() );
-		$this->assertSame( 'I like more text', $secondRevision->getComment() );
+		$this->assertNotNull( $secondRevision->getUser() );
+		$this->assertSame( 'testprefix>TextChangeUser', $secondRevision->getUser()->getName() );
+		$this->assertInstanceOf( CommentStoreComment::class, $secondRevision->getComment() );
+		$this->assertSame(
+			'I like more text',
+			$secondRevision->getComment()->text
+		);
 		$this->assertSame(
 			'This is my text!',
-			$secondRevision->getContent()->serialize()
+			$secondRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
 		$tags = ChangeTags::getTags( $this->db, null, $secondRevision->getId() );
 		$this->assertEmpty( array_diff( [ 'fileimporter-imported' ], $tags ) );
@@ -170,28 +191,35 @@ class ImporterTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @param \Revision $revision
+	 * @param RevisionRecord $revision
 	 * @param string $type
 	 * @param string $expectedSubType
 	 * @param string|null $expectedTag
 	 */
 	private function assertTextRevisionLogEntry(
-		\Revision $revision,
+		RevisionRecord $revision,
 		$type,
 		$expectedSubType,
 		$expectedTag = null
 	) {
 		$logEntry = $this->getLogType(
-			$revision->getTitle()->getArticleID(),
+			$revision->getPageId(),
 			$type,
 			$revision->getTimestamp(),
 			$expectedTag
 		);
 
+		$user = $revision->getUser();
 		$this->assertSame( $expectedSubType, $logEntry->getSubtype() );
 		$this->assertSame( $revision->getId(), $logEntry->getAssociatedRevId() );
-		$this->assertSame( $revision->getUserText(), $logEntry->getPerformer()->getName() );
-		$this->assertSame( $revision->getUser(), $logEntry->getPerformer()->getId() );
+		$this->assertSame(
+			$user ? $user->getName() : '',
+			$logEntry->getPerformer()->getName()
+		);
+		$this->assertSame(
+			$user ? $user->getId() : 0,
+			$logEntry->getPerformer()->getId()
+		);
 
 		if ( $expectedTag !== null ) {
 			$this->assertFileImporterTagWasAdded( $logEntry->getId(), $revision->getId(), $expectedTag );
