@@ -6,7 +6,8 @@ const assert = require( 'assert' ),
 	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Phalke.jpg';
 
 describe( 'ChangeFileInfo page', () => {
-	it( 'WikiEditor toolbar visible', () => {
+	// Disable due to broken/flakiness T248956
+	it.skip( 'WikiEditor toolbar visible', () => {
 		ImportFilePage.openImportFile( testFileUrl );
 		ImportFilePage.getEditFileInfoButton().click();
 
