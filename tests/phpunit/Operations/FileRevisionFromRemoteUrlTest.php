@@ -10,6 +10,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
 use Psr\Log\NullLogger;
 use Title;
 
@@ -95,13 +96,19 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$this->assertTrue( $title->exists() );
 
 		// there will be a text revision created with the upload
-		$firstRevision = $title->getFirstRevision();
-		$this->assertSame( 'Imported>SourceUser1', $firstRevision->getUserText() );
-		$this->assertSame( 'text/x-wiki', $firstRevision->getContentFormat() );
-		$this->assertSame( 'Original upload comment of Test.png',
-			$firstRevision->getContent()->getTextForSummary()
+		$firstRevision = MediaWikiServices::getInstance()
+			->getRevisionLookup()
+			->getFirstRevision( $title );
+		$content = $firstRevision->getContent( SlotRecord::MAIN );
+		$this->assertNotNull( $firstRevision->getUser() );
+		$this->assertSame( 'Imported>SourceUser1', $firstRevision->getUser()->getName() );
+		$this->assertSame( CONTENT_MODEL_WIKITEXT, $content->getModel() );
+		$this->assertSame( 'Original upload comment of Test.png', $content->getTextForSummary() );
+		$this->assertNotNull( $firstRevision->getComment() );
+		$this->assertSame(
+			'Original upload comment of Test.png',
+			$firstRevision->getComment()->text
 		);
-		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
 		// title will be created from scratch and will have a current timestamp
 		$this->assertTrue( 20180624133723 < (int)$firstRevision->getTimestamp() );
 		$this->assertFalse( $firstRevision->isMinor() );

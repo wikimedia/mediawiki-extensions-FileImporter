@@ -67,10 +67,17 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		$textRevisionFromTextRevision->commit();
 
 		$this->assertTrue( $title->exists() );
-		$firstRevision = $title->getFirstRevision();
+		$firstRevision = MediaWikiServices::getInstance()
+			->getRevisionLookup()
+			->getFirstRevision( $title );
 
-		$this->assertSame( 'Imported>SourceUser1', $firstRevision->getUserText() );
-		$this->assertSame( 'Original upload comment of Test.png', $firstRevision->getComment() );
+		$this->assertNotNull( $firstRevision->getUser() );
+		$this->assertSame( 'Imported>SourceUser1', $firstRevision->getUser()->getName() );
+		$this->assertNotNull( $firstRevision->getComment() );
+		$this->assertSame(
+			'Original upload comment of Test.png',
+			$firstRevision->getComment()->text
+		);
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
 		$this->assertFalse( $firstRevision->isMinor() );
 	}
