@@ -1,16 +1,14 @@
 {
 	"root": true,
 	"extends": [
-		"wikimedia/server"
+		"wikimedia",
+		"wikimedia/node",
+		"wikimedia/language/es2017"
 	],
 	"env": {
 		"mocha": true
 	},
 	"globals": {
-		"browser": false,
-		"mw": false
-	},
-	"rules": {
-		"no-console": 0
+		"browser": "readonly"
 	}
 }
