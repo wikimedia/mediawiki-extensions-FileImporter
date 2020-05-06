@@ -68,7 +68,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 	 *  wiki. The page is expected to contain a <link rel="EditURI" href="…"> element.
 	 *
 	 * @return string URL of api.php
-	 * @throws ImportException
+	 * @throws ImportException when the request failed
 	 */
 	public function getApiUrl( SourceUrl $sourceUrl ) {
 		$pageUrl = $sourceUrl->getUrl();
@@ -93,6 +93,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 	 * @param string $pageUrl
 	 *
 	 * @return string|null
+	 * @throws ImportException when the request failed
 	 */
 	private function actuallyGetApiUrl( $pageUrl ) {
 		try {

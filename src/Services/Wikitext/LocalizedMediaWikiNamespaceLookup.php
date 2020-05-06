@@ -2,7 +2,6 @@
 
 namespace FileImporter\Services\Wikitext;
 
-use InvalidArgumentException;
 use Language;
 use MWException;
 
@@ -19,14 +18,10 @@ class LocalizedMediaWikiNamespaceLookup implements NamespaceNameLookup {
 
 	/**
 	 * @param string $languageCode
-	 * @throws InvalidArgumentException if $languageCode is not a string
+	 *
 	 * @throws MWException if the language code is invalid
 	 */
-	public function __construct( $languageCode ) {
-		if ( !is_string( $languageCode ) ) {
-			throw new InvalidArgumentException( '$languageCode must be a string' );
-		}
-
+	public function __construct( string $languageCode ) {
 		$this->language = Language::factory( $languageCode );
 	}
 

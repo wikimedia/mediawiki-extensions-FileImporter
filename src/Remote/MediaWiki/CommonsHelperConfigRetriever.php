@@ -4,6 +4,7 @@ namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
+use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\MediaWikiServices;
@@ -65,7 +66,7 @@ class CommonsHelperConfigRetriever {
 	 * @param SourceUrl $sourceUrl
 	 *
 	 * @return bool True if a config was found
-	 * @throws LocalizedImportException
+	 * @throws ImportException e.g. when the config page doesn't exist
 	 */
 	public function retrieveConfiguration( SourceUrl $sourceUrl ) {
 		$response = $this->sendApiRequest( $sourceUrl );
@@ -126,6 +127,7 @@ class CommonsHelperConfigRetriever {
 	 * @param SourceUrl $sourceUrl
 	 *
 	 * @return array[]
+	 * @throws ImportException when the request failed
 	 */
 	private function sendApiRequest( SourceUrl $sourceUrl ) {
 		// We assume the wiki holding the config pages uses the same configuration.

@@ -14,8 +14,9 @@ class CentralAuthTokenProvider {
 	 * Returns CentralAuth token, or throws an exception on failure
 	 *
 	 * @param User $user
+	 *
 	 * @return string
-	 * @throws Exception
+	 * @throws Exception when the request failed
 	 */
 	public function getToken( User $user ) {
 		$context = new RequestContext;

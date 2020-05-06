@@ -35,6 +35,7 @@ class FileRevision {
 
 	/**
 	 * @param array $fields
+	 *
 	 * @throws InvalidArgumentException if incorrect fields are entered
 	 */
 	public function __construct( array $fields ) {

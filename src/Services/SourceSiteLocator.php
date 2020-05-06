@@ -25,6 +25,12 @@ class SourceSiteLocator {
 		$this->sourceSites = $sourceSites;
 	}
 
+	/**
+	 * @param SourceUrl $sourceUrl
+	 *
+	 * @return SourceSite
+	 * @throws SourceUrlException when the URL doesn't match a known site
+	 */
 	public function getSourceSite( SourceUrl $sourceUrl ) {
 		foreach ( $this->sourceSites as $site ) {
 			if ( $site->isSourceSiteFor( $sourceUrl ) ) {
