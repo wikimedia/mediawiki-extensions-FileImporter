@@ -254,7 +254,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	public function testSpecialPageExecutionWithVariousInputs(
 		WebRequest $request,
 		$userOrBool,
-		$expectedExceptionDetails = null,
+		$expectedExceptionDetails,
 		$htmlAssertionCallable,
 		array $sourceSiteServicesOverride = [],
 		array $httpRequestMockResponses = []
