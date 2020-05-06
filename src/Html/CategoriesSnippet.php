@@ -4,6 +4,7 @@ namespace FileImporter\Html;
 
 use Html;
 use IContextSource;
+use ILanguageConverter;
 use MediaWiki\MediaWikiServices;
 use OOUI\IconWidget;
 use RequestContext;
@@ -15,8 +16,8 @@ class CategoriesSnippet {
 	private $visibleCategories;
 	private $hiddenCategories;
 
-	/** @var \Language */
-	private $contentLanguage;
+	/** @var ILanguageConverter */
+	private $languageConverter;
 
 	/** @var \MediaWiki\Linker\LinkRenderer */
 	private $linkRenderer;
@@ -29,7 +30,9 @@ class CategoriesSnippet {
 		$this->hiddenCategories = $hiddenCategories;
 
 		$services = MediaWikiServices::getInstance();
-		$this->contentLanguage = $services->getContentLanguage();
+		$this->languageConverter = $services
+			->getLanguageConverterFactory()
+			->getLanguageConverter( $services->getContentLanguage() );
 		$this->linkRenderer = $services->getLinkRenderer();
 		$this->context = RequestContext::getMain();
 	}
@@ -100,7 +103,7 @@ class CategoriesSnippet {
 				continue;
 			}
 
-			$this->contentLanguage->findVariantLink( $category, $title, true );
+			$this->languageConverter->findVariantLink( $category, $title, true );
 			if ( $category !== $originalCategory && array_key_exists( $category, $categories ) ) {
 				continue;
 			}
