@@ -75,6 +75,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 		$wikitext = $this->addNewLineAtEnd( $wikitext );
 
 		$attributes = [
+			'aria-label' => $this->msg( 'edit-textarea-aria-label' )->text(),
 			'id' => 'wpTextbox1',
 			'class' => $class,
 			'cols' => 80,

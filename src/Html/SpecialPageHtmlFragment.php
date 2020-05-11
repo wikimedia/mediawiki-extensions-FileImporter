@@ -89,7 +89,7 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	 * @return Message
 	 */
 	public function msg( $key, ...$params ) {
-		return call_user_func_array( [ $this->specialPage, 'msg' ], func_get_args() );
+		return $this->specialPage->msg( $key, ...$params );
 	}
 
 }
