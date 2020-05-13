@@ -6,9 +6,6 @@ use EditPage;
 use Html;
 
 /**
- * TODO: It might be worth extracting this class to a library or MediaWiki core, because a duplicate
- * already exists in \TwoColConflict\SpecialConflictTestPage\HtmlWikiTextEditor.
- *
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
@@ -19,7 +16,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 *
 	 * @return string
 	 */
-	public function getHtml( $wikitext ) {
+	public function getHtml( string $wikitext ) : string {
 		$this->loadModules();
 		$this->runEditFormInitialHook();
 
@@ -61,7 +58,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 *
 	 * @return string HTML
 	 */
-	private function buildEditor( $wikitext ) {
+	private function buildEditor( string $wikitext ) : string {
 		$class = 'mw-editfont-' . $this->getUser()->getOption( 'editfont' );
 		$pageLang = $this->getLanguage();
 
@@ -84,6 +81,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 			'tabindex' => 1,
 			'lang' => $pageLang->getHtmlCode(),
 			'dir' => $pageLang->getDir(),
+			'autofocus' => 'autofocus',
 		];
 
 		return Html::textarea( 'intendedWikitext', $wikitext, $attributes );
@@ -96,16 +94,8 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 *
 	 * @return string
 	 */
-	private function addNewLineAtEnd( $wikitext ) {
-		if ( strval( $wikitext ) !== '' ) {
-			// Ensure there's a newline at the end, otherwise adding lines
-			// is awkward.
-			// But don't add a newline if the text is empty, or Firefox in XHTML
-			// mode will show an extra newline. A bit annoying.
-			$wikitext .= "\n";
-			return $wikitext;
-		}
-		return $wikitext;
+	private function addNewLineAtEnd( string $wikitext ) : string {
+		return $wikitext === '' ? '' : $wikitext . "\n";
 	}
 
 }
