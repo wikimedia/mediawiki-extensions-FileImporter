@@ -149,7 +149,8 @@ class SpecialImportFile extends SpecialPage {
 		$output = $this->getOutput();
 		$output->setPageTitle( wfMessage( 'fileimporter-specialpage' ) );
 		$output->enableOOUI();
-		$output->addModuleStyles( 'ext.FileImporter.Special' );
+		$output->addModuleStyles( 'ext.FileImporter.SpecialCss' );
+		$output->addModules( 'ext.FileImporter.SpecialJs' );
 	}
 
 	/**

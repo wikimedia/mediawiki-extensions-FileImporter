@@ -160,7 +160,8 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
 				'name' => self::ACTION_BUTTON,
-				'value' => self::ACTION_SUBMIT
+				'value' => self::ACTION_SUBMIT,
+				'infusable' => true
 			]
 		) .
 		( $this->wasEdited( $importPlan ) ? $this->buildShowChangesButtonHtml() : '' ) .
@@ -220,6 +221,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'name' => 'intendedRevisionSummary',
 				'classes' => [ 'mw-importfile-import-summary' ],
 				'value' => $summary,
+				'infusable' => true
 			]
 		);
 	}

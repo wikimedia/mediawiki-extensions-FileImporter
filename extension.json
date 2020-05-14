@@ -117,7 +117,15 @@
 		}
 	},
 	"ResourceModules": {
-		"ext.FileImporter.Special": {
+		"ext.FileImporter.SpecialJs": {
+			"packageFiles": [
+				"modules/ext.FileImporter.Special.js"
+			],
+			"dependencies": [
+				"oojs-ui"
+			]
+		},
+		"ext.FileImporter.SpecialCss": {
 			"styles": [
 				"modules/ext.FileImporter.Special.less"
 			]
