@@ -33,6 +33,8 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	 * their `getHtml` method.
 	 *
 	 * @param SpecialPage|self $specialPage
+	 *
+	 * @throws InvalidArgumentException when the provided parent object is not acceptable
 	 */
 	final public function __construct( $specialPage ) {
 		if ( $specialPage instanceof self ) {

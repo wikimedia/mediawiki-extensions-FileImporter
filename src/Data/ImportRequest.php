@@ -2,9 +2,9 @@
 
 namespace FileImporter\Data;
 
+use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\InvalidArgumentException;
 use FileImporter\Exceptions\LocalizedImportException;
-use Wikimedia\Assert\Assert;
 
 /**
  * Alterations to be made usually provided by a user.
@@ -46,21 +46,15 @@ class ImportRequest {
 	 * @param string|null $intendedSummary null for no intended change
 	 * @param string $importDetailsHash
 	 *
-	 * @throws InvalidArgumentException|LocalizedImportException
+	 * @throws ImportException when the provided URL can't be parsed
 	 */
 	public function __construct(
-		$url,
-		$intendedName = null,
-		$intendedText = null,
-		$intendedSummary = null,
-		$importDetailsHash = ''
+		string $url,
+		string $intendedName = null,
+		string $intendedText = null,
+		string $intendedSummary = null,
+		string $importDetailsHash = ''
 	) {
-		Assert::parameterType( 'string', $url, '$url' );
-		Assert::parameterType( 'string|null', $intendedName, '$intendedName' );
-		Assert::parameterType( 'string|null', $intendedText, '$intendedText' );
-		Assert::parameterType( 'string|null', $intendedSummary, '$intendedSummary' );
-		Assert::parameterType( 'string', $importDetailsHash, '$importDetailsHash' );
-
 		try {
 			$this->url = new SourceUrl( $url );
 		} catch ( InvalidArgumentException $e ) {

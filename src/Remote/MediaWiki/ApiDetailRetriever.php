@@ -73,7 +73,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param int $maxBytes
 	 * @param LoggerInterface|null $logger
 	 *
-	 * @throws ConfigException
+	 * @throws ConfigException when $wgFileImporterAccountForSuppressedUsername is invalid
 	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
@@ -104,7 +104,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param array $apiParameters
 	 *
 	 * @return array[]
-	 * @throws ImportException
+	 * @throws ImportException when the request failed
 	 */
 	private function sendApiRequest( SourceUrl $sourceUrl, array $apiParameters ) {
 		$apiUrl = $this->httpApiLookup->getApiUrl( $sourceUrl );
@@ -123,7 +123,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param SourceUrl $sourceUrl
 	 *
 	 * @return ImportDetails
-	 * @throws ImportException
+	 * @throws ImportException e.g. when the file couldn't be found
 	 */
 	public function getImportDetails( SourceUrl $sourceUrl ) {
 		$params = $this->getBaseParams( $sourceUrl );
@@ -298,7 +298,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param SourceUrl $sourceUrl
 	 * @param array[] $pageInfoData
 	 *
-	 * @throws LocalizedImportException
+	 * @throws ImportException when exceeding the acceptable maximum
 	 */
 	private function checkRevisionCount( SourceUrl $sourceUrl, array $pageInfoData ) {
 		if ( count( $pageInfoData['revisions'] ) > $this->maxRevisions ||
@@ -319,6 +319,8 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * @param array[] $pageInfoData
 	 * @phan-param array{imageinfo:array{size:int}[]} $pageInfoData
+	 *
+	 * @throws ImportException when exceeding the maximum file size
 	 */
 	private function checkMaxRevisionAggregatedBytes( array $pageInfoData ) {
 		$aggregatedFileBytes = 0;
@@ -337,6 +339,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param string $pageTitle
 	 *
 	 * @return FileRevisions
+	 * @throws ImportException when the file is not acceptable, e.g. hidden or to big
 	 */
 	private function getFileRevisionsFromImageInfo( array $imageInfo, $pageTitle ) {
 		$revisions = [];

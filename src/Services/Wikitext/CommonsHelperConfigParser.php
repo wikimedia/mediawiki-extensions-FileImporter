@@ -3,6 +3,7 @@
 namespace FileImporter\Services\Wikitext;
 
 use FileImporter\Data\WikitextConversions;
+use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use InvalidArgumentException;
 
@@ -32,7 +33,7 @@ class CommonsHelperConfigParser {
 
 	/**
 	 * @return WikitextConversions
-	 * @throws LocalizedImportException
+	 * @throws ImportException e.g. when the provided wikitext is incomplete
 	 */
 	public function getWikitextConversions() {
 		// HTML comments must be removed first
@@ -77,7 +78,7 @@ class CommonsHelperConfigParser {
 	 * @param string $sectionName
 	 *
 	 * @return string
-	 * @throws LocalizedImportException if the section could not be found
+	 * @throws ImportException if the section could not be found
 	 */
 	private function grepSection( $wikitext, $header, $sectionName ) {
 		$level = strpos( $header, '= ' );

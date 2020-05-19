@@ -113,6 +113,8 @@ class SpecialImportFile extends SpecialPage {
 
 	/**
 	 * Checks based on those in SpecialUpload
+	 *
+	 * @throws ErrorPageError when one of the checks failed
 	 */
 	private function executeStandardChecks() {
 		# Check uploading enabled

@@ -31,6 +31,7 @@ class SourceUrl {
 
 	/**
 	 * @param string $url For example, https://en.wikipedia.org/wiki/File:Foo.JPG
+	 *
 	 * @throws InvalidArgumentException When $url is not parsable
 	 */
 	public function __construct( $url ) {

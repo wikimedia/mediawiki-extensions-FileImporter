@@ -4,7 +4,6 @@ namespace FileImporter\Services\UploadBase;
 
 use FileImporter\Data\TextRevision;
 use Hooks;
-use LogicException;
 use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -115,7 +114,7 @@ class ValidatingUploadBase extends UploadBase {
 	 * @codeCoverageIgnore
 	 */
 	public function initializeFromRequest( &$request ) {
-		throw new LogicException( 'Should never be called.' );
+		// Should never be called
 	}
 
 	/**

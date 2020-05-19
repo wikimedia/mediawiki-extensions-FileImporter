@@ -35,6 +35,8 @@ class ImportOperations implements ImportOperation {
 
 	/**
 	 * @param int $expectedState one of the class constants
+	 *
+	 * @throws ImportException when the expected state doesn't match
 	 */
 	private function throwExceptionOnBadState( $expectedState ) {
 		if ( $this->state !== $expectedState ) {

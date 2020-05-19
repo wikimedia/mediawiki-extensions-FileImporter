@@ -78,6 +78,9 @@ class WikitextConversions {
 	 *     self::HEADING_REPLACEMENTS => string[] Straight 1:1 mapping of source to target headings
 	 *         without any `==` syntax
 	 * ]
+	 *
+	 * @throws InvalidArgumentException if the input format misses expected fields. This should be
+	 *  unreachable, as the only provider is the CommonsHelperConfigParser.
 	 */
 	public function __construct( array $conversions ) {
 		// FIXME: Backwards-compatibility with the old signature, still used in some tests. Remove

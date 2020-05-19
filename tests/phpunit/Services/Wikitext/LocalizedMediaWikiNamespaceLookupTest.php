@@ -3,7 +3,6 @@
 namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\LocalizedMediaWikiNamespaceLookup;
-use InvalidArgumentException;
 use MWException;
 
 /**
@@ -12,11 +11,6 @@ use MWException;
  * @license GPL-2.0-or-later
  */
 class LocalizedMediaWikiNamespaceLookupTest extends \MediaWikiIntegrationTestCase {
-
-	public function testLanguageCodeNotString() {
-		$this->expectException( InvalidArgumentException::class );
-		new LocalizedMediaWikiNamespaceLookup( 1 );
-	}
 
 	public function testInvalidLanguageCode() {
 		$this->expectException( MWException::class );

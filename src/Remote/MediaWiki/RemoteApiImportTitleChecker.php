@@ -36,6 +36,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 	 * @param string $intendedTitleString Foo.jpg or Berlin.png (NOT namespace prefixed)
 	 *
 	 * @return bool is the import allowed
+	 * @throws ImportException when the request failed
 	 */
 	public function importAllowed( SourceUrl $sourceUrl, $intendedTitleString ) {
 		$api = $this->httpApiLookup->getApiUrl( $sourceUrl );
