@@ -13,6 +13,9 @@ class WikiLinkParser {
 	 */
 	private $cleaners = [];
 
+	/**
+	 * @param WikiLinkCleaner $cleaner
+	 */
 	public function registerWikiLinkCleaner( WikiLinkCleaner $cleaner ) {
 		$this->cleaners[] = $cleaner;
 	}

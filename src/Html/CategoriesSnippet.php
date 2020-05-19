@@ -25,6 +25,10 @@ class CategoriesSnippet {
 	/** @var IContextSource */
 	private $context;
 
+	/**
+	 * @param string[] $visibleCategories
+	 * @param string[] $hiddenCategories
+	 */
 	public function __construct( array $visibleCategories, array $hiddenCategories ) {
 		$this->visibleCategories = $visibleCategories;
 		$this->hiddenCategories = $hiddenCategories;

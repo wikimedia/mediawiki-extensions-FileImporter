@@ -22,6 +22,11 @@ class ImportPlanFactory {
 	private $duplicateFileRevisionChecker;
 	private $uploadBaseFactory;
 
+	/**
+	 * @param SourceSiteLocator $sourceSiteLocator
+	 * @param DuplicateFileRevisionChecker $duplicateFileRevisionChecker
+	 * @param UploadBaseFactory $uploadBaseFactory
+	 */
 	public function __construct(
 		SourceSiteLocator $sourceSiteLocator,
 		DuplicateFileRevisionChecker $duplicateFileRevisionChecker,

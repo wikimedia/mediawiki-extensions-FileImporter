@@ -22,6 +22,10 @@ class SuccessCache {
 	/** @var LoggerInterface */
 	private $logger;
 
+	/**
+	 * @param BagOStuff $cache
+	 * @param LoggerInterface|null $logger
+	 */
 	public function __construct( BagOStuff $cache, LoggerInterface $logger = null ) {
 		$this->cache = $cache;
 		$this->logger = $logger ?: new NullLogger();

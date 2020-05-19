@@ -58,6 +58,11 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		$this->logger = $logger;
 	}
 
+	/**
+	 * @param callable $callable
+	 *
+	 * @throws MWException
+	 */
 	public function overrideRequestFactory( callable $callable ) {
 		if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
 			throw new MWException(
@@ -78,6 +83,12 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		return $this->executeWithCallback( wfAppendQuery( $url, $parameters ) );
 	}
 
+	/**
+	 * @param string $url
+	 * @param array $postData
+	 *
+	 * @return MWHttpRequest
+	 */
 	public function executePost( $url, array $postData ) {
 		return $this->executeWithCallback( $url, null, $postData );
 	}

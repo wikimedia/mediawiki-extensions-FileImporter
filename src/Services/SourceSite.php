@@ -27,6 +27,14 @@ class SourceSite {
 	private $linkPrefixLookup;
 	private $postImportHandler;
 
+	/**
+	 * @param SourceUrlChecker $sourceUrlChecker
+	 * @param DetailRetriever $detailRetriever
+	 * @param ImportTitleChecker $importTitleChecker
+	 * @param SourceUrlNormalizer $sourceUrlNormalizer
+	 * @param LinkPrefixLookup $linkPrefixLookup
+	 * @param PostImportHandler $postImportHandler
+	 */
 	public function __construct(
 		SourceUrlChecker $sourceUrlChecker,
 		DetailRetriever $detailRetriever,

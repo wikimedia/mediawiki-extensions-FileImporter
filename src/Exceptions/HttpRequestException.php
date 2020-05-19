@@ -16,6 +16,10 @@ class HttpRequestException extends ImportException {
 	private $statusValue;
 	private $httpRequest;
 
+	/**
+	 * @param StatusValue $statusValue
+	 * @param MWHttpRequest $httpRequest
+	 */
 	public function __construct( StatusValue $statusValue, MWHttpRequest $httpRequest ) {
 		$this->statusValue = $statusValue;
 		$this->httpRequest = $httpRequest;
@@ -23,10 +27,16 @@ class HttpRequestException extends ImportException {
 		parent::__construct( (string)$statusValue, $httpRequest->getStatus() );
 	}
 
+	/**
+	 * @return StatusValue
+	 */
 	public function getStatusValue() {
 		return $this->statusValue;
 	}
 
+	/**
+	 * @return MWHttpRequest
+	 */
 	public function getHttpRequest() {
 		return $this->httpRequest;
 	}

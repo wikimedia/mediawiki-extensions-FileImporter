@@ -20,6 +20,9 @@ class DuplicateFileRevisionChecker {
 	 */
 	private $fileRepo;
 
+	/**
+	 * @param FileRepo $fileRepo
+	 */
 	public function __construct( FileRepo $fileRepo ) {
 		$this->fileRepo = $fileRepo;
 	}

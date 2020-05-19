@@ -28,6 +28,9 @@ class ImportOperations implements ImportOperation {
 	const VALIDATE_RUN = 2;
 	const COMMIT_RUN = 3;
 
+	/**
+	 * @param ImportOperation $importOperation
+	 */
 	public function add( ImportOperation $importOperation ) {
 		$this->throwExceptionOnBadState( self::BUILDING );
 		$this->importOperations[] = $importOperation;

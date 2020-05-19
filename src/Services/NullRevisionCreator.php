@@ -28,6 +28,10 @@ class NullRevisionCreator {
 	 */
 	private $revisionStore;
 
+	/**
+	 * @param RevisionStore $revisionStore
+	 * @param IDatabase $dbw
+	 */
 	public function __construct( RevisionStore $revisionStore, IDatabase $dbw ) {
 		$this->dbw = $dbw;
 		$this->revisionStore = $revisionStore;

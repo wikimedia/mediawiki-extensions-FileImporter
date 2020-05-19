@@ -21,6 +21,11 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 	private $httpRequestExecutor;
 	private $logger;
 
+	/**
+	 * @param HttpApiLookup $httpApiLookup
+	 * @param HttpRequestExecutor $httpRequestExecutor
+	 * @param LoggerInterface $logger
+	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,

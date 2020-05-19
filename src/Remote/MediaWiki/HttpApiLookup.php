@@ -38,6 +38,9 @@ class HttpApiLookup implements LoggerAwareInterface {
 	 */
 	private $resultCache = [];
 
+	/**
+	 * @param HttpRequestExecutor $httpRequestExecutor
+	 */
 	public function __construct( HttpRequestExecutor $httpRequestExecutor ) {
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = new NullLogger();

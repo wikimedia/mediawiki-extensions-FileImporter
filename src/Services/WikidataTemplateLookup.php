@@ -41,6 +41,12 @@ class WikidataTemplateLookup {
 	 */
 	private $templateCache = [];
 
+	/**
+	 * @param Config $config
+	 * @param SiteTableSiteLookup $siteLookup
+	 * @param HttpRequestExecutor $requestExecutor
+	 * @param LoggerInterface $logger
+	 */
 	public function __construct(
 		Config $config,
 		SiteTableSiteLookup $siteLookup,

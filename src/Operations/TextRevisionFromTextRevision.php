@@ -59,6 +59,15 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 */
 	private $logger;
 
+	/**
+	 * @param Title $plannedTitle
+	 * @param User $user
+	 * @param TextRevision $textRevision
+	 * @param WikiRevisionFactory $wikiRevisionFactory
+	 * @param OldRevisionImporter $importer
+	 * @param FileTextRevisionValidator $textRevisionValidator
+	 * @param LoggerInterface|null $logger
+	 */
 	public function __construct(
 		Title $plannedTitle,
 		User $user,

@@ -41,6 +41,12 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 */
 	private $centralIdLookup;
 
+	/**
+	 * @param HttpApiLookup $httpApiLookup
+	 * @param HttpRequestExecutor $httpRequestExecutor
+	 * @param CentralAuthTokenProvider $centralAuthTokenProvider
+	 * @param CentralIdLookup $centralIdLookup
+	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,

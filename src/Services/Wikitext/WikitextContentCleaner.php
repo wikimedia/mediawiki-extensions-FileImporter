@@ -25,6 +25,9 @@ class WikitextContentCleaner {
 	 */
 	private $sourceWikiLanguageTemplate = false;
 
+	/**
+	 * @param WikitextConversions $conversions
+	 */
 	public function __construct( WikitextConversions $conversions ) {
 		$this->wikitextConversions = $conversions;
 	}

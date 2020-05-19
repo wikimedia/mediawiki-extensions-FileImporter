@@ -86,6 +86,18 @@ class Importer {
 	 */
 	private $stats;
 
+	/**
+	 * @param WikiPageFactory $wikiPageFactory
+	 * @param WikiRevisionFactory $wikiRevisionFactory
+	 * @param NullRevisionCreator $nullRevisionCreator
+	 * @param HttpRequestExecutor $httpRequestExecutor
+	 * @param UploadBaseFactory $uploadBaseFactory
+	 * @param OldRevisionImporter $oldRevisionImporter
+	 * @param UploadRevisionImporter $uploadRevisionImporter
+	 * @param FileTextRevisionValidator $textRevisionValidator
+	 * @param LoggerInterface|null $logger
+	 * @param StatsdDataFactoryInterface|null $statsdDataFactory
+	 */
 	public function __construct(
 		WikiPageFactory $wikiPageFactory,
 		WikiRevisionFactory $wikiRevisionFactory,

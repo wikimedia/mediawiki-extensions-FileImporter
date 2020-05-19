@@ -17,6 +17,10 @@ class CategoryExtractor {
 	/** @var ILoadBalancer */
 	private $loadBalancer;
 
+	/**
+	 * @param Parser $parser
+	 * @param ILoadBalancer $loadBalancer
+	 */
 	public function __construct( Parser $parser, ILoadBalancer $loadBalancer ) {
 		$this->parser = $parser;
 		$this->loadBalancer = $loadBalancer;
