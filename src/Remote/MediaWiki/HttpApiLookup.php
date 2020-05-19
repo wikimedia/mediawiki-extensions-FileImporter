@@ -7,7 +7,9 @@ use DOMElement;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use Message;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -20,8 +22,6 @@ use Psr\Log\NullLogger;
  * @author Addshore
  */
 class HttpApiLookup implements LoggerAwareInterface {
-
-	private const ERROR_CANNOT_FIND_SOURCE_API = 'noSourceApiFound';
 
 	/**
 	 * @var LoggerInterface
@@ -55,18 +55,6 @@ class HttpApiLookup implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param string $code
-	 * @param string $message
-	 * @param array $context
-	 *
-	 * @return ImportException
-	 */
-	private function loggedError( $code, $message, array $context = [] ) {
-		$this->logger->error( $message, $context );
-		return new ImportException( $message, $code );
-	}
-
-	/**
 	 * @param SourceUrl $sourceUrl A URL that points to any editable HTML page in any MediaWiki
 	 *  wiki. The page is expected to contain a <link rel="EditURI" href="…"> element.
 	 *
@@ -86,10 +74,8 @@ class HttpApiLookup implements LoggerAwareInterface {
 			return $api;
 		}
 
-		throw $this->loggedError(
-			self::ERROR_CANNOT_FIND_SOURCE_API,
-			'Failed to get MediaWiki API from SourceUrl'
-		);
+		$this->logger->error( 'Failed to get MediaWiki API from SourceUrl.' );
+		throw new LocalizedImportException( 'fileimporter-mediawiki-api-notfound' );
 	}
 
 	/**
@@ -107,27 +93,28 @@ class HttpApiLookup implements LoggerAwareInterface {
 			$error = reset( $errors );
 
 			if ( $statusCode === 404 ) {
-				$msg = wfMessage( 'fileimporter-api-file-notfound', $pageUrl )->plain();
+				$msg = [ 'fileimporter-api-file-notfound', Message::rawParam( $pageUrl ) ];
 			} else {
-				$msg = wfMessage( 'fileimporter-api-failedtofindapi', $pageUrl )->plain();
-				if ( $statusCode !== 200 ) {
-					$msg .= ' ' . wfMessage( 'fileimporter-http-statuscode', $statusCode )->plain();
-
-				}
-				if ( $error ) {
-					$msg .= ' ' . wfMessage( $error['message'], $error['params'] )->plain();
-				}
+				$msg = [
+					'fileimporter-api-failedtofindapi',
+					$pageUrl,
+					// Note: If a parameter to a Message is another Message, it will be forced to
+					// use the same language.
+					$statusCode !== 200
+						? wfMessage( 'fileimporter-http-statuscode', $statusCode )
+						: '',
+					$error
+						? wfMessage( $error['message'], $error['params'] )
+						: ''
+				];
 			}
 
-			throw $this->loggedError(
-				(string)$statusCode,
-				$msg,
-				[
-					'statusCode' => $statusCode,
-					'previousMessage' => $error ? $error['message'] : '',
-					'responseContent' => $ex->getHttpRequest()->getContent(),
-				]
-			);
+			$this->logger->error( 'Failed to discover API location from: ' . $pageUrl, [
+				'statusCode' => $statusCode,
+				'previousMessage' => $error ? $error['message'] : '',
+				'responseContent' => $ex->getHttpRequest()->getContent(),
+			] );
+			throw new LocalizedImportException( $msg );
 		}
 
 		$document = new DOMDocument();
