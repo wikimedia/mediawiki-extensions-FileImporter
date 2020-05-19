@@ -26,7 +26,7 @@ class ValidatingUploadBaseTest extends \MediaWikiTestCase {
 	public function provideValidateTitle() {
 		return [
 			'valid title' =>
-				[ new TitleValue( NS_FILE, 'ValidTitle.JPG' ), true ],
+				[ new TitleValue( NS_FILE, 'ValidTitle.JPG' ), UploadBase::OK ],
 			'bad file extension' =>
 				[ new TitleValue( NS_FILE, 'InvalidExtension.png' ), UploadBase::FILETYPE_BADTYPE ],
 			'too long title' =>

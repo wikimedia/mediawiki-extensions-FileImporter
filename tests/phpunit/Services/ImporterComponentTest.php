@@ -225,7 +225,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$uploadBase = $this->createMock( ValidatingUploadBase::class );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateTitle' )
-			->willReturn( true );
+			->willReturn( \UploadBase::OK );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateFile' )
 			->willReturn( \StatusValue::newGood() );

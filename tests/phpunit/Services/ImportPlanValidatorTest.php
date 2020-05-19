@@ -162,16 +162,16 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	/**
-	 * @param bool|int $validTitle Numeric error code or true on success
+	 * @param int $validTitle Numeric error code or UploadBase::OK on success
 	 *
 	 * @return ValidatingUploadBase
 	 */
-	private function getMockValidatingUploadBase( $validTitle = true ) : ValidatingUploadBase {
+	private function getMockValidatingUploadBase(
+		int $validTitle = UploadBase::OK
+	) : ValidatingUploadBase {
 		$mock = $this->createMock( ValidatingUploadBase::class );
 		$mock->method( 'validateTitle' )
 			->willReturn( $validTitle );
-		$mock->method( 'validateFile' )
-			->willReturn( true );
 		return $mock;
 	}
 

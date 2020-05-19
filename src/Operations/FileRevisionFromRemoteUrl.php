@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use TempFSFile;
 use Title;
+use UploadBase;
 use UploadRevisionImporter;
 use User;
 use WikiRevision;
@@ -151,10 +152,10 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @return bool success
 	 */
 	public function validate() {
-		$result = $this->uploadBase->validateTitle();
-		if ( $result !== true ) {
+		$errorCode = $this->uploadBase->validateTitle();
+		if ( $errorCode !== UploadBase::OK ) {
 			$this->logger->error(
-				__METHOD__ . " failed to validate title, error code {$result}",
+				__METHOD__ . " failed to validate title, error code {$errorCode}",
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
 			return false;
