@@ -27,7 +27,7 @@ class WikiRevisionFactory {
 	private $externalUserNames;
 
 	// TODO: should be changed back to lowercase when T221235 is fixed.
-	const DEFAULT_USERNAME_PREFIX = 'Imported';
+	public const DEFAULT_USERNAME_PREFIX = 'Imported';
 
 	public function __construct() {
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );

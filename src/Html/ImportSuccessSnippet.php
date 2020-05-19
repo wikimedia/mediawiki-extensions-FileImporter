@@ -18,7 +18,7 @@ use Title;
  */
 class ImportSuccessSnippet {
 
-	const NOTICE_URL_KEY = 'fileImporterSuccess';
+	public const NOTICE_URL_KEY = 'fileImporterSuccess';
 
 	/** @var SuccessCache */
 	private $cache;

@@ -14,7 +14,7 @@ use Title;
  */
 class SuccessCache {
 
-	const CACHE_KEY = 'fileImporter_result';
+	private const CACHE_KEY = 'fileImporter_result';
 
 	/** @var BagOStuff */
 	private $cache;

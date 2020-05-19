@@ -13,12 +13,12 @@ use InvalidArgumentException;
  */
 class WikitextConversions {
 
-	const REQUIRED_TEMPLATES = 'requiredTemplates';
-	const FORBIDDEN_TEMPLATES = 'forbiddenTemplates';
-	const OBSOLETE_TEMPLATES = 'obsoleteTemplates';
-	const TEMPLATE_TRANSFORMATIONS = 'templateTransformations';
-	const FORBIDDEN_CATEGORIES = 'forbiddenCategories';
-	const HEADING_REPLACEMENTS = 'headingReplacements';
+	public const REQUIRED_TEMPLATES = 'requiredTemplates';
+	public const FORBIDDEN_TEMPLATES = 'forbiddenTemplates';
+	public const OBSOLETE_TEMPLATES = 'obsoleteTemplates';
+	public const TEMPLATE_TRANSFORMATIONS = 'templateTransformations';
+	public const FORBIDDEN_CATEGORIES = 'forbiddenCategories';
+	public const HEADING_REPLACEMENTS = 'headingReplacements';
 
 	/**
 	 * @var string[]

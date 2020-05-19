@@ -21,7 +21,7 @@ use Title;
  */
 class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 
-	const TITLE = 'Test-29e8a6ff58c5eb980fc0642a13b59cb9c5a3cf66.png';
+	private const TITLE = 'Test-29e8a6ff58c5eb980fc0642a13b59cb9c5a3cf66.png';
 
 	public function testPrepare() {
 		$title = Title::newFromText( self::TITLE, NS_FILE );

@@ -38,10 +38,10 @@ use User;
  */
 class ImporterTest extends \MediaWikiTestCase {
 
-	const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
-	const TEST_FILE2_SRC = __DIR__ . '/../res/testfile2.png';
+	private const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
+	private const TEST_FILE2_SRC = __DIR__ . '/../res/testfile2.png';
 	// Random number (actually the SHA1 of this file) to not conflict with other tests
-	const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59cb9c5a3cf55.png';
+	private const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59cb9c5a3cf55.png';
 
 	/**
 	 * @var User

@@ -16,8 +16,8 @@ use FileImporter\Services\WikidataTemplateLookup;
  */
 class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 
-	const URL = 'http://w.invalid';
-	const TITLE = 'FilePageTitle';
+	private const URL = 'http://w.invalid';
+	private const TITLE = 'FilePageTitle';
 
 	public function provideExecute() {
 		yield [ 'TestTemplate',	'fileimporter-add-specific-template' ];

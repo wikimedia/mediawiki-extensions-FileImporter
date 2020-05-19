@@ -14,8 +14,8 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class FileRevision {
 
-	const ERROR_MISSING_FIELD = 'revisionMissingField';
-	const ERROR_UNKNOWN_FIELD = 'revisionUnknownField';
+	private const ERROR_MISSING_FIELD = 'revisionMissingField';
+	private const ERROR_UNKNOWN_FIELD = 'revisionUnknownField';
 
 	private static $fieldNames = [
 		'name',

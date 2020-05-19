@@ -14,8 +14,8 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class TextRevision {
 
-	const ERROR_TEXT_FIELD_MISSING = 'textFieldMissing';
-	const ERROR_TEXT_FIELD_UNKNOWN = 'textFieldUnknown';
+	private const ERROR_TEXT_FIELD_MISSING = 'textFieldMissing';
+	private const ERROR_TEXT_FIELD_UNKNOWN = 'textFieldUnknown';
 
 	private static $fieldNames = [
 		'minor',

@@ -33,16 +33,17 @@ use WikiRevision;
  */
 class ImporterComponentTest extends \MediaWikiTestCase {
 
-	const URL = 'http://w.invalid';
-	const TITLE = 'FilePageTitle';
-	const PREFIX = 'interwiki-prefix';
+	private const URL = 'http://w.invalid';
+	private const TITLE = 'FilePageTitle';
+	private const PREFIX = 'interwiki-prefix';
 
-	const COMMENT = "<!--This file was moved here using FileImporter from http://w.invalid-->\n";
-	const CLEANED_WIKITEXT = 'Auto-cleaned wikitext.';
-	const USER_WIKITEXT = 'User-provided wikitext.';
+	private const COMMENT = '<!--This file was moved here using FileImporter from ' . self::URL .
+		"-->\n";
+	private const CLEANED_WIKITEXT = 'Auto-cleaned wikitext.';
+	private const USER_WIKITEXT = 'User-provided wikitext.';
 
-	const NULL_EDIT_SUMMARY = 'Imported with FileImporter from http://w.invalid';
-	const USER_SUMMARY = 'User-provided summary';
+	private const NULL_EDIT_SUMMARY = 'Imported with FileImporter from ' . self::URL;
+	private const USER_SUMMARY = 'User-provided summary';
 
 	/**
 	 * @var User

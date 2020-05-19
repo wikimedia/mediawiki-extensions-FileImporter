@@ -63,9 +63,9 @@ class ApiDetailRetriever implements DetailRetriever {
 	 */
 	private $maxAggregatedBytes;
 
-	const API_RESULT_LIMIT = 500;
-	const MAX_REVISIONS = 100;
-	const MAX_AGGREGATED_BYTES = 250000000;
+	private const API_RESULT_LIMIT = 500;
+	private const MAX_REVISIONS = 100;
+	private const MAX_AGGREGATED_BYTES = 250000000;
 
 	/**
 	 * @param HttpApiLookup $httpApiLookup

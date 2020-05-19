@@ -18,8 +18,8 @@ use Psr\Log\NullLogger;
  */
 class FileChunkSaver implements LoggerAwareInterface {
 
-	const ERROR_CHUNK_OPEN = 'chunkNotOpened';
-	const ERROR_CHUNK_SAVE = 'chunkNotSaved';
+	private const ERROR_CHUNK_OPEN = 'chunkNotOpened';
+	private const ERROR_CHUNK_SAVE = 'chunkNotSaved';
 
 	/**
 	 * @var string

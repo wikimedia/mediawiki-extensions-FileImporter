@@ -16,7 +16,7 @@ use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 class NullRevisionCreator {
 
-	const ERROR_REVISION_CREATE = 'noNullRevisionCreated';
+	private const ERROR_REVISION_CREATE = 'noNullRevisionCreated';
 
 	/**
 	 * @var IDatabase

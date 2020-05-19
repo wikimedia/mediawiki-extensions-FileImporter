@@ -11,7 +11,7 @@ use FileImporter\Interfaces\ImportOperation;
  */
 class ImportOperations implements ImportOperation {
 
-	const ERROR_OUT_OF_ORDER = 'outOfOrder';
+	private const ERROR_OUT_OF_ORDER = 'outOfOrder';
 
 	/**
 	 * @var ImportOperation[]
@@ -23,10 +23,10 @@ class ImportOperations implements ImportOperation {
 	 */
 	private $state = self::BUILDING;
 
-	const BUILDING = 0;
-	const PREPARE_RUN = 1;
-	const VALIDATE_RUN = 2;
-	const COMMIT_RUN = 3;
+	private const BUILDING = 0;
+	private const PREPARE_RUN = 1;
+	private const VALIDATE_RUN = 2;
+	private const COMMIT_RUN = 3;
 
 	/**
 	 * @param ImportOperation $importOperation

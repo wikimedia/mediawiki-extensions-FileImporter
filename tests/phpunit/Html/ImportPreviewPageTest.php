@@ -24,10 +24,10 @@ use User;
 class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	use HamcrestPHPUnitIntegration;
 
-	const CLIENT_URL = '//w.invalid/';
-	const NAME = 'Chicken In Snow';
-	const INITIAL_TEXT = 'Foo';
-	const HASH = 'ORIGINAL_HASH';
+	private const CLIENT_URL = '//w.invalid/';
+	private const NAME = 'Chicken In Snow';
+	private const INITIAL_TEXT = 'Foo';
+	private const HASH = 'ORIGINAL_HASH';
 
 	public function setUp() : void {
 		parent::setUp();

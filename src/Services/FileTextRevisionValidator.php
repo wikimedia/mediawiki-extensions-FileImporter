@@ -22,7 +22,7 @@ use WikiFilePage;
  */
 class FileTextRevisionValidator {
 
-	const ERROR_WRONG_REVISION_NAMESPACE = 'wrongTextRevisionNamespace';
+	private const ERROR_WRONG_REVISION_NAMESPACE = 'wrongTextRevisionNamespace';
 
 	/**
 	 * @var DerivativeContext

@@ -19,11 +19,11 @@ use OOUI\TextInputWidget;
  */
 class ImportPreviewPage extends SpecialPageHtmlFragment {
 
-	const ACTION_BUTTON = 'action';
-	const ACTION_EDIT_TITLE = 'edittitle';
-	const ACTION_EDIT_INFO = 'editinfo';
-	const ACTION_SUBMIT = 'submit';
-	const ACTION_VIEW_DIFF = 'viewdiff';
+	public const ACTION_BUTTON = 'action';
+	public const ACTION_EDIT_TITLE = 'edittitle';
+	public const ACTION_EDIT_INFO = 'editinfo';
+	public const ACTION_SUBMIT = 'submit';
+	public const ACTION_VIEW_DIFF = 'viewdiff';
 
 	/**
 	 * @param ImportPlan $importPlan

@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  */
 class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
-	const ERROR_TITLE_STATE = 'noTitleStateFetched';
+	private const ERROR_TITLE_STATE = 'noTitleStateFetched';
 
 	private $httpApiLookup;
 	private $httpRequestExecutor;

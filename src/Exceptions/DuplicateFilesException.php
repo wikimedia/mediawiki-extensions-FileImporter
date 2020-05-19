@@ -10,7 +10,7 @@ use File;
  */
 class DuplicateFilesException extends ImportException {
 
-	const ERROR_CODE = 'duplicateFiles';
+	private const ERROR_CODE = 'duplicateFiles';
 
 	private $files;
 

@@ -17,8 +17,8 @@ use User;
 
 class SourceWikiCleanupSnippet {
 
-	const ACTION_OFFERED_SOURCE_DELETE = 'offeredSourceDelete';
-	const ACTION_OFFERED_SOURCE_EDIT = 'offeredSourceEdit';
+	public const ACTION_OFFERED_SOURCE_DELETE = 'offeredSourceDelete';
+	public const ACTION_OFFERED_SOURCE_EDIT = 'offeredSourceEdit';
 
 	/** @var bool */
 	private $sourceEditingEnabled;

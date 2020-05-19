@@ -17,7 +17,7 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class SourceUrl {
 
-	const ERROR_SOURCE_URL_UNPARSEABLE = 'sourceUrlUnparseable';
+	private const ERROR_SOURCE_URL_UNPARSEABLE = 'sourceUrlUnparseable';
 
 	/**
 	 * @var string

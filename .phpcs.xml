@@ -2,11 +2,16 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
-		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
 	</rule>
 
 	<rule ref="Squiz.Strings.DoubleQuoteUsage">
 		<exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar" />
+	</rule>
+	<rule ref="Squiz.WhiteSpace.FunctionSpacing.AfterLast">
+		<severity>5</severity>
+	</rule>
+	<rule ref="Squiz.WhiteSpace.FunctionSpacing.BeforeFirst">
+		<severity>5</severity>
 	</rule>
 
 	<file>.</file>

@@ -43,10 +43,10 @@ use WebRequest;
  */
 class SpecialImportFile extends SpecialPage {
 
-	const ERROR_UPLOAD_DISABLED = 'uploadDisabled';
-	const ERROR_USER_PERMISSIONS = 'userPermissionsError';
-	const ERROR_LOCAL_BLOCK = 'userBlocked';
-	const ERROR_GLOBAL_BLOCK = 'userGloballyBlocked';
+	private const ERROR_UPLOAD_DISABLED = 'uploadDisabled';
+	private const ERROR_USER_PERMISSIONS = 'userPermissionsError';
+	private const ERROR_LOCAL_BLOCK = 'userBlocked';
+	private const ERROR_GLOBAL_BLOCK = 'userGloballyBlocked';
 
 	/**
 	 * @var SourceSiteLocator

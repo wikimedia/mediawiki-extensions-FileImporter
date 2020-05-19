@@ -30,11 +30,11 @@ use WikiPage;
  */
 class Importer {
 
-	const ERROR_OPERATION_COMMIT = 'operationCommit';
-	const ERROR_OPERATION_PREPARE = 'operationPrepare';
-	const ERROR_OPERATION_VALIDATE = 'operationValidate';
-	const ERROR_NO_NEW_PAGE = 'noPageCreated';
-	const ERROR_FAILED_POST_IMPORT_EDIT = 'failedPostImportEdit';
+	private const ERROR_OPERATION_COMMIT = 'operationCommit';
+	private const ERROR_OPERATION_PREPARE = 'operationPrepare';
+	private const ERROR_OPERATION_VALIDATE = 'operationValidate';
+	private const ERROR_NO_NEW_PAGE = 'noPageCreated';
+	private const ERROR_FAILED_POST_IMPORT_EDIT = 'failedPostImportEdit';
 
 	/**
 	 * @var WikiPageFactory

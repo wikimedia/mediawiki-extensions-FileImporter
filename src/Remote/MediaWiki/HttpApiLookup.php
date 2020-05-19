@@ -21,7 +21,7 @@ use Psr\Log\NullLogger;
  */
 class HttpApiLookup implements LoggerAwareInterface {
 
-	const ERROR_CANNOT_FIND_SOURCE_API = 'noSourceApiFound';
+	private const ERROR_CANNOT_FIND_SOURCE_API = 'noSourceApiFound';
 
 	/**
 	 * @var LoggerInterface

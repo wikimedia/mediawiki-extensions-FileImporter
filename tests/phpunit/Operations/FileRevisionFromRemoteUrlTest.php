@@ -24,8 +24,8 @@ use Title;
  */
 class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 
-	const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
-	const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59csb9c5a3cf55.png';
+	private const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
+	private const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59csb9c5a3cf55.png';
 
 	public function provideTestNewFileRevisionFromRemoteUrl() {
 		return [
