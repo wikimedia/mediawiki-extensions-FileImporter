@@ -16,6 +16,7 @@
 	"fileimporter-api-failedtogetinfo": "Misslyckades att hämta filinformation från: $1",
 	"fileimporter-api-nopagesreturned": "Inga sidor returnerades av fjärr-API:et.",
 	"fileimporter-api-toomanyrevisions": "För många sidversioner returnerades av API:et. Kunde inte importera.",
+	"fileimporter-api-file-notfound": "Filen hittades inte: $1.",
 	"fileimporter-cantparseurl": "Kan inte tolka den givna webbadressen: $1",
 	"fileimporter-cantimporturl": "Kan inte importera angiven URL",
 	"fileimporter-cantimportfromsharedrepo": "Kan inte importera en fil från ett delat filförvar.",

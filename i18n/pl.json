@@ -15,6 +15,8 @@
 	"tag-fileimporter-imported-description": "Wersje zaimportowane z innej wiki",
 	"fileimporter-specialpage": "Import pliku",
 	"fileimporter-importfailed": "Import nieudany",
+	"fileimporter-api-file-notfound": "Nie odnaleziono pliku: $1.",
+	"fileimporter-http-statuscode": "Kod statusu HTTP $1.",
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL: $1",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-cantimportmissingfile": "Nie można zaimportować brakującego pliku.",
