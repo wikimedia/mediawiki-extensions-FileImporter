@@ -20,15 +20,21 @@ class FileImporterHooks {
 	 * Show an import success message when appropriate.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforeInitialize
-	 * @param Title &$title
-	 * @param null &$unused
-	 * @param OutputPage &$output
-	 * @param User &$user
+	 *
+	 * @param Title $title
+	 * @param null $unused
+	 * @param OutputPage $output
+	 * @param User $user
 	 * @param WebRequest $request
 	 * @param MediaWiki $mediaWiki
 	 */
-	public static function onBeforeInitialize( Title &$title, &$unused,
-		OutputPage &$output, User &$user, WebRequest $request, MediaWiki $mediaWiki
+	public static function onBeforeInitialize(
+		Title $title,
+		$unused,
+		OutputPage $output,
+		User $user,
+		WebRequest $request,
+		$mediaWiki
 	) {
 		if ( $request->getVal( ImportSuccessSnippet::NOTICE_URL_KEY ) === null
 			|| $title->getNamespace() !== NS_FILE

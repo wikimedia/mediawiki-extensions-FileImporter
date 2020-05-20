@@ -144,8 +144,6 @@
 		"BeforeInitialize": "FileImporter\\FileImporterHooks::onBeforeInitialize",
 		"ChangeTagsListActive": "FileImporter\\FileImporterHooks::onListDefinedTags",
 		"ListDefinedTags": "FileImporter\\FileImporterHooks::onListDefinedTags",
-		"UserGetReservedNames": [
-			"FileImporter\\FileImporterHooks::onUserGetReservedNames"
-		]
+		"UserGetReservedNames": "FileImporter\\FileImporterHooks::onUserGetReservedNames"
 	}
 }
