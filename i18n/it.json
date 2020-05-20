@@ -22,6 +22,8 @@
 	"fileimporter-importfailed": "Importazione fallita",
 	"fileimporter-api-failedtogetinfo": "Impossibile recuperare le informazioni sul file da: $1",
 	"fileimporter-api-toomanyrevisions": "Troppe versioni restituite dall'API, impossibile importare.",
+	"fileimporter-api-file-notfound": "File non trovato: $1.",
+	"fileimporter-http-statuscode": "Codice stato HTTP $1.",
 	"fileimporter-cantparseurl": "Impossibile analizzare l'URL specificato: $1",
 	"fileimporter-cantimporturl": "Impossibile importare l'URL specificato",
 	"fileimporter-cantimportfromsharedrepo": "Impossibile importare un file da un repository condiviso.",

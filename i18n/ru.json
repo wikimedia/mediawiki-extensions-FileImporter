@@ -10,7 +10,8 @@
 			"Okras",
 			"Redredsonia",
 			"Saimongoltinio",
-			"Vlad5250"
+			"Vlad5250",
+			"VoxelJ"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -23,6 +24,9 @@
 	"fileimporter-api-badinfo": "Приложение дало неправильную информацию об изображении или ревизии.",
 	"fileimporter-api-failedtogetinfo": "Не удалось получить информацию о файле из: $1",
 	"fileimporter-api-toomanyrevisions": "Приложение дало слишком много ревизий. Невозможно импортировать.",
+	"fileimporter-api-file-notfound": "Файл не найден: $1",
+	"fileimporter-api-failedtofindapi": "Не удалось узнать местоположение API от: $1",
+	"fileimporter-http-statuscode": "Код статуса HTTP $1",
 	"fileimporter-cantimporturl": "Невозможно импортировать данный URL-адрес",
 	"fileimporter-cantimportfromsharedrepo": "Невозможно импортировать файл из общего хранилища.",
 	"fileimporter-cantimportmissingfile": "Не удаётся импортировать отсутствующий файл.",
