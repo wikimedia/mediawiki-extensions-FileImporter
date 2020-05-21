@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"AlimOmar"
+		]
+	},
+	"fileimporter-api-file-notfound": "ھۆججەت تېپىلمىدى:$1",
+	"fileimporter-api-failedtofindapi": "$1دىن API ئورنىنى بايقىيالمىدى",
+	"fileimporter-http-statuscode": "HTTP ھالەت كودى $1."
+}
