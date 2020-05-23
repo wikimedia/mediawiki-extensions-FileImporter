@@ -86,8 +86,8 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 
 		$diffEngine->showDiffStyle();
 		return $diffEngine->getDiff(
-			$this->msg( 'currentrev' ),
-			$this->msg( 'yourtext' )
+			$this->msg( 'currentrev' )->parse(),
+			$this->msg( 'yourtext' )->parse()
 		);
 	}
 
