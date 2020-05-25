@@ -8,6 +8,7 @@
 			"VulpesVulpes825",
 			"WQL",
 			"Xiplus",
+			"列维劳德",
 			"水獭很懒"
 		]
 	},
@@ -20,6 +21,7 @@
 	"fileimporter-api-failedtogetinfo": "检索来自$1的文件信息失败",
 	"fileimporter-api-nopagesreturned": "远程API没有返回页面。",
 	"fileimporter-api-toomanyrevisions": "API返回了太多的修订版本，不能导入。",
+	"fileimporter-http-statuscode": "HTTP状态代码$1。",
 	"fileimporter-cantparseurl": "不能解析提供的URL：$1",
 	"fileimporter-cantimporturl": "不能导入提供的URL",
 	"fileimporter-cantimportfromsharedrepo": "不能从共享存储库导入文件。",

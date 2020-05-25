@@ -8,6 +8,7 @@
 			"Gomoko",
 			"Hashar",
 			"Pamputt",
+			"Pols12",
 			"Thibaut120094",
 			"Verdy p",
 			"Wladek92"
@@ -77,7 +78,7 @@
 	"fileimporter-delete-failed": "Le fichier n’a pas pu être supprimé automatiquement sur $1. Veuillez retourner au [$2 fichier d’origine] et le supprimer manuellement.",
 	"fileimporter-revision-removed-text": "Texte supprimé effacé par FileImporter.",
 	"fileimporter-revision-removed-comment": "Commentaire supprimé effacé par FileImporter.",
-	"fileimporter-in-beta": "L’importation de fichiers est en mode bêta : nous l’avons testée soigneusement mais elle peut encore comporter des erreurs. Si c’est le cas, veuillez les [//www.mediawiki.org/wiki/Extension_talk:FileImporter signaler sur notre page d’aide] — idéalement en détaillant les étapes pas à pas pour pouvoir reproduire le problème, afin que nous puissions le comprendre et le corriger.",
+	"fileimporter-in-beta": "L’importation de fichiers est en mode bêta : nous l’avons testée soigneusement mais elle peut encore comporter des erreurs. Si vous en recontrez, vous pouvez [[mw:Extension_talk:FileImporter|les signaler sur notre page d’aide]] — idéalement en détaillant les étapes pas à pas pour pouvoir reproduire le problème, afin que nous puissions le comprendre et le corriger.",
 	"fileimporter-filemissinginrevision": "Impossible d’importer le fichier parce qu’il manque un fichier image à au moins une de ses révisions.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|La version|Les $1 versions}} du fichier que vous essayez d’importer actuellement {{PLURAL:$1|dépasse|dépassent}} la taille maximale autorisée.",
 	"fileimporter-import-wait": "L'import peut durer quelques minutes.",
