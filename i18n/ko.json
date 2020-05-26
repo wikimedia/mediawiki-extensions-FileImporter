@@ -12,6 +12,7 @@
 	"fileimporter-desc": "쉽게 다른 사이트에서 파일 가져오기",
 	"fileimporter-specialpage": "파일 가져오기",
 	"fileimporter-importfailed": "가져오기를 실패했습니다",
+	"fileimporter-mediawiki-api-notfound": "SourceUrl로부터 미디어위키 API 가져오기를 실패했습니다.",
 	"fileimporter-api-badinfo": "API에 의해 반환된 이미지나 판 정보가 잘못되었습니다.",
 	"fileimporter-api-failedtogetinfo": "파일 정보를 $1(으)로부터 가져올 수 없습니다",
 	"fileimporter-api-nopagesreturned": "원격 API에 의해 반환된 페이지가 없습니다.",
