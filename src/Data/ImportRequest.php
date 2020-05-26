@@ -66,9 +66,8 @@ class ImportRequest {
 			 * White spaces and carriage returns are trimmed (inline with EditPage) so that we can
 			 * actually detect if the text to be saved has changed at all.
 			 */
-			$intendedText = $this->removeCarriageReturns(
-				$this->removeTrailingWhitespaces( $intendedText )
-			);
+			// TODO: This is identical to TextContent::normalizeLineEndings(). Just call that?
+			$intendedText = str_replace( [ "\r\n", "\r" ], "\n", rtrim( $intendedText ) );
 		}
 
 		$this->intendedName = $intendedName;
@@ -112,22 +111,6 @@ class ImportRequest {
 	 */
 	public function getImportDetailsHash() {
 		return $this->importDetailsHash;
-	}
-
-	/**
-	 * @param string $text
-	 * @return string
-	 */
-	private function removeTrailingWhitespaces( $text ) {
-		return rtrim( $text );
-	}
-
-	/**
-	 * @param string $text
-	 * @return string
-	 */
-	private function removeCarriageReturns( $text ) {
-		return str_replace( "\r", '', $text );
 	}
 
 }
