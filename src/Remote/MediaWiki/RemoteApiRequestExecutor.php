@@ -76,7 +76,8 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @param array $params API request params
 	 * @param bool $usePost
-	 * @return array|null
+	 * @return array|null Null in case of an error. Calling code can't understand why, but the error
+	 *  is logged.
 	 */
 	public function execute( SourceUrl $sourceUrl, User $user, $params, $usePost = false ) {
 		// TODO handle error
@@ -162,7 +163,8 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @param array $params API request params
 	 * @param bool $usePost
-	 * @return array|null
+	 * @return array|null Null in case of an error. Calling code can't understand why, but the error
+	 *  is logged.
 	 */
 	private function doRequest( SourceUrl $sourceUrl, User $user, array $params, $usePost ) {
 		/** @var array|null $result */

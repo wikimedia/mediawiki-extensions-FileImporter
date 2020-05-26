@@ -30,9 +30,9 @@ class RemoteApiActionExecutor {
 	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
-	 * @param array $params
+	 * @param array $params Additional API request params
 	 *
-	 * @return array|null
+	 * @return array|null Null in case of an error.
 	 */
 	public function executeEditAction(
 		SourceUrl $sourceUrl,
@@ -69,7 +69,7 @@ class RemoteApiActionExecutor {
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 *
-	 * @return array|null
+	 * @return array|null Null in case of an error.
 	 */
 	public function executeUserRightsAction( SourceUrl $sourceUrl, User $user ) {
 		return $this->remoteApiRequestExecutor->execute(
@@ -92,9 +92,9 @@ class RemoteApiActionExecutor {
 	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
-	 * @param array $params
+	 * @param array $params Additional API request params
 	 *
-	 * @return array|null
+	 * @return array|null Null in case of an error.
 	 */
 	public function executeDeleteAction(
 		SourceUrl $sourceUrl,

@@ -73,9 +73,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
-	 * @param User $user
-	 * @return StatusValue
+	 * @inheritDoc
 	 */
 	public function execute( ImportPlan $importPlan, User $user ) {
 		if ( $importPlan->getAutomateSourceWikiDelete() ) {
