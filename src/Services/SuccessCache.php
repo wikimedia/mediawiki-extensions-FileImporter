@@ -3,11 +3,11 @@
 namespace FileImporter\Services;
 
 use BagOStuff;
-use IExpiringStore;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
 use Title;
+use Wikimedia\LightweightObjectStore\ExpirationAwareness;
 
 /**
  * Save the import results to cache so that they can be looked up from the success page.
@@ -42,7 +42,7 @@ class SuccessCache {
 	public function stashImportResult( Title $targetTitle, StatusValue $importResult ) {
 		$key = $this->makeCacheKey( $targetTitle );
 		$this->logger->debug( __METHOD__ . ': Import result cached at ' . $key );
-		return $this->cache->set( $key, $importResult, IExpiringStore::TTL_DAY );
+		return $this->cache->set( $key, $importResult, ExpirationAwareness::TTL_DAY );
 	}
 
 	/**
