@@ -16,6 +16,8 @@ use Site;
  * @covers \FileImporter\Services\WikidataTemplateLookup
  *
  * FIXME: Integrationesque and kind of crappy.
+ *
+ * @license GPL-2.0-or-later
  */
 class WikidataTemplateLookupTest extends MediaWikiTestCase {
 

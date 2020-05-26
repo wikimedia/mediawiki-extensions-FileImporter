@@ -18,6 +18,8 @@ use RuntimeException;
  * This service fetches an Item from a Wikibase instance (both specified via configuration), and
  * returns the sitelink that matches a given source URL, if such a sitelink exists. In other words:
  * It checks if the source site contains a localized version of a page, and returns it.
+ *
+ * @license GPL-2.0-or-later
  */
 class WikidataTemplateLookup {
 

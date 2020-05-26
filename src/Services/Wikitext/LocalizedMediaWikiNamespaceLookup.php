@@ -8,6 +8,8 @@ use MWException;
 /**
  * A reverse namespace name to ID lookup that depends on MediaWiki core and does *not* recognize
  * canonical (English) namespace names, only localized ones.
+ *
+ * @license GPL-2.0-or-later
  */
 class LocalizedMediaWikiNamespaceLookup implements NamespaceNameLookup {
 

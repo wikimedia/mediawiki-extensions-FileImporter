@@ -8,6 +8,8 @@ use User;
 
 /**
  * This interface is used to execute actions after a successful import.
+ *
+ * @license GPL-2.0-or-later
  */
 interface PostImportHandler {
 

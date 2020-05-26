@@ -9,6 +9,8 @@ use OOUI\Theme;
 
 /**
  * @covers \FileImporter\Html\CategoriesSnippet
+ *
+ * @license GPL-2.0-or-later
  */
 class CategoriesSnippetTest extends MediaWikiTestCase {
 

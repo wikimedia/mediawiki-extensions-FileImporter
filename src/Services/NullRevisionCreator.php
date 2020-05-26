@@ -14,6 +14,9 @@ use User;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class NullRevisionCreator {
 
 	private const ERROR_REVISION_CREATE = 'noNullRevisionCreated';

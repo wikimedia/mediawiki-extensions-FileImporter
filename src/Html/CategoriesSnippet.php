@@ -11,6 +11,9 @@ use RequestContext;
 use SpecialPage;
 use Title;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class CategoriesSnippet {
 
 	private $visibleCategories;

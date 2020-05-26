@@ -18,6 +18,8 @@ use Wikimedia\TestingAccessWrapper;
  * @group Database
  *
  * @coversDefaultClass \FileImporter\Services\CategoryExtractor
+ *
+ * @license GPL-2.0-or-later
  */
 class CategoryExtractorTest extends MediaWikiTestCase {
 

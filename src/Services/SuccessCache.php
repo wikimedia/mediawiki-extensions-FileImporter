@@ -11,6 +11,8 @@ use Title;
 
 /**
  * Save the import results to cache so that they can be looked up from the success page.
+ *
+ * @license GPL-2.0-or-later
  */
 class SuccessCache {
 

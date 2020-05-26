@@ -15,6 +15,8 @@ use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor
+ *
+ * @license GPL-2.0-or-later
  */
 class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 

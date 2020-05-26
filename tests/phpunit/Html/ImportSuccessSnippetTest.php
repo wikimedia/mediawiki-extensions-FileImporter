@@ -12,6 +12,8 @@ use Title;
 
 /**
  * @covers \FileImporter\Html\ImportSuccessSnippet
+ *
+ * @license GPL-2.0-or-later
  */
 class ImportSuccessSnippetTest extends MediaWikiTestCase {
 	use HamcrestPHPUnitIntegration;

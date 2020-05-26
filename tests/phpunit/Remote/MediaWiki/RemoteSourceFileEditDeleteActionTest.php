@@ -15,6 +15,8 @@ use Title;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction
+ *
+ * @license GPL-2.0-or-later
  */
 class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 

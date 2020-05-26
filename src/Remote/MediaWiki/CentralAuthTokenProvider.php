@@ -8,6 +8,9 @@ use FauxRequest;
 use RequestContext;
 use User;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class CentralAuthTokenProvider {
 
 	/**

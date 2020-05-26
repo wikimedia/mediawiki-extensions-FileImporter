@@ -17,6 +17,8 @@ use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \FileImporter\Html\SourceWikiCleanupSnippet
+ *
+ * @license GPL-2.0-or-later
  */
 class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 

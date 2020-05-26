@@ -16,6 +16,8 @@ use User;
 
 /**
  * Delete the source file, or edit to add the {{NowCommons}} template.
+ *
+ * @license GPL-2.0-or-later
  */
 class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 

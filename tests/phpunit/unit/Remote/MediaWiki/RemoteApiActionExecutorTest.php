@@ -10,6 +10,8 @@ use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteApiActionExecutor
+ *
+ * @license GPL-2.0-or-later
  */
 class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 

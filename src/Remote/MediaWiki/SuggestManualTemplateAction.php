@@ -12,6 +12,8 @@ use User;
 /**
  * Display an educated guess about how to correctly mark a source file as having been imported to
  * Commons.
+ *
+ * @license GPL-2.0-or-later
  */
 class SuggestManualTemplateAction implements PostImportHandler {
 

@@ -13,6 +13,8 @@ use User;
 
 /**
  * Use CentralAuth to execute API calls on a sibling wiki.
+ *
+ * @license GPL-2.0-or-later
  */
 class RemoteApiRequestExecutor implements LoggerAwareInterface {
 

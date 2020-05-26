@@ -20,6 +20,8 @@ use User;
 
 /**
  * @covers \FileImporter\Html\ImportPreviewPage
+ *
+ * @license GPL-2.0-or-later
  */
 class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	use HamcrestPHPUnitIntegration;

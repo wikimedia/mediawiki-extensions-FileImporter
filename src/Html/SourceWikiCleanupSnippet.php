@@ -15,6 +15,9 @@ use OOUI\FieldLayout;
 use RequestContext;
 use User;
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class SourceWikiCleanupSnippet {
 
 	public const ACTION_OFFERED_SOURCE_DELETE = 'offeredSourceDelete';
