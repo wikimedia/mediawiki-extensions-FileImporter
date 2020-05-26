@@ -24,7 +24,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Can't import a file from a shared repository.",
 	"fileimporter-cantimportmissingfile": "Can't import a missing file.",
 	"fileimporter-cantimportfilehidden": "Can't import file because at least one of its revisions contains a suppressed file.",
-	"fileimporter-badtoken": "CSRF token does not match",
+	"fileimporter-badtoken": "Your session is no longer valid. Please restart the import.",
 	"fileimporter-badimporthash": "Import hash does not match. Please restart the import.",
 	"fileimporter-filenameerror-default": "There is an unknown issue with your filename.",
 	"fileimporter-filenameerror-illegal": "The file name you are currently trying to import to is invalid.",
