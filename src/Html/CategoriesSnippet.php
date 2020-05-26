@@ -58,8 +58,10 @@ class CategoriesSnippet {
 			return Html::rawElement(
 				'div',
 				[],
-				new IconWidget( [ 'icon' => 'info' ] ) .
-				$this->context->msg( 'fileimporter-category-encouragement' )->parse() );
+				new IconWidget( [ 'icon' => 'info' ] )
+					. ' '
+					. $this->context->msg( 'fileimporter-category-encouragement' )->parse()
+			);
 		}
 
 		$categoryLinks = $this->buildCategoryLinks( $this->visibleCategories );
