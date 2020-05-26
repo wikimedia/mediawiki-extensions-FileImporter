@@ -7,6 +7,7 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SuggestManualTemplateAction;
 use FileImporter\Services\WikidataTemplateLookup;
+use StatusValue;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\SuggestManualTemplateAction
@@ -20,14 +21,14 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 	private const TITLE = 'FilePageTitle';
 
 	public function provideExecute() {
-		yield [ 'TestTemplate',	'fileimporter-add-specific-template' ];
+		yield [ 'TestTemplate', 'fileimporter-add-specific-template' ];
 		yield [ null, 'fileimporter-add-unknown-template' ];
 	}
 
 	/**
 	 * @dataProvider provideExecute
 	 */
-	public function testExecute( $templateResult, $expected ) {
+	public function testExecute( ?string $templateResult, string $expected ) {
 		$sourceUrlMock = $this->createMock( SourceUrl::class );
 		$sourceUrlMock
 			->method( 'getUrl' )
@@ -55,19 +56,14 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 		$this->assertEquals( $status, $importHandler->execute( $importPlanMock, new \User() ) );
 	}
 
-	private function createStatus( $templateName, $expectedMessage ) {
-		$params = [ self::URL ];
+	private function createStatus( ?string $templateName, string $expectedMessage ) : StatusValue {
+		$messageSpecifier = [ $expectedMessage, self::URL ];
 		if ( $templateName ) {
-			$params[] = $templateName;
-			$params[] = self::TITLE;
+			$messageSpecifier[] = $templateName;
+			$messageSpecifier[] = self::TITLE;
 		}
 
-		return \StatusValue::newGood(
-			new \Message(
-				$expectedMessage,
-				$params
-			)
-		);
+		return StatusValue::newGood( $messageSpecifier );
 	}
 
 	/**
@@ -77,7 +73,7 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 	 */
 	private function createWikidataTemplateLookup(
 		SourceUrl $sourceUrl,
-		$templateResult
+		?string $templateResult
 	) : WikidataTemplateLookup {
 		$mock = $this->createMock( WikidataTemplateLookup::class );
 		$mock

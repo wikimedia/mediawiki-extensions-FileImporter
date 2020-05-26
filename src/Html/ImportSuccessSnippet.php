@@ -7,6 +7,7 @@ use Html;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
 use Message;
+use MessageSpecifier;
 use StatusValue;
 use Title;
 
@@ -52,15 +53,15 @@ class ImportSuccessSnippet {
 			return '';
 		}
 
-		/** @var string|string[]|MessageSpecifier $statusMessage */
-		$statusMessage = $importResult->getValue();
-
-		$html = Html::successBox( $context->msg( $statusMessage )->parse() );
+		/** @var string|array|MessageSpecifier $messageSpecifier */
+		$messageSpecifier = $importResult->getValue();
+		$msg = Message::newFromSpecifier( $messageSpecifier );
+		$html = Html::successBox( $msg->parse() );
 
 		$warnings = $importResult->getErrorsByType( 'warning' );
 		foreach ( $warnings as $warning ) {
-			$warningMessage = new Message( $warning['message'], $warning['params'] );
-			$html .= Html::warningBox( $context->msg( $warningMessage )->parse() );
+			$msg = $context->msg( $warning['message'], $warning['params'] ?? [] );
+			$html .= Html::warningBox( $msg->parse() );
 		}
 
 		return Html::rawElement(

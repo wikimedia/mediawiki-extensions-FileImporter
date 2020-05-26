@@ -6,8 +6,6 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
 use IBufferingStatsdDataFactory;
-use Message;
-use MessageSpecifier;
 use NullStatsdDataFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -89,7 +87,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	private function manualTemplateFallback(
 		ImportPlan $importPlan,
 		User $user,
-		MessageSpecifier $warningMsg = null
+		string $warningMsg = null
 	) {
 		$status = $this->fallbackHandler->execute( $importPlan, $user );
 		if ( $warningMsg ) {
@@ -139,7 +137,10 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			$this->statsd->increment( self::STATSD_SOURCE_EDIT_FAIL );
 
 			return $this->manualTemplateFallback(
-				$importPlan, $user, new Message( 'fileimporter-cleanup-failed' ) );
+				$importPlan,
+				$user,
+				'fileimporter-cleanup-failed'
+			);
 		}
 	}
 
@@ -177,15 +178,14 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			$status->warning(
 				'fileimporter-delete-failed',
 				$sourceUrl->getHost(),
-				$sourceUrl->getUrl() );
+				$sourceUrl->getUrl()
+			);
 			return $status;
 		}
 	}
 
 	private function successMessage() {
-		return StatusValue::newGood(
-			new Message( 'fileimporter-imported-success-banner' )
-		);
+		return StatusValue::newGood( 'fileimporter-imported-success-banner' );
 	}
 
 }
