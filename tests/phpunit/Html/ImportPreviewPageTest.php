@@ -81,6 +81,10 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	public function testGetHtml_canEditSourceWiki() {
+		if ( !\ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) ) {
+			$this->markTestSkipped( 'CentralAuth not loaded' );
+		}
+
 		$this->setMwGlobals( [
 			'wgFileImporterSourceWikiTemplating' => true,
 		] );

@@ -107,12 +107,12 @@
 		},
 		"FileImporterSourceWikiDeletion": {
 			"value": false,
-			"description": "When set to true, FileImporter offers an option to automatically delete the source file after a successful import.",
+			"description": "When set to true, FileImporter offers an option to automatically delete the source file after a successful import. Requires the CentralAuth extension to be set up and running on both the source and target wiki.",
 			"public": true
 		},
 		"FileImporterSourceWikiTemplating": {
 			"value": false,
-			"description": "When set to true, FileImporter offers an option to automatically edit the source file after a successful import.",
+			"description": "When set to true, FileImporter offers an option to automatically edit the source file after a successful import. Requires the CentralAuth extension to be set up and running on both the source and target wiki.",
 			"public": true
 		}
 	},
