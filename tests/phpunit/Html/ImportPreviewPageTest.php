@@ -10,8 +10,10 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ImportPreviewPage;
+use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use HamcrestPHPUnitIntegration;
+use MediaWiki\Linker\LinkTarget;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use SpecialPage;
@@ -91,6 +93,10 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 			'wgFileImporterSourceWikiTemplating' => true,
 		] );
 		$this->setService( 'FileImporterTemplateLookup', $this->getMockTemplateLookup() );
+		$api = $this->createMock( RemoteApiActionExecutor::class );
+		$api->method( 'executeTestEditActionQuery' )
+			->willReturn( [ 'query' => [ 'pages' => [ [ 'actions' => [ 'edit' => '' ] ] ] ] ] );
+		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $api );
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
 			$this->getMockImportDetails( 'Bar' ),
@@ -196,6 +202,8 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 
 	private function getMockImportDetails( $wikitext ) : ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
+		$mock->method( 'getSourceLinkTarget' )
+			->willReturn( $this->createMock( LinkTarget::class ) );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions( $wikitext ) );
 		$mock->method( 'getFileRevisions' )

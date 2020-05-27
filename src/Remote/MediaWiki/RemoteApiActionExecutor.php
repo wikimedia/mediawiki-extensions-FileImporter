@@ -24,6 +24,34 @@ class RemoteApiActionExecutor {
 
 	/**
 	 * Possible return values:
+	 * - { "query": { "pages": { "…": { "actions": { "edit": "" }, … } } } }
+	 * - { "query": { "pages": { "…": { "actions": [], … } } } }
+	 * - There should be no reason for this to ever return an error, but it's not impossible.
+	 * - null if the API request failed
+	 *
+	 * @param SourceUrl $sourceUrl
+	 * @param User $user
+	 * @param string $title
+	 *
+	 * @return array|null
+	 */
+	public function executeTestEditActionQuery( SourceUrl $sourceUrl, User $user, string $title ) {
+		return $this->remoteApiRequestExecutor->execute(
+			$sourceUrl,
+			$user,
+			[
+				'action' => 'query',
+				'format' => 'json',
+				'prop' => 'info',
+				'titles' => $title,
+				'intestactions' => 'edit',
+			],
+			true
+		);
+	}
+
+	/**
+	 * Possible return values:
 	 * - { "edit": { "result": "Success", … } }
 	 * - { "error": { "code": "protectedpage", "info": "This page has been protected …", … } }
 	 * - null if the API request failed
