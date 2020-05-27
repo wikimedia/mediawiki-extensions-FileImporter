@@ -18,7 +18,7 @@
 	"fileimporter-api-failedtogetinfo": "次のページからファイルの情報を取得するのに失敗しました: $1",
 	"fileimporter-api-toomanyrevisions": "APIによって大量の履歴が検出されたため、インポートできません。",
 	"fileimporter-api-file-notfound": "ファイルが見つかりませんでした: $1",
-	"fileimporter-api-failedtofindapi": "次のURLからAPIのロケーションを見つけるのに失敗しました: $1",
+	"fileimporter-api-failedtofindapi": "次のURLからAPIのロケーションを見つけるのに失敗しました: $1。$2 $3",
 	"fileimporter-http-statuscode": "HTTP ステータスコード $1",
 	"fileimporter-cantparseurl": "指定された URL: $1 を解析できません",
 	"fileimporter-cantimporturl": "指定された URL をインポートできません",

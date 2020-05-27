@@ -21,7 +21,7 @@
 	"fileimporter-api-nopagesreturned": "Віддалений API не повернув жодної інформації.",
 	"fileimporter-api-toomanyrevisions": "API повернув надто багато версій, імпортувати неможливо.",
 	"fileimporter-api-file-notfound": "Файл не знайдено: $1.",
-	"fileimporter-api-failedtofindapi": "Не вдалося знайти розташування API з: $1.",
+	"fileimporter-api-failedtofindapi": "Не вдалося знайти розташування API з: $1. $2 $3",
 	"fileimporter-http-statuscode": "Код статусу HTTP $1.",
 	"fileimporter-cantparseurl": "Не вдається обробити подану URL-адресу: $1",
 	"fileimporter-cantimporturl": "Не вдається імпортувати з поданої URL-адреси",
