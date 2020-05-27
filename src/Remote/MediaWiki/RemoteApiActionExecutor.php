@@ -71,7 +71,7 @@ class RemoteApiActionExecutor {
 	 *
 	 * @return array|null
 	 */
-	public function executeUserRightsAction( SourceUrl $sourceUrl, User $user ) {
+	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ) {
 		return $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
