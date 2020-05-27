@@ -23,9 +23,15 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
+	 * Possible return values:
+	 * - { "edit": { "result": "Success", … } }
+	 * - { "error": { "code": "protectedpage", "info": "This page has been protected …", … } }
+	 * - null if the API request failed
+	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 * @param array $params
+	 *
 	 * @return array|null
 	 */
 	public function executeEditAction(
@@ -55,8 +61,14 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
+	 * Possible return values:
+	 * - { "query": { "userinfo": { "rights": [ "…", … ], … } }, … }
+	 * - There should be no reason for this to ever return an error, but it's not impossible.
+	 * - null if the API request failed
+	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
+	 *
 	 * @return array|null
 	 */
 	public function executeUserRightsAction( SourceUrl $sourceUrl, User $user ) {
@@ -73,9 +85,15 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
+	 * Possible return values:
+	 * - { "delete": { … } }
+	 * - { "error": { "code": "permissiondenied", "info": "…", …  } }
+	 * - null if the API request failed
+	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 * @param array $params
+	 *
 	 * @return array|null
 	 */
 	public function executeDeleteAction(
