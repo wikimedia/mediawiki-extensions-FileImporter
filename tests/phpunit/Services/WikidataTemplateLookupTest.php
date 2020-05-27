@@ -50,7 +50,7 @@ class WikidataTemplateLookupTest extends MediaWikiTestCase {
 		$mockRequestExecutor
 			->expects( $this->once() )
 			->method( 'execute' )
-			->with( $this->equalTo( 'https://wikidata.invalid/wiki/Special:EntityData/Q123' ) )
+			->with( 'https://wikidata.invalid/wiki/Special:EntityData/Q123' )
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(
@@ -112,7 +112,7 @@ class WikidataTemplateLookupTest extends MediaWikiTestCase {
 			->willReturn( $content );
 		$mockRequestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$mockRequestExecutor->method( 'execute' )
-			->with( $this->equalTo( 'https://wikidata.invalid/wiki/Special:EntityData/Q123' ) )
+			->with( 'https://wikidata.invalid/wiki/Special:EntityData/Q123' )
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(

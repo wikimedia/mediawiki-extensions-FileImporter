@@ -120,11 +120,11 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$result = $this->remoteAction->executeEditAction(
 			$sourceUrl,
 			$user,
+			$importPlan->getOriginalTitle()->getPrefixedText(),
 			[
-				'title' => $importPlan->getOriginalTitle()->getPrefixedText(),
 				'appendtext' => $text,
-				'summary' => $summary,
-			]
+			],
+			$summary
 		);
 
 		/** @see \ApiEditPage::execute */
@@ -158,10 +158,8 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$result = $this->remoteAction->executeDeleteAction(
 			$sourceUrl,
 			$user,
-			[
-				'title' => $importPlan->getOriginalTitle()->getPrefixedText(),
-				'reason' => $summary,
-			]
+			$importPlan->getOriginalTitle()->getPrefixedText(),
+			$summary
 		);
 
 		/** @see \ApiDelete::execute */
