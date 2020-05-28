@@ -157,7 +157,7 @@ class SourceWikiCleanupSnippet {
 		return $this->sourceDeletionEnabled &&
 			in_array(
 				'delete',
-				( $this->remoteActionApi->executeUserRightsAction(
+				( $this->remoteActionApi->executeUserRightsQuery(
 					$sourceUrl, $user )
 				)['query']['userinfo']['rights'] ?? [] );
 	}

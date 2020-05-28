@@ -114,7 +114,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		$mockApi = $this->createMock( RemoteApiActionExecutor::class );
 		$mockApi
 			->expects( $this->once() )
-			->method( 'executeUserRightsAction' )
+			->method( 'executeUserRightsQuery' )
 			->willReturn( [ 'query' => [ 'userinfo' => [ 'rights' => [ 'edit' ] ] ] ] );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
@@ -139,7 +139,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		$mockApi = $this->createMock( RemoteApiActionExecutor::class );
 		$mockApi
 			->expects( $this->never() )
-			->method( 'executeUserRightsAction' );
+			->method( 'executeUserRightsQuery' );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet( true, false ) );
 
@@ -185,7 +185,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		$this->setService( 'FileImporterTemplateLookup', $mockTemplateLookup );
 		$mockApiExecutor = $this->createMock( RemoteApiActionExecutor::class );
 		$mockApiExecutor
-			->method( 'executeUserRightsAction' )
+			->method( 'executeUserRightsQuery' )
 			->willReturn( $rightsApiResult );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApiExecutor );
 	}
