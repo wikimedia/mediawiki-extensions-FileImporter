@@ -58,7 +58,6 @@ class SourceWikiCleanupSnippet {
 	public function getHtml( ImportPlan $importPlan, User $user ) {
 		/** @var IContextSource $context */
 		$context = RequestContext::getMain();
-		/** @var SourceUrl $sourceUrl */
 		$sourceUrl = $importPlan->getRequest()->getUrl();
 
 		$canAutomateEdit = $this->isSourceEditAllowed( $sourceUrl );
@@ -136,8 +135,12 @@ class SourceWikiCleanupSnippet {
 	}
 
 	/**
+	 * Warning, contrary to the method name this currently doesn't check if the user is allowed to
+	 * edit the page!
+	 *
 	 * @param SourceUrl $sourceUrl
-	 * @return bool
+	 * @return bool True if source wiki editing is enabled and a localized {{Now Commons}} template
+	 *  can be found.
 	 */
 	private function isSourceEditAllowed( SourceUrl $sourceUrl ) {
 		return $this->sourceEditingEnabled &&
@@ -147,7 +150,8 @@ class SourceWikiCleanupSnippet {
 	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
-	 * @return bool
+	 * @return bool True if source wiki deletions are enabled and the user does have the right to
+	 *  delete pages. Also returns false if querying the user rights failed.
 	 */
 	private function isSourceDeleteAllowed( SourceUrl $sourceUrl, User $user ) {
 		return $this->sourceDeletionEnabled &&

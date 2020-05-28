@@ -52,7 +52,7 @@ class ImportSuccessSnippet {
 			return '';
 		}
 
-		/** @var Message $statusMessage */
+		/** @var string|string[]|MessageSpecifier $statusMessage */
 		$statusMessage = $importResult->getValue();
 
 		$html = Html::successBox( $context->msg( $statusMessage )->parse() );
