@@ -2,6 +2,7 @@
 
 namespace FileImporter\Html;
 
+use ExtensionRegistry;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Services\CategoryExtractor;
 use Html;
@@ -32,9 +33,14 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
 		// TODO: Inject
-		$config = $this->getContext()->getConfig();
-		$sourceEditingEnabled = $config->get( 'FileImporterSourceWikiTemplating' );
-		$sourceDeletionEnabled = $config->get( 'FileImporterSourceWikiDeletion' );
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) ) {
+			$config = $this->getContext()->getConfig();
+			$sourceEditingEnabled = $config->get( 'FileImporterSourceWikiTemplating' );
+			$sourceDeletionEnabled = $config->get( 'FileImporterSourceWikiDeletion' );
+		} else {
+			$sourceEditingEnabled = false;
+			$sourceDeletionEnabled = false;
+		}
 
 		$text = $importPlan->getFileInfoText();
 		$title = $importPlan->getTitle();
