@@ -35,7 +35,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Impossible d’importer un fichier depuis un répertoire partagé.",
 	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier absent.",
 	"fileimporter-cantimportfilehidden": "Impossible d’importer le fichier parce qu’au moins une de ses révisions contient un fichier supprimé.",
-	"fileimporter-badtoken": "Le jeton CSRF ne correspond pas",
+	"fileimporter-badtoken": "Votre session n'est plus valide. Veuillez recommencer l'import.",
 	"fileimporter-badimporthash": "Le hachage de l’import ne correspond pas. Veuillez refaire l'import.",
 	"fileimporter-filenameerror-default": "Il y a un problème non reconnu avec le nom de votre fichier.",
 	"fileimporter-filenameerror-illegal": "Le nom du fichier que vous essayez actuellement d'importer est invalide.",

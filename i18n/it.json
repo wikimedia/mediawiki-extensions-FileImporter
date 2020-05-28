@@ -29,7 +29,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Impossibile importare un file da un repository condiviso.",
 	"fileimporter-cantimportmissingfile": "Impossibile importare un file mancante.",
 	"fileimporter-cantimportfilehidden": "Impossibile importare il file perché almeno una delle sue versioni contiene un file cancellato.",
-	"fileimporter-badtoken": "Il token CSRF non corrisponde",
+	"fileimporter-badtoken": "La sessione non è più valida. Riavvia l'importazione.",
 	"fileimporter-badimporthash": "L'hash dell'importazione non corrisponde. Riavvia l'importazione.",
 	"fileimporter-filenameerror-default": "Si è verificato un problema sconosciuto con il nome del tuo file.",
 	"fileimporter-filenameerror-illegal": "Il nome di file che stai cercando di importare non è valido.",
