@@ -53,13 +53,13 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 		$mockRemoteAction->expects( $this->once() )
 			->method( 'executeEditAction' )
 			->with(
-				$this->anything(),
-				$this->equalTo( $mockUser ),
-				$this->equalTo( [
-					'title' => 'TestTitleOriginal',
+				$this->isInstanceOf( SourceUrl::class ),
+				$mockUser,
+				'TestTitleOriginal',
+				[
 					'appendtext' => "\n{{TestNowCommons&#60;script&#62;|TestTitleEdited&#60;script&#62;}}",
-					'summary' => '(fileimporter-cleanup-summary: http://TestUrl)',
-				] )
+				],
+				'(fileimporter-cleanup-summary: http://TestUrl)'
 			)
 			// FIXME: not a realistic result, but we don't care yet.
 			->willReturn( true );
@@ -114,12 +114,10 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 		$mockRemoteAction->expects( $this->once() )
 			->method( 'executeDeleteAction' )
 			->with(
-				$this->anything(),
-				$this->equalTo( $mockUser ),
-				$this->equalTo( [
-					'title' => 'TestTitleOriginal',
-					'reason' => '(fileimporter-delete-summary: http://TestUrl)',
-				] )
+				$this->isInstanceOf( SourceUrl::class ),
+				$mockUser,
+				'TestTitleOriginal',
+				'(fileimporter-delete-summary: http://TestUrl)'
 			)
 			// FIXME: not a realistic result, but we don't care yet.
 			->willReturn( true );

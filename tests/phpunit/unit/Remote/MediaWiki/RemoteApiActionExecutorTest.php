@@ -25,7 +25,9 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 		$this->assertNull( $remoteApiActionExecutor->executeEditAction(
 			$this->createMock( SourceUrl::class ),
 			$this->createMock( User::class ),
-			[]
+			'',
+			[],
+			''
 		) );
 	}
 
@@ -44,6 +46,8 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 				[
 					'action' => 'edit',
 					'format' => 'json',
+					'title' => 'TestTitle',
+					'summary' => 'TestSummary',
 					'prepend' => 'text',
 					'token' => $token,
 				]
@@ -55,7 +59,9 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 		$result = $remoteApiActionExecutor->executeEditAction(
 			$this->createMock( SourceUrl::class ),
 			$this->createMock( User::class ),
-			[ 'prepend' => 'text' ]
+			'TestTitle',
+			[ 'prepend' => 'text' ],
+			'TestSummary'
 		);
 		$this->assertEquals( [ 'success' ], $result );
 	}

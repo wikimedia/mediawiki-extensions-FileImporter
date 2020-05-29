@@ -30,14 +30,19 @@ class RemoteApiActionExecutor {
 	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
-	 * @param array $params Additional API request params
+	 * @param string $title
+	 * @param array $params At least one of the parameters "text", "appendtext", "prependtext" and
+	 *  "undo" is required.
+	 * @param string $editSummary
 	 *
 	 * @return array|null Null in case of an error.
 	 */
 	public function executeEditAction(
 		SourceUrl $sourceUrl,
 		User $user,
-		array $params
+		string $title,
+		array $params,
+		string $editSummary
 	) {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
 
@@ -53,6 +58,8 @@ class RemoteApiActionExecutor {
 					'action' => 'edit',
 					'token' => $token,
 					'format' => 'json',
+					'title' => $title,
+					'summary' => $editSummary,
 				],
 				$params
 			),
@@ -92,14 +99,16 @@ class RemoteApiActionExecutor {
 	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
-	 * @param array $params Additional API request params
+	 * @param string $title
+	 * @param string $deletionReason
 	 *
 	 * @return array|null Null in case of an error.
 	 */
 	public function executeDeleteAction(
 		SourceUrl $sourceUrl,
 		User $user,
-		array $params
+		string $title,
+		string $deletionReason
 	) {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
 
@@ -110,14 +119,13 @@ class RemoteApiActionExecutor {
 		return $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
-			array_merge(
-				[
-					'action' => 'delete',
-					'format' => 'json',
-					'token' => $token,
-				],
-				$params
-			),
+			[
+				'action' => 'delete',
+				'format' => 'json',
+				'title' => $title,
+				'reason' => $deletionReason,
+				'token' => $token,
+			],
 			true
 		);
 	}
