@@ -79,7 +79,12 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @return array|null Null in case of an error. Calling code can't understand why, but the error
 	 *  is logged.
 	 */
-	public function execute( SourceUrl $sourceUrl, User $user, $params, $usePost = false ) {
+	public function execute(
+		SourceUrl $sourceUrl,
+		User $user,
+		array $params,
+		bool $usePost = false
+	) : ?array {
 		// TODO handle error
 		if ( !$this->canUseCentralAuth( $user ) ) {
 			$this->logger->error( __METHOD__ . ' user can\'t use CentralAuth.' );
@@ -93,7 +98,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @return int
 	 */
-	private function getCentralId( User $user ) {
+	private function getCentralId( User $user ) : int {
 		return $this->centralIdLookup->centralIdFromLocalUser(
 			$user,
 			CentralIdLookup::AUDIENCE_RAW
@@ -104,7 +109,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @return bool
 	 */
-	private function canUseCentralAuth( User $user ) {
+	private function canUseCentralAuth( User $user ) : bool {
 		return $user->isSafeToLoad() &&
 			$this->getCentralId( $user ) !== 0;
 	}
@@ -120,13 +125,13 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		SourceUrl $sourceUrl,
 		User $user,
 		array $additionalParams = []
-	) {
-		$api = $this->httpApiLookup->getApiUrl( $sourceUrl );
+	) : string {
+		$url = $this->httpApiLookup->getApiUrl( $sourceUrl );
 		$additionalParams += [
 			'centralauthtoken' => $this->centralAuthTokenProvider->getToken( $user ),
 		];
-		$requestUrl = $api . '?' . http_build_query( $additionalParams );
-		return $requestUrl;
+
+		return wfAppendQuery( $url, $additionalParams );
 	}
 
 	/**
@@ -134,7 +139,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @return string|null
 	 */
-	public function getCsrfToken( SourceUrl $sourceUrl, User $user ) {
+	public function getCsrfToken( SourceUrl $sourceUrl, User $user ) : ?string {
 		try {
 			$tokenRequestUrl = $this->getAuthorizedApiUrl( $sourceUrl, $user, [
 				'action' => 'query',
@@ -166,7 +171,12 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @return array|null Null in case of an error. Calling code can't understand why, but the error
 	 *  is logged.
 	 */
-	private function doRequest( SourceUrl $sourceUrl, User $user, array $params, $usePost ) {
+	private function doRequest(
+		SourceUrl $sourceUrl,
+		User $user,
+		array $params,
+		bool $usePost
+	) : ?array {
 		/** @var array|null $result */
 		$result = null;
 		/** @var \MWHttpRequest|null $request */
