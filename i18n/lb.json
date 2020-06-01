@@ -7,6 +7,7 @@
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
 	"fileimporter-specialpage": "Fichier importéieren",
 	"fileimporter-importfailed": "Den Import huet net funktionéiert",
+	"fileimporter-api-file-notfound": "Fichier net fonnt:$1",
 	"fileimporter-cantparseurl": "D'URL $1 déi ugi gouf konnt net duergestallt ginn",
 	"fileimporter-filenameerror-default": "Et gëtt en onbekannte Problem mat Ärem Numm vum Fichier.",
 	"fileimporter-filenameerror-illegal": "Den Numm vum Fichier deen Dir elo probéiert z'importéieren ass net valabel.",

@@ -20,7 +20,7 @@
 	"fileimporter-cantparseurl": "Nie można sparsować danego adresu URL: $1",
 	"fileimporter-cantimporturl": "Nie można zaimportować danego adresu URL",
 	"fileimporter-cantimportmissingfile": "Nie można zaimportować brakującego pliku.",
-	"fileimporter-badtoken": "Token CSRF nie pasuje",
+	"fileimporter-badtoken": "Twoja sesja nie jest już ważna. Prosimy zrestartować import.",
 	"fileimporter-filenameerror-default": "Wystąpił nieznany błąd twojej nazwy pliku",
 	"fileimporter-filenameerror-illegal": "Nazwa pliku, które próbujesz zaimportować jest niedozwolona.",
 	"fileimporter-filenameerror-toolong": "Nazwa pliku, które próbujesz zaimportować jest zbyt długa.",

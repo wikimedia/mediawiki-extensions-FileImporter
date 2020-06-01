@@ -24,7 +24,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Não é possível importar um arquivo de um repositório compartilhado.",
 	"fileimporter-cantimportmissingfile": "Não é possível importar um arquivo em falta.",
 	"fileimporter-cantimportfilehidden": "Não é possível importar o arquivo porque pelo menos uma das suas revisões contém um arquivo suprimido.",
-	"fileimporter-badtoken": "A chave CSFR não corresponde",
+	"fileimporter-badtoken": "Sua sessão não é mais válida. Por favor, reinicie a importação.",
 	"fileimporter-badimporthash": "A chave de importação não corresponde. Reinicie a importação, por favor.",
 	"fileimporter-filenameerror-default": "Há um problema desconhecido com o nome do seu arquivo.",
 	"fileimporter-filenameerror-illegal": "O nome de arquivo para o qual está tentando importar é inválido.",
