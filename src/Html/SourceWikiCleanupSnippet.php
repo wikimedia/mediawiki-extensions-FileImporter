@@ -60,7 +60,11 @@ class SourceWikiCleanupSnippet {
 		$context = RequestContext::getMain();
 		$sourceUrl = $importPlan->getRequest()->getUrl();
 
-		$canAutomateEdit = $this->isSourceEditAllowed( $sourceUrl );
+		$canAutomateEdit = $this->isSourceEditAllowed(
+			$sourceUrl,
+			$user,
+			$importPlan->getOriginalTitle()->getPrefixedText()
+		);
 		$canAutomateDelete = $this->isSourceDeleteAllowed( $sourceUrl, $user );
 
 		if ( !$canAutomateEdit && !$canAutomateDelete ) {
@@ -139,27 +143,39 @@ class SourceWikiCleanupSnippet {
 	 * edit the page!
 	 *
 	 * @param SourceUrl $sourceUrl
+	 * @param User $user
+	 * @param string $title
+	 *
 	 * @return bool True if source wiki editing is enabled and a localized {{Now Commons}} template
 	 *  can be found.
 	 */
-	private function isSourceEditAllowed( SourceUrl $sourceUrl ) {
-		return $this->sourceEditingEnabled &&
-			( $this->lookup->fetchNowCommonsLocalTitle( $sourceUrl ) !== null );
+	private function isSourceEditAllowed( SourceUrl $sourceUrl, User $user, string $title ) {
+		if ( !$this->sourceEditingEnabled ||
+			!$this->lookup->fetchNowCommonsLocalTitle( $sourceUrl )
+		) {
+			return false;
+		}
+
+		$result = $this->remoteActionApi->executeTestEditActionQuery( $sourceUrl, $user, $title );
+		$pages = $result['query']['pages'] ?? [];
+		$page = reset( $pages );
+		return array_key_exists( 'edit', $page['actions'] ?: [] );
 	}
 
 	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
+	 *
 	 * @return bool True if source wiki deletions are enabled and the user does have the right to
 	 *  delete pages. Also returns false if querying the user rights failed.
 	 */
 	private function isSourceDeleteAllowed( SourceUrl $sourceUrl, User $user ) {
-		return $this->sourceDeletionEnabled &&
-			in_array(
-				'delete',
-				( $this->remoteActionApi->executeUserRightsQuery(
-					$sourceUrl, $user )
-				)['query']['userinfo']['rights'] ?? [] );
+		if ( !$this->sourceDeletionEnabled ) {
+			return false;
+		}
+
+		$result = $this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user );
+		return $result && in_array( 'delete', $result['query']['userinfo']['rights'] );
 	}
 
 }
