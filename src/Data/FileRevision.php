@@ -22,7 +22,6 @@ class FileRevision {
 		'description',
 		'user',
 		'timestamp',
-		'sha1',
 		'size',
 		'thumburl',
 		'url',
@@ -40,7 +39,6 @@ class FileRevision {
 	 */
 	public function __construct( array $fields ) {
 		$this->throwExceptionIfMissingFields( $fields );
-		// TODO check sha1 is correct / base36
 		$this->fields = $fields;
 	}
 
@@ -60,7 +58,11 @@ class FileRevision {
 	 * @throws InvalidArgumentException if an unrecognized field is requested
 	 */
 	public function getField( $name ) {
-		if ( !in_array( $name, self::$fieldNames ) ) {
+		if ( !array_key_exists( $name, $this->fields ) ) {
+			if ( $name === 'sha1' ) {
+				return '';
+			}
+
 			throw new InvalidArgumentException(
 				__CLASS__ . ': Unrecognized field requested', self::ERROR_UNKNOWN_FIELD );
 		}

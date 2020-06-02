@@ -75,7 +75,7 @@ class TextRevision {
 	 * @throws InvalidArgumentException if an unrecognized field is requested
 	 */
 	public function getField( $name ) {
-		if ( !in_array( $name, self::$fieldNames ) ) {
+		if ( !array_key_exists( $name, $this->fields ) ) {
 			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested',
 				self::ERROR_TEXT_FIELD_UNKNOWN );
 		}

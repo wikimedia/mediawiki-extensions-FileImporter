@@ -356,10 +356,6 @@ class ApiDetailRetriever implements DetailRetriever {
 				$revisionInfo['user'] = $this->suppressedUsername;
 			}
 
-			if ( array_key_exists( 'sha1hidden', $revisionInfo ) ) {
-				$revisionInfo['sha1'] = sha1( $revisionInfo['*'] );
-			}
-
 			if ( array_key_exists( 'size', $revisionInfo ) ) {
 				if ( $revisionInfo['size'] > $this->maxBytes ) {
 					$versions = count( $imageInfo );

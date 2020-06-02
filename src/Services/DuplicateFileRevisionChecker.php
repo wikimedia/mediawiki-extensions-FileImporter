@@ -33,7 +33,12 @@ class DuplicateFileRevisionChecker {
 	 * @return File[] array of matched files
 	 */
 	public function findDuplicates( FileRevision $fileRevision ) {
-		$files = $this->fileRepo->findBySha1( $fileRevision->getField( 'sha1' ) );
+		$sha1 = $fileRevision->getField( 'sha1' );
+		if ( !$sha1 ) {
+			return [];
+		}
+
+		$files = $this->fileRepo->findBySha1( $sha1 );
 		$files = $this->removeIgnoredFiles( $files );
 
 		return $files;

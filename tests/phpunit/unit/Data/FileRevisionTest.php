@@ -16,7 +16,6 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 	private static $requiredFieldNames = [
 		'description',
 		'name',
-		'sha1',
 		'size',
 		'thumburl',
 		'timestamp',
@@ -36,8 +35,7 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testSetAndGetNonExistingField() {
-		// The class should accept additional fields, but getField should warn when accessing them
-		$fields = array_flip( self::$requiredFieldNames ) + [ 'invalid' => null ];
+		$fields = array_flip( self::$requiredFieldNames );
 		$instance = new FileRevision( $fields );
 
 		$this->expectException( InvalidArgumentException::class );
