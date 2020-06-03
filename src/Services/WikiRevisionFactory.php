@@ -59,7 +59,10 @@ class WikiRevisionFactory {
 		$revision->setTitle( $this->makeTitle( $fileRevision->getField( 'name' ) ) );
 		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
 		$revision->setFileSrc( $src, true );
-		$revision->setSha1Base36( $fileRevision->getField( 'sha1' ) );
+		$sha1 = $fileRevision->getField( 'sha1' );
+		if ( $sha1 ) {
+			$revision->setSha1Base36( $sha1 );
+		}
 		$revision->setComment( $fileRevision->getField( 'description' ) );
 
 		// create user with CentralAuth/SUL if nonexistent

@@ -44,8 +44,7 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testSetAndGetNonExistingField() {
-		// The class should accept additional fields, but getField should warn when accessing them
-		$fields = array_flip( self::$requiredFieldNames ) + [ 'invalid' => null ];
+		$fields = array_flip( self::$requiredFieldNames );
 		$instance = new TextRevision( $fields );
 
 		$this->expectException( InvalidArgumentException::class );
