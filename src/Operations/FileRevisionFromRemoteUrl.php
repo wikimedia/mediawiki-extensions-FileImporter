@@ -166,7 +166,9 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 		$fileValidationStatus = $this->uploadBase->validateFile();
 		if ( !$fileValidationStatus->isOK() ) {
-			throw new LocalizedImportException( $fileValidationStatus->getMessage() );
+			throw new LocalizedImportException( [
+				'fileimporter-cantimportfileinvalid', $fileValidationStatus->getMessage()
+			] );
 		}
 
 		$uploadValidationStatus = $this->uploadBase->validateUpload(
