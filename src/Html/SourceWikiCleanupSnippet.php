@@ -12,6 +12,8 @@ use IContextSource;
 use MediaWiki\MediaWikiServices;
 use OOUI\CheckboxInputWidget;
 use OOUI\FieldLayout;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use RequestContext;
 use User;
 
@@ -31,17 +33,22 @@ class SourceWikiCleanupSnippet {
 	private $lookup;
 	/** @var RemoteApiActionExecutor */
 	private $remoteActionApi;
+	/** @var LoggerInterface */
+	private $logger;
 
 	/**
 	 * @param bool $sourceEditingEnabled
 	 * @param bool $sourceDeletionEnabled
+	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
 		$sourceEditingEnabled = true,
-		$sourceDeletionEnabled = true
+		$sourceDeletionEnabled = true,
+		LoggerInterface $logger = null
 	) {
 		$this->sourceEditingEnabled = $sourceEditingEnabled;
 		$this->sourceDeletionEnabled = $sourceDeletionEnabled;
+		$this->logger = $logger ?: new NullLogger();
 
 		// TODO: Inject
 		$this->lookup = MediaWikiServices::getInstance()->getService(
@@ -157,9 +164,17 @@ class SourceWikiCleanupSnippet {
 		}
 
 		$result = $this->remoteActionApi->executeTestEditActionQuery( $sourceUrl, $user, $title );
-		$pages = $result['query']['pages'] ?? [];
-		$page = reset( $pages );
-		return array_key_exists( 'edit', $page['actions'] ?: [] );
+		if ( $result && !isset( $result['error'] ) ) {
+			$pages = $result['query']['pages'] ?? [];
+			$page = reset( $pages );
+			return array_key_exists( 'edit', $page['actions'] ?: [] );
+		} else {
+			$this->logger->error( __METHOD__ . ' failed to check whether source editing is allowed.' );
+			if ( $result ) {
+				$this->logger->error( $result['error']['code'] . ': ' . $result['error']['info'] );
+			}
+			return false;
+		}
 	}
 
 	/**
@@ -175,7 +190,15 @@ class SourceWikiCleanupSnippet {
 		}
 
 		$result = $this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user );
-		return $result && in_array( 'delete', $result['query']['userinfo']['rights'] );
+		if ( $result && !isset( $result['error'] ) ) {
+			return in_array( 'delete', $result['query']['userinfo']['rights'] );
+		} else {
+			$this->logger->error( __METHOD__ . ' failed to check whether source deletion is allowed.' );
+			if ( $result ) {
+				$this->logger->error( $result['error']['code'] . ': ' . $result['error']['info'] );
+			}
+			return false;
+		}
 	}
 
 }
