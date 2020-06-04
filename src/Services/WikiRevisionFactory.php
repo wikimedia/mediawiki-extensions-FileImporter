@@ -82,7 +82,10 @@ class WikiRevisionFactory {
 		$revision = $this->getWikiRevision();
 		$revision->setTitle( $this->makeTitle( $textRevision->getField( 'title' ) ) );
 		$revision->setTimestamp( $textRevision->getField( 'timestamp' ) );
-		$revision->setSha1Base36( $textRevision->getField( 'sha1' ) );
+		$sha1 = $textRevision->getField( 'sha1' );
+		if ( $sha1 ) {
+			$revision->setSha1Base36( $sha1 );
+		}
 		// create user with CentralAuth/SUL if nonexistent and use the prefix only as fallback
 		$revision->setUsername(
 			$this->externalUserNames->applyPrefix( $textRevision->getField( 'user' ) )

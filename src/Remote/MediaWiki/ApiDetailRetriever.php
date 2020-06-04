@@ -402,12 +402,6 @@ class ApiDetailRetriever implements DetailRetriever {
 					->plain();
 			}
 
-			if ( array_key_exists( 'sha1hidden', $revisionInfo ) && isset( $revisionInfo['*'] ) ) {
-				$revisionInfo['sha1'] = \Wikimedia\base_convert(
-					sha1( $revisionInfo['*'] ), 16, 36, 31
-				);
-			}
-
 			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
 				$revisionInfo['comment'] = wfMessage( 'fileimporter-revision-removed-comment' )
 					->plain();
