@@ -39,7 +39,7 @@ class FileRevision {
 	 */
 	public function __construct( array $fields ) {
 		$this->throwExceptionIfMissingFields( $fields );
-		$this->fields = $fields;
+		$this->fields = $fields + [ 'sha1' => '' ];
 	}
 
 	private function throwExceptionIfMissingFields( array $fields ) {
@@ -59,10 +59,6 @@ class FileRevision {
 	 */
 	public function getField( $name ) {
 		if ( !array_key_exists( $name, $this->fields ) ) {
-			if ( $name === 'sha1' ) {
-				return '';
-			}
-
 			throw new InvalidArgumentException(
 				__CLASS__ . ': Unrecognized field requested', self::ERROR_UNKNOWN_FIELD );
 		}

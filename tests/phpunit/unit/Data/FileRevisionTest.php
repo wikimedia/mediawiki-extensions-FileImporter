@@ -13,7 +13,7 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class FileRevisionTest extends \MediaWikiUnitTestCase {
 
-	private static $requiredFieldNames = [
+	private const REQUIRED_FIELD_NAMES = [
 		'description',
 		'name',
 		'size',
@@ -24,18 +24,24 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 	];
 
 	public function testGetters() {
-		$fields = array_flip( self::$requiredFieldNames );
+		$fields = array_flip( self::REQUIRED_FIELD_NAMES ) + [ 'sha1' => 'TestSha1' ];
 		$instance = new FileRevision( $fields );
 
 		$this->assertSame( $fields, $instance->getFields(), 'getFields' );
 
-		foreach ( self::$requiredFieldNames as $expected => $field ) {
+		foreach ( self::REQUIRED_FIELD_NAMES as $expected => $field ) {
 			$this->assertSame( $expected, $instance->getField( $field ), "getField($field)" );
 		}
 	}
 
+	public function testSha1Fallback() {
+		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
+		$instance = new FileRevision( $fields );
+		$this->assertSame( '', $instance->getField( 'sha1' ) );
+	}
+
 	public function testSetAndGetNonExistingField() {
-		$fields = array_flip( self::$requiredFieldNames );
+		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
 		$instance = new FileRevision( $fields );
 
 		$this->expectException( InvalidArgumentException::class );
@@ -43,8 +49,8 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function provideMissingField() {
-		foreach ( self::$requiredFieldNames as $field ) {
-			$fields = array_flip( self::$requiredFieldNames );
+		foreach ( self::REQUIRED_FIELD_NAMES as $field ) {
+			$fields = array_flip( self::REQUIRED_FIELD_NAMES );
 			unset( $fields[$field] );
 			yield [ $fields, ": Missing $field field on construction" ];
 		}

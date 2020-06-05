@@ -13,13 +13,12 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class TextRevisionTest extends \MediaWikiUnitTestCase {
 
-	private static $requiredFieldNames = [
+	private const REQUIRED_FIELD_NAMES = [
 		'*',
 		'comment',
 		'contentformat',
 		'contentmodel',
 		'minor',
-		'sha1',
 		'timestamp',
 		'title',
 		'user',
@@ -27,7 +26,7 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 	];
 
 	public function testGetters() {
-		$fields = array_flip( self::$requiredFieldNames );
+		$fields = array_flip( self::REQUIRED_FIELD_NAMES ) + [ 'sha1' => 'TestSha1' ];
 		$instance = new TextRevision( $fields );
 
 		$this->assertSame( $fields, $instance->getFields(), 'getFields' );
@@ -37,14 +36,20 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 		}
 	}
 
+	public function testSha1Fallback() {
+		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
+		$instance = new TextRevision( $fields );
+		$this->assertSame( '', $instance->getField( 'sha1' ) );
+	}
+
 	public function testSetField() {
-		$instance = new TextRevision( array_flip( self::$requiredFieldNames ) );
+		$instance = new TextRevision( array_flip( self::REQUIRED_FIELD_NAMES ) );
 		$instance->setField( 'comment', 'changed' );
 		$this->assertSame( 'changed', $instance->getField( 'comment' ) );
 	}
 
 	public function testSetAndGetNonExistingField() {
-		$fields = array_flip( self::$requiredFieldNames );
+		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
 		$instance = new TextRevision( $fields );
 
 		$this->expectException( InvalidArgumentException::class );
@@ -52,15 +57,15 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testSetNonExistingField() {
-		$instance = new TextRevision( array_flip( self::$requiredFieldNames ) );
+		$instance = new TextRevision( array_flip( self::REQUIRED_FIELD_NAMES ) );
 
 		$this->expectException( InvalidArgumentException::class );
 		$instance->setField( 'invalid', null );
 	}
 
 	public function provideMissingField() {
-		foreach ( self::$requiredFieldNames as $field ) {
-			$fields = array_flip( self::$requiredFieldNames );
+		foreach ( self::REQUIRED_FIELD_NAMES as $field ) {
+			$fields = array_flip( self::REQUIRED_FIELD_NAMES );
 			unset( $fields[$field] );
 			yield [ $fields, ": Missing $field field on construction" ];
 		}

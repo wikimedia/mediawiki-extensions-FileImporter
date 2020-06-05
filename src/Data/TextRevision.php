@@ -21,7 +21,6 @@ class TextRevision {
 		'minor',
 		'user',
 		'timestamp',
-		'sha1',
 		'contentmodel',
 		'contentformat',
 		'comment',
@@ -42,7 +41,7 @@ class TextRevision {
 	 */
 	public function __construct( array $fields ) {
 		$this->throwExceptionIfMissingFields( $fields );
-		$this->fields = $fields;
+		$this->fields = $fields + [ 'sha1' => '' ];
 	}
 
 	private function throwExceptionIfMissingFields( array $fields ) {
