@@ -133,12 +133,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		$options['userAgent'] = $this->buildUserAgentString();
 
 		/** @var MWHttpRequest $request */
-		$request = call_user_func(
-			$this->requestFactoryCallable,
-			$url,
-			$options,
-			__METHOD__
-		);
+		$request = ( $this->requestFactoryCallable )( $url, $options, __METHOD__ );
 
 		$request->setCallback( $callback );
 

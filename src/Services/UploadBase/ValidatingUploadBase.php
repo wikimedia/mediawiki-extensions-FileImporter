@@ -63,7 +63,7 @@ class ValidatingUploadBase extends UploadBase {
 			$this->logger->info(
 				__METHOD__ . ' checks failed', [ 'fileVerification' => $fileVerification ]
 			);
-			return call_user_func_array( [ Status::class, 'newFatal' ], $fileVerification );
+			return Status::newFatal( ...$fileVerification );
 		}
 
 		return Status::newGood();
@@ -101,7 +101,7 @@ class ValidatingUploadBase extends UploadBase {
 			if ( !is_array( $error ) ) {
 				$error = [ $error ];
 			}
-			return call_user_func_array( [ Status::class, 'newFatal' ], $error );
+			return Status::newFatal( ...$error );
 		}
 
 		return Status::newGood();
