@@ -122,6 +122,7 @@
 				"modules/ext.FileImporter.Special.js"
 			],
 			"dependencies": [
+				"mediawiki.api",
 				"oojs-ui"
 			]
 		},
@@ -129,6 +130,18 @@
 			"styles": [
 				"modules/ext.FileImporter.Special.less"
 			]
+		},
+		"ext.FileImporter.Images": {
+			"class": "ResourceLoaderImageModule",
+			"selector": ".mw-importfile-image-{name}",
+			"images": {
+				"help-banner": {
+					"file": {
+						"ltr": "resources/FileImporter-help-banner-ltr.svg",
+						"rtl": "resources/FileImporter-help-banner-rtl.svg"
+					}
+				}
+			}
 		},
 		"ext.FileImporter.Success": {
 			"styles": [

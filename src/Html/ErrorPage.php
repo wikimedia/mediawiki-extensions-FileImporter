@@ -19,7 +19,8 @@ class ErrorPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( $errorMessage, $url, $type = 'error' ) {
-		$output = Html::rawElement(
+		$output = ( new HelpBanner( $this ) )->getHtml();
+		$output .= Html::rawElement(
 			'div',
 			[ 'class' => "mw-importfile-error-banner ${type}box" ],
 			Html::rawElement( 'p', [], $errorMessage )
