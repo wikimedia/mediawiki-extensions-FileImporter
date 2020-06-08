@@ -4,6 +4,7 @@ namespace FileImporter\Operations;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
+use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\ImportOperation;
@@ -131,7 +132,14 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$tmpFile = TempFSFile::factory( 'fileimporter_', '', wfTempDir() );
 		$tmpFile->bind( $this );
 
-		$this->httpRequestExecutor->executeAndSave( $fileUrl, $tmpFile->getPath() );
+		try {
+			$this->httpRequestExecutor->executeAndSave( $fileUrl, $tmpFile->getPath() );
+		} catch ( HttpRequestException $exception ) {
+			if ( $exception->getCode() === 404 ) {
+				throw new LocalizedImportException( 'fileimporter-filemissinginrevision' );
+			}
+			throw $exception;
+		}
 
 		$this->wikiRevision = $this->wikiRevisionFactory->newFromFileRevision(
 			$this->fileRevision,
