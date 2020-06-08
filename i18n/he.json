@@ -30,6 +30,7 @@
 	"fileimporter-cantimportfromsharedrepo": "לא ניתן לייבא קובץ ממאגר משותף.",
 	"fileimporter-cantimportmissingfile": "לא ניתן לייבא קובץ חסר.",
 	"fileimporter-cantimportfilehidden": "לא ניתן לייבא קובץ כי לפחות אחת מהגרסאות שלו מכילה קובץ מועלם.",
+	"fileimporter-cantimportfileinvalid": "הקובץ הזה (או גרסה ישנה יותר של הקובץ הזה) מכיל רכיבים שלא ניתן לקבל מסיבות של אבטחה: $1",
 	"fileimporter-badtoken": "ההתחברות שלך כבר אינה תקינה. נא להתחיל מחדש את הייבוא.",
 	"fileimporter-badimporthash": "גיבוב הייבוא אינו תואם. נא להתחיל מחדש את הייבוא.",
 	"fileimporter-filenameerror-default": "יש בעיה בלתי־ידועה עם שם הקובץ שלך.",

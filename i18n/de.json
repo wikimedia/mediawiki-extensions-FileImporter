@@ -27,6 +27,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Es kann keine Datei von einem gemeinsamen Repositorium importiert werden.",
 	"fileimporter-cantimportmissingfile": "Eine fehlende Datei kann nicht importiert werden.",
 	"fileimporter-cantimportfilehidden": "Die Datei konnte nicht importiert werden, da mindestens eine ihrer Versionen eine unterdrückte Datei enthält.",
+	"fileimporter-cantimportfileinvalid": "Diese Datei (oder eine ältere Version dieser Datei) enthält Elemente, die aus Sicherheitsgründen nicht akzeptiert werden können: $1",
 	"fileimporter-badtoken": "Deine Sitzung ist nicht mehr gültig. Bitte starte den Import erneut.",
 	"fileimporter-badimporthash": "Die Prüfsumme des Imports stimmt nicht überein. Bitte starte den Importvorgang neu.",
 	"fileimporter-filenameerror-default": "Es gibt ein unbekanntes Problem mit deinem Dateinamen.",

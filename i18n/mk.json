@@ -26,6 +26,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Не можам да увезам податотека од заедничко складиште.",
 	"fileimporter-cantimportmissingfile": "Не можам да увезам отсутна податотека.",
 	"fileimporter-cantimportfilehidden": "Не можам да ја увезам податотеката бидејќи барем една од нејзините преработки содржи потисната податотека.",
+	"fileimporter-cantimportfileinvalid": "Оваа податотека (или нејзина постара преработка) содржи елемент кој не се прифаќа од безбедносни причини: $1",
 	"fileimporter-badtoken": "Вашата седница повеќе не е важечка. Повторете го увозот одновно.",
 	"fileimporter-badimporthash": "Увозната тараба не одговара. Почнете го увозот одново.",
 	"fileimporter-filenameerror-default": "Се појави непознат проблем со податотечното име.",
