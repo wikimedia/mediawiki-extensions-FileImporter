@@ -15,14 +15,17 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 
 	/**
 	 * @param string $timestamp
+	 * @param bool $isOld
 	 *
 	 * @return FileRevision
 	 */
-	private function newFileRevision( $timestamp = '' ) : FileRevision {
+	private function newFileRevision( string $timestamp, bool $isOld = false ) : FileRevision {
 		$mock = $this->createMock( FileRevision::class );
 		$mock->method( 'getField' )
 			->with( 'timestamp' )
 			->willReturn( $timestamp );
+		$mock->method( 'getFields' )
+			->willReturn( $isOld ? [ 'archivename' => '' ] : [] );
 		return $mock;
 	}
 
@@ -32,7 +35,7 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testToArray() {
-		$revisions = [ $this->newFileRevision() ];
+		$revisions = [ $this->newFileRevision( '' ) ];
 		$instance = new FileRevisions( $revisions );
 		$this->assertSame( $revisions, $instance->toArray() );
 	}
@@ -41,6 +44,7 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 		$firstFileRevision = $this->newFileRevision( '2013-11-18T13:19:01Z' );
 		$secondFileRevision = $this->newFileRevision( '2014-11-18T13:19:01Z' );
 		$thirdFileRevision = $this->newFileRevision( '2015-11-18T13:19:01Z' );
+		$reverted = $this->newFileRevision( '2016-11-18T13:19:01Z', true );
 
 		return [
 			[ [ $firstFileRevision ], $firstFileRevision ],
@@ -49,6 +53,10 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 			[ [ $secondFileRevision, $firstFileRevision ], $secondFileRevision ],
 			[ [ $secondFileRevision, $firstFileRevision, $thirdFileRevision ], $thirdFileRevision ],
 			[ [ $thirdFileRevision, $firstFileRevision, $secondFileRevision ], $thirdFileRevision ],
+
+			// Ignore archived revisions, no matter which order
+			[ [ $thirdFileRevision, $reverted ], $thirdFileRevision ],
+			[ [ $reverted, $thirdFileRevision ], $thirdFileRevision ],
 		];
 	}
 

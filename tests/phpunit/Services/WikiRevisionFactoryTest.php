@@ -70,16 +70,19 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 
 		$revision = $wikiRevisionFactory->newFromFileRevision(
 			$this->createFileRevision( $testUserName ),
-			''
+			'TestSrc'
 		);
 
 		$this->assertFalse( $revision->getMinor() );
 		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
 		$this->assertFalse( $revision->getUserObj() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
+		$this->assertSame( 'TestFileText', $revision->getComment() );
 		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
 		$this->assertSame( 'TestFileName', $revision->getTitle()->getText() );
-		$this->assertSame( '', $revision->getFileSrc() );
+		$this->assertSame( 'TestSrc', $revision->getFileSrc() );
+		$this->assertTrue( $revision->isTempSrc() );
+		$this->assertSame( 'TestArchiveName', $revision->getArchiveName() );
 	}
 
 	public function testUserAutoCreation() {
@@ -203,6 +206,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			'size' => '23',
 			'thumburl' => 'testthumb.url',
 			'url' => 'testimg.url',
+			'archivename' => 'TestArchiveName',
 		] );
 	}
 
