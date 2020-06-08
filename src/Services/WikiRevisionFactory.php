@@ -33,8 +33,25 @@ class WikiRevisionFactory {
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
 	}
 
-	private function getWikiRevision() {
-		return new WikiRevision( new HashConfig() );
+	private function newWikiRevision(
+		string $title,
+		string $timestamp,
+		string $sha1
+	) : WikiRevision {
+		$titleParts = explode( ':', $title );
+		$filename = end( $titleParts );
+
+		// The 3 fields rev_page, rev_timestamp, and rev_sha1 make a revision unique, see
+		// ImportableOldRevisionImporter::import()
+		$revision = new WikiRevision( new HashConfig() );
+		$revision->setTitle( Title::makeTitleSafe( NS_FILE, $filename ) );
+		$revision->setTimestamp( $timestamp );
+		// File revisions older than 2012 might not have a hash yet. Import as is.
+		if ( $sha1 ) {
+			$revision->setSha1Base36( $sha1 );
+		}
+
+		return $revision;
 	}
 
 	/**
@@ -55,19 +72,15 @@ class WikiRevisionFactory {
 	 * @return WikiRevision
 	 */
 	public function newFromFileRevision( FileRevision $fileRevision, $src ) {
-		$revision = $this->getWikiRevision();
-		$revision->setTitle( $this->makeTitle( $fileRevision->getField( 'name' ) ) );
-		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
+		$revision = $this->newWikiRevision(
+			$fileRevision->getField( 'name' ),
+			$fileRevision->getField( 'timestamp' ),
+			$fileRevision->getField( 'sha1' )
+		);
 		$revision->setFileSrc( $src, true );
-		$sha1 = $fileRevision->getField( 'sha1' );
-		// File revisions older than 2012 might not have a hash yet. Import as is.
-		if ( $sha1 ) {
-			$revision->setSha1Base36( $sha1 );
-		}
 		$revision->setComment( $fileRevision->getField( 'description' ) );
 
-		// create user with CentralAuth/SUL if nonexistent
-		$importedUser = $this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) );
+		$importedUser = $this->createCentralAuthUser( $fileRevision->getField( 'user' ) );
 		$revision->setUsername( $importedUser );
 		$revision->setUserObj( User::newFromName( $importedUser ) );
 
@@ -85,17 +98,12 @@ class WikiRevisionFactory {
 	 * @return WikiRevision
 	 */
 	public function newFromTextRevision( TextRevision $textRevision ) {
-		$revision = $this->getWikiRevision();
-		$revision->setTitle( $this->makeTitle( $textRevision->getField( 'title' ) ) );
-		$revision->setTimestamp( $textRevision->getField( 'timestamp' ) );
-		$sha1 = $textRevision->getField( 'sha1' );
-		if ( $sha1 ) {
-			$revision->setSha1Base36( $sha1 );
-		}
-		// create user with CentralAuth/SUL if nonexistent and use the prefix only as fallback
-		$revision->setUsername(
-			$this->externalUserNames->applyPrefix( $textRevision->getField( 'user' ) )
+		$revision = $this->newWikiRevision(
+			$textRevision->getField( 'title' ),
+			$textRevision->getField( 'timestamp' ),
+			$textRevision->getField( 'sha1' )
 		);
+		$revision->setUsername( $this->createCentralAuthUser( $textRevision->getField( 'user' ) ) );
 		$revision->setComment(
 			$this->prefixCommentLinks( $textRevision->getField( 'comment' ) )
 		);
@@ -111,13 +119,14 @@ class WikiRevisionFactory {
 	}
 
 	/**
-	 * @param string $title
+	 * @param string $username
 	 *
-	 * @return Title|null
+	 * @return string Either the unchanged username if it's a known local or valid CentralAuth/SUL
+	 *  user, otherwise the name with the DEFAULT_USERNAME_PREFIX prefix prepended.
 	 */
-	private function makeTitle( $title ) {
-		$splitTitle = explode( ':', $title );
-		return Title::makeTitleSafe( NS_FILE, end( $splitTitle ) );
+	private function createCentralAuthUser( string $username ) : string {
+		// This uses the prefix only as fallback
+		return $this->externalUserNames->applyPrefix( $username );
 	}
 
 	/**
