@@ -40,4 +40,16 @@ class DuplicateFileRevisionCheckerTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( [ $wantedFile ], $result );
 	}
 
+	public function testFindDuplicates_missingHash() {
+		$fileRevision = $this->createMock( FileRevision::class );
+		$fileRevision->method( 'getField' )->willReturn( '' );
+
+		$fileRepo = $this->createMock( \FileRepo::class );
+		$fileRepo->expects( $this->never() )->method( 'findBySha1' );
+
+		$checker = new DuplicateFileRevisionChecker( $fileRepo );
+		$result = $checker->findDuplicates( $fileRevision );
+		$this->assertSame( [], $result );
+	}
+
 }
