@@ -117,21 +117,17 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	/**
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
-	 * @param array $additionalParams
 	 * @return string
 	 * @throws Exception
 	 */
 	private function getAuthorizedApiUrl(
 		SourceUrl $sourceUrl,
-		User $user,
-		array $additionalParams = []
+		User $user
 	) : string {
 		$url = $this->httpApiLookup->getApiUrl( $sourceUrl );
-		$additionalParams += [
+		return wfAppendQuery( $url, [
 			'centralauthtoken' => $this->centralAuthTokenProvider->getToken( $user ),
-		];
-
-		return wfAppendQuery( $url, $additionalParams );
+		] );
 	}
 
 	/**
@@ -141,17 +137,17 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 */
 	public function getCsrfToken( SourceUrl $sourceUrl, User $user ) : ?string {
 		try {
-			$tokenRequestUrl = $this->getAuthorizedApiUrl( $sourceUrl, $user, [
-				'action' => 'query',
-				'meta' => 'tokens',
-				'format' => 'json',
-			] );
+			$tokenRequestUrl = $this->getAuthorizedApiUrl( $sourceUrl, $user );
 		} catch ( Exception $ex ) {
 			$this->logger->error( 'Failed to get centralauthtoken: ' .
 				$ex->getMessage() );
 			return null;
 		}
-		$tokenRequest = $this->httpRequestExecutor->execute( $tokenRequestUrl );
+		$tokenRequest = $this->httpRequestExecutor->execute( $tokenRequestUrl, [
+			'action' => 'query',
+			'meta' => 'tokens',
+			'format' => 'json',
+		] );
 
 		$tokenData = json_decode( $tokenRequest->getContent(), true );
 		$token = $tokenData['query']['tokens']['csrftoken'] ?? null;

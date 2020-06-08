@@ -38,10 +38,11 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		$mockHttpRequestExecutor
 			->expects( $this->once() )
 			->method( 'execute' )
-			->with(
-				'https://w.invalid/w/api.php?action=query&meta=tokens&' .
-					'format=json&centralauthtoken=' . $centralAuthToken
-			)
+			->with( "https://w.invalid/w/api.php?centralauthtoken=$centralAuthToken", [
+				'action' => 'query',
+				'meta' => 'tokens',
+				'format' => 'json',
+			] )
 			->willReturn( $mockResponse );
 
 		$apiRequestExecutor = new RemoteApiRequestExecutor(
@@ -98,10 +99,11 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		$mockHttpRequestExecutor
 			->expects( $this->once() )
 			->method( 'execute' )
-			->with(
-				'https://w.invalid/w/api.php?action=query&meta=tokens&' .
-				'format=json&centralauthtoken=' . $centralAuthToken
-			)
+			->with( "https://w.invalid/w/api.php?centralauthtoken=$centralAuthToken", [
+				'action' => 'query',
+				'meta' => 'tokens',
+				'format' => 'json',
+			] )
 			->willReturn( $mockResponse );
 
 		$apiRequestExecutor = new RemoteApiRequestExecutor(
@@ -145,10 +147,7 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 			->willReturn( $mockResponse );
 		$mockHttpRequestExecutor
 			->method( 'executePost' )
-			->with(
-				$this->anything(),
-				$queryParams
-			)
+			->with( "https://w.invalid/w/api.php?centralauthtoken=$centralAuthToken", $queryParams )
 			->willReturn( $mockPostResponse );
 		$mockUser = $this->createMock( User::class );
 		$mockUser->method( 'isSafeToLoad' )
@@ -167,7 +166,8 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 				$this->createMock( SourceUrl::class ),
 				$mockUser,
 				$queryParams,
-				true )
+				true
+			)
 		);
 	}
 
