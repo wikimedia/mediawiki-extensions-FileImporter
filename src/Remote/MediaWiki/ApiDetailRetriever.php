@@ -499,6 +499,7 @@ class ApiDetailRetriever implements DetailRetriever {
 					'url',
 					'size',
 					'sha1',
+					'archivename',
 				]
 			)
 		];

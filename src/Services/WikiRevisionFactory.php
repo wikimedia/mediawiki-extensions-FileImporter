@@ -60,6 +60,7 @@ class WikiRevisionFactory {
 		$revision->setTimestamp( $fileRevision->getField( 'timestamp' ) );
 		$revision->setFileSrc( $src, true );
 		$sha1 = $fileRevision->getField( 'sha1' );
+		// File revisions older than 2012 might not have a hash yet. Import as is.
 		if ( $sha1 ) {
 			$revision->setSha1Base36( $sha1 );
 		}
@@ -69,6 +70,11 @@ class WikiRevisionFactory {
 		$importedUser = $this->externalUserNames->applyPrefix( $fileRevision->getField( 'user' ) );
 		$revision->setUsername( $importedUser );
 		$revision->setUserObj( User::newFromName( $importedUser ) );
+
+		// Mark old file revisions as such
+		if ( isset( $fileRevision->getFields()['archivename'] ) ) {
+			$revision->setArchiveName( $fileRevision->getField( 'archivename' ) );
+		}
 
 		return $revision;
 	}
