@@ -36,31 +36,11 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 		}
 	}
 
-	public function testSha1Fallback() {
-		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
-		$instance = new TextRevision( $fields );
-		$this->assertSame( '', $instance->getField( 'sha1' ) );
-	}
-
-	public function testSetField() {
-		$instance = new TextRevision( array_flip( self::REQUIRED_FIELD_NAMES ) );
-		$instance->setField( 'comment', 'changed' );
-		$this->assertSame( 'changed', $instance->getField( 'comment' ) );
-	}
-
 	public function testSetAndGetNonExistingField() {
 		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
 		$instance = new TextRevision( $fields );
 
-		$this->expectException( InvalidArgumentException::class );
-		$instance->getField( 'invalid' );
-	}
-
-	public function testSetNonExistingField() {
-		$instance = new TextRevision( array_flip( self::REQUIRED_FIELD_NAMES ) );
-
-		$this->expectException( InvalidArgumentException::class );
-		$instance->setField( 'invalid', null );
+		$this->assertNull( $instance->getField( 'sha1' ) );
 	}
 
 	public function provideMissingField() {

@@ -345,7 +345,7 @@ class ImporterTest extends \MediaWikiTestCase {
 					$realFactory = new WikiRevisionFactory();
 
 					$tempFile = $this->getNewTempFile();
-					$srcFile = $fileRevision->getFields()['_test_file_src'];
+					$srcFile = $fileRevision->getField( '_test_file_src' );
 					// the file will be moved or deleted in the process so create a copy
 					copy( $srcFile, $tempFile );
 

@@ -47,7 +47,7 @@ class FileRevisions {
 	private function calculateLatestKey() {
 		$latestTimestamp = 0;
 		foreach ( $this->fileRevisions as $key => $revision ) {
-			if ( isset( $revision->getFields()['archivename'] ) ) {
+			if ( $revision->getField( 'archivename' ) ) {
 				continue;
 			}
 

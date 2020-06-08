@@ -34,18 +34,11 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 		}
 	}
 
-	public function testSha1Fallback() {
-		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
-		$instance = new FileRevision( $fields );
-		$this->assertSame( '', $instance->getField( 'sha1' ) );
-	}
-
 	public function testSetAndGetNonExistingField() {
 		$fields = array_flip( self::REQUIRED_FIELD_NAMES );
 		$instance = new FileRevision( $fields );
 
-		$this->expectException( InvalidArgumentException::class );
-		$instance->getField( 'invalid' );
+		$this->assertNull( $instance->getField( 'sha1' ) );
 	}
 
 	public function provideMissingField() {

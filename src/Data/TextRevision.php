@@ -15,9 +15,8 @@ use FileImporter\Exceptions\InvalidArgumentException;
 class TextRevision {
 
 	private const ERROR_TEXT_FIELD_MISSING = 'textFieldMissing';
-	private const ERROR_TEXT_FIELD_UNKNOWN = 'textFieldUnknown';
 
-	private static $fieldNames = [
+	private const REQUIRED_FIELDS = [
 		'minor',
 		'user',
 		'timestamp',
@@ -41,11 +40,11 @@ class TextRevision {
 	 */
 	public function __construct( array $fields ) {
 		$this->throwExceptionIfMissingFields( $fields );
-		$this->fields = $fields + [ 'sha1' => '' ];
+		$this->fields = $fields;
 	}
 
 	private function throwExceptionIfMissingFields( array $fields ) {
-		$diff = array_diff_key( array_flip( self::$fieldNames ), $fields );
+		$diff = array_diff_key( array_flip( self::REQUIRED_FIELDS ), $fields );
 		if ( $diff !== [] ) {
 			throw new InvalidArgumentException(
 				__CLASS__ . ': Missing ' . key( $diff ) . ' field on construction',
@@ -55,30 +54,11 @@ class TextRevision {
 
 	/**
 	 * @param string $name
-	 * @param mixed $value
 	 *
-	 * @throws InvalidArgumentException if an unrecognized field is requested
-	 */
-	public function setField( $name, $value ) {
-		if ( !in_array( $name, self::$fieldNames ) ) {
-			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested',
-				self::ERROR_TEXT_FIELD_UNKNOWN );
-		}
-		$this->fields[$name] = $value;
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return mixed
-	 * @throws InvalidArgumentException if an unrecognized field is requested
+	 * @return mixed|null Null if the field isn't known
 	 */
 	public function getField( $name ) {
-		if ( !array_key_exists( $name, $this->fields ) ) {
-			throw new InvalidArgumentException( __CLASS__ . ': Unrecognized field requested',
-				self::ERROR_TEXT_FIELD_UNKNOWN );
-		}
-		return $this->fields[$name];
+		return $this->fields[$name] ?? null;
 	}
 
 	/**
