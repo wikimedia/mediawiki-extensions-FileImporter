@@ -28,6 +28,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Paylaşılan bir depodan dosya içe aktarılamıyor.",
 	"fileimporter-cantimportmissingfile": "Eksik bir dosya içe alınamıyor.",
 	"fileimporter-cantimportfilehidden": "Revizyonlardan en az biri bastırılmış bir dosya içerdiğinden dosya içe aktarılamıyor.",
+	"fileimporter-cantimportfileinvalid": "Bu dosya (veya bu dosyanın daha eski bir sürümü) güvenlik nedeniyle kabul edilemeyen öğeler içeriyor: $1",
 	"fileimporter-badtoken": "Oturumunuz artık geçerli değil. Lütfen içe aktarmayı yeniden başlatın.",
 	"fileimporter-badimporthash": "İçe aktarma eşleşmiyor. Lütfen içe aktarmayı yeniden başlatın.",
 	"fileimporter-filenameerror-default": "Dosya adınızla ilgili bilinmeyen bir sorun var.",
