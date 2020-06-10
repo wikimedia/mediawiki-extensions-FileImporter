@@ -49,26 +49,27 @@ class ImportSuccessSnippet {
 	 */
 	public function getHtml( MessageLocalizer $messageLocalizer, Title $targetTitle ) {
 		$importResult = $this->cache->fetchImportResult( $targetTitle );
-		if ( !$importResult || !$importResult->isOK() ) {
+		if ( !$importResult ) {
 			return '';
 		}
 
-		/** @var string|array|MessageSpecifier $messageSpecifier */
-		$messageSpecifier = $importResult->getValue();
-		$msg = Message::newFromSpecifier( $messageSpecifier );
-		$html = Html::successBox( $msg->parse() );
+		$html = '';
 
-		$warnings = $importResult->getErrorsByType( 'warning' );
-		foreach ( $warnings as $warning ) {
-			$msg = $messageLocalizer->msg( $warning['message'], $warning['params'] ?? [] );
-			$html .= Html::warningBox( $msg->parse() );
+		/** @var string|array|MessageSpecifier|null $messageSpecifier */
+		$messageSpecifier = $importResult->getValue();
+		if ( $messageSpecifier ) {
+			$msg = Message::newFromSpecifier( $messageSpecifier );
+			$html .= Html::successBox( $msg->parse() );
 		}
 
-		return Html::rawElement(
-			'div',
-			[ 'class' => 'mw-ext-fileimporter-noticebox' ],
-			$html
-		);
+		foreach ( $importResult->getErrors() as $error ) {
+			$msg = $messageLocalizer->msg( $error['message'], $error['params'] ?? [] );
+			$html .= $error['type'] === 'error'
+				? Html::errorBox( $msg->parse() )
+				: Html::warningBox( $msg->parse() );
+		}
+
+		return Html::rawElement( 'div', [ 'class' => 'mw-ext-fileimporter-noticebox' ], $html );
 	}
 
 }
