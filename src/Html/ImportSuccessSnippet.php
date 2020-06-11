@@ -49,6 +49,7 @@ class ImportSuccessSnippet {
 	 */
 	public function getHtml( MessageLocalizer $messageLocalizer, Title $targetTitle ) {
 		$importResult = $this->cache->fetchImportResult( $targetTitle );
+		// This can happen when the user reloads a URL that still contains fileImporterSuccess=1
 		if ( !$importResult ) {
 			return '';
 		}
