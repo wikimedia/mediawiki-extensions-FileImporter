@@ -25,7 +25,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 
 		$snippet = new ImportSuccessSnippet();
 		$this->assertSame(
-			'',
+			'<div class="mw-ext-fileimporter-noticebox"><div class="errorbox">(fileimporter-badtoken)</div></div>',
 			$snippet->getHtml(
 				$this->createMessageLocalizer(),
 				$title
