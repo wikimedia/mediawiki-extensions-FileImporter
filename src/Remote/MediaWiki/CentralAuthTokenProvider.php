@@ -3,9 +3,10 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use ApiMain;
-use Exception;
+use ApiUsageException;
 use FauxRequest;
 use RequestContext;
+use RuntimeException;
 use User;
 
 /**
@@ -14,12 +15,11 @@ use User;
 class CentralAuthTokenProvider {
 
 	/**
-	 * Returns CentralAuth token, or throws an exception on failure
-	 *
 	 * @param User $user
 	 *
 	 * @return string
-	 * @throws Exception when the request failed
+	 * @throws ApiUsageException e.g. when CentralAuth is not available locally
+	 * @throws RuntimeException when there is an unexpected API result
 	 */
 	public function getToken( User $user ) {
 		$context = new RequestContext;
@@ -30,8 +30,9 @@ class CentralAuthTokenProvider {
 
 		$api->execute();
 		$token = $api->getResult()->getResultData( [ 'centralauthtoken', 'centralauthtoken' ] );
-		if ( $token === null ) {
-			throw new Exception( 'Failed to get CentralAuth token' );
+		if ( !$token ) {
+			// This should be unreachable, because execute() takes care of all error handling
+			throw new RuntimeException( 'Unexpected return value from the centralauthtoken API' );
 		}
 
 		return $token;
