@@ -134,11 +134,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 		try {
 			$this->httpRequestExecutor->executeAndSave( $fileUrl, $tmpFile->getPath() );
-		} catch ( HttpRequestException $exception ) {
-			if ( $exception->getCode() === 404 ) {
-				throw new LocalizedImportException( 'fileimporter-filemissinginrevision' );
+		} catch ( HttpRequestException $ex ) {
+			if ( $ex->getCode() === 404 ) {
+				throw new LocalizedImportException( 'fileimporter-filemissinginrevision', $ex );
 			}
-			throw $exception;
+			throw $ex;
 		}
 
 		$this->wikiRevision = $this->wikiRevisionFactory->newFromFileRevision(

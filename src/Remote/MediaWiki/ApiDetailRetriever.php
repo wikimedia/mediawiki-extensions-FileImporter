@@ -113,7 +113,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $apiUrl, $apiParameters );
 		} catch ( HttpRequestException $e ) {
 			throw new LocalizedImportException( [ 'fileimporter-api-failedtogetinfo',
-				$apiUrl ] );
+				$apiUrl ], $e );
 		}
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 		return $requestData;

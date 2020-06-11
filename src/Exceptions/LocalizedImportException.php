@@ -2,10 +2,10 @@
 
 namespace FileImporter\Exceptions;
 
-use Exception;
 use ILocalizedException;
 use Message;
 use MessageSpecifier;
+use Throwable;
 
 /**
  * Logic has been taken form core class LocalizedException
@@ -21,9 +21,9 @@ class LocalizedImportException extends ImportException implements ILocalizedExce
 
 	/**
 	 * @param string|array|MessageSpecifier $messageSpec See Message::newFromSpecifier
-	 * @param Exception|null $previous The previous exception used for the exception chaining.
+	 * @param Throwable|null $previous The previous exception used for the exception chaining.
 	 */
-	public function __construct( $messageSpec, $previous = null ) {
+	public function __construct( $messageSpec, Throwable $previous = null ) {
 		$this->messageSpec = $messageSpec;
 		$msg = $this->getMessageObject();
 		$code = str_replace( 'fileimporter-', '', $msg->getKey() );

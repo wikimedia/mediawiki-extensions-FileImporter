@@ -4,6 +4,7 @@ namespace FileImporter\Exceptions;
 
 use FileImporter\Data\ImportPlan;
 use MessageSpecifier;
+use Throwable;
 
 /**
  * Exception thrown when an import has an issue with the planned title that can be
@@ -22,11 +23,12 @@ class RecoverableTitleException extends TitleException {
 	/**
 	 * @param string|array|MessageSpecifier $messageSpec See Message::newFromSpecifier
 	 * @param ImportPlan $importPlan ImportPlan to recover the import of.
+	 * @param Throwable|null $previous
 	 */
-	public function __construct( $messageSpec, ImportPlan $importPlan ) {
+	public function __construct( $messageSpec, ImportPlan $importPlan, Throwable $previous = null ) {
 		$this->importPlan = $importPlan;
 
-		parent::__construct( $messageSpec );
+		parent::__construct( $messageSpec, $previous );
 	}
 
 	/**

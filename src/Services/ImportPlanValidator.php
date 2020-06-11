@@ -178,7 +178,8 @@ class ImportPlanValidator {
 		} catch ( MalformedTitleException $e ) {
 			throw new RecoverableTitleException(
 				$e->getMessageObject(),
-				$importPlan
+				$importPlan,
+				$e
 			);
 		}
 	}

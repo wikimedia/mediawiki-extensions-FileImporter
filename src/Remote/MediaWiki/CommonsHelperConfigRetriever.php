@@ -148,7 +148,7 @@ class CommonsHelperConfigRetriever {
 			$request = $this->httpRequestExecutor->execute( $apiUrl, $apiParameters );
 		} catch ( HttpRequestException $e ) {
 			throw new LocalizedImportException( [ 'fileimporter-api-failedtogetinfo',
-				$apiUrl ] );
+				$apiUrl ], $e );
 		}
 
 		return json_decode( $request->getContent(), true );

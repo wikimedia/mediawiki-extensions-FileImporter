@@ -58,7 +58,7 @@ class ImportRequest {
 		try {
 			$this->url = new SourceUrl( $url );
 		} catch ( InvalidArgumentException $e ) {
-			throw new LocalizedImportException( [ 'fileimporter-cantparseurl', $url ] );
+			throw new LocalizedImportException( [ 'fileimporter-cantparseurl', $url ], $e );
 		}
 
 		if ( $intendedText !== null ) {

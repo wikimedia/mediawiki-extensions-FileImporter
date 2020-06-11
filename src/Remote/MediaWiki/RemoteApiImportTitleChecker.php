@@ -61,7 +61,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 				]
 			);
 			throw new ImportException(
-				'Failed to check title state from: ' . $api, self::ERROR_TITLE_STATE );
+				'Failed to check title state from: ' . $api, self::ERROR_TITLE_STATE, $e );
 		}
 
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
