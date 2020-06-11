@@ -4,9 +4,9 @@ namespace FileImporter\Html;
 
 use FileImporter\Services\SuccessCache;
 use Html;
-use IContextSource;
 use MediaWiki\MediaWikiServices;
 use Message;
+use MessageLocalizer;
 use MessageSpecifier;
 use StatusValue;
 use Title;
@@ -42,12 +42,12 @@ class ImportSuccessSnippet {
 	}
 
 	/**
-	 * @param IContextSource $context Localization provider
+	 * @param MessageLocalizer $messageLocalizer
 	 * @param Title $targetTitle Final local title of imported file
 	 *
 	 * @return string
 	 */
-	public function getHtml( IContextSource $context, Title $targetTitle ) {
+	public function getHtml( MessageLocalizer $messageLocalizer, Title $targetTitle ) {
 		$importResult = $this->cache->fetchImportResult( $targetTitle );
 		if ( !$importResult || !$importResult->isOK() ) {
 			return '';
@@ -60,7 +60,7 @@ class ImportSuccessSnippet {
 
 		$warnings = $importResult->getErrorsByType( 'warning' );
 		foreach ( $warnings as $warning ) {
-			$msg = $context->msg( $warning['message'], $warning['params'] ?? [] );
+			$msg = $messageLocalizer->msg( $warning['message'], $warning['params'] ?? [] );
 			$html .= Html::warningBox( $msg->parse() );
 		}
 

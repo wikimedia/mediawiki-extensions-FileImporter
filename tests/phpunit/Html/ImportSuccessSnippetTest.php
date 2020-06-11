@@ -6,7 +6,8 @@ use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
 use HamcrestPHPUnitIntegration;
 use MediaWikiTestCase;
-use RequestContext;
+use Message;
+use MessageLocalizer;
 use StatusValue;
 use Title;
 
@@ -29,7 +30,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		$this->assertSame(
 			'',
 			$snippet->getHtml(
-				RequestContext::getMain(),
+				$this->createMessageLocalizer(),
 				$this->createMock( Title::class )
 			)
 		);
@@ -46,7 +47,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
-			RequestContext::getMain(),
+			$this->createMessageLocalizer(),
 			$this->createMock( Title::class )
 		);
 
@@ -79,7 +80,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
-			RequestContext::getMain(),
+			$this->createMessageLocalizer(),
 			$this->createMock( Title::class )
 		);
 
@@ -98,6 +99,19 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 				) )
 			) )
 		);
+	}
+
+	/**
+	 * @return MessageLocalizer
+	 */
+	private function createMessageLocalizer() {
+		$localizer = $this->createMock( MessageLocalizer::class );
+		$localizer->method( 'msg' )->willReturnCallback( function ( $key ) {
+			$msg = $this->createMock( Message::class );
+			$msg->method( 'parse' )->willReturn( "($key)" );
+			return $msg;
+		} );
+		return $localizer;
 	}
 
 }
