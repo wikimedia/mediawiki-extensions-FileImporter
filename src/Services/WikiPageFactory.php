@@ -21,7 +21,7 @@ class WikiPageFactory {
 	 */
 	public function newFromId( $pageId ) {
 		// T181391: Read from master, as the page has only just been created, and in multi-DB setups
-		// slaves will have lag.
+		// replicas will have lag.
 		return WikiPage::newFromID( $pageId, WikiPage::READ_LATEST );
 	}
 
