@@ -5,6 +5,7 @@ namespace FileImporter\Tests\Html;
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
 use HamcrestPHPUnitIntegration;
+use HashBagOStuff;
 use MediaWikiTestCase;
 use Message;
 use MessageLocalizer;
@@ -20,18 +21,14 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 	use HamcrestPHPUnitIntegration;
 
 	public function testGetHtml_notOK() {
-		$mockCache = $this->createMock( SuccessCache::class );
-		$mockCache
-			->method( 'fetchImportResult' )
-			->willReturn( StatusValue::newFatal( 'fileimporter-badtoken' ) );
-		$this->setService( 'FileImporterSuccessCache', $mockCache );
+		$title = $this->createTitleWithResult( StatusValue::newFatal( 'fileimporter-badtoken' ) );
 
 		$snippet = new ImportSuccessSnippet();
 		$this->assertSame(
 			'',
 			$snippet->getHtml(
 				$this->createMessageLocalizer(),
-				$this->createMock( Title::class )
+				$title
 			)
 		);
 	}
@@ -39,16 +36,12 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 	public function testGetHtml_successful() {
 		$this->setContentLang( 'qqx' );
 
-		$mockCache = $this->createMock( SuccessCache::class );
-		$mockCache
-			->method( 'fetchImportResult' )
-			->willReturn( StatusValue::newGood( 'fileimporter-cleanup-summary' ) );
-		$this->setService( 'FileImporterSuccessCache', $mockCache );
+		$title = $this->createTitleWithResult( StatusValue::newGood( 'fileimporter-cleanup-summary' ) );
 
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
 			$this->createMessageLocalizer(),
-			$this->createMock( Title::class )
+			$title
 		);
 
 		$this->assertThatHamcrest(
@@ -72,16 +65,12 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 
 		$resultStatus = StatusValue::newGood( 'fileimporter-cleanup-summary' );
 		$resultStatus->warning( 'fileimporter-import-wait' );
-		$mockCache = $this->createMock( SuccessCache::class );
-		$mockCache
-			->method( 'fetchImportResult' )
-			->willReturn( $resultStatus );
-		$this->setService( 'FileImporterSuccessCache', $mockCache );
+		$title = $this->createTitleWithResult( $resultStatus );
 
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
 			$this->createMessageLocalizer(),
-			$this->createMock( Title::class )
+			$title
 		);
 
 		$this->assertThatHamcrest(
@@ -99,6 +88,19 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 				) )
 			) )
 		);
+	}
+
+	/**
+	 * @param StatusValue $status
+	 *
+	 * @return Title
+	 */
+	private function createTitleWithResult( StatusValue $status ) {
+		$title = $this->createMock( Title::class );
+		$cache = new SuccessCache( new HashBagOStuff() );
+		$cache->stashImportResult( $title, $status );
+		$this->setService( 'FileImporterSuccessCache', $cache );
+		return $title;
 	}
 
 	/**
