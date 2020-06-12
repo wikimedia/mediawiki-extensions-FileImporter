@@ -71,7 +71,6 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * Execute a request
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 * @param array $params API request params
@@ -146,13 +145,15 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		$tokenRequest = $this->httpRequestExecutor->execute( $tokenRequestUrl, [
 			'action' => 'query',
 			'meta' => 'tokens',
+			'type' => 'csrf',
 			'format' => 'json',
+			'formatversion' => 2,
 		] );
 
 		$tokenData = json_decode( $tokenRequest->getContent(), true );
 		$token = $tokenData['query']['tokens']['csrftoken'] ?? null;
 
-		if ( $token === null ) {
+		if ( !$token ) {
 			$this->logger->error( __METHOD__ . ' failed to get CSRF token.' );
 		}
 

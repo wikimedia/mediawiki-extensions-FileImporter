@@ -41,7 +41,9 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 			->with( "https://w.invalid/w/api.php?centralauthtoken=$centralAuthToken", [
 				'action' => 'query',
 				'meta' => 'tokens',
+				'type' => 'csrf',
 				'format' => 'json',
+				'formatversion' => 2,
 			] )
 			->willReturn( $mockResponse );
 
@@ -102,7 +104,9 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 			->with( "https://w.invalid/w/api.php?centralauthtoken=$centralAuthToken", [
 				'action' => 'query',
 				'meta' => 'tokens',
+				'type' => 'csrf',
 				'format' => 'json',
+				'formatversion' => 2,
 			] )
 			->willReturn( $mockResponse );
 
