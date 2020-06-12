@@ -15,10 +15,10 @@ interface ImportTitleChecker {
 
 	/**
 	 * @param SourceUrl $sourceUrl
-	 * @param string $intendedTitleString Foo.jpg or Berlin.png
+	 * @param string $intendedFileName File name without the File: prefix
 	 *
 	 * @return bool is the import allowed
 	 */
-	public function importAllowed( SourceUrl $sourceUrl, $intendedTitleString );
+	public function importAllowed( SourceUrl $sourceUrl, string $intendedFileName ) : bool;
 
 }
