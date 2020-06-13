@@ -28,14 +28,14 @@ use Title;
  */
 class FileInfoDiffPageTest extends \MediaWikiTestCase {
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 		$this->setMwGlobals( [ 'wgFileImporterTextForPostImportRevision' => '' ] );
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function tearDown() : void {
+	protected function tearDown() : void {
 		Theme::setSingleton( null );
 		parent::tearDown();
 	}

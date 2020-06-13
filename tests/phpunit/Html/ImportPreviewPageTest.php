@@ -33,7 +33,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	private const INITIAL_TEXT = 'Foo';
 	private const HASH = 'ORIGINAL_HASH';
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		Theme::setSingleton( new BlankTheme() );

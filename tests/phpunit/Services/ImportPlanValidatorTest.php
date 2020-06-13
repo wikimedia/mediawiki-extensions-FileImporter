@@ -38,7 +38,7 @@ use UploadBase;
  */
 class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

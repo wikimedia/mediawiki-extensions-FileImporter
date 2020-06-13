@@ -30,14 +30,14 @@ use Title;
 class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 	use HamcrestPHPUnitIntegration;
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function tearDown() : void {
+	protected function tearDown() : void {
 		Theme::setSingleton( null );
 
 		parent::tearDown();
