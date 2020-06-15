@@ -4,6 +4,8 @@ namespace FileImporter\Html;
 
 use FileImporter\Exceptions\RecoverableTitleException;
 use Html;
+use OOUI\HtmlSnippet;
+use OOUI\MessageWidget;
 
 /**
  * Html showing an error and the ChangeTitleForm
@@ -19,11 +21,11 @@ class RecoverableTitleExceptionPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( RecoverableTitleException $exception ) {
-		return Html::rawElement(
-			'div',
-			[ 'class' => 'warningbox' ],
-			Html::rawElement( 'p', [], $exception->getMessageObject()->parse() )
-		) .
+		return new MessageWidget( [
+			'label' => new HtmlSnippet( $exception->getMessageObject()->parse() ),
+			'type' => 'warning',
+		] ) .
+		Html::rawElement( 'br' ) .
 		( new ChangeFileNameForm( $this ) )->getHtml( $exception->getImportPlan() );
 	}
 

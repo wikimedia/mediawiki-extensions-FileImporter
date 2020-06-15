@@ -121,7 +121,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertContains( '<p>', $html );
+					$this->assertContains( " name='clientUrl'", $html );
 				}
 			],
 			'Bad domain (not in allowed sites)' => [
