@@ -8,6 +8,8 @@ use MediaWiki\MediaWikiServices;
 use Message;
 use MessageLocalizer;
 use MessageSpecifier;
+use OOUI\HtmlSnippet;
+use OOUI\MessageWidget;
 use StatusValue;
 use Title;
 
@@ -60,14 +62,18 @@ class ImportSuccessSnippet {
 		$messageSpecifier = $importResult->getValue();
 		if ( $messageSpecifier ) {
 			$msg = Message::newFromSpecifier( $messageSpecifier );
-			$html .= Html::successBox( $msg->parse() );
+			$html .= new MessageWidget( [
+				'label' => new HtmlSnippet( $msg->parse() ),
+				'type' => 'success',
+			] );
 		}
 
 		foreach ( $importResult->getErrors() as $error ) {
 			$msg = $messageLocalizer->msg( $error['message'], $error['params'] ?? [] );
-			$html .= $error['type'] === 'error'
-				? Html::errorBox( $msg->parse() )
-				: Html::warningBox( $msg->parse() );
+			$html .= new MessageWidget( [
+				'label' => new HtmlSnippet( $msg->parse() ),
+				'type' => $error['type'] === 'error' ? 'error' : 'warning',
+			] );
 		}
 
 		return Html::rawElement( 'div', [ 'class' => 'mw-ext-fileimporter-noticebox' ], $html );

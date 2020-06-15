@@ -4,11 +4,12 @@ namespace FileImporter\Tests\Html;
 
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
-use HamcrestPHPUnitIntegration;
 use HashBagOStuff;
 use MediaWikiTestCase;
 use Message;
 use MessageLocalizer;
+use OOUI\BlankTheme;
+use OOUI\Theme;
 use StatusValue;
 use Title;
 
@@ -18,19 +19,25 @@ use Title;
  * @license GPL-2.0-or-later
  */
 class ImportSuccessSnippetTest extends MediaWikiTestCase {
-	use HamcrestPHPUnitIntegration;
+
+	public function setUp() : void {
+		parent::setUp();
+		Theme::setSingleton( new BlankTheme() );
+	}
+
+	public function tearDown() : void {
+		Theme::setSingleton( null );
+		parent::tearDown();
+	}
 
 	public function testGetHtml_notOK() {
 		$title = $this->createTitleWithResult( StatusValue::newFatal( 'fileimporter-badtoken' ) );
 
 		$snippet = new ImportSuccessSnippet();
-		$this->assertSame(
-			'<div class="mw-ext-fileimporter-noticebox"><div class="errorbox">(fileimporter-badtoken)</div></div>',
-			$snippet->getHtml(
-				$this->createMessageLocalizer(),
-				$title
-			)
-		);
+		$html = $snippet->getHtml( $this->createMessageLocalizer(), $title );
+
+		$this->assertStringContainsString( '<div class="mw-ext-fileimporter-noticebox">', $html );
+		$this->assertStringContainsString( '(fileimporter-badtoken)', $html );
 	}
 
 	public function testGetHtml_successful() {
@@ -44,20 +51,9 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 			$title
 		);
 
-		$this->assertThatHamcrest(
-			$html,
-			is( htmlPiece(
-				both( havingChild(
-					both( withTagName( 'div' ) )
-						->andAlso( withClass( 'successbox' ) )
-						->andAlso( havingTextContents( '(fileimporter-cleanup-summary)' ) )
-				) )
-				->andAlso( not( havingChild(
-					both( withTagName( 'div' ) )
-					->andAlso( withClass( 'warningbox' ) )
-				) ) )
-			) )
-		);
+		$this->assertStringContainsString( 'icon-check', $html );
+		$this->assertStringContainsString( '(fileimporter-cleanup-summary)', $html );
+		$this->assertStringNotContainsString( 'icon-alert', $html );
 	}
 
 	public function testGetHtml_warnings() {
@@ -73,21 +69,10 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 			$title
 		);
 
-		$this->assertThatHamcrest(
-			$html,
-			is( htmlPiece(
-				both( havingChild(
-					both( withTagName( 'div' ) )
-					->andAlso( withClass( 'successbox' ) )
-					->andAlso( havingTextContents( '(fileimporter-cleanup-summary)' ) )
-				) )
-				->andAlso( havingChild(
-					both( withTagName( 'div' ) )
-					->andAlso( withClass( 'warningbox' ) )
-					->andAlso( havingTextContents( '(fileimporter-import-wait)' ) )
-				) )
-			) )
-		);
+		$this->assertStringContainsString( 'icon-check', $html );
+		$this->assertStringContainsString( '(fileimporter-cleanup-summary)', $html );
+		$this->assertStringContainsString( 'icon-alert', $html );
+		$this->assertStringContainsString( '(fileimporter-import-wait)', $html );
 	}
 
 	/**

@@ -69,7 +69,6 @@ class HelpBanner extends SpecialPageHtmlFragment {
 				[ 'id' => self::HIDE_HELP_BANNER_CHECK_BOX ]
 			) .
 			new MessageWidget( [
-				'type' => 'notice',
 				'label' => new HtmlSnippet(
 					$textSection .
 					$imageSection .
