@@ -1,12 +1,12 @@
 {
-	"batchcomplete": "",
+	"batchcomplete": true,
 	"query": {
-		"pages": {
-			"-1": {
-				"missing": "",
+		"pages": [
+			{
 				"ns": 6,
-				"title": "File:Chicken In Snow CHANGED.JPG"
+				"title": "File:Chicken In Snow CHANGED.JPG",
+				"missing": true
 			}
-		}
+		]
 	}
 }

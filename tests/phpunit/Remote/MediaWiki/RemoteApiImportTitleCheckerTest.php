@@ -19,9 +19,10 @@ class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideJsonResponses() {
 		return [
-			[ '{"query":{"pages":{"-1":{}}}}', true, 0 ],
-			[ '{"query":{"pages":{"1":{}}}}', false, 0 ],
-			[ '{"query":{"pages":{}}}', false, 0 ],
+			[ '{"query":{"pages":[{"missing":true}]}}', true, 0 ],
+			[ '{"query":{"pages":[{"missing":""}]}}', true, 0 ],
+			[ '{"query":{"pages":[{"pageid":1}]}}', false, 0 ],
+			[ '{"query":{"pages":{}}}', false, 1 ],
 			[ '{"query":{}}', false, 1 ],
 			[ '{}', false, 1 ],
 			[ '', false, 1 ],
@@ -52,8 +53,8 @@ class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
 			->with( '<API>', [
 				'format' => 'json',
 				'action' => 'query',
-				'prop' => 'revisions',
 				'titles' => 'File:<TITLE>',
+				'formatversion' => 2,
 			] )
 			->willReturn( $httpRequest );
 

@@ -38,14 +38,14 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 	/**
 	 * @param SourceUrl $sourceUrl
-	 * @param string $intendedTitleString Foo.jpg or Berlin.png (NOT namespace prefixed)
+	 * @param string $intendedFileName File name without the File: prefix
 	 *
-	 * @return bool is the import allowed
+	 * @return bool false if a file with this name already exists
 	 * @throws ImportException when the request failed
 	 */
-	public function importAllowed( SourceUrl $sourceUrl, $intendedTitleString ) {
+	public function importAllowed( SourceUrl $sourceUrl, string $intendedFileName ) : bool {
 		$api = $this->httpApiLookup->getApiUrl( $sourceUrl );
-		$apiParameters = $this->getParams( $intendedTitleString );
+		$apiParameters = $this->getParams( $intendedFileName );
 
 		try {
 			$imageInfoRequest = $this->httpRequestExecutor->execute( $api, $apiParameters );
@@ -66,21 +66,24 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 		$requestData = json_decode( $imageInfoRequest->getContent(), true );
 
-		if ( !isset( $requestData['query']['pages'] ) ) {
-			$this->logger->error( __METHOD__ . ' failed, could not find pages query key in result.' );
+		if ( !isset( $requestData['query']['pages'][0] ) ) {
+			$this->logger->error( __METHOD__ . ' failed, could not find page in result.' );
 			return false;
 		}
 
-		// -1 appears as a key in all error situations, e.g. invalid title or page doesn't exist.
-		return array_key_exists( '-1', $requestData['query']['pages'] );
+		// Possible return values in output format version 2:
+		// { "query": { "pages": [ { "pageid": 123, … when the title exists
+		// { "query": { "pages": [ { "missing": true, … otherwise
+		// Note the legacy format uses { "missing": "" }, and -1 etc. as keys for missing pages.
+		return array_key_exists( 'missing', $requestData['query']['pages'][0] );
 	}
 
-	private function getParams( $titleString ) {
+	private function getParams( string $titleString ) : array {
 		return [
 			'format' => 'json',
 			'action' => 'query',
-			'prop' => 'revisions',
 			'titles' => 'File:' . $titleString,
+			'formatversion' => 2,
 		];
 	}
 
