@@ -57,6 +57,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'method' => 'POST',
 			]
 		) .
+		( new HelpBanner( $this ) )->getHtml() .
 		Html::rawElement(
 			'p',
 			[],

@@ -13,6 +13,8 @@
 	},
 	"fileimporter": "{{name}}",
 	"fileimporter-desc": "{{desc|name=FileImporter|url=https://www.mediawiki.org/wiki/Extension:FileImporter}}",
+	"fileimporter-help-banner-text": "Wikitext for the help banner.",
+	"fileimporter-help-banner-close-tooltip": "Label for the close button shown on the help banner.",
 	"tag-fileimporter": "Short label for edits marked with the \"fileimporter\" tag.",
 	"tag-fileimporter-description": "Description explaining the \"fileimporter\" tag.",
 	"tag-fileimporter-imported": "Short label for edits marked with the \"fileimporter-imported\" tag.",

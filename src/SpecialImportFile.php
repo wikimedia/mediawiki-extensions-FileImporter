@@ -15,6 +15,7 @@ use FileImporter\Html\ChangeFileNameForm;
 use FileImporter\Html\DuplicateFilesErrorPage;
 use FileImporter\Html\ErrorPage;
 use FileImporter\Html\FileInfoDiffPage;
+use FileImporter\Html\HelpBanner;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Html\InfoPage;
@@ -152,6 +153,7 @@ class SpecialImportFile extends SpecialPage {
 		$output->setPageTitle( wfMessage( 'fileimporter-specialpage' ) );
 		$output->enableOOUI();
 		$output->addModuleStyles( 'ext.FileImporter.SpecialCss' );
+		$output->addModuleStyles( 'ext.FileImporter.Images' );
 		$output->addModules( 'ext.FileImporter.SpecialJs' );
 	}
 
@@ -177,6 +179,11 @@ class SpecialImportFile extends SpecialPage {
 			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
 			$this->showLandingPage();
 			return;
+		}
+
+		if ( $webRequest->getBool( HelpBanner::HIDE_HELP_BANNER_CHECK_BOX ) ) {
+			$this->getUser()->setOption( HelpBanner::HIDE_HELP_BANNER_PREFERENCE, '1' );
+			$this->getUser()->saveSettings();
 		}
 
 		try {

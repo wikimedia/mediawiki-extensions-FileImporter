@@ -42,3 +42,46 @@
 	float: right;
 	position: relative;
 }
+
+.mw-importfile-help-banner {
+	margin-bottom: 40px;
+
+	span.oo-ui-labelElement-label {
+		display: flex;
+	}
+
+	.mw-importfile-help-banner-text {
+		p:first-child {
+			margin-top: 0;
+		}
+
+		p:last-child {
+			margin-bottom: 0;
+		}
+
+		ol {
+			/* Default indention is 3.2em */
+			margin-left: 1.2em;
+		}
+	}
+
+	.mw-importfile-image-help-banner {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		margin: 0 32px;
+		min-width: 250px;
+	}
+
+	.oo-ui-icon-close {
+		cursor: pointer;
+	}
+
+	input[ type='checkbox' ] {
+		display: none;
+
+		&:checked + .oo-ui-messageWidget {
+			display: none;
+		}
+	}
+}

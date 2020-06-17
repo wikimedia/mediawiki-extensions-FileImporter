@@ -26,6 +26,7 @@ class InputFormPage extends SpecialPageHtmlFragment {
 					'method' => 'POST',
 				]
 			) .
+			( new HelpBanner( $this ) )->getHtml() .
 			new TextInputWidget(
 				[
 					'name' => 'clientUrl',
