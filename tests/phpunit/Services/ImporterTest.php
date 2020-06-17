@@ -72,12 +72,7 @@ class ImporterTest extends \MediaWikiTestCase {
 			->newFile( self::TITLE );
 		if ( $file->exists() ) {
 			$reason = 'This wasjust from a PHPUnit test.';
-			if ( method_exists( $file, 'deleteFile' ) ) {
-				// MW 1.35+
-				$file->deleteFile( $reason, $this->getTestSysop()->getUser() );
-			} else {
-				$file->delete( $reason );
-			}
+			$file->deleteFile( $reason, $this->getTestSysop()->getUser() );
 		}
 	}
 
