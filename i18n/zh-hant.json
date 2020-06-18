@@ -11,6 +11,7 @@
 	},
 	"fileimporter": "檔案匯入器",
 	"fileimporter-desc": "輕鬆匯入來自其它站台的檔案",
+	"fileimporter-help-banner-close-tooltip": "不要再顯示此訊息",
 	"tag-fileimporter": "由FileImporter修改",
 	"tag-fileimporter-description": "從其它wiki匯入後所添加的版本及日誌訊息",
 	"tag-fileimporter-imported": "以 FileImporter 匯入",

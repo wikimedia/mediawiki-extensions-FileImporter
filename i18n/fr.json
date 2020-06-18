@@ -16,6 +16,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importation facile de fichiers venant d'autres sites",
+	"fileimporter-help-banner-close-tooltip": "Ne plus afficher ce message",
 	"tag-fileimporter": "Modifié par FileImporter",
 	"tag-fileimporter-description": "Révisions et messages de journal ajoutés après l’importation depuis un autre wiki",
 	"tag-fileimporter-imported": "Importé avec FileImporter",

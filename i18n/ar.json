@@ -9,6 +9,7 @@
 	},
 	"fileimporter": "مستورد ملفات",
 	"fileimporter-desc": "سهولة استيراد الملفات من المواقع الأخرى",
+	"fileimporter-help-banner-close-tooltip": "لا تظهر هذه الرسالة مرة أخرى",
 	"tag-fileimporter": "تم التعديل بواسطة مستورد الملفات",
 	"tag-fileimporter-description": "المراجعات ورسائل السجل المضافة بعد الاستيراد من ويكي آخر",
 	"tag-fileimporter-imported": "مستورد بمستورد الملفات",

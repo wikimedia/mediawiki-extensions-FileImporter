@@ -8,6 +8,8 @@
 	},
 	"fileimporter": "Dateiimporteur",
 	"fileimporter-desc": "Einfaches Importieren von Dateien von anderen Websites",
+	"fileimporter-help-banner-text": "'''Importieren aus anderen Wikis'''\n#Prüfe und bearbeite den Titel der Datei und die untenstehenden Informationen.\n#Wähle, ob der FileImporter das Ursprungs-Wiki aufräumen soll, indem die Vorlage [//de.wikipedia.org/wiki/Template:Now_Commons NowCommons] zur Quelldatei hinzugefügt wird. (Wenn du Adminstrator-Rechte hast, hast du auch die Möglichkeit, die Quelldatei direkt zu löschen).\n#Klicke auf '''Datei importieren''', um die Datei nach Commons zu kopieren.\n\nInformationen zur Lizenzierung findest du in den Wikimedia Commons-[//commons.wikimedia.org/wiki/Commons:Licensing Lizenzbestimmungen].<br /> Ausführlichere Anweisungen zur Verwendung von FileImporter findest du auf der [//www.mediawiki.org/wiki/Help:Extension:FileImporter Hilfeseite].\n\nWenn du Feedback zur Verbesserung von FileImporter hast, hinterlasse bitte einen Kommentar auf der [//www.mediawiki.org/wiki/Extension_talk:FileImporter Diskussionsseite].",
+	"fileimporter-help-banner-close-tooltip": "Diese Nachricht nicht mehr anzeigen",
 	"tag-fileimporter": "Verändert durch den Dateiimporteur",
 	"tag-fileimporter-description": "Versionen und Logucheinträge ergänzt nach dem Import von einem anderen Wiki",
 	"tag-fileimporter-imported": "Importiert mit FileImporter",
