@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require( 'assert' ),
 	ImportPreviewPage = require( '../pageobjects/importpreview.page' ),
 	PreferencesPage = require( '../pageobjects/preferences.page' ),

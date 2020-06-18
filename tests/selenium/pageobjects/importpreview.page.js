@@ -1,3 +1,5 @@
+'use strict';
+
 const Page = require( 'wdio-mediawiki/Page' ),
 	UserLoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	Util = require( 'wdio-mediawiki/Util' );
