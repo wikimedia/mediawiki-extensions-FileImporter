@@ -9,6 +9,9 @@
 		"mocha": true
 	},
 	"globals": {
-		"browser": "readonly"
+		"$": "readonly",
+		"$$": "readonly",
+		"browser": "readonly",
+		"mw": "readonly"
 	}
 }
