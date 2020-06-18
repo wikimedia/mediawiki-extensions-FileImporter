@@ -26,7 +26,7 @@ class RemoteApiActionExecutor {
 	 * Possible return values:
 	 * - { "query": { "pages": { "…": { "actions": { "edit": "" }, … } } } }
 	 * - { "query": { "pages": { "…": { "actions": [], … } } } }
-	 * - There should be no reason for this to ever return an error, but it's not impossible.
+	 * - { "error": { "code": "badtoken", "info": "The centralauthtoken is not valid.", … } }
 	 * - null if the API request failed
 	 *
 	 * @param SourceUrl $sourceUrl
@@ -98,7 +98,7 @@ class RemoteApiActionExecutor {
 	/**
 	 * Possible return values:
 	 * - { "query": { "userinfo": { "rights": [ "…", … ], … } }, … }
-	 * - There should be no reason for this to ever return an error, but it's not impossible.
+	 * - { "error": { "code": "badtoken", "info": "The centralauthtoken is not valid.", … } }
 	 * - null if the API request failed
 	 *
 	 * @param SourceUrl $sourceUrl

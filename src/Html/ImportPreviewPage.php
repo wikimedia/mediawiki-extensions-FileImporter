@@ -7,6 +7,7 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Services\CategoryExtractor;
 use Html;
 use Linker;
+use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
@@ -134,7 +135,8 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		) .
 		( new SourceWikiCleanupSnippet(
 			$sourceEditingEnabled,
-			$sourceDeletionEnabled
+			$sourceDeletionEnabled,
+			LoggerFactory::getInstance( 'FileImporter' )
 		) )->getHtml( $importPlan, $this->getUser() ) .
 		Html::openElement(
 			'div',
