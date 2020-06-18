@@ -71,7 +71,6 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * Execute a request
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 * @param array $params API request params
@@ -91,7 +90,19 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 			return null;
 		}
 
-		return $this->doRequest( $sourceUrl, $user, $params, $usePost );
+		$result = $this->doRequest( $sourceUrl, $user, $params, $usePost );
+
+		// It's an array of "errors" with errorformat=plaintext, but a single "error" without.
+		// Each error contains "code" and "info" with formatversion=2, but "code" and "*" without.
+		if ( isset( $result['errors'] ) || isset( $result['error'] ) ) {
+			$this->logger->error( 'Remote API responded with an error', [
+				'sourceUrl' => $sourceUrl->getUrl(),
+				'apiParameters' => $params,
+				'response' => $result,
+			] );
+		}
+
+		return $result;
 	}
 
 	/**
