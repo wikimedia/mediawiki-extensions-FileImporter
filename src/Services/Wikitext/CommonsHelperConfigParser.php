@@ -131,8 +131,7 @@ class CommonsHelperConfigParser {
 			$matches,
 			PREG_SET_ORDER
 		);
-		foreach ( $matches as $match ) {
-			[ , $sourceTemplate, $targetTemplate, $paramPatternsString ] = $match;
+		foreach ( $matches as [ , $sourceTemplate, $targetTemplate, $paramPatternsString ] ) {
 			$parameterTransfers = [];
 
 			$paramRules = preg_split( '/\s*\|+\s*/', $paramPatternsString, -1, PREG_SPLIT_NO_EMPTY );
