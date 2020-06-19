@@ -131,9 +131,6 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import edit.' );
-			if ( $result ) {
-				$this->logger->error( $result['error']['code'] . ': ' . $result['error']['info'] );
-			}
 			$this->statsd->increment( self::STATSD_SOURCE_EDIT_FAIL );
 
 			return $this->manualTemplateFallback(
@@ -169,9 +166,6 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import delete.' );
-			if ( $result ) {
-				$this->logger->error( $result['error']['code'] . ': ' . $result['error']['info'] );
-			}
 			$this->statsd->increment( self::STATSD_SOURCE_DELETE_FAIL );
 
 			$status = $this->successMessage();

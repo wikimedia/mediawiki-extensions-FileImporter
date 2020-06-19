@@ -170,9 +170,6 @@ class SourceWikiCleanupSnippet {
 			return array_key_exists( 'edit', $page['actions'] ?: [] );
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to check whether source editing is allowed.' );
-			if ( $result ) {
-				$this->logger->error( $result['error']['code'] . ': ' . $result['error']['info'] );
-			}
 			return false;
 		}
 	}
@@ -194,9 +191,6 @@ class SourceWikiCleanupSnippet {
 			return in_array( 'delete', $result['query']['userinfo']['rights'] );
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to check whether source deletion is allowed.' );
-			if ( $result ) {
-				$this->logger->error( $result['error']['code'] . ': ' . $result['error']['info'] );
-			}
 			return false;
 		}
 	}
