@@ -61,8 +61,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 				],
 				'(fileimporter-cleanup-summary: http://TestUrl)'
 			)
-			// FIXME: not a realistic result, but we don't care yet.
-			->willReturn( true );
+			->willReturn( StatusValue::newGood() );
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
 		$mockTemplateLookup->expects( $this->once() )
 			->method( 'fetchNowCommonsLocalTitle' )
@@ -119,8 +118,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 				'TestTitleOriginal',
 				'(fileimporter-delete-summary: http://TestUrl)'
 			)
-			// FIXME: not a realistic result, but we don't care yet.
-			->willReturn( true );
+			->willReturn( StatusValue::newGood() );
 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$this->createMock( PostImportHandler::class ),
