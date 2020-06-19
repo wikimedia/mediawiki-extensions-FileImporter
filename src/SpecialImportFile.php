@@ -30,6 +30,8 @@ use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use OOUI\HtmlSnippet;
+use OOUI\MessageWidget;
 use PermissionsError;
 use Psr\Log\LoggerInterface;
 use SpecialPage;
@@ -217,6 +219,7 @@ class SpecialImportFile extends SpecialPage {
 					$exception instanceof CommunityPolicyException ? 'warning' : 'error'
 				);
 			}
+			$this->getOutput()->enableOOUI();
 			$this->getOutput()->addHTML( $html );
 		}
 	}
@@ -391,15 +394,15 @@ class SpecialImportFile extends SpecialPage {
 
 	/**
 	 * @param string $html
+	 * @param string $type
 	 */
-	private function showWarningMessage( $html ) {
-		// TODO: replace with Html::warningBox
+	private function showWarningMessage( string $html, string $type = 'error' ) {
+		$this->getOutput()->enableOOUI();
 		$this->getOutput()->addHTML(
-			Html::rawElement(
-				'div',
-				[ 'class' => 'warningbox' ],
-				Html::rawElement( 'p', [], $html )
-			) .
+			new MessageWidget( [
+				'label' => new HtmlSnippet( $html ),
+				'type' => $type,
+			] ) .
 			Html::rawElement( 'br' )
 		);
 	}
@@ -412,7 +415,7 @@ class SpecialImportFile extends SpecialPage {
 
 	private function showLandingPage() {
 		if ( $this->config->get( 'FileImporterInBeta' ) ) {
-			$this->showWarningMessage( wfMessage( 'fileimporter-in-beta' )->parse() );
+			$this->showWarningMessage( wfMessage( 'fileimporter-in-beta' )->parse(), 'warning' );
 		}
 
 		$page = $this->config->get( 'FileImporterShowInputScreen' )
