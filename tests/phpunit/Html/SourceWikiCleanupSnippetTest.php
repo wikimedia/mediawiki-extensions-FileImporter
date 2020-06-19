@@ -13,6 +13,7 @@ use MediaWiki\Linker\LinkTarget;
 use MediaWikiTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
+use StatusValue;
 use User;
 use Wikimedia\TestingAccessWrapper;
 
@@ -127,7 +128,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		$mockApi
 			->expects( $this->once() )
 			->method( 'executeUserRightsQuery' )
-			->willReturn( [ 'query' => [ 'userinfo' => [ 'rights' => [ 'edit' ] ] ] ] );
+			->willReturn( StatusValue::newFatal( '' ) );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
 		/** @var SourceWikiCleanupSnippet $snippet */
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
@@ -190,10 +191,8 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		);
 	}
 
-	private function setupServicesAndGlobals( $templateKnown, $userCanDelete ) {
+	private function setupServicesAndGlobals( bool $templateKnown, bool $userCanDelete ) {
 		$templateResult = $templateKnown ? 'TestNowCommons' : null;
-		$rightsApiResult = $userCanDelete ?
-			[ 'query' => [ 'userinfo' => [ 'rights' => [ 'delete' ] ] ] ] : null;
 
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
 		$mockTemplateLookup
@@ -202,10 +201,10 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		$this->setService( 'FileImporterTemplateLookup', $mockTemplateLookup );
 		$mockApiExecutor = $this->createMock( RemoteApiActionExecutor::class );
 		$mockApiExecutor->method( 'executeTestEditActionQuery' )
-			->willReturn( [ 'query' => [ 'pages' => [ [ 'actions' => [ 'edit' => '' ] ] ] ] ] );
+			->willReturn( StatusValue::newGood() );
 		$mockApiExecutor
 			->method( 'executeUserRightsQuery' )
-			->willReturn( $rightsApiResult );
+			->willReturn( $userCanDelete ? StatusValue::newGood() : StatusValue::newFatal( '' ) );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApiExecutor );
 	}
 

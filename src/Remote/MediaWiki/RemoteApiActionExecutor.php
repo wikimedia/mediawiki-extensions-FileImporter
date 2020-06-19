@@ -3,10 +3,13 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
+use StatusValue;
 use User;
 
 /**
  * @license GPL-2.0-or-later
+ *
+ * @phan-file-suppress PhanTypeArraySuspiciousNullable multiple false positives
  */
 class RemoteApiActionExecutor {
 
@@ -23,20 +26,20 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
-	 * Possible return values:
-	 * - { "query": { "pages": { "…": { "actions": { "edit": "" }, … } } } }
-	 * - { "query": { "pages": { "…": { "actions": [], … } } } }
-	 * - { "error": { "code": "badtoken", "info": "The centralauthtoken is not valid.", … } }
-	 * - null if the API request failed
-	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 * @param string $title
 	 *
-	 * @return array|null
+	 * @return StatusValue with a boolean value, true if the user can edit the page
 	 */
-	public function executeTestEditActionQuery( SourceUrl $sourceUrl, User $user, string $title ) {
-		return $this->remoteApiRequestExecutor->execute(
+	public function executeTestEditActionQuery( SourceUrl $sourceUrl, User $user, string $title ) : StatusValue {
+		// Expected return values in the legacy format:
+		// { "query": { "pages": { "123": { "actions": { "edit": "" }, …
+		// { "query": { "pages": { "123": { "actions": [], …
+		// But with formatversion=2:
+		// { "query": { "pages": [ { "actions": { "edit": true }, …
+		// { "query": { "pages": [ { "actions": { "edit": false }, …
+		$result = $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
 			[
@@ -48,6 +51,17 @@ class RemoteApiActionExecutor {
 			],
 			true
 		);
+
+		$isOk = isset( $result['query']['pages'] );
+		$page = $isOk ? reset( $result['query']['pages'] ) : [];
+		$actions = $page['actions'] ?: [];
+
+		$status = $this->statusFromApiResponse( $result );
+		$status->setResult(
+			$isOk,
+			array_key_exists( 'edit', $actions ) && $actions['edit'] !== false
+		);
+		return $status;
 	}
 
 	/**
@@ -96,18 +110,16 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
-	 * Possible return values:
-	 * - { "query": { "userinfo": { "rights": [ "…", … ], … } }, … }
-	 * - { "error": { "code": "badtoken", "info": "The centralauthtoken is not valid.", … } }
-	 * - null if the API request failed
-	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 *
-	 * @return array|null Null in case of an error.
+	 * @return StatusValue with a boolean value, true if the user is allowed to delete pages
 	 */
-	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ) {
-		return $this->remoteApiRequestExecutor->execute(
+	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ) : StatusValue {
+		// Expected return values:
+		// { "query": { "userinfo": { "rights": [ "delete", …
+		// Same with formatversion=2
+		$result = $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
 			[
@@ -117,6 +129,16 @@ class RemoteApiActionExecutor {
 				'uiprop' => 'rights',
 			]
 		);
+
+		$isOk = isset( $result['query']['userinfo']['rights'] );
+		$rights = $isOk ? $result['query']['userinfo']['rights'] : [];
+
+		$status = $this->statusFromApiResponse( $result );
+		$status->setResult(
+			$isOk,
+			in_array( 'delete', $rights )
+		);
+		return $status;
 	}
 
 	/**
@@ -156,6 +178,27 @@ class RemoteApiActionExecutor {
 			],
 			true
 		);
+	}
+
+	private function statusFromApiResponse( ?array $apiResponse ) : StatusValue {
+		$status = StatusValue::newGood();
+
+		if ( !$apiResponse ) {
+			$status->setOK( false );
+			return $status;
+		}
+
+		// It's an array of "errors" with errorformat=plaintext, but a single "error" without.
+		$errors = $apiResponse['errors'] ?? [];
+		if ( isset( $apiResponse['error'] ) ) {
+			$errors[] = $apiResponse['error'];
+		}
+		foreach ( $errors as $error ) {
+			// Errors contain "code" and "info" with formatversion=2, but "code" and "*" without.
+			$status->error( $error['code'] );
+		}
+
+		return $status;
 	}
 
 }

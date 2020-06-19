@@ -163,15 +163,8 @@ class SourceWikiCleanupSnippet {
 			return false;
 		}
 
-		$result = $this->remoteActionApi->executeTestEditActionQuery( $sourceUrl, $user, $title );
-		if ( $result && !isset( $result['error'] ) ) {
-			$pages = $result['query']['pages'] ?? [];
-			$page = reset( $pages );
-			return array_key_exists( 'edit', $page['actions'] ?: [] );
-		} else {
-			$this->logger->error( __METHOD__ . ' failed to check whether source editing is allowed.' );
-			return false;
-		}
+		return $this->remoteActionApi->executeTestEditActionQuery( $sourceUrl, $user, $title )
+			->isGood();
 	}
 
 	/**
@@ -186,13 +179,8 @@ class SourceWikiCleanupSnippet {
 			return false;
 		}
 
-		$result = $this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user );
-		if ( $result && !isset( $result['error'] ) ) {
-			return in_array( 'delete', $result['query']['userinfo']['rights'] );
-		} else {
-			$this->logger->error( __METHOD__ . ' failed to check whether source deletion is allowed.' );
-			return false;
-		}
+		return $this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user )
+			->isGood();
 	}
 
 }
