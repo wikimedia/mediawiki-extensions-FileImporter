@@ -22,10 +22,10 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 	private function newFileRevision( string $timestamp, bool $isOld = false ) : FileRevision {
 		$mock = $this->createMock( FileRevision::class );
 		$mock->method( 'getField' )
-			->with( 'timestamp' )
-			->willReturn( $timestamp );
-		$mock->method( 'getFields' )
-			->willReturn( $isOld ? [ 'archivename' => '' ] : [] );
+			->willReturnMap( [
+				[ 'timestamp', $timestamp ],
+				[ 'archivename', $isOld ? '1' : null ],
+			] );
 		return $mock;
 	}
 

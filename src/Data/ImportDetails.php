@@ -181,11 +181,11 @@ class ImportDetails {
 		];
 
 		foreach ( $this->getTextRevisions()->toArray() as $textRevision ) {
-			$hashes[] = $textRevision->getField( 'sha1' );
+			$hashes[] = $textRevision->getField( 'sha1' ) ?? '';
 		}
 
 		foreach ( $this->getFileRevisions()->toArray() as $fileRevision ) {
-			$hashes[] = $fileRevision->getField( 'sha1' );
+			$hashes[] = $fileRevision->getField( 'sha1' ) ?? '';
 		}
 
 		return sha1( implode( '|', $hashes ) );

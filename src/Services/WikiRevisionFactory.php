@@ -85,8 +85,9 @@ class WikiRevisionFactory {
 		$revision->setUserObj( User::newFromName( $importedUser ) );
 
 		// Mark old file revisions as such
-		if ( isset( $fileRevision->getFields()['archivename'] ) ) {
-			$revision->setArchiveName( $fileRevision->getField( 'archivename' ) );
+		$archiveName = $fileRevision->getField( 'archivename' );
+		if ( $archiveName ) {
+			$revision->setArchiveName( $archiveName );
 		}
 
 		return $revision;
