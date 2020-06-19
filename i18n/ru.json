@@ -18,6 +18,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
+	"fileimporter-help-banner-close-tooltip": "Не показывать это сообщение повторно",
 	"tag-fileimporter-description": "Изменения и сообщения журнала, добавленные после импорта из другой Википедии",
 	"tag-fileimporter-imported": "Импортировано с помощью FileImporter",
 	"tag-fileimporter-imported-description": "Изменения, импортированные из другой Википедии",

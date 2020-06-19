@@ -6,6 +6,7 @@
 	},
 	"fileimporter": "Importador de arquivos",
 	"fileimporter-desc": "Importação fácil de arquivos de outros sites",
+	"fileimporter-help-banner-close-tooltip": "Não mostrar esta mensagem novamente",
 	"tag-fileimporter": "Modificado por FileImporter",
 	"tag-fileimporter-description": "Revisões e mensagens de registro adicionadas após a importação de outra wiki",
 	"tag-fileimporter-imported": "Importado com o Importador de Arquivos",
