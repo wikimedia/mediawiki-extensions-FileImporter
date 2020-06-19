@@ -89,6 +89,8 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $fileName );
 		$importPlan->method( 'getActionStats' )
 			->willReturn( [] );
+		$importPlan->method( 'getValidationWarnings' )
+			->willReturn( [] );
 
 		$form = new ChangeFileNameForm( $this->getMockSpecialPage() );
 
@@ -104,6 +106,11 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 					->andAlso( havingChild(
 						both( withTagName( 'input' ) )
 							->andAlso( withAttribute( 'name' )->havingValue( 'actionStats' ) )
+							->andAlso( withAttribute( 'value' )->havingValue( '[]' ) )
+					) )
+					->andAlso( havingChild(
+						both( withTagName( 'input' ) )
+							->andAlso( withAttribute( 'name' )->havingValue( 'validationWarnings' ) )
 							->andAlso( withAttribute( 'value' )->havingValue( '[]' ) )
 					) )
 			) ) )

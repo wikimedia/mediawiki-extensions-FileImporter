@@ -23,6 +23,7 @@ class ImportIdentityFormSnippet {
 		'intendedRevisionSummary',
 		'intendedWikitext',
 		'actionStats',
+		'validationWarnings',
 		'importDetailsHash',
 		'automateSourceWikiCleanup',
 		'automateSourceWikiDelete'

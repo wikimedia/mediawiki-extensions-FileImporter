@@ -10,6 +10,8 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
+use FileImporter\Exceptions\AbuseFilterWarningsException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
@@ -23,6 +25,7 @@ use MediaWiki\Revision\RevisionRecord;
 use OldRevisionImporter;
 use UploadRevisionImporter;
 use User;
+use Wikimedia\TestingAccessWrapper;
 use WikiRevision;
 
 /**
@@ -99,6 +102,121 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		);
 
 		$importer->import( $this->user, $importPlan );
+	}
+
+	public function testValidateImportOperations() {
+		$importPlan = $this->createMock( ImportPlan::class );
+		$importPlan->expects( $this->exactly( 2 ) )
+			->method( 'getValidationWarnings' )
+			->willReturn( [ 2, 3 ] );
+		$importPlan->expects( $this->exactly( 1 ) )
+			->method( 'addValidationWarning' )
+			->with( 1 );
+
+		$apiMessage1 = \ApiMessage::create( '1', null, [
+			'abusefilter' => [
+				'id' => 1,
+				'actions' => [ 'warn' ]
+			]
+		] );
+
+		$apiMessage2 = \ApiMessage::create( '2', null, [
+			'abusefilter' => [
+				'id' => 2,
+				'actions' => [ 'warn' ]
+			]
+		] );
+
+		$status = $this->createMock( \Status::class );
+		$status->expects( $this->once() )
+			->method( 'isGood' )
+			->willReturn( false );
+		$status->expects( $this->once() )
+			->method( 'getErrors' )
+			->willReturn( [
+				[ 'message' => $apiMessage1 ],
+				[ 'message' => $apiMessage2 ]
+			] );
+
+		$importer = new Importer(
+			$this->createMock( WikiPageFactory::class ),
+			$this->createMock( WikiRevisionFactory::class ),
+			$this->createMock( NullRevisionCreator::class ),
+			$this->createMock( HttpRequestExecutor::class ),
+			$this->createMock( UploadBaseFactory::class ),
+			$this->createMock( OldRevisionImporter::class ),
+			$this->createMock( UploadRevisionImporter::class ),
+			new FileTextRevisionValidator()
+		);
+
+		/** @var Importer $importer */
+		$importer = TestingAccessWrapper::newFromObject( $importer );
+
+		try {
+			call_user_func_array(
+				[ $importer, 'validateImportOperations' ],
+				[ $status, $importPlan ]
+			);
+			$this->fail( 'Failed asserting that exception of type "ImportValidationException" is thrown.' );
+		} catch ( AbuseFilterWarningsException $e ) {
+			$this->assertCount( 1, $e->getMessages() );
+			$this->assertArrayEquals( [ $apiMessage1 ], $e->getMessages() );
+		}
+	}
+
+	public function testValidateImportOperationsWithAbuseFilterDisallow() {
+		$importPlan = $this->createMock( ImportPlan::class );
+		$importPlan->expects( $this->once() )
+			->method( 'getValidationWarnings' )
+			->willReturn( [] );
+		$importPlan->expects( $this->once() )
+			->method( 'addValidationWarning' )
+			->with( 1 );
+
+		$apiMessage1 = \ApiMessage::create( '1', null, [
+			'abusefilter' => [
+				'id' => 1,
+				'actions' => [ 'warn' ]
+			]
+		] );
+
+		$apiMessage2 = \ApiMessage::create( '2', null, [
+			'abusefilter' => [
+				'id' => 2,
+				'actions' => [ 'disallow' ]
+			]
+		] );
+
+		$status = $this->createMock( \Status::class );
+		$status->expects( $this->once() )
+			->method( 'isGood' )
+			->willReturn( false );
+		$status->expects( $this->once() )
+			->method( 'getErrors' )
+			->willReturn( [
+				[ 'message' => $apiMessage1 ],
+				[ 'message' => $apiMessage2 ]
+			] );
+
+		$importer = new Importer(
+			$this->createMock( WikiPageFactory::class ),
+			$this->createMock( WikiRevisionFactory::class ),
+			$this->createMock( NullRevisionCreator::class ),
+			$this->createMock( HttpRequestExecutor::class ),
+			$this->createMock( UploadBaseFactory::class ),
+			$this->createMock( OldRevisionImporter::class ),
+			$this->createMock( UploadRevisionImporter::class ),
+			new FileTextRevisionValidator()
+		);
+
+		/** @var Importer $importer */
+		$importer = TestingAccessWrapper::newFromObject( $importer );
+
+		$this->expectException( LocalizedImportException::class );
+		call_user_func_array(
+			[ $importer, 'validateImportOperations' ],
+			[ $status, $importPlan ]
+		);
 	}
 
 	private function newImportPlan(

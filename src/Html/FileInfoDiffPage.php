@@ -45,6 +45,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 				'intendedRevisionSummary' => $importPlan->getRequest()->getIntendedSummary(),
 				'intendedWikitext' => $importPlan->getFileInfoText(),
 				'actionStats' => json_encode( $importPlan->getActionStats() ),
+				'validationWarnings' => json_encode( $importPlan->getValidationWarnings() ),
 				'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
 				'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
 				'automateSourceWikiDelete' => $importPlan->getAutomateSourceWikiDelete(),

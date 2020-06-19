@@ -145,6 +145,8 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( Title::newFromText( __METHOD__ ) );
 		$importPlanMock->method( 'getActionStats' )
 			->willReturn( [] );
+		$importPlanMock->method( 'getValidationWarnings' )
+			->willReturn( [] );
 
 		return $importPlanMock;
 	}

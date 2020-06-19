@@ -6,6 +6,7 @@ use ErrorPageError;
 use Exception;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
+use FileImporter\Exceptions\AbuseFilterWarningsException;
 use FileImporter\Exceptions\CommunityPolicyException;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
@@ -282,6 +283,9 @@ class SpecialImportFile extends SpecialPage {
 		$importPlan->setActionStats(
 			json_decode( $webRequest->getVal( 'actionStats', '[]' ), true )
 		);
+		$importPlan->setValidationWarnings(
+			json_decode( $webRequest->getVal( 'validationWarnings', '[]' ), true )
+		);
 		$importPlan->setAutomateSourceWikiCleanUp(
 			$webRequest->getBool( 'automateSourceWikiCleanup' )
 		);
@@ -347,13 +351,24 @@ class SpecialImportFile extends SpecialPage {
 				$exception instanceof RecoverableTitleException
 			);
 
-			$this->showWarningMessage(
-				Html::rawElement( 'strong', [], wfMessage( 'fileimporter-importfailed' )->parse() ) .
-				'<br>' .
-				$this->getWarningMessage( $exception ),
-				'error'
-			);
+			if ( $exception instanceof AbuseFilterWarningsException ) {
+				$this->showWarningMessage( $this->getWarningMessage( $exception ) );
 
+				foreach ( $exception->getMessages() as $msg ) {
+					$this->showWarningMessage( $msg );
+				}
+
+				$this->getOutput()->addHTML(
+					( new ImportPreviewPage( $this ) )->getHtml( $importPlan )
+				);
+			} else {
+				$this->showWarningMessage(
+					Html::rawElement( 'strong', [], wfMessage( 'fileimporter-importfailed' )->parse() ) .
+					'<br>' .
+					$this->getWarningMessage( $exception ),
+					'error'
+				);
+			}
 			return false;
 		}
 	}

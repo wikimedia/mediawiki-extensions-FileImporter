@@ -55,6 +55,7 @@ class ImportOperations implements ImportOperation {
 	 *
 	 * @param int $expectedState State machine must be in this state to begin processing.
 	 * @param int $nextState State machine will move to this state once processing begins.
+	 * @param bool $stopOnError when True the state machine will exit early if errors are found
 	 * @param callable $executor function( ImportOperation ) : Status,
 	 *  callback to select which phase of the operation to run.
 	 * @return Status isOK if all steps succeed.  Accumulates warnings and may
@@ -63,6 +64,7 @@ class ImportOperations implements ImportOperation {
 	private function runOperations(
 		int $expectedState,
 		int $nextState,
+		bool $stopOnError,
 		callable $executor
 	) : Status {
 		if ( !$this->importOperations ) {
@@ -79,9 +81,7 @@ class ImportOperations implements ImportOperation {
 		foreach ( $this->importOperations as $importOperation ) {
 			$status->merge( $executor( $importOperation ) );
 
-			if ( !$status->isOK() ) {
-				// TODO: There are interesting interface possibilities if we
-				//  instead continue processing here, to collect all errors.
+			if ( $stopOnError && !$status->isOK() ) {
 				break;
 			}
 		}
@@ -97,6 +97,7 @@ class ImportOperations implements ImportOperation {
 		return $this->runOperations(
 			self::BUILDING,
 			self::PREPARE_RUN,
+			true,
 			function ( $importOperation ) {
 				return $importOperation->prepare();
 			}
@@ -112,6 +113,7 @@ class ImportOperations implements ImportOperation {
 		return $this->runOperations(
 			self::PREPARE_RUN,
 			self::VALIDATE_RUN,
+			false,
 			function ( $importOperation ) {
 				return $importOperation->validate();
 			}
@@ -126,6 +128,7 @@ class ImportOperations implements ImportOperation {
 		return $this->runOperations(
 			self::VALIDATE_RUN,
 			self::COMMIT_RUN,
+			true,
 			function ( $importOperation ) {
 				return $importOperation->commit();
 			}

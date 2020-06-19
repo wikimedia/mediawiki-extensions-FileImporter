@@ -42,18 +42,22 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$this->assertFalse( $plan->getAutomateSourceWikiCleanUp() );
 		$this->assertFalse( $plan->getAutomateSourceWikiDelete() );
 		$this->assertSame( [], $plan->getActionStats() );
+		$this->assertSame( [], $plan->getValidationWarnings() );
 
 		$plan->setCleanedLatestRevisionText( 'T' );
 		$plan->setNumberOfTemplateReplacements( 1 );
 		$plan->setAutomateSourceWikiCleanUp( true );
 		$plan->setAutomateSourceWikiDelete( true );
 		$plan->setActionStats( [ 'a' => 1 ] );
+		$plan->setValidationWarnings( [ 1, 2 ] );
+		$plan->addValidationWarning( 3 );
 
 		$this->assertSame( 'T', $plan->getCleanedLatestRevisionText() );
 		$this->assertSame( 1, $plan->getNumberOfTemplateReplacements() );
 		$this->assertTrue( $plan->getAutomateSourceWikiCleanUp() );
 		$this->assertTrue( $plan->getAutomateSourceWikiDelete() );
 		$this->assertSame( [ 'a' => 1 ], $plan->getActionStats() );
+		$this->assertSame( [ 1, 2, 3 ], $plan->getValidationWarnings() );
 	}
 
 	public function testSetActionIsPerformed() {
