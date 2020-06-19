@@ -27,7 +27,7 @@ class ErrorPage extends SpecialPageHtmlFragment {
 		);
 
 		if ( $url !== null ) {
-			$output .= Html::rawElement( 'br' ) . new ButtonWidget(
+			$output .= '<br>' . new ButtonWidget(
 				[
 					'label' => $this->msg( 'fileimporter-go-to-original-file-button' )->plain(),
 					'href' => $url,
