@@ -4,6 +4,11 @@ namespace FileImporter;
 
 use CentralIdLookup;
 use FileImporter\Remote\MediaWiki\CentralAuthTokenProvider;
+use FileImporter\Remote\MediaWiki\HttpApiLookup;
+use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
+use FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor;
+use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 
@@ -12,51 +17,45 @@ use MediaWiki\MediaWikiServices;
  */
 return [
 
-	'FileImporterMediaWikiHttpApiLookup' => function ( MediaWikiServices $services ) {
-		/** @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor */
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+	'FileImporterMediaWikiHttpApiLookup' =>
+		function ( MediaWikiServices $services ) : HttpApiLookup {
+			/** @var HttpRequestExecutor $httpRequestExecutor */
+			$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
-		$service = new Remote\MediaWiki\HttpApiLookup(
-			$httpRequestExecutor
-		);
-		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-		return $service;
-	},
+			$service = new HttpApiLookup( $httpRequestExecutor );
+			$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
+			return $service;
+		},
 
-	'FileImporterMediaWikiSiteTableSiteLookup' => function ( MediaWikiServices $services ) {
-		return new Remote\MediaWiki\SiteTableSiteLookup(
-			$services->getSiteLookup(),
-			LoggerFactory::getInstance( 'FileImporter' )
-		);
-	},
+	'FileImporterMediaWikiSiteTableSiteLookup' =>
+		function ( MediaWikiServices $services ) : SiteTableSiteLookup {
+			return new SiteTableSiteLookup(
+				$services->getSiteLookup(),
+				LoggerFactory::getInstance( 'FileImporter' )
+			);
+		},
 
-	'FileImporterMediaWikiRemoteApiRequestExecutor' => function ( MediaWikiServices $services ) {
-		/** @var \FileImporter\Services\Http\HttpRequestExecutor $httpRequestExecutor */
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+	'FileImporterMediaWikiRemoteApiRequestExecutor' =>
+		function ( MediaWikiServices $services ) : RemoteApiRequestExecutor {
+			/** @var HttpRequestExecutor $httpRequestExecutor */
+			$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
-		$httpApiLookup = new Remote\MediaWiki\HttpApiLookup(
-			$httpRequestExecutor
-		);
+			$service = new RemoteApiRequestExecutor(
+				new HttpApiLookup( $httpRequestExecutor ),
+				$httpRequestExecutor,
+				new CentralAuthTokenProvider(),
+				CentralIdLookup::factory()
+			);
+			$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
+			return $service;
+		},
 
-		$service = new Remote\MediaWiki\RemoteApiRequestExecutor(
-			$httpApiLookup,
-			$httpRequestExecutor,
-			new CentralAuthTokenProvider(),
-			CentralIdLookup::factory()
-		);
-		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-		return $service;
-	},
+	'FileImporterMediaWikiRemoteApiActionExecutor' =>
+		function ( MediaWikiServices $services ) : RemoteApiActionExecutor {
+			/** @var RemoteApiRequestExecutor $remoteApiRequestExecutor */
+			$remoteApiRequestExecutor = $services->getService( 'FileImporterMediaWikiRemoteApiRequestExecutor' );
 
-	'FileImporterMediaWikiRemoteApiActionExecutor' => function ( MediaWikiServices $services ) {
-		/** @var \FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor $remoteApiRequestExecutor */
-		$remoteApiRequestExecutor = $services->getService( 'FileImporterMediaWikiRemoteApiRequestExecutor'
- );
-
-		$service = new Remote\MediaWiki\RemoteApiActionExecutor(
-			$remoteApiRequestExecutor
-		);
-		return $service;
-	},
+			return new RemoteApiActionExecutor( $remoteApiRequestExecutor );
+		},
 
 ];
