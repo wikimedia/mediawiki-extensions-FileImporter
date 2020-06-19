@@ -394,7 +394,7 @@ class SpecialImportFile extends SpecialPage {
 
 	/**
 	 * @param string $html
-	 * @param string $type
+	 * @param string $type Set to "notice" for a gray box, defaults to "error" (red)
 	 */
 	private function showWarningMessage( string $html, string $type = 'error' ) {
 		$this->getOutput()->enableOOUI();
@@ -415,7 +415,7 @@ class SpecialImportFile extends SpecialPage {
 
 	private function showLandingPage() {
 		if ( $this->config->get( 'FileImporterInBeta' ) ) {
-			$this->showWarningMessage( wfMessage( 'fileimporter-in-beta' )->parse(), 'warning' );
+			$this->showWarningMessage( wfMessage( 'fileimporter-in-beta' )->parse(), 'notice' );
 		}
 
 		$page = $this->config->get( 'FileImporterShowInputScreen' )
