@@ -3,7 +3,6 @@
 namespace FileImporter\Html;
 
 use FileImporter\Exceptions\RecoverableTitleException;
-use Html;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 
@@ -25,7 +24,7 @@ class RecoverableTitleExceptionPage extends SpecialPageHtmlFragment {
 			'label' => new HtmlSnippet( $exception->getMessageObject()->parse() ),
 			'type' => 'warning',
 		] ) .
-		Html::rawElement( 'br' ) .
+		'<br>' .
 		( new ChangeFileNameForm( $this ) )->getHtml( $exception->getImportPlan() );
 	}
 

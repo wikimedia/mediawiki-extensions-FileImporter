@@ -347,8 +347,12 @@ class SpecialImportFile extends SpecialPage {
 				$exception instanceof RecoverableTitleException
 			);
 
-			$this->showWarningMessage( $this->getWarningMessage( $exception ) );
-			$this->showWarningMessage( wfMessage( 'fileimporter-importfailed' )->parse() );
+			$this->showWarningMessage(
+				Html::rawElement( 'strong', [], wfMessage( 'fileimporter-importfailed' )->parse() ) .
+				'<br>' .
+				$this->getWarningMessage( $exception ),
+				'error'
+			);
 
 			return false;
 		}
@@ -403,7 +407,7 @@ class SpecialImportFile extends SpecialPage {
 				'label' => new HtmlSnippet( $html ),
 				'type' => $type,
 			] ) .
-			Html::rawElement( 'br' )
+			'<br>'
 		);
 	}
 
