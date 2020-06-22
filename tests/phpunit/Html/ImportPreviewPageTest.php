@@ -17,6 +17,7 @@ use MediaWiki\Linker\LinkTarget;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use SpecialPage;
+use StatusValue;
 use Title;
 use User;
 
@@ -95,7 +96,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$this->setService( 'FileImporterTemplateLookup', $this->getMockTemplateLookup() );
 		$api = $this->createMock( RemoteApiActionExecutor::class );
 		$api->method( 'executeTestEditActionQuery' )
-			->willReturn( [ 'query' => [ 'pages' => [ [ 'actions' => [ 'edit' => '' ] ] ] ] ] );
+			->willReturn( StatusValue::newGood() );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $api );
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
