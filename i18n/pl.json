@@ -6,11 +6,13 @@
 			"InternerowyGołąb",
 			"Krottyianock",
 			"Rail",
-			"Railfail536"
+			"Railfail536",
+			"Rainbow P"
 		]
 	},
 	"fileimporter": "Importer plików",
 	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
+	"fileimporter-help-banner-close-tooltip": "Nie pokazuj ponownie tego komunikatu",
 	"tag-fileimporter-description": "Wersje i wpisy rejestru dodane po imporcie z innej wiki",
 	"tag-fileimporter-imported-description": "Wersje zaimportowane z innej wiki",
 	"fileimporter-specialpage": "Import pliku",

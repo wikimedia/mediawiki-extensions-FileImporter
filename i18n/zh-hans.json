@@ -15,6 +15,7 @@
 	},
 	"fileimporter": "文件导入器",
 	"fileimporter-desc": "从其他网站轻松导入文件",
+	"fileimporter-help-banner-close-tooltip": "不要再次显示这条消息",
 	"tag-fileimporter": "已由FileImporter修改",
 	"fileimporter-specialpage": "导入文件",
 	"fileimporter-importfailed": "导入失败",

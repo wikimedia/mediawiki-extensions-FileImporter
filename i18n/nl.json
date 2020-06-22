@@ -9,6 +9,7 @@
 		]
 	},
 	"fileimporter-desc": "Eenvoudig bestanden van andere sites importeren",
+	"fileimporter-help-banner-close-tooltip": "Dit bericht niet meer weergeven",
 	"fileimporter-specialpage": "Bestand importeren",
 	"fileimporter-importfailed": "Importeren is mislukt",
 	"fileimporter-api-badinfo": "Onjuiste bestands- of versieinformatie verkregen van de API.",

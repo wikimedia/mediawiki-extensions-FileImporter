@@ -20,7 +20,7 @@
 	"fileimporter-cantimporturl": "প্রদত্ত URLটি আমদানি করা যাবে না",
 	"fileimporter-cantimportmissingfile": "অনুপস্থিত ফাইল আমদানি করা যাবে না।",
 	"fileimporter-cantimportfilehidden": "ফাইলটি আমদানি করা যাবে না কারণ এটির সংস্করণগুলির কমপক্ষে একটিতে অপসারিত ফাইল রয়েছে।",
-	"fileimporter-badtoken": "সিএসআরএফ টোকেন মিলে নি",
+	"fileimporter-badtoken": "আপনার সেশন আর বৈধ নয়। আমদানি পুনরারম্ভ করুন।",
 	"fileimporter-badimporthash": "আমদানি হ্যাশ মিলেনি। আমদানি পুনরায় আরম্ভ করুন।",
 	"fileimporter-filenameerror-default": "আপনার ফাইলের নামে একটি অজানা সমস্যা আছে।",
 	"fileimporter-filenameerror-illegal": "আপনি যে ফাইলের নামটি বর্তমানে আমদানি করার চেষ্টা করছেন তা অবৈধ।",
