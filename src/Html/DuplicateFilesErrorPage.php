@@ -5,6 +5,7 @@ namespace FileImporter\Html;
 use File;
 use Html;
 use OOUI\ButtonWidget;
+use OOUI\MessageWidget;
 
 /**
  * Html showing a list of duplicate files.
@@ -42,16 +43,16 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 		}
 		$duplicateFilesList .= Html::closeElement( 'ul' );
 
-		$output = Html::rawElement(
-				'div',
-				[ 'class' => 'mw-importfile-error-banner errorbox' ],
-				Html::element( 'p', [], $this->msg( 'fileimporter-duplicatefilesdetected' )->plain() )
-			);
+		$output = new MessageWidget( [
+			'label' => $this->msg( 'fileimporter-duplicatefilesdetected' )->plain(),
+			'type' => 'error',
+		] );
 
 		$output .= $duplicateFilesList;
 
-		if ( $url !== null ) {
-			$output .= new ButtonWidget(
+		if ( $url ) {
+			$output .= Html::element( 'br' ) .
+			new ButtonWidget(
 				[
 					'label' => $this->msg( 'fileimporter-go-to-original-file-button' )->plain(),
 					'href' => $url,
