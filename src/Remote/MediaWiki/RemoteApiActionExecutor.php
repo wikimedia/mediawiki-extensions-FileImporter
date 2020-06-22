@@ -65,11 +65,6 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
-	 * Possible return values:
-	 * - { "edit": { "result": "Success", … } }
-	 * - { "error": { "code": "protectedpage", "info": "This page has been protected …", … } }
-	 * - null if the API request failed
-	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 * @param string $title
@@ -77,7 +72,7 @@ class RemoteApiActionExecutor {
 	 *  "undo" is required.
 	 * @param string $editSummary
 	 *
-	 * @return array|null Null in case of an error.
+	 * @return StatusValue
 	 */
 	public function executeEditAction(
 		SourceUrl $sourceUrl,
@@ -85,14 +80,13 @@ class RemoteApiActionExecutor {
 		string $title,
 		array $params,
 		string $editSummary
-	) {
+	) : StatusValue {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
-
 		if ( $token === null ) {
-			return null;
+			return $this->statusFromApiResponse();
 		}
 
-		return $this->remoteApiRequestExecutor->execute(
+		$result = $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
 			array_merge(
@@ -107,6 +101,7 @@ class RemoteApiActionExecutor {
 			),
 			true
 		);
+		return $this->statusFromApiResponse( $result );
 	}
 
 	/**
@@ -142,31 +137,25 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
-	 * Possible return values:
-	 * - { "delete": { … } }
-	 * - { "error": { "code": "permissiondenied", "info": "…", …  } }
-	 * - null if the API request failed
-	 *
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 * @param string $title
 	 * @param string $deletionReason
 	 *
-	 * @return array|null Null in case of an error.
+	 * @return StatusValue
 	 */
 	public function executeDeleteAction(
 		SourceUrl $sourceUrl,
 		User $user,
 		string $title,
 		string $deletionReason
-	) {
+	) : StatusValue {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
-
 		if ( $token === null ) {
-			return null;
+			return $this->statusFromApiResponse();
 		}
 
-		return $this->remoteApiRequestExecutor->execute(
+		$result = $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
 			[
@@ -178,9 +167,10 @@ class RemoteApiActionExecutor {
 			],
 			true
 		);
+		return $this->statusFromApiResponse( $result );
 	}
 
-	private function statusFromApiResponse( ?array $apiResponse ) : StatusValue {
+	private function statusFromApiResponse( array $apiResponse = null ) : StatusValue {
 		$status = StatusValue::newGood();
 
 		if ( !$apiResponse ) {

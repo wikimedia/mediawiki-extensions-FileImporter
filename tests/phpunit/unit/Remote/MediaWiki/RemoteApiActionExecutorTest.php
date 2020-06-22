@@ -22,13 +22,14 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 			->method( 'execute' );
 
 		$remoteApiActionExecutor = new RemoteApiActionExecutor( $mockRequestExecutor );
-		$this->assertNull( $remoteApiActionExecutor->executeEditAction(
+		$status = $remoteApiActionExecutor->executeEditAction(
 			$this->createMock( SourceUrl::class ),
 			$this->createMock( User::class ),
 			'',
 			[],
 			''
-		) );
+		);
+		$this->assertFalse( $status->isOK() );
 	}
 
 	public function testExecuteEditAction_success() {
@@ -56,14 +57,14 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 			->willReturn( [ 'success' ] );
 
 		$remoteApiActionExecutor = new RemoteApiActionExecutor( $mockRequestExecutor );
-		$result = $remoteApiActionExecutor->executeEditAction(
+		$status = $remoteApiActionExecutor->executeEditAction(
 			$this->createMock( SourceUrl::class ),
 			$this->createMock( User::class ),
 			'TestTitle',
 			[ 'prepend' => 'text' ],
 			'TestSummary'
 		);
-		$this->assertEquals( [ 'success' ], $result );
+		$this->assertTrue( $status->isGood() );
 	}
 
 }

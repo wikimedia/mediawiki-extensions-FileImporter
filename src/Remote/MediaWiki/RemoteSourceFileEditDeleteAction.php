@@ -115,7 +115,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$text = "\n{{" . wfEscapeWikiText( $templateName ) . '|' .
 			wfEscapeWikiText( $importPlan->getTitleText() ) . '}}';
 
-		$result = $this->remoteAction->executeEditAction(
+		$status = $this->remoteAction->executeEditAction(
 			$sourceUrl,
 			$user,
 			$importPlan->getOriginalTitle()->getPrefixedText(),
@@ -125,8 +125,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			$summary
 		);
 
-		/** @see \ApiEditPage::execute */
-		if ( $result && !isset( $result['error'] ) ) {
+		if ( $status->isGood() ) {
 			$this->statsd->increment( self::STATSD_SOURCE_EDIT_SUCCESS );
 			return $this->successMessage();
 		} else {
@@ -153,15 +152,14 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			$importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL )
 		)->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 
-		$result = $this->remoteAction->executeDeleteAction(
+		$status = $this->remoteAction->executeDeleteAction(
 			$sourceUrl,
 			$user,
 			$importPlan->getOriginalTitle()->getPrefixedText(),
 			$summary
 		);
 
-		/** @see \ApiDelete::execute */
-		if ( $result && !isset( $result['error'] ) ) {
+		if ( $status->isGood() ) {
 			$this->statsd->increment( self::STATSD_SOURCE_DELETE_SUCCESS );
 			return $this->successMessage();
 		} else {
