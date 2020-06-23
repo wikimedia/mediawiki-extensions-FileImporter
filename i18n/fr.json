@@ -16,6 +16,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importation facile de fichiers venant d'autres sites",
+	"fileimporter-help-banner-text": "'''Importer depuis d’autres wikis'''\n#Vérifier et modifier le titre du fichier et l’information ci-dessous.\n#Choisir si vous voulez FileImporter pour ranger le iwki d’origine en ajoutant le modèle [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] au fichier source (si vous avez des droits d’administrateur, vous avez aussi l’option de supprimer le fichier source).\n#Cliquer sur '''Importer le fichier''' pour copier le fichier vers Communs.\n\nPour des informations sur la licence, veuillez relire la [//commons.wikimedia.org/wiki/Commons:Licensing politique] de la communauté de Wikimédia Communs.<br />Pour des instructions plus détaillées sur la manière d’utiliser FileImporter, voir la [//www.mediawiki.org/wiki/Help:Extension:FileImporter page d’aide].\n\nSi vous avez une idée pour améliorer FileImporter, veuillez laisser un commentaire sur sa [//www.mediawiki.org/wiki/Extension_talk:FileImporter page de discussion].",
 	"fileimporter-help-banner-close-tooltip": "Ne plus afficher ce message",
 	"tag-fileimporter": "Modifié par FileImporter",
 	"tag-fileimporter-description": "Révisions et messages de journal ajoutés après l’importation depuis un autre wiki",
