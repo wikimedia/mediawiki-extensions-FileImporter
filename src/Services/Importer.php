@@ -253,8 +253,6 @@ class Importer {
 		$this->stats->gauge( 'FileImporter.import.details.fileRevisions', count( $fileRevisions ) );
 		$this->stats->gauge( 'FileImporter.import.details.totalFileSizes', $totalFileSizes );
 
-		$this->logger->info( __METHOD__ . ' ImportOperations built.' );
-
 		return $importOperations;
 	}
 
@@ -264,8 +262,6 @@ class Importer {
 			throw new ImportException( 'Failed to prepare operations.',
 				self::ERROR_OPERATION_PREPARE );
 		}
-
-		$this->logger->info( __METHOD__ . ' operations prepared.' );
 	}
 
 	private function validateImportOperations( ImportOperations $importOperations ) {
@@ -274,8 +270,6 @@ class Importer {
 			throw new ImportException( 'Failed to validate operations.',
 				self::ERROR_OPERATION_VALIDATE );
 		}
-
-		$this->logger->info( __METHOD__ . ' operations validated.' );
 	}
 
 	private function commitImportOperations( ImportOperations $importOperations ) {
@@ -284,8 +278,6 @@ class Importer {
 			throw new ImportException( 'Failed to commit operations.',
 				self::ERROR_OPERATION_COMMIT );
 		}
-
-		$this->logger->info( __METHOD__ . ' operations committed.' );
 	}
 
 	/**
