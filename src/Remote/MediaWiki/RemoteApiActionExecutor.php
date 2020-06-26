@@ -61,6 +61,11 @@ class RemoteApiActionExecutor {
 			$isOk,
 			array_key_exists( 'edit', $actions ) && $actions['edit'] !== false
 		);
+
+		if ( !$status->value ) {
+			$status->setOK( false );
+		}
+
 		return $status;
 	}
 
@@ -133,6 +138,11 @@ class RemoteApiActionExecutor {
 			$isOk,
 			in_array( 'delete', $rights )
 		);
+
+		if ( !$status->value ) {
+			$status->setOK( false );
+		}
+
 		return $status;
 	}
 
