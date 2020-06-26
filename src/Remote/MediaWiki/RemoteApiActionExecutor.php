@@ -8,8 +8,6 @@ use User;
 
 /**
  * @license GPL-2.0-or-later
- *
- * @phan-file-suppress PhanTypeArraySuspiciousNullable multiple false positives
  */
 class RemoteApiActionExecutor {
 
@@ -30,13 +28,10 @@ class RemoteApiActionExecutor {
 	 * @param User $user
 	 * @param string $title
 	 *
-	 * @return StatusValue with a boolean value, true if the user can edit the page
+	 * @return StatusValue ok if the user can edit the page
 	 */
 	public function executeTestEditActionQuery( SourceUrl $sourceUrl, User $user, string $title ) : StatusValue {
-		// Expected return values in the legacy format:
-		// { "query": { "pages": { "123": { "actions": { "edit": "" }, …
-		// { "query": { "pages": { "123": { "actions": [], …
-		// But with formatversion=2:
+		// Expected return values:
 		// { "query": { "pages": [ { "actions": { "edit": true }, …
 		// { "query": { "pages": [ { "actions": { "edit": false }, …
 		$result = $this->remoteApiRequestExecutor->execute(
@@ -45,6 +40,7 @@ class RemoteApiActionExecutor {
 			[
 				'action' => 'query',
 				'format' => 'json',
+				'formatversion' => 2,
 				'prop' => 'info',
 				'titles' => $title,
 				'intestactions' => 'edit',
@@ -52,19 +48,9 @@ class RemoteApiActionExecutor {
 			true
 		);
 
-		$isOk = isset( $result['query']['pages'] );
-		$page = $isOk ? reset( $result['query']['pages'] ) : [];
-		$actions = $page['actions'] ?: [];
-
 		$status = $this->statusFromApiResponse( $result );
-		$status->setResult(
-			$isOk,
-			array_key_exists( 'edit', $actions ) && $actions['edit'] !== false
-		);
-
-		if ( !$status->value ) {
-			$status->setOK( false );
-		}
+		$canEdit = $result['query']['pages'][0]['actions']['edit'] ?? false;
+		$status->setOK( $canEdit );
 
 		return $status;
 	}
@@ -113,7 +99,7 @@ class RemoteApiActionExecutor {
 	 * @param SourceUrl $sourceUrl
 	 * @param User $user
 	 *
-	 * @return StatusValue with a boolean value, true if the user is allowed to delete pages
+	 * @return StatusValue ok if the user is allowed to delete pages
 	 */
 	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ) : StatusValue {
 		// Expected return values:
@@ -130,18 +116,10 @@ class RemoteApiActionExecutor {
 			]
 		);
 
-		$isOk = isset( $result['query']['userinfo']['rights'] );
-		$rights = $isOk ? $result['query']['userinfo']['rights'] : [];
-
 		$status = $this->statusFromApiResponse( $result );
-		$status->setResult(
-			$isOk,
-			in_array( 'delete', $rights )
-		);
-
-		if ( !$status->value ) {
-			$status->setOK( false );
-		}
+		$rights = $result['query']['userinfo']['rights'] ?? [];
+		$canDelete = in_array( 'delete', $rights );
+		$status->setOK( $canDelete );
 
 		return $status;
 	}
