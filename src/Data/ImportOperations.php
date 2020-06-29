@@ -4,6 +4,7 @@ namespace FileImporter\Data;
 
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportOperation;
+use Status;
 
 /**
  * @license GPL-2.0-or-later
@@ -11,6 +12,7 @@ use FileImporter\Interfaces\ImportOperation;
  */
 class ImportOperations implements ImportOperation {
 
+	private const ERROR_EMPTY_OPERATIONS = 'emptyOperations';
 	private const ERROR_OUT_OF_ORDER = 'outOfOrder';
 
 	/**
@@ -49,58 +51,85 @@ class ImportOperations implements ImportOperation {
 	}
 
 	/**
-	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * @return bool success
+	 * Run through one phase of import operations and collect status.
+	 *
+	 * @param int $expectedState State machine must be in this state to begin processing.
+	 * @param int $nextState State machine will move to this state once processing begins.
+	 * @param callable $executor function( ImportOperation ) : Status,
+	 *  callback to select which phase of the operation to run.
+	 * @return Status isOK if all steps succeed.  Accumulates warnings and may
+	 *  include a final error explaining why not ok.
 	 */
-	public function prepare() {
-		if ( $this->importOperations === [] ) {
-			return false;
+	private function runOperations(
+		int $expectedState,
+		int $nextState,
+		callable $executor
+	) : Status {
+		if ( !$this->importOperations ) {
+			throw new ImportException(
+				__CLASS__ . ' tried to run empty import operations',
+				self::ERROR_EMPTY_OPERATIONS
+			);
 		}
 
-		$this->throwExceptionOnBadState( self::BUILDING );
-		$this->state = self::PREPARE_RUN;
+		$this->throwExceptionOnBadState( $expectedState );
+		$this->state = $nextState;
 
+		$status = Status::newGood();
 		foreach ( $this->importOperations as $importOperation ) {
-			if ( !$importOperation->prepare() ) {
-				return false;
+			$status->merge( $executor( $importOperation ) );
+
+			if ( !$status->isOK() ) {
+				// TODO: There are interesting interface possibilities if we
+				//  instead continue processing here, to collect all errors.
+				break;
 			}
 		}
 
-		return true;
+		return $status;
+	}
+
+	/**
+	 * Method to prepare an operation. This will not commit anything to any persistent storage.
+	 * @return Status isOK when all steps succeed
+	 */
+	public function prepare() : Status {
+		return $this->runOperations(
+			self::BUILDING,
+			self::PREPARE_RUN,
+			function ( $importOperation ) {
+				return $importOperation->prepare();
+			}
+		);
 	}
 
 	/**
 	 * Method to validate prepared content that should be committed.
-	 * @return bool success
+	 * @return Status isOK when all validation succeeds.  Specifics are accumulated
+	 *  as errors and warnings.
 	 */
-	public function validate() {
-		$this->throwExceptionOnBadState( self::PREPARE_RUN );
-		$this->state = self::VALIDATE_RUN;
-
-		foreach ( $this->importOperations as $importOperation ) {
-			if ( !$importOperation->validate() ) {
-				return false;
+	public function validate() : Status {
+		return $this->runOperations(
+			self::PREPARE_RUN,
+			self::VALIDATE_RUN,
+			function ( $importOperation ) {
+				return $importOperation->validate();
 			}
-		}
-
-		return true;
+		);
 	}
 
 	/**
 	 * Commit this operation to persistent storage.
-	 * @return bool success
+	 * @return Status isOK if all steps succeeded.
 	 */
-	public function commit() {
-		$this->throwExceptionOnBadState( self::VALIDATE_RUN );
-		$this->state = self::COMMIT_RUN;
-
-		foreach ( $this->importOperations as $importOperation ) {
-			if ( !$importOperation->commit() ) {
-				return false;
+	public function commit() : Status {
+		return $this->runOperations(
+			self::VALIDATE_RUN,
+			self::COMMIT_RUN,
+			function ( $importOperation ) {
+				return $importOperation->commit();
 			}
-		}
-
-		return true;
+		);
 	}
 
 }

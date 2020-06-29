@@ -17,6 +17,7 @@ use MediaWiki\User\UserIdentityValue;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Status;
 use TempFSFile;
 use Title;
 use UploadBase;
@@ -120,13 +121,13 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * @return bool success
+	 * @return Status isOK on success
 	 */
-	public function prepare() {
+	public function prepare() : Status {
 		$fileUrl = $this->fileRevision->getField( 'url' );
 		if ( !MWHttpRequest::isValidURI( $fileUrl ) ) {
 			// invalid URL detected
-			return false;
+			return Status::newFatal( 'fileimporter-cantparseurl' );
 		}
 
 		$tmpFile = TempFSFile::factory( 'fileimporter_', '', wfTempDir() );
@@ -153,23 +154,23 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			$this->wikiRevision->getFileSrc()
 		);
 
-		return true;
+		return Status::newGood();
 	}
 
 	/**
 	 * Method to validate prepared data that should be committed.
 	 *
-	 * @return bool success
+	 * @return Status isOK on success
 	 * @throws ImportException when critical validations fail
 	 */
-	public function validate() {
+	public function validate() : Status {
 		$errorCode = $this->uploadBase->validateTitle();
 		if ( $errorCode !== UploadBase::OK ) {
 			$this->logger->error(
 				__METHOD__ . " failed to validate title, error code {$errorCode}",
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
-			return false;
+			return Status::newFatal( 'fileimporter-filenameerror-illegal' );
 		}
 
 		$fileValidationStatus = $this->uploadBase->validateFile();
@@ -188,14 +189,14 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			throw new LocalizedImportException( $uploadValidationStatus->getMessage() );
 		}
 
-		return true;
+		return Status::newGood();
 	}
 
 	/**
 	 * Commit this operation to persistent storage.
-	 * @return bool success
+	 * @return Status isOK on success
 	 */
-	public function commit() {
+	public function commit() : Status {
 		$status = $this->importer->import( $this->wikiRevision );
 
 		if ( !$status->isGood() ) {
@@ -221,7 +222,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			$this->createUploadLog();
 		}
 
-		return $status->isGood();
+		return Status::wrap( $status );
 	}
 
 	/**
