@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Rafaelff"
 		]
 	},
 	"fileimporter": "Importador de arquivos",
 	"fileimporter-desc": "Importação fácil de arquivos de outros sites",
+	"fileimporter-help-banner-text": "'''Importação de outras wikis'''\n#Verifique e edite o título e as informações do arquivo abaixo.\n#Escolha se você deseja que o FileImporter organize o wiki de origem adicionando a predefinição [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] ao arquivo de origem. (Se você possui direitos de administrador, também tem a opção de excluir o arquivo de origem.)\n#Clique em '''Importar arquivo''' para copiar o arquivo para o Commons.\n\nPara obter informações sobre licenciamento, consulte a comunidade Wikimedia Commons [https://commons.wikimedia.org/wiki/Commons:Licensing/pt-br].<br /> Para obter instruções mais detalhadas sobre como usar o FileImporter, consulte a [//www.mediawiki.org/wiki/Help:Extension:FileImporter página de ajuda].\n\nSe você tiver algum comentário para melhorar o FileImporter, deixe um comentário em sua [//www.mediawiki.org/wiki/Extension_talk:FileImporter página de discussão].",
 	"fileimporter-help-banner-close-tooltip": "Não mostrar esta mensagem novamente",
 	"tag-fileimporter": "Modificado por FileImporter",
 	"tag-fileimporter-description": "Revisões e mensagens de registro adicionadas após a importação de outra wiki",
