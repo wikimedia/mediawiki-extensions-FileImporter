@@ -10,7 +10,7 @@
 	"tag-fileimporter-imported": "FileImporter гӀоьнца импортйина",
 	"fileimporter-specialpage": "Файл импортян",
 	"fileimporter-importfailed": "Импортяран гӀалат",
-	"fileimporter-api-failedtogetinfo": "Файлан хаамаш каро аьтту цахийли чура: $1",
+	"fileimporter-api-failedtogetinfo": "Файлан хаамаш каро аьтту цахиллий чуьра: $1",
 	"fileimporter-api-file-notfound": "Файл цакарий: $1",
 	"fileimporter-http-statuscode": "Статусан код HTTP $1",
 	"fileimporter-cantimporturl": "ХӀара URL-адрес импортдан цало",
