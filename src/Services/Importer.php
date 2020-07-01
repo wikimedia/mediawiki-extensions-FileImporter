@@ -6,6 +6,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
@@ -288,13 +289,16 @@ class Importer {
 		User $user,
 		ImportPlan $importPlan
 	) {
-		$this->textRevisionValidator->validate(
+		$status = $this->textRevisionValidator->validate(
 			$importPlan->getTitle(),
 			$user,
 			new \WikitextContent( $importPlan->getFileInfoText() ),
 			$importPlan->getRequest()->getIntendedSummary(),
 			false
 		);
+		if ( !$status->isOK() ) {
+			throw new LocalizedImportException( $status->getMessage() );
+		}
 	}
 
 	/**

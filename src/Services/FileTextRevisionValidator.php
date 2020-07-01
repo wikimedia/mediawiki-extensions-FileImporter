@@ -6,7 +6,6 @@ use Content;
 use DerivativeContext;
 use FauxRequest;
 use FileImporter\Exceptions\ImportException;
-use FileImporter\Exceptions\LocalizedImportException;
 use Hooks;
 use RequestContext;
 use Status;
@@ -21,8 +20,6 @@ use WikiFilePage;
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
 class FileTextRevisionValidator {
-
-	private const ERROR_WRONG_REVISION_NAMESPACE = 'wrongTextRevisionNamespace';
 
 	/**
 	 * @var DerivativeContext
@@ -41,6 +38,7 @@ class FileTextRevisionValidator {
 	 * @param string $summary
 	 * @param bool $minor
 	 *
+	 * @return Status isOK when validation succeeds
 	 * @throws ImportException
 	 */
 	public function validate(
@@ -49,10 +47,9 @@ class FileTextRevisionValidator {
 		Content $content,
 		$summary,
 		$minor
-	) {
+	) : Status {
 		if ( $title->getNamespace() !== NS_FILE ) {
-			throw new ImportException( 'Wrong text revision namespace given.',
-				self::ERROR_WRONG_REVISION_NAMESPACE );
+			return Status::newFatal( 'fileimporter-badnamespace' );
 		}
 
 		$status = Status::newGood();
@@ -69,9 +66,7 @@ class FileTextRevisionValidator {
 			$minor
 		] );
 
-		if ( !$status->isGood() ) {
-			throw new LocalizedImportException( $status->getMessage() );
-		}
+		return $status;
 	}
 
 }

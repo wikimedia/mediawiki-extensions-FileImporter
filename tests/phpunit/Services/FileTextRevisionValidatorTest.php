@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Services;
 
-use FileImporter\Exceptions\ImportException;
 use FileImporter\Services\FileTextRevisionValidator;
 
 /**
@@ -25,8 +24,8 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$user = $this->getTestUser()->getUser();
 		$content = new \TextContent( '' );
 
-		$validator->validate( $title, $user, $content, '', false );
-		$this->addToAssertionCount( 1 );
+		$status = $validator->validate( $title, $user, $content, '', false );
+		$this->assertTrue( $status->isOK() );
 	}
 
 	public function testInvalidNamespace() {
@@ -35,9 +34,9 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$user = $this->getTestUser()->getUser();
 		$content = new \TextContent( '' );
 
-		$this->expectException( ImportException::class );
-		$this->expectExceptionMessage( 'Wrong text revision namespace' );
-		$validator->validate( $title, $user, $content, '', false );
+		$status = $validator->validate( $title, $user, $content, '', false );
+		$this->assertFalse( $status->isOK() );
+		$this->assertSame( 'fileimporter-badnamespace', $status->getMessage()->getKey() );
 	}
 
 	public function testAbuseFilterHook() {
@@ -71,9 +70,9 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 			}
 		);
 
-		$this->expectException( ImportException::class );
-		$this->expectExceptionMessage( '<RAW>' );
-		$validator->validate( $expectedTitle, $expectedUser, $expectedContent, '<SUMMARY>', true );
+		$status = $validator->validate( $expectedTitle, $expectedUser, $expectedContent, '<SUMMARY>', true );
+		$this->assertTrue( $status->isOK() );
+		$this->assertSame( '<RAW>', $status->getMessage()->getKey() );
 	}
 
 }

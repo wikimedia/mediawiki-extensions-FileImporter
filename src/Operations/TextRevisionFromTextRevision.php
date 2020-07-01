@@ -104,15 +104,13 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * @return bool success
 	 */
 	public function validate() {
-		$this->textRevisionValidator->validate(
+		return $this->textRevisionValidator->validate(
 			$this->plannedTitle,
 			$this->user,
 			$this->wikiRevision->getContent(),
 			$this->wikiRevision->getComment(),
 			$this->wikiRevision->getMinor()
-		);
-
-		return true;
+		)->isOK();
 	}
 
 	/**

@@ -9,6 +9,7 @@ use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
+use Status;
 use Title;
 
 /**
@@ -102,7 +103,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 	private function newFileTextRevisionValidator() : FileTextRevisionValidator {
 		$mock = $this->createMock( FileTextRevisionValidator::class );
 		$mock->method( 'validate' )
-			->willReturn( true );
+			->willReturn( Status::newGood() );
 		return $mock;
 	}
 
