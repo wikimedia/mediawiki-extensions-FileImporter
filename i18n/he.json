@@ -86,7 +86,7 @@
 	"fileimporter-add-specific-template": "הקובץ יובא. כדי להצהיר שהקובץ הזה עכשיו ב{{GRAMMAR:תחילית|{{SITENAME}}}}, נא לחזור ל[$1 קובץ המקורי] ולהוסיף את התבנית הזאת: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "חזרה לקובץ המקורי",
 	"fileimporter-commonshelper-retrieval-failed": "אירעה שגיאה בבדיקת הקבצים החסומים.",
-	"fileimporter-commonshelper-missing-config": "יבוא קבצים מוויקי המקור ($1) עדיין אינו אפשרי. אין הגדרות עבור הוויקי ב־$2.",
+	"fileimporter-commonshelper-missing-config": "למרבה הצער, יבוא קבצים מוויקי המקור ($1) עדיין אינו אפשרי כי אין הגדרות עבור הוויקי ב־$2. למידע על יצירת קובץ הגדרות עבור הוויקי, נא לסקור את [[meta:WMDE Technical Wishes/Move files to Commons/Configuration file documentation|דף התיעוד של קובץ ההגדרות]].",
 	"fileimporter-commonshelper-parsing-failed": "דף הגדרות התצורה של אתר הוויקי הזה ($1) אינו מלא. נא לוודא שיש בו פסקת \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "הקובץ הזה אינו יכול להיות מועבר ל{{GRAMMAR:תחילית|$2}} כי הוא מסומן בתור $1. קבצים כאלה אסורים ב{{GRAMMAR:תחילית|$2}}. ייתכן שזה פתיר, אבל רוב הסיכויים שזה אומר שהקובץ אינו תואם. נא לבדוק את [[Project:Licensing|מדיניות הקהילה של $2 ואת דפי השיחה בנושא רישיונות]].",
 	"fileimporter-file-missing-required-template": "לא ניתן להעביר את הקובץ ל{{GRAMMAR:תחילית|$1}} כי הוא לא מסומן עם רישיון מתאים. קבצים כאלה אסורים ב{{GRAMMAR:תחילית|$1}}. ייתכן שזה פתיר, אבל רוב הסיכויים שזה אומר שהקובץ אינו תואם. נא לבדוק את [[Project:Licensing|מדיניות הקהילה של $1 ואת דפי השיחה בנושא רישיונות]].",
