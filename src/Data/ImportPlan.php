@@ -246,9 +246,36 @@ class ImportPlan {
 	private function addImportComment( $text ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		return wfMsgReplaceArgs(
-				$config->get( 'FileImporterTextForPostImportRevision' ), [ $this->request->getUrl() ]
-			) . $text;
+		return $this->joinWikitextChunks(
+			wfMsgReplaceArgs(
+				$config->get( 'FileImporterTextForPostImportRevision' ),
+				[ $this->request->getUrl() ]
+			),
+
+			$text
+		);
+	}
+
+	/**
+	 * Concatenate wikitext using newlines when appropriate
+	 *
+	 * Any empty chunks are discarded before joining.
+	 *
+	 * @param string|array ...$chunks Varargs of each wikitext chunk, or a
+	 *  single parameter with the chunks as an array.
+	 * @return string Result of concatenation.
+	 */
+	private function joinWikitextChunks( ...$chunks ) {
+		if ( is_array( reset( $chunks ) ) ) {
+			$chunks = $chunks[0];
+		}
+		$chunks = array_filter(
+			$chunks,
+			function ( $wikitext ) {
+				return $wikitext !== null && $wikitext !== '';
+			}
+		);
+		return implode( "\n", $chunks );
 	}
 
 	/**

@@ -58,7 +58,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->setMwGlobals( [
 			'wgHooks' => [],
 			'wgFileImporterCommentForPostImportRevision' => 'imported from $1',
-			'wgFileImporterTextForPostImportRevision' => "imported from $1\n",
+			'wgFileImporterTextForPostImportRevision' => '<!--imported from $1-->',
 		] );
 
 		$this->targetUser = $this->getTestUser()->getUser();
@@ -127,7 +127,7 @@ class ImporterTest extends \MediaWikiTestCase {
 			$lastRevision->getComment()->text
 		);
 		$this->assertSame(
-			"imported from http://example.com/Test.png\nThis is my text!",
+			"<!--imported from http://example.com/Test.png-->\nThis is my text!",
 			$lastRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
 
