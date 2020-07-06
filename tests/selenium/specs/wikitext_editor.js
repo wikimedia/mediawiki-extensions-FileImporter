@@ -16,7 +16,8 @@ describe( 'ChangeFileInfo page', () => {
 		assert( ChangeFileInfoPage.getEditToolbar(), 'WikiEditor toolbar is present.' );
 	} );
 
-	it( 'MediaWiki core modules present', () => {
+	// Disable due to more flakiness T256137
+	it.skip( 'MediaWiki core modules present', () => {
 		ImportPreviewPage.openImportPreview( testFileUrl );
 		ImportPreviewPage.editFileInfoButton.click();
 
