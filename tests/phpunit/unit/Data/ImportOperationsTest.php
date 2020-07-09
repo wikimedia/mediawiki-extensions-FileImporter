@@ -3,8 +3,10 @@
 namespace FileImporter\Tests\Data;
 
 use FileImporter\Data\ImportOperations;
+use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportOperation;
 use RuntimeException;
+use Status;
 
 /**
  * @covers \FileImporter\Data\ImportOperations
@@ -16,7 +18,8 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 
 	public function testFailureOnEmptyOperations() {
 		$operations = new ImportOperations();
-		$this->assertFalse( $operations->prepare() );
+		$this->expectException( ImportException::class );
+		$operations->prepare();
 	}
 
 	public function testCorrectCallOrder() {
@@ -24,9 +27,9 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 		$operations = new ImportOperations();
 		$operations->add( $allSucceed );
 
-		$this->assertTrue( $operations->prepare(), 'prepare' );
-		$this->assertTrue( $operations->validate(), 'validate' );
-		$this->assertTrue( $operations->commit(), 'commit' );
+		$this->assertTrue( $operations->prepare()->isOK(), 'prepare' );
+		$this->assertTrue( $operations->validate()->isOK(), 'validate' );
+		$this->assertTrue( $operations->commit()->isOK(), 'commit' );
 	}
 
 	public function testIncorrectCallOrder_add() {
@@ -51,7 +54,17 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testIncorrectCallOrder_prepareCommit() {
+		$noop = $this->createMock( ImportOperation::class );
+		$noop->expects( $this->once() )
+			->method( 'prepare' )
+			->willReturn( Status::newGood() );
+		$noop->expects( $this->never() )
+			->method( 'commit' )
+			->willReturn( Status::newGood() );
+
 		$operations = new ImportOperations();
+		$operations->add( $noop );
+
 		$operations->prepare();
 		$this->expectException( RuntimeException::class );
 		$operations->commit();
@@ -65,9 +78,9 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 		$operations->add( $allFail );
 		$operations->add( $neverCalled );
 
-		$this->assertFalse( $operations->prepare() );
-		$this->assertFalse( $operations->validate() );
-		$this->assertFalse( $operations->commit() );
+		$this->assertFalse( $operations->prepare()->isOK() );
+		$this->assertFalse( $operations->validate()->isOK() );
+		$this->assertFalse( $operations->commit()->isOK() );
 	}
 
 	/**
@@ -80,13 +93,13 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 		$mock = $this->createMock( ImportOperation::class );
 		$mock->expects( $this->exactly( $calls ) )
 			->method( 'prepare' )
-			->willReturn( $success );
+			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
 		$mock->expects( $this->exactly( $calls ) )
 			->method( 'validate' )
-			->willReturn( $success );
+			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
 		$mock->expects( $this->exactly( $calls ) )
 			->method( 'commit' )
-			->willReturn( $success );
+			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
 		return $mock;
 	}
 

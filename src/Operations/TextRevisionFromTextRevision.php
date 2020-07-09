@@ -9,6 +9,7 @@ use FileImporter\Services\WikiRevisionFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Status;
 use Title;
 use User;
 use WikiRevision;
@@ -88,46 +89,47 @@ class TextRevisionFromTextRevision implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * @return bool success
+	 * @return Status isOK on success
 	 */
-	public function prepare() {
+	public function prepare() : Status {
 		$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $this->textRevision );
 		$wikiRevision->setTitle( $this->plannedTitle );
 
 		$this->wikiRevision = $wikiRevision;
 
-		return true;
+		return Status::newGood();
 	}
 
 	/**
 	 * Method to validate prepared data that should be committed.
-	 * @return bool success
+	 * @return Status isOK on success
 	 */
-	public function validate() {
+	public function validate() : Status {
 		return $this->textRevisionValidator->validate(
 			$this->plannedTitle,
 			$this->user,
 			$this->wikiRevision->getContent(),
 			$this->wikiRevision->getComment(),
 			$this->wikiRevision->getMinor()
-		)->isOK();
+		);
 	}
 
 	/**
 	 * Commit this operation to persistent storage.
-	 * @return bool success
+	 * @return Status isOK on success
 	 */
-	public function commit() {
+	public function commit() : Status {
 		$result = $this->importer->import( $this->wikiRevision );
 
-		if ( !$result ) {
+		if ( $result ) {
+			return Status::newGood();
+		} else {
 			$this->logger->error(
 				__METHOD__ . ' failed to commit.',
 				[ 'textRevision-getFields' => $this->textRevision->getFields() ]
 			);
+			return Status::newFatal( 'fileimporter-importfailed' );
 		}
-
-		return $result;
 	}
 
 	/**

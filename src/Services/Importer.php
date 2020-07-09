@@ -6,7 +6,6 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Exceptions\ImportException;
-use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
@@ -18,6 +17,7 @@ use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
+use Status;
 use Title;
 use UploadRevisionImporter;
 use User;
@@ -135,7 +135,7 @@ class Importer {
 		$importStart = microtime( true );
 		$this->logger->info( __METHOD__ . ' started' );
 
-		$this->validateFileInfoText(
+		$validationStatus = $this->validateFileInfoText(
 			$user,
 			$importPlan
 		);
@@ -258,7 +258,7 @@ class Importer {
 	}
 
 	private function prepareImportOperations( ImportOperations $importOperations ) {
-		if ( !$importOperations->prepare() ) {
+		if ( !$importOperations->prepare()->isOK() ) {
 			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
 			throw new ImportException( 'Failed to prepare operations.',
 				self::ERROR_OPERATION_PREPARE );
@@ -266,7 +266,7 @@ class Importer {
 	}
 
 	private function validateImportOperations( ImportOperations $importOperations ) {
-		if ( !$importOperations->validate() ) {
+		if ( !$importOperations->validate()->isOK() ) {
 			$this->logger->error( __METHOD__ . 'Failed to validate operations.' );
 			throw new ImportException( 'Failed to validate operations.',
 				self::ERROR_OPERATION_VALIDATE );
@@ -274,7 +274,7 @@ class Importer {
 	}
 
 	private function commitImportOperations( ImportOperations $importOperations ) {
-		if ( !$importOperations->commit() ) {
+		if ( !$importOperations->commit()->isOK() ) {
 			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
 			throw new ImportException( 'Failed to commit operations.',
 				self::ERROR_OPERATION_COMMIT );
@@ -284,11 +284,12 @@ class Importer {
 	/**
 	 * @param User $user
 	 * @param ImportPlan $importPlan
+	 * @return Status isOK on success
 	 */
 	private function validateFileInfoText(
 		User $user,
 		ImportPlan $importPlan
-	) {
+	) : Status {
 		$status = $this->textRevisionValidator->validate(
 			$importPlan->getTitle(),
 			$user,
@@ -296,9 +297,7 @@ class Importer {
 			$importPlan->getRequest()->getIntendedSummary(),
 			false
 		);
-		if ( !$status->isOK() ) {
-			throw new LocalizedImportException( $status->getMessage() );
-		}
+		return $status;
 	}
 
 	/**

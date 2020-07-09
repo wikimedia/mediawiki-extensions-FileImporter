@@ -49,7 +49,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 			$this->createMock( ImportableUploadRevisionImporter::class )
 		);
 
-		$this->assertFalse( $fileRevisionFromRemoteUrl->prepare() );
+		$this->assertFalse( $fileRevisionFromRemoteUrl->prepare()->isOK() );
 	}
 
 	public function testPrepare() {
@@ -58,10 +58,10 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 
 		$this->assertNull( $fileRevisionFromRemoteUrl->getWikiRevision() );
 
-		$result = $fileRevisionFromRemoteUrl->prepare();
+		$status = $fileRevisionFromRemoteUrl->prepare();
 		$wikiRevision = $fileRevisionFromRemoteUrl->getWikiRevision();
 
-		$this->assertTrue( $result );
+		$this->assertTrue( $status->isOK() );
 		$this->assertFalse( $title->exists() );
 		$this->assertTrue( $title->isWikitextPage() );
 		$this->assertSame( 0, $wikiRevision->getID() );
@@ -79,20 +79,20 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$title = Title::newFromText( self::TITLE, NS_FILE );
 		$fileRevisionFromRemoteUrl = $this->newFileRevisionFromRemoteUrl( $title );
 
-		$fileRevisionFromRemoteUrl->prepare();
+		$this->assertTrue( $fileRevisionFromRemoteUrl->prepare()->isOK() );
 		$this->assertFalse( $title->exists() );
-		$this->assertTrue( $fileRevisionFromRemoteUrl->validate() );
+		$this->assertTrue( $fileRevisionFromRemoteUrl->validate()->isOK() );
 	}
 
 	public function testCommit() {
 		$title = Title::newFromText( self::TITLE, NS_FILE );
 		$fileRevisionFromRemoteUrl = $this->newFileRevisionFromRemoteUrl( $title );
 
-		$fileRevisionFromRemoteUrl->prepare();
-		$fileRevisionFromRemoteUrl->validate();
-		$result = $fileRevisionFromRemoteUrl->commit();
+		$this->assertTrue( $fileRevisionFromRemoteUrl->prepare()->isOK() );
+		$this->assertTrue( $fileRevisionFromRemoteUrl->validate()->isOK() );
+		$status = $fileRevisionFromRemoteUrl->commit();
 
-		$this->assertTrue( $result );
+		$this->assertTrue( $status->isOK() );
 		$this->assertTrue( $title->exists() );
 
 		// there will be a text revision created with the upload

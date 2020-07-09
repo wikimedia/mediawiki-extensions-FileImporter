@@ -30,10 +30,10 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 
 		$this->assertNull( $textRevisionFromTextRevision->getWikiRevision() );
 
-		$result = $textRevisionFromTextRevision->prepare();
+		$status = $textRevisionFromTextRevision->prepare();
 		$wikiRevision = $textRevisionFromTextRevision->getWikiRevision();
 
-		$this->assertTrue( $result );
+		$this->assertTrue( $status->isOK() );
 		$this->assertFalse( $title->exists() );
 		$this->assertTrue( $title->isWikitextPage() );
 		$this->assertSame( 0, $wikiRevision->getID() );
@@ -51,21 +51,21 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		$title = Title::newFromText( self::TITLE, NS_FILE );
 		$textRevisionFromTextRevision = $this->newTextRevisionFromTextRevision( $title );
 
-		$textRevisionFromTextRevision->prepare();
+		$this->assertTrue( $textRevisionFromTextRevision->prepare()->isOK() );
 		$this->assertFalse( $title->exists() );
-		$this->assertTrue( $textRevisionFromTextRevision->validate() );
+		$this->assertTrue( $textRevisionFromTextRevision->validate()->isOK() );
 	}
 
 	public function testCommit() {
 		$title = Title::newFromText( self::TITLE, NS_FILE );
 		$textRevisionFromTextRevision = $this->newTextRevisionFromTextRevision( $title );
 
-		$textRevisionFromTextRevision->prepare();
-		$textRevisionFromTextRevision->validate();
+		$this->assertTrue( $textRevisionFromTextRevision->prepare()->isOK() );
+		$this->assertTrue( $textRevisionFromTextRevision->validate()->isOK() );
 
 		$this->assertFalse( $title->exists() );
 
-		$textRevisionFromTextRevision->commit();
+		$this->assertTrue( $textRevisionFromTextRevision->commit()->isOK() );
 
 		$this->assertTrue( $title->exists() );
 		$firstRevision = MediaWikiServices::getInstance()

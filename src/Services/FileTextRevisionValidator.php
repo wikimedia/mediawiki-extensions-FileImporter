@@ -5,7 +5,6 @@ namespace FileImporter\Services;
 use Content;
 use DerivativeContext;
 use FauxRequest;
-use FileImporter\Exceptions\ImportException;
 use Hooks;
 use RequestContext;
 use Status;
@@ -39,7 +38,6 @@ class FileTextRevisionValidator {
 	 * @param bool $minor
 	 *
 	 * @return Status isOK when validation succeeds
-	 * @throws ImportException
 	 */
 	public function validate(
 		Title $title,
