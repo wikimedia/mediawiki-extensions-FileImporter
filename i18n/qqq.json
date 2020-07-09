@@ -35,6 +35,7 @@
 	"fileimporter-cantimportmissingfile": "Error message when the file import target is missing.",
 	"fileimporter-cantimportfilehidden": "Error message when the file contains at least one revision with a suppressed file.",
 	"fileimporter-cantimportfileinvalid": "Error message when the file contains at least one revision which fails a MediaWiki security check.\n\nParameters:\n* $1 - original MediaWiki error message.",
+	"fileimporter-badnamespace": "Error message when attempting to import from outside of the {{ns:file}} namespace.",
 	"fileimporter-badtoken": "Error message for cases where when the CSRF token for the request does not match the expected token.",
 	"fileimporter-badimporthash": "Error message for cases where when the import hash for the request does not match the expected hash.",
 	"fileimporter-filenameerror-default": "Error message for cases where when the file name to be imported to has an issue we have no special handling for.",
