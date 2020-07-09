@@ -175,21 +175,13 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 		$fileValidationStatus = $this->uploadBase->validateFile();
 		if ( !$fileValidationStatus->isOK() ) {
-			throw new LocalizedImportException( [
-				'fileimporter-cantimportfileinvalid', $fileValidationStatus->getMessage()
-			] );
+			return Status::newFatal( 'fileimporter-cantimportfileinvalid', $fileValidationStatus->getMessage() );
 		}
 
-		$uploadValidationStatus = $this->uploadBase->validateUpload(
+		return $this->uploadBase->validateUpload(
 			$this->user,
 			$this->textRevision
 		);
-
-		if ( !$uploadValidationStatus->isGood() ) {
-			throw new LocalizedImportException( $uploadValidationStatus->getMessage() );
-		}
-
-		return Status::newGood();
 	}
 
 	/**
