@@ -5,7 +5,9 @@ namespace FileImporter\Services;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportOperations;
 use FileImporter\Data\ImportPlan;
+use FileImporter\Exceptions\AbuseFilterWarningsException;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
@@ -161,7 +163,8 @@ class Importer {
 		);
 
 		$operationValidateStart = microtime( true );
-		$this->validateImportOperations( $importOperations );
+		$validationStatus->merge( $importOperations->validate() );
+		$this->validateImportOperations( $validationStatus, $importPlan );
 		$this->stats->timing(
 			'FileImporter.import.timing.validateOperations',
 			( microtime( true ) - $operationValidateStart ) * 1000
@@ -265,11 +268,39 @@ class Importer {
 		}
 	}
 
-	private function validateImportOperations( ImportOperations $importOperations ) {
-		if ( !$importOperations->validate()->isOK() ) {
-			$this->logger->error( __METHOD__ . 'Failed to validate operations.' );
-			throw new ImportException( 'Failed to validate operations.',
-				self::ERROR_OPERATION_VALIDATE );
+	private function validateImportOperations( Status $status, ImportPlan $importPlan ) {
+		if ( !$status->isGood() ) {
+			$newAbuseFilterWarnings = [];
+
+			foreach ( $status->getErrors() as $error ) {
+				$message = $error['message'];
+
+				if ( !( $message instanceof \IApiMessage ) ) {
+					throw new LocalizedImportException( $message );
+				}
+
+				$data = $message->getApiData();
+				if ( !isset( $data['abusefilter'] ) ) {
+					throw new LocalizedImportException( $message );
+				}
+
+				$data = $data['abusefilter'];
+				if (
+					!in_array( 'warn', $data['actions'] ) ||
+					in_array( 'disallow', $data['actions'] )
+				) {
+					throw new LocalizedImportException( $message );
+				}
+
+				if ( !in_array( $data['id'], $importPlan->getValidationWarnings() ) ) {
+					$importPlan->addValidationWarning( $data['id'] );
+					array_push( $newAbuseFilterWarnings, $message );
+				}
+			}
+
+			if ( $newAbuseFilterWarnings ) {
+				throw new AbuseFilterWarningsException( $newAbuseFilterWarnings );
+			}
 		}
 	}
 

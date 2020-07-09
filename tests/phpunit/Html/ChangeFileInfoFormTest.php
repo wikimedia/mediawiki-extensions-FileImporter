@@ -128,6 +128,11 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 							->andAlso( withAttribute( 'name' )->havingValue( 'actionStats' ) )
 							->andAlso( withAttribute( 'value' )->havingValue( '[]' ) )
 					) )
+					->andAlso( havingChild(
+						both( withTagName( 'input' ) )
+							->andAlso( withAttribute( 'name' )->havingValue( 'validationWarnings' ) )
+							->andAlso( withAttribute( 'value' )->havingValue( '[]' ) )
+					) )
 			) ) )
 		);
 	}

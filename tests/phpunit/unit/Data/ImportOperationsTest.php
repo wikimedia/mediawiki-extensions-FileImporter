@@ -23,7 +23,14 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testCorrectCallOrder() {
-		$allSucceed = $this->newImportOperation( 1, true );
+		$allSucceed = $this->newImportOperation(
+			[
+				'prepare' => 1,
+				'validate' => 1,
+				'commit' => 1
+			],
+			true
+		);
 		$operations = new ImportOperations();
 		$operations->add( $allSucceed );
 
@@ -70,13 +77,27 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 		$operations->commit();
 	}
 
-	public function testOperationsAreCalledButStopOnFailure() {
-		$allFail = $this->newImportOperation( 1, false );
-		$neverCalled = $this->newImportOperation( 0 );
+	public function testOperationsAreCalledOnlyValidateDoesNotStopOnFailure() {
+		$allFail = $this->newImportOperation(
+			[
+				'prepare' => 1,
+				'validate' => 1,
+				'commit' => 1
+			],
+			false
+		);
+		$prepareCommitNeverCalled = $this->newImportOperation(
+			[
+				'prepare' => 0,
+				'validate' => 1,
+				'commit' => 0
+			],
+			false
+		);
 
 		$operations = new ImportOperations();
 		$operations->add( $allFail );
-		$operations->add( $neverCalled );
+		$operations->add( $prepareCommitNeverCalled );
 
 		$this->assertFalse( $operations->prepare()->isOK() );
 		$this->assertFalse( $operations->validate()->isOK() );
@@ -84,20 +105,20 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 	}
 
 	/**
-	 * @param int $calls Number of calls to each of the steps
+	 * @param array $calls Number of calls to each of the steps
 	 * @param bool $success
 	 *
 	 * @return ImportOperation
 	 */
 	private function newImportOperation( $calls, $success = false ) : ImportOperation {
 		$mock = $this->createMock( ImportOperation::class );
-		$mock->expects( $this->exactly( $calls ) )
+		$mock->expects( $this->exactly( $calls['prepare'] ) )
 			->method( 'prepare' )
 			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
-		$mock->expects( $this->exactly( $calls ) )
+		$mock->expects( $this->exactly( $calls['validate'] ) )
 			->method( 'validate' )
 			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
-		$mock->expects( $this->exactly( $calls ) )
+		$mock->expects( $this->exactly( $calls['commit'] ) )
 			->method( 'commit' )
 			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
 		return $mock;

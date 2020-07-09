@@ -245,6 +245,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			'intendedFileName' => $importPlan->getFileName(),
 			'intendedWikitext' => $importPlan->getFileInfoText(),
 			'actionStats' => json_encode( $importPlan->getActionStats() ),
+			'validationWarnings' => json_encode( $importPlan->getValidationWarnings() ),
 			'importDetailsHash' => $importPlan->getDetails()->getOriginalHash(),
 		] ) )->getHtml();
 	}

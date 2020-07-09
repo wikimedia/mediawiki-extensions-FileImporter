@@ -57,6 +57,11 @@ class ImportPlan {
 	private $actionStats = [];
 
 	/**
+	 * @var array
+	 */
+	private $validationWarnings = [];
+
+	/**
 	 * @var bool
 	 */
 	private $automateSourceWikiCleanUp = false;
@@ -270,6 +275,27 @@ class ImportPlan {
 	 */
 	public function getActionStats() {
 		return $this->actionStats;
+	}
+
+	/**
+	 * @param array $warnings
+	 */
+	public function setValidationWarnings( array $warnings ) {
+		$this->validationWarnings = $warnings;
+	}
+
+	/**
+	 * @param int $warning
+	 */
+	public function addValidationWarning( $warning ) {
+		array_push( $this->validationWarnings, $warning );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getValidationWarnings() {
+		return $this->validationWarnings;
 	}
 
 }
