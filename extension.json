@@ -91,8 +91,8 @@
 			"public": true
 		},
 		"FileImporterTextForPostImportRevision": {
-			"value": "<!--This file was moved here using FileImporter from $1-->\n",
-			"description": "Text added to the top of the imported page's wikitext.",
+			"value": "<!--This file was moved here using FileImporter from $1-->",
+			"description": "Text to add to the imported page's wikitext.",
 			"public": true
 		},
 		"FileImporterMaxRevisions": {
