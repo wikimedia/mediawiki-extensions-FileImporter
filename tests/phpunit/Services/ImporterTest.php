@@ -24,6 +24,8 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use Message;
+use MessageLocalizer;
 use Psr\Log\NullLogger;
 use TitleValue;
 use User;
@@ -370,6 +372,19 @@ class ImporterTest extends \MediaWikiTestCase {
 			$fileRevisions
 		);
 
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		$message = $this->createMock( Message::class );
+		$message->method( 'inContentLanguage' )
+			->willReturn( $message );
+		$message->method( 'plain' )
+			->willReturn( '' );
+
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+		$messageLocalizer->method( 'msg' )
+			->with( 'fileimporter-post-import-revision-annotation' )
+			->willReturn( $message );
+
 		return new ImportPlan(
 			new ImportRequest(
 				'http://example.com/Test.png',
@@ -378,6 +393,8 @@ class ImporterTest extends \MediaWikiTestCase {
 				'User import comment'
 			),
 			$importDetails,
+			$config,
+			$messageLocalizer,
 			'testprefix'
 		);
 	}

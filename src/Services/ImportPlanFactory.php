@@ -10,6 +10,7 @@ use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MediaWiki\MediaWikiServices;
+use RequestContext;
 use User;
 
 /**
@@ -47,6 +48,7 @@ class ImportPlanFactory {
 	 */
 	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
 		$services = MediaWikiServices::getInstance();
+		$context = RequestContext::getMain();
 		$config = $services->getMainConfig();
 		$commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
 
@@ -62,8 +64,7 @@ class ImportPlanFactory {
 
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importDetails->getSourceUrl() );
 		$interWikiPrefix = $sourceSite->getLinkPrefix( $importDetails->getSourceUrl() );
-
-		$importPlan = new ImportPlan( $importRequest, $importDetails, $interWikiPrefix );
+		$importPlan = new ImportPlan( $importRequest, $importDetails, $config, $context, $interWikiPrefix );
 
 		$planValidator = new ImportPlanValidator(
 			$this->duplicateFileRevisionChecker,

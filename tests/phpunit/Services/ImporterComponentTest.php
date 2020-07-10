@@ -21,7 +21,10 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
+use Message;
+use MessageLocalizer;
 use OldRevisionImporter;
 use UploadRevisionImporter;
 use User;
@@ -231,7 +234,19 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new FileRevisions( [ $fileRevision ] )
 		);
 
-		$plan = new ImportPlan( $request, $details, self::PREFIX );
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		$message = $this->createMock( Message::class );
+		$message->method( 'inContentLanguage' )
+			->willReturn( $message );
+		$message->method( 'plain' )
+			->willReturn( '' );
+
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+		$messageLocalizer->method( 'msg' )
+			->willReturn( $message );
+
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, self::PREFIX );
 		$plan->setCleanedLatestRevisionText( self::CLEANED_WIKITEXT );
 		return $plan;
 	}

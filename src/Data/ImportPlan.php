@@ -2,10 +2,12 @@
 
 namespace FileImporter\Data;
 
+use Config;
 use DateTime;
 use DateTimeZone;
 use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
+use MessageLocalizer;
 use Title;
 
 /**
@@ -27,6 +29,16 @@ class ImportPlan {
 	 * @var ImportDetails
 	 */
 	private $details;
+
+	/**
+	 * @var Config
+	 */
+	private $config;
+
+	/**
+	 * @var MessageLocalizer
+	 */
+	private $messageLocalizer;
 
 	/**
 	 * @var Title|null
@@ -79,11 +91,21 @@ class ImportPlan {
 	 *
 	 * @param ImportRequest $request
 	 * @param ImportDetails $details
+	 * @param Config $config
+	 * @param MessageLocalizer $messageLocalizer
 	 * @param string $prefix
 	 */
-	public function __construct( ImportRequest $request, ImportDetails $details, $prefix ) {
+	public function __construct(
+		ImportRequest $request,
+		ImportDetails $details,
+		Config $config,
+		MessageLocalizer $messageLocalizer,
+		$prefix
+	) {
 		$this->request = $request;
 		$this->details = $details;
+		$this->config = $config;
+		$this->messageLocalizer = $messageLocalizer;
 		$this->interWikiPrefix = $prefix;
 	}
 
@@ -251,15 +273,13 @@ class ImportPlan {
 	 * @return string
 	 */
 	private function addImportAnnotation( $text ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-
 		return $this->joinWikitextChunks(
 			wfMsgReplaceArgs(
-				$config->get( 'FileImporterTextForPostImportRevision' ),
+				$this->config->get( 'FileImporterTextForPostImportRevision' ),
 				[ $this->request->getUrl() ]
 			),
 
-			wfMessage(
+			$this->messageLocalizer->msg(
 				'fileimporter-post-import-revision-annotation',
 				$this->request->getUrl(),
 				( new DateTime( 'now', new DateTimeZone( 'UTC' ) ) )->format( 'c' )

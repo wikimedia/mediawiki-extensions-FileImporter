@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Services;
 
+use Config;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -26,6 +27,7 @@ use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
 use MediaWikiLangTestCase;
+use MessageLocalizer;
 use Title;
 use TitleValue;
 use UploadBase;
@@ -137,6 +139,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			->setConstructorArgs( [
 				new ImportRequest( '//w.invalid' ),
 				$this->getMockImportDetails( $sourceTitle ?: $this->getMockTitle( 'Source.JPG' ) ),
+				$this->createMock( Config::class ),
+				$this->createMock( MessageLocalizer::class ),
 				''
 			] )
 			// This makes this a partial mock where all other methods still call the original code.
@@ -355,8 +359,10 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			->method( 'getIntendedName' )
 			->willReturn( 'Before.jpg#After' );
 		$mockDetails = $this->getMockImportDetails( new TitleValue( NS_FILE, 'SourceName.jpg' ) );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
-		$importPlan = new ImportPlan( $mockRequest, $mockDetails, '' );
+		$importPlan = new ImportPlan( $mockRequest, $mockDetails, $config, $messageLocalizer, '' );
 
 		$validator = new ImportPlanValidator(
 			$this->getMockDuplicateFileRevisionChecker( 1 ),
@@ -379,8 +385,10 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$importRequest = new ImportRequest( '//w.invalid' );
 		$mockTitle = $this->getMockTitle( 'Title.jpg', true );
 		$mockDetails = $this->getMockImportDetails( $mockTitle );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
-		$importPlan = new ImportPlan( $importRequest, $mockDetails, '' );
+		$importPlan = new ImportPlan( $importRequest, $mockDetails, $config, $messageLocalizer, '' );
 
 		$validator = new ImportPlanValidator(
 			$this->getMockDuplicateFileRevisionChecker(),

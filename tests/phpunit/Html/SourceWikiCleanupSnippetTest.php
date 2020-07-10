@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Html;
 
+use Config;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
@@ -11,6 +12,7 @@ use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\Linker\LinkTarget;
 use MediaWikiTestCase;
+use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use StatusValue;
@@ -187,6 +189,8 @@ class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 		return new ImportPlan(
 			new ImportRequest( '//w.invalid' ),
 			$importDetails,
+			$this->createMock( Config::class ),
+			$this->createMock( MessageLocalizer::class ),
 			''
 		);
 	}
