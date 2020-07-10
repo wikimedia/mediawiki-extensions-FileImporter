@@ -66,6 +66,33 @@ Default is `Imported with FileImporter from $1` where `$1` is the URL of the sou
 **FileImporterTextForPostImportRevision** defines the text added to the top of the imported page's wikitext.
 Default is `<!--This file was moved here using FileImporter from $1-->\n` where `$1` is the URL of the source file.
 
+#### Custom messages
+
+**fileimporter-post-import-revision-annotation** This message defaults to
+empty, but can be used to add any custom text to the file info page during
+import.  The message takes two parameters, `$1` is a full URL to the imported
+file on the source wiki.  `$2` is the time of import in an ISO 8601 format.
+This makes it simple to categorize imports based on the source wiki domain,
+or month of import.
+
+For example, to categorize by source wiki one could include text in the message
+`{{#invoke:UrlToImportCategory|main|url=$1}}`, where the supporting Lua module
+looks like:
+
+```
+local p = {}
+
+function toDomain(url)
+    return mw.uri.new(url).host
+end
+
+function p.main(frame)
+    return "[[Category:Imported from " .. toDomain(frame.args.url) .. "]]"
+end
+
+return p
+```
+
 #### Process walkthrough
 
 1) The user enters the extension on the special page,
