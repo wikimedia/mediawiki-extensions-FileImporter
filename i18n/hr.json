@@ -21,6 +21,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Uvoz datoteke s dijeljenog repozitorija nije moguć.",
 	"fileimporter-cantimportmissingfile": "Uvoz nepostojeće datoteke nije moguć.",
 	"fileimporter-cantimportfilehidden": "Uvoz datoteke nije moguć jer bar jedna od izmjena sadrži sakrivenu datoteku.",
+	"fileimporter-warningabusefilter": "[//en.wikipedia.org/wiki/Wikipedia:Edit_filter Automatizirani filtar] identificirao je možebitno nekonstruktivno uređivanje unutar povijesti izmjena ove datoteke. Jedna ili više izmjena mogla je dovesti do aktivacije toga filtra; svaka od njih prikazana je niže uz odgovarajuće objašnjenje o upozorenju. Za ponovno postavljanje datoteke pritisnite odgovarajući gumb kako biste zanemarili sva upozorenja i nastavili uvoz.",
 	"fileimporter-badtoken": "CSRF tajni ključ se ne podudara",
 	"fileimporter-badimporthash": "Uvozni hash se ne podudara. Molimo, ponovno pokrenite uvoz.",
 	"fileimporter-filenameerror-default": "Nepoznati problem s imenom Vaše datoteke.",
