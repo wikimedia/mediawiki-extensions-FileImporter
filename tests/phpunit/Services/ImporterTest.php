@@ -375,13 +375,16 @@ class ImporterTest extends \MediaWikiTestCase {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		$message = $this->createMock( Message::class );
-		$message->method( 'inContentLanguage' )
+		$message->expects( $this->exactly( 2 ) )
+			->method( 'inContentLanguage' )
 			->willReturn( $message );
-		$message->method( 'plain' )
+		$message->expects( $this->exactly( 2 ) )
+			->method( 'plain' )
 			->willReturn( '' );
 
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
-		$messageLocalizer->method( 'msg' )
+		$messageLocalizer->expects( $this->exactly( 2 ) )
+			->method( 'msg' )
 			->with( 'fileimporter-post-import-revision-annotation' )
 			->willReturn( $message );
 

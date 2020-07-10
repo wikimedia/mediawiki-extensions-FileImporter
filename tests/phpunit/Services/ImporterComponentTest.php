@@ -65,8 +65,21 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
 
+		$message = $this->createMock( Message::class );
+		$message->expects( $this->exactly( 2 ) )
+			->method( 'inContentLanguage' )
+			->willReturn( $message );
+		$message->expects( $this->exactly( 2 ) )
+			->method( 'plain' )
+			->willReturn( '' );
+
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+		$messageLocalizer->expects( $this->exactly( 2 ) )
+			->method( 'msg' )
+			->willReturn( $message );
+
 		$minimalRequest = new ImportRequest( self::URL );
-		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision, $fileRevision );
+		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision, $fileRevision, $messageLocalizer );
 
 		$importer = new Importer(
 			$this->createWikiPageFactoryMock( $this->user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
@@ -86,9 +99,10 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$textRevision = $this->newTextRevision();
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$request = new ImportRequest( self::URL, null, self::USER_WIKITEXT, self::USER_SUMMARY );
-		$importPlan = $this->newImportPlan( $request, $textRevision, $fileRevision );
+		$importPlan = $this->newImportPlan( $request, $textRevision, $fileRevision, $messageLocalizer );
 
 		$importer = new Importer(
 			$this->createWikiPageFactoryMock( $this->user, self::USER_WIKITEXT, self::USER_SUMMARY ),
@@ -107,7 +121,8 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	private function newImportPlan(
 		ImportRequest $request,
 		TextRevision $textRevision,
-		FileRevision $fileRevision
+		FileRevision $fileRevision,
+		MessageLocalizer $messageLocalizer
 	) {
 		$details = new ImportDetails(
 			new SourceUrl( self::URL ),
@@ -115,18 +130,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new TextRevisions( [ $textRevision ] ),
 			new FileRevisions( [ $fileRevision ] )
 		);
-
 		$config = MediaWikiServices::getInstance()->getMainConfig();
-
-		$message = $this->createMock( Message::class );
-		$message->method( 'inContentLanguage' )
-			->willReturn( $message );
-		$message->method( 'plain' )
-			->willReturn( '' );
-
-		$messageLocalizer = $this->createMock( MessageLocalizer::class );
-		$messageLocalizer->method( 'msg' )
-			->willReturn( $message );
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, self::PREFIX );
 		$plan->setCleanedLatestRevisionText( self::CLEANED_WIKITEXT );
