@@ -2,6 +2,8 @@
 
 namespace FileImporter\Data;
 
+use DateTime;
+use DateTimeZone;
 use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
 use Title;
@@ -170,7 +172,7 @@ class ImportPlan {
 			return $text;
 		}
 
-		return $this->addImportComment( $this->getCleanedLatestRevisionText() );
+		return $this->addImportAnnotation( $this->getCleanedLatestRevisionText() );
 	}
 
 	/**
@@ -248,7 +250,7 @@ class ImportPlan {
 	 * @param string $text
 	 * @return string
 	 */
-	private function addImportComment( $text ) {
+	private function addImportAnnotation( $text ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		return $this->joinWikitextChunks(
@@ -256,6 +258,12 @@ class ImportPlan {
 				$config->get( 'FileImporterTextForPostImportRevision' ),
 				[ $this->request->getUrl() ]
 			),
+
+			wfMessage(
+				'fileimporter-post-import-revision-annotation',
+				$this->request->getUrl(),
+				( new DateTime( 'now', new DateTimeZone( 'UTC' ) ) )->format( 'c' )
+			)->inContentLanguage()->plain(),
 
 			$text
 		);
