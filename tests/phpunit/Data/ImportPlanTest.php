@@ -2,11 +2,14 @@
 
 namespace FileImporter\Tests\Data;
 
+use Config;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
+use Message;
+use MessageLocalizer;
 use TitleValue;
 
 /**
@@ -20,9 +23,11 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	public function testConstruction() {
 		$request = new ImportRequest( '//w.invalid' );
 		$details = $this->createMock( ImportDetails::class );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 		$prefix = 'wiki';
 
-		$plan = new ImportPlan( $request, $details, $prefix );
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, $prefix );
 
 		$this->assertSame( $request, $plan->getRequest() );
 		$this->assertSame( $details, $plan->getDetails() );
@@ -34,8 +39,10 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details = $this->createMock( ImportDetails::class );
 		$details->method( 'getTextRevisions' )
 			->willReturn( $this->createMock( TextRevisions::class ) );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
-		$plan = new ImportPlan( $request, $details, '' );
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
 
 		$this->assertSame( '', $plan->getCleanedLatestRevisionText() );
 		$this->assertSame( 0, $plan->getNumberOfTemplateReplacements() );
@@ -59,7 +66,10 @@ class ImportPlanTest extends \MediaWikiTestCase {
 	public function testSetActionIsPerformed() {
 		$request = new ImportRequest( '//w.invalid' );
 		$details = $this->createMock( ImportDetails::class );
-		$plan = new ImportPlan( $request, $details, '' );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
 
 		$plan->setActionIsPerformed( 'lorem' );
 		$this->assertSame( [ 'lorem' => 1 ], $plan->getActionStats() );
@@ -77,7 +87,10 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details->method( 'getSourceLinkTarget' )
 			->willReturn( new TitleValue( NS_FILE, 'TestFileName.EXT' ) );
 
-		$plan = new ImportPlan( $request, $details, '' );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
 
 		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
 		$this->assertSame( 'TestFileName.EXT', $plan->getOriginalTitle()->getText() );
@@ -92,7 +105,10 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details->method( 'getSourceFileExtension' )
 			->willReturn( 'EXT' );
 
-		$plan = new ImportPlan( $request, $details, '' );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
 
 		$this->assertSame( NS_FILE, $plan->getTitle()->getNamespace() );
 		$this->assertSame( 'TestIntendedName.EXT', $plan->getTitle()->getText() );
@@ -102,11 +118,14 @@ class ImportPlanTest extends \MediaWikiTestCase {
 
 	public function provideTexts() {
 		return [
-			[ 'Some Text', 'Some Text', null, 'Some Text', false ],
-			[ 'Some Text', 'Some Text', 'Some Other Text', 'Some Other Text', true ],
-			[ 'Some Text', 'Some Text', '', '', true ],
-			[ 'Some unclean Text', 'Some Text', null, 'Some Text', true ],
-			[ 'Some Text', null, null, 'Some Text', false ],
+			[ 'Some Text', 'Some Text', null, '', '', 'Some Text', false ],
+			[ 'Some Text', 'Some Text', 'Some Other Text', '', '', 'Some Other Text', true ],
+			[ 'Some Text', 'Some Text', '', '', '', '', true ],
+			[ 'Some unclean Text', 'Some Text', null, '', '', 'Some Text', true ],
+			[ 'Some Text', null, null, '', '', 'Some Text', false ],
+			[ 'Some Text', null, null, 'Comment', 'Annotation', "Comment\nAnnotation\nSome Text", true ],
+			[ 'Some Text', null, null, '', 'Annotation', "Annotation\nSome Text", true ],
+			[ 'Some Text', null, null, 'Comment', '', "Comment\nSome Text", true ],
 		];
 	}
 
@@ -117,6 +136,8 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$originalText,
 		$cleanedText,
 		$intendedText,
+		$postImportComment,
+		$postImportAnnotation,
 		$expectedText,
 		$expectedChangedSignal
 	) {
@@ -136,7 +157,23 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
 
-		$plan = new ImportPlan( $request, $details, '' );
+		$config = $this->createMock( Config::class );
+		$config->method( 'get' )
+			->with( 'FileImporterTextForPostImportRevision' )
+			->willReturn( $postImportComment );
+
+		$message = $this->createMock( Message::class );
+		$message->method( 'inContentLanguage' )
+			->willReturn( $message );
+		$message->method( 'plain' )
+			->willReturn( $postImportAnnotation );
+
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+		$messageLocalizer->method( 'msg' )
+			->with( 'fileimporter-post-import-revision-annotation' )
+			->willReturn( $message );
+
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
 		$plan->setCleanedLatestRevisionText( $cleanedText );
 
 		$this->assertSame( $originalText, $plan->getInitialFileInfoText(), 'initialFileInfoText' );
@@ -162,7 +199,10 @@ class ImportPlanTest extends \MediaWikiTestCase {
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
 
-		$plan = new ImportPlan( $request, $details, '' );
+		$config = $this->createMock( Config::class );
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+
+		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
 		$this->assertSame( '', $plan->getInitialFileInfoText() );
 	}
 

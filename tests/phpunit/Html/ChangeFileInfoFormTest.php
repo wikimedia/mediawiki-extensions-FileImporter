@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Html;
 
+use Config;
 use FauxRequest;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
@@ -12,6 +13,7 @@ use FileImporter\Html\ChangeFileInfoForm;
 use HamcrestPHPUnitIntegration;
 use IContextSource;
 use Language;
+use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
@@ -110,6 +112,8 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 		$importPlan = new ImportPlan(
 			new ImportRequest( '//w.invalid', 'Foo', $userInput ),
 			$this->getMockImportDetails(),
+			$this->createMock( Config::class ),
+			$this->createMock( MessageLocalizer::class ),
 			''
 		);
 		$form = new ChangeFileInfoForm( $this->getMockSpecialPage() );
