@@ -99,10 +99,12 @@ return [
 		);
 		$uploadRevisionImporter->setNullRevisionCreation( false );
 
+		// @phan-suppress-next-line PhanParamTooMany
 		$oldRevisionImporter = new ImportableOldRevisionImporter(
 			true,
 			$logger,
-			$services->getDBLoadBalancer()
+			$services->getDBLoadBalancer(),
+			$services->getRevisionStore()
 		);
 
 		$importer = new Importer(

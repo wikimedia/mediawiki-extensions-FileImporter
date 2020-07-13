@@ -317,7 +317,8 @@ class ImporterTest extends \MediaWikiTestCase {
 		$oldRevisionImporter = new ImportableOldRevisionImporter(
 			true,
 			new NullLogger(),
-			$services->getDBLoadBalancer()
+			$services->getDBLoadBalancer(),
+			$services->getRevisionStore()
 		);
 
 		return new Importer(
