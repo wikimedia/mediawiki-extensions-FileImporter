@@ -99,7 +99,6 @@ return [
 		);
 		$uploadRevisionImporter->setNullRevisionCreation( false );
 
-		// @phan-suppress-next-line PhanParamTooMany
 		$oldRevisionImporter = new ImportableOldRevisionImporter(
 			true,
 			$logger,
