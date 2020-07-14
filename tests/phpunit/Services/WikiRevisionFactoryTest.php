@@ -46,8 +46,8 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
-		$this->assertSame( 'cf', $revision->getFormat() );
-		$this->assertSame( 'cm', $revision->getModel() );
+		$this->assertSame( CONTENT_FORMAT_TEXT, $revision->getFormat() );
+		$this->assertSame( CONTENT_MODEL_TEXT, $revision->getModel() );
 		if ( $prefix ) {
 			$this->assertSame( "TestComment [[$prefix:Link]]", $revision->getComment() );
 		} else {
@@ -187,8 +187,8 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			'user' => $userName,
 			'timestamp' => '42',
 			'sha1' => 'SHA1HASH',
-			'contentmodel' => 'cm',
-			'contentformat' => 'cf',
+			'contentmodel' => CONTENT_MODEL_TEXT,
+			'contentformat' => CONTENT_FORMAT_TEXT,
 			'comment' => 'TestComment [[Link]]',
 			'*' => 'TestText',
 			'title' => 'File:TestTitle',
