@@ -103,7 +103,8 @@ return [
 			true,
 			$logger,
 			$services->getDBLoadBalancer(),
-			$services->getRevisionStore()
+			$services->getRevisionStore(),
+			$services->getSlotRoleRegistry()
 		);
 
 		$importer = new Importer(

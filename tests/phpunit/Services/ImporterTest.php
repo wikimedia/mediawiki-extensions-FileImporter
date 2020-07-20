@@ -318,7 +318,8 @@ class ImporterTest extends \MediaWikiTestCase {
 			true,
 			new NullLogger(),
 			$services->getDBLoadBalancer(),
-			$services->getRevisionStore()
+			$services->getRevisionStore(),
+			$services->getSlotRoleRegistry()
 		);
 
 		return new Importer(
