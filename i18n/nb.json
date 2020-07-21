@@ -83,7 +83,7 @@
 	"fileimporter-add-specific-template": "Fila ble importert. For å kunngjøre at fila nå finnes på {{SITENAME}}, gå tilbake til [$1 originalfila] og legg til denne malen: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Gå tilbake til originalfila",
 	"fileimporter-commonshelper-retrieval-failed": "En feil oppsto under kontroll etter blokkerte filer.",
-	"fileimporter-commonshelper-missing-config": "Importering av filer fra kildewikien ($1) er ikke mulig ennå. Det er ingen konfigurasjon for denne wikien på $2.",
+	"fileimporter-commonshelper-missing-config": "Det er dessverre ikke mulig å importere filer fra denne kildewikien ($1) ennå fordi det ikke er noen konfigurasjon for wikien i [$2 konfigurasjonsfillista]. Se [[meta:WMDE Technical Wishes/Move files to Commons/Configuration file documentation|dokumentasjonssiden]] for informasjon om hvordan man setter opp en konfigurasjonsfil for wikien.",
 	"fileimporter-commonshelper-parsing-failed": "Konfigurasjonsfila for wikien din ($1) er ufullstendig. Sjekk at den har seksjonen «$2».",
 	"fileimporter-file-contains-blocked-category-template": "Denne filen kan ikke overføres til $2, fordi den er merket som $1. $2 tillater ikke slike filer. Dette kan kanskje løses, men betyr som regel at filen ikke er kompatibel. Sjekk [[Project:Licensing|retningslinjene og diskusjonssidene om lisensiering]].",
 	"fileimporter-file-missing-required-template": "Denne filen kan ikke overføres til $1, fordi den ikke er merket med en kompatibel lisens. $1 tillater ikke slike filer. Dette kan kanskje løses, men betyr sannsynligvis at filen ikke er kompatibel. Sjekk [[Project:Licensing|retningslinjene og diskusjonssidene om lisensiering]].",
