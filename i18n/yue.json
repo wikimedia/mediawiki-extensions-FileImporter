@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Deryck Chan"
+			"Deryck Chan",
+			"Moon0319"
 		]
 	},
 	"fileimporter": "FileImporter",
-	"fileimporter-desc": "輕鬆由其他網站匯入檔案",
+	"fileimporter-desc": "輕鬆由第啲網站匯入快勞",
 	"tag-fileimporter-description": "由另一個 wiki 匯入嘅檔案，包括檔案本身同埋檔案編輯史",
 	"tag-fileimporter-imported": "經 FileImporter 匯入嘅",
-	"fileimporter-specialpage": "匯入檔案",
+	"fileimporter-specialpage": "匯入快勞",
 	"fileimporter-importfailed": "匯入失敗",
 	"fileimporter-api-badinfo": "API 回覆嘅圖或者修訂資訊爛咗。",
 	"fileimporter-api-failedtogetinfo": "由 $1 攞資料失敗。",
@@ -41,14 +42,14 @@
 	"fileimporter-import": "匯入",
 	"fileimporter-cancel": "取消",
 	"fileimporter-edittitle": "改標題",
-	"fileimporter-editinfo": "改檔案資訊",
+	"fileimporter-editinfo": "改快勞資訊",
 	"fileimporter-extensionlabel": "副檔名：",
 	"fileimporter-newfilename": "新檔名",
-	"fileimporter-newfilename-placeholder": "乜乜檔案名",
+	"fileimporter-newfilename-placeholder": "乜乜快勞名",
 	"fileimporter-editsummary": "編輯摘要：",
 	"fileimporter-previewnote": "呢個係匯入檔案預覽。唔該檢查清楚呢版，先好匯入。",
-	"fileimporter-heading-fileinfo": "檔案資訊",
-	"fileimporter-heading-filehistory": "檔案歷史",
+	"fileimporter-heading-fileinfo": "快勞資訊",
+	"fileimporter-heading-filehistory": "快勞史",
 	"fileimporter-revision-removed-text": "FileImporter 刪走咗已經廢止嘅文字。",
 	"fileimporter-revision-removed-comment": "FileImporter 刪走咗已經廢止嘅註解。",
 	"fileimporter-in-beta": "FileImporter （檔案匯入器）試用緊。我哋小心測試過，但難保完全冇問題。如果出現問題，請[//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter 去留言區]話俾我哋知。最好講清楚點樣重覆呢個問題，等我哋明白個問題，解決個問題。",
@@ -64,6 +65,6 @@
 	"fileimporter-file-missing-required-template": "匯入唔到呢個檔案，因為佢冇任何喺許可清單入面嘅版權標籤。",
 	"fileimporter-auto-replacements-summary": "自動修訂咗$1個模。",
 	"fileimporter-input-page-info-text": "想知更多，請睇[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 說明書]。",
-	"fileimporter-viewdiff": "顯示差異",
+	"fileimporter-viewdiff": "睇下有乜改動",
 	"fileimporter-to-preview": "返去睇下先"
 }

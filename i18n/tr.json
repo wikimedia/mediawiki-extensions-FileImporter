@@ -4,12 +4,13 @@
 			"BaRaN6161 TURK",
 			"Hedda",
 			"Karduelis",
-			"Mirzali"
+			"Mirzali",
+			"Rapsar"
 		]
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Diğer sitelerden dosyaların kolayca içe aktarılmasını sağlar",
-	"fileimporter-help-banner-text": "'''Diğer vikilerden içe aktarma'''\n#Dosyanın başlığını ve aşağıdaki bilgileri kontrol edin ve düzenleyin.\n#Kaynak dosyaya [//tr.wikipedia.org/wiki/Şablon:Commons'ta_mevcut Commons'ta mevcyt] şablonunu ekleyerek FileImporter'ın kaynak vikiyi düzenlemesini isteyip istemediğinizi seçin.(Hizmetli haklarınız varsa, kaynak dosyayı silme seçeneğiniz de vardır.)\n#Dosyayı Commons'a kopyalamak için '''Dosyayı İçe Aktar'''ı tıklayın.\n\nLisans bilgileri için lütfen Wikimedia Commons topluluğunu [//commons.wikimedia.org/wiki/Commons:Licensing politikaya] inceleyin.<br />FileImporter'ı kullanma hakkında daha ayrıntılı talimatlar için [//www.mediawiki.org/wiki/Help:Extension:FileImporter Yardım Sayfasına] bakın.\n\nFileImporter'ı geliştirmek için herhangi bir geri bildiriminiz varsa, lütfen [//www.mediawiki.org/wiki/Extension_talk:FileImporter tartışma sayfasına] bir yorum bırakın.",
+	"fileimporter-help-banner-text": "'''Diğer Vikilerden içe aktarma'''\n#Dosyanın adı ile aşağıdaki bilgileri kontrol edin ve düzenleyin.\n#Kaynak dosyaya [//tr.wikipedia.org/wiki/Şablon:Commons'ta_mevcut Commons'ta mevcut] şablonunu ekleyerek FileImporter'ın kaynak Viki'yi düzenlemesini isteyip istemediğinizi seçin (hizmetli haklarınız varsa, kaynak dosyayı silme seçeneğiniz de vardır).\n#Dosyayı Commons'a kopyalamak için '''Dosyayı İçe Aktar'''a tıklayın.\n\nLisans bilgileri için lütfen Wikimedia Commons topluluğunu [//commons.wikimedia.org/wiki/Commons:Licensing politikasını] inceleyin.<br />FileImporter'ı kullanmakla alakalı daha ayrıntılı talimatlar için [//www.mediawiki.org/wiki/Help:Extension:FileImporter yardım sayfasına] bakın.\n\nFileImporter'ı geliştirme amacıyla herhangi bir geri bildiriminiz varsa, lütfen [//www.mediawiki.org/wiki/Extension_talk:FileImporter tartışma sayfasına] bir yorum bırakın.",
 	"fileimporter-help-banner-close-tooltip": "Bu mesajı tekrar gösterme",
 	"tag-fileimporter": "FileImporter tarafından değiştirildi",
 	"tag-fileimporter-description": "Başka bir vikiden içe aktarıldıktan sonra düzeltmeler ve günlük iletileri eklendi",
