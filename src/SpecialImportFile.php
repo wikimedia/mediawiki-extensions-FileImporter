@@ -352,10 +352,10 @@ class SpecialImportFile extends SpecialPage {
 			);
 
 			if ( $exception instanceof AbuseFilterWarningsException ) {
-				$this->showWarningMessage( $this->getWarningMessage( $exception ) );
+				$this->showWarningMessage( $this->getWarningMessage( $exception ), 'warning' );
 
 				foreach ( $exception->getMessages() as $msg ) {
-					$this->showWarningMessage( $msg );
+					$this->showWarningMessage( $msg, 'warning', true );
 				}
 
 				$this->getOutput()->addHTML(
@@ -414,13 +414,15 @@ class SpecialImportFile extends SpecialPage {
 	/**
 	 * @param string $html
 	 * @param string $type Set to "notice" for a gray box, defaults to "error" (red)
+	 * @param bool $inline
 	 */
-	private function showWarningMessage( string $html, string $type = 'error' ) {
+	private function showWarningMessage( string $html, string $type = 'error', $inline = false ) {
 		$this->getOutput()->enableOOUI();
 		$this->getOutput()->addHTML(
 			new MessageWidget( [
 				'label' => new HtmlSnippet( $html ),
 				'type' => $type,
+				'inline' => $inline,
 			] ) .
 			'<br>'
 		);
