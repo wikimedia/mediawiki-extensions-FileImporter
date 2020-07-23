@@ -358,9 +358,7 @@ class SpecialImportFile extends SpecialPage {
 					$this->showWarningMessage( $msg, 'warning', true );
 				}
 
-				$this->getOutput()->addHTML(
-					( new ImportPreviewPage( $this ) )->getHtml( $importPlan )
-				);
+				$this->showImportPage( $importPlan );
 			} else {
 				$this->showWarningMessage(
 					Html::rawElement( 'strong', [], wfMessage( 'fileimporter-importfailed' )->parse() ) .
