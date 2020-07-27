@@ -27,6 +27,10 @@ class WikiLinkParserTest extends \MediaWikiUnitTestCase {
 				'[[First]]',
 				'[[Prefix>first]]',
 			],
+			'Unicode' => [
+				'[[兵庫県立考古博物館]]展示。',
+				'[[Prefix>兵庫県立考古博物館]]展示。',
+			],
 			'with link text' => [
 				'Prefix [[First|Text]], [[Last|Other Text]].',
 				'Prefix [[Prefix>first|Text]], [[Prefix>last|Other Text]].',

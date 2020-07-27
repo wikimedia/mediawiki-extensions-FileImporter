@@ -34,7 +34,7 @@ class WikiLinkParser {
 				[^\v\[|\]]++
 				# Look-ahead for | or the closing ]]
 				(?=\||\]\])
-			/x',
+			/xu',
 			function ( $matches ) {
 				$link = $matches[0];
 				foreach ( $this->cleaners as $cleaner ) {

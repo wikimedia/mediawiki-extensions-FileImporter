@@ -55,7 +55,7 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 				([^\v:]+?)
 				# Must be followed by a colon and something plausible
 				(?=\h*+:[^\v:]+$)
-			/x',
+			/xu',
 			function ( $matches ) {
 				[ $unchanged, $colon, $name ] = $matches;
 				// Normalize to use underscores, as this is what the services require

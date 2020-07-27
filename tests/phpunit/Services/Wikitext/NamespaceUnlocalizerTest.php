@@ -30,6 +30,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 			[ ': Kategorie:foo', ': Category:foo' ],
 			[ "Kategorie:foo\n", "Category:foo\n" ],
 			[ 'Kategorie:#fragment', 'Category:#fragment' ],
+			[ '兵庫県立考古博物館:Japan', 'Category:Japan' ],
 
 			// Normalization of multi-word namespace names
 			[ 'Kategorie Diskussion:foo', 'Category talk:foo' ],
@@ -38,7 +39,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 			[ 'Kategorie__Diskussion:foo', 'Category talk:foo' ],
 			[ '_Kategorie_Diskussion_:_foo_', 'Category talk:_foo_' ],
 			[ "Kategorie \u{00A0} Diskussion:foo", 'Category talk:foo' ],
-			[ "\u{2000}Kategorie Diskussion\u{3000}:foo", 'Category talk:foo' ],
+			[ "\u{2000}Kategorie Diskussion\u{3000}:foo","\u{2000}Category talk\u{3000}:foo" ],
 
 			// Interwiki links might break when fiddled with, so don't do it
 			[ 'de:Kategorie:foo', 'de:Kategorie:foo' ],
@@ -69,6 +70,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 				[ 'Kategorie_Diskussion', NS_CATEGORY_TALK ],
 				[ 'kategorie_diskussion', NS_CATEGORY_TALK ],
 				[ 'Wikipedia', NS_PROJECT ],
+				[ '兵庫県立考古博物館', NS_CATEGORY ],
 			] );
 
 		$namespaceInfo = $this->createMock( \NamespaceInfo::class );

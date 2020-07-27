@@ -351,6 +351,8 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 			[ "==Description==\n==Licensing==", "=={{int:filedesc}}==\n=={{int:license-header}}==" ],
 			[ '= Description =', '= {{int:filedesc}} =' ],
 			[ "===Description=== \n Code", "==={{int:filedesc}}=== \n Code" ],
+			[ '==兵庫県立考古博物館==', '==Japan==' ],
+
 			[ '==Description=', '==Description=' ],
 			[ '=Description==', '=Description==' ],
 		];
@@ -363,6 +365,7 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 		$conversions = new WikitextConversions( [ WikitextConversions::HEADING_REPLACEMENTS => [
 			'Description' => '{{int:filedesc}}',
 			'Licensing' => '{{int:license-header}}',
+			'兵庫県立考古博物館' => 'Japan',
 		] ] );
 		$cleaner = new WikitextContentCleaner( $conversions );
 

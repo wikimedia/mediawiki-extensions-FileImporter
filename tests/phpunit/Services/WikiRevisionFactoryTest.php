@@ -155,6 +155,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			[ 'w', 'See [[Link Target]]', 'See [[w:Link Target]]' ],
 			[ 'w', 'See [[ : Link Target]]', 'See [[w: Link Target]]' ],
 			[ 'w', 'See [[Link]] and [[Link2]]', 'See [[w:Link]] and [[w:Link2]]' ],
+			[ 'w', '[[兵庫県立考古博物館]]展示。', '[[w:兵庫県立考古博物館]]展示。' ],
 			// keep link text intact
 			[ 'w', 'See [[Link | click here]]', 'See [[w:Link | click here]]' ],
 			[ 'w', 'See [[Link Target|click here]]', 'See [[w:Link Target|click here]]' ],

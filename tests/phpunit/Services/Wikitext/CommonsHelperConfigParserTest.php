@@ -152,7 +152,7 @@ WIKITEXT
 === Transfer ===
 == Categories ==
 === Bad ===
-* BadCategory
+* 兵庫県立考古博物館
 == Information ==
 === Description ===
 === Licensing ===
@@ -160,7 +160,7 @@ WIKITEXT
 				,
 				'expectedGoodTemplates' => [ 'GoodTemplate' ],
 				'expectedBadTemplates' => [ 'BadTemplate' ],
-				'expectedBadCategories' => [ 'BadCategory' ],
+				'expectedBadCategories' => [ '兵庫県立考古博物館' ],
 				'expectedObsoleteTemplates' => [ 'ObsoleteTemplate' ],
 			],
 
@@ -293,12 +293,12 @@ WIKITEXT
 	public function testHeadingReplacements() {
 		$wikitext = "== Categories ==\n=== Bad ===\n" .
 			"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n=== Transfer ===\n" .
-			"== Information ==\n=== Description ===\n* A\n=== Licensing ===\n* B";
+			"== Information ==\n=== Description ===\n* A\n=== Licensing ===\n* 兵庫県立考古博物館";
 		$parser = new CommonsHelperConfigParser( '', $wikitext );
 
 		$expected = new WikitextConversions( [ WikitextConversions::HEADING_REPLACEMENTS => [
 			'A' => '{{int:filedesc}}',
-			'B' => '{{int:license-header}}',
+			'兵庫県立考古博物館' => '{{int:license-header}}',
 		] ] );
 		$this->assertEquals( $expected, $parser->getWikitextConversions() );
 	}
@@ -340,6 +340,10 @@ WIKITEXT
 			'subst' => [
 				'wikitext' => ';Source:subst:Target',
 				'expected' => [ 'Source' => 'subst:Target' ],
+			],
+			'Unicode' => [
+				'wikitext' => ';兵庫県立考古博物館:兵庫県立考古博物館',
+				'expected' => [ '兵庫県立考古博物館' => '兵庫県立考古博物館' ],
 			],
 
 			'basic 1-line syntax' => [

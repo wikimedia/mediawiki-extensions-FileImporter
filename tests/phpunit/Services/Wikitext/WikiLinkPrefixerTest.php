@@ -32,6 +32,7 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 			[ 'w:de:foo', 'w:de', 'w:de:foo' ],
 			[ ' : w:de : foo', 'w:de', ' : w:de : foo' ],
 			[ '::w:de:foo', 'w:de', '::w:de:foo' ],
+			[ '兵庫県立考古博物館:Japan', '兵庫県立考古博物館', '兵庫県立考古博物館:Japan', ],
 
 			// Excluded namespaces
 			[ ':File:foo', 'mw', ':File:foo' ],
