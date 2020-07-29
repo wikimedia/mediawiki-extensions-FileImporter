@@ -4,7 +4,6 @@ namespace FileImporter\Services;
 
 use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\CommunityPolicyException;
-use MediaWiki\MediaWikiServices;
 
 /**
  * This class checks a file description page for required and forbidden categories and templates. It
@@ -20,17 +19,10 @@ class FileDescriptionPageValidator {
 	private $wikitextConversions;
 
 	/**
-	 * @var string
-	 */
-	private $siteName;
-
-	/**
 	 * @param WikitextConversions $conversions
 	 */
 	public function __construct( WikitextConversions $conversions ) {
 		$this->wikitextConversions = $conversions;
-		// TODO: Inject
-		$this->siteName = MediaWikiServices::getInstance()->getMainConfig()->get( 'Sitename' );
 	}
 
 	/**
@@ -43,8 +35,7 @@ class FileDescriptionPageValidator {
 			if ( $this->wikitextConversions->isTemplateBad( $template ) ) {
 				throw new CommunityPolicyException( [
 					'fileimporter-file-contains-blocked-category-template',
-					$template,
-					$this->siteName
+					$template
 				] );
 			}
 		}
@@ -60,8 +51,7 @@ class FileDescriptionPageValidator {
 			if ( $this->wikitextConversions->isCategoryBad( $category ) ) {
 				throw new CommunityPolicyException( [
 					'fileimporter-file-contains-blocked-category-template',
-					$category,
-					$this->siteName
+					$category
 				] );
 			}
 		}
@@ -83,10 +73,7 @@ class FileDescriptionPageValidator {
 			}
 		}
 
-		throw new CommunityPolicyException( [
-			'fileimporter-file-missing-required-template',
-			$this->siteName
-		] );
+		throw new CommunityPolicyException( [ 'fileimporter-file-missing-required-template' ] );
 	}
 
 }
