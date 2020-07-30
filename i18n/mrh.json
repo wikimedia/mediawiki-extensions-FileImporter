@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Laitei"
+		]
+	},
+	"fileimporter-cleanup-summary": "This file is now on {{SITENAME}} at $1 (moved with FileImporter).",
+	"fileimporter-in-beta": "Faih pangiapa cha beta mode liata a châ:He he a phata ta eima test haw, châsa rairuna thokhapazy a y chy. Rairuna nâ tyh khiah, ngiachhiepa ta [//www.mediawiki.org/wiki/Extension_talk:FileImporter report them on our help page] - ideally with a step by step way to reproduce the problem, so we can understand and fix it."
+}
