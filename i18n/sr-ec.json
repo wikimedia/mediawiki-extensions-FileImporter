@@ -11,7 +11,7 @@
 	"fileimporter-help-banner-text": "'''Увоз датотека с других пројеката'''\n#Испод уредите и проверите наслов датотеке и податке о њој.\n#Изаберите могућност да Увозник датотека уметне шаблон „<span class=\"plainlinks\">[//sr.wikipedia.org/wiki/Шаблон:На_Остави На Остави]</span>” на изворној датотеци. Ако сте администратор, биће вам доступна опција да Увозник избрише изворну датотеку у ваше име.\n#На крају, кликните на '''Увези датотеку'''.\n\n<span class=\"plainlinks\">[//commons.wikimedia.org/wiki/Commons:Licensing/sr Правила о лиценцирању]</span><br /><span class=\"plainlinks\">[//www.mediawiki.org/wiki/Help:Extension:FileImporter/sr Упутство за употребу алатке]</span>\n\n<span class=\"plainlinks\">[//www.mediawiki.org/wiki/Extension_talk:FileImporter Искажите своје мишљење о алатки]</span>",
 	"fileimporter-help-banner-close-tooltip": "Не приказуј поново ову поруку",
 	"tag-fileimporter": "уређено помоћу Увозника датотека",
-	"tag-fileimporter-description": "Измене и поруке евиденције додате након увоза с другог пројекта",
+	"tag-fileimporter-description": "Измене и поруке дневника додате након увоза с другог пројекта",
 	"tag-fileimporter-imported": "увезено помоћу Увозника датотека",
 	"tag-fileimporter-imported-description": "Измене увезене из другог пројекта",
 	"fileimporter-specialpage": "Увоз датотека",

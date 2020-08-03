@@ -31,6 +31,7 @@
 	"fileimporter-editsummary": "Resumé vun der Ännerung:",
 	"fileimporter-heading-fileinfo": "Informatioun vum Fichier",
 	"fileimporter-heading-filehistory": "Versiounen",
+	"fileimporter-delete-summary": "Dëse Fichier ass elo op {{SITENAME}} als $1 (geréckelt mat FileImporter).",
 	"fileimporter-import-wait": "Den Import kann e puer Minutten daueren.",
 	"fileimporter-go-to-original-file-button": "Zréck op den Originalfichier",
 	"fileimporter-commonshelper-retrieval-failed": "Beim Soche no gespaarte Fichieren ass e Feeler geschitt.",

@@ -3,6 +3,7 @@
 		"authors": [
 			"Archana mathur",
 			"Bhatakati aatma",
+			"DannyS712",
 			"Matma Rex",
 			"Nilesh shukla",
 			"Sachinkatiyar",
@@ -19,7 +20,7 @@
 	"fileimporter-cancel": "रद्द करें",
 	"fileimporter-editsummary": "संपादन सारांश",
 	"fileimporter-heading-filehistory": "फ़ाइल का इतिहास",
-	"fileimporter-cleanup-summary": "\nयह फ़ाइल अब$1 पर {{स्थलनाम}} (फ़ाइल आयातक के साथ स्थानांतरित) पर है।",
+	"fileimporter-cleanup-summary": "यह फ़ाइल अब$1 पर {{स्थलनाम}} (फ़ाइल आयातक के साथ स्थानांतरित) पर है।",
 	"fileimporter-in-beta": "फ़ाइल आयात बीटा मोड में है: हमने इसका  सावधानी से परीक्षण किया है लेकिन इसमें अभी भी कुछ समस्याएं हो सकती हैं। यदि आप समस्याओं का सामना करते हैं, तो कृपया [//www.mediawiki.org/wiki/Extension_talk:FileImporter उन्हें हमारे सहायता पृष्ठ पर प्रतिवेदन करें] - आदर्श रूप से क्रमशः समस्या को पुन: उत्पन्न करें , जिससे  हम उसको  समझ सके और नियत कर सकें |",
 	"fileimporter-filemissinginrevision": "संचिका आयात नहीं की जा सकती क्योंकि उसके कम से कम एक संशोधन में कोई चित्र संचिका नहीं है।",
 	"fileimporter-import-wait": "आयात में कुछ मिनट लग सकते हैं।",
