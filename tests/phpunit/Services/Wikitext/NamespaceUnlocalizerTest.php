@@ -45,9 +45,9 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 			[ 'de:Kategorie:foo', 'de:Kategorie:foo' ],
 			[ ':de:Kategorie:foo', ':de:Kategorie:foo' ],
 
-			// Prefixes in front of other prefixes can't be namespaces!
-			[ 'Kategorie:Kategorie:', 'Kategorie:Kategorie:' ],
-			[ 'Kategorie:Kategorie:foo', 'Kategorie:Kategorie:foo' ],
+			// As long as the first prefix clearly is a localized namespace, go for it
+			[ 'Kategorie:Kategorie:', 'Category:Kategorie:' ],
+			[ 'Kategorie:Kategorie:foo', 'Category:Kategorie:foo' ],
 
 			// Invalid links
 			[ '::Kategorie:foo', '::Kategorie:foo' ],
