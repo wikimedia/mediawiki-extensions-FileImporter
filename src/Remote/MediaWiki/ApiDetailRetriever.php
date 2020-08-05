@@ -18,7 +18,6 @@ use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use TitleValue;
-use User;
 
 /**
  * @license GPL-2.0-or-later
@@ -91,7 +90,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );
 		$this->maxAggregatedBytes = (int)$config->get( 'FileImporterMaxAggregatedBytes' );
 		$this->suppressedUsername = $config->get( 'FileImporterAccountForSuppressedUsername' );
-		if ( !User::isValidUserName( $this->suppressedUsername ) ) {
+		if ( !MediaWikiServices::getInstance()->getUserNameUtils()->isValid( $this->suppressedUsername ) ) {
 			throw new ConfigException(
 				'Invalid username configured in wgFileImporterAccountForSuppressedUsername: "' .
 				$this->suppressedUsername . '"'
