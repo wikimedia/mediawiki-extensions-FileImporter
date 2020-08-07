@@ -2,11 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Deryck Chan",
+			"Hello903hello",
 			"Moon0319"
 		]
 	},
 	"fileimporter": "FileImporter",
-	"fileimporter-desc": "輕鬆由第啲網站匯入快勞",
+	"fileimporter-desc": "輕鬆由其他網站匯入檔案",
 	"tag-fileimporter-description": "由另一個 wiki 匯入嘅檔案，包括檔案本身同埋檔案編輯史",
 	"tag-fileimporter-imported": "經 FileImporter 匯入嘅",
 	"fileimporter-specialpage": "匯入快勞",

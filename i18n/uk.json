@@ -69,7 +69,7 @@
 	"fileimporter-heading-fileinfo": "Інформація про файл",
 	"fileimporter-heading-filehistory": "Історія файлу",
 	"fileimporter-heading-cleanup": "Очистити вихідну вікі",
-	"fileimporter-cleanup-text": "Ви можете зазначити на вихідній вікі, що цей файл було імпортовано у {{GRAMMAR:locative|{{SITENAME}}}}. Це робиться через додавання шаблона <code><nowiki>{{$1}}</nowiki></code> на оригінальну сторінку файлу від свого імені.",
+	"fileimporter-cleanup-text": "Ви можете зазначити у вихідній вікі, що цей файл було імпортовано {{GRAMMAR:locative|{{SITENAME}}}}. Це робиться через додавання шаблона <code><nowiki>{{$1}}</nowiki></code> на оригінальну сторінку файлу від свого імені.",
 	"fileimporter-cleanup-checkboxlabel": "Позначити файл із вихідної вікі, як імпортований до {{SITENAME}}",
 	"fileimporter-cleanup-summary": "Цей файл зараз на сайті {{SITENAME}} як $1 (переміщено за допомогою FileImporter).",
 	"fileimporter-cleanup-failed": "Автоматичне редагування вихідної вікі не було можливим.",
