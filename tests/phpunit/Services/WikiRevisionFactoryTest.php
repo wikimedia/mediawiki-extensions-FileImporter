@@ -45,7 +45,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$this->assertTrue( $revision->getMinor() );
 		$this->assertSame( $expected . '>' . $testUserName, $revision->getUser() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
-		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
+		$this->assertFalse( $revision->getSha1Base36() );
 		$this->assertSame( CONTENT_FORMAT_TEXT, $revision->getFormat() );
 		$this->assertSame( CONTENT_MODEL_TEXT, $revision->getModel() );
 		if ( $prefix ) {
@@ -78,7 +78,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$this->assertFalse( $revision->getUserObj() );
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertSame( 'TestFileText', $revision->getComment() );
-		$this->assertSame( 'SHA1HASH', $revision->getSha1Base36() );
+		$this->assertFalse( $revision->getSha1Base36() );
 		$this->assertSame( 'TestFileName', $revision->getTitle()->getText() );
 		$this->assertSame( 'TestSrc', $revision->getFileSrc() );
 		$this->assertTrue( $revision->isTempSrc() );
@@ -187,7 +187,6 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			'minor' => true,
 			'user' => $userName,
 			'timestamp' => '42',
-			'sha1' => 'SHA1HASH',
 			'contentmodel' => CONTENT_MODEL_TEXT,
 			'contentformat' => CONTENT_FORMAT_TEXT,
 			'comment' => 'TestComment [[Link]]',
@@ -203,7 +202,6 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 			'description' => 'TestFileText',
 			'user' => $userName,
 			'timestamp' => '42',
-			'sha1' => 'SHA1HASH',
 			'size' => '23',
 			'thumburl' => 'testthumb.url',
 			'url' => 'testimg.url',

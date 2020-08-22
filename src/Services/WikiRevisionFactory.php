@@ -36,7 +36,7 @@ class WikiRevisionFactory {
 	private function newWikiRevision(
 		string $title,
 		string $timestamp,
-		string $sha1
+		?string $sha1
 	) : WikiRevision {
 		$titleParts = explode( ':', $title );
 		$filename = end( $titleParts );
