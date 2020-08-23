@@ -294,7 +294,7 @@ class Importer {
 
 				if ( !in_array( $data['id'], $importPlan->getValidationWarnings() ) ) {
 					$importPlan->addValidationWarning( $data['id'] );
-					array_push( $newAbuseFilterWarnings, $message );
+					$newAbuseFilterWarnings[] = $message;
 				}
 			}
 

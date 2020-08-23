@@ -314,7 +314,7 @@ class ImportPlan {
 	/**
 	 * @param string $actionKey
 	 */
-	public function setActionIsPerformed( $actionKey ) {
+	public function setActionIsPerformed( string $actionKey ) {
 		$this->actionStats[$actionKey] = 1;
 	}
 
@@ -328,7 +328,7 @@ class ImportPlan {
 	/**
 	 * @return array
 	 */
-	public function getActionStats() {
+	public function getActionStats() : array {
 		return $this->actionStats;
 	}
 
@@ -342,14 +342,14 @@ class ImportPlan {
 	/**
 	 * @param int $warning
 	 */
-	public function addValidationWarning( $warning ) {
-		array_push( $this->validationWarnings, $warning );
+	public function addValidationWarning( int $warning ) {
+		$this->validationWarnings[] = $warning;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getValidationWarnings() {
+	public function getValidationWarnings() : array {
 		return $this->validationWarnings;
 	}
 

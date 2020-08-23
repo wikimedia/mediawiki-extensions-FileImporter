@@ -15,7 +15,7 @@ class AbuseFilterWarningsException extends LocalizedImportException {
 	/**
 	 * @param array $messages
 	 */
-	public function __construct( $messages ) {
+	public function __construct( array $messages ) {
 		$this->messages = $messages;
 		parent::__construct( 'fileimporter-warningabusefilter' );
 	}
@@ -23,7 +23,7 @@ class AbuseFilterWarningsException extends LocalizedImportException {
 	/**
 	 * @return array
 	 */
-	public function getMessages() {
+	public function getMessages() : array {
 		return $this->messages;
 	}
 
