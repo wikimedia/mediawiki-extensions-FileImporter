@@ -270,12 +270,14 @@ class Importer {
 
 	private function validateImportOperations( StatusValue $status, ImportPlan $importPlan ) {
 		if ( !$status->isGood() ) {
+			/** @var \IApiMessage[] $newAbuseFilterWarnings */
 			$newAbuseFilterWarnings = [];
 
 			foreach ( $status->getErrors() as $error ) {
 				$message = $error['message'];
 
 				if ( is_string( $message ) && $error['params'] ) {
+					// Can be replaced with [ $string, ...$array ] in PHP 7.4
 					$message = array_merge( [ $message ], $error['params'] );
 				}
 
@@ -283,19 +285,15 @@ class Importer {
 					throw new LocalizedImportException( $message );
 				}
 
-				$data = $message->getApiData();
-				if ( !isset( $data['abusefilter'] ) ) {
-					throw new LocalizedImportException( $message );
-				}
-
-				$data = $data['abusefilter'];
-				if (
+				$data = $message->getApiData()['abusefilter'] ?? null;
+				if ( !$data ||
 					!in_array( 'warn', $data['actions'] ) ||
 					in_array( 'disallow', $data['actions'] )
 				) {
 					throw new LocalizedImportException( $message );
 				}
 
+				// Skip AbuseFilter warnings we have seen before
 				if ( !in_array( $data['id'], $importPlan->getValidationWarnings() ) ) {
 					$importPlan->addValidationWarning( $data['id'] );
 					array_push( $newAbuseFilterWarnings, $message );

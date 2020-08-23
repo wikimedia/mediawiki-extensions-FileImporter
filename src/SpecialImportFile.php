@@ -31,6 +31,7 @@ use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use Message;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use PermissionsError;
@@ -355,7 +356,11 @@ class SpecialImportFile extends SpecialPage {
 				$this->showWarningMessage( $this->getWarningMessage( $exception ), 'warning' );
 
 				foreach ( $exception->getMessages() as $msg ) {
-					$this->showWarningMessage( $msg, 'warning', true );
+					$this->showWarningMessage(
+						Message::newFromSpecifier( $msg )->parse(),
+						'warning',
+						true
+					);
 				}
 
 				$this->showImportPage( $importPlan );
@@ -372,8 +377,7 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function logActionStats( ImportPlan $importPlan ) {
-		// currently the value should always be 1 is not really of interest here
-		foreach ( $importPlan->getActionStats() as $key => $value ) {
+		foreach ( $importPlan->getActionStats() as $key => $_ ) {
 			if ( $key === ImportPreviewPage::ACTION_EDIT_TITLE ||
 				$key === ImportPreviewPage::ACTION_EDIT_INFO ||
 				$key === SourceWikiCleanupSnippet::ACTION_OFFERED_SOURCE_DELETE ||
