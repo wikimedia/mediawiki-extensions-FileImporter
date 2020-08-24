@@ -26,6 +26,7 @@ use MediaWiki\Revision\RevisionRecord;
 use Message;
 use MessageLocalizer;
 use OldRevisionImporter;
+use StatusValue;
 use UploadRevisionImporter;
 use User;
 use Wikimedia\TestingAccessWrapper;
@@ -144,7 +145,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			]
 		] );
 
-		$status = $this->createMock( \Status::class );
+		$status = $this->createMock( StatusValue::class );
 		$status->expects( $this->once() )
 			->method( 'isGood' )
 			->willReturn( false );
@@ -204,7 +205,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			]
 		] );
 
-		$status = $this->createMock( \Status::class );
+		$status = $this->createMock( StatusValue::class );
 		$status->expects( $this->once() )
 			->method( 'isGood' )
 			->willReturn( false );
@@ -249,7 +250,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			new FileTextRevisionValidator()
 		) );
 
-		$status = \Status::newFatal( 'fileimporter-cantimportfileinvalid', 'The reason' );
+		$status = StatusValue::newFatal( 'fileimporter-cantimportfileinvalid', 'The reason' );
 		$this->expectExceptionMessage( 'The reason' );
 		$importer->validateImportOperations( $status, $this->createMock( ImportPlan::class ) );
 	}
