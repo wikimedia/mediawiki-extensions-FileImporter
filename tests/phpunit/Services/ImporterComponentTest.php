@@ -170,10 +170,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$importer = TestingAccessWrapper::newFromObject( $importer );
 
 		try {
-			call_user_func_array(
-				[ $importer, 'validateImportOperations' ],
-				[ $status, $importPlan ]
-			);
+			$importer->validateImportOperations( $status, $importPlan );
 			$this->fail( 'Failed asserting that exception of type "ImportValidationException" is thrown.' );
 		} catch ( AbuseFilterWarningsException $e ) {
 			$this->assertCount( 1, $e->getMessages() );
@@ -230,10 +227,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$importer = TestingAccessWrapper::newFromObject( $importer );
 
 		$this->expectException( LocalizedImportException::class );
-		call_user_func_array(
-			[ $importer, 'validateImportOperations' ],
-			[ $status, $importPlan ]
-		);
+		$importer->validateImportOperations( $status, $importPlan );
 	}
 
 	private function newImportPlan(
