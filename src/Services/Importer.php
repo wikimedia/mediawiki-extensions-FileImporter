@@ -275,6 +275,10 @@ class Importer {
 			foreach ( $status->getErrors() as $error ) {
 				$message = $error['message'];
 
+				if ( is_string( $message ) && $error['params'] ) {
+					$message = array_merge( [ $message ], $error['params'] );
+				}
+
 				if ( !( $message instanceof \IApiMessage ) ) {
 					throw new LocalizedImportException( $message );
 				}

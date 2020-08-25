@@ -230,6 +230,24 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$importer->validateImportOperations( $status, $importPlan );
 	}
 
+	public function testValidateImportOperationsWithStatusParams() {
+		/** @var Importer $importer */
+		$importer = TestingAccessWrapper::newFromObject( new Importer(
+			$this->createMock( WikiPageFactory::class ),
+			$this->createMock( WikiRevisionFactory::class ),
+			$this->createMock( NullRevisionCreator::class ),
+			$this->createMock( HttpRequestExecutor::class ),
+			$this->createMock( UploadBaseFactory::class ),
+			$this->createMock( OldRevisionImporter::class ),
+			$this->createMock( UploadRevisionImporter::class ),
+			new FileTextRevisionValidator()
+		) );
+
+		$status = \Status::newFatal( 'fileimporter-cantimportfileinvalid', 'The reason' );
+		$this->expectExceptionMessage( 'The reason' );
+		$importer->validateImportOperations( $status, $this->createMock( ImportPlan::class ) );
+	}
+
 	private function newImportPlan(
 		ImportRequest $request,
 		TextRevision $textRevision,
