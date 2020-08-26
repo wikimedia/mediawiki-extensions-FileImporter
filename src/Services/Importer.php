@@ -19,7 +19,7 @@ use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
-use Status;
+use StatusValue;
 use Title;
 use UploadRevisionImporter;
 use User;
@@ -268,7 +268,7 @@ class Importer {
 		}
 	}
 
-	private function validateImportOperations( Status $status, ImportPlan $importPlan ) {
+	private function validateImportOperations( StatusValue $status, ImportPlan $importPlan ) {
 		if ( !$status->isGood() ) {
 			$newAbuseFilterWarnings = [];
 
@@ -319,12 +319,12 @@ class Importer {
 	/**
 	 * @param User $user
 	 * @param ImportPlan $importPlan
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
 	private function validateFileInfoText(
 		User $user,
 		ImportPlan $importPlan
-	) : Status {
+	) : StatusValue {
 		$status = $this->textRevisionValidator->validate(
 			$importPlan->getTitle(),
 			$user,
