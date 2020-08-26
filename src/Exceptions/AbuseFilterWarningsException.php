@@ -2,18 +2,20 @@
 
 namespace FileImporter\Exceptions;
 
+use MessageSpecifier;
+
 /**
  * @license GPL-2.0-or-later
  */
 class AbuseFilterWarningsException extends LocalizedImportException {
 
 	/**
-	 * @var array
+	 * @var MessageSpecifier[]
 	 */
 	protected $messages;
 
 	/**
-	 * @param array $messages
+	 * @param MessageSpecifier[] $messages
 	 */
 	public function __construct( $messages ) {
 		$this->messages = $messages;
@@ -21,7 +23,7 @@ class AbuseFilterWarningsException extends LocalizedImportException {
 	}
 
 	/**
-	 * @return array
+	 * @return MessageSpecifier[]
 	 */
 	public function getMessages() {
 		return $this->messages;
