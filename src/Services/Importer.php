@@ -296,7 +296,7 @@ class Importer {
 				// Skip AbuseFilter warnings we have seen before
 				if ( !in_array( $data['id'], $importPlan->getValidationWarnings() ) ) {
 					$importPlan->addValidationWarning( $data['id'] );
-					array_push( $newAbuseFilterWarnings, $message );
+					$newAbuseFilterWarnings[] = $message;
 				}
 			}
 
