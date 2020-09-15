@@ -198,8 +198,19 @@ class ImportPlanValidator {
 	}
 
 	private function runPermissionTitleChecks( ImportPlan $importPlan, User $user ) {
-		$permErrors = MediaWikiServices::getInstance()->getPermissionManager()
-			->getPermissionErrors( 'upload', $user, $importPlan->getTitle() );
+		$title = $importPlan->getTitle();
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+
+		/**
+		 * We must check "create" as a fallback when "upload" is not recorded in the
+		 * page_restrictions table ({@see WikiPage::doUpdateRestrictions} skips "upload" for
+		 * non-existing pages). Checking "upload" after "create" was fine is probably pointless, but
+		 * {@see UploadBase::verifyTitlePermissions} does the same.
+		 */
+		$permErrors = $permissionManager->getPermissionErrors( 'create', $user, $title );
+		if ( !$permErrors ) {
+			$permErrors = $permissionManager->getPermissionErrors( 'upload', $user, $title );
+		}
 
 		if ( $permErrors !== [] ) {
 			throw new RecoverableTitleException( $permErrors[0], $importPlan );
