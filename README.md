@@ -37,10 +37,10 @@ via configuration, but not raised.
 `FileExporter` extension's link. If set to `true` an input field shows on the `Special:ImportFile` that can be used to
 import files. Default is `false`.
 
-**FileImporterInterWikiMap** specifies a map from host names to interwiki prefixes, e.g.
-`[ 'de.wikisource.org' => 's:de' ]`. This is currently mandatory for chains of more than one prefix
-(e.g. `s:de` to point from Wikimedia Commons to the German Wikisource), and optional for 1-level
-prefixes (e.g. `mw`, which always points to mediawiki.org).
+**FileImporterInterWikiMap** (deprecated) manually maps host names to multi-hop interwiki prefixes,
+e.g. `[ 'de.wikisource.org' => 's:de' ]`. This was a temporary solution before
+[T225515](https://phabricator.wikimedia.org/T225515) was resolved, and never needed for single
+prefixes.
 
 **FileImporterCommonsHelperServer** and **FileImporterCommonsHelperBasePageName** specify the
 location of CommonsHelper2-compatible rule sets that specify
