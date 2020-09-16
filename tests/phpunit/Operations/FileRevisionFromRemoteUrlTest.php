@@ -110,7 +110,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 			$firstRevision->getComment()->text
 		);
 		// title will be created from scratch and will have a current timestamp
-		$this->assertTrue( 20180624133723 < (int)$firstRevision->getTimestamp() );
+		$this->assertTrue( $firstRevision->getTimestamp() > 20180624133723 );
 		$this->assertFalse( $firstRevision->isMinor() );
 
 		// assert file was imported correctly

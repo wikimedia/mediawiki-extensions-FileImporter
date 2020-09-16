@@ -154,7 +154,7 @@ class SpecialImportFile extends SpecialPage {
 
 	private function setupPage() {
 		$output = $this->getOutput();
-		$output->setPageTitle( wfMessage( 'fileimporter-specialpage' ) );
+		$output->setPageTitle( $this->msg( 'fileimporter-specialpage' ) );
 		$output->enableOOUI();
 		$output->addModuleStyles( 'ext.FileImporter.SpecialCss' );
 		$output->addModuleStyles( 'ext.FileImporter.Images' );
@@ -318,13 +318,13 @@ class SpecialImportFile extends SpecialPage {
 		$token = $out->getRequest()->getRawVal( 'token', '' );
 
 		if ( !$this->getUser()->matchEditToken( $token ) ) {
-			$this->showWarningMessage( wfMessage( 'fileimporter-badtoken' )->parse() );
+			$this->showWarningMessage( $this->msg( 'fileimporter-badtoken' )->parse() );
 			$this->logErrorStats( 'badToken', true );
 			return false;
 		}
 
 		if ( $importDetails->getOriginalHash() !== $importDetailsHash ) {
-			$this->showWarningMessage( wfMessage( 'fileimporter-badimporthash' )->parse() );
+			$this->showWarningMessage( $this->msg( 'fileimporter-badimporthash' )->parse() );
 			$this->logErrorStats( 'badImportHash', true );
 			return false;
 		}
@@ -366,7 +366,7 @@ class SpecialImportFile extends SpecialPage {
 				$this->showImportPage( $importPlan );
 			} else {
 				$this->showWarningMessage(
-					Html::rawElement( 'strong', [], wfMessage( 'fileimporter-importfailed' )->parse() ) .
+					Html::rawElement( 'strong', [], $this->msg( 'fileimporter-importfailed' )->parse() ) .
 					'<br>' .
 					$this->getWarningMessage( $exception ),
 					'error'
@@ -438,7 +438,7 @@ class SpecialImportFile extends SpecialPage {
 
 	private function showLandingPage() {
 		if ( $this->config->get( 'FileImporterInBeta' ) ) {
-			$this->showWarningMessage( wfMessage( 'fileimporter-in-beta' )->parse(), 'notice' );
+			$this->showWarningMessage( $this->msg( 'fileimporter-in-beta' )->parse(), 'notice' );
 		}
 
 		$page = $this->config->get( 'FileImporterShowInputScreen' )
