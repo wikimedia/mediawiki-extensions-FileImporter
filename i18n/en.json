@@ -40,6 +40,7 @@
 	"fileimporter-filenameerror-nosourceextension": "The source file name does not have an extension.",
 	"fileimporter-filenameerror-noplannedextension": "The planned file name does not have an extension.",
 	"fileimporter-filenameerror-missmatchextension": "Target file extension does not match the extension of the original file.",
+	"fileimporter-filenameerror-protected": "The file name you are currently trying to import to is protected.",
 	"fileimporter-localtitleexists": "The title you are currently trying to import to already exists on this wiki.",
 	"fileimporter-sourcetitleexists": "The title you are currently trying to import to already exists on the source wiki.",
 	"fileimporter-illegalfilenamechars": "The title you are currently trying to import to contains invalid filename characters.",

@@ -173,6 +173,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			return Status::newFatal( 'fileimporter-filenameerror-illegal' );
 		}
 
+		// Even administrators should not (accidentially) move a file to a protected file name
+		if ( $this->plannedTitle->isProtected() ) {
+			return Status::newFatal( 'fileimporter-filenameerror-protected' );
+		}
+
 		$fileValidationStatus = $this->uploadBase->validateFile();
 		if ( !$fileValidationStatus->isOK() ) {
 			return Status::newFatal( 'fileimporter-cantimportfileinvalid', $fileValidationStatus->getMessage() );

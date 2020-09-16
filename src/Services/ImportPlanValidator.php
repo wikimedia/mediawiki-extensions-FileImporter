@@ -213,9 +213,13 @@ class ImportPlanValidator {
 		if ( !$permErrors ) {
 			$permErrors = $permissionManager->getPermissionErrors( 'upload', $user, $title );
 		}
-
 		if ( $permErrors !== [] ) {
 			throw new RecoverableTitleException( $permErrors[0], $importPlan );
+		}
+
+		// Even administrators should not (accidentially) move a file to a protected file name
+		if ( $title->isProtected() ) {
+			throw new RecoverableTitleException( 'fileimporter-filenameerror-protected', $importPlan );
 		}
 	}
 

@@ -47,6 +47,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Error message for cases where the file provided by the user does not have a file extension.",
 	"fileimporter-filenameerror-noplannedextension": "Error message for cases where the planned import name provided by the user does not have a file extension.",
 	"fileimporter-filenameerror-missmatchextension": "Error message for cases where the original and planned importer name file extensions do not match.",
+	"fileimporter-filenameerror-protected": "Error message for cases where when the file name to be imported to is reported as protected by MediaWiki.",
 	"fileimporter-localtitleexists": "Error message for cases where when the title to be imported to already exists on the local wiki.",
 	"fileimporter-sourcetitleexists": "Error message for situations in which the user wants to import a file with a modified file name, but another file with the requested file name also exists on the source wiki. Such an attempt gets blocked with this error message so the other file can still be imported with it's original file name.",
 	"fileimporter-illegalfilenamechars": "Error message for cases where when the title to be imported to contains invalid characters as defined by MediaWiki.",

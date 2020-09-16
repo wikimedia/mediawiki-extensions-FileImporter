@@ -105,6 +105,11 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * @return Status isOK on success
 	 */
 	public function validate() : Status {
+		// Even administrators should not (accidentially) move a file to a protected file name
+		if ( $this->plannedTitle->isProtected() ) {
+			return Status::newFatal( 'fileimporter-filenameerror-protected' );
+		}
+
 		return $this->textRevisionValidator->validate(
 			$this->plannedTitle,
 			$this->user,
