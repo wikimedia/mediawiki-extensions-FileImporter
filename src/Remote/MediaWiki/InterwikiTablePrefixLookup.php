@@ -164,7 +164,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		// TODO: The sub-domain-based intermediate host-guessing logic should be in its own
 		// class, and pluggable.
 		$parent = $this->getParentDomain( $host );
-		if ( isset( $this->parentDomainToUrlMap[$parent] ) ) {
+		if ( $parent && isset( $this->parentDomainToUrlMap[$parent] ) ) {
 			$prefix = $this->getPrefixFromInterwikiTable( $this->parentDomainToUrlMap[$parent] );
 
 			if ( $prefix !== null ) {
@@ -227,6 +227,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 			foreach ( $responseInterwikiMap['query']['interwikimap'] ?? [] as $entry ) {
 				if ( isset( $entry['url'] ) ) {
 					if ( parse_url( $entry['url'], PHP_URL_HOST ) === $host ) {
+						// FIXME: Currently this returns the first match, not the shortest
 						return $entry['prefix'];
 					}
 				}
@@ -276,7 +277,9 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		$maps = [];
 		foreach ( $this->interwikiTableMap as $host => $prefix ) {
 			$parentDomain = $this->getParentDomain( $host );
-			$maps[$parentDomain] = $host;
+			if ( $parentDomain ) {
+				$maps[$parentDomain] = $host;
+			}
 		}
 
 		return $maps;
@@ -285,12 +288,15 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	/**
 	 * @param string $host
 	 *
-	 * @return string New hostname with the minor sub-*-domain removed.
+	 * @return string|null New hostname with the minor sub-*-domain removed.
 	 */
 	private function getParentDomain( $host ) {
-		$hostSplit = explode( '.', $host );
-		array_shift( $hostSplit );
-		return implode( '.', $hostSplit );
+		$parts = explode( '.', $host, 2 );
+		// It doesn't make sense to reduce e.g. "mediawiki.org" to "org"
+		if ( isset( $parts[1] ) && strpos( $parts[1], '.' ) !== false ) {
+			return $parts[1];
+		}
+		return null;
 	}
 
 	/**

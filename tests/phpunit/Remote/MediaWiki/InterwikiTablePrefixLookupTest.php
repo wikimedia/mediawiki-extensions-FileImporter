@@ -8,7 +8,7 @@ use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use Interwiki;
-use MediaWiki\Interwiki\InterwikiLookupAdapter;
+use MediaWiki\Interwiki\InterwikiLookup;
 use MWHttpRequest;
 use Wikimedia\TestingAccessWrapper;
 
@@ -159,7 +159,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetPrefixFromLocalTableCache() {
-		$iwMock = $this->createMock( InterwikiLookupAdapter::class );
+		$iwMock = $this->createMock( InterwikiLookup::class );
 		$iwMock->expects( $this->once() )
 			->method( 'getAllPrefixes' )
 			->willReturn( [ [
@@ -184,13 +184,13 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	/**
 	 * @param bool $validPrefix
 	 * @param array[] $iwMap
-	 * @return InterwikiLookupAdapter
+	 * @return InterwikiLookup
 	 */
 	private function createInterWikiLookupMock(
 		$validPrefix,
 		array $iwMap
-	) : InterwikiLookupAdapter {
-		$mock = $this->createMock( InterwikiLookupAdapter::class );
+	) : InterwikiLookup {
+		$mock = $this->createMock( InterwikiLookup::class );
 		$mock->method( 'isValidInterwiki' )
 			->willReturn( $validPrefix );
 		$mock->method( 'getAllPrefixes' )
@@ -305,7 +305,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetPrefix_secondHop_apiFallback() {
-		$mockLookup = $this->createMock( InterwikiLookupAdapter::class );
+		$mockLookup = $this->createMock( InterwikiLookup::class );
 		$mockLookup->method( 'isValidInterwiki' )
 			->willReturn( true );
 		$mockLookup->method( 'getAllPrefixes' )
@@ -368,7 +368,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetPrefix_secondHop_interwikiCorrupt() {
-		$mockInterwikiLookup = $this->createMock( InterwikiLookupAdapter::class );
+		$mockInterwikiLookup = $this->createMock( InterwikiLookup::class );
 		$mockInterwikiLookup->method( 'isValidInterwiki' )
 			->willReturn( true );
 		$mockInterwikiLookup->method( 'getAllPrefixes' )
@@ -391,6 +391,22 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		);
 	}
 
+	public function testTwoHopLookup_withoutSubdomain() {
+		/** @var InterwikiTablePrefixLookup $lookup */
+		$lookup = TestingAccessWrapper::newFromObject( new InterwikiTablePrefixLookup(
+			$this->createInterWikiLookupMock( false, [
+				[ 'iw_url' => '//bad.org', 'iw_prefix' => 'bad' ],
+			] ),
+			$this->createMock( HttpApiLookup::class ),
+			$this->createInterwikiApi( [ [ 'url' => '//good.org', 'prefix' => 'good' ] ] )
+		) );
+
+		$this->assertNull(
+			$lookup->getTwoHopPrefixThroughIntermediary( 'good.org' ),
+			'"good.org" should not be reduced to "org", and then match "bad.org"'
+		);
+	}
+
 	public function testPrefetchParentDomainToUrlMap() {
 		$mockLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, [
@@ -398,19 +414,20 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 					'iw_url' => 'https://en.wikisource.org/wiki/$1',
 					'iw_prefix' => 'wikisource'
 				],
+				[
+					'iw_url' => 'https://skipme.org/wiki/$1',
+					'iw_prefix' => 'skipme'
+				],
 			] ),
 			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
-			[
-				'fr.wikisource.org' => null,
-				'en.wikisource.org' => null,
-			]
+			$this->createMock( HttpRequestExecutor::class )
 		);
 		/** @var InterwikiTablePrefixLookup $mockLookup */
 		$mockLookup = TestingAccessWrapper::newFromObject( $mockLookup );
 
 		$expected = [
 			'wikisource.org' => 'en.wikisource.org',
+			// 'org' => 'skipme.org' should not appear here
 		];
 
 		$this->assertSame(
