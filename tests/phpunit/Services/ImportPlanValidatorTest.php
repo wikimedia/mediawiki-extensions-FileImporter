@@ -45,7 +45,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 		$this->setMwGlobals( [
 			'wgHooks' => [],
-			'wgGroupPermissions' => [ '*' => [ 'upload' => true ] ],
+			'wgGroupPermissions' => [ '*' => [ 'upload' => true, 'createpage' => true ] ],
 		] );
 
 		// FIXME: The following can be removed when the services are injected via the constructor.
@@ -102,6 +102,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$mock = $this->createMock( Title::class );
 		$mock->method( 'getText' )
 			->willReturn( $text );
+		$mock->method( 'getNamespace' )
+			->willReturn( NS_FILE );
 		$mock->method( 'exists' )
 			->willReturn( $exists );
 		$mock->method( 'getRestrictions' )
@@ -378,9 +380,9 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
 	}
 
-	public function testValidateFailsOnFailingPermissionCheck() {
+	public function testValidateFailsOnFailingUploadPermissionCheck() {
 		$this->setMwGlobals( [
-			'wgGroupPermissions' => [ '*' => [ 'upload' => false ] ],
+			'wgGroupPermissions' => [ '*' => [ 'upload' => false, 'createpage' => true ] ],
 		] );
 		$importRequest = new ImportRequest( '//w.invalid' );
 		$mockTitle = $this->getMockTitle( 'Title.jpg', true );
