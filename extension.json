@@ -45,6 +45,7 @@
 		},
 		"FileImporterInterWikiMap": {
 			"value": [],
+			"description": "Manually maps host names to multi-hop interwiki prefixes. Deprecated.",
 			"public": true
 		},
 		"FileImporterShowInputScreen": {
