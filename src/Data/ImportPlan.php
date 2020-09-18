@@ -66,12 +66,12 @@ class ImportPlan {
 	private $numberOfTemplateReplacements = 0;
 
 	/**
-	 * @var array
+	 * @var int[]
 	 */
 	private $actionStats = [];
 
 	/**
-	 * @var array
+	 * @var int[]
 	 */
 	private $validationWarnings = [];
 
@@ -319,21 +319,22 @@ class ImportPlan {
 	}
 
 	/**
-	 * @param array $stats
+	 * @param int[] $stats
 	 */
 	public function setActionStats( array $stats ) {
 		$this->actionStats = $stats;
 	}
 
 	/**
-	 * @return array
+	 * @return int[] Array mapping string keys to optional counts. The numbers default to 1 and are
+	 *  typically not really of interest.
 	 */
 	public function getActionStats() : array {
 		return $this->actionStats;
 	}
 
 	/**
-	 * @param array $warnings
+	 * @param int[] $warnings
 	 */
 	public function setValidationWarnings( array $warnings ) {
 		$this->validationWarnings = $warnings;
@@ -347,7 +348,7 @@ class ImportPlan {
 	}
 
 	/**
-	 * @return array
+	 * @return int[]
 	 */
 	public function getValidationWarnings() : array {
 		return $this->validationWarnings;
