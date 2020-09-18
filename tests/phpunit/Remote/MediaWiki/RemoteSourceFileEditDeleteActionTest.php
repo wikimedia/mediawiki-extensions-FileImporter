@@ -59,7 +59,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 				[
 					'appendtext' => "\n{{TestNowCommons&#60;script&#62;|TestTitleEdited&#60;script&#62;}}",
 				],
-				'(fileimporter-cleanup-summary: http://TestUrl)'
+				'(fileimporter-cleanup-summary: http://TestUrl/File:Берлін_2011-2.JPG)'
 			)
 			->willReturn( StatusValue::newGood() );
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
@@ -116,7 +116,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 				$this->isInstanceOf( SourceUrl::class ),
 				$mockUser,
 				'TestTitleOriginal',
-				'(fileimporter-delete-summary: http://TestUrl)'
+				'(fileimporter-delete-summary: http://TestUrl/File:Берлін_2011-2.JPG)'
 			)
 			->willReturn( StatusValue::newGood() );
 
@@ -155,7 +155,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'TestTitle' );
 		$mockTitle->method( 'getFullURL' )
-			->willReturn( 'http://TestUrl' );
+			->willReturn( 'http://TestUrl/File:%D0%91%D0%B5%D1%80%D0%BB%D1%96%D0%BD_2011-2.JPG' );
 
 		$mockOriginalTitle = $this->createMock( Title::class );
 		$mockOriginalTitle->method( 'getPrefixedText' )

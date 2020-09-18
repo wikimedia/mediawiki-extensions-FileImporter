@@ -110,7 +110,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage(
 			'fileimporter-cleanup-summary',
-			$importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL )
+			wfExpandIRI( $importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL ) )
 		)->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 		$text = "\n{{" . wfEscapeWikiText( $templateName ) . '|' .
 			wfEscapeWikiText( $importPlan->getTitleText() ) . '}}';
@@ -149,7 +149,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage(
 			'fileimporter-delete-summary',
-			$importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL )
+			wfExpandIRI( $importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL ) )
 		)->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 
 		$status = $this->remoteAction->executeDeleteAction(
