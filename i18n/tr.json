@@ -45,6 +45,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Kaynak dosya adının bir uzantısı yok.",
 	"fileimporter-filenameerror-noplannedextension": "Planlanan dosya adının bir uzantısı yok.",
 	"fileimporter-filenameerror-missmatchextension": "Hedef dosya uzantısı, orijinal dosyanın uzantısı ile eşleşmiyor.",
+	"fileimporter-filenameerror-protected": "Şu anda içe aktarmaya çalıştığınız dosya adı korumada.",
 	"fileimporter-localtitleexists": "Şu anda içe aktarmaya çalıştığınız başlık bu vikide zaten var.",
 	"fileimporter-sourcetitleexists": "Şu anda içe almaya çalıştığınız başlık, kaynak vikide zaten var.",
 	"fileimporter-illegalfilenamechars": "Şu anda içe almaya çalıştığınız başlık geçersiz dosya adı karakterleri içeriyor.",

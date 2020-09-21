@@ -42,6 +42,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Der ursprüngliche Dateiname hat keine Erweiterung.",
 	"fileimporter-filenameerror-noplannedextension": "Der gewünschte Dateiname hat keine Erweiterung.",
 	"fileimporter-filenameerror-missmatchextension": "Die Ziel-Dateierweiterung stimmt nicht mit der Erweiterung der Ursprungsdatei überein.",
+	"fileimporter-filenameerror-protected": "Der Dateiname, den du derzeit versuchst zu importieren, ist geschützt.",
 	"fileimporter-localtitleexists": "Der Titel, den du derzeit versuchst zu importieren, ist bereits auf diesem Wiki vorhanden.",
 	"fileimporter-sourcetitleexists": "Der Titel, den du derzeit versuchst zu importieren, ist bereits im Quellwiki vorhanden.",
 	"fileimporter-illegalfilenamechars": "Der Titel, den du derzeit versuchst zu importieren, enthält ungültige Zeichen im Dateinamen.",

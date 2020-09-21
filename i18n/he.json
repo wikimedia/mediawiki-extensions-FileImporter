@@ -45,6 +45,7 @@
 	"fileimporter-filenameerror-nosourceextension": "לקובץ המקור אין סיומת.",
 	"fileimporter-filenameerror-noplannedextension": "לשם הקובץ המתוכנן אין סיומת.",
 	"fileimporter-filenameerror-missmatchextension": "סיומת הקובץ המיועדת אינה מתאימה לסיומת של הקובץ המקורי.",
+	"fileimporter-filenameerror-protected": "שם הקובץ {{GENDER:|שאתה|שאת}} מנסה לייבא מוגן.",
 	"fileimporter-localtitleexists": "הכותרת {{GENDER:|שאת|שאתה}} מנסה לייבא עכשיו כבר קיימת בוויקי הזה.",
 	"fileimporter-sourcetitleexists": "הכותרת {{GENDER:|שאת|שאתה}} מנסה לייבא עכשיו כבר קיימת בוויקי המקור.",
 	"fileimporter-illegalfilenamechars": "הכותרת {{GENDER:|שאת|שאתה}} מנסה לייבא עכשיו מכילה תווים שאינם תקינים עבור שם קובץ.",

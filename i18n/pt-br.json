@@ -41,6 +41,7 @@
 	"fileimporter-filenameerror-nosourceextension": "O nome do arquivo de origem não possui uma extensão.",
 	"fileimporter-filenameerror-noplannedextension": "O nome do arquivo planejado não possui uma extensão.",
 	"fileimporter-filenameerror-missmatchextension": "A extensão do arquivo de destino não corresponde à extensão do arquivo original.",
+	"fileimporter-filenameerror-protected": "O nome do arquivo para o qual você está tentando importar está protegido.",
 	"fileimporter-localtitleexists": "O título para o qual está a tentar importar conteúdo já existe nesta wiki.",
 	"fileimporter-sourcetitleexists": "O título para o qual está a tentar importar conteúdo já existe na wiki de origem.",
 	"fileimporter-illegalfilenamechars": "O título para o qual está tentando importar contém caracteres que são inválidos em nomes de arquivos.",

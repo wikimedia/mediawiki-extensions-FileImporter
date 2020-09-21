@@ -41,6 +41,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Kildefilnavnet har ingen filendelse.",
 	"fileimporter-filenameerror-noplannedextension": "Det planlagte filnavnet har ingen filendelse.",
 	"fileimporter-filenameerror-missmatchextension": "Målfilendelsen samsvarer ikke med originalfilendelsen.",
+	"fileimporter-filenameerror-protected": "Filnavnet du prøver å importere er beskyttet.",
 	"fileimporter-localtitleexists": "Tittelen du prøver å importere finnes på denne wikien fra før.",
 	"fileimporter-sourcetitleexists": "Tittelen du prøver å importere finnes på kildewikien fra før.",
 	"fileimporter-illegalfilenamechars": "Tittelen du prøver å importere til inneholder ugyldige tegn i filnavnet.",
