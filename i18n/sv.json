@@ -38,6 +38,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Källfilens namn har inte en filändelse.",
 	"fileimporter-filenameerror-noplannedextension": "Det planerade filnamnet har inte en filändelse.",
 	"fileimporter-filenameerror-missmatchextension": "Målfilens filändelse matchar inte originalfilens filändelse.",
+	"fileimporter-filenameerror-protected": "Filnamnet du för tillfället försöker importera är skrivskyddad.",
 	"fileimporter-localtitleexists": "Titeln du försöker importera finns redan på denna wiki.",
 	"fileimporter-sourcetitleexists": "Titeln du försöker importera finns redan på källwikin.",
 	"fileimporter-illegalfilenamechars": "Titeln du försöker importera innehåller ogiltiga tecken i filnamnet.",

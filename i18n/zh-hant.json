@@ -45,6 +45,7 @@
 	"fileimporter-filenameerror-nosourceextension": "來源檔案名稱沒有副檔名。",
 	"fileimporter-filenameerror-noplannedextension": "計劃的檔案名稱沒有副檔名。",
 	"fileimporter-filenameerror-missmatchextension": "目標副檔名不符合原始檔案的副檔名。",
+	"fileimporter-filenameerror-protected": "您正嘗試匯入的檔案名稱受到保護。",
 	"fileimporter-localtitleexists": "您正嘗試匯入的標題已存在此 wiki。",
 	"fileimporter-sourcetitleexists": "您正嘗試匯入的標題已存在於來源 wiki 上。",
 	"fileimporter-illegalfilenamechars": "您正嘗試匯入的標題包含無效檔案名稱字元。",
