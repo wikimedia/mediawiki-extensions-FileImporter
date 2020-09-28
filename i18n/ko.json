@@ -35,6 +35,7 @@
 	"fileimporter-filenameerror-nosourceextension": "원본 파일 이름에 확장자가 없습니다.",
 	"fileimporter-filenameerror-noplannedextension": "생성이 예정된 파일 이름에 확장자가 없습니다.",
 	"fileimporter-filenameerror-missmatchextension": "대상 파일 확장자는 원래 파일의 확장자와 일치하지 않습니다.",
+	"fileimporter-filenameerror-protected": "지금 가져오려는 파일 이름은 보호되어 있습니다.",
 	"fileimporter-localtitleexists": "지금 가져오려는 이름의 문서가 이미 이 위키에 있습니다.",
 	"fileimporter-sourcetitleexists": "지금 가져오려는 이름의 문서가 이미 원본 위키에 있습니다.",
 	"fileimporter-illegalfilenamechars": "지금 가져오려는 제목에는 유효하지 않은 파일 이름 문자가 포함되어 있습니다.",
