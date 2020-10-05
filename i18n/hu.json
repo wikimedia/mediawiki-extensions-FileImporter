@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Hanna Tardos",
 			"Notramo",
 			"Tacsipacsi"
 		]
@@ -35,6 +36,7 @@
 	"fileimporter-filenameerror-nosourceextension": "A forrásfájlnévnek nincs kiterjesztése.",
 	"fileimporter-filenameerror-noplannedextension": "A kívánt fájlnévnek nincs kiterjesztése.",
 	"fileimporter-filenameerror-missmatchextension": "A célfájlkiterjesztés nem egyezik meg az eredeti fájl kiterjesztésével.",
+	"fileimporter-filenameerror-protected": "Az éppen importálni próbált fájlnév védett.",
 	"fileimporter-localtitleexists": "Az éppen importálni próbált fájlnév már létezik ezen a wikin.",
 	"fileimporter-sourcetitleexists": "Az éppen importálni próbált fájlnév már létezik a forráswikin.",
 	"fileimporter-illegalfilenamechars": "Az éppen importálni próbált fájlnév fájlnévben érvénytelen karaktereket tartalmaz.",
