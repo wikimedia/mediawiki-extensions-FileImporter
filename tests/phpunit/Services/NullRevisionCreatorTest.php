@@ -98,6 +98,8 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 		$dbw = $this->createMock( IDatabase::class );
 		$dbw->method( 'insertId' )
 			->willReturn( 1 );
+		$dbw->method( 'selectRow' )
+			->willReturn( (object)[ 'actor_id' => '1' ] );
 		return $dbw;
 	}
 
