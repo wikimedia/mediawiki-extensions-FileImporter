@@ -28,7 +28,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideTestExecute
 	 */
 	public function testExecute( $testUrl, $expectedResult ) {
-		$executor = new HttpRequestExecutor( [], 0 );
+		$executor = new HttpRequestExecutor( [ 'originalRequest' => [ 'ip' => '9.9.9.9' ] ], 0 );
 		$factoryOverride = function ( $url, $options = null, $caller = __METHOD__ )
 			use ( $testUrl, $expectedResult ) {
 			$this->assertSame( $testUrl, $url );
@@ -36,6 +36,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			$this->assertArrayHasKey( 'followRedirects', $options );
 			$this->assertInstanceOf( LoggerInterface::class, $options['logger'] );
 			$this->assertTrue( $options['followRedirects'] );
+			$this->assertSame( [ 'ip' => '9.9.9.9' ], $options['originalRequest'] );
 			$this->assertSame( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
 			$this->assertStringContainsString( 'FileImporter', $options['userAgent'] );
 
@@ -66,7 +67,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 		$testUrl = 'https://w.invalid/';
 		$expectedResult = 'Some real content';
 		$postData = [ 'a' => 'foo', 'b' => 'bar' ];
-		$executor = new HttpRequestExecutor( [], 0 );
+		$executor = new HttpRequestExecutor( [ 'originalRequest' => [ 'ip' => '9.9.9.9' ] ], 0 );
 		$factoryOverride = function ( $url, $options = null, $caller = __METHOD__ )
 		use ( $testUrl, $expectedResult, $postData ) {
 			$this->assertSame( $testUrl, $url );
@@ -74,6 +75,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			$this->assertArrayHasKey( 'followRedirects', $options );
 			$this->assertInstanceOf( LoggerInterface::class, $options['logger'] );
 			$this->assertTrue( $options['followRedirects'] );
+			$this->assertSame( [ 'ip' => '9.9.9.9' ], $options['originalRequest'] );
 			$this->assertEquals( 'POST', $options['method'] );
 			$this->assertEquals( $postData, $options['postData'] );
 			$this->assertSame( $caller, HttpRequestExecutor::class . '::executeWithCallback' );
