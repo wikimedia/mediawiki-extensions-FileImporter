@@ -38,6 +38,8 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	/**
 	 * @param array $httpOptions in the following format:
 	 * [
+	 *     'originalRequest' => WebRequest|string[] When in array form, it's expected to have the
+	 *         keys 'ip' and 'userAgent', {@see MWHttpRequest::setOriginalRequest},
 	 *     'proxy' => string|false,
 	 *     'timeout' => int|false Timeout of HTTP requests in seconds, false for default,
 	 * ]
@@ -119,6 +121,9 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 			'logger' => $this->logger,
 			'followRedirects' => true,
 		];
+		if ( isset( $this->httpOptions['originalRequest'] ) ) {
+			$options['originalRequest'] = $this->httpOptions['originalRequest'];
+		}
 		if ( !empty( $this->httpOptions['proxy'] ) ) {
 			$options['proxy'] = $this->httpOptions['proxy'];
 		}
