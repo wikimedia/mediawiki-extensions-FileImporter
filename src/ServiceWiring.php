@@ -34,6 +34,7 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use ObjectCache;
+use RequestContext;
 use UploadBase;
 
 // TODO: Alphabetize.
@@ -59,6 +60,7 @@ return [
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 		$service = new HttpRequestExecutor(
 			[
+				'originalRequest' => RequestContext::getMain()->getRequest(),
 				'proxy' => $config->get( 'CopyUploadProxy' ),
 				'timeout' => $config->get( 'CopyUploadTimeout' ),
 			],
