@@ -37,7 +37,7 @@ class FileImporterHooks {
 		$mediaWiki
 	) {
 		if ( $request->getVal( ImportSuccessSnippet::NOTICE_URL_KEY ) === null
-			|| $title->getNamespace() !== NS_FILE
+			|| !$title->inNamespace( NS_FILE )
 			|| !$title->exists()
 			|| $user->isAnon()
 		) {

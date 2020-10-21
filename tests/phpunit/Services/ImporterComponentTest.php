@@ -421,7 +421,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 			->method( 'createForLinkTarget' )
 			->with(
 				$this->callback( function ( LinkTarget $title ) {
-					return $title->getNamespace() === NS_FILE
+					return $title->inNamespace( NS_FILE )
 						&& $title->getText() === self::TITLE;
 				} ),
 				$this->isInstanceOf( FileRevision::class ),
