@@ -16,3 +16,7 @@ $( '.mw-importfile-help-banner input[ type="checkbox" ]' ).change( function () {
 		( new mw.Api() ).saveOption( 'userjs-fileimporter-hide-help-banner', '1' );
 	}
 } );
+
+mw.hook( 'centralauth-p-personal-reset' ).add( function () {
+	window.location.reload();
+} );
