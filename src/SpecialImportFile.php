@@ -342,6 +342,7 @@ class SpecialImportFile extends SpecialPage {
 			$out->redirect(
 				( new ImportSuccessSnippet() )->getRedirectWithNotice(
 					$importPlan->getTitle(),
+					$this->getUser(),
 					$postImportResult
 				) );
 
