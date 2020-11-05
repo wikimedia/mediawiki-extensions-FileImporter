@@ -11,6 +11,8 @@ use User;
  */
 class RemoteApiActionExecutor {
 
+	public const CHANGE_TAG = 'fileimporter-remote';
+
 	/**
 	 * @var RemoteApiRequestExecutor
 	 */
@@ -87,6 +89,7 @@ class RemoteApiActionExecutor {
 					'format' => 'json',
 					'title' => $title,
 					'summary' => $editSummary,
+					'tags' => self::CHANGE_TAG,
 				],
 				$params
 			),
@@ -129,7 +132,6 @@ class RemoteApiActionExecutor {
 	 * @param User $user
 	 * @param string $title
 	 * @param string $deletionReason
-	 * @param array $params
 	 *
 	 * @return StatusValue
 	 */
@@ -137,8 +139,7 @@ class RemoteApiActionExecutor {
 		SourceUrl $sourceUrl,
 		User $user,
 		string $title,
-		string $deletionReason,
-		array $params
+		string $deletionReason
 	) : StatusValue {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
 		if ( $token === null ) {
@@ -148,16 +149,14 @@ class RemoteApiActionExecutor {
 		$result = $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
-			array_merge(
-				[
-					'action' => 'delete',
-					'format' => 'json',
-					'title' => $title,
-					'reason' => $deletionReason,
-					'token' => $token,
-				],
-				$params
-			),
+			[
+				'action' => 'delete',
+				'format' => 'json',
+				'title' => $title,
+				'reason' => $deletionReason,
+				'tags' => self::CHANGE_TAG,
+				'token' => $token,
+			],
 			true
 		);
 		return $this->statusFromApiResponse( $result );

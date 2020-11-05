@@ -58,7 +58,6 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 				'TestTitleOriginal',
 				[
 					'appendtext' => "\n{{TestNowCommons&#60;script&#62;|TestTitleEdited&#60;script&#62;}}",
-					'tags' => 'fileimporter-remote',
 				],
 				'(fileimporter-cleanup-summary: http://TestUrl/File:Берлін_2011-2.JPG)'
 			)

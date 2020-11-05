@@ -121,7 +121,6 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			$importPlan->getOriginalTitle()->getPrefixedText(),
 			[
 				'appendtext' => $text,
-				'tags' => 'fileimporter-remote',
 			],
 			$summary
 		);
@@ -157,10 +156,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			$sourceUrl,
 			$user,
 			$importPlan->getOriginalTitle()->getPrefixedText(),
-			$summary,
-			[
-				'tags' => 'fileimporter-remote',
-			]
+			$summary
 		);
 
 		if ( $status->isGood() ) {

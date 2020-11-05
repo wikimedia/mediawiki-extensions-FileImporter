@@ -51,6 +51,7 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 					'summary' => 'TestSummary',
 					'prepend' => 'text',
 					'token' => $token,
+					'tags' => RemoteApiActionExecutor::CHANGE_TAG,
 				]
 			)
 			// FIXME: unrealistic result
