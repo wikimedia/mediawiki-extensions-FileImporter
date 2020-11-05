@@ -124,15 +124,6 @@ class ImportPlan {
 	}
 
 	/**
-	 * @deprecated
-	 * @return string
-	 * @throws MalformedTitleException
-	 */
-	public function getTitleText() {
-		return $this->getTitle()->getText();
-	}
-
-	/**
 	 * @return Title
 	 */
 	public function getOriginalTitle() {
@@ -168,7 +159,7 @@ class ImportPlan {
 	 * @return string
 	 */
 	public function getFileName() {
-		return pathinfo( $this->getTitleText() )['filename'];
+		return pathinfo( $this->getTitle()->getText() )['filename'];
 	}
 
 	/**
