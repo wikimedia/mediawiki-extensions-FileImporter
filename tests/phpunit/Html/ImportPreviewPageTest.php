@@ -53,7 +53,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	 * @dataProvider providePlanContent
 	 */
 	public function testGetHtml( $submittedText, $replacements ) {
-		$this->setContentLang( 'qqx' );
+		$this->setMwGlobals( 'wgLanguageCode', 'qqx' );
 
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),

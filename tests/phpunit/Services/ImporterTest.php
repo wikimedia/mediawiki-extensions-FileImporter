@@ -336,7 +336,7 @@ class ImporterTest extends \MediaWikiTestCase {
 
 	private function newWikiRevisionFactory() : WikiRevisionFactory {
 		$mock = $this->getMockBuilder( WikiRevisionFactory::class )
-			->setMethods( [ 'newFromFileRevision' ] )
+			->onlyMethods( [ 'newFromFileRevision' ] )
 			->getMock();
 		$mock->method( 'newFromFileRevision' )
 			->willReturnCallback(
