@@ -44,7 +44,7 @@ class SuggestManualTemplateAction implements PostImportHandler {
 				'fileimporter-add-specific-template',
 				$sourceUrl->getUrl(),
 				$templateName,
-				$importPlan->getTitleText()
+				$importPlan->getTitle()->getText()
 			] );
 		}
 

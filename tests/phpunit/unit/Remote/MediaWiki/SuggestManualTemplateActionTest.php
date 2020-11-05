@@ -8,6 +8,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SuggestManualTemplateAction;
 use FileImporter\Services\WikidataTemplateLookup;
 use StatusValue;
+use Title;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\SuggestManualTemplateAction
@@ -39,13 +40,18 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 			->method( 'getSourceUrl' )
 			->willReturn( $sourceUrlMock );
 
+		$titleMock = $this->createMock( Title::class );
+		$titleMock
+			->method( 'getText' )
+			->willReturn( self::TITLE );
+
 		$importPlanMock = $this->createMock( ImportPlan::class );
 		$importPlanMock
 			->method( 'getDetails' )
 			->willReturn( $importDetailsMock );
 		$importPlanMock
-			->method( 'getTitleText' )
-			->willReturn( self::TITLE );
+			->method( 'getTitle' )
+			->willReturn( $titleMock );
 
 		$importHandler = new SuggestManualTemplateAction(
 			$this->createWikidataTemplateLookup( $sourceUrlMock, $templateResult )

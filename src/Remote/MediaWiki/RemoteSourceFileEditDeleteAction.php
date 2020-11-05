@@ -113,7 +113,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 			wfExpandIRI( $importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL ) )
 		)->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 		$text = "\n{{" . wfEscapeWikiText( $templateName ) . '|' .
-			wfEscapeWikiText( $importPlan->getTitleText() ) . '}}';
+			wfEscapeWikiText( $importPlan->getTitle()->getText() ) . '}}';
 
 		$status = $this->remoteAction->executeEditAction(
 			$sourceUrl,

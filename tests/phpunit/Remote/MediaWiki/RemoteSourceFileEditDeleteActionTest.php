@@ -155,6 +155,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 		$mockTitle = $this->createMock( Title::class );
 		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'TestTitle' );
+		$mockTitle->method( 'getText' )
+			->willReturn( 'TestTitleEdited<script>' );
 		$mockTitle->method( 'getFullURL' )
 			->willReturn( 'http://TestUrl/File:%D0%91%D0%B5%D1%80%D0%BB%D1%96%D0%BD_2011-2.JPG' );
 
@@ -185,8 +187,6 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 			->willReturn( $mockTitle );
 		$mockImportPlan->method( 'getOriginalTitle' )
 			->willReturn( $mockOriginalTitle );
-		$mockImportPlan->method( 'getTitleText' )
-			->willReturn( 'TestTitleEdited<script>' );
 
 		return $mockImportPlan;
 	}
