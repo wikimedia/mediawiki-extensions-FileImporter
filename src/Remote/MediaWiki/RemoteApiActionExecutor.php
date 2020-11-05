@@ -129,6 +129,7 @@ class RemoteApiActionExecutor {
 	 * @param User $user
 	 * @param string $title
 	 * @param string $deletionReason
+	 * @param array $params
 	 *
 	 * @return StatusValue
 	 */
@@ -136,7 +137,8 @@ class RemoteApiActionExecutor {
 		SourceUrl $sourceUrl,
 		User $user,
 		string $title,
-		string $deletionReason
+		string $deletionReason,
+		array $params
 	) : StatusValue {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
 		if ( $token === null ) {
@@ -146,13 +148,16 @@ class RemoteApiActionExecutor {
 		$result = $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
-			[
-				'action' => 'delete',
-				'format' => 'json',
-				'title' => $title,
-				'reason' => $deletionReason,
-				'token' => $token,
-			],
+			array_merge(
+				[
+					'action' => 'delete',
+					'format' => 'json',
+					'title' => $title,
+					'reason' => $deletionReason,
+					'token' => $token,
+				],
+				$params
+			),
 			true
 		);
 		return $this->statusFromApiResponse( $result );
