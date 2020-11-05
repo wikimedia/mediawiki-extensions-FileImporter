@@ -47,7 +47,7 @@ class FileImporterHooks {
 		$output->enableOOUI();
 		$output->prependHTML(
 			( new ImportSuccessSnippet() )->getHtml(
-				$output->getContext(), $title ) );
+				$output->getContext(), $title, $user ) );
 	}
 
 	/**

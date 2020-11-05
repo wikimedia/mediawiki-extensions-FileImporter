@@ -12,6 +12,7 @@ use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use StatusValue;
 use Title;
+use User;
 
 /**
  * Informational block embedded at the top of page after a successful import.
@@ -34,23 +35,25 @@ class ImportSuccessSnippet {
 	 * Prepares an URL for redirect and stashes additional information for retrieval from that page.
 	 *
 	 * @param Title $targetTitle
+	 * @param User $user
 	 * @param StatusValue $importResult
 	 *
 	 * @return string Target file URL for redirect, including special parameter to show our notice.
 	 */
-	public function getRedirectWithNotice( Title $targetTitle, StatusValue $importResult ) {
-		$this->cache->stashImportResult( $targetTitle, $importResult );
+	public function getRedirectWithNotice( Title $targetTitle, User $user, StatusValue $importResult ) {
+		$this->cache->stashImportResult( $targetTitle, $user, $importResult );
 		return $targetTitle->getInternalURL( [ self::NOTICE_URL_KEY => 1 ] );
 	}
 
 	/**
 	 * @param MessageLocalizer $messageLocalizer
 	 * @param Title $targetTitle Final local title of imported file
+	 * @param User $user
 	 *
 	 * @return string
 	 */
-	public function getHtml( MessageLocalizer $messageLocalizer, Title $targetTitle ) {
-		$importResult = $this->cache->fetchImportResult( $targetTitle );
+	public function getHtml( MessageLocalizer $messageLocalizer, Title $targetTitle, User $user ) {
+		$importResult = $this->cache->fetchImportResult( $targetTitle, $user );
 		// This can happen when the user reloads a URL that still contains fileImporterSuccess=1
 		if ( !$importResult ) {
 			return '';

@@ -12,6 +12,7 @@ use OOUI\BlankTheme;
 use OOUI\Theme;
 use StatusValue;
 use Title;
+use User;
 
 /**
  * @covers \FileImporter\Html\ImportSuccessSnippet
@@ -32,9 +33,10 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 
 	public function testGetHtml_notOK() {
 		$title = $this->createTitleWithResult( StatusValue::newFatal( 'fileimporter-badtoken' ) );
+		$user = $this->createMock( User::class );
 
 		$snippet = new ImportSuccessSnippet();
-		$html = $snippet->getHtml( $this->createMessageLocalizer(), $title );
+		$html = $snippet->getHtml( $this->createMessageLocalizer(), $title, $user );
 
 		$this->assertStringContainsString( '<div class="mw-ext-fileimporter-noticebox">', $html );
 		$this->assertStringContainsString( '(fileimporter-badtoken)', $html );
@@ -44,11 +46,13 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		$this->setContentLang( 'qqx' );
 
 		$title = $this->createTitleWithResult( StatusValue::newGood( 'fileimporter-cleanup-summary' ) );
+		$user = $this->createMock( User::class );
 
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
 			$this->createMessageLocalizer(),
-			$title
+			$title,
+			$user
 		);
 
 		$this->assertStringContainsString( 'icon-check', $html );
@@ -62,11 +66,13 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 		$resultStatus = StatusValue::newGood( 'fileimporter-cleanup-summary' );
 		$resultStatus->warning( 'fileimporter-import-wait' );
 		$title = $this->createTitleWithResult( $resultStatus );
+		$user = $this->createMock( User::class );
 
 		$snippet = new ImportSuccessSnippet();
 		$html = $snippet->getHtml(
 			$this->createMessageLocalizer(),
-			$title
+			$title,
+			$user
 		);
 
 		$this->assertStringContainsString( 'icon-check', $html );
@@ -82,8 +88,9 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 	 */
 	private function createTitleWithResult( StatusValue $status ) {
 		$title = $this->createMock( Title::class );
+		$user = $this->createMock( User::class );
 		$cache = new SuccessCache( new HashBagOStuff() );
-		$cache->stashImportResult( $title, $status );
+		$cache->stashImportResult( $title, $user, $status );
 		$this->setService( 'FileImporterSuccessCache', $cache );
 		return $title;
 	}
