@@ -4,12 +4,12 @@ namespace FileImporter\Tests\Services;
 
 use FileImporter\Services\CategoryExtractor;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\WikiPageFactory;
 use MediaWikiTestCase;
 use Parser;
 use ParserOutput;
 use Title;
 use User;
-use WikiCategoryPage;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\LoadBalancer;
 use Wikimedia\TestingAccessWrapper;
@@ -22,6 +22,23 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  */
 class CategoryExtractorTest extends MediaWikiTestCase {
+
+	/**
+	 * @var MediaWikiServices
+	 */
+	private $services;
+
+	/**
+	 * @var WikiPageFactory
+	 */
+	private $wikiPageFactory;
+
+	public function setUp() : void {
+		parent::setUp();
+
+		$this->services = MediaWikiServices::getInstance();
+		$this->wikiPageFactory = $this->services->getWikiPageFactory();
+	}
 
 	public function provideCategories() {
 		yield [
@@ -74,22 +91,22 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 		];
 
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
-		$categoryPageVisible = WikiCategoryPage::factory( $categoryTitleVisible );
+		$categoryPageVisible = $this->wikiPageFactory->newFromTitle( $categoryTitleVisible );
 		$categoryPageVisible->insertOn( $this->db );
 
 		$categoryTitleHidden = Title::makeTitle( NS_CATEGORY, 'CategoryPageHidden' );
-		$categoryPageHidden = WikiCategoryPage::factory( $categoryTitleHidden );
+		$categoryPageHidden = $this->wikiPageFactory->newFromTitle( $categoryTitleHidden );
 		$categoryPageHidden->insertOn( $this->db );
 		$this->setHiddencat( $categoryPageHidden->getId() );
 
 		$categoryTitleHiddenUnused = Title::makeTitle( NS_CATEGORY, 'CategoryPageHiddenUnused' );
-		$categoryPageHiddenUnused = WikiCategoryPage::factory( $categoryTitleHiddenUnused );
+		$categoryPageHiddenUnused = $this->wikiPageFactory->newFromTitle( $categoryTitleHiddenUnused );
 		$categoryPageHiddenUnused->insertOn( $this->db );
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
 			$this->createMock( Parser::class ),
-			MediaWikiServices::getInstance()->getDBLoadBalancer()
+			$this->services->getDBLoadBalancer()
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
 
@@ -109,17 +126,17 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 		];
 
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
-		$categoryPageVisible = WikiCategoryPage::factory( $categoryTitleVisible );
+		$categoryPageVisible = $this->wikiPageFactory->newFromTitle( $categoryTitleVisible );
 		$categoryPageVisible->insertOn( $this->db );
 
 		$categoryTitleHiddenUnused = Title::makeTitle( NS_CATEGORY, 'CategoryPageHiddenUnused' );
-		$categoryPageHiddenUnused = WikiCategoryPage::factory( $categoryTitleHiddenUnused );
+		$categoryPageHiddenUnused = $this->wikiPageFactory->newFromTitle( $categoryTitleHiddenUnused );
 		$categoryPageHiddenUnused->insertOn( $this->db );
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
 			$this->createMock( Parser::class ),
-			MediaWikiServices::getInstance()->getDBLoadBalancer()
+			$this->services->getDBLoadBalancer()
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
 

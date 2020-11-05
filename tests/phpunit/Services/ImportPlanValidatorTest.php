@@ -146,7 +146,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				''
 			] )
 			// This makes this a partial mock where all other methods still call the original code.
-			->setMethods( [ 'getTitle' ] )
+			->onlyMethods( [ 'getTitle' ] )
 			->getMock();
 
 		if ( $planTitle ) {

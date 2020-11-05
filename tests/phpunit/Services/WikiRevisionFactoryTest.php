@@ -47,7 +47,7 @@ class WikiRevisionFactoryTest extends \MediaWikiTestCase {
 		$this->assertSame( '19700101000042', $revision->getTimestamp() );
 		$this->assertFalse( $revision->getSha1Base36() );
 		$this->assertSame( CONTENT_FORMAT_TEXT, $revision->getFormat() );
-		$this->assertSame( CONTENT_MODEL_TEXT, $revision->getModel() );
+		$this->assertSame( CONTENT_MODEL_TEXT, $revision->getContent()->getModel() );
 		if ( $prefix ) {
 			$this->assertSame( "TestComment [[$prefix:Link]]", $revision->getComment() );
 		} else {
