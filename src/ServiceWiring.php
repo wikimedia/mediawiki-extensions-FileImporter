@@ -131,7 +131,7 @@ return [
 	'FileImporterNullRevisionCreator' => function ( MediaWikiServices $services ) {
 		return new NullRevisionCreator(
 			$services->getRevisionStore(),
-			$services->getDBLoadBalancer()->getConnection( DB_MASTER )
+			$services->getDBLoadBalancer()
 		);
 	},
 

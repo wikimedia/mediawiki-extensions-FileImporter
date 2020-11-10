@@ -12,6 +12,7 @@ use MediaWiki\Revision\RevisionStore;
 use Title;
 use User;
 use Wikimedia\Rdbms\IDatabase;
+use Wikimedia\Rdbms\ILoadBalancer;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 /**
@@ -22,9 +23,9 @@ class NullRevisionCreator {
 	private const ERROR_REVISION_CREATE = 'noNullRevisionCreated';
 
 	/**
-	 * @var IDatabase
+	 * @var ILoadBalancer
 	 */
-	private $dbw;
+	private $loadBalancer;
 
 	/**
 	 * @var RevisionStore
@@ -33,10 +34,10 @@ class NullRevisionCreator {
 
 	/**
 	 * @param RevisionStore $revisionStore
-	 * @param IDatabase $dbw
+	 * @param ILoadBalancer $loadBalancer
 	 */
-	public function __construct( RevisionStore $revisionStore, IDatabase $dbw ) {
-		$this->dbw = $dbw;
+	public function __construct( RevisionStore $revisionStore, ILoadBalancer $loadBalancer ) {
+		$this->loadBalancer = $loadBalancer;
 		$this->revisionStore = $revisionStore;
 	}
 
@@ -54,8 +55,9 @@ class NullRevisionCreator {
 		User $user,
 		$summary
 	) {
+		$db = $this->loadBalancer->getConnection( DB_MASTER );
 		$nullRevision = $this->revisionStore->newNullRevision(
-			$this->dbw,
+			$db,
 			$title,
 			CommentStoreComment::newUnsavedComment( $summary ),
 			true,
@@ -76,10 +78,11 @@ class NullRevisionCreator {
 			$nullRevision->setTimestamp( $now->getTimestamp( TS_MW ) );
 		}
 
-		$nullRevision = $this->revisionStore->insertRevisionOn( $nullRevision, $this->dbw );
+		$nullRevision = $this->revisionStore->insertRevisionOn( $nullRevision, $db );
 
 		/** @see \ImportReporter::reportPage */
 		$this->publishLogEntry(
+			$db,
 			'import',
 			'interwiki',
 			$nullRevision
@@ -87,6 +90,7 @@ class NullRevisionCreator {
 
 		/** @see \LocalFile::recordUpload2 */
 		$this->publishLogEntry(
+			$db,
 			'upload',
 			'upload',
 			$nullRevision,
@@ -98,14 +102,16 @@ class NullRevisionCreator {
 	}
 
 	/**
+	 * @param IDatabase $db
 	 * @param string $type
 	 * @param string $subtype
 	 * @param RevisionRecord $revision
 	 * @param array $parameters
 	 */
 	private function publishLogEntry(
-		$type,
-		$subtype,
+		IDatabase $db,
+		string $type,
+		string $subtype,
 		RevisionRecord $revision,
 		array $parameters = []
 	) {
@@ -119,7 +125,7 @@ class NullRevisionCreator {
 		$logEntry->setAssociatedRevId( $revision->getId() );
 		$logEntry->addTags( 'fileimporter' );
 
-		$logEntryId = $logEntry->insert( $this->dbw );
+		$logEntryId = $logEntry->insert( $db );
 		$logEntry->publish( $logEntryId );
 	}
 
