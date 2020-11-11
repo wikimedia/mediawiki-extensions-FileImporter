@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"ArenaL5",
 			"Banjo",
 			"Elisardojm"
 		]
@@ -19,12 +20,12 @@
 	"fileimporter-cantimportfromsharedrepo": "Non se pode importar un ficheiro dun repositorio compartido.",
 	"fileimporter-cantimportmissingfile": "Non se pode importar un ficheiro que non existe.",
 	"fileimporter-cantimportfilehidden": "Non se pode importar o ficheiro debido a que unha das súas revisión contén un ficheiro suprimido.",
-	"fileimporter-badtoken": "O identificador CSRF non se corresponde",
+	"fileimporter-badtoken": "A súa sesión xa non é válida. Por favor, volva a empezar a importación.",
 	"fileimporter-badimporthash": "A clave de importación non coincide. Por favor, reinicie a importación.",
 	"fileimporter-filenameerror-default": "Hai un problema descoñecido co nome do seu ficheiro.",
 	"fileimporter-filenameerror-illegal": "O nome do ficheiro cara o que está intentando importar non é válido.",
 	"fileimporter-filenameerror-toolong": "O nome de ficheiro cara o que está intentando importar é demasiado longo.",
-	"fileimporter-filenameerror-automaticchanges": "O nome do ficheiro que está intentando importar modificarase automaticamente a «$1» debido ó uso de caracteres non válidos.",
+	"fileimporter-filenameerror-automaticchanges": "O nome do ficheiro foi automaticamente cambiado de «$1» a «$2».",
 	"fileimporter-localtitleexists": "O título que está intentado importar xa existe neste wiki.",
 	"fileimporter-sourcetitleexists": "O título cara o que está intentando importar xa existe na wiki fonte.",
 	"fileimporter-illegalfilenamechars": "O título cara o que está intentando importar contén caracteres non válidos no nome de ficheiro.",
