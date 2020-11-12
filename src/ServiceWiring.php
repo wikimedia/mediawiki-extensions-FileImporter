@@ -106,7 +106,9 @@ return [
 			$logger,
 			$services->getDBLoadBalancer(),
 			$services->getRevisionStore(),
-			$services->getSlotRoleRegistry()
+			$services->getSlotRoleRegistry(),
+			// Check for 1.36 for the WikiPageFactory as new argument
+			is_callable( [ $services, 'getWikiPageFactory' ] ) ? $services->getWikiPageFactory() : null
 		);
 
 		$importer = new Importer(
