@@ -113,7 +113,7 @@ class CommonsHelperConfigParser {
 	 */
 	private function getItemList( $wikitext ) {
 		// Extract non-empty first-level list elements, exclude 2nd and deeper levels
-		preg_match_all( '/^\*\h*([^\s*#:;].*?)\h*$/m', $wikitext, $matches );
+		preg_match_all( '/^\*\h*([^\s*#:;].*?)\h*$/mu', $wikitext, $matches );
 		return $matches[1];
 	}
 
@@ -126,7 +126,7 @@ class CommonsHelperConfigParser {
 		$transfers = [];
 
 		preg_match_all(
-			'/^;\h*+([^:|\n]+)\n?:\h*+([^|\n]+)(.*)/m',
+			'/^;\h*+([^:|\n]+)\n?:\h*+([^|\n]+)(.*)/mu',
 			$wikitext,
 			$matches,
 			PREG_SET_ORDER

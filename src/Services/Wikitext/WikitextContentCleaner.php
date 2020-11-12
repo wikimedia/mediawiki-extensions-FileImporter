@@ -266,7 +266,7 @@ class WikitextContentCleaner {
 	private function scanValue( $wikitext, $end, array &$param ) {
 		// To not place replacements for empty values in the next line, we skip horizontal
 		// whitespace only
-		preg_match( '/(?!\h)/', $wikitext, $matches, PREG_OFFSET_CAPTURE, $param['valueOffset'] );
+		preg_match( '/(?!\h)/u', $wikitext, $matches, PREG_OFFSET_CAPTURE, $param['valueOffset'] );
 		$newOffset = $matches[0][1];
 		$param['valueOffset'] = $newOffset;
 		$param['value'] = rtrim( substr( $wikitext, $newOffset, $end - $newOffset ) );
