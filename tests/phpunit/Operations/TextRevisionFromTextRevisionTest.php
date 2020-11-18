@@ -90,7 +90,8 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 			new NullLogger(),
 			$services->getDBLoadBalancer(),
 			$services->getRevisionStore(),
-			$services->getSlotRoleRegistry()
+			$services->getSlotRoleRegistry(),
+			$services->getWikiPageFactory()
 		);
 
 		return new TextRevisionFromTextRevision(
