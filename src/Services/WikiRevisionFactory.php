@@ -2,10 +2,12 @@
 
 namespace FileImporter\Services;
 
+use ContentHandler;
 use ExternalUserNames;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use HashConfig;
+use MediaWiki\Revision\SlotRecord;
 use Title;
 use User;
 use WikiRevision;
@@ -99,19 +101,22 @@ class WikiRevisionFactory {
 	 * @return WikiRevision
 	 */
 	public function newFromTextRevision( TextRevision $textRevision ) {
+		$content = ContentHandler::makeContent(
+			$textRevision->getField( '*' ),
+			null,
+			$textRevision->getField( 'contentmodel' ),
+			$textRevision->getField( 'contentformat' )
+		);
+
 		$revision = $this->newWikiRevision(
 			$textRevision->getField( 'title' ),
 			$textRevision->getField( 'timestamp' ),
 			$textRevision->getField( 'sha1' )
 		);
 		$revision->setUsername( $this->createCentralAuthUser( $textRevision->getField( 'user' ) ) );
-		$revision->setComment(
-			$this->prefixCommentLinks( $textRevision->getField( 'comment' ) )
-		);
-		$revision->setModel( $textRevision->getField( 'contentmodel' ) );
-		$revision->setFormat( $textRevision->getField( 'contentformat' ) );
+		$revision->setComment( $this->prefixCommentLinks( $textRevision->getField( 'comment' ) ) );
 		$revision->setMinor( $textRevision->getField( 'minor' ) );
-		$revision->setText( $textRevision->getField( '*' ) );
+		$revision->setContent( SlotRecord::MAIN, $content );
 		$revision->setTags(
 			array_merge( $textRevision->getField( 'tags' ), [ 'fileimporter-imported' ] )
 		);
