@@ -3,7 +3,8 @@
 		"authors": [
 			"Kkairri",
 			"Omotecho",
-			"Otokoume"
+			"Otokoume",
+			"つぶあん派"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -25,7 +26,7 @@
 	"fileimporter-cantimportfromsharedrepo": "共有リポジトリからはファイルはインポートできません。",
 	"fileimporter-cantimportmissingfile": "消失したファイルはインポートできません。",
 	"fileimporter-cantimportfilehidden": "版指定削除されたファイルが履歴に存在するため、インポートできません。",
-	"fileimporter-badtoken": "CSRFトークンが一致しません",
+	"fileimporter-badtoken": "あなたのセッションは現在有効ではありません。インポートを再開してください。",
 	"fileimporter-badimporthash": "インポートハッシュが一致しません。最初からやり直してみてください。",
 	"fileimporter-filenameerror-default": "ファイル名に関する不明な問題があります。",
 	"fileimporter-filenameerror-illegal": "あなたがインポートしようとしているファイル名は不適切です。",
