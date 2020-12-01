@@ -55,7 +55,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 			->with(
 				$this->isInstanceOf( SourceUrl::class ),
 				$mockUser,
-				'TestTitleOriginal',
+				'File:TestTitleOriginal',
 				[
 					'appendtext' => "\n{{TestNowCommons&#60;script&#62;|TestTitleEdited&#60;script&#62;}}",
 				],
@@ -115,7 +115,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 			->with(
 				$this->isInstanceOf( SourceUrl::class ),
 				$mockUser,
-				'TestTitleOriginal',
+				'File:TestTitleOriginal',
 				'(fileimporter-delete-summary: http://TestUrl/File:Берлін_2011-2.JPG)'
 			)
 			->willReturn( StatusValue::newGood() );
@@ -159,10 +159,6 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 		$mockTitle->method( 'getFullURL' )
 			->willReturn( 'http://TestUrl/File:%D0%91%D0%B5%D1%80%D0%BB%D1%96%D0%BD_2011-2.JPG' );
 
-		$mockOriginalTitle = $this->createMock( Title::class );
-		$mockOriginalTitle->method( 'getPrefixedText' )
-			->willReturn( 'TestTitleOriginal' );
-
 		$mockSourceUrl = $this->createMock( SourceUrl::class );
 		$mockSourceUrl->method( 'getHost' )
 			->willReturn( $host );
@@ -185,7 +181,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
 		$mockImportPlan->method( 'getTitle' )
 			->willReturn( $mockTitle );
 		$mockImportPlan->method( 'getOriginalTitle' )
-			->willReturn( $mockOriginalTitle );
+			->willReturn( Title::makeTitle( NS_FILE, 'TestTitleOriginal' ) );
 
 		return $mockImportPlan;
 	}

@@ -40,18 +40,13 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 			->method( 'getSourceUrl' )
 			->willReturn( $sourceUrlMock );
 
-		$titleMock = $this->createMock( Title::class );
-		$titleMock
-			->method( 'getText' )
-			->willReturn( self::TITLE );
-
 		$importPlanMock = $this->createMock( ImportPlan::class );
 		$importPlanMock
 			->method( 'getDetails' )
 			->willReturn( $importDetailsMock );
 		$importPlanMock
 			->method( 'getTitle' )
-			->willReturn( $titleMock );
+			->willReturn( Title::makeTitle( NS_FILE, self::TITLE ) );
 
 		$importHandler = new SuggestManualTemplateAction(
 			$this->createWikidataTemplateLookup( $sourceUrlMock, $templateResult )

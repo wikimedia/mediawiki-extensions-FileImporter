@@ -87,7 +87,7 @@ class ImportSuccessSnippetTest extends MediaWikiTestCase {
 	 * @return Title
 	 */
 	private function createTitleWithResult( StatusValue $status ) {
-		$title = $this->createMock( Title::class );
+		$title = Title::makeTitle( NS_FILE, __METHOD__ );
 		$user = $this->createMock( User::class );
 		$cache = new SuccessCache( new HashBagOStuff() );
 		$cache->stashImportResult( $title, $user, $status );
