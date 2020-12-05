@@ -73,7 +73,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
 			->newFile( self::TITLE );
 		if ( $file->exists() ) {
-			$reason = 'This wasjust from a PHPUnit test.';
+			$reason = 'This was just from a PHPUnit test.';
 			$file->deleteFile( $reason, $this->getTestSysop()->getUser() );
 		}
 	}
