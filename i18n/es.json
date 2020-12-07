@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"ArenaL5",
 			"Dgstranz",
 			"Fitoschido",
 			"Macofe",
@@ -13,7 +14,7 @@
 	"fileimporter-desc": "Importación sencilla de archivos de otros sitios",
 	"fileimporter-help-banner-close-tooltip": "No volver a mostrar este mensaje",
 	"tag-fileimporter": "Modificado por FileImporter",
-	"tag-fileimporter-description": "Archivos importados desde otro wiki, incluyendo el archivo y su historial",
+	"tag-fileimporter-description": "Revisiones y mensajes en registro añadidos después de importar de otra wiki",
 	"tag-fileimporter-imported": "Importado con FileImporter",
 	"tag-fileimporter-imported-description": "Revisiones importadas desde otra wiki",
 	"fileimporter-specialpage": "Importar archivo",
@@ -81,10 +82,10 @@
 	"fileimporter-add-specific-template": "Se ha efectuado la importación. Para declarar que el archivo está ahora en {{SITENAME}}, vuelve al [$1 archivo original] y añade esta plantilla: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Volver al archivo original",
 	"fileimporter-commonshelper-retrieval-failed": "Se produjo un error al buscar archivos bloqueados.",
-	"fileimporter-commonshelper-missing-config": "No es posible importar archivos desde la wiki de origen ($1). No existe configuración para la wiki en $2.",
+	"fileimporter-commonshelper-missing-config": "Por el momento, no es posible importar archivos desde la wiki de origen ($1) porque no existe configuración para la wiki en la [$2 lista de archivos de configuración]. Para más información sobre cómo preparar un archivo de configuración para la wiki, revisa la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation página de documentación sobre los archivos de configuración] de FileImporter.",
 	"fileimporter-commonshelper-parsing-failed": "La página de configuración de este wiki ($1) está incompleta. Comprueba que contenga una sección llamada «$2».",
-	"fileimporter-file-contains-blocked-category-template": "No se puede importar el archivo porque se ha marcado como $1. $2 no permite estos archivos.",
-	"fileimporter-file-missing-required-template": "No se puede importar el archivo porque no posee alguna de las licencias requeridas.",
+	"fileimporter-file-contains-blocked-category-template": "Este archivo no puede transferirse a {{SITENAME}} porque se ha marcado como $1. {{SITENAME}} no permite esos archivos. Esto a veces tiene solución, pero lo más probable es que el archivo no sea compatible. Rogamos comprobar [[Project:Licensing|la normativa comunitaria de {{SITENAME}} y las páginas de discusión relativas a las licencias]].",
+	"fileimporter-file-missing-required-template": "Este archivo no puede ser transferido a {{SITENAME}}, porque no está marcado con una licencia compatible. {{SITENAME}} no permite este tipo de archivos. Esto a veces tiene solución, pero la causa más probable es que el archivo no es compatible. Por favor, consulte [[Project:Licensing|la política de la comunidad de {{SITENAME}} y las páginas de discusión acerca de las licencias]].",
 	"fileimporter-category-encouragement": "Los archivos en {{SITENAME}} deben tener categorías. Esto hace más sencillo encontrarlos. Puedes cambiar las categorías para este archivo editando la información del archivo en esta página.",
 	"fileimporter-auto-replacements-summary": "Se {{PLURAL:$1|ha realizado|han realizado}} $1 {{PLURAL:$1|cambio automático|cambios automáticos}} en las plantillas.",
 	"fileimporter-input-page-info-text": "Obtén más información visitando la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons página de ayuda].",
