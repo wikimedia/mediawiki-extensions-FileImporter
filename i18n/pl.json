@@ -5,6 +5,7 @@
 			"DeRudySoulStorm",
 			"InternerowyGołąb",
 			"Krottyianock",
+			"MuratTheTurkish",
 			"Rail",
 			"Railfail536",
 			"Rainbow P"
@@ -12,7 +13,7 @@
 	},
 	"fileimporter": "Importer plików",
 	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
-	"fileimporter-help-banner-text": "'''Importowanie z innych wiki'''\n# Sprawdź i zmień tytuł pliku oraz informacje poniżej.\n# Wybierz czy chcesz, aby importer plików uporządkował oryginalną wiki poprzez dodanie szablonu [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] do pliku źródłowego (jeśli posiadasz uprawnienia administratora, posiadasz także opcję usunięcia pliku źródłowego).\n# Kliknij '''{{int:fileimporter-import}}''', aby skopiować plik na {{GRAMMAR:B.lp|{{SITENAME}}}}.\n\nSprawdź [[Project:Licensing|politykę społeczności {{GRAMMAR:D.lp|{{SITENAME}}}}]] aby uzyskać informacje na temat licencjonowania.<br />Dokładne instrukcje na temat używania importera plików znajdziesz na [//www.mediawiki.org/wiki/Help:Extension:FileImporter stronie pomocy].\n\nOpinie dotyczące usprawnień do importera plików możesz zostawić na [//www.mediawiki.org/wiki/Extension_talk:FileImporter stronie dyskusji].",
+	"fileimporter-help-banner-text": "'''Importowanie z innych wiki'''\n# Sprawdź i zmień tytuł pliku oraz informacje poniżej.\n# Wybierz czy chcesz, aby importer plików uporządkował oryginalną wiki poprzez dodanie szablonu [//pl.wikipedia.org/wiki/Szablon:NowCommons NowCommons] do pliku źródłowego (jeśli posiadasz uprawnienia administratora, posiadasz także opcję usunięcia pliku źródłowego).\n# Kliknij '''{{int:fileimporter-import}}''', aby skopiować plik na {{GRAMMAR:B.lp|{{SITENAME}}}}.\n\nSprawdź [[Project:Licensing|politykę społeczności {{GRAMMAR:D.lp|{{SITENAME}}}}]] aby uzyskać informacje na temat licencjonowania.<br />Dokładne instrukcje na temat używania importera plików znajdziesz na [//www.mediawiki.org/wiki/Help:Extension:FileImporter stronie pomocy].\n\nOpinie dotyczące usprawnień do importera plików możesz zostawić na [//www.mediawiki.org/wiki/Extension_talk:FileImporter stronie dyskusji].",
 	"fileimporter-help-banner-close-tooltip": "Nie pokazuj ponownie tego komunikatu",
 	"tag-fileimporter": "Zmodyfikowane importerem plików",
 	"tag-fileimporter-description": "Wersje i wpisy rejestru dodane po imporcie z innej wiki",

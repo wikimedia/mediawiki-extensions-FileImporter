@@ -4,6 +4,7 @@
 			"A2093064",
 			"Kly",
 			"Liuxinyu970226",
+			"MuratTheTurkish",
 			"Winston Sung",
 			"Xiplus",
 			"烈羽"
@@ -11,7 +12,7 @@
 	},
 	"fileimporter": "檔案匯入器",
 	"fileimporter-desc": "輕鬆匯入來自其它站台的檔案",
-	"fileimporter-help-banner-text": "'''Importing from other wikis'''\n#檢查並編輯檔案的標題以及以下資訊。\n#透過添加 [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] 模版到來源檔案，選擇您是否要用檔案匯入器對來源 wiki 彙整（如果您有管理員權限，您另外可以選擇刪除來源檔案。）\n#點擊'''{{int:fileimporter-import}}'''，來將檔案複製到{{SITENAME}}上。\n\n關於授權資訊，請參閱{{SITENAME}}的[[Project:Licensing|社群方針]]。<br />有關如何使用檔案匯入器的更多詳細說明，請查看[//www.mediawiki.org/wiki/Help:Extension:FileImporter 說明頁面]。\n\n如果您有任何可以改善檔案匯入器的意見回饋，請在[//www.mediawiki.org/wiki/Extension_talk:FileImporter 討論頁]留下意見。",
+	"fileimporter-help-banner-text": "'''從其他wiki導入'''\n#檢查並編輯檔案的標題以及以下資訊。\n#透過添加 [//zh.wikipedia.org/wiki/Template:Now_Commons NowCommons] 模版到來源檔案，選擇您是否要用檔案匯入器對來源 wiki 彙整（如果您有管理員權限，您另外可以選擇刪除來源檔案。）\n#點擊'''{{int:fileimporter-import}}'''，來將檔案複製到{{SITENAME}}上。\n\n關於授權資訊，請參閱{{SITENAME}}的[[Project:Licensing|社群方針]]。<br />有關如何使用檔案匯入器的更多詳細說明，請查看[//www.mediawiki.org/wiki/Help:Extension:FileImporter 說明頁面]。\n\n如果您有任何可以改善檔案匯入器的意見回饋，請在[//www.mediawiki.org/wiki/Extension_talk:FileImporter 討論頁]留下意見。",
 	"fileimporter-help-banner-close-tooltip": "不要再顯示此訊息",
 	"tag-fileimporter": "由FileImporter修改",
 	"tag-fileimporter-description": "從其它wiki匯入後所添加的版本及日誌訊息",
