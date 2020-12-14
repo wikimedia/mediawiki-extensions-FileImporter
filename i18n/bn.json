@@ -37,7 +37,7 @@
 	"fileimporter-duplicatefilesdetected": "আপনি যে ফাইলটি বর্তমানে আমদানি করার চেষ্টা করছেন তা ইতিমধ্যে এই উইকিতে বিদ্যমান।",
 	"fileimporter-duplicatefilesdetected-prefix": "প্রতিলিপি",
 	"fileimporter-exampleprefix": "উদাহরণ",
-	"fileimporter-textrevisions": "ইতিহাস থেকে পাতার $1/$2টি {{PLURAL:$2|সংশোধন}} আমদানি করা হবে।",
+	"fileimporter-textrevisions": "ইতিহাস থেকে পাতার $1/$2টি {{PLURAL:$2|সংস্করণ}} আমদানি করা হবে।",
 	"fileimporter-filerevisions": "ফাইলের $1/$2টি {{PLURAL:$2|সংস্করণ}} আমদানি করা হবে।",
 	"fileimporter-submit": "জমা দিন",
 	"fileimporter-submit-fileinfo": "ফাইলের তথ্য পরিবর্তন করুন",
