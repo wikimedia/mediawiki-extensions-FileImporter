@@ -3,11 +3,11 @@
 namespace FileImporter\Services;
 
 use BagOStuff;
+use MediaWiki\User\UserIdentity;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
 use Title;
-use User;
 use Wikimedia\LightweightObjectStore\ExpirationAwareness;
 
 /**
@@ -36,12 +36,12 @@ class SuccessCache {
 
 	/**
 	 * @param Title $targetTitle
-	 * @param User $user
+	 * @param UserIdentity $user
 	 * @param StatusValue $importResult
 	 *
 	 * @return bool If caching was successful or not.
 	 */
-	public function stashImportResult( Title $targetTitle, User $user, StatusValue $importResult ) {
+	public function stashImportResult( Title $targetTitle, UserIdentity $user, StatusValue $importResult ) {
 		$key = $this->makeCacheKey( $targetTitle, $user );
 		$this->logger->debug( __METHOD__ . ': Import result cached at ' . $key );
 		return $this->cache->set( $key, $importResult, ExpirationAwareness::TTL_DAY );
@@ -49,11 +49,11 @@ class SuccessCache {
 
 	/**
 	 * @param Title $targetTitle
-	 * @param User $user
+	 * @param UserIdentity $user
 	 *
 	 * @return StatusValue|null
 	 */
-	public function fetchImportResult( Title $targetTitle, User $user ) {
+	public function fetchImportResult( Title $targetTitle, UserIdentity $user ) {
 		$key = $this->makeCacheKey( $targetTitle, $user );
 		$importResult = $this->cache->get( $key );
 		if ( !( $importResult instanceof StatusValue ) ) {
@@ -65,11 +65,11 @@ class SuccessCache {
 
 	/**
 	 * @param Title $targetTitle
-	 * @param User $user
+	 * @param UserIdentity $user
 	 *
 	 * @return string
 	 */
-	private function makeCacheKey( Title $targetTitle, User $user ) {
+	private function makeCacheKey( Title $targetTitle, UserIdentity $user ) {
 		return $this->cache->makeKey(
 			__CLASS__,
 			self::CACHE_KEY,
