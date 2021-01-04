@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kambai Akau"
+		]
+	},
+	"fileimporter-exampleprefix": "Kidee",
+	"fileimporter-submit": "Neap",
+	"fileimporter-submit-fileinfo": "Shai nkhang fail",
+	"fileimporter-submit-title": "Shai a̱lyoot",
+	"fileimporter-resubmit": "Bu neap ndyo",
+	"fileimporter-import": "Nwuo ma̱ng",
+	"fileimporter-cancel": "Lyang",
+	"fileimporter-edittitle": "Jhyuk A̱lyoot",
+	"fileimporter-editinfo": "Jhyuk nkhang Fail",
+	"fileimporter-newfilename": "A̱lyoot fail a̱fai",
+	"fileimporter-newfilename-placeholder": "A̱lyoot Fail A̱ghyang",
+	"fileimporter-editsummary": "Nam-a̱lyiat jhyuk:",
+	"fileimporter-heading-fileinfo": "Nkhang fail",
+	"fileimporter-heading-filehistory": "Nkhang gbangbang fail"
+}
