@@ -16,6 +16,7 @@
 	"fileimporter-http-statuscode": "HTTP statusa kods $1.",
 	"fileimporter-cantimporturl": "Nevar importēt norādīto URL",
 	"fileimporter-cantimportmissingfile": "Nevar importēt trūkstošu failu.",
+	"fileimporter-filenameerror-automaticchanges": "Faila nosaukums tika automātiski izmainīts no \"$1\" uz \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "Avota faila nosaukumam nav paplašinājuma.",
 	"fileimporter-filenameerror-noplannedextension": "Plānotajam faila nosaukumam nav paplašinājuma.",
 	"fileimporter-filenameerror-missmatchextension": "Mērķa faila nosaukuma paplašinājums nesakrīt ar oriģinālā faila nosaukuma paplašinājumu.",
@@ -39,6 +40,7 @@
 	"fileimporter-heading-fileinfo": "Faila informācija",
 	"fileimporter-heading-filehistory": "Faila vēsture",
 	"fileimporter-heading-cleanup": "Sakop avota viekivietni",
+	"fileimporter-cleanup-failed": "Automātiska labošana avota vikivietnē nebija iespējama.",
 	"fileimporter-delete-checkboxlabel": "Manā vārdā dzēst failu avota vikivietnē",
 	"fileimporter-delete-summary": "Šis fails tagad atrodas {{SITENAME}} kā $1 (pārvietots ar FileImporter).",
 	"fileimporter-filemissinginrevision": "Nevar importēt failu, jo vismaz vienai no tā versijām trūkst attēla faila.",
@@ -46,6 +48,7 @@
 	"fileimporter-go-to-original-file-button": "Atgriezties uz sākotnējo failu",
 	"fileimporter-file-missing-required-template": "Failu nevar importēt, jo tas nav atzīmēts ar kādu no nepieciešamajām licencēm.",
 	"fileimporter-auto-replacements-summary": "Veidnēs {{PLURAL:$1|veiktas|veikta|veiktas}} $1 {{PLURAL:$1|automātiskas izmaiņas|automātiska izmaiņa|automātiskas izmaiņas}}",
+	"fileimporter-input-page-info-text": "Uzzini vairāk, apmeklējot mūsu [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons palīdzības lapu].",
 	"fileimporter-viewdiff": "Rādīt izmaiņas",
 	"fileimporter-to-preview": "Atpakaļ uz priekšskatījumu"
 }

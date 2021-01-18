@@ -2,12 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Dbc334",
+			"Eleassar",
 			"HairyFotr",
 			"Janezdrilc"
 		]
 	},
 	"fileimporter": "Uvoznik datotek",
-	"fileimporter-desc": "Enostavno uvažanje datotek iz drugih strani",
+	"fileimporter-desc": "Preprosto uvažanje datotek iz drugih spletišč",
 	"fileimporter-specialpage": "Uvozi datoteko",
 	"fileimporter-importfailed": "Uvoz je spodletel",
 	"fileimporter-api-badinfo": "Neveljavna slika ali informacije redakcije, zavrnjene od API-ja.",
