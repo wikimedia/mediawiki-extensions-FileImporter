@@ -243,6 +243,7 @@ class ImporterTest extends \MediaWikiTestCase {
 	/**
 	 * @param int $logId
 	 * @param int $revId
+	 * @param string $expectedTag
 	 */
 	private function assertFileImporterTagWasAdded( $logId, $revId, $expectedTag ) {
 		$this->assertSame( 1, $this->db->selectRowCount(
