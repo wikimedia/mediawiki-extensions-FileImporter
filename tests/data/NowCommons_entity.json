@@ -1,15 +1,15 @@
 {
-    "entities": {
-        "Q123": {
-            "id": "Q123",
-            "sitelinks": {
-                "afwiki": {
-                    "title": "Sjabloon:NouCommons"
-                },
-                "bat_smgwiki": {
-                    "title": "\u0160abluons:Vikitekuo"
-                }
-            }
-        }
-    }
+	"entities": {
+		"Q123": {
+			"id": "Q123",
+			"sitelinks": {
+				"afwiki": {
+					"title": "Sjabloon:NouCommons"
+				},
+				"bat_smgwiki": {
+					"title": "\u0160abluons:Vikitekuo"
+				}
+			}
+		}
+	}
 }
