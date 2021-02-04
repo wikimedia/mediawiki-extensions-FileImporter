@@ -5,12 +5,12 @@ namespace FileImporter\Tests\Services;
 use CommentStoreComment;
 use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
-use MediaWiki\DAO\WikiAwareEntity;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use Title;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
+use Wikimedia\Rdbms\SelectQueryBuilder;
 
 /**
  * @covers \FileImporter\Services\NullRevisionCreator
@@ -104,7 +104,11 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 		$dbw->method( 'selectRow' )
 			->willReturn( (object)[ 'actor_id' => '1' ] );
 		$dbw->method( 'getDomainId' )
-			->willReturn( WikiAwareEntity::LOCAL );
+			->willReturn( $this->db->getDomainID() );
+		$dbw->method( 'newSelectQueryBuilder' )
+			->willReturnCallback( function () use ( $dbw ) {
+				return new SelectQueryBuilder( $dbw );
+			} );
 
 		$lb = $this->createMock( ILoadBalancer::class );
 		$lb->method( 'getConnection' )->willReturn( $dbw );
