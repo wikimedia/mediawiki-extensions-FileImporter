@@ -83,7 +83,7 @@
 	"fileimporter-in-beta": "ייבוא הקבצים במצב בטא: אנחנו בדקנו אותו בתשומת לב, אבל ייתכן שעדיין יש בו בעיות מסוימות. אם מצאת בעיות, אנא [//www.mediawiki.org/wiki/Extension_talk:FileImporter דווחו אותן בדף העזרה שלנו], ויהיה מושלם אם תספקו צעדים לשחזור הבעיה, כדי שנוכל להבין ולתקן אותה.",
 	"fileimporter-filemissinginrevision": "לא ניתן לייבא את הקובץ כי לפחות לאחת מהגרסאות שלו חסר קובץ תמונה.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|הקובץ|$1 גרסאות הקובץ}} שניסית לייבא {{PLURAL:$1|חורג|חורגות}} ממגבלת גודל הקובץ שניתן לייבא.",
-	"fileimporter-import-wait": "הייבוא עשוי לקחת מספר דקות.",
+	"fileimporter-import-wait": "הייבוא עשוי לקחת כמה דקות.",
 	"fileimporter-imported-success-banner": "קובץ זה יובא ל{{GRAMMAR:תחילית|{{SITENAME}}}}.",
 	"fileimporter-add-unknown-template": "הקובץ יובא. כדי להצהיר שהקובץ הזה עכשיו ב{{GRAMMAR:תחילית|{{SITENAME}}}}, נא לחזור ל[$1 קובץ המקורי] ולהוסיף תבנית.",
 	"fileimporter-add-specific-template": "הקובץ יובא. כדי להצהיר שהקובץ הזה עכשיו ב{{GRAMMAR:תחילית|{{SITENAME}}}}, נא לחזור ל[$1 קובץ המקורי] ולהוסיף את התבנית הזאת: <code><nowiki>{{$2|$3}}</nowiki></code>.",
