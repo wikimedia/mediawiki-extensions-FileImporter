@@ -33,7 +33,7 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 				'method' => 'POST',
 			]
 		) .
-		( new WikitextEditor( $this ) )->getHtml( $wikitext ) .
+		( new WikitextEditor( $this ) )->getHtml( $importPlan->getTitle(), $wikitext ) .
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
 			'intendedFileName' => $importPlan->getFileName(),

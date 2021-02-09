@@ -4,6 +4,8 @@ namespace FileImporter\Html;
 
 use EditPage;
 use Html;
+use MutableContext;
+use Title;
 
 /**
  * @license GPL-2.0-or-later
@@ -12,13 +14,14 @@ use Html;
 class WikitextEditor extends SpecialPageHtmlFragment {
 
 	/**
+	 * @param Title $filePage
 	 * @param string $wikitext
 	 *
 	 * @return string
 	 */
-	public function getHtml( string $wikitext ) : string {
+	public function getHtml( Title $filePage, string $wikitext ) : string {
 		$this->loadModules();
-		$this->runEditFormInitialHook();
+		$this->runEditFormInitialHook( $filePage );
 
 		return EditPage::getEditToolbar() .
 			$this->buildEditor( $wikitext );
@@ -36,15 +39,22 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 * Run EditPage::showEditForm:initial hook mainly for the WikiEditor toolbar
 	 * @see WikiEditorHooks::editPageShowEditFormInitial
 	 * Triggering the hook means we don't have special handling for any extensions.
+	 *
+	 * @param Title $filePage
 	 */
-	private function runEditFormInitialHook() {
+	private function runEditFormInitialHook( Title $filePage ) {
+		// We need to fake the context to make extensions like CodeMirror believe they are editing
+		// the actual file page.
+		$context = $this->getContext();
+		$context->getRequest()->setVal( 'action', 'edit' );
+		if ( $context instanceof MutableContext ) {
+			$context->setTitle( $filePage );
+		}
+
 		$editPage = new EditPage(
-			\Article::newFromTitle(
-				$this->getPageTitle(),
-				$this->getContext()
-			)
+			\Article::newFromTitle( $filePage, $context )
 		);
-		$editPage->setContextTitle( $this->getPageTitle() );
+		$editPage->setContextTitle( $filePage );
 
 		\Hooks::run( 'EditPage::showEditForm:initial',
 			[ &$editPage, $this->getOutput() ]
