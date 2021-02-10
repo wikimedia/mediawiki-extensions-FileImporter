@@ -11,12 +11,12 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileInfoForm;
 use HamcrestPHPUnitIntegration;
-use IContextSource;
 use Language;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
+use RequestContext;
 use SpecialPage;
 use Title;
 
@@ -49,23 +49,17 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 		$user = $this->getTestUser()->getUser();
 		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
 
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getRequest' )
+		$context = $this->createMock( RequestContext::class );
+		$context->method( 'getRequest' )
 			->willReturn( $request );
-
-		$context = $this->createMock( IContextSource::class );
-		$context->method( 'getUser' )
-			->willReturn( $user );
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( __METHOD__ ) );
 		$mock->method( 'getContext' )
 			->willReturn( $context );
-		$mock->method( 'getRequest' )
-			->willReturn( $request );
 		$mock->method( 'getOutput' )
-			->willReturn( $output );
+			->willReturn( $this->createMock( OutputPage::class ) );
 		$mock->method( 'getUser' )
 			->willReturn( $user );
 		$mock->method( 'getLanguage' )

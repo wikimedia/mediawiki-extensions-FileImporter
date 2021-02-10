@@ -7,6 +7,7 @@ use InvalidArgumentException;
 use Language;
 use Message;
 use MessageLocalizer;
+use MutableContext;
 use OutputPage;
 use SpecialPage;
 use Title;
@@ -55,7 +56,7 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	}
 
 	/**
-	 * @return IContextSource
+	 * @return IContextSource|MutableContext
 	 */
 	protected function getContext() {
 		return $this->specialPage->getContext();
