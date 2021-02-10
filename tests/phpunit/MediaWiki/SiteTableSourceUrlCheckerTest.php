@@ -39,9 +39,7 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 		return [
 			'bad target & known site' => [
 				new SourceUrl( 'http://en.wikipedia.org' ),
-				[
-					'enwiki' => 'http://en.wikipedia.org/wiki',
-				],
+				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
 				false,
 			],
 			'good target & no known sites' => [
@@ -51,31 +49,23 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 			],
 			'good target (path) but empty title & known site' => [
 				new SourceUrl( 'http://en.wikipedia.org/' ),
-				[
-					'enwiki' => 'http://en.wikipedia.org/wiki',
-				],
+				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
 				false,
 			],
 			'good target (query) but empty title & known site' => [
 				new SourceUrl( 'http://en.wikipedia.org/w/index.php?title=' ),
-				[
-					'enwiki' => 'http://en.wikipedia.org/wiki',
-				],
+				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
 				false,
 			],
 			// CanGetImportDetails = true
 			'good target (path) & known site' => [
 				new SourceUrl( 'http://en.wikipedia.org/wiki/File:Foo' ),
-				[
-					'enwiki' => 'http://en.wikipedia.org/wiki',
-				],
+				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
 				true,
 			],
 			'good target (query) & known site' => [
 				new SourceUrl( 'http://en.wikipedia.org/w/index.php?title=File:Foo' ),
-				[
-					'enwiki' => 'http://en.wikipedia.org/wiki',
-				],
+				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
 				true,
 			],
 		];

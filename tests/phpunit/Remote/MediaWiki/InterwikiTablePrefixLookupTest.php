@@ -425,13 +425,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		/** @var InterwikiTablePrefixLookup $mockLookup */
 		$mockLookup = TestingAccessWrapper::newFromObject( $mockLookup );
 
-		$expected = [
-			'wikisource.org' => 'en.wikisource.org',
-			// 'org' => 'skipme.org' should not appear here
-		];
-
 		$this->assertSame(
-			$expected,
+			[ 'wikisource.org' => 'en.wikisource.org' ],
 			$mockLookup->prefetchParentDomainToHostMap()
 		);
 	}

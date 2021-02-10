@@ -59,19 +59,13 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			]
 		) .
 		( new HelpBanner( $this ) )->getHtml() .
-		Html::rawElement(
-			'p',
-			[],
-			$this->msg( 'fileimporter-previewnote' )->parse()
-		) .
+		Html::rawElement( 'p', [], $this->msg( 'fileimporter-previewnote' )->parse() ) .
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-header' ],
 			Html::element(
 				'h2',
-				[
-					'class' => 'mw-importfile-header-title'
-				],
+				[ 'class' => 'mw-importfile-header-title' ],
 				$title->getText()
 			) .
 			new ButtonInputWidget(
@@ -84,18 +78,13 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				]
 			)
 		) .
-		Linker::makeExternalImage(
-			$details->getImageDisplayUrl(),
-			$title->getPrefixedText()
-		) .
+		Linker::makeExternalImage( $details->getImageDisplayUrl(), $title->getPrefixedText() ) .
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-header' ],
 			Html::element(
 				'h2',
-				[
-					'class' => 'mw-importfile-header-title'
-				],
+				[ 'class' => 'mw-importfile-header-title' ],
 				$this->msg( 'fileimporter-heading-fileinfo' )->plain()
 			) .
 			new ButtonInputWidget(
@@ -117,11 +106,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			)
 		) .
 		$categoriesSnippet .
-		Html::element(
-			'h2',
-			[],
-			$this->msg( 'fileimporter-heading-filehistory' )->plain()
-		) .
+		Html::element( 'h2', [], $this->msg( 'fileimporter-heading-filehistory' )->plain() ) .
 		Html::rawElement(
 			'p',
 			[],
@@ -138,10 +123,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			$sourceDeletionEnabled,
 			LoggerFactory::getInstance( 'FileImporter' )
 		) )->getHtml( $importPlan, $this->getUser() ) .
-		Html::openElement(
-			'div',
-			[ 'class' => 'mw-importfile-importOptions' ]
-		) .
+		Html::openElement( 'div', [ 'class' => 'mw-importfile-importOptions' ] ) .
 		$this->buildEditSummaryHtml( $importPlan ) .
 		Html::rawElement(
 			'p',
@@ -181,11 +163,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				'href' => $importPlan->getRequest()->getUrl()->getUrl()
 			]
 		) .
-		Html::element(
-			'span',
-			[],
-			$this->msg( 'fileimporter-import-wait' )->plain()
-		) .
+		Html::element( 'span', [], $this->msg( 'fileimporter-import-wait' )->plain() ) .
 		$this->buildImportIdentityFormSnippet( $importPlan ) .
 		Html::closeElement( 'div' ) .
 		Html::closeElement( 'form' );

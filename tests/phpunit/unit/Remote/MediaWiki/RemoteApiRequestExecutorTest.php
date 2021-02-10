@@ -27,13 +27,9 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		$mockResponse = $this->createMock( MWHttpRequest::class );
 		$mockResponse
 			->method( 'getContent' )
-			->willReturn( json_encode( [
-				'query' => [
-					'tokens' => [
-						'csrftoken' => $csrfToken
-					]
-				]
-			] ) );
+			->willReturn( json_encode(
+				[ 'query' => [ 'tokens' => [ 'csrftoken' => $csrfToken ] ] ]
+			) );
 		$mockHttpRequestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$mockHttpRequestExecutor
 			->expects( $this->once() )
@@ -134,13 +130,9 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		$mockResponse = $this->createMock( MWHttpRequest::class );
 		$mockResponse
 			->method( 'getContent' )
-			->willReturn( json_encode( [
-				'query' => [
-					'tokens' => [
-						'csrftoken' => $csrfToken
-					]
-				]
-			] ) );
+			->willReturn( json_encode(
+				[ 'query' => [ 'tokens' => [ 'csrftoken' => $csrfToken ] ] ]
+			) );
 		$mockPostResponse = $this->createMock( MWHttpRequest::class );
 		$mockPostResponse
 			->method( 'getContent' )
