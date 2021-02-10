@@ -22,33 +22,25 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( array $files, $url ) {
-		$duplicateFilesList = '';
-		$duplicatesMessage = $this->msg( 'fileimporter-duplicatefilesdetected-prefix' )->plain();
-		$duplicateFilesList .= Html::rawElement(
-			'p',
-			[],
-			Html::element( 'strong', [], $duplicatesMessage )
-		);
-		$duplicateFilesList .= Html::openElement( 'ul' );
-		foreach ( $files as $file ) {
-			$duplicateFilesList .= Html::rawElement(
-				'li',
-				[],
-				Html::element(
-					'a',
-					[ 'href' => $file->getTitle()->getInternalURL() ],
-					$file->getTitle()
-				)
-			);
-		}
-		$duplicateFilesList .= Html::closeElement( 'ul' );
-
 		$output = new MessageWidget( [
 			'label' => $this->msg( 'fileimporter-duplicatefilesdetected' )->plain(),
 			'type' => 'error',
 		] );
 
-		$output .= $duplicateFilesList;
+		$output .= Html::rawElement( 'p', [], Html::element( 'strong', [],
+			$this->msg( 'fileimporter-duplicatefilesdetected-prefix' )->plain()
+		) );
+
+		$duplicateFilesList = '';
+		foreach ( $files as $file ) {
+			$duplicateFilesList .= Html::rawElement( 'li', [], Html::element(
+				'a',
+				[ 'href' => $file->getTitle()->getInternalURL() ],
+				$file->getTitle()
+			) );
+		}
+
+		$output .= Html::rawElement( 'ul', [], $duplicateFilesList );
 
 		if ( $url ) {
 			$output .= Html::element( 'br' ) .

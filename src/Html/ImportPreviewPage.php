@@ -187,6 +187,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			$this->msg( 'fileimporter-import-wait' )->plain()
 		) .
 		$this->buildImportIdentityFormSnippet( $importPlan ) .
+		// End of mw-importfile-importOptions
 		Html::closeElement( 'div' ) .
 		Html::closeElement( 'form' );
 	}
