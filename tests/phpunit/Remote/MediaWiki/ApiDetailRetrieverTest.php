@@ -365,7 +365,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 			],
 			[
 				[ 'query' => [ 'pages' => [ [ 'missing' => '', 'imagerepository' => 'shared' ] ] ] ],
-				new LocalizedImportException( 'fileimporter-cantimportfromsharedrepo' ),
+				new LocalizedImportException( [ 'fileimporter-cantimportfromsharedrepo', 'foo.bar' ] ),
 			],
 			[
 				[ 'query' => [ 'pages' => [ [ 'title' => 'Test' ] ] ] ],

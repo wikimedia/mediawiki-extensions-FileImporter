@@ -31,7 +31,7 @@
 	"fileimporter-http-statuscode": "Error message containing the status code of failed request.\n\nParameters:\n* $1 - the actual status code",
 	"fileimporter-cantparseurl": "Error message for cases where when the URL entered can not be parsed.",
 	"fileimporter-cantimporturl": "Error message for cases where when the URL entered can not be imported from.",
-	"fileimporter-cantimportfromsharedrepo": "Error message when the file import target comes from a shared or remote repository.",
+	"fileimporter-cantimportfromsharedrepo": "Error message when the file import target comes from a shared or remote repository.\n\nParameters:\n* $1 - domain name that doesn't actually host the file",
 	"fileimporter-cantimportmissingfile": "Error message when the file import target is missing.",
 	"fileimporter-cantimportfilehidden": "Error message when the file contains at least one revision with a suppressed file.",
 	"fileimporter-cantimportfileinvalid": "Error message when the file contains at least one revision which fails a MediaWiki security check.\n\nParameters:\n* $1 - original MediaWiki error message.",
