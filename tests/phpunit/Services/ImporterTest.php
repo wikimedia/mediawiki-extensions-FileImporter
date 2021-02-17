@@ -211,11 +211,11 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( $revision->getId(), $logEntry->getAssociatedRevId() );
 		$this->assertSame(
 			$user ? $user->getName() : '',
-			$logEntry->getPerformer()->getName()
+			$logEntry->getPerformerIdentity()->getName()
 		);
 		$this->assertSame(
 			$user ? $user->getId() : 0,
-			$logEntry->getPerformer()->getId()
+			$logEntry->getPerformerIdentity()->getId()
 		);
 
 		if ( $expectedTag !== null ) {
@@ -236,8 +236,8 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 
 		$this->assertSame( 'upload', $logEntry->getSubtype() );
-		$this->assertSame( $file->getUser(), $logEntry->getPerformer()->getName() );
-		$this->assertSame( $file->getUser( 'id' ), $logEntry->getPerformer()->getId() );
+		$this->assertSame( $file->getUser(), $logEntry->getPerformerIdentity()->getName() );
+		$this->assertSame( $file->getUser( 'id' ), $logEntry->getPerformerIdentity()->getId() );
 	}
 
 	/**
