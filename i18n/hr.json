@@ -64,7 +64,7 @@
 	"fileimporter-heading-filehistory": "Povijest datoteke",
 	"fileimporter-heading-cleanup": "Čišćenje na izvornom wikiju",
 	"fileimporter-cleanup-text": "Možete na izvornom wikiju označiti da je datoteka uvezena na projekt {{SITENAME}}. To će biti učinjeno u Vaše ime dodavanjem predloška <code><nowiki>{{$1}}</nowiki></code> izvornoj stranici datoteke.",
-	"fileimporter-cleanup-checkboxlabel": "Označi na izvornom wikiju da da je datoteka uvezena na projekt {{SITENAME}}",
+	"fileimporter-cleanup-checkboxlabel": "Označi na izvornom wikiju da je datoteka uvezena na projekt {{SITENAME}}",
 	"fileimporter-cleanup-summary": "Ova je datoteka sada na projektu {{SITENAME}} kao $1 (premješteno datotečnim uvoznikom).",
 	"fileimporter-cleanup-failed": "Automatsko uređivanje na izvornom wikiju nije moguće.",
 	"fileimporter-delete-text": "Imate mogućnost brisanja datoteke na izvornom wikiju. Ako želite da to datotečni izvoznik učini u Vaše ime, označite ovu mogućnost:",
