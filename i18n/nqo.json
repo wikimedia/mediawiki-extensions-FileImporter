@@ -7,5 +7,6 @@
 	"fileimporter-help-banner-close-tooltip": "ߗߋߛߓߍ ߣߌ߲߬ ߞߊ߫ ߦߌ߬ߘߊ߬ ߏ߬ ߞߐ߫ ߘߋ߬",
 	"tag-fileimporter": "ߞߐߕߐ߮ ߟߊߝߏ߬ߦߌߟߊ߲ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬",
 	"fileimporter-specialpage": "ߞߐߕߐ߮ ߟߊߝߏ߬ߦߌ߬",
-	"fileimporter-importfailed": "ߟߊ߬ߛߣߍ߬ߟߌ ߓߘߊ߫ ߗߌߙߏ߲߫"
+	"fileimporter-importfailed": "ߟߊ߬ߛߣߍ߬ߟߌ ߓߘߊ߫ ߗߌߙߏ߲߫",
+	"fileimporter-api-file-notfound": "ߞߐߕߐ߮ ߡߊ߫ ߛߐ߬ߘߐ߲߫: $1"
 }
