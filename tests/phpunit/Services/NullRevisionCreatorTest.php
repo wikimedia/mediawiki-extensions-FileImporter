@@ -8,9 +8,6 @@ use FileImporter\Services\NullRevisionCreator;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use Title;
-use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\ILoadBalancer;
-use Wikimedia\Rdbms\SelectQueryBuilder;
 
 /**
  * @covers \FileImporter\Services\NullRevisionCreator
@@ -44,8 +41,6 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 		$title = Title::makeTitle( NS_FILE, __METHOD__ );
 		$fileRevision = $this->createMock( FileRevision::class );
 		$user = $this->getTestUser()->getUser();
-		$lb = $this->createLoadBalancer();
-		$dbw = $lb->getConnection( 0 );
 		$summary = 'Summary';
 		$commentStore = new CommentStoreComment( null, $summary );
 
@@ -63,15 +58,18 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 		$revisionStore = $this->createMock( RevisionStore::class );
 		$revisionStore->expects( $this->once() )
 			->method( 'newNullRevision' )
-			->with( $dbw, $title, $commentStore, true, $user )
+			->with( $this->anything(), $title, $commentStore, true, $user )
 			->willReturn( $revisionRecord );
 
 		$revisionStore->expects( $this->once() )
 			->method( 'insertRevisionOn' )
-			->with( $revisionRecord, $dbw )
+			->with( $revisionRecord, $this->anything() )
 			->willReturn( $revisionRecord );
 
-		$nullRevisionCreator = new NullRevisionCreator( $revisionStore, $lb );
+		$nullRevisionCreator = new NullRevisionCreator(
+			$revisionStore,
+			$this->getServiceContainer()->getDBLoadBalancer()
+		);
 
 		$nullRevisionCreator->createForLinkTarget( $title, $fileRevision, $user, $summary );
 	}
@@ -85,7 +83,7 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator(
 			$revisionStore,
-			$this->createLoadBalancer()
+			$this->getServiceContainer()->getDBLoadBalancer()
 		);
 
 		$this->expectException( \RuntimeException::class );
@@ -95,24 +93,6 @@ class NullRevisionCreatorTest extends \MediaWikiTestCase {
 			$this->getTestUser()->getUser(),
 			''
 		);
-	}
-
-	private function createLoadBalancer() : ILoadBalancer {
-		$dbw = $this->createMock( IDatabase::class );
-		$dbw->method( 'insertId' )
-			->willReturn( 1 );
-		$dbw->method( 'selectRow' )
-			->willReturn( (object)[ 'actor_id' => '1' ] );
-		$dbw->method( 'getDomainId' )
-			->willReturn( $this->db->getDomainID() );
-		$dbw->method( 'newSelectQueryBuilder' )
-			->willReturnCallback( function () use ( $dbw ) {
-				return new SelectQueryBuilder( $dbw );
-			} );
-
-		$lb = $this->createMock( ILoadBalancer::class );
-		$lb->method( 'getConnection' )->willReturn( $dbw );
-		return $lb;
 	}
 
 }
