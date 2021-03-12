@@ -28,6 +28,7 @@ use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
 use MediaWikiLangTestCase;
 use MessageLocalizer;
+use MockTitleTrait;
 use Title;
 use TitleValue;
 use UploadBase;
@@ -39,6 +40,7 @@ use UploadBase;
  * @author Addshore
  */
 class ImportPlanValidatorTest extends MediaWikiLangTestCase {
+	use MockTitleTrait;
 
 	protected function setUp() : void {
 		parent::setUp();
@@ -99,16 +101,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 * @return Title
 	 */
 	private function getMockTitle( $text, $exists = false ) : Title {
-		$mock = $this->createMock( Title::class );
-		$mock->method( 'getText' )
-			->willReturn( $text );
-		$mock->method( 'getNamespace' )
-			->willReturn( NS_FILE );
-		$mock->method( 'exists' )
-			->willReturn( $exists );
-		$mock->method( 'getRestrictions' )
-			->willReturn( [] );
-		return $mock;
+		return $this->makeMockTitle( $text, [ 'id' => (int)$exists ] );
 	}
 
 	private function getMockFileRevisions() : FileRevisions {
@@ -289,7 +282,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					$emptyPlan
 				),
 				$this->getMockImportPlan(
-					$this->getMockTitle( 'Talk:FinalName.JPG' )
+					$this->getMockTitle( 'File:Talk:FinalName.JPG' )
 				),
 				$this->getMockDuplicateFileRevisionChecker( 1 ),
 				$this->getMockImportTitleChecker(),
