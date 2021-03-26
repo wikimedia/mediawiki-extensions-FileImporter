@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Soued031"
 		]
 	},
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
@@ -34,7 +35,7 @@
 	"fileimporter-delete-summary": "Dëse Fichier ass elo op {{SITENAME}} als $1 (geréckelt mat FileImporter).",
 	"fileimporter-import-wait": "Den Import kann e puer Minutten daueren.",
 	"fileimporter-go-to-original-file-button": "Zréck op den Originalfichier",
-	"fileimporter-commonshelper-retrieval-failed": "Beim Soche no gespaarte Fichieren ass e Feeler geschitt.",
+	"fileimporter-commonshelper-retrieval-failed": "Beim Sichen no gespaarte Fichieren ass e Feeler geschitt.",
 	"fileimporter-file-contains-blocked-category-template": "De Fichier däerf net importéiert gi well en als $1 markéiert ass. $2 erlaabt esou Fichieren net.",
 	"fileimporter-viewdiff": "Ännerunge weisen"
 }
