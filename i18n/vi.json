@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Leduyquang753",
+			"Nghiemtrongdai VN",
 			"Tuanminh01"
 		]
 	},
+	"fileimporter-desc": "Dễ dàng xuất tập tin sang wiki khác",
 	"fileimporter-cleanup-failed": "Chỉnh sửa wiki nguồn tự động là không thể.",
 	"fileimporter-commonshelper-missing-config": "Nhập tệp từ wiki gốc ($1) hiện chưa thể thực hiện được. Không có thiết lập nào cho wiki tại $2."
 }
