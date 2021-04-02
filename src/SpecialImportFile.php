@@ -31,6 +31,7 @@ use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\User\UserOptionsManager;
 use Message;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
@@ -78,6 +79,11 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	private $stats;
 
+	/**
+	 * @var UserOptionsManager
+	 */
+	private $userOptionsManager;
+
 	private $config;
 
 	public function __construct() {
@@ -96,6 +102,7 @@ class SpecialImportFile extends SpecialPage {
 		$this->importPlanFactory = $services->getService( 'FileImporterImportPlanFactory' );
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
 		$this->stats = $services->getStatsdDataFactory();
+		$this->userOptionsManager = $services->getUserOptionsManager();
 	}
 
 	public function doesWrites() {
@@ -186,8 +193,12 @@ class SpecialImportFile extends SpecialPage {
 		}
 
 		if ( $webRequest->getBool( HelpBanner::HIDE_HELP_BANNER_CHECK_BOX ) ) {
-			$this->getUser()->setOption( HelpBanner::HIDE_HELP_BANNER_PREFERENCE, '1' );
-			$this->getUser()->saveSettings();
+			$this->userOptionsManager->setOption(
+				$this->getUser(),
+				HelpBanner::HIDE_HELP_BANNER_PREFERENCE,
+				'1'
+			);
+			$this->userOptionsManager->saveOptions( $this->getUser() );
 		}
 
 		try {
