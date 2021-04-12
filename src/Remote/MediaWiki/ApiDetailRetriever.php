@@ -153,7 +153,9 @@ class ApiDetailRetriever implements DetailRetriever {
 				array_key_exists( 'imagerepository', $pageInfoData ) &&
 				$pageInfoData['imagerepository'] == 'shared'
 			) {
-				throw new LocalizedImportException( 'fileimporter-cantimportfromsharedrepo' );
+				throw new LocalizedImportException(
+					[ 'fileimporter-cantimportfromsharedrepo', $sourceUrl->getHost() ]
+				);
 			}
 			throw new LocalizedImportException( 'fileimporter-cantimportmissingfile' );
 		}
