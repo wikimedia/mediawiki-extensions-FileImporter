@@ -29,7 +29,7 @@
 	"fileimporter-http-statuscode": "קוד מצב HTTP הוא $1.",
 	"fileimporter-cantparseurl": "לא ניתן לפענח את ה־URL שניתן: $1",
 	"fileimporter-cantimporturl": "לא ניתן לייבא את ה־URL שניתן",
-	"fileimporter-cantimportfromsharedrepo": "לא ניתן לייבא קובץ ממאגר משותף.",
+	"fileimporter-cantimportfromsharedrepo": "לא ניתן לייבא קבצים שלא באמת נמצאים בשרת $1, אלא מאוחסנים במאגר משותף.",
 	"fileimporter-cantimportmissingfile": "לא ניתן לייבא קובץ חסר.",
 	"fileimporter-cantimportfilehidden": "לא ניתן לייבא קובץ כי לפחות אחת מהגרסאות שלו מכילה קובץ מועלם.",
 	"fileimporter-cantimportfileinvalid": "הקובץ הזה (או גרסה ישנה יותר של הקובץ הזה) מכיל רכיבים שלא ניתן לקבל מסיבות של אבטחה: $1",

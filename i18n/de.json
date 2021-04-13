@@ -26,7 +26,7 @@
 	"fileimporter-http-statuscode": "HTTP-Statuscode $1.",
 	"fileimporter-cantparseurl": "Die angegebene URL $1 konnte nicht geparst werden",
 	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
-	"fileimporter-cantimportfromsharedrepo": "Es kann keine Datei von einem gemeinsamen Repositorium importiert werden.",
+	"fileimporter-cantimportfromsharedrepo": "Es können keine Dateien importiert werden, die sich nicht auf $1 befinden, sondern in einem gemeinsamen Repository gespeichert sind.",
 	"fileimporter-cantimportmissingfile": "Eine fehlende Datei kann nicht importiert werden.",
 	"fileimporter-cantimportfilehidden": "Die Datei konnte nicht importiert werden, da mindestens eine ihrer Versionen eine unterdrückte Datei enthält.",
 	"fileimporter-cantimportfileinvalid": "Diese Datei (oder eine ältere Version dieser Datei) enthält Elemente, die aus Sicherheitsgründen nicht akzeptiert werden können: $1",

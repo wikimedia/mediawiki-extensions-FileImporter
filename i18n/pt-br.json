@@ -27,7 +27,7 @@
 	"fileimporter-http-statuscode": "Código de status HTTP $1.",
 	"fileimporter-cantparseurl": "Não é possível analisar o URL fornecido: $1",
 	"fileimporter-cantimporturl": "Não é possível importar o URL fornecido.",
-	"fileimporter-cantimportfromsharedrepo": "Não é possível importar um arquivo de um repositório compartilhado.",
+	"fileimporter-cantimportfromsharedrepo": "Não é possível importar arquivos que não estejam realmente em $1, mas hospedados em um repositório compartilhado.",
 	"fileimporter-cantimportmissingfile": "Não é possível importar um arquivo em falta.",
 	"fileimporter-cantimportfilehidden": "Não é possível importar o arquivo porque pelo menos uma das suas revisões contém um arquivo suprimido.",
 	"fileimporter-cantimportfileinvalid": "Este arquivo (ou uma revisão anterior deste arquivo) contém elementos que não podem ser aceitos por razões de segurança: $1",
