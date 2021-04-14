@@ -6,7 +6,8 @@
 			"Karduelis",
 			"Mirzali",
 			"MuratTheTurkish",
-			"Rapsar"
+			"Rapsar",
+			"SaldırganSincap"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -29,7 +30,7 @@
 	"fileimporter-http-statuscode": "HTTP durum kodu $1.",
 	"fileimporter-cantparseurl": "Verilen URL'yi ayrıştırmıyor: $1",
 	"fileimporter-cantimporturl": "Verilen URL'yi içe aktaramıyor",
-	"fileimporter-cantimportfromsharedrepo": "Paylaşılan bir depodan dosya içe aktarılamıyor.",
+	"fileimporter-cantimportfromsharedrepo": "Gerçekte $1 üzerinde olmayan ancak paylaşılan bir depoda barındırılan dosyaları içe aktaramaz.",
 	"fileimporter-cantimportmissingfile": "Eksik bir dosya içe alınamıyor.",
 	"fileimporter-cantimportfilehidden": "Revizyonlardan en az biri bastırılmış bir dosya içerdiğinden dosya içe aktarılamıyor.",
 	"fileimporter-cantimportfileinvalid": "Bu dosya (veya bu dosyanın daha eski bir sürümü) güvenlik nedeniyle kabul edilemeyen öğeler içeriyor: $1",
