@@ -227,7 +227,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 */
 	private function createUploadLog() {
 		$performer = $this->wikiRevision->getUserObj() ?:
-			new UserIdentityValue( 0, $this->wikiRevision->getUser(), 0 );
+			new UserIdentityValue( 0, $this->wikiRevision->getUser() );
 
 		$logEntry = new ManualLogEntry( 'upload', 'upload' );
 		$logEntry->setTimestamp( $this->wikiRevision->getTimestamp() );
