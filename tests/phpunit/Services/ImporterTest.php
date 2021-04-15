@@ -6,6 +6,7 @@ use Article;
 use ChangeTags;
 use CommentStoreComment;
 use DatabaseLogEntry;
+use ExtensionRegistry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -50,6 +51,9 @@ class ImporterTest extends \MediaWikiTestCase {
 	 */
 	private $targetUser;
 
+	/** @var ScopedCallback[] */
+	private $hold = [];
+
 	protected function setUp() : void {
 		parent::setUp();
 
@@ -63,6 +67,7 @@ class ImporterTest extends \MediaWikiTestCase {
 			'wgFileImporterTextForPostImportRevision' => '<!--imported from $1-->',
 		] );
 
+		$this->hold[] = ExtensionRegistry::getInstance()->setAttributeForTest( 'Hooks', [] );
 		$this->targetUser = $this->getTestUser()->getUser();
 	}
 
@@ -76,6 +81,9 @@ class ImporterTest extends \MediaWikiTestCase {
 			$reason = 'This was just from a PHPUnit test.';
 			$file->deleteFile( $reason, $this->getTestSysop()->getUser() );
 		}
+
+		// Destroy all ScopedCallbacks
+		$this->hold = [];
 	}
 
 	public function testImport() {
