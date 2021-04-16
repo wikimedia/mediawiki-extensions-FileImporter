@@ -7,7 +7,7 @@
 		]
 	},
 	"fileimporter-desc": "Dễ dàng xuất tập tin sang wiki khác",
-	"fileimporter-help-banner-text": "'''Xuất tập tin từ wiki khác'''\n#Kiểm tra sửa đổi tên tập tin và trang miêu tả tập tin bên dưới.\n#Kiểm tra xem bạn có muốn đánh dấu tập tin là đã xuất sang Commons bằng bản mẫu [//vi.wikipedia.org/wiki/Bản_mẫu:Hiện_có_tại_Commons Hiện có tại Commons] vào tập tin gốc hay không. Nếu bản mẫu đó chưa có ở wiki của bạn, hãy tạo nó và liên kết bản mẫu đó đến Wikidata. (Nếu bạn có quyền quản trị, bạn cũng có quyền xoá trang tập tin gốc.)\n#Nhấn '''{{int:fileimporter-import}}''' để xuất tập tin sang {{SITENAME}}.\n\nĐể biết thêm thông tin về bản quyền, hãy xem {{SITENAME}} [[Project:Licensing|chính sách cộng đồng]]. <br /> Để biết thêm hướng dẫn chi tiết về cách sử dụng tiện ích FileImporter, hãy xem [//www.mediawiki.org/wiki/Help:Extension:FileImporter trang trợ giúp].\n\nNếu bạn có bất kỳ phản hồi nào để cải thiện tiện ích FileImporter, hãy để lại nhận xét của bạn trên [//www.mediawiki.org/wiki/Extension_talk:FileImporter trang thảo luận] của tiện ích.",
+	"fileimporter-help-banner-text": "'''Xuất tập tin từ wiki khác'''\n#Kiểm tra sửa đổi tên tập tin và trang miêu tả tập tin bên dưới.\n#Kiểm tra xem bạn có muốn đánh dấu tập tin là đã xuất sang Commons bằng bản mẫu [//vi.wikipedia.org/wiki/Bản_mẫu:Hiện_có_tại_Commons Hiện có tại Commons] vào tập tin gốc hay không. Nếu bản mẫu đó chưa có ở wiki của bạn, hãy tạo nó và liên kết bản mẫu đó đến Wikidata. (Nếu bạn có quyền quản trị, bạn cũng có quyền xoá trang tập tin gốc.)\n#Nhấn '''{{int:fileimporter-import}}''' để xuất tập tin sang {{SITENAME}}.\n\nĐể biết thêm thông tin về bản quyền, hãy xem [[Project:Licensing|chính sách cộng đồng]] {{SITENAME}}. <br /> Để biết thêm hướng dẫn chi tiết về cách sử dụng tiện ích FileImporter, hãy xem [//www.mediawiki.org/wiki/Help:Extension:FileImporter trang trợ giúp].\n\nNếu bạn có bất kỳ phản hồi nào để cải thiện tiện ích FileImporter, hãy để lại phản hồi của bạn trên [//www.mediawiki.org/wiki/Extension_talk:FileImporter trang thảo luận] của tiện ích.",
 	"fileimporter-help-banner-close-tooltip": "Ẩn thông báo này lần sau",
 	"tag-fileimporter": "Được xuất bởi FileImporter",
 	"tag-fileimporter-description": "Lịch sử trang và nhật trình được thêm vào sau khi xuất tập tin từ wiki khác",
@@ -25,7 +25,7 @@
 	"fileimporter-http-statuscode": "Mã trạng thái HTTP $1.",
 	"fileimporter-cantparseurl": "Không thể phân tích cú pháp URL đã cho: $1",
 	"fileimporter-cantimporturl": "Không thể xuất URL đã cho",
-	"fileimporter-cantimportfromsharedrepo": "Không thể xuất tập tin từ kho lưu trữ được chia sẻ.",
+	"fileimporter-cantimportfromsharedrepo": "Không thể xuất tập tin không có trên $1, nhưng được lưu trữ trên một kho lưu trữ được chia sẻ.",
 	"fileimporter-cantimportmissingfile": "Không thể xuất tập tin bị thiếu.",
 	"fileimporter-cantimportfilehidden": "Không thể xuất tập tin vì ít nhất một trong các bản sửa đổi của nó chứa tập tin bị chặn.",
 	"fileimporter-cantimportfileinvalid": "Tập tin này (hoặc bản sửa đổi cũ hơn của tập tin này) chứa các chi tiết không rõ ràng vì lý do bảo mật: $1",
