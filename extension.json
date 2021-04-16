@@ -25,7 +25,17 @@
 		"FileImporterAlias": "FileImporter.alias.php"
 	},
 	"SpecialPages": {
-		"FileImporter-SpecialPage": "FileImporter\\SpecialImportFile"
+		"FileImporter-SpecialPage": {
+			"class": "FileImporter\\SpecialImportFile",
+			"services": [
+				"FileImporterSourceSiteLocator",
+				"FileImporterImporter",
+				"FileImporterImportPlanFactory",
+				"StatsdDataFactory",
+				"UserOptionsManager",
+				"MainConfig"
+			]
+		}
 	},
 	"AutoloadNamespaces": {
 		"FileImporter\\": "src/"

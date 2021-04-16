@@ -2,6 +2,7 @@
 
 namespace FileImporter;
 
+use Config;
 use ErrorPageError;
 use Exception;
 use FileImporter\Data\ImportPlan;
@@ -27,10 +28,9 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
+use IBufferingStatsdDataFactory;
 use ILocalizedException;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Logger\LoggerFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\User\UserOptionsManager;
 use Message;
 use OOUI\HtmlSnippet;
@@ -75,7 +75,7 @@ class SpecialImportFile extends SpecialPage {
 	private $logger;
 
 	/**
-	 * @var StatsdDataFactoryInterface
+	 * @var IBufferingStatsdDataFactory
 	 */
 	private $stats;
 
@@ -84,11 +84,28 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	private $userOptionsManager;
 
+	/**
+	 * @var Config
+	 */
 	private $config;
 
-	public function __construct() {
-		$services = MediaWikiServices::getInstance();
-		$this->config = $services->getMainConfig();
+	/**
+	 * @param SourceSiteLocator $sourceSiteLocator
+	 * @param Importer $importer
+	 * @param ImportPlanFactory $importPlanFactory
+	 * @param IBufferingStatsdDataFactory $statsdDataFactory
+	 * @param UserOptionsManager $userOptionsManager
+	 * @param Config $mainConfig
+	 */
+	public function __construct(
+		SourceSiteLocator $sourceSiteLocator,
+		Importer $importer,
+		ImportPlanFactory $importPlanFactory,
+		IBufferingStatsdDataFactory $statsdDataFactory,
+		UserOptionsManager $userOptionsManager,
+		Config $mainConfig
+	) {
+		$this->config = $mainConfig;
 
 		parent::__construct(
 			'FileImporter-SpecialPage',
@@ -96,13 +113,12 @@ class SpecialImportFile extends SpecialPage {
 			$this->config->get( 'FileImporterShowInputScreen' )
 		);
 
-		// TODO inject services!
-		$this->sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
-		$this->importer = $services->getService( 'FileImporterImporter' );
-		$this->importPlanFactory = $services->getService( 'FileImporterImportPlanFactory' );
+		$this->sourceSiteLocator = $sourceSiteLocator;
+		$this->importer = $importer;
+		$this->importPlanFactory = $importPlanFactory;
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
-		$this->stats = $services->getStatsdDataFactory();
-		$this->userOptionsManager = $services->getUserOptionsManager();
+		$this->stats = $statsdDataFactory;
+		$this->userOptionsManager = $userOptionsManager;
 	}
 
 	public function doesWrites() {
