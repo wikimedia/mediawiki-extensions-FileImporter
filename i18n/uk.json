@@ -29,7 +29,7 @@
 	"fileimporter-http-statuscode": "Код статусу HTTP $1.",
 	"fileimporter-cantparseurl": "Не вдається обробити подану URL-адресу: $1",
 	"fileimporter-cantimporturl": "Не вдається імпортувати з поданої URL-адреси",
-	"fileimporter-cantimportfromsharedrepo": "Неможливо імпортувати файл зі спільного репозиторію.",
+	"fileimporter-cantimportfromsharedrepo": "Неможливо імпортувати файли, які не містяться на $1, а розміщені у спільному репозиторії.",
 	"fileimporter-cantimportmissingfile": "Неможливо імпортувати відсутній файл.",
 	"fileimporter-cantimportfilehidden": "Неможливо імпортувати файл, оскільки принаймні одна з його версій містить прихований файл.",
 	"fileimporter-cantimportfileinvalid": "Цей файл (або старіша версія цього файлу) містить елементи, які не можна прийняти з міркувань безпеки: $1",

@@ -21,7 +21,7 @@
 	"fileimporter-api-toomanyrevisions": "Preveč redakcij, vrnjenih od API-ja, uvoz ni mogoč.",
 	"fileimporter-cantparseurl": "Navedenega spletnega naslova $1 ni mogoče razčleniti.",
 	"fileimporter-cantimporturl": "Navedenega spletnega naslova ni mogoče uvoziti.",
-	"fileimporter-cantimportfromsharedrepo": "Datoteke iz skupnega skladišča ni mogoče uvoziti.",
+	"fileimporter-cantimportfromsharedrepo": "Datotek, ki se v resnici ne nahajajo na $1, ampak jih gostuje skupno skladišče, ni mogoče uvoziti.",
 	"fileimporter-cantimportmissingfile": "Manjkajoče datoteke ni mogoče uvoziti.",
 	"fileimporter-cantimportfilehidden": "Datoteke ni mogoče uvoziti, saj vsaj ena redakcija vsebuje ukinjeno datoteko.",
 	"fileimporter-badtoken": "Vaša seja ni več veljavna. Prosimo, ponovno pričnite z uvozom.",

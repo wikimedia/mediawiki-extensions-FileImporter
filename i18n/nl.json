@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bdijkstra",
 			"Klaas van Buiten",
 			"KlaasZ4usV",
 			"Mainframe98",
@@ -14,6 +15,7 @@
 	"fileimporter-importfailed": "Importeren is mislukt",
 	"fileimporter-api-badinfo": "Onjuiste bestands- of versieinformatie verkregen van de API.",
 	"fileimporter-api-failedtogetinfo": "Kon geen bestandsinformatie ophalen van: $1.",
+	"fileimporter-api-file-notfound": "Bestand niet gevonden: $1.",
 	"fileimporter-cantimporturl": "Kan de opgegeven URL niet importeren",
 	"fileimporter-cantimportfromsharedrepo": "Kan geen bestand importeren van een gedeelde bestandsrepository.",
 	"fileimporter-cantimportmissingfile": "Kan geen ontbrekend bestand importeren.",
