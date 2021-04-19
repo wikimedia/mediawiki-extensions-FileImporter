@@ -18,6 +18,7 @@ class FileImporterUploadBaseTest extends \MediaWikiTestCase {
 		parent::setUp();
 		// For testing mark the jpg extension is disallowed
 		$this->setMwGlobals( 'wgFileBlacklist', [ 'jpg' ] );
+		$this->setMwGlobals( 'wgProhibitedFileExtensions', [ 'jpg' ] );
 	}
 
 	public function providePerformTitleChecks() {
