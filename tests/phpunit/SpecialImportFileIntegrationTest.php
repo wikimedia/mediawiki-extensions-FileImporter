@@ -64,7 +64,15 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	}
 
 	protected function newSpecialPage() : SpecialPage {
-		return new SpecialImportFile();
+		$services = $this->getServiceContainer();
+		return new SpecialImportFile(
+			$services->getService( 'FileImporterSourceSiteLocator' ),
+			$services->getService( 'FileImporterImporter' ),
+			$services->getService( 'FileImporterImportPlanFactory' ),
+			$services->getStatsdDataFactory(),
+			$services->getUserOptionsManager(),
+			$services->getMainConfig()
+		);
 	}
 
 	private function getPageNotFoundHttpException() : HttpRequestException {
