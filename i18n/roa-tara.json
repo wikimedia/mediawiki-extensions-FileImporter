@@ -16,7 +16,7 @@
 	"fileimporter-api-toomanyrevisions": "Troppe revisiune turnate da l'API, non ge se ponne 'mbortà.",
 	"fileimporter-cantparseurl": "Non ge pozze analizzà l'URL date: $1",
 	"fileimporter-cantimporturl": "Non ge pozze 'mbortà l'URL date",
-	"fileimporter-cantimportfromsharedrepo": "Non ge pozze 'mbortà 'nu file da 'n'archivije condivise.",
+	"fileimporter-cantimportfromsharedrepo": "Non ge pozze 'mbortà fail ca non ge stonne sus a $1, ma stonne sus a 'n'archivije condivise.",
 	"fileimporter-cantimportmissingfile": "Non ge pozze 'mbortà 'nu file mangande.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicate",
 	"fileimporter-exampleprefix": "Esembie",
