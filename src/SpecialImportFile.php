@@ -151,12 +151,18 @@ class SpecialImportFile extends SpecialPage {
 			throw new ErrorPageError( 'uploaddisabled', 'uploaddisabledtext' );
 		}
 
-		# Check permissions
 		$user = $this->getUser();
-		$permissionRequired = UploadBase::isAllowed( $user );
-		if ( $permissionRequired !== true ) {
+
+		// Check if the user does have all the rights required via $wgFileImporterRequiredRight (set
+		// to "upload" by default), as well as "upload" and "edit" in case …RequiredRight is more
+		// relaxed. Note special pages must call userCanExecute() manually when parent::execute()
+		// isn't called, {@see SpecialPage::__construct}.
+		$missingPermission = parent::userCanExecute( $user )
+			? UploadBase::isAllowed( $user )
+			: $this->getRestriction();
+		if ( is_string( $missingPermission ) ) {
 			$this->logErrorStats( self::ERROR_USER_PERMISSIONS, false );
-			throw new PermissionsError( $permissionRequired );
+			throw new PermissionsError( $missingPermission );
 		}
 
 		# Check blocks
