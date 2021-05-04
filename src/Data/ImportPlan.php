@@ -295,7 +295,7 @@ class ImportPlan {
 		}
 		$chunks = array_filter(
 			$chunks,
-			function ( $wikitext ) {
+			static function ( $wikitext ) {
 				return $wikitext !== null && $wikitext !== '';
 			}
 		);

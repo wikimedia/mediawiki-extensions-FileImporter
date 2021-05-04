@@ -75,7 +75,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 
 		$namespaceInfo = $this->createMock( \NamespaceInfo::class );
 		$namespaceInfo->method( 'getCanonicalName' )
-			->willReturnCallback( function ( $index ) {
+			->willReturnCallback( static function ( $index ) {
 				switch ( $index ) {
 					case NS_PROJECT:
 						return 'Project';

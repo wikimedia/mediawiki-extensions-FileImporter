@@ -18,7 +18,7 @@ use MediaWiki\MediaWikiServices;
 return [
 
 	'FileImporterMediaWikiHttpApiLookup' =>
-		function ( MediaWikiServices $services ) : HttpApiLookup {
+		static function ( MediaWikiServices $services ) : HttpApiLookup {
 			/** @var HttpRequestExecutor $httpRequestExecutor */
 			$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
@@ -28,7 +28,7 @@ return [
 		},
 
 	'FileImporterMediaWikiSiteTableSiteLookup' =>
-		function ( MediaWikiServices $services ) : SiteTableSiteLookup {
+		static function ( MediaWikiServices $services ) : SiteTableSiteLookup {
 			return new SiteTableSiteLookup(
 				$services->getSiteLookup(),
 				LoggerFactory::getInstance( 'FileImporter' )
@@ -36,7 +36,7 @@ return [
 		},
 
 	'FileImporterMediaWikiRemoteApiRequestExecutor' =>
-		function ( MediaWikiServices $services ) : RemoteApiRequestExecutor {
+		static function ( MediaWikiServices $services ) : RemoteApiRequestExecutor {
 			/** @var HttpRequestExecutor $httpRequestExecutor */
 			$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 
@@ -51,7 +51,7 @@ return [
 		},
 
 	'FileImporterMediaWikiRemoteApiActionExecutor' =>
-		function ( MediaWikiServices $services ) : RemoteApiActionExecutor {
+		static function ( MediaWikiServices $services ) : RemoteApiActionExecutor {
 			/** @var RemoteApiRequestExecutor $remoteApiRequestExecutor */
 			$remoteApiRequestExecutor = $services->getService( 'FileImporterMediaWikiRemoteApiRequestExecutor' );
 

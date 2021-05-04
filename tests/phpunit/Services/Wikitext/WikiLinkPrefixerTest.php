@@ -69,7 +69,7 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 	private function newTitleParser() {
 		$language = $this->createMock( \Language::class );
 		$language->method( 'getNsIndex' )
-			->willReturnCallback( function ( $name ) {
+			->willReturnCallback( static function ( $name ) {
 				switch ( $name ) {
 					case 'Media':
 						return NS_MEDIA;

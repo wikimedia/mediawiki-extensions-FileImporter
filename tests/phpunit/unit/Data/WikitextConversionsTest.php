@@ -157,7 +157,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 			'targetTemplate' => 't',
 			'parameters' => $replacements,
 		] ] );
-		$expected = array_map( function ( $target ) {
+		$expected = array_map( static function ( $target ) {
 			return [ 'target' => $target, 'addLanguageTemplate' => false ];
 		}, $expected );
 		$this->assertSame( $expected, $conversions->getTemplateParameters( 's' ) );

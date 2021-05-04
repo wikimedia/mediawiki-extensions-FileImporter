@@ -420,7 +420,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$creator->expects( $this->once() )
 			->method( 'createForLinkTarget' )
 			->with(
-				$this->callback( function ( LinkTarget $title ) {
+				$this->callback( static function ( LinkTarget $title ) {
 					return $title->inNamespace( NS_FILE )
 						&& $title->getText() === self::TITLE;
 				} ),

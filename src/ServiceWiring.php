@@ -40,7 +40,7 @@ use UploadBase;
 // TODO: Alphabetize.
 return [
 
-	'FileImporterSourceSiteLocator' => function ( MediaWikiServices $services ) {
+	'FileImporterSourceSiteLocator' => static function ( MediaWikiServices $services ) {
 		$sourceSiteServices = $services->getMainConfig()->get( 'FileImporterSourceSiteServices' );
 		$sourceSites = [];
 
@@ -55,7 +55,7 @@ return [
 		return new SourceSiteLocator( $sourceSites );
 	},
 
-	'FileImporterHttpRequestExecutor' => function ( MediaWikiServices $services ) {
+	'FileImporterHttpRequestExecutor' => static function ( MediaWikiServices $services ) {
 		$config = $services->getMainConfig();
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 		$service = new HttpRequestExecutor(
@@ -70,19 +70,19 @@ return [
 		return $service;
 	},
 
-	'FileImporterCategoryExtractor' => function ( MediaWikiServices $services ) {
+	'FileImporterCategoryExtractor' => static function ( MediaWikiServices $services ) {
 		return new CategoryExtractor(
 			$services->getParser(),
 			$services->getDBLoadBalancer()
 		);
 	},
 
-	'FileImporterDuplicateFileRevisionChecker' => function ( MediaWikiServices $services ) {
+	'FileImporterDuplicateFileRevisionChecker' => static function ( MediaWikiServices $services ) {
 		$localRepo = $services->getRepoGroup()->getLocalRepo();
 		return new DuplicateFileRevisionChecker( $localRepo );
 	},
 
-	'FileImporterImporter' => function ( MediaWikiServices $services ) {
+	'FileImporterImporter' => static function ( MediaWikiServices $services ) {
 		/** @var WikiRevisionFactory $wikiRevisionFactory */
 		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
 		/** @var NullRevisionCreator $nullRevisionCreator */
@@ -126,18 +126,18 @@ return [
 		return $importer;
 	},
 
-	'FileImporterWikiRevisionFactory' => function ( MediaWikiServices $services ) {
+	'FileImporterWikiRevisionFactory' => static function ( MediaWikiServices $services ) {
 		return new WikiRevisionFactory();
 	},
 
-	'FileImporterNullRevisionCreator' => function ( MediaWikiServices $services ) {
+	'FileImporterNullRevisionCreator' => static function ( MediaWikiServices $services ) {
 		return new NullRevisionCreator(
 			$services->getRevisionStore(),
 			$services->getDBLoadBalancer()
 		);
 	},
 
-	'FileImporterImportPlanFactory' => function ( MediaWikiServices $services ) {
+	'FileImporterImportPlanFactory' => static function ( MediaWikiServices $services ) {
 		/** @var SourceSiteLocator $sourceSiteLocator */
 		$sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
 		/** @var DuplicateFileRevisionChecker $duplicateFileChecker */
@@ -152,7 +152,7 @@ return [
 		return $factory;
 	},
 
-	'FileImporterUploadBaseFactory' => function ( MediaWikiServices $services ) {
+	'FileImporterUploadBaseFactory' => static function ( MediaWikiServices $services ) {
 		return new UploadBaseFactory( LoggerFactory::getInstance( 'FileImporter' ) );
 	},
 
@@ -162,7 +162,7 @@ return [
 	 * This configuration example can be used for development and is very plain and lenient!
 	 * It will allow importing files form ANY mediawiki site.
 	 */
-	'FileImporter-Site-DefaultMediaWiki' => function ( MediaWikiServices $services ) {
+	'FileImporter-Site-DefaultMediaWiki' => static function ( MediaWikiServices $services ) {
 		/** @var HttpApiLookup $httpApiLookup */
 		$httpApiLookup = $services->getService( 'FileImporterMediaWikiHttpApiLookup' );
 		/** @var HttpRequestExecutor $httpRequestExecutor */
@@ -218,7 +218,7 @@ return [
 	 * This configuration example is setup to handle the wikimedia style setup.
 	 * This only allows importing files from sites in the sites table.
 	 */
-	'FileImporter-WikimediaSitesTableSite' => function ( MediaWikiServices $services ) {
+	'FileImporter-WikimediaSitesTableSite' => static function ( MediaWikiServices $services ) {
 		/** @var SiteTableSiteLookup $siteTableLookup */
 		$siteTableLookup = $services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' );
 		/** @var HttpApiLookup $httpApiLookup */
@@ -281,7 +281,7 @@ return [
 		return $site;
 	},
 
-	'FileImporterTemplateLookup' => function ( MediaWikiServices $services ) {
+	'FileImporterTemplateLookup' => static function ( MediaWikiServices $services ) {
 		return new WikidataTemplateLookup(
 			$services->getMainConfig(),
 			$services->getService( 'FileImporterMediaWikiSiteTableSiteLookup' ),
@@ -290,7 +290,7 @@ return [
 		);
 	},
 
-	'FileImporterSuccessCache' => function ( MediaWikiServices $services ) {
+	'FileImporterSuccessCache' => static function ( MediaWikiServices $services ) {
 		return new SuccessCache(
 			ObjectCache::getInstance( 'db-replicated' ),
 			LoggerFactory::getInstance( 'FileImporter' )

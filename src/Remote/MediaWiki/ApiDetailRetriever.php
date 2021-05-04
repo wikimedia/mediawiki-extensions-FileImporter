@@ -214,12 +214,12 @@ class ApiDetailRetriever implements DetailRetriever {
 	 */
 	private function reduceTitleList( array $titles, $namespace ) {
 		return array_map(
-			function ( array $title ) {
+			static function ( array $title ) {
 				return $title['title'];
 			},
 			array_filter(
 				$titles,
-				function ( array $title ) use ( $namespace ) {
+				static function ( array $title ) use ( $namespace ) {
 					return $title['ns'] === $namespace;
 				}
 			)

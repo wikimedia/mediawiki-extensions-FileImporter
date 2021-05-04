@@ -121,7 +121,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					'name' => PermissionsError::class,
 					'message' => 'The action you have requested is limited to users in one of the groups',
 				],
-				function () {
+				static function () {
 				}
 			],
 			'Uploader, Expect input form' => [

@@ -24,7 +24,7 @@ class WikidataTemplateLookupTest extends MediaWikiTestCase {
 	public function testFetchNowCommonsLocalTitle_success() {
 		$mockConfig = $this->createMock( Config::class );
 		$mockConfig->method( 'get' )
-			->willReturnCallback( function ( $key ) {
+			->willReturnCallback( static function ( $key ) {
 				$data = [
 					'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
 					'FileImporterWikidataNowCommonsEntity' => 'Q123'
@@ -90,7 +90,7 @@ class WikidataTemplateLookupTest extends MediaWikiTestCase {
 	public function testFetchLocalTemplateForSource_noSiteLink() {
 		$mockConfig = $this->createMock( Config::class );
 		$mockConfig->method( 'get' )
-			->willReturnCallback( function ( $key ) {
+			->willReturnCallback( static function ( $key ) {
 				$data = [
 					'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
 					'FileImporterWikidataNowCommonsEntity' => 'Q123'

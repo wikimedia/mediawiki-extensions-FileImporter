@@ -235,7 +235,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	private function getMockTextRevision( $wikitext, $title ) : TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
-			->willReturnCallback( function ( $field ) use ( $wikitext, $title ) {
+			->willReturnCallback( static function ( $field ) use ( $wikitext, $title ) {
 				switch ( $field ) {
 					case '*':
 						return $wikitext;

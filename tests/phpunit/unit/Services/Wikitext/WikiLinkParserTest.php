@@ -88,7 +88,7 @@ class WikiLinkParserTest extends \MediaWikiUnitTestCase {
 
 		$prefixingCleaner = $this->createMock( WikiLinkCleaner::class );
 		$prefixingCleaner->method( 'process' )
-			->willReturnCallback( function ( $link ) {
+			->willReturnCallback( static function ( $link ) {
 				return 'Prefix>' . $link;
 			} );
 
