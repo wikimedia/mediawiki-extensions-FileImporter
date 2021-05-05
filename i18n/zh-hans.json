@@ -3,6 +3,7 @@
 		"authors": [
 			"A Chinese Wikipedian",
 			"A2093064",
+			"Lakejason0",
 			"Liuxinyu970226",
 			"Ps2049",
 			"SomeyaMako",
@@ -27,7 +28,7 @@
 	"fileimporter-http-statuscode": "HTTP状态代码$1。",
 	"fileimporter-cantparseurl": "不能解析提供的URL：$1",
 	"fileimporter-cantimporturl": "不能导入提供的URL",
-	"fileimporter-cantimportfromsharedrepo": "不能从共享存储库导入文件。",
+	"fileimporter-cantimportfromsharedrepo": "无法导入实际不在$1上但托管在共享存储库中的文件。",
 	"fileimporter-cantimportmissingfile": "不能导入丢失的文件。",
 	"fileimporter-cantimportfilehidden": "不能导入文件，因为至少一个修订版本包含被屏蔽的文件。",
 	"fileimporter-badtoken": "您的会话不再有效。请重新启动以导入。",
