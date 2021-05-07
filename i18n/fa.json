@@ -3,6 +3,7 @@
 		"authors": [
 			"Arash",
 			"Arash.pt",
+			"Jeeputer",
 			"Ladsgroup",
 			"Reza1615"
 		]
@@ -17,7 +18,7 @@
 	"fileimporter-api-toomanyrevisions": "تعداد زیادی نسخه از طرف API برگردانده شد، امکان درون‌ریزی نیست.",
 	"fileimporter-cantparseurl": "امکان تحلیل نشانی اینترنتی داده‌شده وجود ندارد: $1",
 	"fileimporter-cantimporturl": "امکان درون‌ریزی نشانی اینترنتی داده شده نیست.",
-	"fileimporter-cantimportfromsharedrepo": "امکان درون‌ریزی از یک مخزن مشترک وجود ندارد",
+	"fileimporter-cantimportfromsharedrepo": "امکان درون‌ریزی پرونده‌هایی که درواقع در $1 موجود نیستند، اما در یک مخزن مشترک میزبانی می‌شوند، وجود ندارد.",
 	"fileimporter-cantimportmissingfile": "نمی‌توان یک پرونده ناموجود را درون‌ریزی کرد",
 	"fileimporter-cantimportfilehidden": "نمی‌توان فایل را درون‌ریزی کرد، به این دلیل که دستِ‌کم یکی از تجدید نظرهای فایل شامل فایلی متوقف‌شده است.",
 	"fileimporter-badtoken": "بلیط‌های CSRF یکی نیست",

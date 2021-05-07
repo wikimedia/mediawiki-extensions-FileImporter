@@ -31,7 +31,7 @@
 	"fileimporter-heading-fileinfo": "Файлан хаамаш",
 	"fileimporter-heading-filehistory": "Файлан истори",
 	"fileimporter-go-to-original-file-button": "Файлан оригиналан тӀе гӀо",
-	"fileimporter-commonshelper-missing-config": "($1) вики чуьра файлаш импортян аьтту бац. $2 тӀехь викин конфигураци яц.",
+	"fileimporter-commonshelper-missing-config": "($1) вики чуьра файлаш импорт йан аьтту бац. $2 тӀехь викин конфигураци йац.",
 	"fileimporter-viewdiff": "Гайта хийцамаш",
 	"fileimporter-to-preview": "ЮхагӀо хьалха хьажаре"
 }
