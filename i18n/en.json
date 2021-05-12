@@ -26,7 +26,7 @@
 	"fileimporter-cantimporturl": "Can't import the given URL",
 	"fileimporter-cantimportfromsharedrepo": "Can't import files that aren't actually on $1, but hosted on a shared repository.",
 	"fileimporter-cantimportmissingfile": "Can't import a missing file.",
-	"fileimporter-cantimportfilehidden": "Can't import file because at least one of its revisions contains a suppressed file.",
+	"fileimporter-cantimportfilehidden": "Can't import file because at least one of its file revisions is hidden.",
 	"fileimporter-cantimportfileinvalid": "This file (or an older revision of this file) contains elements that cannot be accepted for security reasons: $1",
 	"fileimporter-warningabusefilter": "An [//en.wikipedia.org/wiki/Wikipedia:Edit_filter automated filter] has identified a potentially unconstructive edit as part of this file's revision history. One or more revisions could have triggered this; each is shown below with its associated warning. Click submit again to ignore any warnings and continue the import.",
 	"fileimporter-badnamespace": "Wrong text revision namespace given.",
