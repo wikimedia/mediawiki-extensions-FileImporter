@@ -20,7 +20,7 @@ class WikiPageFactory {
 	 * @return WikiPage|null
 	 */
 	public function newFromId( $pageId ) {
-		// T181391: Read from master, as the page has only just been created, and in multi-DB setups
+		// T181391: Read from primary database, as the page has only just been created, and in multi-DB setups
 		// replicas will have lag.
 		return WikiPage::newFromID( $pageId, WikiPage::READ_LATEST );
 	}

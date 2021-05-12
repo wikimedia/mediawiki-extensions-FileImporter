@@ -55,7 +55,7 @@ class NullRevisionCreator {
 		User $user,
 		$summary
 	) {
-		$db = $this->loadBalancer->getConnection( DB_MASTER );
+		$db = $this->loadBalancer->getConnection( DB_PRIMARY );
 		$nullRevision = $this->revisionStore->newNullRevision(
 			$db,
 			$title,
