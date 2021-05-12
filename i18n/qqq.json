@@ -33,7 +33,7 @@
 	"fileimporter-cantimporturl": "Error message for cases where when the URL entered can not be imported from.",
 	"fileimporter-cantimportfromsharedrepo": "Error message when the file import target comes from a shared or remote repository.\n\nParameters:\n* $1 - domain name that doesn't actually host the file",
 	"fileimporter-cantimportmissingfile": "Error message when the file import target is missing.",
-	"fileimporter-cantimportfilehidden": "Error message when the file contains at least one revision with a suppressed file.",
+	"fileimporter-cantimportfilehidden": "Error message when the file contains at least one hidden file revision.",
 	"fileimporter-cantimportfileinvalid": "Error message when the file contains at least one revision which fails a MediaWiki security check.\n\nParameters:\n* $1 - original MediaWiki error message.",
 	"fileimporter-warningabusefilter": "Warning message when the file contains at least one revision which causes an AbuseFilter warning.",
 	"fileimporter-badnamespace": "Error message when attempting to import from outside of the {{ns:file}} namespace.",
