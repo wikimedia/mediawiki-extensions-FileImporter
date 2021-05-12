@@ -22,7 +22,7 @@
 	"fileimporter-submit-title": "Хийца корта",
 	"fileimporter-resubmit": "Йуха дӀадахьийта",
 	"fileimporter-import": "Импорт",
-	"fileimporter-cancel": "Юхаяккха",
+	"fileimporter-cancel": "Йухайаккха",
 	"fileimporter-edittitle": "Табе корта",
 	"fileimporter-editinfo": "Файлах болу хаам хийца",
 	"fileimporter-extensionlabel": "Файлан шоралла:",
@@ -33,5 +33,5 @@
 	"fileimporter-go-to-original-file-button": "Файлан оригиналан тӀе гӀо",
 	"fileimporter-commonshelper-missing-config": "($1) вики чуьра файлаш импорт йан аьтту бац. $2 тӀехь викин конфигураци йац.",
 	"fileimporter-viewdiff": "Гайта хийцамаш",
-	"fileimporter-to-preview": "ЮхагӀо хьалха хьажаре"
+	"fileimporter-to-preview": "ЙухагӀо хьалха хьажаре"
 }
