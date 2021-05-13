@@ -27,7 +27,6 @@ use FileImporter\Services\SuccessCache;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikidataTemplateLookup;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
-use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
@@ -107,12 +106,11 @@ return [
 			$services->getDBLoadBalancer(),
 			$services->getRevisionStore(),
 			$services->getSlotRoleRegistry(),
-			// Check for 1.36 for the WikiPageFactory as new argument
-			is_callable( [ $services, 'getWikiPageFactory' ] ) ? $services->getWikiPageFactory() : null
+			$services->getWikiPageFactory()
 		);
 
 		$importer = new Importer(
-			new WikiPageFactory(),
+			$services->getWikiPageFactory(),
 			$wikiRevisionFactory,
 			$nullRevisionCreator,
 			$httpRequestExecutor,

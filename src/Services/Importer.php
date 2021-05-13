@@ -14,6 +14,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\WikiPageFactory;
 use NullStatsdDataFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
@@ -344,7 +345,9 @@ class Importer {
 		 * T164729 GAID_FOR_UPDATE needed to select for a write
 		 */
 		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE );
-		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate );
+		// T181391: Read from primary database, as the page has only just been created, and in multi-DB setups
+		// replicas will have lag.
+		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate, WikiPage::READ_LATEST );
 
 		if ( !$page ) {
 			throw new ImportException(

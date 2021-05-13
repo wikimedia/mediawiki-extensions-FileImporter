@@ -18,7 +18,6 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
-use FileImporter\Services\WikiPageFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
@@ -333,7 +332,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 
 		return new Importer(
-			new WikiPageFactory(),
+			$services->getWikiPageFactory(),
 			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterNullRevisionCreator' ),
 			$this->newHttpRequestExecutor(),
