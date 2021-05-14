@@ -32,7 +32,7 @@
 	"fileimporter-cantimporturl": "Verilen URL'yi içe aktaramıyor",
 	"fileimporter-cantimportfromsharedrepo": "Gerçekte $1 üzerinde olmayan ancak paylaşılan bir depoda barındırılan dosyaları içe aktaramaz.",
 	"fileimporter-cantimportmissingfile": "Eksik bir dosya içe alınamıyor.",
-	"fileimporter-cantimportfilehidden": "Revizyonlardan en az biri bastırılmış bir dosya içerdiğinden dosya içe aktarılamıyor.",
+	"fileimporter-cantimportfilehidden": "Dosya revizyonlarından en az biri gizli olduğu için dosya içe aktarılamıyor.",
 	"fileimporter-cantimportfileinvalid": "Bu dosya (veya bu dosyanın daha eski bir sürümü) güvenlik nedeniyle kabul edilemeyen öğeler içeriyor: $1",
 	"fileimporter-warningabusefilter": "Bir [https://tr.wikipedia.org/wiki/Vikipedi:Değişiklik_süzgeci otomatik filtre] bu dosyanın revizyon geçmişinin bir parçası olarak yapıcı olmayan bir revizyon tanımladı. Bir veya daha fazla revizyon bunu tetikleyebilirdi; her biri ilgili uyarısıyla aşağıda gösterilmiştir. Uyarıları yok saymak ve içe aktarmaya devam etmek için tekrar gönder'i tıklayın.",
 	"fileimporter-badnamespace": "Yanlış metin revizyon ad alanı verildi.",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Keo010122",
 			"Leduyquang753",
 			"Nghiemtrongdai VN",
 			"Tuanminh01"
@@ -27,7 +28,7 @@
 	"fileimporter-cantimporturl": "Không thể xuất URL đã cho",
 	"fileimporter-cantimportfromsharedrepo": "Không thể xuất tập tin không có trên $1, nhưng được lưu trữ trên một kho lưu trữ được chia sẻ.",
 	"fileimporter-cantimportmissingfile": "Không thể xuất tập tin bị thiếu.",
-	"fileimporter-cantimportfilehidden": "Không thể xuất tập tin vì ít nhất một trong các bản sửa đổi của nó chứa tập tin bị chặn.",
+	"fileimporter-cantimportfilehidden": "Không thể nhập tệp vì ít nhất một trong các bản sửa đổi tệp của nó bị ẩn.",
 	"fileimporter-cantimportfileinvalid": "Tập tin này (hoặc bản sửa đổi cũ hơn của tập tin này) chứa các chi tiết không rõ ràng vì lý do bảo mật: $1",
 	"fileimporter-warningabusefilter": "[//en.wikipedia.org/wiki/Wikipedia:Edit_filter Một bộ lọc sai phạm] đã xác định một hay nhiều sửa đổi có khả năng gây hại trong lịch sử sửa đổi của tập tin này; từng được hiển thị bên dưới với cảnh báo liên quan. Nhấn \"Đăng\" để bỏ qua cảnh báo và tiếp tục xuất.",
 	"fileimporter-badnamespace": "Đã cung cấp không gian tên sửa đổi văn bản sai.",

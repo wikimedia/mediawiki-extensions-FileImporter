@@ -32,7 +32,7 @@
 	"fileimporter-cantimporturl": "לא ניתן לייבא את ה־URL שניתן",
 	"fileimporter-cantimportfromsharedrepo": "לא ניתן לייבא קבצים שלא באמת נמצאים בשרת $1, אלא מאוחסנים במאגר משותף.",
 	"fileimporter-cantimportmissingfile": "לא ניתן לייבא קובץ חסר.",
-	"fileimporter-cantimportfilehidden": "לא ניתן לייבא קובץ כי לפחות אחת מהגרסאות שלו מכילה קובץ מועלם.",
+	"fileimporter-cantimportfilehidden": "לא ניתן לייבא קובץ כי לפחות אחת מגרסאות הקובץ שלו מוסתרת.",
 	"fileimporter-cantimportfileinvalid": "הקובץ הזה (או גרסה ישנה יותר של הקובץ הזה) מכיל רכיבים שלא ניתן לקבל מסיבות של אבטחה: $1",
 	"fileimporter-warningabusefilter": "[//he.wikipedia.org/wiki/ויקיפדיה:מסנן_השחתות מסנן אוטומטי] זיהה עריכה שאולי אינה מועילה כחלק מהיסטוריית העריכות של הקובץ הזה. גרסה או או יותר יכלו לגרום לזה; כל אחת מהן מוצגת להלן עם האזהרה המשויכת אליה. נא ללחוץ \"שליחה\" שוב כדי להתעלם מכל האזהרות ולהמשיך את הייבוא.",
 	"fileimporter-badnamespace": "ניתן מרחב שם לא נכון לגרסת הטקסט.",

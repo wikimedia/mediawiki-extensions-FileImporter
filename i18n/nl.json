@@ -6,6 +6,7 @@
 			"KlaasZ4usV",
 			"Mainframe98",
 			"Mbch331",
+			"Nickthijssen1994",
 			"Patio"
 		]
 	},
@@ -19,6 +20,7 @@
 	"fileimporter-cantimporturl": "Kan de opgegeven URL niet importeren",
 	"fileimporter-cantimportfromsharedrepo": "Kan geen bestand importeren van een gedeelde bestandsrepository.",
 	"fileimporter-cantimportmissingfile": "Kan geen ontbrekend bestand importeren.",
+	"fileimporter-cantimportfilehidden": "Kan het bestand niet importeren omdat één of meer revisies verborgen zijn.",
 	"fileimporter-filenameerror-default": "Er is een onbekend probleem met uw bestandsnaam.",
 	"fileimporter-filenameerror-toolong": "De bestandsnaam van het bestand dat u probeert te importeren is te lang.",
 	"fileimporter-filenameerror-automaticchanges": "De bestandsnaam is automatisch van \"$1\" gewijzigd naar \"$2\".",

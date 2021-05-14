@@ -28,7 +28,7 @@
 	"fileimporter-cantimporturl": "Die angegebene URL konnte nicht importiert werden",
 	"fileimporter-cantimportfromsharedrepo": "Es können keine Dateien importiert werden, die sich nicht auf $1 befinden, sondern in einem gemeinsamen Repository gespeichert sind.",
 	"fileimporter-cantimportmissingfile": "Eine fehlende Datei kann nicht importiert werden.",
-	"fileimporter-cantimportfilehidden": "Die Datei konnte nicht importiert werden, da mindestens eine ihrer Versionen eine unterdrückte Datei enthält.",
+	"fileimporter-cantimportfilehidden": "Die Datei konnte nicht importiert werden, da mindestens eine ihrer Datei-Versionen versteckt ist.",
 	"fileimporter-cantimportfileinvalid": "Diese Datei (oder eine ältere Version dieser Datei) enthält Elemente, die aus Sicherheitsgründen nicht akzeptiert werden können: $1",
 	"fileimporter-warningabusefilter": "Ein [https://de.wikipedia.org/wiki/Wikipedia:Bearbeitungsfilter Bearbeitungsfilter] hat eine potenziell unkonstruktive Bearbeitung als Teil der Versionsheschichte dieser Datei identifiziert. Eine oder mehrere Versionen könnten dies ausgelöst haben; jede ist unten mit der zugehörigen Warnung dargestellt. Klicke erneut auf Abschicken, um alle Warnungen zu ignorieren und den Import fortzusetzen.",
 	"fileimporter-badnamespace": "Falscher Namensraum für die Textversion angegeben.",

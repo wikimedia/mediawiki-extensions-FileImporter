@@ -30,6 +30,7 @@
 	"fileimporter-editsummary": "Хийцамах лаьцна:",
 	"fileimporter-heading-fileinfo": "Файлан хаамаш",
 	"fileimporter-heading-filehistory": "Файлан истори",
+	"fileimporter-imported-success-banner": "ХӀара файл {{SITENAME}} чуйаьккхина.",
 	"fileimporter-go-to-original-file-button": "Файлан оригиналан тӀе гӀо",
 	"fileimporter-commonshelper-missing-config": "($1) вики чуьра файлаш импорт йан аьтту бац. $2 тӀехь викин конфигураци йац.",
 	"fileimporter-viewdiff": "Гайта хийцамаш",
