@@ -29,7 +29,7 @@
 	"fileimporter-cantimporturl": "Impossibile importare l'URL specificato",
 	"fileimporter-cantimportfromsharedrepo": "Impossibile importare file che attualmente non sono in $1, ma ospitati in un repository condiviso.",
 	"fileimporter-cantimportmissingfile": "Impossibile importare un file mancante.",
-	"fileimporter-cantimportfilehidden": "Impossibile importare il file perché almeno una delle sue versioni contiene un file cancellato.",
+	"fileimporter-cantimportfilehidden": "Impossibile importare il file perché almeno una delle sue versioni è nascosta.",
 	"fileimporter-cantimportfileinvalid": "Questo file (o una sua vecchia versione) contiene elementi che non possono essere accettati per motivi di sicurezza: $1",
 	"fileimporter-badtoken": "La sessione non è più valida. Riavvia l'importazione.",
 	"fileimporter-badimporthash": "L'hash dell'importazione non corrisponde. Riavvia l'importazione.",
