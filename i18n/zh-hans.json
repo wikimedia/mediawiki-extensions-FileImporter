@@ -3,6 +3,7 @@
 		"authors": [
 			"A Chinese Wikipedian",
 			"A2093064",
+			"FakeGreenHand",
 			"Lakejason0",
 			"Liuxinyu970226",
 			"Ps2049",
@@ -30,7 +31,7 @@
 	"fileimporter-cantimporturl": "不能导入提供的URL",
 	"fileimporter-cantimportfromsharedrepo": "无法导入实际不在$1上但托管在共享存储库中的文件。",
 	"fileimporter-cantimportmissingfile": "不能导入丢失的文件。",
-	"fileimporter-cantimportfilehidden": "不能导入文件，因为至少一个修订版本包含被屏蔽的文件。",
+	"fileimporter-cantimportfilehidden": "无法导入文件，因为有至少一个文件修订版本被隐藏。",
 	"fileimporter-badtoken": "您的会话不再有效。请重新启动以导入。",
 	"fileimporter-badimporthash": "导入哈希值不匹配。请重新开始导入。",
 	"fileimporter-filenameerror-default": "在您的文件名中存在未知问题。",
