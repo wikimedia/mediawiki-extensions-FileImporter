@@ -14,7 +14,7 @@
 	"fileimporter-specialpage": "Faili import",
 	"fileimporter-importfailed": "Importimine nurjus.",
 	"fileimporter-api-toomanyrevisions": "API tagastas liiga palju redaktsioone, ei saa importida.",
-	"fileimporter-cantimportfilehidden": "Faili ei saa importida, sest vähemalt üks failiversioon on varjatud.",
+	"fileimporter-cantimportfilehidden": "Faili ei saa importida, sest vähemalt üks failiversioon on peidetud.",
 	"fileimporter-cantimportfileinvalid": "See fail või selle faili vanem versioon sisaldab elemente, mille importimist turvakaalutlustel ei lubata: $1",
 	"fileimporter-warningabusefilter": "[//en.wikipedia.org/wiki/Wikipedia:Edit_filter Automaatne filter] leidis selle faili redaktsiooniajaloost muudatuse, mis võib olla ebakonstruktiivne. Filtri võisid vallandada üks või mitu redaktsiooni, mille kohta näidatakse allpool eraldi hoiatusi. Klõpsa uuesti importimisnuppu, et hoiatusi eirata ja et importimist jätkata.",
 	"fileimporter-badtoken": "Seanss ei kehti enam. Palun alusta importimist uuesti.",
