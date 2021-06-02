@@ -118,7 +118,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
 		$this->assertTrue( $file !== false );
 		$this->assertSame( self::TITLE, $file->getName() );
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
-		$this->assertSame( 'Imported>SourceUser1', $file->getUser() );
+		$this->assertSame( 'Imported>SourceUser1', $file->getUploader()->getName() );
 		$this->assertSame( '20180624133723', $file->getTimestamp() );
 		$this->assertSame( 'image/png', $file->getMimeType() );
 		$this->assertSame( 3532, $file->getSize() );

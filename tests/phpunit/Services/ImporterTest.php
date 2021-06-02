@@ -182,7 +182,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( 'Changed the file.', $latestFileRevision->getDescription() );
 		$this->assertSame( '20180625133723', $latestFileRevision->getTimestamp() );
 		$this->assertSame( 3641, $latestFileRevision->getSize() );
-		$this->assertSame( 'Imported>FileChangeUser', $latestFileRevision->getUser() );
+		$this->assertSame( 'Imported>FileChangeUser', $latestFileRevision->getUploader()->getName() );
 		$this->assertFileLogEntry( $latestFileRevision );
 
 		// assert original file revision is correct
@@ -190,7 +190,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->assertSame( 'Original upload comment of Test.png', $firstFileRevision->getDescription() );
 		$this->assertSame( '20180624133723', $firstFileRevision->getTimestamp() );
 		$this->assertSame( 3532, $firstFileRevision->getSize() );
-		$this->assertSame( 'Imported>SourceUser1', $firstFileRevision->getUser() );
+		$this->assertSame( 'Imported>SourceUser1', $firstFileRevision->getUploader()->getName() );
 		$this->assertFileLogEntry( $firstFileRevision );
 	}
 
@@ -243,8 +243,8 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 
 		$this->assertSame( 'upload', $logEntry->getSubtype() );
-		$this->assertSame( $file->getUser(), $logEntry->getPerformerIdentity()->getName() );
-		$this->assertSame( $file->getUser( 'id' ), $logEntry->getPerformerIdentity()->getId() );
+		$this->assertSame( $file->getUploader()->getName(), $logEntry->getPerformerIdentity()->getName() );
+		$this->assertSame( $file->getUploader()->getId(), $logEntry->getPerformerIdentity()->getId() );
 	}
 
 	/**
