@@ -22,7 +22,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Název zdrojového souboru nemá příponu.",
 	"fileimporter-filenameerror-noplannedextension": "Míněný název souboru nemá příponu.",
 	"fileimporter-filenameerror-missmatchextension": "Přípona cílového souboru se neshoduje s příponou originálního souboru.",
-	"fileimporter-illegalfilenamechars": "Název, který se právě snažíte importovat, obsahuje neplatné znaky.",
+	"fileimporter-illegalfilenamechars": "Název souboru, který se právě snažíte importovat, obsahuje neplatné znaky.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplikáty",
 	"fileimporter-exampleprefix": "Příklad",
 	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$2|revize|revizí}} stránky {{PLURAL:$1|bude importována|budou importovány|bude importováno}} z historie verzí.",
