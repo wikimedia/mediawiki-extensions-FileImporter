@@ -133,7 +133,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$requestData = $this->sendApiRequest( $sourceUrl, $params );
 
-		if ( count( $requestData['query']['pages'] ) !== 1 ) {
+		if ( !isset( $requestData['query'] ) || count( $requestData['query']['pages'] ) !== 1 ) {
 			$this->logger->warning(
 				'No pages returned by the API',
 				[
