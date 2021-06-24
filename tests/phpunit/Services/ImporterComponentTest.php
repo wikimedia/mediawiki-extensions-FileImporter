@@ -340,13 +340,14 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		$page->expects( $this->never() )
 			->method( 'getTitle' );
 		$page->expects( $this->once() )
-			->method( 'doEditContent' )
+			->method( 'doUserEditContent' )
 			->with(
 				new \WikitextContent( $expectedWikitext ),
+				$expectedUser,
 				$expectedSummary,
 				EDIT_UPDATE,
 				false,
-				$expectedUser
+				[ 'fileimporter' ]
 			)
 			->willReturn( \StatusValue::newGood() );
 

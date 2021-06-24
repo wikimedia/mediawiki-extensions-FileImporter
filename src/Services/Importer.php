@@ -396,13 +396,12 @@ class Importer {
 		User $user
 	) {
 		// TODO: Replace with $page->newPageUpdater( … )->saveRevision( … )
-		$editResult = $page->doEditContent(
+		$editResult = $page->doUserEditContent(
 			new \WikitextContent( $importPlan->getFileInfoText() ),
+			$user,
 			$importPlan->getRequest()->getIntendedSummary(),
 			EDIT_UPDATE,
 			false,
-			$user,
-			null,
 			[ 'fileimporter' ]
 		);
 
