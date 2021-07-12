@@ -6,6 +6,7 @@
 			"KlaasZ4usV",
 			"Mainframe98",
 			"Mbch331",
+			"McDutchie",
 			"Nickthijssen1994",
 			"Patio"
 		]
@@ -18,7 +19,7 @@
 	"fileimporter-api-failedtogetinfo": "Kon geen bestandsinformatie ophalen van: $1.",
 	"fileimporter-api-file-notfound": "Bestand niet gevonden: $1.",
 	"fileimporter-cantimporturl": "Kan de opgegeven URL niet importeren",
-	"fileimporter-cantimportfromsharedrepo": "Kan geen bestand importeren van een gedeelde bestandsrepository.",
+	"fileimporter-cantimportfromsharedrepo": "Kan geen bestanden importeren die niet daadwerkelijk op $1 staan, maar worden gehost op een gedeelde opslagplaats.",
 	"fileimporter-cantimportmissingfile": "Kan geen ontbrekend bestand importeren.",
 	"fileimporter-cantimportfilehidden": "Kan het bestand niet importeren omdat één of meer revisies verborgen zijn.",
 	"fileimporter-filenameerror-default": "Er is een onbekend probleem met uw bestandsnaam.",
@@ -27,9 +28,9 @@
 	"fileimporter-filenameerror-nosourceextension": "De bronbestandsnaam heeft geen bestandsextensie.",
 	"fileimporter-filenameerror-noplannedextension": "De doelbestandsnaam heeft geen bestandsextensie.",
 	"fileimporter-filenameerror-missmatchextension": "De bestandsextensie van het doel komt niet overeen met de bestandsextensie van het originele bestand.",
-	"fileimporter-localtitleexists": "De titel die u probeert te importeren bestaat al op deze wiki.",
-	"fileimporter-sourcetitleexists": "De titel die u probeert te importeren bestaaat al op de bronwiki.",
-	"fileimporter-illegalfilenamechars": "De titel die u probeert te importeren bevat ongeldige tekens in de bestandsnaam.",
+	"fileimporter-localtitleexists": "De naam waaronder u momenteel probeert een bestand te importeren, is al in gebruik op deze wiki.",
+	"fileimporter-sourcetitleexists": "De naam waaronder u momenteel probeert een bestand te importeren, is al in gebruik op de bronwiki.",
+	"fileimporter-illegalfilenamechars": "De naam waaronder u momenteel probeert een bestand te importeren, bevat tekens die in bestandsnamen niet zijn toegestaan.",
 	"fileimporter-duplicatefilesdetected": "Het bestand dat u probeert te importeren bestaat al op deze wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicaten",
 	"fileimporter-exampleprefix": "Voorbeeld",
@@ -53,7 +54,7 @@
 	"fileimporter-import-wait": "De invoer zal enkele minuten duren.",
 	"fileimporter-imported-success-banner": "Het bestand is succesvol geïmporteerd op {{SITENAME}}.",
 	"fileimporter-go-to-original-file-button": "Terug naar het originele bestand",
-	"fileimporter-file-contains-blocked-category-template": "Dit bestand kan niet worden geïmporteerd, omdat het is als $1 gemarkeerd. $2 staat deze bestanden niet toe.",
+	"fileimporter-file-contains-blocked-category-template": "Dit bestand kan niet worden overgebracht naar {{SITENAME}}, omdat het is gemarkeerd als $1. {{SITENAME}} staat dergelijke bestanden niet toe. Misschien kan dit worden opgelost, maar meestal houdt dit in dat het bestand niet verenigbaar is met het beleid van de site. Raadpleeg [[Project:Licensing|de richtlijnen van {{SITENAME}} en de overlegpagina's over licenties]].",
 	"fileimporter-input-page-info-text": "Leer meer door onze [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons hulppagina] te bezoeken.",
 	"fileimporter-viewdiff": "Wijzigingen bekijken",
 	"fileimporter-to-preview": "Terug naar de voorvertoning"
