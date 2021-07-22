@@ -123,7 +123,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
 	 * @return Status isOK on success
 	 */
-	public function prepare() : Status {
+	public function prepare(): Status {
 		$fileUrl = $this->fileRevision->getField( 'url' );
 		if ( !MWHttpRequest::isValidURI( $fileUrl ) ) {
 			// invalid URL detected
@@ -163,7 +163,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @return Status isOK on success
 	 * @throws ImportException when critical validations fail
 	 */
-	public function validate() : Status {
+	public function validate(): Status {
 		$errorCode = $this->uploadBase->validateTitle();
 		if ( $errorCode !== UploadBase::OK ) {
 			$this->logger->error(
@@ -193,7 +193,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * Commit this operation to persistent storage.
 	 * @return Status isOK on success
 	 */
-	public function commit() : Status {
+	public function commit(): Status {
 		$status = $this->importer->import( $this->wikiRevision );
 
 		if ( !$status->isGood() ) {

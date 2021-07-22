@@ -104,7 +104,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
 		);
 	}
 
-	private function newFileTextRevisionValidator() : FileTextRevisionValidator {
+	private function newFileTextRevisionValidator(): FileTextRevisionValidator {
 		$mock = $this->createMock( FileTextRevisionValidator::class );
 		$mock->method( 'validate' )
 			->willReturn( Status::newGood() );

@@ -25,17 +25,17 @@ use Title;
 class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	use HamcrestPHPUnitIntegration;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		Theme::setSingleton( null );
 		parent::tearDown();
 	}
 
-	private function getMockSpecialPage() : SpecialPage {
+	private function getMockSpecialPage(): SpecialPage {
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( __METHOD__ ) );
@@ -46,21 +46,21 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 		return $mock;
 	}
 
-	private function getMockImportDetails() : ImportDetails {
+	private function getMockImportDetails(): ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions() );
 		return $mock;
 	}
 
-	private function getMockTextRevisions() : TextRevisions {
+	private function getMockTextRevisions(): TextRevisions {
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $this->getMockTextRevision() );
 		return $mock;
 	}
 
-	private function getMockTextRevision() : TextRevision {
+	private function getMockTextRevision(): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturn( '' );

@@ -19,7 +19,7 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 	 *
 	 * @return FileRevision
 	 */
-	private function newFileRevision( string $timestamp, bool $isOld = false ) : FileRevision {
+	private function newFileRevision( string $timestamp, bool $isOld = false ): FileRevision {
 		$mock = $this->createMock( FileRevision::class );
 		$mock->method( 'getField' )
 			->willReturnMap( [

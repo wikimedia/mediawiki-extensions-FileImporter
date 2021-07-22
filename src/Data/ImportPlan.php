@@ -320,7 +320,7 @@ class ImportPlan {
 	 * @return int[] Array mapping string keys to optional counts. The numbers default to 1 and are
 	 *  typically not really of interest.
 	 */
-	public function getActionStats() : array {
+	public function getActionStats(): array {
 		return $this->actionStats;
 	}
 
@@ -341,7 +341,7 @@ class ImportPlan {
 	/**
 	 * @return int[]
 	 */
-	public function getValidationWarnings() : array {
+	public function getValidationWarnings(): array {
 		return $this->validationWarnings;
 	}
 

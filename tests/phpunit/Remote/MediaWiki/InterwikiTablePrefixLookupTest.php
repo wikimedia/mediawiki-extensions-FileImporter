@@ -189,7 +189,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 	private function createInterWikiLookupMock(
 		$validPrefix,
 		array $iwMap
-	) : InterwikiLookup {
+	): InterwikiLookup {
 		$mock = $this->createMock( InterwikiLookup::class );
 		$mock->method( 'isValidInterwiki' )
 			->willReturn( $validPrefix );
@@ -295,7 +295,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiTestCase {
 		);
 	}
 
-	private function createInterwikiApi( array $iwMap = [] ) : HttpRequestExecutor {
+	private function createInterwikiApi( array $iwMap = [] ): HttpRequestExecutor {
 		$remoteContent = $this->createMock( MWHttpRequest::class );
 		$remoteContent->method( 'getContent' )
 			->willReturn( json_encode( [ 'query' => [ 'interwikimap' => $iwMap ] ] ) );

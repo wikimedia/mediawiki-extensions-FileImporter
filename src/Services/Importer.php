@@ -323,7 +323,7 @@ class Importer {
 	private function validateFileInfoText(
 		User $user,
 		ImportPlan $importPlan
-	) : StatusValue {
+	): StatusValue {
 		$status = $this->textRevisionValidator->validate(
 			$importPlan->getTitle(),
 			$user,

@@ -29,7 +29,7 @@ use WebRequest;
 class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	use HamcrestPHPUnitIntegration;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [
@@ -52,7 +52,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 *
 	 * @return Site
 	 */
-	private function getMockSite( $globalId, $domain ) : Site {
+	private function getMockSite( $globalId, $domain ): Site {
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
 			->willReturn( $globalId );
@@ -63,7 +63,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		return $mockSite;
 	}
 
-	protected function newSpecialPage() : SpecialPage {
+	protected function newSpecialPage(): SpecialPage {
 		$services = $this->getServiceContainer();
 		return new SpecialImportFile(
 			$services->getService( 'FileImporterSourceSiteLocator' ),
@@ -75,7 +75,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		);
 	}
 
-	private function getPageNotFoundHttpException() : HttpRequestException {
+	private function getPageNotFoundHttpException(): HttpRequestException {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
 		$httpRequestMock->method( 'getStatus' )->willReturn( 404 );
 
@@ -90,7 +90,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 *
 	 * @return MWHttpRequest
 	 */
-	private function getHttpRequestMock( $fileName ) : MWHttpRequest {
+	private function getHttpRequestMock( $fileName ): MWHttpRequest {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
 		$httpRequestMock->method( 'getContent' )->willReturn(
 			file_get_contents( __DIR__ . '/res/IntegrationTests/' . $fileName )

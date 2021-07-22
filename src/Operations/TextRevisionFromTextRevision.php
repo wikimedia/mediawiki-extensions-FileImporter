@@ -91,7 +91,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
 	 * @return Status isOK on success
 	 */
-	public function prepare() : Status {
+	public function prepare(): Status {
 		$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $this->textRevision );
 		$wikiRevision->setTitle( $this->plannedTitle );
 
@@ -104,7 +104,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * Method to validate prepared data that should be committed.
 	 * @return Status isOK on success
 	 */
-	public function validate() : Status {
+	public function validate(): Status {
 		// Even administrators should not (accidentially) move a file to a protected file name
 		if ( $this->plannedTitle->isProtected() ) {
 			return Status::newFatal( 'fileimporter-filenameerror-protected' );
@@ -123,7 +123,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 * Commit this operation to persistent storage.
 	 * @return Status isOK on success
 	 */
-	public function commit() : Status {
+	public function commit(): Status {
 		$result = $this->importer->import( $this->wikiRevision );
 
 		if ( $result ) {

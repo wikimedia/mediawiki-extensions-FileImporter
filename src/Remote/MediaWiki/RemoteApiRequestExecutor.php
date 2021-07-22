@@ -83,7 +83,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		User $user,
 		array $params,
 		bool $usePost = false
-	) : ?array {
+	): ?array {
 		// TODO handle error
 		if ( !$this->canUseCentralAuth( $user ) ) {
 			$this->logger->error( __METHOD__ . ' user can\'t use CentralAuth.' );
@@ -109,7 +109,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @return int
 	 */
-	private function getCentralId( User $user ) : int {
+	private function getCentralId( User $user ): int {
 		return $this->centralIdLookup->centralIdFromLocalUser(
 			$user,
 			CentralIdLookup::AUDIENCE_RAW
@@ -120,7 +120,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @return bool
 	 */
-	private function canUseCentralAuth( User $user ) : bool {
+	private function canUseCentralAuth( User $user ): bool {
 		return $user->isSafeToLoad() &&
 			$this->getCentralId( $user ) !== 0;
 	}
@@ -134,7 +134,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	private function getAuthorizedApiUrl(
 		SourceUrl $sourceUrl,
 		User $user
-	) : string {
+	): string {
 		$url = $this->httpApiLookup->getApiUrl( $sourceUrl );
 		return wfAppendQuery( $url, [
 			'centralauthtoken' => $this->centralAuthTokenProvider->getToken( $user ),
@@ -146,7 +146,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	 * @param User $user
 	 * @return string|null
 	 */
-	public function getCsrfToken( SourceUrl $sourceUrl, User $user ) : ?string {
+	public function getCsrfToken( SourceUrl $sourceUrl, User $user ): ?string {
 		try {
 			$tokenRequestUrl = $this->getAuthorizedApiUrl( $sourceUrl, $user );
 		} catch ( Exception $ex ) {
@@ -185,7 +185,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		User $user,
 		array $params,
 		bool $usePost
-	) : ?array {
+	): ?array {
 		/** @var array|null $result */
 		$result = null;
 		/** @var \MWHttpRequest|null $request */

@@ -45,7 +45,7 @@ class FileTextRevisionValidator {
 		Content $content,
 		$summary,
 		$minor
-	) : Status {
+	): Status {
 		if ( !$title->inNamespace( NS_FILE ) ) {
 			return Status::newFatal( 'fileimporter-badnamespace' );
 		}

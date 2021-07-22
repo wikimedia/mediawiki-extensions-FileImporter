@@ -20,7 +20,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [
@@ -496,7 +496,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 		return TestingAccessWrapper::newFromObject( $apiDetailRetriever );
 	}
 
-	private function getMockHttpApiLookup() : HttpApiLookup {
+	private function getMockHttpApiLookup(): HttpApiLookup {
 		$mock = $this->createMock( HttpApiLookup::class );
 		$mock->method( 'getApiUrl' )
 			->willReturn( 'APIURL' );
@@ -509,7 +509,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	 *
 	 * @return HttpRequestExecutor
 	 */
-	private function getMockHttpRequestExecutor( $titleString, $content ) : HttpRequestExecutor {
+	private function getMockHttpRequestExecutor( $titleString, $content ): HttpRequestExecutor {
 		return $this->getMockHttpRequestExecutorWithExpectedRequest(
 			$this->getExpectedApiParameters( $titleString ),
 			$content
@@ -525,7 +525,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	private function getMockHttpRequestExecutorWithExpectedRequest(
 		array $expectedApiParameters,
 		$content
-	) : HttpRequestExecutor {
+	): HttpRequestExecutor {
 		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->expects( $this->once() )
 			->method( 'execute' )
@@ -563,7 +563,7 @@ class ApiDetailRetrieverTest extends \MediaWikiTestCase {
 	 *
 	 * @return MWHttpRequest
 	 */
-	private function getMockMWHttpRequest( $content ) : MWHttpRequest {
+	private function getMockMWHttpRequest( $content ): MWHttpRequest {
 		$mock = $this->createMock( MWHttpRequest::class );
 		$mock->method( 'getContent' )
 			->willReturn( $content );

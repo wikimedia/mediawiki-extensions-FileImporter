@@ -42,7 +42,7 @@ use UploadBase;
 class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	use MockTitleTrait;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [
@@ -69,7 +69,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	private function getMockImportTitleChecker(
 		$callCount = 0,
 		$allowed = true
-	) : ImportTitleChecker {
+	): ImportTitleChecker {
 		$mock = $this->createMock( ImportTitleChecker::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'importAllowed' )
@@ -86,7 +86,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	private function getMockDuplicateFileRevisionChecker(
 		$callCount = 0,
 		$arrayElements = 0
-	) : DuplicateFileRevisionChecker {
+	): DuplicateFileRevisionChecker {
 		$mock = $this->createMock( DuplicateFileRevisionChecker::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'findDuplicates' )
@@ -100,11 +100,11 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 *
 	 * @return Title
 	 */
-	private function getMockTitle( $text, $exists = false ) : Title {
+	private function getMockTitle( $text, $exists = false ): Title {
 		return $this->makeMockTitle( $text, [ 'id' => (int)$exists ] );
 	}
 
-	private function getMockFileRevisions() : FileRevisions {
+	private function getMockFileRevisions(): FileRevisions {
 		$mock = $this->createMock( FileRevisions::class );
 		$mockFileRevision = $this->createMock( FileRevision::class );
 		$mock->method( 'getLatest' )
@@ -112,7 +112,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	private function getMockImportDetails( LinkTarget $sourceTitle ) : ImportDetails {
+	private function getMockImportDetails( LinkTarget $sourceTitle ): ImportDetails {
 		$details = new ImportDetails(
 			new SourceUrl( '//w.invalid' ),
 			$sourceTitle,
@@ -129,7 +129,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 *
 	 * @return ImportPlan
 	 */
-	private function getMockImportPlan( $planTitle, LinkTarget $sourceTitle = null ) : ImportPlan {
+	private function getMockImportPlan( $planTitle, LinkTarget $sourceTitle = null ): ImportPlan {
 		$mock = $this->getMockBuilder( ImportPlan::class )
 			->setConstructorArgs( [
 				new ImportRequest( '//w.invalid' ),
@@ -153,7 +153,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	private function getMockUploadBaseFactory( UploadBase $uploadBase ) : UploadBaseFactory {
+	private function getMockUploadBaseFactory( UploadBase $uploadBase ): UploadBaseFactory {
 		$mock = $this->createMock( UploadBaseFactory::class );
 		$mock->method( 'newValidatingUploadBase' )
 			->willReturn( $uploadBase );
@@ -167,7 +167,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 */
 	private function getMockValidatingUploadBase(
 		int $validTitle = UploadBase::OK
-	) : ValidatingUploadBase {
+	): ValidatingUploadBase {
 		$mock = $this->createMock( ValidatingUploadBase::class );
 		$mock->method( 'validateTitle' )
 			->willReturn( $validTitle );
@@ -183,7 +183,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	private function getMockWikiLinkParserFactory(
 		$callCount = 0,
 		WikiLinkParser $wikiLinkParser = null
-	) : WikiLinkParserFactory {
+	): WikiLinkParserFactory {
 		$mock = $this->createMock( WikiLinkParserFactory::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'getWikiLinkParser' )

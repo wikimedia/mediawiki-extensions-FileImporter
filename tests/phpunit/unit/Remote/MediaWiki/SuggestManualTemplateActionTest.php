@@ -57,7 +57,7 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 		$this->assertEquals( $status, $importHandler->execute( $importPlanMock, new \User() ) );
 	}
 
-	private function createStatus( ?string $templateName, string $expectedMessage ) : StatusValue {
+	private function createStatus( ?string $templateName, string $expectedMessage ): StatusValue {
 		$messageSpecifier = [ $expectedMessage, self::URL ];
 		if ( $templateName ) {
 			$messageSpecifier[] = $templateName;
@@ -75,7 +75,7 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 	private function createWikidataTemplateLookup(
 		SourceUrl $sourceUrl,
 		?string $templateResult
-	) : WikidataTemplateLookup {
+	): WikidataTemplateLookup {
 		$mock = $this->createMock( WikidataTemplateLookup::class );
 		$mock
 			->method( 'fetchNowCommonsLocalTitle' )

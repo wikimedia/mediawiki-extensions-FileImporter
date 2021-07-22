@@ -33,7 +33,7 @@ class CategoryExtractorTest extends MediaWikiTestCase {
 	 */
 	private $wikiPageFactory;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->services = MediaWikiServices::getInstance();

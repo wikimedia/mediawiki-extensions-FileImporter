@@ -32,20 +32,20 @@ use Title;
 class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 	use HamcrestPHPUnitIntegration;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		Theme::setSingleton( null );
 
 		parent::tearDown();
 	}
 
-	private function getMockSpecialPage() : SpecialPage {
+	private function getMockSpecialPage(): SpecialPage {
 		$user = $this->getTestUser()->getUser();
 		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
 
@@ -69,21 +69,21 @@ class ChangeFileInfoFormTest extends \MediaWikiTestCase {
 		return $mock;
 	}
 
-	private function getMockImportDetails() : ImportDetails {
+	private function getMockImportDetails(): ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions() );
 		return $mock;
 	}
 
-	private function getMockTextRevisions() : TextRevisions {
+	private function getMockTextRevisions(): TextRevisions {
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $this->getMockTextRevision() );
 		return $mock;
 	}
 
-	private function getMockTextRevision() : TextRevision {
+	private function getMockTextRevision(): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturn( '' );

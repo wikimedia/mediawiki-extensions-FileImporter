@@ -19,7 +19,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 *
 	 * @return string
 	 */
-	public function getHtml( Title $filePage, string $wikitext ) : string {
+	public function getHtml( Title $filePage, string $wikitext ): string {
 		$this->loadModules();
 		$this->runEditFormInitialHook( $filePage );
 
@@ -68,7 +68,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 *
 	 * @return string HTML
 	 */
-	private function buildEditor( string $wikitext ) : string {
+	private function buildEditor( string $wikitext ): string {
 		$class = 'mw-editfont-' . $this->getUser()->getOption( 'editfont' );
 		$pageLang = $this->getLanguage();
 
@@ -104,7 +104,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 *
 	 * @return string
 	 */
-	private function addNewLineAtEnd( string $wikitext ) : string {
+	private function addNewLineAtEnd( string $wikitext ): string {
 		return $wikitext === '' ? '' : $wikitext . "\n";
 	}
 

@@ -25,7 +25,7 @@ class AbuseFilterWarningsException extends LocalizedImportException {
 	/**
 	 * @return MessageSpecifier[]
 	 */
-	public function getMessages() : array {
+	public function getMessages(): array {
 		return $this->messages;
 	}
 

@@ -26,7 +26,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		Theme::setSingleton( new BlankTheme() );

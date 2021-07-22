@@ -14,7 +14,7 @@ use UploadBase;
  */
 class FileImporterUploadBaseTest extends \MediaWikiTestCase {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		// For testing mark the jpg extension is disallowed
 		$this->setMwGlobals( 'wgFileBlacklist', [ 'jpg' ] );

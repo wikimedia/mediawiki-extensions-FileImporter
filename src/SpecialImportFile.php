@@ -166,9 +166,10 @@ class SpecialImportFile extends SpecialPage {
 		}
 
 		# Check blocks
-		if ( $user->isBlocked() ) {
+		$localBlock = $user->getBlock();
+		if ( $localBlock ) {
 			$this->logErrorStats( self::ERROR_LOCAL_BLOCK, false );
-			throw new UserBlockedError( $user->getBlock() );
+			throw new UserBlockedError( $localBlock );
 		}
 
 		// Global blocks

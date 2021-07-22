@@ -66,7 +66,7 @@ class ImportOperations implements ImportOperation {
 		int $nextState,
 		bool $stopOnError,
 		callable $executor
-	) : Status {
+	): Status {
 		if ( !$this->importOperations ) {
 			throw new ImportException(
 				__CLASS__ . ' tried to run empty import operations',
@@ -93,7 +93,7 @@ class ImportOperations implements ImportOperation {
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
 	 * @return Status isOK when all steps succeed
 	 */
-	public function prepare() : Status {
+	public function prepare(): Status {
 		return $this->runOperations(
 			self::BUILDING,
 			self::PREPARE_RUN,
@@ -109,7 +109,7 @@ class ImportOperations implements ImportOperation {
 	 * @return Status isOK when all validation succeeds.  Specifics are accumulated
 	 *  as errors and warnings.
 	 */
-	public function validate() : Status {
+	public function validate(): Status {
 		return $this->runOperations(
 			self::PREPARE_RUN,
 			self::VALIDATE_RUN,
@@ -124,7 +124,7 @@ class ImportOperations implements ImportOperation {
 	 * Commit this operation to persistent storage.
 	 * @return Status isOK if all steps succeeded.
 	 */
-	public function commit() : Status {
+	public function commit(): Status {
 		return $this->runOperations(
 			self::VALIDATE_RUN,
 			self::COMMIT_RUN,

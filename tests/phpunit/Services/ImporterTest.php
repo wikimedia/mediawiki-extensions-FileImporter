@@ -53,7 +53,7 @@ class ImporterTest extends \MediaWikiTestCase {
 	/** @var ScopedCallback[] */
 	private $hold = [];
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->tablesUsed[] = 'change_tag';
@@ -70,7 +70,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$this->targetUser = $this->getTestUser()->getUser();
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		parent::tearDown();
 
 		// avoid file leftovers when repeatedly run on a local system
@@ -279,7 +279,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		$type,
 		$timestamp,
 		$expectedTag = null
-	) : DatabaseLogEntry {
+	): DatabaseLogEntry {
 		$queryInfo = DatabaseLogEntry::getSelectQueryData();
 		$queryInfo['conds'] += [
 			'log_page' => $pageId,
@@ -313,7 +313,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		return DatabaseLogEntry::newFromRow( $row );
 	}
 
-	private function newImporter() : Importer {
+	private function newImporter(): Importer {
 		$services = MediaWikiServices::getInstance();
 
 		$uploadRevisionImporter = new ImportableUploadRevisionImporter(
@@ -343,7 +343,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 	}
 
-	private function newWikiRevisionFactory() : WikiRevisionFactory {
+	private function newWikiRevisionFactory(): WikiRevisionFactory {
 		$mock = $this->getMockBuilder( WikiRevisionFactory::class )
 			->onlyMethods( [ 'newFromFileRevision' ] )
 			->getMock();
@@ -363,13 +363,13 @@ class ImporterTest extends \MediaWikiTestCase {
 		return $mock;
 	}
 
-	private function newHttpRequestExecutor() : HttpRequestExecutor {
+	private function newHttpRequestExecutor(): HttpRequestExecutor {
 		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->method( 'executeAndSave' )->willReturn( true );
 		return $mock;
 	}
 
-	private function newImportPlan() : ImportPlan {
+	private function newImportPlan(): ImportPlan {
 		$sourceUrl = new SourceUrl( 'http://example.com/Test.png' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, self::TITLE );
 
@@ -413,7 +413,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		);
 	}
 
-	private function newTextRevisions() : TextRevisions {
+	private function newTextRevisions(): TextRevisions {
 		return new TextRevisions( [
 			new TextRevision( [
 				'minor' => '',
@@ -442,7 +442,7 @@ class ImporterTest extends \MediaWikiTestCase {
 		] );
 	}
 
-	private function newFileRevisions() : FileRevisions {
+	private function newFileRevisions(): FileRevisions {
 		return new FileRevisions( [
 			new FileRevision( [
 				'name' => 'File:test.jpg',

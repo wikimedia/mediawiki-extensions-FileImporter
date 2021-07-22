@@ -32,7 +32,7 @@ class RemoteApiActionExecutor {
 	 *
 	 * @return StatusValue ok if the user can edit the page
 	 */
-	public function executeTestEditActionQuery( SourceUrl $sourceUrl, User $user, string $title ) : StatusValue {
+	public function executeTestEditActionQuery( SourceUrl $sourceUrl, User $user, string $title ): StatusValue {
 		// Expected return values:
 		// { "query": { "pages": [ { "actions": { "edit": true }, …
 		// { "query": { "pages": [ { "actions": { "edit": false }, …
@@ -73,7 +73,7 @@ class RemoteApiActionExecutor {
 		string $title,
 		array $params,
 		string $editSummary
-	) : StatusValue {
+	): StatusValue {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
 		if ( $token === null ) {
 			return $this->statusFromApiResponse();
@@ -104,7 +104,7 @@ class RemoteApiActionExecutor {
 	 *
 	 * @return StatusValue ok if the user is allowed to delete pages
 	 */
-	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ) : StatusValue {
+	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ): StatusValue {
 		// Expected return values:
 		// { "query": { "userinfo": { "rights": [ "delete", …
 		// Same with formatversion=2
@@ -140,7 +140,7 @@ class RemoteApiActionExecutor {
 		User $user,
 		string $title,
 		string $deletionReason
-	) : StatusValue {
+	): StatusValue {
 		$token = $this->remoteApiRequestExecutor->getCsrfToken( $sourceUrl, $user );
 		if ( $token === null ) {
 			return $this->statusFromApiResponse();
@@ -162,7 +162,7 @@ class RemoteApiActionExecutor {
 		return $this->statusFromApiResponse( $result );
 	}
 
-	private function statusFromApiResponse( array $apiResponse = null ) : StatusValue {
+	private function statusFromApiResponse( array $apiResponse = null ): StatusValue {
 		$status = StatusValue::newGood();
 
 		if ( !$apiResponse ) {

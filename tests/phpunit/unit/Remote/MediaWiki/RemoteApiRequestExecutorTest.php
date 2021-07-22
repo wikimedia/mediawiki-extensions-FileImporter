@@ -167,7 +167,7 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	private function createHttpApiLookup() : HttpApiLookup {
+	private function createHttpApiLookup(): HttpApiLookup {
 		$mockHttpApiLookup = $this->createMock( HttpApiLookup::class );
 		$mockHttpApiLookup
 			->method( 'getApiUrl' )
@@ -181,7 +181,7 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 	 */
 	private function createCentralAuthTokenProvider(
 		$centralAuthToken
-	) : CentralAuthTokenProvider {
+	): CentralAuthTokenProvider {
 		$mockCentralAuthTokenProvider = $this->createMock( CentralAuthTokenProvider::class );
 		$mockCentralAuthTokenProvider
 			->method( 'getToken' )
@@ -189,7 +189,7 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		return $mockCentralAuthTokenProvider;
 	}
 
-	private function createCentralIdLookup() : CentralIdLookup {
+	private function createCentralIdLookup(): CentralIdLookup {
 		$mockCentralIdLookup = $this->createMock( CentralIdLookup::class );
 		$mockCentralIdLookup
 			->method( 'centralIdFromLocalUser' )

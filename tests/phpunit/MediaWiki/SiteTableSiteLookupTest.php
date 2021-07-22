@@ -21,7 +21,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return Site
 	 */
-	private function getSite( $globalId, $linkPath ) : Site {
+	private function getSite( $globalId, $linkPath ): Site {
 		$site = new Site();
 		$site->setGlobalId( $globalId );
 		$site->setLinkPath( $linkPath );

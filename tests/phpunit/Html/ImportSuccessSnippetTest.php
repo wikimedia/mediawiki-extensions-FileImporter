@@ -21,12 +21,12 @@ use User;
  */
 class ImportSuccessSnippetTest extends MediaWikiTestCase {
 
-	public function setUp() : void {
+	public function setUp(): void {
 		parent::setUp();
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function tearDown() : void {
+	public function tearDown(): void {
 		Theme::setSingleton( null );
 		parent::tearDown();
 	}

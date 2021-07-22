@@ -30,19 +30,19 @@ use Title;
  */
 class FileInfoDiffPageTest extends \MediaWikiTestCase {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 		$this->setMwGlobals( [ 'wgFileImporterTextForPostImportRevision' => '' ] );
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		Theme::setSingleton( null );
 		parent::tearDown();
 	}
 
-	private function getMockSpecialPage() : SpecialPage {
+	private function getMockSpecialPage(): SpecialPage {
 		$title = Title::newFromText( __METHOD__ );
 
 		$mock = $this->createMock( SpecialPage::class );
@@ -59,7 +59,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 		return $mock;
 	}
 
-	private function getTestContext( Title $title ) : IContextSource {
+	private function getTestContext( Title $title ): IContextSource {
 		$context = new DerivativeContext( RequestContext::getMain() );
 		$context->setTitle( $title );
 		return $context;
@@ -69,7 +69,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 * @param string $originalInput
 	 * @return ImportDetails
 	 */
-	private function getMockImportDetails( $originalInput ) : ImportDetails {
+	private function getMockImportDetails( $originalInput ): ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions( $originalInput ) );
@@ -80,7 +80,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 * @param string $originalInput
 	 * @return TextRevisions
 	 */
-	private function getMockTextRevisions( $originalInput ) : TextRevisions {
+	private function getMockTextRevisions( $originalInput ): TextRevisions {
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $this->getMockTextRevision( $originalInput ) );
@@ -91,7 +91,7 @@ class FileInfoDiffPageTest extends \MediaWikiTestCase {
 	 * @param string $originalInput
 	 * @return TextRevision
 	 */
-	private function getMockTextRevision( $originalInput ) : TextRevision {
+	private function getMockTextRevision( $originalInput ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturn( $originalInput );

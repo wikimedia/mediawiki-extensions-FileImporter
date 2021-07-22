@@ -39,7 +39,7 @@ class WikiRevisionFactory {
 		string $title,
 		string $timestamp,
 		?string $sha1
-	) : WikiRevision {
+	): WikiRevision {
 		$titleParts = explode( ':', $title );
 		$filename = end( $titleParts );
 
@@ -130,7 +130,7 @@ class WikiRevisionFactory {
 	 * @return string Either the unchanged username if it's a known local or valid CentralAuth/SUL
 	 *  user, otherwise the name with the DEFAULT_USERNAME_PREFIX prefix prepended.
 	 */
-	private function createCentralAuthUser( string $username ) : string {
+	private function createCentralAuthUser( string $username ): string {
 		// This uses the prefix only as fallback
 		return $this->externalUserNames->applyPrefix( $username );
 	}

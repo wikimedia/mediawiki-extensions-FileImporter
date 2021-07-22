@@ -29,12 +29,12 @@ use Wikimedia\TestingAccessWrapper;
  */
 class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		Theme::setSingleton( null );
 		parent::tearDown();
 	}
@@ -131,7 +131,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 	 * @param string $origHash
 	 * @return ImportPlan
 	 */
-	private function createMockImportPlan( $origHash ) : ImportPlan {
+	private function createMockImportPlan( $origHash ): ImportPlan {
 		$importDetailsMock = $this->createMock( ImportDetails::class );
 		$importDetailsMock->method( 'getOriginalHash' )
 			->willReturn( $origHash );
@@ -155,7 +155,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 	 * @param bool $tokenMatches
 	 * @return User
 	 */
-	private function createMockUser( $tokenMatches ) : User {
+	private function createMockUser( $tokenMatches ): User {
 		$mockUser = $this->createMock( User::class );
 		$mockUser->method( 'matchEditToken' )
 			->willReturn( $tokenMatches );

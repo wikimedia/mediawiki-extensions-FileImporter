@@ -19,6 +19,6 @@ interface ImportTitleChecker {
 	 *
 	 * @return bool is the import allowed
 	 */
-	public function importAllowed( SourceUrl $sourceUrl, string $intendedFileName ) : bool;
+	public function importAllowed( SourceUrl $sourceUrl, string $intendedFileName ): bool;
 
 }

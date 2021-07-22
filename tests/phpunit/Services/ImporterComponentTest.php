@@ -57,7 +57,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	 */
 	private $user;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );
@@ -299,7 +299,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	/**
 	 * @return WikiRevision
 	 */
-	private function createWikiRevisionMock() : WikiRevision {
+	private function createWikiRevisionMock(): WikiRevision {
 		$revision = $this->createMock( WikiRevision::class );
 		$revision->expects( $this->once() )
 			->method( 'getContent' )
@@ -311,7 +311,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		TextRevision $expectedTextRevision,
 		FileRevision $expectedFileRevision,
 		WikiRevision $returnedWikiRevision
-	) : WikiRevisionFactory {
+	): WikiRevisionFactory {
 		$factory = $this->createMock( WikiRevisionFactory::class );
 		$factory->expects( $this->once() )
 			->method( 'newFromTextRevision' )
@@ -335,7 +335,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		User $expectedUser,
 		$expectedWikitext,
 		$expectedSummary
-	) : WikiPageFactory {
+	): WikiPageFactory {
 		$page = $this->createMock( \WikiPage::class );
 		$page->expects( $this->never() )
 			->method( 'getTitle' );
@@ -359,7 +359,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $factory;
 	}
 
-	private function createHttpRequestExecutorMock() : HttpRequestExecutor {
+	private function createHttpRequestExecutorMock(): HttpRequestExecutor {
 		$request = $this->createMock( \MWHttpRequest::class );
 
 		$executor = $this->createMock( HttpRequestExecutor::class );
@@ -373,7 +373,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 	private function createUploadBaseFactoryMock(
 		User $expectedUser,
 		TextRevision $expectedTextRevision
-	) : UploadBaseFactory {
+	): UploadBaseFactory {
 		$uploadBase = $this->createMock( ValidatingUploadBase::class );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateTitle' )
@@ -396,7 +396,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 
 	private function createUploadRevisionImporterMock(
 		WikiRevision $expectedWikiRevision
-	) : UploadRevisionImporter {
+	): UploadRevisionImporter {
 		$importer = $this->createMock( UploadRevisionImporter::class );
 		$importer->expects( $this->once() )
 			->method( 'import' )
@@ -407,7 +407,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 
 	private function createOldRevisionImporterMock(
 		WikiRevision $expectedWikiRevision
-	) : OldRevisionImporter {
+	): OldRevisionImporter {
 		$importer = $this->createMock( OldRevisionImporter::class );
 		$importer->expects( $this->once() )
 			->method( 'import' )
@@ -416,7 +416,7 @@ class ImporterComponentTest extends \MediaWikiTestCase {
 		return $importer;
 	}
 
-	private function createNullRevisionCreatorMock( User $expectedUser ) : NullRevisionCreator {
+	private function createNullRevisionCreatorMock( User $expectedUser ): NullRevisionCreator {
 		$creator = $this->createMock( NullRevisionCreator::class );
 		$creator->expects( $this->once() )
 			->method( 'createForLinkTarget' )

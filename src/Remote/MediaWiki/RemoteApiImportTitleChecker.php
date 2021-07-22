@@ -43,7 +43,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 	 * @return bool false if a file with this name already exists
 	 * @throws ImportException when the request failed
 	 */
-	public function importAllowed( SourceUrl $sourceUrl, string $intendedFileName ) : bool {
+	public function importAllowed( SourceUrl $sourceUrl, string $intendedFileName ): bool {
 		$api = $this->httpApiLookup->getApiUrl( $sourceUrl );
 		$apiParameters = $this->getParams( $intendedFileName );
 
@@ -78,7 +78,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 		return array_key_exists( 'missing', $requestData['query']['pages'][0] );
 	}
 
-	private function getParams( string $titleString ) : array {
+	private function getParams( string $titleString ): array {
 		return [
 			'format' => 'json',
 			'action' => 'query',
