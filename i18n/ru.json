@@ -34,7 +34,7 @@
 	"fileimporter-cantimporturl": "Невозможно импортировать данный URL-адрес",
 	"fileimporter-cantimportfromsharedrepo": "Невозможно импортировать файл из общего хранилища.",
 	"fileimporter-cantimportmissingfile": "Не удаётся импортировать отсутствующий файл.",
-	"fileimporter-cantimportfilehidden": "Невозможно импортировать файл, поскольку хотя бы одна из его версий содержит подавленный файл.",
+	"fileimporter-cantimportfilehidden": "Невозможно импортировать файл, поскольку как минимум одна из его версий скрыта.",
 	"fileimporter-badtoken": "Ваша сессия более не действительна. Пожалуйста, начните импортирование заново.",
 	"fileimporter-filenameerror-default": "Появилась неизвестная проблема с именем файла.",
 	"fileimporter-filenameerror-automaticchanges": "Имя файла было автоматически изменено из «$1» в «$2»",
