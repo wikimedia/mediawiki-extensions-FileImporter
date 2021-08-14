@@ -43,7 +43,7 @@ class FileTextRevisionValidator {
 		Title $title,
 		User $user,
 		Content $content,
-		$summary,
+		string $summary,
 		$minor
 	): Status {
 		if ( !$title->inNamespace( NS_FILE ) ) {

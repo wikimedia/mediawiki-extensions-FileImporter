@@ -328,7 +328,7 @@ class Importer {
 			$importPlan->getTitle(),
 			$user,
 			new \WikitextContent( $importPlan->getFileInfoText() ),
-			$importPlan->getRequest()->getIntendedSummary(),
+			$importPlan->getRequest()->getIntendedSummary() ?? '',
 			false
 		);
 		return $status;
