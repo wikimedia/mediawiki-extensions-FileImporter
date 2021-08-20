@@ -326,7 +326,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	private function checkMaxRevisionAggregatedBytes( array $pageInfoData ) {
 		$aggregatedFileBytes = 0;
 		foreach ( $pageInfoData['imageinfo'] as $fileVersion ) {
-			$aggregatedFileBytes += $fileVersion['size'];
+			$aggregatedFileBytes += $fileVersion['size'] ?? 0;
 			if ( $aggregatedFileBytes > $this->maxAggregatedBytes ||
 				$aggregatedFileBytes > static::MAX_AGGREGATED_BYTES ) {
 				$versions = count( $pageInfoData['imageinfo'] );
@@ -357,11 +357,9 @@ class ApiDetailRetriever implements DetailRetriever {
 				$revisionInfo['user'] = $this->suppressedUsername;
 			}
 
-			if ( array_key_exists( 'size', $revisionInfo ) ) {
-				if ( $revisionInfo['size'] > $this->maxBytes ) {
-					$versions = count( $imageInfo );
-					throw new LocalizedImportException( [ 'fileimporter-filetoolarge', $versions ] );
-				}
+			if ( isset( $revisionInfo['size'] ) && $revisionInfo['size'] > $this->maxBytes ) {
+				$versions = count( $imageInfo );
+				throw new LocalizedImportException( [ 'fileimporter-filetoolarge', $versions ] );
 			}
 
 			if ( isset( $revisionInfo['sha1'] ) ) {
