@@ -14,7 +14,8 @@
 			"Redredsonia",
 			"Saimongoltinio",
 			"Vlad5250",
-			"VoxelJ"
+			"VoxelJ",
+			"WindEwriX"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -37,7 +38,7 @@
 	"fileimporter-cantimportfilehidden": "Невозможно импортировать файл, поскольку как минимум одна из его версий скрыта.",
 	"fileimporter-badtoken": "Ваша сессия более не действительна. Пожалуйста, начните импортирование заново.",
 	"fileimporter-filenameerror-default": "Появилась неизвестная проблема с именем файла.",
-	"fileimporter-filenameerror-automaticchanges": "Имя файла было автоматически изменено из «$1» в «$2»",
+	"fileimporter-filenameerror-automaticchanges": "Имя файла было автоматически изменено с «$1» на «$2»",
 	"fileimporter-filenameerror-missmatchextension": "Расширение целевого файла не совпадает с расширением оригинального файла.",
 	"fileimporter-duplicatefilesdetected": "Файл, который вы пытаетесь импортировать, уже существует в данном вики-проекте.",
 	"fileimporter-duplicatefilesdetected-prefix": "Дубликаты",
