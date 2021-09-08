@@ -128,6 +128,10 @@ class FileChunkSaver implements LoggerAwareInterface {
 		}
 	}
 
+	/**
+	 * @param string $message
+	 * @return never
+	 */
 	private function closeHandleLogAndThrowException( $message ) {
 		$this->closeHandle();
 		$this->logger->debug( $message );
