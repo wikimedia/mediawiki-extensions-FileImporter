@@ -87,5 +87,9 @@
 	"fileimporter-commonshelper-parsing-failed": "Le pagina de configuration pro tu wiki ($1) es incomplete. Per favor assecura te que illo contine un section \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Le file non pote esser transferite a {{SITENAME}} perque illo ha essite marcate como $1. {{SITENAME}} non permitte tal files. Le problema pote forsan esser resolvite, ma es plus probabile que le file non es compatibile. Per favor, consulta [[Project:Licensing|le politica communitari de {{SITENAME}} e le paginas de discussion sur le licentias]].",
 	"fileimporter-file-missing-required-template": "Le file non pote esser transferite a {{SITENAME}} perque illo non ha essite marcate con un licentia compatibile. {{SITENAME}} non permitte tal files. Le problema pote forsan esser resolvite, ma es plus probabile que le file non es compatibile. Per favor, consulta [[Project:Licensing|le politica communitari de {{SITENAME}} e le paginas de discussion sur le licentias]].",
-	"fileimporter-category-encouragement": "Le files sur {{SITENAME}} deberea esser categorisate. Isto los rende plus facile a trovar. Tu pote cambiar le categorias de iste file modificante le information del file sur iste pagina."
+	"fileimporter-category-encouragement": "Le files sur {{SITENAME}} deberea esser categorisate. Isto los rende plus facile a trovar. Tu pote cambiar le categorias de iste file modificante le information del file sur iste pagina.",
+	"fileimporter-auto-replacements-summary": "$1 cambiamento{{PLURAL:$1||s}} automatic ha essite apportate al patronos",
+	"fileimporter-input-page-info-text": "Apprende plus visitante nostre [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons pagina de adjuta].",
+	"fileimporter-viewdiff": "Detaliar modificationes",
+	"fileimporter-to-preview": "Retornar al previsualisation"
 }
