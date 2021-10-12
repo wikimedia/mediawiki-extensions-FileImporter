@@ -10,7 +10,7 @@ use FileImporter\FileImporterHooks;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class FileImporterHooksTest extends \MediaWikiTestCase {
+class FileImporterHooksTest extends \MediaWikiIntegrationTestCase {
 
 	public function testOnListDefinedTags() {
 		$tags = [];

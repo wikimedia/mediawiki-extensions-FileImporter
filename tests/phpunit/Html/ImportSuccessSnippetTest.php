@@ -5,7 +5,7 @@ namespace FileImporter\Tests\Html;
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
 use HashBagOStuff;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Message;
 use MessageLocalizer;
 use OOUI\BlankTheme;
@@ -19,7 +19,7 @@ use User;
  *
  * @license GPL-2.0-or-later
  */
-class ImportSuccessSnippetTest extends MediaWikiTestCase {
+class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		parent::setUp();

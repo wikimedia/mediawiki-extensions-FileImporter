@@ -18,7 +18,7 @@ use Title;
  *
  * @license GPL-2.0-or-later
  */
-class NullRevisionCreatorTest extends \MediaWikiTestCase {
+class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 	public function testCreateForLinkTargetSuccess() {
 		$this->setMwGlobals( 'wgHooks', [

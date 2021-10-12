@@ -9,7 +9,7 @@ use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Services\WikidataTemplateLookup;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use StatusValue;
 use Title;
 
@@ -18,7 +18,7 @@ use Title;
  *
  * @license GPL-2.0-or-later
  */
-class RemoteSourceFileEditDeleteActionTest extends MediaWikiTestCase {
+class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase {
 
 	public function testExecute_noCleanupRequested() {
 		$fallbackHandler = $this->createMock( PostImportHandler::class );

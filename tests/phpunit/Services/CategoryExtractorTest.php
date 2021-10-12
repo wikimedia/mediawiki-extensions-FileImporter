@@ -5,7 +5,7 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Services\CategoryExtractor;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Parser;
 use ParserOutput;
 use Title;
@@ -21,7 +21,7 @@ use Wikimedia\TestingAccessWrapper;
  *
  * @license GPL-2.0-or-later
  */
-class CategoryExtractorTest extends MediaWikiTestCase {
+class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @var MediaWikiServices

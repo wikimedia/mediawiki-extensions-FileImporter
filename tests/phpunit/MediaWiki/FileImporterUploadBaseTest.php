@@ -12,7 +12,7 @@ use UploadBase;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class FileImporterUploadBaseTest extends \MediaWikiTestCase {
+class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

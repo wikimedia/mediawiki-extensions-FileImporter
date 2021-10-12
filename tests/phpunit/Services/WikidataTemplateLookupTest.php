@@ -7,7 +7,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Site;
@@ -19,7 +19,7 @@ use Site;
  *
  * @license GPL-2.0-or-later
  */
-class WikidataTemplateLookupTest extends MediaWikiTestCase {
+class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 
 	public function testFetchNowCommonsLocalTitle_success() {
 		$mockConfig = $this->createMock( Config::class );

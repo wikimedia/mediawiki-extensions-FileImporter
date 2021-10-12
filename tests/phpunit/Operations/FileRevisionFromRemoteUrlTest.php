@@ -22,7 +22,7 @@ use Title;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class FileRevisionFromRemoteUrlTest extends \MediaWikiTestCase {
+class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 
 	private const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
 	private const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59csb9c5a3cf55.png';

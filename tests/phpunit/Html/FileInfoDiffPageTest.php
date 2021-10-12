@@ -28,7 +28,7 @@ use Title;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class FileInfoDiffPageTest extends \MediaWikiTestCase {
+class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

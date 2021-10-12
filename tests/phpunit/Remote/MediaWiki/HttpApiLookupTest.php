@@ -14,7 +14,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class HttpApiLookupTest extends \MediaWikiTestCase {
+class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

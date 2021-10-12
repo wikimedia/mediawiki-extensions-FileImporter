@@ -18,7 +18,7 @@ use TitleValue;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ImportPlanTest extends \MediaWikiTestCase {
+class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 
 	public function testConstruction() {
 		$request = new ImportRequest( '//w.invalid' );

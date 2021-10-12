@@ -18,7 +18,7 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ApiDetailRetrieverTest extends \MediaWikiTestCase {
+class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

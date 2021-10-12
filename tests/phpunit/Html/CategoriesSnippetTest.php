@@ -3,7 +3,7 @@
 namespace FileImporter\Tests\Html;
 
 use FileImporter\Html\CategoriesSnippet;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 
@@ -12,7 +12,7 @@ use OOUI\Theme;
  *
  * @license GPL-2.0-or-later
  */
-class CategoriesSnippetTest extends MediaWikiTestCase {
+class CategoriesSnippetTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

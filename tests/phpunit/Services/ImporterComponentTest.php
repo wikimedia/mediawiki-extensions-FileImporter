@@ -38,7 +38,7 @@ use WikiRevision;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class ImporterComponentTest extends \MediaWikiTestCase {
+class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 
 	private const URL = 'http://w.invalid';
 	private const TITLE = 'FilePageTitle';

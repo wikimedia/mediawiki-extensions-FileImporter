@@ -10,7 +10,7 @@ use FileImporter\Exceptions\LocalizedImportException;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class LocalizedImportExceptionTest extends \MediaWikiTestCase {
+class LocalizedImportExceptionTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

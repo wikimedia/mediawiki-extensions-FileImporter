@@ -38,7 +38,7 @@ use User;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class ImporterTest extends \MediaWikiTestCase {
+class ImporterTest extends \MediaWikiIntegrationTestCase {
 
 	private const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
 	private const TEST_FILE2_SRC = __DIR__ . '/../res/testfile2.png';

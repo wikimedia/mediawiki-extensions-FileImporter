@@ -20,7 +20,7 @@ use Title;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class TextRevisionFromTextRevisionTest extends \MediaWikiTestCase {
+class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 
 	private const TITLE = 'Test-29e8a6ff58c5eb980fc0642a13b59cb9c5a3cf66.png';
 

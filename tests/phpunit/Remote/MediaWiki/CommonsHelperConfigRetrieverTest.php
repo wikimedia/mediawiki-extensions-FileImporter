@@ -12,7 +12,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class CommonsHelperConfigRetrieverTest extends \MediaWikiTestCase {
+class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 
 	// TODO: Test incompatible URLs
 	// TODO: Test the "missing" code-path

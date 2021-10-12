@@ -11,7 +11,7 @@ use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\Linker\LinkTarget;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
@@ -24,7 +24,7 @@ use Wikimedia\TestingAccessWrapper;
  *
  * @license GPL-2.0-or-later
  */
-class SourceWikiCleanupSnippetTest extends MediaWikiTestCase {
+class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();

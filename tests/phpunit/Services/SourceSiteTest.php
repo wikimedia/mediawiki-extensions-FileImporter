@@ -18,7 +18,7 @@ use FileImporter\Services\SourceUrlNormalizer;
  *
  * @license GPL-2.0-or-later
  */
-class SourceSiteTest extends \MediaWikiTestCase {
+class SourceSiteTest extends \MediaWikiIntegrationTestCase {
 
 	public function testServiceWiring() {
 		$sourceUrl = new SourceUrl( '//w.invalid' );

@@ -12,7 +12,7 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class FileChunkSaverTest extends \MediaWikiTestCase {
+class FileChunkSaverTest extends \MediaWikiIntegrationTestCase {
 
 	public function provideSaveFileChunk() {
 		return [
