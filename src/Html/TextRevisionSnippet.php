@@ -23,6 +23,7 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( TextRevision $textRevision, $intendedWikitext ) {
+		$services = MediaWikiServices::getInstance();
 		$title = Title::newFromText( $textRevision->getField( 'title' ), NS_FILE );
 
 		if ( $intendedWikitext === null ) {
@@ -41,7 +42,7 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 		$parserOptions = new ParserOptions( $this->getUser(), $this->getLanguage() );
 		$parserOptions->setIsPreview( true );
 
-		$contentTransformer = MediaWikiServices::getInstance()->getContentTransformer();
+		$contentTransformer = $services->getContentTransformer();
 		$content = $contentTransformer->preSaveTransform(
 			$content,
 			$title,
@@ -49,7 +50,9 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 			$parserOptions
 		);
 
-		$parseResult = $content->getParserOutput(
+		$contentRenderer = $services->getContentRenderer();
+		$parseResult = $contentRenderer->getParserOutput(
+			$content,
 			$title,
 			null,
 			$parserOptions
