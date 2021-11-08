@@ -6,6 +6,7 @@ use CentralIdLookup;
 use Exception;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\User\UserIdentity;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -106,10 +107,10 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param User $user
+	 * @param UserIdentity $user
 	 * @return int
 	 */
-	private function getCentralId( User $user ): int {
+	private function getCentralId( UserIdentity $user ): int {
 		return $this->centralIdLookup->centralIdFromLocalUser(
 			$user,
 			CentralIdLookup::AUDIENCE_RAW

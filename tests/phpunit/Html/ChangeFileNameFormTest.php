@@ -31,7 +31,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	protected function tearDown(): void {
-		Theme::setSingleton( null );
+		Theme::setSingleton();
 		parent::tearDown();
 	}
 

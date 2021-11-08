@@ -21,13 +21,13 @@ use User;
  */
 class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function tearDown(): void {
-		Theme::setSingleton( null );
+	protected function tearDown(): void {
+		Theme::setSingleton();
 		parent::tearDown();
 	}
 
