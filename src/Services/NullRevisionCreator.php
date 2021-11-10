@@ -118,8 +118,8 @@ class NullRevisionCreator {
 		$logEntry = new ManualLogEntry( $type, $subtype );
 
 		$logEntry->setParameters( $parameters );
-		$logEntry->setPerformer( User::newFromIdentity( $revision->getUser() ) );
-		$logEntry->setTarget( Title::newFromLinkTarget( $revision->getPageAsLinkTarget() ) );
+		$logEntry->setPerformer( $revision->getUser() );
+		$logEntry->setTarget( $revision->getPage() );
 		$logEntry->setTimestamp( $revision->getTimestamp() );
 		$logEntry->setComment( $revision->getComment()->text );
 		$logEntry->setAssociatedRevId( $revision->getId() );
