@@ -22,7 +22,9 @@ use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Permissions\Authority;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\User\UserIdentity;
 use Message;
 use MessageLocalizer;
 use OldRevisionImporter;
@@ -325,14 +327,14 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @param User $expectedUser
+	 * @param Authority $expectedUser
 	 * @param string $expectedWikitext
 	 * @param string|null $expectedSummary
 	 *
 	 * @return WikiPageFactory
 	 */
 	private function createWikiPageFactoryMock(
-		User $expectedUser,
+		Authority $expectedUser,
 		$expectedWikitext,
 		$expectedSummary
 	): WikiPageFactory {
@@ -416,7 +418,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		return $importer;
 	}
 
-	private function createNullRevisionCreatorMock( User $expectedUser ): NullRevisionCreator {
+	private function createNullRevisionCreatorMock( UserIdentity $expectedUser ): NullRevisionCreator {
 		$creator = $this->createMock( NullRevisionCreator::class );
 		$creator->expects( $this->once() )
 			->method( 'createForLinkTarget' )

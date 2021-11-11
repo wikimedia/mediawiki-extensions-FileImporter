@@ -15,6 +15,8 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Permissions\Authority;
+use MediaWiki\User\UserIdentity;
 use NullStatsdDataFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
@@ -360,11 +362,11 @@ class Importer {
 
 	/**
 	 * @param ImportPlan $importPlan
-	 * @param User $user
+	 * @param UserIdentity $user
 	 */
 	private function createPostImportNullRevision(
 		ImportPlan $importPlan,
-		User $user
+		UserIdentity $user
 	) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$summary = wfMsgReplaceArgs(
@@ -388,12 +390,12 @@ class Importer {
 	/**
 	 * @param ImportPlan $importPlan
 	 * @param WikiPage $page
-	 * @param User $user
+	 * @param Authority $user
 	 */
 	private function createPostImportEdit(
 		ImportPlan $importPlan,
 		WikiPage $page,
-		User $user
+		Authority $user
 	) {
 		// TODO: Replace with $page->newPageUpdater( … )->saveRevision( … )
 		$editResult = $page->doUserEditContent(

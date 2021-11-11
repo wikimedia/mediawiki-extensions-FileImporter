@@ -3,10 +3,10 @@
 namespace FileImporter\Services;
 
 use LinkBatch;
+use MediaWiki\User\UserIdentity;
 use Parser;
 use ParserOptions;
 use Title;
-use User;
 use Wikimedia\Rdbms\ILoadBalancer;
 
 /**
@@ -34,12 +34,12 @@ class CategoryExtractor {
 	 *
 	 * @param string $text Body of the page to scan.
 	 * @param Title $title Page title for context, because parsing might depend on this
-	 * @param User $user User for context, because parsing might depend on this
+	 * @param UserIdentity $user User for context, because parsing might depend on this
 	 *
 	 * @return array Two lists of category names, grouped by local visibility.
 	 * 		[ $visibleCategories, $hiddenCategories ]
 	 */
-	public function getCategoriesGrouped( $text, Title $title, User $user ) {
+	public function getCategoriesGrouped( $text, Title $title, UserIdentity $user ) {
 		$categoryMap = $this->parser->parse(
 			$text,
 			$title,

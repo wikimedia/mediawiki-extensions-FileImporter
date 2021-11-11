@@ -9,8 +9,8 @@ use ManualLogEntry;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
+use MediaWiki\User\UserIdentity;
 use Title;
-use User;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\ILoadBalancer;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
@@ -44,7 +44,7 @@ class NullRevisionCreator {
 	/**
 	 * @param Title $title
 	 * @param FileRevision $fileRevision
-	 * @param User $user
+	 * @param UserIdentity $user
 	 * @param string $summary
 	 *
 	 * @throws ImportException e.g. when the $title was not created before
@@ -52,7 +52,7 @@ class NullRevisionCreator {
 	public function createForLinkTarget(
 		Title $title,
 		FileRevision $fileRevision,
-		User $user,
+		UserIdentity $user,
 		$summary
 	) {
 		$db = $this->loadBalancer->getConnection( DB_PRIMARY );
