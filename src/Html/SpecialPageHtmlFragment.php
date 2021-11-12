@@ -66,21 +66,21 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	 * @return OutputPage
 	 */
 	protected function getOutput(): OutputPage {
-		return $this->specialPage->getOutput();
+		return $this->getContext()->getOutput();
 	}
 
 	/**
 	 * @return User
 	 */
 	protected function getUser(): User {
-		return $this->specialPage->getUser();
+		return $this->getContext()->getUser();
 	}
 
 	/**
 	 * @return Language
 	 */
 	protected function getLanguage() {
-		return $this->specialPage->getLanguage();
+		return $this->getContext()->getLanguage();
 	}
 
 	/**
@@ -92,7 +92,7 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	 * @return Message
 	 */
 	public function msg( $key, ...$params ): Message {
-		return $this->specialPage->msg( $key, ...$params );
+		return $this->getContext()->msg( $key, ...$params );
 	}
 
 }

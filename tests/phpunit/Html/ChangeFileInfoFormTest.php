@@ -46,25 +46,28 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 
 	private function getMockSpecialPage(): SpecialPage {
 		$user = $this->getTestUser()->getUser();
+		$title = Title::newFromText( __METHOD__ );
 		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
 
 		$context = $this->createMock( RequestContext::class );
 		$context->method( 'getRequest' )
 			->willReturn( $request );
+		$context->method( 'getTitle' )
+			->willReturn( $title );
+		$context->method( 'getOutput' )
+			->willReturn( $this->createMock( OutputPage::class ) );
+		$context->method( 'getUser' )
+			->willReturn( $user );
+		$context->method( 'getLanguage' )
+			->willReturn( $this->createMock( Language::class ) );
+		$context->method( 'msg' )
+			->willReturn( new \RawMessage( '' ) );
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
-			->willReturn( Title::newFromText( __METHOD__ ) );
+			->willReturn( $title );
 		$mock->method( 'getContext' )
 			->willReturn( $context );
-		$mock->method( 'getOutput' )
-			->willReturn( $this->createMock( OutputPage::class ) );
-		$mock->method( 'getUser' )
-			->willReturn( $user );
-		$mock->method( 'getLanguage' )
-			->willReturn( $this->createMock( Language::class ) );
-		$mock->method( 'msg' )
-			->willReturn( new \RawMessage( '' ) );
 		return $mock;
 	}
 

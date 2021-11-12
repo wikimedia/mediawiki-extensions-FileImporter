@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Html;
 
-use FauxRequest;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
@@ -12,6 +11,7 @@ use FileImporter\Html\ChangeFileNameForm;
 use HamcrestPHPUnitIntegration;
 use OOUI\BlankTheme;
 use OOUI\Theme;
+use RequestContext;
 use SpecialPage;
 use Title;
 
@@ -36,13 +36,15 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	private function getMockSpecialPage(): SpecialPage {
+		$context = $this->createMock( RequestContext::class );
+		$context->method( 'msg' )
+			->willReturn( new \RawMessage( '' ) );
+
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::newFromText( __METHOD__ ) );
-		$mock->method( 'getRequest' )
-			->willReturn( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) );
-		$mock->method( 'msg' )
-			->willReturn( new \RawMessage( '' ) );
+		$mock->method( 'getContext' )
+			->willReturn( $context );
 		return $mock;
 	}
 
