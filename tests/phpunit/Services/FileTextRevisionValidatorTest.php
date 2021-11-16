@@ -56,10 +56,12 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 				$minor
 			) use ( $expectedTitle, $expectedContent, $expectedUser ) {
 				// Check if all expected values make it to this AbuseFilter hook
+				$wikiPageFactory = $this->getServiceContainer()->getWikiPageFactory();
+				$wikiPage = $wikiPageFactory->newFromTitle( $context->getTitle() );
 				$this->assertSame( $expectedUser, $context->getUser() );
 				$this->assertSame( $expectedTitle, $context->getTitle() );
-				$this->assertInstanceOf( \WikiFilePage::class, $context->getWikiPage() );
-				$this->assertSame( $expectedTitle, $context->getWikiPage()->getTitle() );
+				$this->assertInstanceOf( \WikiFilePage::class, $wikiPage );
+				$this->assertSame( $expectedTitle, $wikiPage->getTitle() );
 				$this->assertSame( $expectedContent, $content );
 				$this->assertSame( '<SUMMARY>', $summary );
 				$this->assertSame( $expectedUser, $user );
