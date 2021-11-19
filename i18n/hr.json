@@ -3,7 +3,8 @@
 		"authors": [
 			"Anarhistička Maca",
 			"Bugoslav",
-			"MaGa"
+			"MaGa",
+			"Ponor"
 		]
 	},
 	"fileimporter": "Datotečni uvoznik",
@@ -39,9 +40,9 @@
 	"fileimporter-filenameerror-noplannedextension": "Željeno ime datoteke nema nastavak.",
 	"fileimporter-filenameerror-missmatchextension": "Odredišni datotečni nastavak ne podudara se s nastavkom izvorne datoteke.",
 	"fileimporter-filenameerror-protected": "Ime datoteke koju pokušavate uvesti je zaštićeno.",
-	"fileimporter-localtitleexists": "Ime koje trenutačno pokušavate uvesti već postoji na ovom wikiju.",
-	"fileimporter-sourcetitleexists": "Ime koje trenutačno pokušavate uvesti već postoji na izvornom wikiju.",
-	"fileimporter-illegalfilenamechars": "Ime koje trenutačno pokušavate uvesti sadrži nedozvoljene znakove.",
+	"fileimporter-localtitleexists": "Ime datoteke koju pokušavate postaviti isto je kao ime datoteke koja već postoji na ovom wikiju.",
+	"fileimporter-sourcetitleexists": "Ime datoteke koju pokušavate postaviti isto je kao ime datoteke koja već postoji na izvorišnom wikiju.",
+	"fileimporter-illegalfilenamechars": "Ime datoteke koju pokušavate postaviti sadrži nedozvoljene znakove.",
 	"fileimporter-duplicatefilesdetected": "Datoteka koju trenutačno pokušavate uvesti već postoji na ovom wikiju.",
 	"fileimporter-duplicatefilesdetected-prefix": "Kopije",
 	"fileimporter-exampleprefix": "Primjer",
