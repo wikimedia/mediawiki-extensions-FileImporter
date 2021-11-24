@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eitvys200"
+			"Eitvys200",
+			"Tomasdd"
 		]
 	},
-	"fileimporter-illegalfilenamechars": "Pavadinimas, kurį bandote importuoti, turi negalimų simbolių failo pavadinime.",
+	"fileimporter-illegalfilenamechars": "Failo pavadinimas, kurį bandote importuoti, pavadinime turi neleistinų simbolių.",
 	"fileimporter-duplicatefilesdetected": "Failas, kurį bandote importuoti, jau egzistuoja šioje viki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dublikatai",
 	"fileimporter-resubmit": "Siųsti iš naujo",

@@ -15,7 +15,8 @@
 			"Saimongoltinio",
 			"Vlad5250",
 			"VoxelJ",
-			"WindEwriX"
+			"WindEwriX",
+			"DDPAT"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -33,7 +34,7 @@
 	"fileimporter-api-failedtofindapi": "Не удалось узнать местоположение API от: $1. $2 $3",
 	"fileimporter-http-statuscode": "Код статуса HTTP $1",
 	"fileimporter-cantimporturl": "Невозможно импортировать данный URL-адрес",
-	"fileimporter-cantimportfromsharedrepo": "Невозможно импортировать файл из общего хранилища.",
+	"fileimporter-cantimportfromsharedrepo": "Невозможно импортировать файлы, которых на самом деле нет на $1, но которые размещены в общем репозитории.",
 	"fileimporter-cantimportmissingfile": "Не удаётся импортировать отсутствующий файл.",
 	"fileimporter-cantimportfilehidden": "Невозможно импортировать файл, поскольку как минимум одна из его версий скрыта.",
 	"fileimporter-badtoken": "Ваша сессия более не действительна. Пожалуйста, начните импортирование заново.",
@@ -70,7 +71,7 @@
 	"fileimporter-add-specific-template": "Файл импортирован. Чтобы прописать, что файл теперь на {{SITENAME}}, вернитесь к [$1 оригинальному файлу] и добавьте шаблон: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Вернуться к оригинальному файлу",
 	"fileimporter-commonshelper-retrieval-failed": "Возникла ошибка при проверки заблокированных файлов.",
-	"fileimporter-commonshelper-missing-config": "Импорт файлов из исходной вики ($1) ещё невозможен. Не существует конфигурация вики на $2.",
+	"fileimporter-commonshelper-missing-config": "К сожалению, импорт файлов из исходной вики ($1) пока невозможен, потому что в [$2 списке файлов конфигурации] нет конфигурации для вики. Для получения информации о настройке файла конфигурации для вики, просмотрите [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation страницу документации файла конфигурации] FileImporter.",
 	"fileimporter-commonshelper-parsing-failed": "Страница конфигурации для вашей вики ($1) неполная. Пожалуйста, проверьте, что она содержит раздел $2.",
 	"fileimporter-file-contains-blocked-category-template": "Этот файл нельзя передать в {{SITENAME}}, поскольку он помечен как $1. {{SITENAME}} не позволяет передачу таких файлов. Проблема может быть разрешена, но, скорее всего, это означает, что файл несовместим. Пожалуйста, обратитесь к [[Project:Licensing|политике сообщества {{SITENAME}} и страницам обсуждений о лицензировании]].",
 	"fileimporter-file-missing-required-template": "Этот файл нельзя передать в {{SITENAME}}, поскольку он не помечен совместимой лицензией. {{SITENAME}} не позволяет передачу таких файлов. Проблема может быть разрешена, но, скорее всего, это означает, что файл несовместим. Пожалуйста, обратитесь к [[Project:Licensing|политике сообщества {{SITENAME}} и страницам обсуждений о лицензировании]].",

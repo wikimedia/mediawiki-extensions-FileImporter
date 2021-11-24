@@ -15,7 +15,7 @@
 	"tag-fileimporter-imported-description": "Преработките увезени од друго вики",
 	"fileimporter-specialpage": "Увези податотека",
 	"fileimporter-importfailed": "Увозот не успеа",
-	"fileimporter-mediawiki-api-notfound": "Не моежв да го добијам приложникот на МедијаВики од SourceUrl.",
+	"fileimporter-mediawiki-api-notfound": "Не можев да го добијам приложникот на МедијаВики од SourceUrl.",
 	"fileimporter-api-badinfo": "Извршникот даде неправилни информации за сликата или преработката.",
 	"fileimporter-api-failedtogetinfo": "Не успеав да преземам податотечни информации од: $1",
 	"fileimporter-api-nopagesreturned": "Далечинскиот извршник не даде страници.",

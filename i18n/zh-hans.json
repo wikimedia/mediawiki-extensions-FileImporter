@@ -13,7 +13,8 @@
 			"WQL",
 			"Xiplus",
 			"列维劳德",
-			"水獭很懒"
+			"水獭很懒",
+			"GuoPC"
 		]
 	},
 	"fileimporter": "文件导入器",
@@ -41,7 +42,7 @@
 	"fileimporter-cantimportfilehidden": "无法导入文件，因为有至少一个文件修订版本被隐藏。",
 	"fileimporter-cantimportfileinvalid": "此文件（或此文件的旧版本）包含出于安全原因无法接受的元素：$1",
 	"fileimporter-warningabusefilter": "[//zh.wikipedia.org/wiki/Wikipedia:防滥用过滤器 自动过滤器]已将潜在的非建设性编辑识别为该文件修订历史的一部分。一个或多个修订可能触发了这一点；下面显示了每个及其相关警告。 再次点击提交以忽略任何警告并继续导入。",
-	"fileimporter-badnamespace": "给出了错误的文本修订名字空间。",
+	"fileimporter-badnamespace": "给出了错误的文本修订命名空间。",
 	"fileimporter-badtoken": "您的会话不再有效。请重新启动以导入。",
 	"fileimporter-badimporthash": "导入哈希值不匹配。请重新开始导入。",
 	"fileimporter-filenameerror-default": "在您的文件名中存在未知问题。",
