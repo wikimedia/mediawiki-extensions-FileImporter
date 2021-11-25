@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"Khun Kt"
+		]
+	},
+	"fileimporter-specialpage": "ဒင်ႏနွို့ဖုဲင်",
+	"fileimporter-importfailed": "ဒင်ႏနွို့မုꩻအောင်ႏတဝ်း",
+	"fileimporter-api-file-notfound": "မော့ꩻတဝ်းဖုဲင်- $1။",
+	"fileimporter-cantimporturl": "ဒင်ႏနွို့နွောင်ꩻတဝ်း ကဖေႏခါꩻဒါႏ URL",
+	"fileimporter-cantimportmissingfile": "ဒင်ႏနွို့နွောင်ꩻတဝ်း ကအွဉ်ႏဖေင်ꩻဒါႏဖုဲင်။",
+	"fileimporter-duplicatefilesdetected-prefix": "ထူႏပွာꩻထဲင်း",
+	"fileimporter-exampleprefix": "ဥပမာႏ",
+	"fileimporter-submit": "ဒင်ႏသွင်ꩻသော့ꩻ",
+	"fileimporter-submit-fileinfo": "ပြောင်ꩻလုဲင်ႏ ဖုဲင်အချက်လက်",
+	"fileimporter-submit-title": "ပြောင်ꩻလုဲင်ႏကတူႏစဲဉ်ႏ",
+	"fileimporter-resubmit": "ဒင်ႏသွင်ꩻသော့ꩻထဲင်းယင်း",
+	"fileimporter-import": "ဒင်ႏသွင်ꩻသော့ꩻ",
+	"fileimporter-cancel": "မာꩻတဝ်းဒွုမ်",
+	"fileimporter-edittitle": "မွဉ်းဖျင်ကတူႏစဲဉ်ႏ",
+	"fileimporter-editinfo": "မွဉ်းဖျင် ဖုဲင်အချက်လက်",
+	"fileimporter-newfilename": "ဖုဲင်တသာမိဉ်ꩻ-",
+	"fileimporter-newfilename-placeholder": "ဖုဲင်ယဟန်ႏမိဉ်ꩻ",
+	"fileimporter-editsummary": "မွဉ်းဖျင် ချုတ်အအဲဉ်ႏ-",
+	"fileimporter-heading-fileinfo": "ဖုဲင်အချက်လက်",
+	"fileimporter-heading-filehistory": "ဖုဲင်မုဲင်တန်ꩻ",
+	"fileimporter-viewdiff": "အွောန်ႏနယ်ပြောင်ꩻလုဲင်ႏမုꩻဖိုင်ႏ",
+	"fileimporter-to-preview": "သဲင်ꩻချာ ထွားကျိုႏနမူႏနာႏထျꩻ"
+}
