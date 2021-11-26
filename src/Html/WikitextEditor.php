@@ -4,6 +4,7 @@ namespace FileImporter\Html;
 
 use EditPage;
 use Html;
+use MediaWiki\MediaWikiServices;
 use MutableContext;
 use Title;
 
@@ -69,7 +70,8 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 * @return string HTML
 	 */
 	private function buildEditor( string $wikitext ): string {
-		$class = 'mw-editfont-' . $this->getUser()->getOption( 'editfont' );
+		$userOptionsLookup = MediaWikiServices::getInstance()->getUserOptionsLookup();
+		$class = 'mw-editfont-' . $userOptionsLookup->getOption( $this->getUser(), 'editfont' );
 		$pageLang = $this->getLanguage();
 
 		/**
