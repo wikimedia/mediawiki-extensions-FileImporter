@@ -93,7 +93,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 			$error = reset( $errors );
 
 			if ( $statusCode === 404 ) {
-				$msg = [ 'fileimporter-api-file-notfound', Message::rawParam( $pageUrl ) ];
+				$msg = [ 'fileimporter-api-file-notfound', Message::plaintextParam( $pageUrl ) ];
 			} else {
 				$msg = [
 					'fileimporter-api-failedtofindapi',
