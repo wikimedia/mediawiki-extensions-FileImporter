@@ -6,7 +6,8 @@
 			"Steeve815",
 			"Uziel302",
 			"דגש חזק",
-			"ערן"
+			"ערן",
+			"דגש"
 		]
 	},
 	"fileimporter": "ייבוא קבצים",
@@ -90,10 +91,10 @@
 	"fileimporter-go-to-original-file-button": "חזרה לקובץ המקורי",
 	"fileimporter-commonshelper-retrieval-failed": "אירעה שגיאה בבדיקת הקבצים החסומים.",
 	"fileimporter-commonshelper-missing-config": "למרבה הצער, יבוא קבצים מוויקי המקור ($1) עדיין אינו אפשרי כי אין הגדרות עבור הוויקי ב[$2 רשימת קובצי ההגדרה]. למידע על יצירת קובץ הגדרות עבור הוויקי, נא לסקור את [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation דף התיעוד של קובץ ההגדרות].",
-	"fileimporter-commonshelper-parsing-failed": "דף הגדרות התצורה של אתר הוויקי הזה ($1) אינו מלא. נא לוודא שיש בו פסקת \"$2\".",
+	"fileimporter-commonshelper-parsing-failed": "דף הגדרות התצורה של אתר הוויקי הזה ($1) אינו מלא. נא לוודא שיש בו פרק \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "הקובץ הזה אינו יכול להיות מועבר לאתר {{SITENAME}} כי הוא מסומן בתור $1. קבצים כאלה אסורים באתר {{SITENAME}}. ייתכן שזה פתיר, אבל רוב הסיכויים שזה אומר שהקובץ אינו תואם. נא לבדוק את [[Project:Licensing|מדיניות הקהילה של {{SITENAME}} ואת דפי השיחה בנושא רישיונות]].",
 	"fileimporter-file-missing-required-template": "לא ניתן להעביר את הקובץ לאתר {{SITENAME}} כי הוא לא מסומן עם רישיון מתאים. קבצים כאלה אסורים באתר {{SITENAME}}. ייתכן שזה פתיר, אבל רוב הסיכויים שזה אומר שהקובץ אינו תואם. נא לבדוק את [[Project:Licensing|מדיניות הקהילה של אתר {{SITENAME}} ואת דפי השיחה בנושא רישיונות]].",
-	"fileimporter-category-encouragement": "קבצים ב{{SITENAME}} צריכים להיכלל בקטגוריות. הדבר מאפשר לחפש אותם בקלות רבה יותר. ביכולתך לשנות את הקטגוריות של קובץ זה על ידי עריכת המידע של הקובץ בדף זה.",
+	"fileimporter-category-encouragement": "קבצים באתר {{SITENAME}} צריכים להיות ממוינים בקטגוריות. זה מאפשר לחפש אותם בקלות רבה יותר. ביכולתך לשנות את הקטגוריות של הקובץ הזה על־ידי עריכת המידע של הקובץ בדף הזה.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|בוצע שינוי אוטומטי אחד|בוצעו $1 שינויים אוטומטיים}} בתבניות",
 	"fileimporter-input-page-info-text": "ניתן למצוא מידע נוסף ב[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons דף העזרה] שלנו.",
 	"fileimporter-viewdiff": "הצגת שינויים",

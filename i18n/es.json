@@ -7,7 +7,9 @@
 			"Macofe",
 			"MarcoAurelio",
 			"Rodney Araujo",
-			"Tiberius1701"
+			"Tiberius1701",
+			"Jakeukalane",
+			"Jrenteria"
 		]
 	},
 	"fileimporter": "Importador de archivos",
@@ -43,7 +45,7 @@
 	"fileimporter-localtitleexists": "El título que quieres importar ya existe en esta wiki.",
 	"fileimporter-sourcetitleexists": "El título que quieres importar ya existe en la wiki de origen.",
 	"fileimporter-illegalfilenamechars": "El título que estas intentando importar actualmente contiene caracteres no válidos para nombres de archivos.",
-	"fileimporter-duplicatefilesdetected": "El archivo que estás intentando importar ya existe en este wiki.",
+	"fileimporter-duplicatefilesdetected": "El archivo que estás intentando importar ya existe en esta wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplicados",
 	"fileimporter-exampleprefix": "Ejemplo",
 	"fileimporter-textrevisions": "Se importarán $1/$2 {{PLURAL:$2|revisión|revisiones}} desde el historial.",
@@ -67,7 +69,7 @@
 	"fileimporter-cleanup-text": "Puedes declarar en la wiki de procedencia del archivo que este ha sido importado a {{SITENAME}}. Esto se hace añadiendo la plantilla <code><nowiki>{{$1}}</nowiki></code> al archivo original.",
 	"fileimporter-cleanup-checkboxlabel": "Marcar archivo en wiki de origen como exportado a {{SITENAME}}",
 	"fileimporter-cleanup-summary": "El archivo se encuentra ahora en {{SITENAME}} en $1 (trasladado con FileImporter).",
-	"fileimporter-cleanup-failed": "No fue posible editar automáticamente el wiki de origen.",
+	"fileimporter-cleanup-failed": "No fue posible editar automáticamente la wiki de origen.",
 	"fileimporter-delete-text": "Tienes permisos suficientes para borrar el archivo en la wiki de procedencia. Si quieres que FileImporter lo haga por ti, selecciona esta opción:",
 	"fileimporter-delete-checkboxlabel": "Borrar el archivo en la wiki de origen",
 	"fileimporter-delete-summary": "Este archivo se encuentra ahora en {{SITENAME}} en $1 (trasladado con FileImporter).",
@@ -83,7 +85,7 @@
 	"fileimporter-go-to-original-file-button": "Volver al archivo original",
 	"fileimporter-commonshelper-retrieval-failed": "Se produjo un error al buscar archivos bloqueados.",
 	"fileimporter-commonshelper-missing-config": "Por el momento, no es posible importar archivos desde la wiki de origen ($1) porque no existe configuración para la wiki en la [$2 lista de archivos de configuración]. Para más información sobre cómo preparar un archivo de configuración para la wiki, revisa la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation página de documentación sobre los archivos de configuración] de FileImporter.",
-	"fileimporter-commonshelper-parsing-failed": "La página de configuración de este wiki ($1) está incompleta. Comprueba que contenga una sección llamada «$2».",
+	"fileimporter-commonshelper-parsing-failed": "La página de configuración de esta wiki ($1) está incompleta. Comprueba que contenga una sección llamada «$2».",
 	"fileimporter-file-contains-blocked-category-template": "Este archivo no puede transferirse a {{SITENAME}} porque se ha marcado como $1. {{SITENAME}} no permite esos archivos. Esto a veces tiene solución, pero lo más probable es que el archivo no sea compatible. Rogamos comprobar [[Project:Licensing|la normativa comunitaria de {{SITENAME}} y las páginas de discusión relativas a las licencias]].",
 	"fileimporter-file-missing-required-template": "Este archivo no puede transferirse a {{SITENAME}} porque no se ha marcado con una licencia compatible. {{SITENAME}} no permite esos archivos. Esto a veces tiene solución, pero lo más probable es que el archivo no sea compatible. Rogamos comprobar [[Project:Licensing|la normativa comunitaria de {{SITENAME}} y las páginas de discusión relativas a las licencias]].",
 	"fileimporter-category-encouragement": "Los archivos en {{SITENAME}} deben tener categorías. Esto hace más sencillo encontrarlos. Puedes cambiar las categorías para este archivo editando la información del archivo en esta página.",

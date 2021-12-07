@@ -6,12 +6,13 @@
 			"Meliganai",
 			"MrJaroslavik",
 			"Patriccck",
-			"Patrik L."
+			"Patrik L.",
+			"Mormegil"
 		]
 	},
 	"fileimporter": "Exportér souborů",
 	"fileimporter-desc": "Jednoduchý export souborů z jiných projektů",
-	"tag-fileimporter-description": "Soubory importované z jiné wiki, včetně historie souborů a stránek",
+	"tag-fileimporter-description": "Revize a protokolovací záznamy přidané po importu z jiné wiki",
 	"tag-fileimporter-imported": "Exportováno pomocí Exportéru souborů",
 	"fileimporter-specialpage": "Exportér souborů",
 	"fileimporter-importfailed": "Export selhal",
@@ -42,13 +43,13 @@
 	"fileimporter-heading-filehistory": "Historie souboru",
 	"fileimporter-revision-removed-text": "Potlačený text odebraný Exportérem souborů.",
 	"fileimporter-revision-removed-comment": "Potlačené shrnutí odebrané Exportérem souborů.",
-	"fileimporter-in-beta": "Exportér souborů je ve verzi beta: Vyzkoušeli jsme jej pečlivě, ale stále může mít nějaké problémy. Pokud se setkáte s problémy, prosím, informujte [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter na naší stránce nápovědy] – ideálně si přečtěte krok za krokem, jak problém nahlásit, abychom jej pochopili a opravili.",
+	"fileimporter-in-beta": "Exportér souborů je v beta verzi: Vyzkoušeli jsme jej pečlivě, ale stále může mít nějaké problémy. Pokud se setkáte s problémy, prosím, [//www.mediawiki.org/wiki/Extension_talk:FileImporter nahlaste je na naší stránce nápovědy] – ideálně s postupem krok za krokem, jak problém zreprodukovat, abychom jej pochopili a opravili.",
 	"fileimporter-filemissinginrevision": "Nelze importovat soubor, protože nejméně jedné jeho revizi chybí platný soubor s obrázkem.",
 	"fileimporter-import-wait": "Export může trvat několik minut.",
 	"fileimporter-imported-success-banner": "Tento soubor byl importován na {{GRAMMAR:4sg|{{SITENAME}}}}.",
 	"fileimporter-go-to-original-file-button": "Vrátit se k původnímu souboru",
 	"fileimporter-commonshelper-retrieval-failed": "Při kontrole blokovaných souborů došlo k chybě.",
-	"fileimporter-file-contains-blocked-category-template": "Soubor nelze importovat, protože je označen jako $1. $2 tyto soubory nepovoluje.",
+	"fileimporter-file-contains-blocked-category-template": "Soubor nelze přenést na {{grammar:4sg|{{SITENAME}}}}, protože je označen jako $1. {{SITENAME}} tyto soubory nepovoluje. Možná to lze vyřešit, ale nejčastěji to znamená, že soubor není kompatibilní. Zkuste se podívat na [[Project:Autorské právo|komunitní pravidla a diskusní stránky {{grammar:2sg|{{SITENAME}}}} týkající se licencování]].",
 	"fileimporter-input-page-info-text": "Více informací najdete na [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons této stránce nápovědy].",
 	"fileimporter-viewdiff": "Zobrazit změny",
 	"fileimporter-to-preview": "Zpět na náhled"
