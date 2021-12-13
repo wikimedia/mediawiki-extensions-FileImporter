@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Renessaince"
+		]
+	},
+	"tag-fileimporter": "Зьменена Імпартавальнікам файлаў",
+	"tag-fileimporter-description": "Вэрсіі і паведамленьні журналу дададзеныя пасьля імпартаваньня зь іншай вікі",
+	"tag-fileimporter-imported-description": "Вэрсіі, імпартаваныя зь іншай вікі",
+	"fileimporter-exampleprefix": "Прыклад",
+	"fileimporter-submit": "Адаслаць",
+	"fileimporter-import": "Імпартаваць",
+	"fileimporter-cancel": "Скасаваць"
+}

@@ -20,7 +20,7 @@
 	"fileimporter-api-nopagesreturned": "원격 API에 의해 반환된 페이지가 없습니다.",
 	"fileimporter-api-toomanyrevisions": "API에 의해 반환된 판이 너무 많기 때문에 가져올 수 없습니다.",
 	"fileimporter-api-file-notfound": "파일을 찾을 수 없습니다: $1.",
-	"fileimporter-api-failedtofindapi": "$1에서 API 위치를 알아내지 못했습니다.",
+	"fileimporter-api-failedtofindapi": "$1에서 API 위치를 알아내지 못했습니다. $2 $3",
 	"fileimporter-http-statuscode": "HTTP 상태 코드 $1.",
 	"fileimporter-cantparseurl": "지정된 URL의 구문을 분석할 수 없습니다: $1",
 	"fileimporter-cantimporturl": "주어진 URL을 가져올 수 없습니다",

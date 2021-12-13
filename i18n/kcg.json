@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kambai Akau"
+		]
+	},
+	"fileimporter-api-file-notfound": "Á̱ sang fail: $1",
+	"fileimporter-api-failedtofindapi": "Á̱ fwan di̱ ta̱taat a̱gbang API neet: $1. $2 $3",
+	"fileimporter-http-statuscode": "Zwunzwuo yong HTTP $1.",
+	"fileimporter-cantparseurl": "Á̱ si̱ mi̱n wa̱i URL wu bah: $1",
+	"fileimporter-cantimporturl": "Á̱ si̱ mi̱n nwuo ma̱ng URL wu bah",
+	"fileimporter-cantimportmissingfile": "Á̱ si̱ mi̱n nwuo ma̱ng fail ku bwuk a̱ni bah",
+	"fileimporter-duplicatefilesdetected-prefix": "A̱ka̱fafaan",
+	"fileimporter-exampleprefix": "Kidee",
+	"fileimporter-submit": "Neap",
+	"fileimporter-submit-fileinfo": "Shai nkhang fail",
+	"fileimporter-submit-title": "Shai a̱lyoot",
+	"fileimporter-resubmit": "Bu neap ndyo",
+	"fileimporter-import": "Nwuo ma̱ng",
+	"fileimporter-cancel": "Lyang",
+	"fileimporter-edittitle": "Jhyuk A̱lyoot",
+	"fileimporter-editinfo": "Jhyuk nkhang Fail",
+	"fileimporter-newfilename": "A̱lyoot fail a̱fai",
+	"fileimporter-newfilename-placeholder": "A̱lyoot Fail A̱ghyang",
+	"fileimporter-editsummary": "Nam-a̱lyiat jhyuk:",
+	"fileimporter-heading-fileinfo": "Nkhang fail",
+	"fileimporter-heading-filehistory": "Nkhang gbangbang fail"
+}

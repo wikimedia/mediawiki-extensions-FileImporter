@@ -6,7 +6,8 @@
 			"Liuxinyu970226",
 			"Winston Sung",
 			"Xiplus",
-			"烈羽"
+			"烈羽",
+			"MuratTheTurkish"
 		]
 	},
 	"fileimporter": "檔案匯入器",
@@ -83,7 +84,7 @@
 	"fileimporter-filemissinginrevision": "因為至少有一個修訂內容缺少圖片檔案，因此無法匯入。",
 	"fileimporter-filetoolarge": "您正嘗試匯入的{{PLURAL:$1|檔案|$1 個檔案版本}}，{{PLURAL:$1|超出|超出}}了可處理的匯入檔案大小限制。",
 	"fileimporter-import-wait": "匯入可能會花上幾分鐘。",
-	"fileimporter-imported-success-banner": "此檔案已匯入到 {{SITENAME}}。",
+	"fileimporter-imported-success-banner": "此檔案已匯入到{{SITENAME}}。",
 	"fileimporter-add-unknown-template": "檔案已匯入。要聲明檔案現在位於{{SITENAME}}上，請返回[$1 原始檔案]並添加一個模板。",
 	"fileimporter-add-specific-template": "檔案已匯入。要聲明檔案現在位於{{SITENAME}}上，請返回[$1 原始檔案]並添加這個模板：<code><nowiki>{{$2|$3}}</nowiki></code>。",
 	"fileimporter-go-to-original-file-button": "返回至原始檔案",

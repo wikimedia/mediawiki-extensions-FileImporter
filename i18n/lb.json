@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Soued031"
 		]
 	},
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
@@ -9,7 +10,7 @@
 	"fileimporter-importfailed": "Den Import huet net funktionéiert",
 	"fileimporter-api-file-notfound": "Fichier net fonnt:$1",
 	"fileimporter-cantparseurl": "D'URL $1 déi ugi gouf konnt net duergestallt ginn",
-	"fileimporter-filenameerror-default": "Et gëtt en onbekannte Problem mat Ärem Numm vum Fichier.",
+	"fileimporter-filenameerror-default": "Et gëtt en onbekannte Probleem mat Ärem Numm vum Fichier.",
 	"fileimporter-filenameerror-illegal": "Den Numm vum Fichier deen Dir elo probéiert z'importéieren ass net valabel.",
 	"fileimporter-filenameerror-toolong": "Den Numm vum Fichier deen Dir elo probéiert z'importéieren ass ze laang.",
 	"fileimporter-localtitleexists": "Den Titel deen Dir elo probéiert z'importéieren gëtt et schonn op dëser Wiki.",
@@ -33,7 +34,7 @@
 	"fileimporter-heading-filehistory": "Versiounen",
 	"fileimporter-import-wait": "Den Import kann e puer Minutten daueren.",
 	"fileimporter-go-to-original-file-button": "Zréck op den Originalfichier",
-	"fileimporter-commonshelper-retrieval-failed": "Beim Soche no gespaarte Fichieren ass e Feeler geschitt.",
+	"fileimporter-commonshelper-retrieval-failed": "Beim Sichen no gespaarte Fichieren ass e Feeler geschitt.",
 	"fileimporter-file-contains-blocked-category-template": "De Fichier däerf net importéiert gi well en als $1 markéiert ass. $2 erlaabt esou Fichieren net.",
 	"fileimporter-viewdiff": "Ännerunge weisen"
 }

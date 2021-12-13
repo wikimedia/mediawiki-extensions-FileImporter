@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lancine.kounfantoh.fofana"
+		]
+	},
+	"fileimporter-help-banner-close-tooltip": "ߗߋߛߓߍ ߣߌ߲߬ ߞߊ߫ ߦߌ߬ߘߊ߬ ߏ߬ ߞߐ߫ ߘߋ߬",
+	"tag-fileimporter": "ߞߐߕߐ߮ ߟߊߝߏ߬ߦߌߟߊ߲ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬",
+	"tag-fileimporter-imported": "ߊ߬ ߟߊߛߣߍߣߍ߲߫ ߦߋ߫ ߞߐߕߐ߮ ߟߊߛߣߍߟߊ߲ ߠߋ߬ ߟߊ߫",
+	"tag-fileimporter-imported-description": "ߟߢߊ߬ߟߌ ߡߍ߲ ߠߎ߬ ߟߊߛߣߍߣߍ߲߫ ߦߋ߫ ߞߊ߬ ߝߘߊ߫ ߥߞߌ߫ ߜߘߍ߫ ߟߊ߫",
+	"fileimporter-specialpage": "ߞߐߕߐ߮ ߟߊߝߏ߬ߦߌ߬",
+	"fileimporter-importfailed": "ߟߊ߬ߛߣߍ߬ߟߌ ߓߘߊ߫ ߗߌߙߏ߲߫",
+	"fileimporter-mediawiki-api-notfound": "ߊ߬ ߓߘߊ߫ ߗߌߙߏ߲߫ ߡߋߘߌߦߊߥߞߌ߫ API ߞߊ߬ ߝߘߊ߫ Url ߛߎ߲ ߠߊ߫.",
+	"fileimporter-api-badinfo": "ߖߌ߬ߦߊ߬ߓߍ߬ ߖߎ߮ ߥߟߊ߫ ߟߢߊ߬ߟߌ ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ ߓߘߊ߫ ߟߊߞߐߛߊ߬ߦߌ߬ API ߓߟߏ߫.",
+	"fileimporter-api-failedtogetinfo": "ߊ߬ ߓߘߊ߫ ߗߌߙߏ߲߫ ߞߐߕߐ߮ ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ ߟߊߛߐ߬ߘߐ߲߬ ߠߊ߫ ߞߊ߬ ߝߘߊ߫: $1 ߟߊ߫",
+	"fileimporter-api-nopagesreturned": "ߞߐߜߍ߫ ߡߊ߫ ߟߊߞߐߛߊ߬ߦߌ߬ ߥߎߟߊߟߊߡߊߡߙߊߟߊ߲ API ߓߟߏ߫.",
+	"fileimporter-api-toomanyrevisions": "ߟߢߊ߬ߟߌ߬ ߦߙߌߞߊߖߊ߲ ߠߎ߬ ߓߘߊ߫ ߟߊߞߐߛߊ߬ߦߌ߬ API ߓߟߏ߫߸ ߊ߬ߟߎ߬ ߕߴߛߋ߫ ߟߊߛߣߍ߫ ߟߊ߫.",
+	"fileimporter-api-file-notfound": "ߞߐߕߐ߮ ߡߊ߫ ߛߐ߬ߘߐ߲߫: $1",
+	"fileimporter-api-failedtofindapi": "ߊ߬ ߓߘߊ߫ ߗߌߙߏ߲߫ API ߘߌ߲߬ߞߌߙߊ ߞߎ߲߬ߠߊߞߊ߬ ߟߊ߫ ߞߊ߬ ߝߘߊ߫:$1߸ $2߸ $3 ߟߊ߫.",
+	"fileimporter-http-statuscode": "HTTP ߟߌ߬ߤߟߊ߬ߦߊ ߘߏߞߊ߲ $1."
+}

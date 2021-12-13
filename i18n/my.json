@@ -5,6 +5,21 @@
 			"Ninjastrikers"
 		]
 	},
+	"fileimporter-api-file-notfound": "ဖိုင်မတွေ့ရှိပါ- $1။",
+	"fileimporter-duplicatefilesdetected-prefix": "ထပ်ပွားများ",
+	"fileimporter-exampleprefix": "ဥပမာ",
+	"fileimporter-submit": "ထည့်သွင်းရန်",
+	"fileimporter-submit-fileinfo": "ဖိုင်အချက်အလက် ပြောင်းလဲရန်",
+	"fileimporter-submit-title": "ခေါင်းစဉ် ပြောင်းရန်",
+	"fileimporter-resubmit": "ထပ်မံထည့်သွင်းရန်",
 	"fileimporter-import": "တင်သွင်းရန်",
-	"fileimporter-cancel": "မလုပ်တော့ပါ"
+	"fileimporter-cancel": "မလုပ်တော့ပါ",
+	"fileimporter-edittitle": "ခေါင်းစဉ် ပြင်ဆင်ရန်",
+	"fileimporter-editinfo": "ဖိုင်အချက်အလက် ပြင်ဆင်ရန်",
+	"fileimporter-editsummary": "အကျဉ်းချုပ်ကို တည်းဖြတ်ရန်-",
+	"fileimporter-heading-fileinfo": "ဖိုင်အချက်အလက်",
+	"fileimporter-heading-filehistory": "ဖိုင်မှတ်တမ်း",
+	"fileimporter-imported-success-banner": "ဤဖိုင်ကို {{SITENAME}} သို့ တင်သွင်းလိုက်ပါပြီ။",
+	"fileimporter-viewdiff": "ပြင်​ဆင်​ထား​သည်​များ​ကို​ ပြရန်",
+	"fileimporter-to-preview": "အကြိုကြည့်ရှုမှုသို့ ပြန်သွားရန်"
 }

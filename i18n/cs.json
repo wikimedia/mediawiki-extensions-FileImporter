@@ -5,12 +5,14 @@
 			"Matěj Suchánek",
 			"Meliganai",
 			"MrJaroslavik",
-			"Patriccck"
+			"Patriccck",
+			"Mormegil",
+			"Patrik L."
 		]
 	},
 	"fileimporter": "Exportér souborů",
 	"fileimporter-desc": "Jednoduchý export souborů z jiných projektů",
-	"tag-fileimporter-description": "Soubory importované z jiné wiki, včetně historie souborů a stránek",
+	"tag-fileimporter-description": "Revize a protokolovací záznamy přidané po importu z jiné wiki",
 	"tag-fileimporter-imported": "Exportováno pomocí Exportéru souborů",
 	"fileimporter-specialpage": "Exportér souborů",
 	"fileimporter-importfailed": "Export selhal",

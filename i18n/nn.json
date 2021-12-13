@@ -6,5 +6,8 @@
 	},
 	"fileimporter": "Filimportør",
 	"fileimporter-desc": "Enkel importering av filer frå andre nettstader",
+	"fileimporter-duplicatefilesdetected": "Fila du prøver å importera finst alt på denne wikien.",
+	"fileimporter-duplicatefilesdetected-prefix": "Duplikat",
+	"fileimporter-go-to-original-file-button": "Attende til den opphavlege fila",
 	"fileimporter-file-missing-required-template": "Fila kan ikkje importerast av di ho ikkje er merkt med ein av dei påkravde lisensane."
 }

@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sreejithk2000"
+		]
+	},
+	"fileimporter-desc": "മറ്റ് സൈറ്റുകളിൽ നിന്ന് എളുപ്പത്തിൽ പ്രമാണങ്ങൾ ഇറക്കുമതി ചെയ്യാൻ",
+	"fileimporter-help-banner-close-tooltip": "ഈ സന്ദേശം ഇനി കാണിക്കാതിരിക്കുക",
+	"tag-fileimporter": "പ്രമാണകയറ്റുമതിഉപകരണം നടത്തിയ തിരുത്തലുകൾ",
+	"tag-fileimporter-imported": "പ്രമാണഇറക്കുമതിഉപകരണം ഇറക്കുമതി ചെയ്തത്",
+	"fileimporter-specialpage": "ഇറക്കുമതി ചെയ്യുക",
+	"fileimporter-importfailed": "ഇറക്കുമതി പരാജയപ്പെട്ടു",
+	"fileimporter-api-failedtogetinfo": "$1 - ൽ നിന്ന് പ്രമാണ വിവരങ്ങൾ എടുക്കാൻ കഴിഞ്ഞില്ല",
+	"fileimporter-api-nopagesreturned": "API ഒരു താളും തിരികെ തന്നില്ല.",
+	"fileimporter-api-toomanyrevisions": "API ഒരുപാട് റിവിഷൻ തിരികെ നൽകിയതിനാൽ ഇറക്കുമതി ചെയ്യാൻ കഴിഞ്ഞില്ല.",
+	"fileimporter-api-file-notfound": "$1 എന്ന പ്രമാണം കാണുന്നില്ല.",
+	"fileimporter-exampleprefix": "ഉദാഹരണം",
+	"fileimporter-cancel": "റദ്ദാക്കുക",
+	"fileimporter-edittitle": "തലക്കെട്ട് തിരുത്തുക",
+	"fileimporter-editinfo": "പ്രമാണത്തിന്റെ വിവരണം തിരുത്തുക",
+	"fileimporter-heading-fileinfo": "പ്രമാണത്തിന്റെ വിവരങ്ങൾ",
+	"fileimporter-heading-filehistory": "പ്രമാണ നാൾവഴി",
+	"fileimporter-import-wait": "ഇറക്കുമതി കുറച്ച് സമയം എടുത്തേക്കാം.",
+	"fileimporter-viewdiff": "മാറ്റങ്ങൾ കാണിക്കുക"
+}

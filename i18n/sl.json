@@ -3,11 +3,16 @@
 		"authors": [
 			"Dbc334",
 			"HairyFotr",
-			"Janezdrilc"
+			"Janezdrilc",
+			"Eleassar"
 		]
 	},
 	"fileimporter": "Uvoznik datotek",
-	"fileimporter-desc": "Enostavno uvažanje datotek iz drugih strani",
+	"fileimporter-desc": "Preprosto uvažanje datotek iz drugih spletišč",
+	"tag-fileimporter": "spremenjeno z razširitvijo FileImporter",
+	"tag-fileimporter-description": "Redakcije in dnevniška sporočila so bili dodani po uvozu iz drugega wikija",
+	"tag-fileimporter-imported": "uvoženo z razširitvijo FileImporter",
+	"tag-fileimporter-imported-description": "Redakcije, uvožene iz drugega wikija",
 	"fileimporter-specialpage": "Uvozi datoteko",
 	"fileimporter-importfailed": "Uvoz je spodletel",
 	"fileimporter-api-badinfo": "Neveljavna slika ali informacije redakcije, zavrnjene od API-ja.",
@@ -56,7 +61,7 @@
 	"fileimporter-filetoolarge": "{{PLURAL:$1|datoteka, ki jo|$1 različici datoteke, ki ju|različice datoteke, ki jih|različic datoteke, ki jih}} želiš uvoziti {{PLURAL:$1|presega|presegata|presegajo|presega}} omejitev velikosti datoteke, ki je na voljo za uvoz.",
 	"fileimporter-import-wait": "Uvoz lahko traja nekaj minut.",
 	"fileimporter-imported-success-banner": "Datoteka je bila uvožena na {{SITENAME}}.",
-	"fileimporter-go-to-original-file-button": "Vrni se na izvirno datoteko",
+	"fileimporter-go-to-original-file-button": "Vrnitev na izvorno datoteko",
 	"fileimporter-commonshelper-retrieval-failed": "Pri preverjanju blokiranih datotek je prišlo do napake.",
 	"fileimporter-commonshelper-parsing-failed": "Stran z nastavitvami za vaš wiki ($1) ni popolna. Prosimo, prepričajte se, da vsebuje razdelek »$2«.",
 	"fileimporter-file-contains-blocked-category-template": "Datoteke ni možno prenesti na $2, ker je označena kot $1. $2 takšnih datotek ne dovoljuje. To morda lahko razrešite, ampak zelo verjetno pomeni, da datoteka ni skladna. Prosimo, oglejte si [[Project:Licensing|pravilnik skupnosti $2 in pogovorne strani o licenciranju]].",
