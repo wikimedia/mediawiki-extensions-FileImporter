@@ -4,7 +4,8 @@
 			"Leduyquang753",
 			"Nghiemtrongdai VN",
 			"Tuanminh01",
-			"Keo010122"
+			"Keo010122",
+			"NguoiDungKhongDinhDanh"
 		]
 	},
 	"fileimporter-desc": "Dễ dàng xuất tập tin sang wiki khác",
@@ -46,7 +47,7 @@
 	"fileimporter-localtitleexists": "Tiêu đề bạn hiện đang cố gắng xuất đã tồn tại trên wiki này.",
 	"fileimporter-sourcetitleexists": "Tiêu đề bạn hiện đang cố gắng xuất đã tồn tại trên wiki địa phương.",
 	"fileimporter-illegalfilenamechars": "Tiêu đề bạn hiện đang cố gắng xuất chứa các ký tự tên tập tin không hợp lệ.",
-	"fileimporter-duplicatefilesdetected": "tập tin bạn hiện đang cố gắng xuất đã tồn tại trên wiki này.",
+	"fileimporter-duplicatefilesdetected": "Tập tin bạn hiện đang cố gắng xuất đã tồn tại trên wiki này.",
 	"fileimporter-duplicatefilesdetected-prefix": "Trùng lặp",
 	"fileimporter-exampleprefix": "Ví dụ",
 	"fileimporter-textrevisions": "$1/$2 {{PLURAL:$2|bản sửa đổi|bản sửa đổi}} của tập tin sẽ được xuất từ lịch sử sửa đổi.",
