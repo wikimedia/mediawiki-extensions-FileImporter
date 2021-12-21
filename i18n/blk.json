@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Khun Kt"
+			"Khun Kt",
+			"咽頭べさ"
 		]
 	},
 	"fileimporter-specialpage": "ဒင်ႏနွို့ဖုဲင်",
@@ -24,6 +25,7 @@
 	"fileimporter-editsummary": "မွဉ်းဖျင် ချုတ်အအဲဉ်ႏ-",
 	"fileimporter-heading-fileinfo": "ဖုဲင်အချက်လက်",
 	"fileimporter-heading-filehistory": "ဖုဲင်မုဲင်တန်ꩻ",
+	"fileimporter-imported-success-banner": "ဖုဲင်ယိုနဝ်ꩻ ဒင်ႏသော့ꩻခါꩻထွူလဲဉ်း {{SITENAME}}ထျꩻသွူ။",
 	"fileimporter-viewdiff": "အွောန်ႏနယ်ပြောင်ꩻလုဲင်ႏမုꩻဖိုင်ႏ",
 	"fileimporter-to-preview": "သဲင်ꩻချာ ထွားကျိုႏနမူႏနာႏထျꩻ"
 }
