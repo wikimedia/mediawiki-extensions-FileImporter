@@ -3,15 +3,15 @@
 namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
-use FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker;
+use FileImporter\Remote\MediaWiki\AllowedDomainsFileUrlChecker;
 
 /**
- * @covers \FileImporter\Remote\MediaWiki\WhitelistDomainFileUrlChecker
+ * @covers \FileImporter\Remote\MediaWiki\AllowedDomainsFileUrlChecker
  *
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class WhitelistDomainFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
+class AllowedDomainsFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	public function provideTestCheck() {
 		return [
@@ -32,9 +32,9 @@ class WhitelistDomainFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideTestCheck
 	 */
-	public function testCheck( $whiteList, $url, $expected ) {
+	public function testCheck( array $allowedDomains, string $url, bool $expected ) {
 		$sourceUrl = new SourceUrl( $url );
-		$checker = new WhitelistDomainFileUrlChecker( $whiteList );
+		$checker = new AllowedDomainsFileUrlChecker( $allowedDomains );
 		$result = $checker->checkSourceUrl( $sourceUrl );
 		$this->assertSame( $expected, $result );
 	}

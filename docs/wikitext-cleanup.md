@@ -63,7 +63,7 @@ Sources:
   FileImporter because of this (see above). See https://phabricator.wikimedia.org/T171605#3485931
   for a lengthy analysis by the author TTO.
 - [Move to Commons!](https://en.wikipedia.org/wiki/Wikipedia:MTC!) (MTC!) uses a series of
-  [on-wiki black- and whitelists](https://en.wikipedia.org/wiki/Special:PrefixIndex/Wikipedia:MTC!/)
+  [on-wiki block- and allowlists](https://en.wikipedia.org/wiki/Special:PrefixIndex/Wikipedia:MTC!/)
   as well as a series of
   [hard-coded wikitext replacements and clean-ups](https://github.com/fastily/mtc/blob/master/mtc-shared/src/main/java/mtc/MTC.java),
   but is limited to the English Wikipedia only.
