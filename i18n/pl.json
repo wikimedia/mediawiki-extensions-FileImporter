@@ -8,7 +8,8 @@
 			"Rail",
 			"Railfail536",
 			"Rainbow P",
-			"MuratTheTurkish"
+			"MuratTheTurkish",
+			"Woytecr"
 		]
 	},
 	"fileimporter": "Importer plików",
@@ -39,7 +40,7 @@
 	"fileimporter-filenameerror-default": "Wystąpił nieznany błąd twojej nazwy pliku",
 	"fileimporter-filenameerror-illegal": "Nazwa pliku, który próbujesz zaimportować, jest niedozwolona.",
 	"fileimporter-filenameerror-toolong": "Nazwa pliku, który próbujesz zaimportować, jest zbyt długa.",
-	"fileimporter-filenameerror-notallowed": "Próbujesz zaimportować plik o rozszerzeniu <code>$1</code>. Pliki z takim rozszerzeniem nie sa dozwolone na tej wiki. Dozwolone rozszerzenia to: $2.",
+	"fileimporter-filenameerror-notallowed": "Próbujesz zaimportować plik o rozszerzeniu <code>$1</code>. Pliki z takim rozszerzeniem nie są dozwolone na tej wiki. Dozwolone rozszerzenia to: $2.",
 	"fileimporter-filenameerror-automaticchanges": "Nazwa pliku została automatycznie zmieniona z „$1” na „$2”",
 	"fileimporter-filenameerror-nosourceextension": "Nazwa pliku źródłowego nie ma rozszerzenia.",
 	"fileimporter-filenameerror-noplannedextension": "Planowana nazwa pliku nie ma rozszerzenia.",
