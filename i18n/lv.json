@@ -7,6 +7,7 @@
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Vienkārša failu importēšana no citām vietnēm",
 	"fileimporter-help-banner-close-tooltip": "Nerādīt vairs šo ziņojumu",
+	"tag-fileimporter": "Modificēts ar FileImporter",
 	"tag-fileimporter-imported": "Importēts ar FileImporter",
 	"tag-fileimporter-imported-description": "No citas vikivietnes importētas versijas",
 	"fileimporter-specialpage": "Importēt failu",
