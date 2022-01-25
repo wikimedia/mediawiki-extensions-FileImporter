@@ -201,7 +201,8 @@ class ImportPlanValidator {
 
 	private function runPermissionTitleChecks( ImportPlan $importPlan, User $user ) {
 		$title = $importPlan->getTitle();
-		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$services = MediaWikiServices::getInstance();
+		$permissionManager = $services->getPermissionManager();
 
 		/**
 		 * We must check "create" as a fallback when "upload" is not recorded in the
@@ -217,8 +218,8 @@ class ImportPlanValidator {
 			throw new RecoverableTitleException( $permErrors[0], $importPlan );
 		}
 
-		// Even administrators should not (accidentially) move a file to a protected file name
-		if ( $title->isProtected() ) {
+		// Even administrators should not (accidentally) move a file to a protected file name
+		if ( $services->getRestrictionStore()->isProtected( $title ) ) {
 			throw new RecoverableTitleException( 'fileimporter-filenameerror-protected', $importPlan );
 		}
 	}
