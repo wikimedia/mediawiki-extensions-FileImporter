@@ -26,6 +26,7 @@ use FileImporter\Services\Wikitext\WikiLinkParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
 use MediaWikiLangTestCase;
 use MessageLocalizer;
 use MockTitleTrait;
@@ -41,6 +42,7 @@ use UploadBase;
  */
 class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	use MockTitleTrait;
+	use MockAuthorityTrait;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -345,7 +347,11 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->expectException( get_class( $expected ) );
 			$this->expectExceptionMessage( $expected->getMessage() );
 		}
-		$validator->validate( $plan, $this->getTestUser()->getUser() );
+
+		$validator->validate(
+			$plan,
+			$this->mockRegisteredAuthorityWithPermissions( [ 'edit', 'upload' ] )
+		);
 	}
 
 	public function testValidateFailsWhenCoreChangesTheName() {
@@ -370,7 +376,10 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 		$this->expectException( RecoverableTitleException::class );
 		$this->expectExceptionMessage( '"Before"' );
-		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
+		$validator->validate(
+			$importPlan,
+			$this->mockRegisteredAuthorityWithPermissions( [ 'edit', 'upload' ] )
+		);
 	}
 
 	public function testValidateFailsOnFailingUploadPermissionCheck() {
@@ -432,7 +441,10 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockWikiLinkParserFactory( 1, $wikiLinkParser )
 		);
 
-		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
+		$validator->validate(
+			$importPlan,
+			$this->mockRegisteredAuthorityWithPermissions( [ 'edit', 'upload' ] )
+		);
 		$this->assertSame( 'PARSED', $importPlan->getCleanedLatestRevisionText() );
 		$this->assertSame( 2, $importPlan->getNumberOfTemplateReplacements() );
 	}
