@@ -17,9 +17,10 @@ use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
 use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\Authority;
+use MediaWiki\Permissions\PermissionStatus;
 use RequestContext;
 use UploadBase;
-use User;
 
 /**
  * @license GPL-2.0-or-later
@@ -89,13 +90,13 @@ class ImportPlanValidator {
 	 * cannot be easily fixed.
 	 *
 	 * @param ImportPlan $importPlan The plan to be validated
-	 * @param User $user User that executes the import
+	 * @param Authority $user User that executes the import
 	 *
 	 * @throws TitleException When there is a problem with the planned title (can't be fixed easily).
 	 * @throws DuplicateFilesException When a file with the same hash is detected locally..
 	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
-	public function validate( ImportPlan $importPlan, User $user ) {
+	public function validate( ImportPlan $importPlan, Authority $user ) {
 		// Have to run this first because other tests don't make sense without basic title sanity.
 		$this->runBasicTitleCheck( $importPlan );
 
@@ -199,10 +200,8 @@ class ImportPlanValidator {
 		}
 	}
 
-	private function runPermissionTitleChecks( ImportPlan $importPlan, User $user ) {
+	private function runPermissionTitleChecks( ImportPlan $importPlan, Authority $user ) {
 		$title = $importPlan->getTitle();
-		$services = MediaWikiServices::getInstance();
-		$permissionManager = $services->getPermissionManager();
 
 		/**
 		 * We must check "create" as a fallback when "upload" is not recorded in the
@@ -210,16 +209,17 @@ class ImportPlanValidator {
 		 * non-existing pages). Checking "upload" after "create" was fine is probably pointless, but
 		 * {@see UploadBase::verifyTitlePermissions} does the same.
 		 */
-		$permErrors = $permissionManager->getPermissionErrors( 'create', $user, $title );
-		if ( !$permErrors ) {
-			$permErrors = $permissionManager->getPermissionErrors( 'upload', $user, $title );
-		}
-		if ( $permErrors !== [] ) {
+		$status = PermissionStatus::newEmpty();
+		$user->authorizeWrite( 'create', $title, $status );
+		$user->authorizeWrite( 'upload', $title, $status );
+
+		if ( !$status->isGood() ) {
+			$permErrors = $status->toLegacyErrorArray();
 			throw new RecoverableTitleException( $permErrors[0], $importPlan );
 		}
 
 		// Even administrators should not (accidentally) move a file to a protected file name
-		if ( $services->getRestrictionStore()->isProtected( $title ) ) {
+		if ( MediaWikiServices::getInstance()->getRestrictionStore()->isProtected( $title ) ) {
 			throw new RecoverableTitleException( 'fileimporter-filenameerror-protected', $importPlan );
 		}
 	}
