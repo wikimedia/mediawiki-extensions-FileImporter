@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Papuass"
+			"Papuass",
+			"Silraks"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -40,7 +41,7 @@
 	"fileimporter-previewnote": "Šis ir importējamā faila priekšskatījums. Lūdzu, pirms importēšanas pārbaudi informāciju šajā lapā.",
 	"fileimporter-heading-fileinfo": "Faila informācija",
 	"fileimporter-heading-filehistory": "Faila vēsture",
-	"fileimporter-heading-cleanup": "Sakop avota viekivietni",
+	"fileimporter-heading-cleanup": "Sakop avota vikivietni",
 	"fileimporter-cleanup-failed": "Automātiska labošana avota vikivietnē nebija iespējama.",
 	"fileimporter-delete-checkboxlabel": "Manā vārdā dzēst failu avota vikivietnē",
 	"fileimporter-delete-summary": "Šis fails tagad atrodas {{SITENAME}} kā $1 (pārvietots ar FileImporter).",
