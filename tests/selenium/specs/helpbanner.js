@@ -2,7 +2,6 @@
 
 const assert = require( 'assert' ),
 	ImportPreviewPage = require( '../pageobjects/importpreview.page' ),
-	PreferencesPage = require( '../pageobjects/preferences.page' ),
 	UserLoginPage = require( 'wdio-mediawiki/LoginPage' ),
 
 	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Phalke.jpg';
@@ -10,9 +9,9 @@ const assert = require( 'assert' ),
 describe( 'ImportPreview page', () => {
 	it( 'shows dismissible help banner', () => {
 		UserLoginPage.loginAdmin();
-		PreferencesPage.resetHelpBannerVisibility();
+		ImportPreviewPage.resetHelpBannerVisibility();
 
-		ImportPreviewPage.openImportPreview( testFileUrl, false );
+		ImportPreviewPage.openImportPreview( testFileUrl );
 		ImportPreviewPage.waitForJS();
 
 		assert(
@@ -30,7 +29,7 @@ describe( 'ImportPreview page', () => {
 		// ensure that the user options had time to update
 		browser.pause( 500 );
 
-		ImportPreviewPage.openImportPreview( testFileUrl, false );
+		ImportPreviewPage.openImportPreview( testFileUrl );
 		ImportPreviewPage.waitForJS();
 
 		assert(
