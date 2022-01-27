@@ -233,8 +233,7 @@ class SpecialImportFile extends SpecialPage {
 				$this->logger->info( "Performing $action on ImportPlan for URL: $clientUrl" );
 			}
 			$this->handleAction( $action, $importPlan );
-		}
-		catch ( ImportException $exception ) {
+		} catch ( ImportException $exception ) {
 			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
 			$this->logErrorStats(
 				(string)$exception->getCode(),

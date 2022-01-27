@@ -54,9 +54,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	private const NULL_EDIT_SUMMARY = 'Imported with FileImporter from ' . self::URL;
 	private const USER_SUMMARY = 'User-provided summary';
 
-	/**
-	 * @var User
-	 */
+	/** @var User */
 	private $user;
 
 	protected function setUp(): void {
@@ -129,7 +127,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$importPlan->expects( $this->exactly( 2 ) )
 			->method( 'getValidationWarnings' )
 			->willReturn( [ 2, 3 ] );
-		$importPlan->expects( $this->exactly( 1 ) )
+		$importPlan->expects( $this->once() )
 			->method( 'addValidationWarning' )
 			->with( 1 );
 
