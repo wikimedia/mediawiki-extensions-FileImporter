@@ -29,6 +29,7 @@ use MessageLocalizer;
 use Psr\Log\NullLogger;
 use TitleValue;
 use User;
+use Wikimedia\ScopedCallback;
 
 /**
  * @covers \FileImporter\Services\Importer
@@ -45,11 +46,8 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	// Random number (actually the SHA1 of this file) to not conflict with other tests
 	private const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59cb9c5a3cf55.png';
 
-	/**
-	 * @var User
-	 */
+	/** @var User */
 	private $targetUser;
-
 	/** @var ScopedCallback[] */
 	private $hold = [];
 

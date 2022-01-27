@@ -45,12 +45,12 @@ class ImportPlanValidator {
 	/**
 	 * @var CommonsHelperConfigRetriever|null
 	 */
-	private $commonsHelperConfigRetriever = null;
+	private $commonsHelperConfigRetriever;
 
 	/**
 	 * @var string|null
 	 */
-	private $commonsHelperHelpPage = null;
+	private $commonsHelperHelpPage;
 
 	/**
 	 * @var WikiLinkParserFactory

@@ -23,14 +23,9 @@ use Wikimedia\TestingAccessWrapper;
  */
 class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
-	/**
-	 * @var MediaWikiServices
-	 */
+	/** @var MediaWikiServices */
 	private $services;
-
-	/**
-	 * @var WikiPageFactory
-	 */
+	/** @var WikiPageFactory */
 	private $wikiPageFactory;
 
 	public function setUp(): void {
