@@ -28,8 +28,8 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
-use IBufferingStatsdDataFactory;
 use ILocalizedException;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\User\UserOptionsManager;
 use Message;
@@ -54,71 +54,47 @@ class SpecialImportFile extends SpecialPage {
 	private const ERROR_LOCAL_BLOCK = 'userBlocked';
 	private const ERROR_GLOBAL_BLOCK = 'userGloballyBlocked';
 
-	/**
-	 * @var SourceSiteLocator
-	 */
+	/** @var SourceSiteLocator */
 	private $sourceSiteLocator;
-
-	/**
-	 * @var Importer
-	 */
+	/** @var Importer */
 	private $importer;
-
-	/**
-	 * @var ImportPlanFactory
-	 */
+	/** @var ImportPlanFactory */
 	private $importPlanFactory;
-
-	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
-	 * @var IBufferingStatsdDataFactory
-	 */
-	private $stats;
-
-	/**
-	 * @var UserOptionsManager
-	 */
+	/** @var UserOptionsManager */
 	private $userOptionsManager;
-
-	/**
-	 * @var Config
-	 */
-	private $config;
+	/** @var StatsdDataFactoryInterface */
+	private $stats;
+	/** @var LoggerInterface */
+	private $logger;
 
 	/**
 	 * @param SourceSiteLocator $sourceSiteLocator
 	 * @param Importer $importer
 	 * @param ImportPlanFactory $importPlanFactory
-	 * @param IBufferingStatsdDataFactory $statsdDataFactory
+	 * @param StatsdDataFactoryInterface $statsdDataFactory
 	 * @param UserOptionsManager $userOptionsManager
-	 * @param Config $mainConfig
+	 * @param Config $config
 	 */
 	public function __construct(
 		SourceSiteLocator $sourceSiteLocator,
 		Importer $importer,
 		ImportPlanFactory $importPlanFactory,
-		IBufferingStatsdDataFactory $statsdDataFactory,
+		StatsdDataFactoryInterface $statsdDataFactory,
 		UserOptionsManager $userOptionsManager,
-		Config $mainConfig
+		Config $config
 	) {
-		$this->config = $mainConfig;
-
 		parent::__construct(
 			'FileImporter-SpecialPage',
-			$this->config->get( 'FileImporterRequiredRight' ),
-			$this->config->get( 'FileImporterShowInputScreen' )
+			$config->get( 'FileImporterRequiredRight' ),
+			$config->get( 'FileImporterShowInputScreen' )
 		);
 
 		$this->sourceSiteLocator = $sourceSiteLocator;
 		$this->importer = $importer;
 		$this->importPlanFactory = $importPlanFactory;
-		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
-		$this->stats = $statsdDataFactory;
 		$this->userOptionsManager = $userOptionsManager;
+		$this->stats = $statsdDataFactory;
+		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
 	}
 
 	public function doesWrites() {
@@ -471,11 +447,11 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function showLandingPage() {
-		if ( $this->config->get( 'FileImporterInBeta' ) ) {
+		if ( $this->getConfig()->get( 'FileImporterInBeta' ) ) {
 			$this->showWarningMessage( $this->msg( 'fileimporter-in-beta' )->parse(), 'notice' );
 		}
 
-		$page = $this->config->get( 'FileImporterShowInputScreen' )
+		$page = $this->getConfig()->get( 'FileImporterShowInputScreen' )
 			? new InputFormPage( $this )
 			: new InfoPage( $this );
 
