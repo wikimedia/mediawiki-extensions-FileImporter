@@ -139,7 +139,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertWarningBox( $html, 'Can\'t import the given URL' );
+					$this->assertErrorBox( $html, 'Can\'t import the given URL' );
 				},
 				[ 'FileImporter-WikimediaSitesTableSite' ]
 			],
@@ -150,7 +150,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertWarningBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
+					$this->assertErrorBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
 				}
 			],
 			'Bad file' => [
@@ -160,7 +160,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertWarningBox(
+					$this->assertErrorBox(
 						$html,
 						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar.'
 					);
@@ -214,9 +214,10 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		];
 	}
 
-	private function assertWarningBox( $html, $text ) {
-		$this->assertContains( '<div class="mw-importfile-error-banner errorbox"><p>' .
-			htmlspecialchars( $text ) . '</p></div>', $html );
+	private function assertErrorBox( $html, $text ) {
+		$this->assertContains( 'mw-importfile-error-banner', $html );
+		$this->assertContains( 'mw-message-box-error', $html );
+		$this->assertContains( htmlspecialchars( $text ), $html );
 	}
 
 	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {
