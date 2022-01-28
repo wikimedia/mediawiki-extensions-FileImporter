@@ -20,11 +20,12 @@ class ErrorPage extends SpecialPageHtmlFragment {
 	 */
 	public function getHtml( $errorMessage, $url, $type = 'error' ) {
 		$output = ( new HelpBanner( $this ) )->getHtml();
-		$output .= Html::rawElement(
-			'div',
-			[ 'class' => "mw-importfile-error-banner ${type}box" ],
-			Html::rawElement( 'p', [], $errorMessage )
-		);
+
+		if ( $type === 'error' ) {
+			$output .= Html::errorBox( $errorMessage, '', 'mw-importfile-error-banner' );
+		} else {
+			$output .= Html::warningBox( $errorMessage, 'mw-importfile-error-banner' );
+		}
 
 		if ( $url !== null ) {
 			$output .= '<br>' . new ButtonWidget(
