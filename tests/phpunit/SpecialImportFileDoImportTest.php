@@ -13,9 +13,12 @@ use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\SpecialImportFile;
 use Liuggio\StatsdClient\Factory\StatsdDataFactory;
+use MediaWiki\Session\CsrfTokenSet;
+use MediaWiki\Session\CsrfTokenSetProvider;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
+use RawMessage;
 use Title;
 use User;
 use WebRequest;
@@ -41,11 +44,11 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param WebRequest $fauxRequest
-	 * @param User $user
+	 * @param bool $tokenMatches
 	 * @param bool $importerResult
 	 * @return SpecialImportFile
 	 */
-	protected function newSpecialPage( WebRequest $fauxRequest, User $user, $importerResult ) {
+	protected function newSpecialPage( WebRequest $fauxRequest, bool $tokenMatches, bool $importerResult ) {
 		$outPageMock = $this->createMock( OutputPage::class );
 		$outPageMock->method( 'getRequest' )
 			->willReturn( $fauxRequest );
@@ -70,12 +73,16 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 
 		$specialImportFileMock = $this->getMockBuilder( SpecialImportFile::class )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getOutput', 'getUser' ] )
+			->onlyMethods( [ 'getContext', 'getOutput', 'getUser', 'msg' ] )
 			->getMock();
+		$specialImportFileMock->method( 'getContext' )
+			->willReturn( $this->createTokenProvider( $tokenMatches ) );
 		$specialImportFileMock->method( 'getOutput' )
 			->willReturn( $outPageMock );
 		$specialImportFileMock->method( 'getUser' )
-			->willReturn( $user );
+			->willReturn( $this->createMock( User::class ) );
+		$specialImportFileMock->method( 'msg' )
+			->willReturn( new RawMessage( '' ) );
 
 		/** @var SpecialImportFile $specialImportFileMock */
 		$specialImportFileMock = TestingAccessWrapper::newFromObject( $specialImportFileMock );
@@ -111,17 +118,17 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideSpecialPageDoImportTest
 	 */
 	public function testSpecialPageDoImportTest(
-		$origHash,
+		string $origHash,
 		array $requestData,
-		$tokenCheck,
-		$importerResult,
-		$expected
+		bool $tokenMatches,
+		bool $importerResult,
+		bool $expected
 	) {
 		$importPlanMock = $this->createMockImportPlan( $origHash );
 
 		$specialImportFile = $this->newSpecialPage(
 			new FauxRequest( $requestData ),
-			$this->createMockUser( $tokenCheck ),
+			$tokenMatches,
 			$importerResult
 		);
 		$this->assertSame( $expected, $specialImportFile->doImport( $importPlanMock ) );
@@ -153,14 +160,17 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param bool $tokenMatches
-	 * @return User
+	 * @return CsrfTokenSetProvider
 	 */
-	private function createMockUser( $tokenMatches ): User {
-		$mockUser = $this->createMock( User::class );
-		$mockUser->method( 'matchEditToken' )
+	private function createTokenProvider( bool $tokenMatches ): CsrfTokenSetProvider {
+		$token = $this->createMock( CsrfTokenSet::class );
+		$token->method( 'matchToken' )
 			->willReturn( $tokenMatches );
 
-		return $mockUser;
+		$tokenProvider = $this->createMock( CsrfTokenSetProvider::class );
+		$tokenProvider->method( 'getCsrfTokenSet' )
+			->willReturn( $token );
+		return $tokenProvider;
 	}
 
 }

@@ -326,7 +326,7 @@ class SpecialImportFile extends SpecialPage {
 		$importDetailsHash = $out->getRequest()->getRawVal( 'importDetailsHash', '' );
 		$token = $out->getRequest()->getRawVal( 'token', '' );
 
-		if ( !$this->getUser()->matchEditToken( $token ) ) {
+		if ( !$this->getContext()->getCsrfTokenSet()->matchToken( $token ) ) {
 			$this->showWarningMessage( $this->msg( 'fileimporter-badtoken' )->parse() );
 			$this->logErrorStats( 'badToken', true );
 			return false;
