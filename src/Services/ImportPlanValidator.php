@@ -204,15 +204,11 @@ class ImportPlanValidator {
 		$title = $importPlan->getTitle();
 
 		/**
-		 * We must check "create" as a fallback when "upload" is not recorded in the
-		 * page_restrictions table ({@see WikiPage::doUpdateRestrictions} skips "upload" for
-		 * non-existing pages). Checking "upload" after "create" was fine is probably pointless, but
-		 * {@see UploadBase::verifyTitlePermissions} does the same.
+		 * {@see UploadBase::verifyTitlePermissions}
 		 */
 		$status = PermissionStatus::newEmpty();
-		$user->authorizeWrite( 'create', $title, $status );
+		$user->authorizeWrite( 'edit', $title, $status );
 		$user->authorizeWrite( 'upload', $title, $status );
-
 		if ( !$status->isGood() ) {
 			$permErrors = $status->toLegacyErrorArray();
 			throw new RecoverableTitleException( $permErrors[0], $importPlan );
