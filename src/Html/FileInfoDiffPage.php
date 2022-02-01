@@ -36,7 +36,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 			) .
 			Html::rawElement(
 				'div',
-				[ 'class' => 'mw-importfile-diff-view' ],
+				[],
 				$this->buildDiff( $importPlan->getTitle(), $importPlan->getInitialFileInfoText(), $newText )
 			) .
 			( new ImportIdentityFormSnippet( [
@@ -52,6 +52,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 			] ) )->getHtml() .
 			new ButtonInputWidget(
 				[
+					'classes' => [ 'mw-importfile-backButton' ],
 					'label' => $this->msg( 'fileimporter-to-preview' )->plain(),
 					'type' => 'submit',
 					'flags' => [ 'primary', 'progressive' ],

@@ -30,7 +30,6 @@ class InputFormPage extends SpecialPageHtmlFragment {
 			new TextInputWidget(
 				[
 					'name' => 'clientUrl',
-					'classes' => [ 'mw-fileimporter-url-text' ],
 					'autofocus' => true,
 					'required' => true,
 					'type' => 'url',

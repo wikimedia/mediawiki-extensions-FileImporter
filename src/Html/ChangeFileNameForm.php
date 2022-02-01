@@ -38,7 +38,6 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 					[
 						'name' => 'intendedFileName',
 						'value' => $filenameValue,
-						'classes' => [ 'mw-importfile-import-newtitle' ],
 						'placeholder' => $this->msg( 'fileimporter-newfilename-placeholder' )->plain(),
 						'suggestions' => false,
 						'autofocus' => true,
@@ -71,6 +70,7 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 		] ) )->getHtml() .
 		new ButtonInputWidget(
 			[
+				'classes' => [ 'mw-importfile-backButton' ],
 				'label' => $this->msg( 'fileimporter-submit-title' )->plain(),
 				'type' => 'submit',
 				'flags' => [ 'primary', 'progressive' ],
