@@ -25,7 +25,7 @@
 		"FileImporterAlias": "FileImporter.alias.php"
 	},
 	"SpecialPages": {
-		"FileImporter-SpecialPage": {
+		"ImportFile": {
 			"class": "FileImporter\\SpecialImportFile",
 			"services": [
 				"FileImporterSourceSiteLocator",

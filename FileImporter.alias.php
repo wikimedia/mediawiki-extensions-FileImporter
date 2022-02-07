@@ -10,15 +10,15 @@ $specialPageAliases = [];
 
 /** English (English) */
 $specialPageAliases['en'] = [
-	'FileImporter-SpecialPage' => [ 'ImportFile' ],
+	'ImportFile' => [ 'ImportFile' ],
 ];
 
 /** Spanish (Español) */
 $specialPageAliases['es'] = [
-	'FileImporter-SpecialPage' => [ 'Importar_archivo' ],
+	'ImportFile' => [ 'Importar_archivo' ],
 ];
 
 /** Urdu (اردو) */
 $specialPageAliases['ur'] = [
-	'FileImporter-SpecialPage' => [ 'درآمد_فائل' ],
+	'ImportFile' => [ 'درآمد_فائل' ],
 ];

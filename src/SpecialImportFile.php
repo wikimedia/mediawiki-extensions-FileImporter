@@ -84,7 +84,7 @@ class SpecialImportFile extends SpecialPage {
 		Config $config
 	) {
 		parent::__construct(
-			'FileImporter-SpecialPage',
+			'ImportFile',
 			$config->get( 'FileImporterRequiredRight' ),
 			$config->get( 'FileImporterShowInputScreen' )
 		);
@@ -158,9 +158,13 @@ class SpecialImportFile extends SpecialPage {
 		$this->checkReadOnly();
 	}
 
+	/** @inheritDoc */
+	public function getDescription() {
+		return $this->msg( 'fileimporter-specialpage' )->text();
+	}
+
 	private function setupPage() {
 		$output = $this->getOutput();
-		$output->setPageTitle( $this->msg( 'fileimporter-specialpage' ) );
 		$output->enableOOUI();
 		$output->addModuleStyles( 'ext.FileImporter.SpecialCss' );
 		$output->addModuleStyles( 'ext.FileImporter.Images' );
@@ -171,6 +175,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @param string|null $subPage
 	 */
 	public function execute( $subPage ) {
+		$this->setHeaders();
 		$this->setupPage();
 		$this->executeStandardChecks();
 
