@@ -60,7 +60,7 @@
 	"fileimporter-duplicatefilesdetected": "Le fichier que vous essayez d’importer existe déjà sur ce wiki.",
 	"fileimporter-duplicatefilesdetected-prefix": "Doublons",
 	"fileimporter-exampleprefix": "Exemple",
-	"fileimporter-textrevisions": "$1 {{PLURAL:$1|version de la page sur {{PLURAL:$2|$2|les $2}} sera importée|versions de la page sur les $2 seront importées}} depuis l’historique des révisions.",
+	"fileimporter-textrevisions": "$1 {{PLURAL:$2|et la seule|parmi les $2}} version{{PLURAL:$2||s}} de la page {{PLURAL:$1|sera importée|seront importées}} depuis l’historique des versions.",
 	"fileimporter-filerevisions": "$1 {{PLURAL:$1|version du fichier sur {{PLURAL:$2|$2|les $2}} sera importée|versions du fichier sur les $2 seront importées}}.",
 	"fileimporter-submit": "Soumettre",
 	"fileimporter-submit-fileinfo": "Changer les informations du fichier",
