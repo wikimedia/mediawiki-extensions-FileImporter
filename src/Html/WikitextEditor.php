@@ -21,9 +21,6 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( Title $filePage, string $wikitext ): string {
-		// T298345: Inform VisualEditor (including the 2017 wikitext editor) that we don't want it
-		$this->getOutput()->addJsConfigVars( 'wgFileImporterEditor', true );
-
 		$this->loadModules();
 		$this->runEditFormInitialHook( $filePage );
 
