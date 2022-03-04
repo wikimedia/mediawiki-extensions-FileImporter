@@ -55,11 +55,11 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$site = $lookup->getSite( new SourceUrl( $url ) );
 		$siteId = $site ? $site->getGlobalId() : null;
-		$this->assertSame( $siteId, $expected, '1st, uncached call' );
+		$this->assertSame( $expected, $siteId, '1st, uncached call' );
 
 		$site = $lookup->getSite( new SourceUrl( $url ) );
 		$siteId = $site ? $site->getGlobalId() : null;
-		$this->assertSame( $siteId, $expected, '2nd, cached call' );
+		$this->assertSame( $expected, $siteId, '2nd, cached call' );
 	}
 
 }
