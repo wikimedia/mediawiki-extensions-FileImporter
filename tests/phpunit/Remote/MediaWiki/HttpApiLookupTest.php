@@ -18,8 +18,6 @@ class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		$this->setMwGlobals( 'wgLanguageCode', 'qqx' );
 	}
 
 	public function testResultCaching() {
@@ -45,11 +43,11 @@ class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 	public function provideHttpRequestErrors() {
 		return [
 			[ 404, 'File not found: //source.url.' ],
-			[ 200, 'Failed to discover API location from: //source.url.  (error-message)' ],
+			[ 200, 'Failed to discover API location from: //source.url.  ⧼error-message⧽' ],
 			[ 418, 'Failed to discover API location from: //source.url. HTTP status code 418. '
-				. '(error-message)' ],
+				. '⧼error-message⧽' ],
 			[ 301, 'Failed to discover API location from: //source.url. HTTP status code 301. '
-				. '(error-message)' ],
+				. '⧼error-message⧽' ],
 		];
 	}
 
