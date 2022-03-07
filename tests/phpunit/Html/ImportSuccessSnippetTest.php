@@ -43,7 +43,7 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetHtml_successful() {
-		$this->setMwGlobals( 'wgLanguageCode', 'qqx' );
+		$this->setUserLang( 'qqx' );
 
 		$title = $this->createTitleWithResult( StatusValue::newGood( 'fileimporter-cleanup-summary' ) );
 		$user = $this->createMock( User::class );
@@ -61,7 +61,7 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetHtml_warnings() {
-		$this->setMwGlobals( 'wgLanguageCode', 'qqx' );
+		$this->setUserLang( 'qqx' );
 
 		$resultStatus = StatusValue::newGood( 'fileimporter-cleanup-summary' );
 		$resultStatus->warning( 'fileimporter-import-wait' );
