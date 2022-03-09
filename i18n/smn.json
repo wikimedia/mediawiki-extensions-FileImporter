@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Seipinne"
 		]
 	},
 	"fileimporter-exampleprefix": "Ovdâmerkkâ",
+	"fileimporter-heading-filehistory": "Tiätuvuárhá historjá",
 	"fileimporter-go-to-original-file-button": "Maacâ algâalgâlâš tiätuvuárkán"
 }
