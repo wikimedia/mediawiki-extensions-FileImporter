@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robertjamal12"
+			"Robertjamal12",
+			"Opoku Akaadom Sympathy"
 		]
 	},
 	"fileimporter-help-banner-close-tooltip": "Ɛnyi nkratoɔ yi bio",
+	"fileimporter-specialpage": "Impɔɔto Nwoma",
 	"fileimporter-duplicatefilesdetected-prefix": "Nsesɛsoɔ",
 	"fileimporter-exampleprefix": "Nhwɛsoɔ",
 	"fileimporter-submit-title": "Sesa atifi asem no",
