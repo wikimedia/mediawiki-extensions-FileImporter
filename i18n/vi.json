@@ -5,11 +5,12 @@
 			"Nghiemtrongdai VN",
 			"Tuanminh01",
 			"Keo010122",
-			"NguoiDungKhongDinhDanh"
+			"NguoiDungKhongDinhDanh",
+			"Minh Nguyen"
 		]
 	},
 	"fileimporter-desc": "Dễ dàng xuất tập tin sang wiki khác",
-	"fileimporter-help-banner-text": "'''Xuất tập tin từ wiki khác'''\n#Kiểm tra sửa đổi tên tập tin và trang miêu tả tập tin bên dưới.\n#Kiểm tra xem bạn có muốn đánh dấu tập tin là đã xuất sang Commons bằng bản mẫu [//vi.wikipedia.org/wiki/Bản_mẫu:Hiện_có_tại_Commons Hiện có tại Commons] vào tập tin gốc hay không. Nếu bản mẫu đó chưa có ở wiki của bạn, hãy tạo nó và liên kết bản mẫu đó đến Wikidata. (Nếu bạn có quyền quản trị, bạn cũng có quyền xoá trang tập tin gốc.)\n#Nhấn '''{{int:fileimporter-import}}''' để xuất tập tin sang {{SITENAME}}.\n\nĐể biết thêm thông tin về bản quyền, hãy xem [[Project:Licensing|chính sách cộng đồng]] {{SITENAME}}. <br /> Để biết thêm hướng dẫn chi tiết về cách sử dụng tiện ích FileImporter, hãy xem [//www.mediawiki.org/wiki/Help:Extension:FileImporter trang trợ giúp].\n\nNếu bạn có bất kỳ phản hồi nào để cải thiện tiện ích FileImporter, hãy để lại phản hồi của bạn trên [//www.mediawiki.org/wiki/Extension_talk:FileImporter trang thảo luận] của tiện ích.",
+	"fileimporter-help-banner-text": "'''Xuất tập tin từ wiki khác'''\n#Kiểm tra sửa đổi tên tập tin và trang miêu tả tập tin bên dưới.\n#Kiểm tra xem bạn có muốn đánh dấu tập tin là đã xuất sang Commons bằng bản mẫu [//vi.wikipedia.org/wiki/Bản_mẫu:Hiện_có_tại_Commons Hiện có tại Commons] vào tập tin gốc hay không. Nếu bản mẫu đó chưa có ở wiki của bạn, hãy tạo nó và liên kết bản mẫu đó đến Wikidata. (Nếu bạn có quyền quản trị, bạn cũng có quyền xóa trang tập tin gốc.)\n#Nhấn '''{{int:fileimporter-import}}''' để xuất tập tin sang {{SITENAME}}.\n\nĐể biết thêm thông tin về bản quyền, hãy xem [[Project:Licensing|chính sách cộng đồng]] {{SITENAME}}. <br /> Để biết thêm hướng dẫn chi tiết về cách sử dụng tiện ích FileImporter, hãy xem [//www.mediawiki.org/wiki/Help:Extension:FileImporter trang trợ giúp].\n\nNếu bạn có bất kỳ phản hồi nào để cải thiện tiện ích FileImporter, hãy để lại phản hồi của bạn trên [//www.mediawiki.org/wiki/Extension_talk:FileImporter trang thảo luận] của tiện ích.",
 	"fileimporter-help-banner-close-tooltip": "Ẩn thông báo này lần sau",
 	"tag-fileimporter": "Được xuất bởi FileImporter",
 	"tag-fileimporter-description": "Lịch sử trang và nhật trình được thêm vào sau khi xuất tập tin từ wiki khác",
@@ -73,9 +74,9 @@
 	"fileimporter-cleanup-summary": "Tập tin này hiện có trên {{SITENAME}} tại $1 (được xuất bằng FileImporter).",
 	"fileimporter-cleanup-failed": "Không thể tự động sửa đổi trên wiki địa phương.",
 	"fileimporter-delete-text": "Bạn có quyền xóa tập tin trên wiki địa phương. Nếu bạn muốn FileImporter xóa tập tin trên wiki địa phương, chọn các tuỳ chọn dưới đây:",
-	"fileimporter-delete-checkboxlabel": "Xoá tập tin này trên wiki địa phương",
+	"fileimporter-delete-checkboxlabel": "Xóa tập tin này trên wiki nguồn dùng tên của tôi",
 	"fileimporter-delete-summary": "Tập tin này hiện có trên {{SITENAME}} tại $1 (được xuất bằng FileImporter).",
-	"fileimporter-delete-failed": "Không thể tự động xóa tập tin trên $1. Vui lòng quay lại [$2 tập tin gốc] và xoá tập tin theo cách thủ công.",
+	"fileimporter-delete-failed": "Không thể tự động xóa tập tin trên $1. Vui lòng quay lại [$2 tập tin gốc] và xóa tập tin theo cách thủ công.",
 	"fileimporter-revision-removed-text": "Đã xóa văn bản bị chặn bởi FileImporter.",
 	"fileimporter-revision-removed-comment": "Đã xóa nhận xét bị chặn bởi FileImporter.",
 	"fileimporter-in-beta": "Xuất tập tin ở chế độ thử nghiệm: Tiện ích này có thể gặp một số vấn đề. Nếu bạn gặp sự cố, hãy [//www.mediawiki.org/wiki/Extension_talk:FileImporter báo cáo sự cố trên trang trợ giúp của chúng tôi] để chúng tôi có thể khắc phục sự cố.",
