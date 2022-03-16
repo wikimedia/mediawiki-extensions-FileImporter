@@ -3,6 +3,7 @@
 const assert = require( 'assert' ),
 	ImportPreviewPage = require( '../pageobjects/importpreview.page' ),
 	UserLoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	Util = require( 'wdio-mediawiki/Util' ),
 
 	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Phalke.jpg';
 
@@ -27,7 +28,13 @@ describe( 'ImportPreview page', () => {
 		);
 
 		// ensure that the user options had time to update
-		browser.pause( 500 );
+		browser.waitUntil( () => {
+			UserLoginPage.open();
+			Util.waitForModuleState( 'mediawiki.user' );
+			return browser.execute( () => {
+				return mw.user.options.get( 'userjs-fileimporter-hide-help-banner' ) !== null;
+			} );
+		} );
 
 		ImportPreviewPage.openImportPreview( testFileUrl );
 		ImportPreviewPage.waitForJS();
