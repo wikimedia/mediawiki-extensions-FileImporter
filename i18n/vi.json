@@ -5,7 +5,8 @@
 			"Tuanminh01",
 			"Keo010122",
 			"Nghiemtrongdai VN",
-			"NguoiDungKhongDinhDanh"
+			"NguoiDungKhongDinhDanh",
+			"Minh Nguyen"
 		]
 	},
 	"fileimporter-desc": "Dễ dàng xuất tập tin sang wiki khác",
@@ -65,8 +66,8 @@
 	"fileimporter-cleanup-checkboxlabel": "Đánh dấu trên wiki địa phương là tập tin này đã được xuất sang {{SITENAME}}",
 	"fileimporter-cleanup-failed": "Không thể tự động sửa đổi trên wiki địa phương.",
 	"fileimporter-delete-text": "Bạn có quyền xóa tập tin trên wiki địa phương. Nếu bạn muốn FileImporter xóa tập tin trên wiki địa phương, chọn các tuỳ chọn dưới đây:",
-	"fileimporter-delete-checkboxlabel": "Xoá tập tin này trên wiki địa phương",
-	"fileimporter-delete-failed": "Không thể tự động xóa tập tin trên $1. Vui lòng quay lại [$2 tập tin gốc] và xoá tập tin theo cách thủ công.",
+	"fileimporter-delete-checkboxlabel": "Xóa tập tin này trên wiki nguồn dùng tên của tôi",
+	"fileimporter-delete-failed": "Không thể tự động xóa tập tin trên $1. Vui lòng quay lại [$2 tập tin gốc] và xóa tập tin theo cách thủ công.",
 	"fileimporter-filemissinginrevision": "Không thể xuất tập tin vì ít nhất một trong các bản sửa đổi của nó không có hình ảnh.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|tập tin|$1 lịch sử tập tin}} mà bạn hiện đang cố nhập {{PLURAL:$1|vượt quá|vượt quá}} giới hạn kích thước tập tin có thể xử lý.",
 	"fileimporter-import-wait": "Quá trình xuất có thể mất vài phút.",
