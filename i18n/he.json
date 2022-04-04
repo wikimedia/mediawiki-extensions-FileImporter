@@ -14,7 +14,7 @@
 	"fileimporter-desc": "ייבוא קל של קבצים מאתרים אחרים",
 	"fileimporter-help-banner-text": "'''ייבוא מאתרי ויקי אחרים'''\n# בדקו וערכו את כותרת הקובץ ואת המידע להלן.\n# בחרו האם אתם רוצים שמייבא הקבצים יעשה ניקיון באתר הוויקי המקורי באמצעות הוספת תבנית [//he.wikipedia.org/wiki/תבנית:גם_בוויקישיתוף גם בוויקישיתוף] לקובץ המקור. (למפעילים יש גם אפשרות למחוק את קובץ המקור)\n# לחצו '''ייבוא קובץ''' כדי להעתיק את הקובץ לוויקישיתוף.\n\nלמידע על רישוי, נא לסקור את [//commons.wikimedia.org/wiki/Commons:Licensing מדיניות] הקהילה של ויקישיתוף.<br />למידע מפורט יותר על שימוש במייבא הקבצים ר' את [//www.mediawiki.org/wiki/Help:Extension:FileImporter דף העזרה].\n\nאם יש לך משוב והצעות לשיפור של מייבא הקבצים, נא להשאיר הערה ב[//www.mediawiki.org/wiki/Extension_talk:FileImporter דף השיחה] שלו.",
 	"fileimporter-help-banner-close-tooltip": "לא להציג את ההודעה הזאת שוב",
-	"tag-fileimporter": "שוּנה על־די מייבא הקבצים",
+	"tag-fileimporter": "שוּנה על־ידי מייבא הקבצים",
 	"tag-fileimporter-description": "גרסאות והודעות יומן נוספו אחרי ייבור מוויקי אחר",
 	"tag-fileimporter-imported": "יובא עם FileImporter",
 	"tag-fileimporter-imported-description": "גרסאות שיובאו מוויקי אחר",
