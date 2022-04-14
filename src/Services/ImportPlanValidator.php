@@ -19,6 +19,7 @@ use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\PermissionStatus;
+use MediaWiki\Permissions\RestrictionStore;
 use RequestContext;
 use UploadBase;
 
@@ -59,12 +60,18 @@ class ImportPlanValidator {
 	private $wikiLinkParserFactory;
 
 	/**
+	 * @var RestrictionStore
+	 */
+	private $restrictionStore;
+
+	/**
 	 * @param DuplicateFileRevisionChecker $duplicateFileChecker
 	 * @param ImportTitleChecker $importTitleChecker
 	 * @param UploadBaseFactory $uploadBaseFactory
 	 * @param CommonsHelperConfigRetriever|null $commonsHelperConfigRetriever
 	 * @param string|null $commonsHelperHelpPage
 	 * @param WikiLinkParserFactory $wikiLinkParserFactory
+	 * @param RestrictionStore $restrictionStore
 	 */
 	public function __construct(
 		DuplicateFileRevisionChecker $duplicateFileChecker,
@@ -72,7 +79,8 @@ class ImportPlanValidator {
 		UploadBaseFactory $uploadBaseFactory,
 		?CommonsHelperConfigRetriever $commonsHelperConfigRetriever,
 		$commonsHelperHelpPage,
-		WikiLinkParserFactory $wikiLinkParserFactory
+		WikiLinkParserFactory $wikiLinkParserFactory,
+		RestrictionStore $restrictionStore
 	) {
 		$this->duplicateFileChecker = $duplicateFileChecker;
 		$this->importTitleChecker = $importTitleChecker;
@@ -80,6 +88,7 @@ class ImportPlanValidator {
 		$this->commonsHelperConfigRetriever = $commonsHelperConfigRetriever;
 		$this->commonsHelperHelpPage = $commonsHelperHelpPage;
 		$this->wikiLinkParserFactory = $wikiLinkParserFactory;
+		$this->restrictionStore = $restrictionStore;
 	}
 
 	/**
@@ -215,7 +224,7 @@ class ImportPlanValidator {
 		}
 
 		// Even administrators should not (accidentally) move a file to a protected file name
-		if ( MediaWikiServices::getInstance()->getRestrictionStore()->isProtected( $title ) ) {
+		if ( $this->restrictionStore->isProtected( $title ) ) {
 			throw new RecoverableTitleException( 'fileimporter-filenameerror-protected', $importPlan );
 		}
 	}

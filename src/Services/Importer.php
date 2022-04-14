@@ -16,6 +16,7 @@ use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\User\UserIdentity;
 use NullStatsdDataFactory;
 use OldRevisionImporter;
@@ -93,6 +94,11 @@ class Importer {
 	private $stats;
 
 	/**
+	 * @var RestrictionStore
+	 */
+	private $restrictionStore;
+
+	/**
 	 * @param WikiPageFactory $wikiPageFactory
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param NullRevisionCreator $nullRevisionCreator
@@ -101,6 +107,7 @@ class Importer {
 	 * @param OldRevisionImporter $oldRevisionImporter
 	 * @param UploadRevisionImporter $uploadRevisionImporter
 	 * @param FileTextRevisionValidator $textRevisionValidator
+	 * @param RestrictionStore $restrictionStore
 	 * @param LoggerInterface|null $logger
 	 * @param StatsdDataFactoryInterface|null $statsdDataFactory
 	 */
@@ -113,6 +120,7 @@ class Importer {
 		OldRevisionImporter $oldRevisionImporter,
 		UploadRevisionImporter $uploadRevisionImporter,
 		FileTextRevisionValidator $textRevisionValidator,
+		RestrictionStore $restrictionStore,
 		LoggerInterface $logger = null,
 		StatsdDataFactoryInterface $statsdDataFactory = null
 	) {
@@ -124,6 +132,7 @@ class Importer {
 		$this->oldRevisionImporter = $oldRevisionImporter;
 		$this->uploadRevisionImporter = $uploadRevisionImporter;
 		$this->textRevisionValidator = $textRevisionValidator;
+		$this->restrictionStore = $restrictionStore;
 		$this->logger = $logger ?: new NullLogger();
 		$this->stats = $statsdDataFactory ?: new NullStatsdDataFactory();
 	}
@@ -227,6 +236,7 @@ class Importer {
 				$this->wikiRevisionFactory,
 				$this->oldRevisionImporter,
 				$this->textRevisionValidator,
+				$this->restrictionStore,
 				$this->logger
 			) );
 		}
@@ -249,6 +259,7 @@ class Importer {
 				$this->wikiRevisionFactory,
 				$this->uploadBaseFactory,
 				$this->uploadRevisionImporter,
+				$this->restrictionStore,
 				$this->logger
 			) );
 

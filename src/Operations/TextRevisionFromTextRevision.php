@@ -6,6 +6,7 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
+use MediaWiki\Permissions\RestrictionStore;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -61,12 +62,18 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	private $logger;
 
 	/**
+	 * @var RestrictionStore
+	 */
+	private $restrictionStore;
+
+	/**
 	 * @param Title $plannedTitle
 	 * @param User $user
 	 * @param TextRevision $textRevision
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param OldRevisionImporter $importer
 	 * @param FileTextRevisionValidator $textRevisionValidator
+	 * @param RestrictionStore $restrictionStore
 	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
@@ -76,6 +83,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		WikiRevisionFactory $wikiRevisionFactory,
 		OldRevisionImporter $importer,
 		FileTextRevisionValidator $textRevisionValidator,
+		RestrictionStore $restrictionStore,
 		LoggerInterface $logger = null
 	) {
 		$this->plannedTitle = $plannedTitle;
@@ -84,6 +92,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->importer = $importer;
 		$this->textRevisionValidator = $textRevisionValidator;
+		$this->restrictionStore = $restrictionStore;
 		$this->logger = $logger ?: new NullLogger();
 	}
 
@@ -106,7 +115,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	 */
 	public function validate(): Status {
 		// Even administrators should not (accidentially) move a file to a protected file name
-		if ( $this->plannedTitle->isProtected() ) {
+		if ( $this->restrictionStore->isProtected( $this->plannedTitle ) ) {
 			return Status::newFatal( 'fileimporter-filenameerror-protected' );
 		}
 

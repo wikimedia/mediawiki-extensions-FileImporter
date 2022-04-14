@@ -72,7 +72,8 @@ class ImportPlanFactory {
 			$this->uploadBaseFactory,
 			$commonsHelperConfigRetriever ?? null,
 			$commonsHelperHelpPage ?? null,
-			new WikiLinkParserFactory()
+			new WikiLinkParserFactory(),
+			$services->getRestrictionStore()
 		);
 		$planValidator->validate( $importPlan, $user );
 

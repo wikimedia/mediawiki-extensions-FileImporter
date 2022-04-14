@@ -340,7 +340,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockUploadBaseFactory( $validatingUploadBase ),
 			null,
 			null,
-			$wikiLinkParserFactory
+			$wikiLinkParserFactory,
+			$this->getServiceContainer()->getRestrictionStore()
 		);
 
 		if ( $expected ) {
@@ -371,7 +372,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
 			null,
 			null,
-			$this->getMockWikiLinkParserFactory( 1 )
+			$this->getMockWikiLinkParserFactory( 1 ),
+			$this->getServiceContainer()->getRestrictionStore()
 		);
 
 		$this->expectException( RecoverableTitleException::class );
@@ -400,7 +402,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
 			null,
 			null,
-			$this->getMockWikiLinkParserFactory()
+			$this->getMockWikiLinkParserFactory(),
+			$this->getServiceContainer()->getRestrictionStore()
 		);
 
 		$this->expectException( RecoverableTitleException::class );
@@ -438,7 +441,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getMockUploadBaseFactory( $this->getMockValidatingUploadBase() ),
 			$commonsHelperConfigRetriever,
 			'',
-			$this->getMockWikiLinkParserFactory( 1, $wikiLinkParser )
+			$this->getMockWikiLinkParserFactory( 1, $wikiLinkParser ),
+			$this->getServiceContainer()->getRestrictionStore()
 		);
 
 		$validator->validate(

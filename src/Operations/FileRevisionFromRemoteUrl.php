@@ -13,6 +13,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use ManualLogEntry;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\User\UserIdentityValue;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
@@ -87,6 +88,11 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	private $importer;
 
 	/**
+	 * @var RestrictionStore
+	 */
+	private $restrictionStore;
+
+	/**
 	 * @param Title $plannedTitle
 	 * @param User $user
 	 * @param FileRevision $fileRevision
@@ -95,6 +101,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param UploadBaseFactory $uploadBaseFactory
 	 * @param UploadRevisionImporter $importer
+	 * @param RestrictionStore $restrictionStore
 	 * @param LoggerInterface|null $logger
 	 */
 	public function __construct(
@@ -106,6 +113,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		WikiRevisionFactory $wikiRevisionFactory,
 		UploadBaseFactory $uploadBaseFactory,
 		UploadRevisionImporter $importer,
+		RestrictionStore $restrictionStore,
 		LoggerInterface $logger = null
 	) {
 		$this->plannedTitle = $plannedTitle;
@@ -116,6 +124,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->importer = $importer;
+		$this->restrictionStore = $restrictionStore;
 		$this->logger = $logger ?: new NullLogger();
 	}
 
@@ -174,7 +183,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		}
 
 		// Even administrators should not (accidentially) move a file to a protected file name
-		if ( $this->plannedTitle->isProtected() ) {
+		if ( $this->restrictionStore->isProtected( $this->plannedTitle ) ) {
 			return Status::newFatal( 'fileimporter-filenameerror-protected' );
 		}
 

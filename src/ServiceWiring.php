@@ -117,6 +117,7 @@ return [
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
 			new FileTextRevisionValidator(),
+			$services->getRestrictionStore(),
 			$logger,
 			$services->getStatsdDataFactory()
 		);

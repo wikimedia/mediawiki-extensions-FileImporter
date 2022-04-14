@@ -100,7 +100,8 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 			$this->newTextRevision(),
 			new WikiRevisionFactory(),
 			$oldRevisionImporter,
-			$this->newFileTextRevisionValidator()
+			$this->newFileTextRevisionValidator(),
+			$services->getRestrictionStore()
 		);
 	}
 

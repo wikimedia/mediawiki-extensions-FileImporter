@@ -10,6 +10,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
 use Psr\Log\NullLogger;
 use Title;
@@ -46,7 +47,8 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( UploadBaseFactory::class ),
-			$this->createMock( ImportableUploadRevisionImporter::class )
+			$this->createMock( ImportableUploadRevisionImporter::class ),
+			$this->createMock( RestrictionStore::class )
 		);
 
 		$this->assertFalse( $fileRevisionFromRemoteUrl->prepare()->isOK() );
@@ -136,7 +138,8 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$this->newHttpRequestExecutor(),
 			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterUploadBaseFactory' ),
-			$this->newUploadRevisionImporter()
+			$this->newUploadRevisionImporter(),
+			$services->getRestrictionStore()
 		);
 
 		return $fileRevisionFromRemoteUrl;

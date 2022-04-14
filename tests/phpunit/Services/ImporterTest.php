@@ -337,7 +337,8 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$services->getService( 'FileImporterUploadBaseFactory' ),
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
-			new FileTextRevisionValidator()
+			new FileTextRevisionValidator(),
+			$services->getRestrictionStore()
 		);
 	}
 

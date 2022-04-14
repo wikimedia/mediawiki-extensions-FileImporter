@@ -23,6 +23,7 @@ use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\User\UserIdentity;
 use Message;
@@ -93,7 +94,8 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
-			new FileTextRevisionValidator()
+			new FileTextRevisionValidator(),
+			$this->getServiceContainer()->getRestrictionStore()
 		);
 
 		$importer->import( $this->user, $importPlan );
@@ -116,7 +118,8 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
-			new FileTextRevisionValidator()
+			new FileTextRevisionValidator(),
+			$this->getServiceContainer()->getRestrictionStore()
 		);
 
 		$importer->import( $this->user, $importPlan );
@@ -164,7 +167,8 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( UploadBaseFactory::class ),
 			$this->createMock( OldRevisionImporter::class ),
 			$this->createMock( UploadRevisionImporter::class ),
-			new FileTextRevisionValidator()
+			new FileTextRevisionValidator(),
+			$this->createMock( RestrictionStore::class )
 		);
 
 		/** @var Importer $importer */
@@ -221,7 +225,8 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( UploadBaseFactory::class ),
 			$this->createMock( OldRevisionImporter::class ),
 			$this->createMock( UploadRevisionImporter::class ),
-			new FileTextRevisionValidator()
+			new FileTextRevisionValidator(),
+			$this->createMock( RestrictionStore::class )
 		);
 
 		/** @var Importer $importer */
@@ -241,7 +246,8 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( UploadBaseFactory::class ),
 			$this->createMock( OldRevisionImporter::class ),
 			$this->createMock( UploadRevisionImporter::class ),
-			new FileTextRevisionValidator()
+			new FileTextRevisionValidator(),
+			$this->createMock( RestrictionStore::class )
 		) );
 
 		$status = StatusValue::newFatal( 'fileimporter-cantimportfileinvalid', 'The reason' );
