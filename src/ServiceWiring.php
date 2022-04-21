@@ -28,7 +28,6 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikidataTemplateLookup;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
 use FileImporter\Services\WikiRevisionFactory;
-use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
@@ -90,38 +89,25 @@ return [
 		/** @var UploadBaseFactory $uploadBaseFactory */
 		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
 
-		$logger = LoggerFactory::getInstance( 'FileImporter' );
+		$uploadRevisionImporter = $services->getUploadRevisionImporter();
+		// FIXME: Should be part of the UploadRevisionImporter interface or the import() method
+		if ( $uploadRevisionImporter instanceof ImportableUploadRevisionImporter ) {
+			$uploadRevisionImporter->setNullRevisionCreation( false );
+		}
 
-		// Construct custom core service objects so that we can inject our own Logger
-		$uploadRevisionImporter = new ImportableUploadRevisionImporter(
-			$services->getMainConfig()->get( 'EnableUploads' ),
-			$logger
-		);
-		$uploadRevisionImporter->setNullRevisionCreation( false );
-
-		$oldRevisionImporter = new ImportableOldRevisionImporter(
-			true,
-			$logger,
-			$services->getDBLoadBalancer(),
-			$services->getRevisionStore(),
-			$services->getSlotRoleRegistry(),
-			$services->getWikiPageFactory()
-		);
-
-		$importer = new Importer(
+		return new Importer(
 			$services->getWikiPageFactory(),
 			$wikiRevisionFactory,
 			$nullRevisionCreator,
 			$httpRequestExecutor,
 			$uploadBaseFactory,
-			$oldRevisionImporter,
+			$services->getOldRevisionImporter(),
 			$uploadRevisionImporter,
 			new FileTextRevisionValidator(),
 			$services->getRestrictionStore(),
-			$logger,
+			LoggerFactory::getInstance( 'FileImporter' ),
 			$services->getStatsdDataFactory()
 		);
-		return $importer;
 	},
 
 	'FileImporterWikiRevisionFactory' => static function ( MediaWikiServices $services ) {
@@ -142,12 +128,12 @@ return [
 		$duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
 		/** @var UploadBaseFactory $uploadBaseFactory */
 		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
-		$factory = new ImportPlanFactory(
+
+		return new ImportPlanFactory(
 			$sourceSiteLocator,
 			$duplicateFileChecker,
 			$uploadBaseFactory
 		);
-		return $factory;
 	},
 
 	'FileImporterUploadBaseFactory' => static function ( MediaWikiServices $services ) {
@@ -191,7 +177,7 @@ return [
 			);
 		}
 
-		$site = new SourceSite(
+		return new SourceSite(
 			new AnyMediaWikiFileUrlChecker(),
 			new ApiDetailRetriever(
 				$httpApiLookup,
@@ -208,8 +194,6 @@ return [
 			new NullPrefixLookup(),
 			$postImportHandler
 		);
-
-		return $site;
 	},
 
 	/**
@@ -249,7 +233,7 @@ return [
 			);
 		}
 
-		$site = new SourceSite(
+		return new SourceSite(
 			new SiteTableSourceUrlChecker(
 				$siteTableLookup,
 				$logger
@@ -275,8 +259,6 @@ return [
 			),
 			$postImportHandler
 		);
-
-		return $site;
 	},
 
 	'FileImporterTemplateLookup' => static function ( MediaWikiServices $services ) {
