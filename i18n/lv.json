@@ -22,6 +22,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Avota faila nosaukumam nav paplašinājuma.",
 	"fileimporter-filenameerror-noplannedextension": "Plānotajam faila nosaukumam nav paplašinājuma.",
 	"fileimporter-filenameerror-missmatchextension": "Mērķa faila nosaukuma paplašinājums nesakrīt ar oriģinālā faila nosaukuma paplašinājumu.",
+	"fileimporter-duplicatefilesdetected": "Fails, ko tu pašlaik mēģini importēt, jau atrodas šajā vikivietnē.",
 	"fileimporter-duplicatefilesdetected-prefix": "Dublikāti",
 	"fileimporter-exampleprefix": "Piemērs",
 	"fileimporter-textrevisions": "No vēstures tiks {{PLURAL:$1|importētas|importēta|importētas}} $1/$2 lapas {{PLURAL:$2|versijām|versijas|versijām}}.",
