@@ -89,8 +89,8 @@ class FileChunkSaver implements LoggerAwareInterface {
 	}
 
 	/**
-	 * Callback: save a chunk of the result of a HTTP request to the file.
-	 * Intended for use with Http::request
+	 * Callback: save a chunk of the result of an HTTP request to the file.
+	 * Intended for use with HttpRequestFactory::request
 	 *
 	 * @param int $curlResource Required by the cURL library, see CURLOPT_WRITEFUNCTION
 	 * @param string $buffer
