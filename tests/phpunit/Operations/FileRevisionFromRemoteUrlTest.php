@@ -69,7 +69,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( 0, $wikiRevision->getID() );
 		$this->assertSame( $title, $wikiRevision->getTitle() );
 		$this->assertSame( 'Imported>SourceUser1', $wikiRevision->getUser() );
-		$this->assertFalse( $wikiRevision->getUserObj() );
+		$this->assertNotFalse( $wikiRevision->getUserObj() );
 		$this->assertSame( '', $wikiRevision->getText() );
 		$this->assertSame( 'Original upload comment of Test.png', $wikiRevision->getComment() );
 		$this->assertSame( '20180624133723', $wikiRevision->getTimestamp() );
