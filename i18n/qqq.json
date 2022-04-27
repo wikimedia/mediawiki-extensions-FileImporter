@@ -66,7 +66,6 @@
 	"fileimporter-editinfo": "Text for the button allowing a user to edit the file info for import.",
 	"fileimporter-extensionlabel": "Label for the display of the file extension.",
 	"fileimporter-newfilename": "Label for the new file name input box.",
-	"fileimporter-newfilename-placeholder": "Placeholder for the file name input box.",
 	"fileimporter-editsummary": "Label for the edit summary input box.\n{{Identical|Edit summary}}",
 	"fileimporter-previewnote": "Note shown at the top of the import page.",
 	"fileimporter-heading-fileinfo": "Heading of the file info on the import page.",

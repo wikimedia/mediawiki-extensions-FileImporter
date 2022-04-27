@@ -61,6 +61,10 @@ class ImportRequest {
 			throw new LocalizedImportException( [ 'fileimporter-cantparseurl', $url ], $e );
 		}
 
+		if ( $intendedName !== null ) {
+			$intendedName = trim( $intendedName );
+		}
+
 		if ( $intendedText !== null ) {
 			/**
 			 * White spaces and carriage returns are trimmed (inline with EditPage) so that we can
@@ -84,7 +88,7 @@ class ImportRequest {
 	}
 
 	/**
-	 * @return null|string
+	 * @return string|null Guaranteed to be a trimmed, non-empty string, or null
 	 */
 	public function getIntendedName() {
 		return $this->intendedName;

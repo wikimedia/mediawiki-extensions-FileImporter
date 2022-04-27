@@ -38,7 +38,6 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 					[
 						'name' => 'intendedFileName',
 						'value' => $filenameValue,
-						'placeholder' => $this->msg( 'fileimporter-newfilename-placeholder' )->plain(),
 						'suggestions' => false,
 						'autofocus' => true,
 						'required' => true,
@@ -55,8 +54,7 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 			'p',
 			[],
 			$this->msg( 'fileimporter-extensionlabel' )->plain() .
-			' ' .
-			$importPlan->getFileExtension()
+				' .' . $importPlan->getFileExtension()
 		) .
 		( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
