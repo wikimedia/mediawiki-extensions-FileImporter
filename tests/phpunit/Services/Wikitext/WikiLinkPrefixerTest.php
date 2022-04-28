@@ -3,7 +3,9 @@
 namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\WikiLinkPrefixer;
-use MediaWiki\Interwiki\InterwikiLookupAdapter;
+use MalformedTitleException;
+use TitleParser;
+use TitleValue;
 
 /**
  * @covers \FileImporter\Services\Wikitext\WikiLinkPrefixer
@@ -50,8 +52,7 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 			[ ':_foo_', 'mw', ':mw:_foo_' ],
 
 			// Invalid titles
-			[ '::foo', 'mw', '::foo' ],
-			[ 'Talk:#fragment', 'mw', 'Talk:#fragment' ],
+			[ '::invalid', 'mw', '::invalid' ],
 		];
 	}
 
@@ -64,44 +65,27 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @return \TitleParser
+	 * @return TitleParser
 	 */
 	private function newTitleParser() {
-		$language = $this->createMock( \Language::class );
-		$language->method( 'getNsIndex' )
-			->willReturnCallback( static function ( $name ) {
-				switch ( $name ) {
-					case 'Media':
-						return NS_MEDIA;
-					case '':
-						return NS_MAIN;
-					case 'Talk':
-						return NS_TALK;
-					case 'File':
-						return NS_FILE;
-					case 'Category':
-						return NS_CATEGORY;
-					default:
-						return false;
-				}
-			} );
-		$language->method( 'lc' )
-			->willReturnArgument( 0 );
-
-		$site = new \Site();
-		$site->addInterwikiId( 'mw' );
-		// The original InterwikiLookup is case-insensitive, this line simulates this feature
-		$site->addInterwikiId( 'MW' );
-
-		return new \MediaWikiTitleCodec(
-			$language,
-			new \GenderCache(),
-			[],
-			new InterwikiLookupAdapter( new \HashSiteStore( [ $site ] ) ),
-			// Note: As of now, MediaWikiTitleCodec does not use this NamespaceInfo, but asks the
-			// Language for info about namespaces!
-			$this->createMock( \NamespaceInfo::class )
-		);
+		$parser = $this->createMock( TitleParser::class );
+		$parser->method( 'parseTitle' )->willReturnCallback( static function ( $text ) {
+			switch ( ltrim( $text, ':' ) ) {
+				case 'w:de:foo':
+					return new TitleValue( NS_MAIN, '', '', 'w:de' );
+				case 'File:foo':
+					return new TitleValue( NS_FILE, $text );
+				case 'Media:foo':
+					return new TitleValue( NS_MEDIA, $text );
+				case 'Category:foo':
+					return new TitleValue( NS_CATEGORY, $text );
+				case 'invalid':
+					throw new MalformedTitleException( '' );
+				default:
+					return new TitleValue( NS_MAIN, '' );
+			}
+		} );
+		return $parser;
 	}
 
 }
