@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"ZlyiLev"
+			"ZlyiLev",
+			"No Sleep till Krupki"
 		]
 	},
 	"tag-fileimporter": "Змена з дапамогай FileImporter",
-	"tag-fileimporter-imported": "Імпартавана з дапамогай FileImporter"
+	"tag-fileimporter-imported": "Імпартавана з дапамогай FileImporter",
+	"fileimporter-cleanup-text": "Вы можаце заявіць у зыходнай вікі, што гэты файл быў імпартаваны ў {{SITENAME}}. Гэта робіцца шляхам дадавання шаблону <code><nowiki>{{$1}}</nowiki></code> на старонку зыходнага файла ад вашага імя."
 }
