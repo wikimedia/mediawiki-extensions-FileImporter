@@ -235,8 +235,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @see \LocalFile::recordUpload2
 	 */
 	private function createUploadLog() {
-		$performer = $this->wikiRevision->getUserObj() ?:
-			new UserIdentityValue( 0, $this->wikiRevision->getUser() );
+		$performer = new UserIdentityValue( 0, $this->wikiRevision->getUser() );
 
 		$logEntry = new ManualLogEntry( 'upload', 'upload' );
 		$logEntry->setTimestamp( $this->wikiRevision->getTimestamp() );
