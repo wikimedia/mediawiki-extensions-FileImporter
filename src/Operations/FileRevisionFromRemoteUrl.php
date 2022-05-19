@@ -13,14 +13,15 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use ManualLogEntry;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
-use MediaWiki\User\UserIdentityValue;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Status;
 use TempFSFile;
 use Title;
+use UnexpectedValueException;
 use UploadBase;
 use UploadRevisionImporter;
 use User;
@@ -235,7 +236,12 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 * @see \LocalFile::recordUpload2
 	 */
 	private function createUploadLog() {
-		$performer = new UserIdentityValue( 0, $this->wikiRevision->getUser() );
+		$username = $this->wikiRevision->getUser();
+		$userLookup = MediaWikiServices::getInstance()->getUserIdentityLookup();
+		$performer = $userLookup->getUserIdentityByName( $username );
+		if ( !$performer ) {
+			throw new UnexpectedValueException( "Unexpected non-normalized username \"$username\"" );
+		}
 
 		$logEntry = new ManualLogEntry( 'upload', 'upload' );
 		$logEntry->setTimestamp( $this->wikiRevision->getTimestamp() );
