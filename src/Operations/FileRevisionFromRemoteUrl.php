@@ -180,10 +180,10 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$status = $this->importer->import( $this->wikiRevision );
 
 		if ( !$status->isGood() ) {
-			$this->logger->error(
-				__METHOD__ . ' failed to commit.',
-				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
-			);
+			$this->logger->error( __METHOD__ . ' failed to commit.', [
+				'fileRevision-getFields' => $this->fileRevision->getFields(),
+				'status' => $status->__toString(),
+			] );
 		}
 
 		/**
