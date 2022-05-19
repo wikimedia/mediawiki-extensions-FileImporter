@@ -9,6 +9,7 @@ use FileImporter\Data\TextRevision;
 use HashConfig;
 use MediaWiki\Revision\SlotRecord;
 use Title;
+use User;
 use WikiRevision;
 
 /**
@@ -83,6 +84,7 @@ class WikiRevisionFactory {
 
 		$importedUser = $this->createCentralAuthUser( $fileRevision->getField( 'user' ) );
 		$revision->setUsername( $importedUser );
+		$revision->setUserObj( User::newFromName( $importedUser ) );
 
 		// Mark old file revisions as such
 		$archiveName = $fileRevision->getField( 'archivename' );
