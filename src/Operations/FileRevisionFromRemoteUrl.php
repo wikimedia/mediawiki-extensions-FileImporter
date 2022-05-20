@@ -13,8 +13,8 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use ManualLogEntry;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
+use MediaWiki\User\UserIdentityLookup;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -33,71 +33,40 @@ use WikiRevision;
  */
 class FileRevisionFromRemoteUrl implements ImportOperation {
 
-	/**
-	 * @var Title
-	 */
+	/** @var Title */
 	private $plannedTitle;
-
-	/**
-	 * @var User user performing the import
-	 */
+	/** @var User */
 	private $user;
-
-	/**
-	 * @var FileRevision
-	 */
+	/** @var FileRevision */
 	private $fileRevision;
-
-	/**
-	 * @var HttpRequestExecutor
-	 */
+	/** @var TextRevision|null */
+	private $textRevision;
+	/** @var UserIdentityLookup */
+	private $userLookup;
+	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;
-
-	/**
-	 * @var WikiRevisionFactory
-	 */
+	/** @var WikiRevisionFactory */
 	private $wikiRevisionFactory;
-
-	/**
-	 * @var UploadBaseFactory
-	 */
+	/** @var UploadBaseFactory */
 	private $uploadBaseFactory;
-
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var UploadRevisionImporter */
+	private $importer;
+	/** @var RestrictionStore */
+	private $restrictionStore;
+	/** @var LoggerInterface */
 	private $logger;
 
-	/**
-	 * @var WikiRevision|null
-	 */
-	private $wikiRevision;
-
-	/**
-	 * @var TextRevision|null
-	 */
-	private $textRevision;
-
-	/**
-	 * @var ValidatingUploadBase|null
-	 */
+	/** @var WikiRevision|null */
+	private $wikiRevision = null;
+	/** @var ValidatingUploadBase|null */
 	private $uploadBase = null;
 
 	/**
-	 * @var UploadRevisionImporter
-	 */
-	private $importer;
-
-	/**
-	 * @var RestrictionStore
-	 */
-	private $restrictionStore;
-
-	/**
 	 * @param Title $plannedTitle
-	 * @param User $user
+	 * @param User $user user performing the import
 	 * @param FileRevision $fileRevision
 	 * @param TextRevision|null $textRevision
+	 * @param UserIdentityLookup $userLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param UploadBaseFactory $uploadBaseFactory
@@ -110,6 +79,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		User $user,
 		FileRevision $fileRevision,
 		?TextRevision $textRevision,
+		UserIdentityLookup $userLookup,
 		HttpRequestExecutor $httpRequestExecutor,
 		WikiRevisionFactory $wikiRevisionFactory,
 		UploadBaseFactory $uploadBaseFactory,
@@ -121,6 +91,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$this->user = $user;
 		$this->fileRevision = $fileRevision;
 		$this->textRevision = $textRevision;
+		$this->userLookup = $userLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->uploadBaseFactory = $uploadBaseFactory;
@@ -237,8 +208,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 	 */
 	private function createUploadLog() {
 		$username = $this->wikiRevision->getUser();
-		$userLookup = MediaWikiServices::getInstance()->getUserIdentityLookup();
-		$performer = $userLookup->getUserIdentityByName( $username );
+		$performer = $this->userLookup->getUserIdentityByName( $username );
 		if ( !$performer ) {
 			throw new UnexpectedValueException( "Unexpected non-normalized username \"$username\"" );
 		}

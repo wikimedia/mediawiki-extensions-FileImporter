@@ -18,6 +18,7 @@ use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\User\UserIdentity;
+use MediaWiki\User\UserIdentityLookup;
 use NullStatsdDataFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
@@ -43,65 +44,36 @@ class Importer {
 	private const ERROR_NO_NEW_PAGE = 'noPageCreated';
 	private const ERROR_FAILED_POST_IMPORT_EDIT = 'failedPostImportEdit';
 
-	/**
-	 * @var WikiPageFactory
-	 */
+	/** @var WikiPageFactory */
 	private $wikiPageFactory;
-
-	/**
-	 * @var WikiRevisionFactory
-	 */
+	/** @var WikiRevisionFactory */
 	private $wikiRevisionFactory;
-
-	/**
-	 * @var NullRevisionCreator
-	 */
+	/** @var NullRevisionCreator */
 	private $nullRevisionCreator;
-
-	/**
-	 * @var HttpRequestExecutor
-	 */
+	/** @var UserIdentityLookup */
+	private $userLookup;
+	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;
-
-	/**
-	 * @var UploadBaseFactory
-	 */
+	/** @var UploadBaseFactory */
 	private $uploadBaseFactory;
-
-	/**
-	 * @var OldRevisionImporter
-	 */
+	/** @var OldRevisionImporter */
 	private $oldRevisionImporter;
-
-	/**
-	 * @var UploadRevisionImporter
-	 */
+	/** @var UploadRevisionImporter */
 	private $uploadRevisionImporter;
-
-	/**
-	 * @var FileTextRevisionValidator
-	 */
+	/** @var FileTextRevisionValidator */
 	private $textRevisionValidator;
-
-	/**
-	 * @var LoggerInterface
-	 */
-	private $logger;
-
-	/**
-	 * @var StatsdDataFactoryInterface
-	 */
-	private $stats;
-
-	/**
-	 * @var RestrictionStore
-	 */
+	/** @var RestrictionStore */
 	private $restrictionStore;
+	/** @var LoggerInterface */
+	private $logger;
+	/** @var StatsdDataFactoryInterface */
+	private $stats;
 
 	/**
 	 * @param WikiPageFactory $wikiPageFactory
 	 * @param WikiRevisionFactory $wikiRevisionFactory
 	 * @param NullRevisionCreator $nullRevisionCreator
+	 * @param UserIdentityLookup $userLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
 	 * @param UploadBaseFactory $uploadBaseFactory
 	 * @param OldRevisionImporter $oldRevisionImporter
@@ -115,6 +87,7 @@ class Importer {
 		WikiPageFactory $wikiPageFactory,
 		WikiRevisionFactory $wikiRevisionFactory,
 		NullRevisionCreator $nullRevisionCreator,
+		UserIdentityLookup $userLookup,
 		HttpRequestExecutor $httpRequestExecutor,
 		UploadBaseFactory $uploadBaseFactory,
 		OldRevisionImporter $oldRevisionImporter,
@@ -127,6 +100,7 @@ class Importer {
 		$this->wikiPageFactory = $wikiPageFactory;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
 		$this->nullRevisionCreator = $nullRevisionCreator;
+		$this->userLookup = $userLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->uploadBaseFactory = $uploadBaseFactory;
 		$this->oldRevisionImporter = $oldRevisionImporter;
@@ -255,6 +229,7 @@ class Importer {
 				$user,
 				$fileRevision,
 				$initialTextRevision,
+				$this->userLookup,
 				$this->httpRequestExecutor,
 				$this->wikiRevisionFactory,
 				$this->uploadBaseFactory,

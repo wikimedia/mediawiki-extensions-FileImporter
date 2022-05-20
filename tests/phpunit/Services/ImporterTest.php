@@ -24,6 +24,8 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\User\UserIdentityLookup;
+use MediaWiki\User\UserIdentityValue;
 use Message;
 use MessageLocalizer;
 use Psr\Log\NullLogger;
@@ -314,6 +316,10 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	private function newImporter(): Importer {
 		$services = MediaWikiServices::getInstance();
 
+		$user = UserIdentityValue::newExternal( 'Imported', 'SourceUser1' );
+		$userLookup = $this->createMock( UserIdentityLookup::class );
+		$userLookup->method( 'getUserIdentityByName' )->willReturn( $user );
+
 		$uploadRevisionImporter = new ImportableUploadRevisionImporter(
 			true,
 			new NullLogger()
@@ -333,6 +339,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$services->getWikiPageFactory(),
 			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterNullRevisionCreator' ),
+			$userLookup,
 			$this->newHttpRequestExecutor(),
 			$services->getService( 'FileImporterUploadBaseFactory' ),
 			$oldRevisionImporter,

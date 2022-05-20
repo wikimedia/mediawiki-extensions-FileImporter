@@ -12,6 +12,8 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\User\UserIdentityLookup;
+use MediaWiki\User\UserIdentityValue;
 use Psr\Log\NullLogger;
 use Title;
 
@@ -44,6 +46,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$this->getTestUser()->getUser(),
 			$this->newFileRevision( 'NULL' ),
 			$textRevision,
+			$this->createMock( UserIdentityLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( UploadBaseFactory::class ),
@@ -129,11 +132,16 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	private function newFileRevisionFromRemoteUrl( Title $title ) {
 		$services = MediaWikiServices::getInstance();
 
+		$userLookup = $this->createMock( UserIdentityLookup::class );
+		$user = UserIdentityValue::newExternal( 'Imported', 'SourceUser1' );
+		$userLookup->method( 'getUserIdentityByName' )->willReturn( $user );
+
 		$fileRevisionFromRemoteUrl = new FileRevisionFromRemoteUrl(
 			$title,
 			$this->getTestUser()->getUser(),
 			$this->newFileRevision( 'http://example.com/Test.png' ),
 			$this->newTextRevision(),
+			$userLookup,
 			$this->newHttpRequestExecutor(),
 			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterUploadBaseFactory' ),

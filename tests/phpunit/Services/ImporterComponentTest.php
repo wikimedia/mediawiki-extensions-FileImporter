@@ -26,6 +26,7 @@ use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\User\UserIdentity;
+use MediaWiki\User\UserIdentityLookup;
 use Message;
 use MessageLocalizer;
 use OldRevisionImporter;
@@ -90,6 +91,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createWikiPageFactoryMock( $this->user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $this->user ),
+			$this->createMock( UserIdentityLookup::class ),
 			$this->createHttpRequestExecutorMock(),
 			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
@@ -114,6 +116,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createWikiPageFactoryMock( $this->user, self::USER_WIKITEXT, self::USER_SUMMARY ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $this->user ),
+			$this->createMock( UserIdentityLookup::class ),
 			$this->createHttpRequestExecutorMock(),
 			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
@@ -163,6 +166,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( NullRevisionCreator::class ),
+			$this->createMock( UserIdentityLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( UploadBaseFactory::class ),
 			$this->createMock( OldRevisionImporter::class ),
@@ -221,6 +225,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( NullRevisionCreator::class ),
+			$this->createMock( UserIdentityLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( UploadBaseFactory::class ),
 			$this->createMock( OldRevisionImporter::class ),
@@ -242,6 +247,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( WikiPageFactory::class ),
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( NullRevisionCreator::class ),
+			$this->createMock( UserIdentityLookup::class ),
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->createMock( UploadBaseFactory::class ),
 			$this->createMock( OldRevisionImporter::class ),

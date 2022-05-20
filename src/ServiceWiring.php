@@ -99,6 +99,7 @@ return [
 			$services->getWikiPageFactory(),
 			$wikiRevisionFactory,
 			$nullRevisionCreator,
+			$services->getUserIdentityLookup(),
 			$httpRequestExecutor,
 			$uploadBaseFactory,
 			$services->getOldRevisionImporter(),
