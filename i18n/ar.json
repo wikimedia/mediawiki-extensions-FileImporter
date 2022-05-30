@@ -3,6 +3,7 @@
 		"authors": [
 			"Aboulouei1",
 			"EBRAHEmZEZO",
+			"Meno25",
 			"TMg",
 			"ديفيد",
 			"محمد أحمد عبد الفتاح"
@@ -26,6 +27,7 @@
 	"fileimporter-cantimportfromsharedrepo": "لا يمكن استيراد ملف من مستودع مشترك.",
 	"fileimporter-cantimportmissingfile": "لا يمكن استيراد ملف مفقود.",
 	"fileimporter-cantimportfilehidden": "لا يمكن استيراد الملف لأن إحدى مراجعاته على الأقل تحتوي على ملف مخفي.",
+	"fileimporter-cantimportfileinvalid": "يحتوي هذا الملف (أو نسخة سابقة لهذا الملف) على عناصر لا يمكن قبولها لأسباب أمنية: $1",
 	"fileimporter-badtoken": "رمز CSRF لا يتطابق",
 	"fileimporter-badimporthash": "رمز رقم الاستيراد غير متطابق; تُرجَى إعادة تشغيل الاستيراد.",
 	"fileimporter-filenameerror-default": "هناك مشكلة غير معروفة في اسم الملف.",
