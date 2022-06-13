@@ -20,6 +20,21 @@
 	"fileimporter-http-statuscode": "HTTP ߟߌ߬ߤߟߊ߬ߦߊ ߘߏߞߊ߲ $1.",
 	"fileimporter-duplicatefilesdetected-prefix": "ߓߊߟߌߣߍ߲ ߠߎ߬",
 	"fileimporter-exampleprefix": "ߟߊߒߡߊ߫ ߘߐ߫",
+	"fileimporter-submit": "ߊ߬ ߞߘߊߡߊ߫",
 	"fileimporter-submit-fileinfo": "ߞߐߕߐ߮ ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲ ߡߊߝߊ߬ߟߋ߲߫",
-	"fileimporter-submit-title": "ߞߎ߲߬ߕߐ߮ ߡߊߝߊ߬ߟߋ߲߫"
+	"fileimporter-submit-title": "ߞߎ߲߬ߕߐ߮ ߡߊߝߊ߬ߟߋ߲߫",
+	"fileimporter-resubmit": "ߊ߬ ߞߙߊߓߊ߫ ߞߎߘߊ߫ ߘߌ߫",
+	"fileimporter-import": "ߟߊ߬ߛߣߍ߬ߟߌ",
+	"fileimporter-cancel": "ߊ߬ ߘߐߛߊ߬",
+	"fileimporter-edittitle": "ߞߎ߲߬ߕߐ߮ ߡߊߦߟߍ߬ߡߊ߲߫",
+	"fileimporter-editinfo": "ߞߐߕߐ߮ ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲ ߡߊߦߟߍ߬ߡߊ߲߫",
+	"fileimporter-extensionlabel": "ߞߐߕߐ߮ ߦߙߌߥߊߟߌ:",
+	"fileimporter-newfilename": "ߞߐߕߐ߮ ߞߎߘߊ ߕߐ߮:",
+	"fileimporter-newfilename-placeholder": "ߞߐߕߐ߮ ߘߏ߫ ߕߐ߮",
+	"fileimporter-editsummary": "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߟߊ߬ߘߛߏ߬ߟߌ:",
+	"fileimporter-previewnote": "ߣߌ߲߬ ߦߋ߫ ߞߐߕߐ߮ ߢߍߦߋߟߌ ߟߋ߬ ߘߌ߫ ߛߊ߫ ߞߵߊ߬ ߟߊߛߣߍ߫. ߞߐߜߍ ߝߛߍ߬ߝߛߍ߫ ߖߊ߰ߣߌ߲߫ ߦߊ߬ߣߴߌ ߞߍߕߐ߫ ߊ߬ ߟߊߛߣߍ߫ ߟߊ߫.",
+	"fileimporter-heading-fileinfo": "ߞߐߕߐ߮ ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲",
+	"fileimporter-heading-filehistory": "ߞߐߕߐ߮ ߟߊ߫ ߘߐ߬ߝߐ",
+	"fileimporter-heading-cleanup": "ߥߞߌ ߓߐ߬ߖߎ ߖߏ߰ߛߌ߫",
+	"fileimporter-cleanup-text": "ߌ ߘߌ߫ ߛߴߊ߬ ߢߊߦߌ߬ߘߊ߬ ߟߊ߫ ߥߞߌ߫ ߓߐߖߎ ߘߐ߫ ߞߏ߫ ߞߐߕߐ߮ ߣߌ߲߬ ߓߘߊ߫ ߓߊ߲߫ ߠߊߛߣߍ߫ ߟߊ߫ {{SITENAME}} ߞߊ߲߬. ߏ߬ ߝߣߊ߫ ߞߍߣߍ߲߫ ߦߋ߫ ߞߙߊߞߏ <code>{{$1}}</code> ߝߙߊ߬ߟߌ ߟߋ߬ ߟߊ߫ ߞߐߕߐ߮ ߓߐߛߎ߲߫ ߞߐߜߍ ߟߊ߫ ߌ ߕߐ߮ ߟߊ߫."
 }
