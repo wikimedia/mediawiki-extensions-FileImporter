@@ -17,5 +17,9 @@
 	"fileimporter-api-toomanyrevisions": "ߟߢߊ߬ߟߌ߬ ߦߙߌߞߊߖߊ߲ ߠߎ߬ ߓߘߊ߫ ߟߊߞߐߛߊ߬ߦߌ߬ API ߓߟߏ߫߸ ߊ߬ߟߎ߬ ߕߴߛߋ߫ ߟߊߛߣߍ߫ ߟߊ߫.",
 	"fileimporter-api-file-notfound": "ߞߐߕߐ߮ ߡߊ߫ ߛߐ߬ߘߐ߲߫: $1",
 	"fileimporter-api-failedtofindapi": "ߊ߬ ߓߘߊ߫ ߗߌߙߏ߲߫ API ߘߌ߲߬ߞߌߙߊ ߞߎ߲߬ߠߊߞߊ߬ ߟߊ߫ ߞߊ߬ ߝߘߊ߫:$1߸ $2߸ $3 ߟߊ߫.",
-	"fileimporter-http-statuscode": "HTTP ߟߌ߬ߤߟߊ߬ߦߊ ߘߏߞߊ߲ $1."
+	"fileimporter-http-statuscode": "HTTP ߟߌ߬ߤߟߊ߬ߦߊ ߘߏߞߊ߲ $1.",
+	"fileimporter-duplicatefilesdetected-prefix": "ߓߊߟߌߣߍ߲ ߠߎ߬",
+	"fileimporter-exampleprefix": "ߟߊߒߡߊ߫ ߘߐ߫",
+	"fileimporter-submit-fileinfo": "ߞߐߕߐ߮ ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲ ߡߊߝߊ߬ߟߋ߲߫",
+	"fileimporter-submit-title": "ߞߎ߲߬ߕߐ߮ ߡߊߝߊ߬ߟߋ߲߫"
 }

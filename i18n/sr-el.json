@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Zoranzoki21"
+			"Zoranzoki21",
+			"Kizule",
+			"Vipz"
 		]
 	},
+	"tag-fileimporter-description": "Izmene i poruke dnevnika dodate nakon uvoza s drugog projekta",
+	"tag-fileimporter-imported": "uvezeno pomoću Uvoznika datoteka",
 	"fileimporter-filerevisions": "$1/$2 {{PLURAL:$2|verzija datoteke će biti uvezeno|verzije datoteke će biti uvezene}}."
 }
