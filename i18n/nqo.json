@@ -4,6 +4,7 @@
 			"Lancine.kounfantoh.fofana"
 		]
 	},
+	"fileimporter-desc": "ߞߐߕߐ߮ ߟߊߛߣߍߟߌ ߣߐ߰ߦߊ߬ ߘߐ߫ ߞߊ߬ ߝߘߊ߫ ߞߍߦߙߐ߫ ߜߘߍ ߟߎ߬ ߟߊ߫",
 	"fileimporter-help-banner-close-tooltip": "ߗߋߛߓߍ ߣߌ߲߬ ߞߊ߫ ߦߌ߬ߘߊ߬ ߏ߬ ߞߐ߫ ߘߋ߬",
 	"tag-fileimporter": "ߞߐߕߐ߮ ߟߊߝߏ߬ߦߌߟߊ߲ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬",
 	"tag-fileimporter-imported": "ߊ߬ ߟߊߛߣߍߣߍ߲߫ ߦߋ߫ ߞߐߕߐ߮ ߟߊߛߣߍߟߊ߲ ߠߋ߬ ߟߊ߫",
@@ -18,6 +19,7 @@
 	"fileimporter-api-file-notfound": "ߞߐߕߐ߮ ߡߊ߫ ߛߐ߬ߘߐ߲߫: $1",
 	"fileimporter-api-failedtofindapi": "ߊ߬ ߓߘߊ߫ ߗߌߙߏ߲߫ API ߘߌ߲߬ߞߌߙߊ ߞߎ߲߬ߠߊߞߊ߬ ߟߊ߫ ߞߊ߬ ߝߘߊ߫:$1߸ $2߸ $3 ߟߊ߫.",
 	"fileimporter-http-statuscode": "HTTP ߟߌ߬ߤߟߊ߬ߦߊ ߘߏߞߊ߲ $1.",
+	"fileimporter-cantimporturl": "URL ߖߙߎߡߎ߲߫ ߘߌߣߍ߲ ߕߍ߫ ߛߐ߲߬ ߟߊߛߣߍ߫ ߟߊ߫:",
 	"fileimporter-duplicatefilesdetected-prefix": "ߓߊߟߌߣߍ߲ ߠߎ߬",
 	"fileimporter-exampleprefix": "ߟߊߒߡߊ߫ ߘߐ߫",
 	"fileimporter-submit": "ߊ߬ ߞߘߊߡߊ߫",
@@ -36,5 +38,13 @@
 	"fileimporter-heading-fileinfo": "ߞߐߕߐ߮ ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲",
 	"fileimporter-heading-filehistory": "ߞߐߕߐ߮ ߟߊ߫ ߘߐ߬ߝߐ",
 	"fileimporter-heading-cleanup": "ߥߞߌ ߓߐ߬ߖߎ ߖߏ߰ߛߌ߫",
-	"fileimporter-cleanup-text": "ߌ ߘߌ߫ ߛߴߊ߬ ߢߊߦߌ߬ߘߊ߬ ߟߊ߫ ߥߞߌ߫ ߓߐߖߎ ߘߐ߫ ߞߏ߫ ߞߐߕߐ߮ ߣߌ߲߬ ߓߘߊ߫ ߓߊ߲߫ ߠߊߛߣߍ߫ ߟߊ߫ {{SITENAME}} ߞߊ߲߬. ߏ߬ ߝߣߊ߫ ߞߍߣߍ߲߫ ߦߋ߫ ߞߙߊߞߏ <code>{{$1}}</code> ߝߙߊ߬ߟߌ ߟߋ߬ ߟߊ߫ ߞߐߕߐ߮ ߓߐߛߎ߲߫ ߞߐߜߍ ߟߊ߫ ߌ ߕߐ߮ ߟߊ߫."
+	"fileimporter-cleanup-text": "ߌ ߘߌ߫ ߛߴߊ߬ ߢߊߦߌ߬ߘߊ߬ ߟߊ߫ ߥߞߌ߫ ߓߐߖߎ ߘߐ߫ ߞߏ߫ ߞߐߕߐ߮ ߣߌ߲߬ ߓߘߊ߫ ߓߊ߲߫ ߠߊߛߣߍ߫ ߟߊ߫ {{SITENAME}} ߞߊ߲߬. ߏ߬ ߝߣߊ߫ ߞߍߣߍ߲߫ ߦߋ߫ ߞߙߊߞߏ <code>{{$1}}</code> ߝߙߊ߬ߟߌ ߟߋ߬ ߟߊ߫ ߞߐߕߐ߮ ߓߐߛߎ߲߫ ߞߐߜߍ ߟߊ߫ ߌ ߕߐ߮ ߟߊ߫.",
+	"fileimporter-import-wait": "ߟߊ߬ߛߣߍ߬ߟߌ ߘߌ߫ ߡߌ߬ߛߍ߲߬ ߘߊ߲ߘߐ߫ ߕߊ߬.",
+	"fileimporter-imported-success-banner": "ߞߐߕߐ߮ ߏ߬ ߓߘߊ߫ ߟߊߛߣߍ߫ {{SITENAME}} ߞߊ߲߬.",
+	"fileimporter-add-unknown-template": "ߞߐߕߐ߮ ߓߘߊ߫ ߟߊߛߣߍ߫. ߛߊ߫ ߞߵߊ߬ ߦߌ߬ߘߊ߬ ߞߏ߫ ߞߐߕߐ߮ ߦߋ߫ {{SITENAME}} ߞߊ߲߬ ߡߎ߬ߕߎ߲߫߸ ߌ ߞߐߛߊ߬ߦߌ߫ [ߞߐߕߐ߮ ߓߊߛߎ߲ $1] ߡߵߊ߬ ߣߌ߫ ߞߊ߬ ߞߙߊߞߏ ߝߊ߬ߙߊ߫.",
+	"fileimporter-add-specific-template": "ߞߐߕߐ߮ ߓߘߊ߫ ߓߊ߲߫ ߟߊߛߣߍ߫ ߟߊ߫. ߛߊ߫ ߞߵߊ߬ ߦߌ߬ߘߊ߬ ߞߏ߫ ߞߐߕߐ߮ ߓߘߊ߫ ߛߋ߫ {{SITENAME}} ߞߊ߲߬߸ ߌ ߞߐߛߊ߬ߦߌ߫ [ߓߊߛߎ߲߫ ߞߐߕߐ߮ $1] ߡߊ߬ ߖߊ߰ߣߌ߲߫߸ ߊ߬ ߣߌ߫ ߞߊ߬ ߞߙߊߞߏ ߣߌ߲߬ ߝߊ߬ߙߊ߫: <code>{{$2|$3}}</code>.",
+	"fileimporter-go-to-original-file-button": "ߌ ߞߐߛߊ߬ߦߌ߫ ߞߐߕߐ߮ ߓߊߛߎ߲ ߡߊ߬",
+	"fileimporter-commonshelper-retrieval-failed": "ߝߎ߬ߕߎ߲߬ߕߌ ߘߏ߫ ߓߘߊ߫ ߓߌ߬ߟߴߊ߬ ߘߐ߫ ߞߐߕߐ߯ ߓߟߏߕߍ߰ߣߍ߲ ߠߎ߬ ߝߛߍ߬ߝߛߍ߬ ߕߎߡߊ ߟߊ߫.",
+	"fileimporter-viewdiff": "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ ߠߎ߫ ߦߌ߬ߘߊ߬",
+	"fileimporter-to-preview": "ߌ ߞߐߛߊ߬ߦߌ߫ ߦߍߦߋߟߌ ߡߊ߬"
 }
