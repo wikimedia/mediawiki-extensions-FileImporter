@@ -9,7 +9,7 @@
 	"fileimporter-importfailed": "Внасянето се провали",
 	"fileimporter-filenameerror-illegal": "Името на файла, което се опитвате да внесете, не е валидно.",
 	"fileimporter-filenameerror-toolong": "Името на файла, което опитвате да внесете, е твърде дълго.",
-	"fileimporter-illegalfilenamechars": "Заглавието, което опитвате да внесете, съдържа невалидни знаци.",
+	"fileimporter-illegalfilenamechars": "Името на файла, което опитвате да внесете, съдържа невалидни знаци.",
 	"fileimporter-exampleprefix": "Пример",
 	"fileimporter-submit": "Изпращане",
 	"fileimporter-import": "Внасяне",
