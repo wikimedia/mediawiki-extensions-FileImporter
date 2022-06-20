@@ -34,6 +34,7 @@
 	"fileimporter-cantimportfromsharedrepo": "No se pueden importar archivos provenientes de un repositorio compartido.",
 	"fileimporter-cantimportmissingfile": "No se pueden importar archivos faltantes.",
 	"fileimporter-cantimportfilehidden": "No se puede importar el archivo debido a que una de sus revisiones fue suprimida.",
+	"fileimporter-cantimportfileinvalid": "Este archivo (o versiones antiguas del mismo) contienen elementos que no son admisibles por motivos de seguridad: $1",
 	"fileimporter-badimporthash": "El algoritmo de importación no coincide. Por favor reinicia la importación.",
 	"fileimporter-filenameerror-default": "Hay un problema desconocido con tu nombre de archivo.",
 	"fileimporter-filenameerror-illegal": "El nombre del archivo que estás intentando importar actualmente no es válido.",
