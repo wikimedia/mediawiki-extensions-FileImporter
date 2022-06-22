@@ -17,7 +17,7 @@
 	"tag-fileimporter-imported-description": "รุ่นไฟล์ที่นำเข้าจากวิกิอื่น",
 	"fileimporter-specialpage": "นำเข้าไฟล์",
 	"fileimporter-importfailed": "การนำเข้าล้มเหลว",
-	"fileimporter-mediawiki-api-notfound": "เกิดข้อผิดพลาดขณะเรียกใช้ Mediawiki API จากไฟล์ต้นทาง",
+	"fileimporter-mediawiki-api-notfound": "เกิดข้อผิดพลาดขณะเรียกใช้ MediaWiki API จากไฟล์ต้นทาง",
 	"fileimporter-api-failedtogetinfo": "เกิดข้อผิดพลาดขณะรับสารสนเทศไฟล์จาก $1",
 	"fileimporter-api-nopagesreturned": "ไม่พบหน้าจาก API ต้นทาง",
 	"fileimporter-api-toomanyrevisions": "มีรุ่นที่ได้รับจาก API มากเกินไป ไม่สามารถนำเข้าได้",
