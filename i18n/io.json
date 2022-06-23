@@ -6,6 +6,7 @@
 	},
 	"fileimporter-exampleprefix": "Exemplo",
 	"fileimporter-submit": "Sendar",
+	"fileimporter-import": "Importacar",
 	"fileimporter-cancel": "Nuligar",
 	"fileimporter-editsummary": "Rezumo pri redakto:",
 	"fileimporter-file-missing-required-template": "Ca arkivo ne povas transferesar a $1, pro ol ne havas konciliebla licenço. $1 ne permisas ca tipo di arkivi. To esas posibla solvar, ma probable to signifikas ke ca arkivo ne esas konciliebla. Voluntez konsultar la politiko di la komunitato $2, e diskuto-pagini pri licenco."
