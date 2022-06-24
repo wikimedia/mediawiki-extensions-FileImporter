@@ -10,7 +10,6 @@ use RequestContext;
 use Status;
 use Title;
 use User;
-use WikiFilePage;
 
 /**
  * Class that can be used to validate the content of a text revision
@@ -53,7 +52,6 @@ class FileTextRevisionValidator {
 		$status = Status::newGood();
 		$this->context->setUser( $user );
 		$this->context->setTitle( $title );
-		$this->context->setWikiPage( new WikiFilePage( $title ) );
 
 		Hooks::run( 'EditFilterMergedContent', [
 			$this->context,
