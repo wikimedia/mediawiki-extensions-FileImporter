@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250"
+			"Vlad5250",
+			"Vipz"
 		]
 	},
 	"fileimporter": "Uvoznik datoteka",
@@ -33,7 +34,7 @@
 	"fileimporter-localtitleexists": "Naslov što želite uvesti već postoji na ovom wikiju.",
 	"fileimporter-sourcetitleexists": "Naslov što želite uvesti već postoji na izvornom wikiju.",
 	"fileimporter-illegalfilenamechars": "Naslov što želite uvesti ima nevažeće znakove u datotečnom imenu.",
-	"fileimporter-duplicatefilesdetected": "Datoteka što želite uvesti već postoji na ovom wikiju.",
+	"fileimporter-duplicatefilesdetected": "Datoteka koju želite uvesti već postoji na ovom wikiju.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplikati",
 	"fileimporter-exampleprefix": "Primjer",
 	"fileimporter-textrevisions": "Bit će {{PLURAL:$2|uvezena|uvezene|uvezeno}} $1/$2 {{PLURAL:$2|izmjena|izmjene|izmjena}} iz povijesti.",
@@ -56,11 +57,11 @@
 	"fileimporter-heading-cleanup": "Rasčisćenje izvornog wikija",
 	"fileimporter-cleanup-text": "Možete izjaviti izvornom wikiju da je ova datoteka uvezena u {{SITENAME}}. To se postiže stavljanjem šablonota <code><nowiki>{{$1}}</nowiki></code> u izvornu datotečnu stranicu u vaše ime.",
 	"fileimporter-cleanup-checkboxlabel": "Označi datoteku iz izvornog wikija kao uvezenu u {{SITENAME}}",
-	"fileimporter-cleanup-summary": "Datotekava sada se nalazi na {{SITENAME}} (premjestena s Uvoznikom datoteka).",
+	"fileimporter-cleanup-summary": "Datoteka se sada nalazi na {{SITENAME}} (premještena Uvoznikom datoteka).",
 	"fileimporter-cleanup-failed": "Ne mogu napraviti automatsko uređivanje ​​izvornog wikija. Slijedite gornje smjernice.",
 	"fileimporter-delete-text": "Imate potrebna prava za brisanje datoteke iz izvornog wikija. Ako želite da Uvoznik to učini u vaše ime, izaberite ovu mogućnost:",
 	"fileimporter-delete-checkboxlabel": "Izbriši datoteku iz izvornog wikija u moje ime",
-	"fileimporter-delete-summary": "Datotekava sada se nalazi na {{SITENAME}} (premjestena s Uvoznikom datoteka).",
+	"fileimporter-delete-summary": "Datoteka se sada nalazi na {{SITENAME}} (premještena Uvoznikom datoteka).",
 	"fileimporter-delete-failed": "Nisam mogao automatski izbrisati datoteku s $1. Vratite se na [$2 izvornu datoteku] i izbrišite je ručno.",
 	"fileimporter-revision-removed-text": "Sakriveni tekst je uklonjen Uvoznikom datoteka.",
 	"fileimporter-revision-removed-comment": "Sakriveni komentar je uklonjen Uvoznikom datoteka.",
