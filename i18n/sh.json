@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250"
+			"Vlad5250",
+			"Vipz"
 		]
 	},
 	"fileimporter": "Uvoznik datoteka",
@@ -33,7 +34,7 @@
 	"fileimporter-localtitleexists": "Naslov što želite uvesti već postoji na ovom wikiju.",
 	"fileimporter-sourcetitleexists": "Naslov što želite uvesti već postoji na izvornom wikiju.",
 	"fileimporter-illegalfilenamechars": "Naslov što želite uvesti ima nevažeće znakove u datotečnom imenu.",
-	"fileimporter-duplicatefilesdetected": "Datoteka što želite uvesti već postoji na ovom wikiju.",
+	"fileimporter-duplicatefilesdetected": "Datoteka koju želite uvesti već postoji na ovom wikiju.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplikati",
 	"fileimporter-exampleprefix": "Primjer",
 	"fileimporter-textrevisions": "Bit će {{PLURAL:$2|uvezena|uvezene|uvezeno}} $1/$2 {{PLURAL:$2|izmjena|izmjene|izmjena}} iz povijesti.",
