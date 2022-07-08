@@ -15,6 +15,7 @@ use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MainConfigNames;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
@@ -52,7 +53,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	 * @dataProvider providePlanContent
 	 */
 	public function testGetHtml( $submittedText, $replacements ) {
-		$this->setMwGlobals( 'wgLanguageCode', 'qqx' );
+		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'qqx' );
 
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
