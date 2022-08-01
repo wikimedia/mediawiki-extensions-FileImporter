@@ -141,7 +141,7 @@ class ImportPlan {
 	public function getTitle() {
 		if ( !$this->title ) {
 			$intendedFileName = $this->request->getIntendedName();
-			if ( $intendedFileName ) {
+			if ( $intendedFileName !== null ) {
 				$linkTarget = MediaWikiServices::getInstance()->getTitleParser()->parseTitle(
 					$intendedFileName . '.' . $this->details->getSourceFileExtension(),
 					NS_FILE

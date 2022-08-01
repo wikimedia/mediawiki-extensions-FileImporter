@@ -70,7 +70,7 @@ class ImportRequest {
 			$intendedText = str_replace( [ "\r\n", "\r" ], "\n", rtrim( $intendedText ) );
 		}
 
-		$this->intendedName = $intendedName;
+		$this->intendedName = $intendedName === '' ? null : $intendedName;
 		$this->intendedText = $intendedText;
 		$this->intendedSummary = $intendedSummary;
 		$this->importDetailsHash = $importDetailsHash;
