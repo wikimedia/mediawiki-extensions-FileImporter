@@ -12,7 +12,7 @@
 	"tag-fileimporter": "spremenjeno z razširitvijo FileImporter",
 	"tag-fileimporter-description": "Redakcije in dnevniška sporočila so bili dodani po uvozu iz drugega wikija",
 	"tag-fileimporter-imported": "uvoženo z razširitvijo FileImporter",
-	"tag-fileimporter-imported-description": "Redakcije, uvožene iz drugega wikija",
+	"tag-fileimporter-imported-description": "Redakcije, uvožene iz drugega vikija",
 	"fileimporter-specialpage": "Uvozi datoteko",
 	"fileimporter-importfailed": "Uvoz je spodletel",
 	"fileimporter-api-badinfo": "Neveljavna slika ali informacije redakcije, zavrnjene od API-ja.",
