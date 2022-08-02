@@ -23,7 +23,7 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
-		$filenameValue = $importPlan->getFileName();
+		$filenameValue = $importPlan->getRequest()->getIntendedName() ?? $importPlan->getFileName();
 
 		return Html::openElement(
 			'form',
