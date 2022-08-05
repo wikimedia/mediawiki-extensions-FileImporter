@@ -57,7 +57,6 @@
 	"fileimporter-editinfo": "Redigera filinfo",
 	"fileimporter-extensionlabel": "Filändelse",
 	"fileimporter-newfilename": "Nytt filnamn:",
-	"fileimporter-newfilename-placeholder": "Vissa filnamn",
 	"fileimporter-editsummary": "Redigeringssammanfattning:",
 	"fileimporter-previewnote": "Detta är en förhandsgranskning av filen att importera. Kontrollera sidan i detalj innan du importerar.",
 	"fileimporter-heading-fileinfo": "Filinfo",

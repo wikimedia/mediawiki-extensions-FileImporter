@@ -58,7 +58,6 @@
 	"fileimporter-editinfo": "แก้สนเทศไฟล์",
 	"fileimporter-extensionlabel": "นามสกุลไฟล์:",
 	"fileimporter-newfilename": "ชื่อไฟล์ใหม่:",
-	"fileimporter-newfilename-placeholder": "ชื่อไฟล์สักชื่อหนึ่ง",
 	"fileimporter-editsummary": "ความย่อการแก้ไข:",
 	"fileimporter-previewnote": "นี่เป็นตัวอย่างของไฟล์ที่จะนำเข้า กรุณาตรวจสอบหน้าโดยละเอียดก่อนนำเข้า",
 	"fileimporter-heading-fileinfo": "สนเทศไฟล์",

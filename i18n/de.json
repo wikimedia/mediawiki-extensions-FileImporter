@@ -61,7 +61,6 @@
 	"fileimporter-editinfo": "Dateiinfo bearbeiten",
 	"fileimporter-extensionlabel": "Dateierweiterung:",
 	"fileimporter-newfilename": "Neuer Dateiname:",
-	"fileimporter-newfilename-placeholder": "Irgendein Dateiname",
 	"fileimporter-editsummary": "Zusammenfassung:",
 	"fileimporter-previewnote": "Dies ist eine Vorschau der Datei, die importiert wird. Bitte kontrolliere die Seite genau, bevor du die Datei importierst.",
 	"fileimporter-heading-fileinfo": "Dateiinfo",

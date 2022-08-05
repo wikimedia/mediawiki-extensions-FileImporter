@@ -55,7 +55,6 @@
 	"fileimporter-editinfo": "عدل معلومات الملف",
 	"fileimporter-extensionlabel": "امتداد الملف:",
 	"fileimporter-newfilename": "اسم الملف الجديد:",
-	"fileimporter-newfilename-placeholder": "اسم الملف العادي",
 	"fileimporter-editsummary": "ملخص التعديل:",
 	"fileimporter-previewnote": "هذه معاينة للملف المراد استيراده، يُرجَى التحقق من الصفحة بالتفصيل قبل الاستيراد.",
 	"fileimporter-heading-fileinfo": "معلومات الملف",

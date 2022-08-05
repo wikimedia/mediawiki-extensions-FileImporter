@@ -75,7 +75,6 @@
 	"fileimporter-editinfo": "Править информацию о файле",
 	"fileimporter-extensionlabel": "Расширение файла:",
 	"fileimporter-newfilename": "Новое имя файла:",
-	"fileimporter-newfilename-placeholder": "Какое-то имя файла",
 	"fileimporter-editsummary": "Описание изменений:",
 	"fileimporter-previewnote": "Это предпросмотр файла, который будет импортирован. Пожалуйста, проверьте всю страницу внимательно перед импортом.",
 	"fileimporter-heading-fileinfo": "Информация о файле",
