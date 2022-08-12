@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Pacha Tchernof",
 			"פוילישער"
 		]
 	},
-	"fileimporter-duplicatefilesdetected-prefix": "דופליקאטן"
+	"fileimporter-duplicatefilesdetected-prefix": "דופליקאטן",
+	"fileimporter-cancel": "אַנולירן"
 }
