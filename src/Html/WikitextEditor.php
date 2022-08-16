@@ -38,7 +38,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 
 	/**
 	 * Run EditPage::showEditForm:initial hook mainly for the WikiEditor toolbar
-	 * @see \MediaWiki\Extension\WikiEditor\Hooks::editPageShowEditFormInitial
+	 * @see \MediaWiki\Extension\WikiEditor\Hooks::onEditPage__showEditForm_initial
 	 * Triggering the hook means we don't have special handling for any extensions.
 	 *
 	 * @param Title $filePage
