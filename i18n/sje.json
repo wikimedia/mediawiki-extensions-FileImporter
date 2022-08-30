@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Olve Utne"
 		]
 	},
-	"fileimporter-exampleprefix": "Åvvdåmärrka"
+	"fileimporter-exampleprefix": "Åvvdåmärrka",
+	"fileimporter-heading-filehistory": "Fijjlahisturrja"
 }
