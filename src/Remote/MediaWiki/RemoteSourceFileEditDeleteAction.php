@@ -5,7 +5,7 @@ namespace FileImporter\Remote\MediaWiki;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
-use IBufferingStatsdDataFactory;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use NullStatsdDataFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -45,7 +45,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	private $logger;
 
 	/**
-	 * @var IBufferingStatsdDataFactory
+	 * @var StatsdDataFactoryInterface
 	 */
 	private $statsd;
 
@@ -54,14 +54,14 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	 * @param WikidataTemplateLookup $templateLookup
 	 * @param RemoteApiActionExecutor $remoteAction
 	 * @param LoggerInterface|null $logger
-	 * @param IBufferingStatsdDataFactory|null $statsd
+	 * @param StatsdDataFactoryInterface|null $statsd
 	 */
 	public function __construct(
 		PostImportHandler $fallbackHandler,
 		WikidataTemplateLookup $templateLookup,
 		RemoteApiActionExecutor $remoteAction,
 		LoggerInterface $logger = null,
-		IBufferingStatsdDataFactory $statsd = null
+		StatsdDataFactoryInterface $statsd = null
 	) {
 		$this->fallbackHandler = $fallbackHandler;
 		$this->templateLookup = $templateLookup;
