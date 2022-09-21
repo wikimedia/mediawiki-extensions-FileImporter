@@ -15,6 +15,6 @@ interface WikiLinkCleaner {
 	 *
 	 * @return string Should return the original $link in case nothing was done.
 	 */
-	public function process( $link );
+	public function process( string $link ): string;
 
 }

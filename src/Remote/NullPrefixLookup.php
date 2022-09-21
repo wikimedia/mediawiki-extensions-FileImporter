@@ -19,7 +19,7 @@ class NullPrefixLookup implements LinkPrefixLookup {
 	/**
 	 * @inheritDoc
 	 */
-	public function getPrefix( SourceUrl $sourceUrl ) {
+	public function getPrefix( SourceUrl $sourceUrl ): string {
 		return '';
 	}
 

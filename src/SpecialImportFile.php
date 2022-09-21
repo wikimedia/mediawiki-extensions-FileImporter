@@ -283,7 +283,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @return ImportPlan
 	 * @throws ImportException
 	 */
-	private function makeImportPlan( WebRequest $webRequest ) {
+	private function makeImportPlan( WebRequest $webRequest ): ImportPlan {
 		$importRequest = new ImportRequest(
 			$webRequest->getVal( 'clientUrl' ),
 			$webRequest->getVal( 'intendedFileName' ),
@@ -330,7 +330,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @param ImportPlan $importPlan
 	 * @return bool
 	 */
-	private function doImport( ImportPlan $importPlan ) {
+	private function doImport( ImportPlan $importPlan ): bool {
 		$out = $this->getOutput();
 		$importDetails = $importPlan->getDetails();
 
@@ -426,7 +426,7 @@ class SpecialImportFile extends SpecialPage {
 	 *
 	 * @return string HTML
 	 */
-	private function getWarningMessage( Exception $ex ) {
+	private function getWarningMessage( Exception $ex ): string {
 		if ( $ex instanceof ILocalizedException ) {
 			return $ex->getMessageObject()->parse();
 		}

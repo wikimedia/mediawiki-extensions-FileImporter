@@ -124,7 +124,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return ImportDetails
 	 * @throws ImportException e.g. when the file couldn't be found
 	 */
-	public function getImportDetails( SourceUrl $sourceUrl ) {
+	public function getImportDetails( SourceUrl $sourceUrl ): ImportDetails {
 		$params = $this->getBaseParams( $sourceUrl );
 		$params = $this->addFileRevisionsToParams( $params );
 		$params = $this->addTextRevisionsToParams( $params );

@@ -100,7 +100,7 @@ class ImportPlan {
 		ImportDetails $details,
 		Config $config,
 		MessageLocalizer $messageLocalizer,
-		$prefix
+		string $prefix
 	) {
 		$this->request = $request;
 		$this->details = $details;
@@ -165,7 +165,7 @@ class ImportPlan {
 	/**
 	 * @return string
 	 */
-	public function getInterWikiPrefix() {
+	public function getInterWikiPrefix(): string {
 		return $this->interWikiPrefix;
 	}
 

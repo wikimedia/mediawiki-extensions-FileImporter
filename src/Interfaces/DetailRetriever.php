@@ -21,6 +21,6 @@ interface DetailRetriever {
 	 * @return ImportDetails
 	 * @throws SourceUrlException if the given target can't be imported by this importer
 	 */
-	public function getImportDetails( SourceUrl $sourceUrl );
+	public function getImportDetails( SourceUrl $sourceUrl ): ImportDetails;
 
 }

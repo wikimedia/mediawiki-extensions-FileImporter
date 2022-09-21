@@ -25,7 +25,7 @@ class AllowedDomainsFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 	/**
 	 * @inheritDoc
 	 */
-	public function checkSourceUrl( SourceUrl $sourceUrl ) {
+	public function checkSourceUrl( SourceUrl $sourceUrl ): bool {
 		$host = $sourceUrl->getHost();
 
 		foreach ( $this->allowedDomains as $allowedDomain ) {

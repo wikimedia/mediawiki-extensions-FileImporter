@@ -70,7 +70,7 @@ class WikidataTemplateLookup {
 	 *
 	 * @return string|null Local template title, without namespace prefix.
 	 */
-	public function fetchNowCommonsLocalTitle( SourceUrl $sourceUrl ) {
+	public function fetchNowCommonsLocalTitle( SourceUrl $sourceUrl ): ?string {
 		try {
 			return $this->fetchLocalTemplateForSource( $this->nowCommonsEntityId, $sourceUrl );
 		} catch ( RuntimeException $ex ) {
@@ -85,7 +85,7 @@ class WikidataTemplateLookup {
 	 * @param SourceUrl $sourceUrl
 	 * @return string|null
 	 */
-	private function fetchLocalTemplateForSource( $entityId, SourceUrl $sourceUrl ) {
+	private function fetchLocalTemplateForSource( $entityId, SourceUrl $sourceUrl ): ?string {
 		$sourceSite = $this->siteLookup->getSite( $sourceUrl );
 		if ( !$sourceSite || !$entityId ) {
 			return null;
@@ -104,7 +104,7 @@ class WikidataTemplateLookup {
 	 * @param string $siteId
 	 * @return string|null
 	 */
-	private function fetchSiteLinkPageName( $entityId, $siteId ) {
+	private function fetchSiteLinkPageName( $entityId, $siteId ): ?string {
 		if ( isset( $this->templateCache[$siteId][$entityId] ) ) {
 			return $this->templateCache[$siteId][$entityId];
 		}
@@ -124,7 +124,7 @@ class WikidataTemplateLookup {
 	 *
 	 * @return string
 	 */
-	private function removePrefixes( $title ) {
+	private function removePrefixes( string $title ): string {
 		$splitTitle = explode( ':', $title );
 		return end( $splitTitle );
 	}

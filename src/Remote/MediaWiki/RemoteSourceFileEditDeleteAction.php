@@ -73,7 +73,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	/**
 	 * @inheritDoc
 	 */
-	public function execute( ImportPlan $importPlan, User $user ) {
+	public function execute( ImportPlan $importPlan, User $user ): StatusValue {
 		if ( $importPlan->getAutomateSourceWikiDelete() ) {
 			return $this->deleteSourceFile( $importPlan, $user );
 		} elseif ( $importPlan->getAutomateSourceWikiCleanUp() ) {
@@ -88,7 +88,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		ImportPlan $importPlan,
 		User $user,
 		string $warningMsg = null
-	) {
+	): StatusValue {
 		$status = $this->fallbackHandler->execute( $importPlan, $user );
 		if ( $warningMsg ) {
 			$status->warning( $warningMsg );
@@ -101,11 +101,16 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	 * @param User $user
 	 * @return StatusValue
 	 */
-	private function addNowCommonsToSource( ImportPlan $importPlan, User $user ) {
-		// the template is cached and must be available due to the preconditions
+	private function addNowCommonsToSource( ImportPlan $importPlan, User $user ): StatusValue {
 		$templateName = $this->templateLookup->fetchNowCommonsLocalTitle(
 			$importPlan->getDetails()->getSourceUrl()
 		);
+		// This should be unreachable because the user can't click the checkbox in this case. But we
+		// know this from a POST request, which might be altered or simply outdated.
+		// Note: This intentionally doesn't allow a template with the name "0".
+		if ( !$templateName ) {
+			return $this->successMessage();
+		}
 
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage(
@@ -143,7 +148,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	 * @param User $user
 	 * @return StatusValue
 	 */
-	private function deleteSourceFile( ImportPlan $importPlan, User $user ) {
+	private function deleteSourceFile( ImportPlan $importPlan, User $user ): StatusValue {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage(
 			'fileimporter-delete-summary',
@@ -174,7 +179,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		}
 	}
 
-	private function successMessage() {
+	private function successMessage(): StatusValue {
 		return StatusValue::newGood( 'fileimporter-imported-success-banner' );
 	}
 

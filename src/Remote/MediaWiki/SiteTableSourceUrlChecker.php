@@ -39,7 +39,7 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 	/**
 	 * @inheritDoc
 	 */
-	public function checkSourceUrl( SourceUrl $sourceUrl ) {
+	public function checkSourceUrl( SourceUrl $sourceUrl ): bool {
 		$site = $this->siteTableSiteLookup->getSite( $sourceUrl );
 
 		if ( !$site ) {

@@ -36,7 +36,7 @@ class WikiLinkParserFactory {
 	 *
 	 * @return WikiLinkParser
 	 */
-	public function getWikiLinkParser( $languageCode, $interWikiPrefix ) {
+	public function getWikiLinkParser( ?string $languageCode, string $interWikiPrefix ): WikiLinkParser {
 		$parser = new WikiLinkParser();
 
 		// Minor performance optimization: skip this step if there is nothing to unlocalize
