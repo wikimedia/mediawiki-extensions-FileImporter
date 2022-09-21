@@ -36,7 +36,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 
 		$status = $validator->validate( $title, $user, $content, '', false );
 		$this->assertFalse( $status->isOK() );
-		$this->assertSame( 'fileimporter-badnamespace', $status->getMessage()->getKey() );
+		$this->assertTrue( $status->hasMessage( 'fileimporter-badnamespace' ) );
 	}
 
 	public function testAbuseFilterHook() {
@@ -74,7 +74,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 
 		$status = $validator->validate( $expectedTitle, $expectedUser, $expectedContent, '<SUMMARY>', true );
 		$this->assertTrue( $status->isOK() );
-		$this->assertSame( '<RAW>', $status->getMessage()->getKey() );
+		$this->assertTrue( $status->hasMessage( '<RAW>' ) );
 	}
 
 }

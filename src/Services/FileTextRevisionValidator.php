@@ -8,6 +8,7 @@ use FauxRequest;
 use Hooks;
 use RequestContext;
 use Status;
+use StatusValue;
 use Title;
 use User;
 
@@ -36,7 +37,7 @@ class FileTextRevisionValidator {
 	 * @param string $summary
 	 * @param bool $minor
 	 *
-	 * @return Status isOK when validation succeeds
+	 * @return StatusValue isOK when validation succeeds
 	 */
 	public function validate(
 		Title $title,
@@ -44,9 +45,9 @@ class FileTextRevisionValidator {
 		Content $content,
 		string $summary,
 		$minor
-	): Status {
+	): StatusValue {
 		if ( !$title->inNamespace( NS_FILE ) ) {
-			return Status::newFatal( 'fileimporter-badnamespace' );
+			return StatusValue::newFatal( 'fileimporter-badnamespace' );
 		}
 
 		$status = Status::newGood();

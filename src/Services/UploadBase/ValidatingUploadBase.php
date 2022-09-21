@@ -7,7 +7,7 @@ use Hooks;
 use MediaWiki\Linker\LinkTarget;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Status;
+use StatusValue;
 use UploadBase;
 use User;
 use WebRequest;
@@ -54,7 +54,7 @@ class ValidatingUploadBase extends UploadBase {
 	}
 
 	/**
-	 * @return Status
+	 * @return StatusValue
 	 */
 	public function validateFile() {
 		$fileVerification = $this->verifyFile();
@@ -63,17 +63,17 @@ class ValidatingUploadBase extends UploadBase {
 			$this->logger->info(
 				__METHOD__ . ' checks failed', [ 'fileVerification' => $fileVerification ]
 			);
-			return Status::newFatal( ...$fileVerification );
+			return StatusValue::newFatal( ...$fileVerification );
 		}
 
-		return Status::newGood();
+		return StatusValue::newGood();
 	}
 
 	/**
 	 * @param User $user user performing the import
 	 * @param TextRevision|null $textRevision optional text revision to validate the upload with
 	 *
-	 * @return Status
+	 * @return StatusValue
 	 */
 	public function validateUpload( User $user, TextRevision $textRevision = null ) {
 		$error = null;
@@ -101,10 +101,10 @@ class ValidatingUploadBase extends UploadBase {
 			if ( !is_array( $error ) ) {
 				$error = [ $error ];
 			}
-			return Status::newFatal( ...$error );
+			return StatusValue::newFatal( ...$error );
 		}
 
-		return Status::newGood();
+		return StatusValue::newGood();
 	}
 
 	/**

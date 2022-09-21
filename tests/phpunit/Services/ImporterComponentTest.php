@@ -396,7 +396,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$uploadBase->expects( $this->once() )
 			->method( 'validateUpload' )
 			->with( $expectedUser, $expectedTextRevision )
-			->willReturn( \Status::newGood() );
+			->willReturn( \StatusValue::newGood() );
 
 		$factory = $this->createMock( UploadBaseFactory::class );
 		$factory->expects( $this->once() )

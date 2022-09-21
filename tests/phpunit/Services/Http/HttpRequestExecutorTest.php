@@ -6,7 +6,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
-use Status;
+use StatusValue;
 
 /**
  * @covers \FileImporter\Services\Http\FileChunkSaver
@@ -41,7 +41,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			$this->assertStringContainsString( 'FileImporter', $options['userAgent'] );
 
 			$request = $this->createMock( MWHttpRequest::class );
-			$status = Status::newGood();
+			$status = StatusValue::newGood();
 			if ( !$expectedResult ) {
 				$status->fatal( 'SomeFatal' );
 			} else {
@@ -82,7 +82,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 			$this->assertStringContainsString( 'FileImporter', $options['userAgent'] );
 
 			$request = $this->createMock( MWHttpRequest::class );
-			$status = Status::newGood();
+			$status = StatusValue::newGood();
 			if ( !$expectedResult ) {
 				$status->fatal( 'SomeFatal' );
 			} else {

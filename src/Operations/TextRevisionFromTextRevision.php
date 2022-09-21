@@ -10,7 +10,7 @@ use MediaWiki\Permissions\RestrictionStore;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Status;
+use StatusValue;
 use Title;
 use User;
 use WikiRevision;
@@ -98,25 +98,25 @@ class TextRevisionFromTextRevision implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
-	public function prepare(): Status {
+	public function prepare(): StatusValue {
 		$wikiRevision = $this->wikiRevisionFactory->newFromTextRevision( $this->textRevision );
 		$wikiRevision->setTitle( $this->plannedTitle );
 
 		$this->wikiRevision = $wikiRevision;
 
-		return Status::newGood();
+		return StatusValue::newGood();
 	}
 
 	/**
 	 * Method to validate prepared data that should be committed.
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
-	public function validate(): Status {
+	public function validate(): StatusValue {
 		// Even administrators should not (accidentially) move a file to a protected file name
 		if ( $this->restrictionStore->isProtected( $this->plannedTitle ) ) {
-			return Status::newFatal( 'fileimporter-filenameerror-protected' );
+			return StatusValue::newFatal( 'fileimporter-filenameerror-protected' );
 		}
 
 		return $this->textRevisionValidator->validate(
@@ -130,19 +130,19 @@ class TextRevisionFromTextRevision implements ImportOperation {
 
 	/**
 	 * Commit this operation to persistent storage.
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
-	public function commit(): Status {
+	public function commit(): StatusValue {
 		$result = $this->importer->import( $this->wikiRevision );
 
 		if ( $result ) {
-			return Status::newGood();
+			return StatusValue::newGood();
 		} else {
 			$this->logger->error(
 				__METHOD__ . ' failed to commit.',
 				[ 'textRevision-getFields' => $this->textRevision->getFields() ]
 			);
-			return Status::newFatal( 'fileimporter-importfailed' );
+			return StatusValue::newFatal( 'fileimporter-importfailed' );
 		}
 	}
 

@@ -61,7 +61,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 
 		$postImportHandler = $this->createMock( RemoteSourceFileEditDeleteAction::class );
 		$postImportHandler->method( 'execute' )
-			->willReturn( \Status::newGood() );
+			->willReturn( \StatusValue::newGood() );
 
 		$sourceSiteMock = $this->createMock( SourceSite::class );
 		$sourceSiteMock->method( 'getPostImportHandler' )

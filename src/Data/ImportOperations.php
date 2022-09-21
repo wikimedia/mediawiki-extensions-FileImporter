@@ -4,7 +4,7 @@ namespace FileImporter\Data;
 
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportOperation;
-use Status;
+use StatusValue;
 
 /**
  * @license GPL-2.0-or-later
@@ -56,9 +56,9 @@ class ImportOperations implements ImportOperation {
 	 * @param int $expectedState State machine must be in this state to begin processing.
 	 * @param int $nextState State machine will move to this state once processing begins.
 	 * @param bool $stopOnError when True the state machine will exit early if errors are found
-	 * @param callable $executor function( ImportOperation ) : Status,
+	 * @param callable $executor function( ImportOperation ): StatusValue,
 	 *  callback to select which phase of the operation to run.
-	 * @return Status isOK if all steps succeed.  Accumulates warnings and may
+	 * @return StatusValue isOK if all steps succeed.  Accumulates warnings and may
 	 *  include a final error explaining why not ok.
 	 */
 	private function runOperations(
@@ -66,7 +66,7 @@ class ImportOperations implements ImportOperation {
 		int $nextState,
 		bool $stopOnError,
 		callable $executor
-	): Status {
+	): StatusValue {
 		if ( !$this->importOperations ) {
 			throw new ImportException(
 				__CLASS__ . ' tried to run empty import operations',
@@ -77,7 +77,7 @@ class ImportOperations implements ImportOperation {
 		$this->throwExceptionOnBadState( $expectedState );
 		$this->state = $nextState;
 
-		$status = Status::newGood();
+		$status = StatusValue::newGood();
 		foreach ( $this->importOperations as $importOperation ) {
 			$status->merge( $executor( $importOperation ) );
 
@@ -91,9 +91,9 @@ class ImportOperations implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * @return Status isOK when all steps succeed
+	 * @return StatusValue isOK when all steps succeed
 	 */
-	public function prepare(): Status {
+	public function prepare(): StatusValue {
 		return $this->runOperations(
 			self::BUILDING,
 			self::PREPARE_RUN,
@@ -106,10 +106,10 @@ class ImportOperations implements ImportOperation {
 
 	/**
 	 * Method to validate prepared content that should be committed.
-	 * @return Status isOK when all validation succeeds.  Specifics are accumulated
+	 * @return StatusValue isOK when all validation succeeds.  Specifics are accumulated
 	 *  as errors and warnings.
 	 */
-	public function validate(): Status {
+	public function validate(): StatusValue {
 		return $this->runOperations(
 			self::PREPARE_RUN,
 			self::VALIDATE_RUN,
@@ -122,9 +122,9 @@ class ImportOperations implements ImportOperation {
 
 	/**
 	 * Commit this operation to persistent storage.
-	 * @return Status isOK if all steps succeeded.
+	 * @return StatusValue isOK if all steps succeeded.
 	 */
-	public function commit(): Status {
+	public function commit(): StatusValue {
 		return $this->runOperations(
 			self::VALIDATE_RUN,
 			self::COMMIT_RUN,
