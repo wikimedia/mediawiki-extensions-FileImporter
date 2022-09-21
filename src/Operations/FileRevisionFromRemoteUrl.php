@@ -13,6 +13,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use ManualLogEntry;
+use MediaWiki\FileBackend\FSFile\TempFSFileFactory;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\User\UserIdentityLookup;
 use MWHttpRequest;
@@ -20,7 +21,6 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Status;
 use StatusValue;
-use TempFSFile;
 use Title;
 use UnexpectedValueException;
 use UploadBase;
@@ -112,7 +112,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			return StatusValue::newFatal( 'fileimporter-cantparseurl' );
 		}
 
-		$tmpFile = TempFSFile::factory( 'fileimporter_', '', wfTempDir() );
+		$tmpFile = ( new TempFSFileFactory( wfTempDir() ) )->newTempFSFile( 'fileimporter_' );
 		$tmpFile->bind( $this );
 
 		try {
