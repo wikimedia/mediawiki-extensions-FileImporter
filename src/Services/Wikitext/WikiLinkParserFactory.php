@@ -3,6 +3,7 @@
 namespace FileImporter\Services\Wikitext;
 
 use FileImporter\Remote\MediaWiki\MediaWikiSourceUrlParser;
+use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\MediaWikiServices;
 use NamespaceInfo;
 use TitleParser;
@@ -14,20 +15,18 @@ use TitleParser;
 class WikiLinkParserFactory {
 	use MediaWikiSourceUrlParser;
 
-	/**
-	 * @var TitleParser
-	 */
+	/** @var TitleParser */
 	private $parser;
-
-	/**
-	 * @var NamespaceInfo
-	 */
+	/** @var NamespaceInfo */
 	private $namespaceInfo;
+	/** @var LanguageFactory */
+	private $languageFactory;
 
 	public function __construct() {
 		$services = MediaWikiServices::getInstance();
 		$this->parser = $services->getTitleParser();
 		$this->namespaceInfo = $services->getNamespaceInfo();
+		$this->languageFactory = $services->getLanguageFactory();
 	}
 
 	/**
@@ -41,8 +40,9 @@ class WikiLinkParserFactory {
 
 		// Minor performance optimization: skip this step if there is nothing to unlocalize
 		if ( $languageCode && $languageCode !== 'en' ) {
+			$language = $this->languageFactory->getLanguage( $languageCode );
 			$parser->registerWikiLinkCleaner( new NamespaceUnlocalizer(
-				new LocalizedMediaWikiNamespaceLookup( $languageCode ),
+				new LocalizedMediaWikiNamespaceLookup( $language ),
 				$this->namespaceInfo
 			) );
 		}
