@@ -6,7 +6,7 @@ use FileImporter\Data\ImportOperations;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Interfaces\ImportOperation;
 use RuntimeException;
-use Status;
+use StatusValue;
 
 /**
  * @covers \FileImporter\Data\ImportOperations
@@ -64,10 +64,10 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 		$noop = $this->createMock( ImportOperation::class );
 		$noop->expects( $this->once() )
 			->method( 'prepare' )
-			->willReturn( Status::newGood() );
+			->willReturn( StatusValue::newGood() );
 		$noop->expects( $this->never() )
 			->method( 'commit' )
-			->willReturn( Status::newGood() );
+			->willReturn( StatusValue::newGood() );
 
 		$operations = new ImportOperations();
 		$operations->add( $noop );
@@ -114,13 +114,13 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 		$mock = $this->createMock( ImportOperation::class );
 		$mock->expects( $this->exactly( $calls['prepare'] ) )
 			->method( 'prepare' )
-			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
+			->willReturn( $success ? StatusValue::newGood() : StatusValue::newFatal( '' ) );
 		$mock->expects( $this->exactly( $calls['validate'] ) )
 			->method( 'validate' )
-			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
+			->willReturn( $success ? StatusValue::newGood() : StatusValue::newFatal( '' ) );
 		$mock->expects( $this->exactly( $calls['commit'] ) )
 			->method( 'commit' )
-			->willReturn( $success ? Status::newGood() : Status::newFatal( '' ) );
+			->willReturn( $success ? StatusValue::newGood() : StatusValue::newFatal( '' ) );
 		return $mock;
 	}
 

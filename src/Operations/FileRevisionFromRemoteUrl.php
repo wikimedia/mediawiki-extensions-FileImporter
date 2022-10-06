@@ -19,6 +19,7 @@ use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Status;
+use StatusValue;
 use TempFSFile;
 use Title;
 use UnexpectedValueException;
@@ -102,13 +103,13 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
-	public function prepare(): Status {
+	public function prepare(): StatusValue {
 		$fileUrl = $this->fileRevision->getField( 'url' );
 		if ( !MWHttpRequest::isValidURI( $fileUrl ) ) {
 			// invalid URL detected
-			return Status::newFatal( 'fileimporter-cantparseurl' );
+			return StatusValue::newFatal( 'fileimporter-cantparseurl' );
 		}
 
 		$tmpFile = TempFSFile::factory( 'fileimporter_', '', wfTempDir() );
@@ -135,33 +136,34 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			$this->wikiRevision->getFileSrc()
 		);
 
-		return Status::newGood();
+		return StatusValue::newGood();
 	}
 
 	/**
 	 * Method to validate prepared data that should be committed.
 	 *
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 * @throws ImportException when critical validations fail
 	 */
-	public function validate(): Status {
+	public function validate(): StatusValue {
 		$errorCode = $this->uploadBase->validateTitle();
 		if ( $errorCode !== UploadBase::OK ) {
 			$this->logger->error(
 				__METHOD__ . " failed to validate title, error code {$errorCode}",
 				[ 'fileRevision-getFields' => $this->fileRevision->getFields() ]
 			);
-			return Status::newFatal( 'fileimporter-filenameerror-illegal' );
+			return StatusValue::newFatal( 'fileimporter-filenameerror-illegal' );
 		}
 
 		// Even administrators should not (accidentially) move a file to a protected file name
 		if ( $this->restrictionStore->isProtected( $this->plannedTitle ) ) {
-			return Status::newFatal( 'fileimporter-filenameerror-protected' );
+			return StatusValue::newFatal( 'fileimporter-filenameerror-protected' );
 		}
 
 		$fileValidationStatus = $this->uploadBase->validateFile();
 		if ( !$fileValidationStatus->isOK() ) {
-			return Status::newFatal( 'fileimporter-cantimportfileinvalid', $fileValidationStatus->getMessage() );
+			$message = Status::wrap( $fileValidationStatus )->getMessage();
+			return StatusValue::newFatal( 'fileimporter-cantimportfileinvalid', $message );
 		}
 
 		return $this->uploadBase->validateUpload(
@@ -172,9 +174,9 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 
 	/**
 	 * Commit this operation to persistent storage.
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
-	public function commit(): Status {
+	public function commit(): StatusValue {
 		$status = $this->importer->import( $this->wikiRevision );
 
 		if ( !$status->isGood() ) {
@@ -200,7 +202,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 			$this->createUploadLog();
 		}
 
-		return Status::wrap( $status );
+		return $status;
 	}
 
 	/**

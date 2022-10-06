@@ -2,7 +2,7 @@
 
 namespace FileImporter\Interfaces;
 
-use Status;
+use StatusValue;
 
 /**
  * @license GPL-2.0-or-later
@@ -12,20 +12,20 @@ interface ImportOperation {
 
 	/**
 	 * Method to prepare an operation. This will not commit anything to any persistent storage.
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
-	public function prepare(): Status;
+	public function prepare(): StatusValue;
 
 	/**
 	 * Method to validate prepared data that should be committed.
-	 * @return Status isOK when validation succeeds
+	 * @return StatusValue isOK when validation succeeds
 	 */
-	public function validate(): Status;
+	public function validate(): StatusValue;
 
 	/**
 	 * Commit this operation to persistent storage.
-	 * @return Status isOK on success
+	 * @return StatusValue isOK on success
 	 */
-	public function commit(): Status;
+	public function commit(): StatusValue;
 
 }
