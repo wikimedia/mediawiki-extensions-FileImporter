@@ -17,6 +17,6 @@ interface LinkPrefixLookup {
 	 * @param SourceUrl $sourceUrl
 	 * @return string
 	 */
-	public function getPrefix( SourceUrl $sourceUrl );
+	public function getPrefix( SourceUrl $sourceUrl ): string;
 
 }

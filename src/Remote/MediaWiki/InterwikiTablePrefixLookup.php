@@ -81,7 +81,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @inheritDoc
 	 * @return string Interwiki prefix or empty string on failure.
 	 */
-	public function getPrefix( SourceUrl $sourceUrl ) {
+	public function getPrefix( SourceUrl $sourceUrl ): string {
 		$host = $sourceUrl->getHost();
 
 		// TODO: Wrap this class in a caching lookup to save each successful host -> prefix mapping.

@@ -92,7 +92,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 			->method( 'executeEditAction' );
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
 		$mockTemplateLookup->expects( $this->once() )
-			->method( 'fetchNowCommonsLocalTitle' );
+			->method( 'fetchNowCommonsLocalTitle' )
+			->willReturn( 'NowCommons' );
 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$fallbackHandler,

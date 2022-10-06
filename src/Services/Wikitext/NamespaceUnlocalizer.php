@@ -46,7 +46,7 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 	 *
 	 * @return string
 	 */
-	public function process( $link ) {
+	public function process( string $link ): string {
 		return preg_replace_callback(
 			'/^
 				# Group 1 captures an optional leading colon, the extra + avoid backtracking

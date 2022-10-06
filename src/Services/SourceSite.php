@@ -56,7 +56,7 @@ class SourceSite {
 	 *
 	 * @return bool is this the source site for the given URL
 	 */
-	public function isSourceSiteFor( SourceUrl $sourceUrl ) {
+	public function isSourceSiteFor( SourceUrl $sourceUrl ): bool {
 		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
 		return $this->sourceUrlChecker->checkSourceUrl( $sourceUrl );
 	}
@@ -66,7 +66,7 @@ class SourceSite {
 	 *
 	 * @return string
 	 */
-	public function getLinkPrefix( SourceUrl $sourceUrl ) {
+	public function getLinkPrefix( SourceUrl $sourceUrl ): string {
 		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
 		return $this->linkPrefixLookup->getPrefix( $sourceUrl );
 	}
@@ -76,7 +76,7 @@ class SourceSite {
 	 *
 	 * @return ImportDetails
 	 */
-	public function retrieveImportDetails( SourceUrl $sourceUrl ) {
+	public function retrieveImportDetails( SourceUrl $sourceUrl ): ImportDetails {
 		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
 		return $this->detailRetriever->getImportDetails( $sourceUrl );
 	}
@@ -84,14 +84,14 @@ class SourceSite {
 	/**
 	 * @return ImportTitleChecker
 	 */
-	public function getImportTitleChecker() {
+	public function getImportTitleChecker(): ImportTitleChecker {
 		return $this->importTitleChecker;
 	}
 
 	/**
 	 * @return PostImportHandler
 	 */
-	public function getPostImportHandler() {
+	public function getPostImportHandler(): PostImportHandler {
 		return $this->postImportHandler;
 	}
 

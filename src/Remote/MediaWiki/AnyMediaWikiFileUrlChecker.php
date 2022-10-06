@@ -17,7 +17,7 @@ class AnyMediaWikiFileUrlChecker implements SourceUrlChecker {
 	/**
 	 * @inheritDoc
 	 */
-	public function checkSourceUrl( SourceUrl $sourceUrl ) {
+	public function checkSourceUrl( SourceUrl $sourceUrl ): bool {
 		return $this->parseTitleFromSourceUrl( $sourceUrl ) !== null;
 	}
 

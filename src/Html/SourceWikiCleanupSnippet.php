@@ -158,6 +158,7 @@ class SourceWikiCleanupSnippet {
 	 */
 	private function isSourceEditAllowed( SourceUrl $sourceUrl, User $user, string $title ) {
 		if ( !$this->sourceEditingEnabled ||
+			// Note: This intentionally doesn't allow a template with the name "0".
 			!$this->lookup->fetchNowCommonsLocalTitle( $sourceUrl )
 		) {
 			return false;

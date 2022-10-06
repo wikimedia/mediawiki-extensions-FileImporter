@@ -35,7 +35,7 @@ class SuggestManualTemplateAction implements PostImportHandler {
 	 * @return StatusValue Always good, i.e. never contains warnings. The status's value is a
 	 *  message specifier explaining the suggested manual action.
 	 */
-	public function execute( ImportPlan $importPlan, User $user ) {
+	public function execute( ImportPlan $importPlan, User $user ): StatusValue {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$templateName = $this->templateLookup->fetchNowCommonsLocalTitle( $sourceUrl );
 
