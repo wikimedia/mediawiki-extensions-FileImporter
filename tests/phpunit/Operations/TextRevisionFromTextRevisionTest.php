@@ -42,7 +42,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( 'Original text of Test.png', $wikiRevision->getText() );
 		$this->assertSame( 'Original upload comment of Test.png', $wikiRevision->getComment() );
 		$this->assertSame( '20180624133723', $wikiRevision->getTimestamp() );
-		$this->assertSame( 'text/x-wiki', $wikiRevision->getFormat() );
+		$this->assertSame( 'text/x-wiki', $wikiRevision->getContent()->getDefaultFormat() );
 		$this->assertSame( 'TextSHA1', $wikiRevision->getSha1Base36() );
 		$this->assertFalse( $wikiRevision->getMinor() );
 	}
