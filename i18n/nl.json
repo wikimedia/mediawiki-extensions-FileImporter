@@ -53,7 +53,7 @@
 	"fileimporter-import-wait": "De invoer zal enkele minuten duren.",
 	"fileimporter-imported-success-banner": "Het bestand is succesvol geïmporteerd op {{SITENAME}}.",
 	"fileimporter-go-to-original-file-button": "Terug naar het originele bestand",
-	"fileimporter-file-contains-blocked-category-template": "Dit bestand kan niet worden overgebracht naar {{SITENAME}}, omdat het is gemarkeerd als $1. {{SITENAME}} staat dergelijke bestanden niet toe. Misschien kan dit worden opgelost, maar meestal houdt dit in dat het bestand niet verenigbaar is met het beleid van de site. Raadpleeg [[Project:Licensing|de richtlijnen van {{SITENAME}} en de overlegpagina's over licenties]].",
+	"fileimporter-file-contains-blocked-category-template": "Dit bestand kan niet worden geïmporteerd in {{SITENAME}} omdat het is gemarkeerd als $1. {{SITENAME}} staat dergelijke bestanden niet toe. Misschien kan dit worden opgelost, maar meestal houdt dit in dat het bestand niet verenigbaar is met het beleid van de site. Raadpleeg [[Project:Licensing|de richtlijnen van {{SITENAME}} en de overlegpagina's over licenties]].",
 	"fileimporter-input-page-info-text": "Leer meer door onze [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons hulppagina] te bezoeken.",
 	"fileimporter-viewdiff": "Wijzigingen bekijken",
 	"fileimporter-to-preview": "Terug naar de voorvertoning"
