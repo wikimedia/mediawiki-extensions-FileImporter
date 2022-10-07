@@ -129,7 +129,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				true,
 				null,
 				function ( $html ) {
-					$this->assertContains( " name='clientUrl'", $html );
+					$this->assertStringContainsString( " name='clientUrl'", $html );
 				}
 			],
 			'Bad domain (not in allowed sites)' => [
@@ -180,7 +180,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow'
 					);
-					$this->assertContains(
+					$this->assertStringContainsString(
 						'<h2 class="mw-importfile-header-title">Chicken In Snow.JPG</h2>',
 						$html
 					);
@@ -203,7 +203,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow CHANGED'
 					);
-					$this->assertContains(
+					$this->assertStringContainsString(
 						'<h2 class="mw-importfile-header-title">Chicken In Snow CHANGED.JPG</h2>',
 						$html
 					);
@@ -215,9 +215,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	}
 
 	private function assertErrorBox( $html, $text ) {
-		$this->assertContains( 'mw-importfile-error-banner', $html );
-		$this->assertContains( 'mw-message-box-error', $html );
-		$this->assertContains( htmlspecialchars( $text ), $html );
+		$this->assertStringContainsString( 'mw-importfile-error-banner', $html );
+		$this->assertStringContainsString( 'mw-message-box-error', $html );
+		$this->assertStringContainsString( htmlspecialchars( $text ), $html );
 	}
 
 	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {
