@@ -18,7 +18,7 @@
 	"fileimporter-importfailed": "Export selhal",
 	"fileimporter-cantimportmissingfile": "Nelze exportovat chybějící soubor.",
 	"fileimporter-filenameerror-default": "Vyskytl se neznámý problém s názvem vašeho souboru.",
-	"fileimporter-filenameerror-illegal": "Název souboru, který se právě snažíte importovat, není platný.",
+	"fileimporter-filenameerror-illegal": "Název souboru, který se právě snažíte importovat, není platný, například proto, že obsahuje nepovolené znaky.",
 	"fileimporter-filenameerror-toolong": "Název souboru, který se právě snažíte importovat, je příliš dlouhý.",
 	"fileimporter-filenameerror-nosourceextension": "Název zdrojového souboru nemá příponu.",
 	"fileimporter-filenameerror-noplannedextension": "Míněný název souboru nemá příponu.",
