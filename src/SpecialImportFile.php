@@ -6,6 +6,7 @@ use Config;
 use EditPage;
 use ErrorPageError;
 use Exception;
+use ExtensionRegistry;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\AbuseFilterWarningsException;
@@ -31,6 +32,7 @@ use FileImporter\Services\SourceSiteLocator;
 use Html;
 use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Extension\GlobalBlocking\GlobalBlocking;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\User\UserOptionsManager;
 use Message;
@@ -155,9 +157,12 @@ class SpecialImportFile extends SpecialPage {
 		}
 
 		// Global blocks
-		if ( $user->isBlockedGlobally() ) {
-			$this->logErrorStats( self::ERROR_GLOBAL_BLOCK, false );
-			throw new UserBlockedError( $user->getGlobalBlock() );
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'GlobalBlocking' ) ) {
+			$globalBlock = GlobalBlocking::getUserBlock( $user, $this->getRequest()->getIP() );
+			if ( $globalBlock ) {
+				$this->logErrorStats( self::ERROR_GLOBAL_BLOCK, false );
+				throw new UserBlockedError( $globalBlock );
+			}
 		}
 
 		# Check whether we actually want to allow changing stuff
