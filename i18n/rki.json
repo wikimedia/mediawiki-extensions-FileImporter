@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"ReyLon Mrat"
+			"ReyLon Mrat",
+			"YaThaWinTha"
 		]
 	},
+	"fileimporter-filenameerror-illegal": "သင်တင်သွင်းဖို့ကြိုးစားနီရေ ဖိုင်နာမည်က ခွင့်ပြုချက်မရဟိပါ၊ တရားခွင့်မပြုထားရေ အက္ခရာတိပါဝင်လို့ပါ",
 	"fileimporter-add-unknown-template": "ဒေဖိုင်ကိုထည့်သွင်းပြီးပါဗျာ။ {{SITENMAE}}မှာ အဂုဖျုင်ရှိနီဗျာဆိုစွာကြေငြာဖို့ [$1 မှုလဖိုင်]သို့ပြန်လားပါ။ ပြီးကေ သင့်လျော်ရေ တမ်းပလိတ်ကိုထေ့ပါ။ ဖြစ်တတ်စွာက\n <code><nowiki>{{NowCommons}}</nowiki></code>",
+	"fileimporter-file-contains-blocked-category-template": "ဖိုင်ကိုတင်သွင်းလို့မရ {{SITENAME}} $1အဖြိုက်သတ်မှတ်ထားလို့ဖြိုက်တေ {{SITENAME}} ဒေပိုင်ဖိုင်တိကိုခွွင့်မပြု။ ဖြေရှင်းလို့ရနိုင်ပါရေ ယဒါလည်း‌ဒေချင့်ကမဖြိုက်နိုင်ပါ။ ‌‌ဆွေးနွေးပါ [[Project:Licensing|the {{SITENAME}} community policy လိုင်ဆင်အကြောင်း‌ဆွေးနွေးရေစာမျက်နှာ]].",
 	"fileimporter-file-missing-required-template": "ဒေဖိုင်ကို လိုက်ဖက်ညီရေ လိုင်စင်နန့် အမှတ်အသားမပြုထားရေအတွက်ကြောင့် ဒေဖိုင်ကို {{SITENAME}} သို့ မတင်သွင်းနိုင်ပါ။ {{SITENAME}} စော် ယင်းဖိုင်များကို ခွင့်မပြုပါ။ ယင်းစော် ဖြေရှင်းလို့ရနိုင်ကေလည်း အများစုမှာ ဖိုင်ကို သဟဇာတမဖြစ်လို့ ဆိုလိုရေ။ [[Project:Licensing{{SITENAME}} နှင့် တိုင်ပင်ပါ။]]"
 }
