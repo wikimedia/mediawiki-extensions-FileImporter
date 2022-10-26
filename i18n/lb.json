@@ -35,6 +35,6 @@
 	"fileimporter-import-wait": "Den Import kann e puer Minutten daueren.",
 	"fileimporter-go-to-original-file-button": "Zréck op den Originalfichier",
 	"fileimporter-commonshelper-retrieval-failed": "Beim Sichen no gespaarte Fichieren ass e Feeler geschitt.",
-	"fileimporter-file-contains-blocked-category-template": "De Fichier däerf net importéiert gi well en als $1 markéiert ass. $2 erlaabt esou Fichieren net.",
+	"fileimporter-file-contains-blocked-category-template": "De Fichier däerf net op {{SITENAME}} importéiert gi well en als $1 markéiert ass. {{SITENAME}} erlaabt esou Fichieren net. Dës kéint léisbar sinn, awer dat heescht datt de Fichier net kompatibel ass. Kuckt wgl. op [[Project:Licensing|der Säit op {{SITENAME}} vun de Richtlinnen vun der Communautéit an den Diskussiounssäit vun de Lizenzen]].",
 	"fileimporter-viewdiff": "Ännerunge weisen"
 }
