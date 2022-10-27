@@ -17,10 +17,14 @@ class ImportException extends RuntimeException {
 	 * @param Throwable|null $previous
 	 */
 	public function __construct( $message, $code, Throwable $previous = null ) {
+		if ( is_string( $code ) && ctype_digit( $code ) ) {
+			$code = (int)$code;
+		}
+
 		parent::__construct( $message, (int)$code, $previous );
 
 		// Not all codes can be passed through the constructor due to type hints
-		if ( !is_int( $code ) && !ctype_digit( $code ) ) {
+		if ( !is_int( $code ) ) {
 			$this->code = $code;
 		}
 	}
