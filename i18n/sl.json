@@ -24,6 +24,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Datotek, ki se v resnici ne nahajajo na $1, ampak jih gostuje skupno skladišče, ni mogoče uvoziti.",
 	"fileimporter-cantimportmissingfile": "Manjkajoče datoteke ni mogoče uvoziti.",
 	"fileimporter-cantimportfilehidden": "Datoteke ni mogoče uvoziti, saj je vsaj ena njenih redakcij datotek skrita.",
+	"fileimporter-warningabusefilter": "[//en.wikipedia.org/wiki/Wikipedia:Edit_filter Samodejni filter] je v zgodovini redakcij datoteke prepoznal morda nekonstruktivno urejanje. To je lahko sprožila ena ali več redakcij; vsaka od njih je prikazana spodaj s povezanim opozorilom. Da prezrete opozorila in nadaljujete uvoz, še enkrat kliknite »Pošlji«.",
 	"fileimporter-badtoken": "Vaša seja ni več veljavna. Prosimo, začnite z uvozom znova.",
 	"fileimporter-badimporthash": "Uvozna zgoščena vrednost se ne ujema. Prosimo, začnite uvoz znova.",
 	"fileimporter-filenameerror-default": "Prišlo je do neznane težave v zvezi z imenom datoteke.",
