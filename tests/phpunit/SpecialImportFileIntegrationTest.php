@@ -217,7 +217,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	private function assertErrorBox( $html, $text ) {
 		$this->assertStringContainsString( 'mw-importfile-error-banner', $html );
 		$this->assertStringContainsString( 'mw-message-box-error', $html );
-		$this->assertStringContainsString( htmlspecialchars( $text ), $html );
+		$this->assertStringContainsString( htmlspecialchars( $text, ENT_NOQUOTES ), $html );
 	}
 
 	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {

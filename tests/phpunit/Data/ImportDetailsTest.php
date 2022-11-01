@@ -21,12 +21,12 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	public function testValueObject() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'PATH/FILENAME.EXT' );
-		$textRevisions = new TextRevisions( [ $this->createMock( TextRevision::class ) ] );
+		$textRevisions = new TextRevisions( [ $this->createTextRevision() ] );
 
 		$fileRevisions = $this->createMock( FileRevisions::class );
 		$fileRevisions->method( 'toArray' )->willReturn( [] );
 		$fileRevisions->method( 'getLatest' )
-			->willReturn( $this->newRevision( FileRevision::class, 'IMAGEDISPLAYURL' ) );
+			->willReturn( $this->createFileRevision( [ 'thumburl' => 'IMAGEDISPLAYURL' ] ) );
 
 		$details = new ImportDetails(
 			$sourceUrl,
@@ -96,8 +96,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	public function provideNotSameHashes() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'FILE' );
-		$textRevisions = new TextRevisions( [ $this->createMock( TextRevision::class ) ] );
-		$fileRevisions = new FileRevisions( [ $this->createMock( FileRevision::class ) ] );
+		$textRevisions = new TextRevisions( [ $this->createTextRevision() ] );
+		$fileRevisions = new FileRevisions( [ $this->createFileRevision() ] );
 
 		$original = new ImportDetails(
 			$sourceUrl,
@@ -132,8 +132,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				$sourceUrl,
 				$sourceLinkTarget,
 				new TextRevisions( [
-					$this->createMock( TextRevision::class ),
-					$this->createMock( TextRevision::class ),
+					$this->createTextRevision(),
+					$this->createTextRevision(),
 				] ),
 				$fileRevisions
 			)
@@ -146,8 +146,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				$sourceLinkTarget,
 				$textRevisions,
 				new FileRevisions( [
-					$this->createMock( FileRevision::class ),
-					$this->createMock( FileRevision::class ),
+					$this->createFileRevision(),
+					$this->createFileRevision(),
 				] )
 			)
 		];
@@ -157,7 +157,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				new TextRevisions( [ $this->newRevision( TextRevision::class, 'OTHER' ) ] ),
+				new TextRevisions( [ $this->createTextRevision( [ 'sha1' => 'OTHER' ] ) ] ),
 				$fileRevisions
 			)
 		];
@@ -168,7 +168,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				$sourceUrl,
 				$sourceLinkTarget,
 				$textRevisions,
-				new FileRevisions( [ $this->newRevision( FileRevision::class, 'OTHER' ) ] )
+				new FileRevisions( [ $this->createFileRevision( [ 'sha1' => 'OTHER' ] ) ] )
 			)
 		];
 	}
@@ -177,21 +177,47 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		return new ImportDetails(
 			new SourceUrl( '//SOURCE.URL' ),
 			new TitleValue( NS_FILE, 'FILE' ),
-			new TextRevisions( [ $this->createMock( TextRevision::class ) ] ),
-			new FileRevisions( [ $this->createMock( FileRevision::class ) ] )
+			new TextRevisions( [ $this->createTextRevision() ] ),
+			new FileRevisions( [ $this->createFileRevision() ] )
 		);
 	}
 
 	/**
-	 * @param string $revisionClass Either TextRevision::class or FileRevision::class
-	 * @param mixed $fieldValue All fields will return the same value
-	 *
-	 * @return TextRevision|FileRevision
+	 * @param array $fields
+	 * @return FileRevision
 	 */
-	private function newRevision( $revisionClass, $fieldValue ) {
-		$mock = $this->createMock( $revisionClass );
-		$mock->method( 'getField' )->willReturn( $fieldValue );
-		return $mock;
+	private function createFileRevision( $fields = [] ) {
+		return new FileRevision(
+			$fields + [
+				'name' => '',
+				'description' => '',
+				'user' => '',
+				'timestamp' => '',
+				'size' => 0,
+				'thumburl' => '',
+				'url' => '',
+			]
+		);
+	}
+
+	/**
+	 * @param array $fields
+	 * @return TextRevision
+	 */
+	private function createTextRevision( $fields = [] ) {
+		return new TextRevision(
+			$fields + [
+				'minor' => false,
+				'user' => '',
+				'timestamp' => '',
+				'contentmodel' => '',
+				'contentformat' => '',
+				'comment' => '',
+				'*' => '',
+				'title' => '',
+				'tags' => '',
+			]
+		);
 	}
 
 }

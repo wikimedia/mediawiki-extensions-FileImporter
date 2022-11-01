@@ -26,7 +26,6 @@ class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
 			[ '{"query":{}}', false, 1 ],
 			[ '{}', false, 1 ],
 			[ '', false, 1 ],
-			[ null, false, 1 ],
 		];
 	}
 
