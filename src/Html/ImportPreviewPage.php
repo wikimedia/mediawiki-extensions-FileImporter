@@ -61,7 +61,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		) .
 		Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK ) .
 		( new HelpBanner( $this ) )->getHtml() .
-		Html::rawElement( 'p', [], $this->msg( 'fileimporter-previewnote' )->parse() ) .
+		$this->msg( 'fileimporter-previewnote' )->parseAsBlock() .
 		Html::rawElement(
 			'div',
 			[ 'class' => 'mw-importfile-header' ],
@@ -109,17 +109,13 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		) .
 		$categoriesSnippet .
 		Html::element( 'h2', [], $this->msg( 'fileimporter-heading-filehistory' )->plain() ) .
-		Html::rawElement(
-			'p',
-			[],
-			$this->msg(
-				'fileimporter-filerevisions',
-				[
-					$fileRevisionsCount,
-					$fileRevisionsCount,
-				]
-			)->parse()
-		) .
+		$this->msg(
+			'fileimporter-filerevisions',
+			[
+				$fileRevisionsCount,
+				$fileRevisionsCount,
+			]
+		)->parseAsBlock() .
 		( new SourceWikiCleanupSnippet(
 			$sourceEditingEnabled,
 			$sourceDeletionEnabled,
@@ -127,17 +123,13 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		) )->getHtml( $importPlan, $this->getUser() ) .
 		Html::openElement( 'div', [ 'class' => 'mw-importfile-importOptions' ] ) .
 		$this->buildEditSummaryHtml( $importPlan ) .
-		Html::rawElement(
-			'p',
-			[],
-			$this->msg(
-				'fileimporter-textrevisions',
-				[
-					$textRevisionsCount,
-					$textRevisionsCount,
-				]
-			)->parse()
-		) .
+		$this->msg(
+			'fileimporter-textrevisions',
+			[
+				$textRevisionsCount,
+				$textRevisionsCount,
+			]
+		)->parseAsBlock() .
 		Html::element(
 			'input',
 			[
