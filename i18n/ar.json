@@ -24,7 +24,7 @@
 	"fileimporter-api-toomanyrevisions": "لا يمكن استيراد الكثير من المراجعات التي تم إرجاعها بواسطة API.",
 	"fileimporter-cantparseurl": "لا يمكن تحليل المسار المحدد: $1",
 	"fileimporter-cantimporturl": "لا يمكن استيراد المسار المحدد",
-	"fileimporter-cantimportfromsharedrepo": "لا يمكن استيراد ملف من مستودع مشترك.",
+	"fileimporter-cantimportfromsharedrepo": "لا يمكن استيراد ملفات ليست موجودة فعليًا على $1 ، ولكنها مستضافة على مستودع مشترك.",
 	"fileimporter-cantimportmissingfile": "لا يمكن استيراد ملف مفقود.",
 	"fileimporter-cantimportfilehidden": "لا يمكن استيراد الملف لأن إحدى مراجعاته على الأقل تحتوي على ملف مخفي.",
 	"fileimporter-cantimportfileinvalid": "يحتوي هذا الملف (أو نسخة سابقة لهذا الملف) على عناصر لا يمكن قبولها لأسباب أمنية: $1",
