@@ -6,7 +6,6 @@ use ContentHandler;
 use ExternalUserNames;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
-use HashConfig;
 use MediaWiki\Revision\SlotRecord;
 use Title;
 use WikiRevision;
@@ -44,7 +43,7 @@ class WikiRevisionFactory {
 
 		// The 3 fields rev_page, rev_timestamp, and rev_sha1 make a revision unique, see
 		// ImportableOldRevisionImporter::import()
-		$revision = new WikiRevision( new HashConfig() );
+		$revision = new WikiRevision();
 		$revision->setTitle( Title::makeTitleSafe( NS_FILE, $filename ) );
 		$revision->setTimestamp( $timestamp );
 		// File revisions older than 2012 might not have a hash yet. Import as is.
