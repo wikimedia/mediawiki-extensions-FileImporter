@@ -6,7 +6,6 @@ use Article;
 use ChangeTags;
 use CommentStoreComment;
 use DatabaseLogEntry;
-use ExtensionRegistry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -30,8 +29,6 @@ use Message;
 use MessageLocalizer;
 use Psr\Log\NullLogger;
 use TitleValue;
-use User;
-use Wikimedia\ScopedCallback;
 
 /**
  * @covers \FileImporter\Services\Importer
@@ -48,11 +45,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	// Random number (actually the SHA1 of this file) to not conflict with other tests
 	private const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59cb9c5a3cf55.png';
 
-	/** @var User */
-	private $targetUser;
-	/** @var ScopedCallback[] */
-	private $hold = [];
-
 	protected function setUp(): void {
 		parent::setUp();
 
@@ -60,14 +52,12 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$this->tablesUsed[] = 'change_tag_def';
 		$this->tablesUsed[] = 'logging';
 
-		$this->setMwGlobals( [
-			'wgHooks' => [],
-			'wgFileImporterCommentForPostImportRevision' => 'imported from $1',
-			'wgFileImporterTextForPostImportRevision' => '<!--imported from $1-->',
+		$this->overrideConfigValues( [
+			'FileImporterCommentForPostImportRevision' => 'imported from $1',
+			'FileImporterTextForPostImportRevision' => '<!--imported from $1-->',
 		] );
 
-		$this->hold[] = ExtensionRegistry::getInstance()->setAttributeForTest( 'Hooks', [] );
-		$this->targetUser = $this->getTestUser()->getUser();
+		$this->clearHooks();
 	}
 
 	protected function tearDown(): void {
@@ -80,9 +70,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$reason = 'This was just from a PHPUnit test.';
 			$file->deleteFile( $reason, $this->getTestSysop()->getUser() );
 		}
-
-		// Destroy all ScopedCallbacks
-		$this->hold = [];
 	}
 
 	public function testImport() {
@@ -93,8 +80,10 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 
 		$this->assertFalse( $title->exists() );
 
+		$targetUser = $this->getTestUser()->getUser();
+
 		$importer->import(
-			$this->targetUser,
+			$targetUser,
 			$plan
 		);
 
@@ -129,7 +118,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$secondRevision = $revisionLookup->getPreviousRevision( $nullRevision );
 
 		$this->assertNotNull( $lastRevision->getUser() );
-		$this->assertSame( $this->targetUser->getName(), $lastRevision->getUser()->getName() );
+		$this->assertSame( $targetUser->getName(), $lastRevision->getUser()->getName() );
 		$this->assertInstanceOf( CommentStoreComment::class, $lastRevision->getComment() );
 		$this->assertSame(
 			'User import comment',
@@ -142,7 +131,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 
 		// assert null revision was created correctly
 		$this->assertNotNull( $nullRevision->getUser() );
-		$this->assertSame( $this->targetUser->getName(), $nullRevision->getUser()->getName() );
+		$this->assertSame( $targetUser->getName(), $nullRevision->getUser()->getName() );
 		$this->assertInstanceOf( CommentStoreComment::class, $nullRevision->getComment() );
 		$this->assertSame(
 			'imported from http://example.com/Test.png',
