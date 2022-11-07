@@ -273,7 +273,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$queryInfo['conds'] += [
 			'log_page' => $pageId,
 			'log_type' => $type,
-			'log_timestamp' => $timestamp,
+			'log_timestamp' => $this->db->timestamp( $timestamp ),
 		];
 
 		\ChangeTags::modifyDisplayQuery(
