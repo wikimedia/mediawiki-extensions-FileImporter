@@ -22,6 +22,7 @@
 	"fileimporter-api-toomanyrevisions": "Izvršnik je vratio previše revizija. Ne mogu uvesti.",
 	"fileimporter-api-file-notfound": "Datoteka nije pronađena: $1.",
 	"fileimporter-api-failedtofindapi": "Nije moguće otkriti lokaciju priložnika iz: $1. $2 $3",
+	"fileimporter-http-statuscode": "HTTP statusni kod $1.",
 	"fileimporter-cantparseurl": "Raščlanjivanje date URL nije moguće: $1",
 	"fileimporter-cantimporturl": "Ne mogu uvesti s datog URL-a",
 	"fileimporter-cantimportfromsharedrepo": "Ne mogu uvesti datoteke koje zzapravo nisu na $1, već se nalaze u dijeljenom repozitoriju.",
