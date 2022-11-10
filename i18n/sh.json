@@ -30,6 +30,7 @@
 	"fileimporter-cantimportfilehidden": "Uvoz datoteke nije moguć jer bar jedna od njenih izmjena je sakrivena.",
 	"fileimporter-cantimportfileinvalid": "Ova datoteka (ili neka od njenih starijih izmjena) sadržava element koji zbog sigurnosnih razloga ne se prihvaćuje: $1",
 	"fileimporter-warningabusefilter": "[//en.wikipedia.org/wiki/Wikipedia:Edit_filter Automatizirani filtar] identificirao je možebitno nekonstruktivno uređivanje unutar historije izmjena ove datoteke. Jedna ili više izmjena mogla je dovesti do aktivacije toga filtra; svaka od njih prikazana je niže, uz odgovarajuće upozorenje. Pritisnite \"Pošalji\" kako biste zanemarili sva upozorenja i nastavili uvoz.",
+	"fileimporter-badnamespace": "Naveden je pogrešan imenski prostor.",
 	"fileimporter-badtoken": "Vaša sesija nije više važeća. Molimo ponovite uvoz.",
 	"fileimporter-badimporthash": "Uvozna taraba se ne podudara. Pokrenite uvoz odnovo.",
 	"fileimporter-filenameerror-default": "Nepoznati problem s datotečnim imenom.",
