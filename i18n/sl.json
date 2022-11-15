@@ -12,7 +12,7 @@
 	"fileimporter-help-banner-text": "'''Uvoz iz drugih vikijev'''\n#Spodaj preverite in uredite naslov in podatke o datoteki.\n#Izberite, ali želite, da FileImporter uredi izvorni viki z dodajanjem predloge [//en.wikipedia. org/wiki/Template:Now_Commons NowCommons] v izvorno datoteko. (Če imate administratorske pravice, imate tudi možnost izbrisa izvorne datoteke.)\n#Kliknite '''{{int:fileimporter-import}}''', da kopirate datoteko v projekt {{SITENAME}}. \n\nZa informacije o licenciranju glejte [[Project:Licensing|pravilnik skupnosti]] projekta {{SITENAME}}.<br />Za podrobnejša navodila o uporabi FileImporterja glejte [//www.mediawiki.org/wiki/Help:Extension:FileImporter Stran s pomočjo].\n\nČe imate povratne informacije o izboljšavi FileImporterja, pustite komentar na [//www.mediawiki.org/wiki/Extension_talk:stran za pogovor FileImporter].",
 	"fileimporter-help-banner-close-tooltip": "Tega sporočila ne prikaži več",
 	"tag-fileimporter": "spremenjeno z razširitvijo FileImporter",
-	"tag-fileimporter-description": "Redakcije in dnevniška sporočila so bili dodani po uvozu iz drugega wikija",
+	"tag-fileimporter-description": "Redakcije in dnevniška sporočila so bili dodani po uvozu iz drugega vikija",
 	"tag-fileimporter-imported": "uvoženo z razširitvijo FileImporter",
 	"tag-fileimporter-imported-description": "Redakcije, uvožene iz drugega vikija",
 	"fileimporter-specialpage": "Uvozi datoteko",
