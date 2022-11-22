@@ -69,7 +69,7 @@
 	"fileimporter-heading-fileinfo": "Подаци о датотеци",
 	"fileimporter-heading-filehistory": "Историја датотеке",
 	"fileimporter-heading-cleanup": "Чишћење изворног пројекта",
-	"fileimporter-cleanup-text": "Можете назначити да је ова датотека увезена на пројекат {{SITENAME}}. То се постиже уметањем шаблона <code><nowiki>{{$1}}</nowiki></code> на изворну датотечну страницу у ваше име.",
+	"fileimporter-cleanup-text": "Можете назначити да је ова датотека увезена на пројекат {{SITENAME}}. То се постиже уметањем шаблона <code><nowiki>{{$1}}</nowiki></code> на изворну страницу датотеке у ваше име.",
 	"fileimporter-cleanup-checkboxlabel": "Означи да је датотека увезена на пројекат {{SITENAME}}",
 	"fileimporter-cleanup-summary": "Датотека премештена на {{SITENAME}} помоћу Увозника датотека (URL: $1).",
 	"fileimporter-cleanup-failed": "Није могуће аутоматски објавити измену на изворном пројекту.",
