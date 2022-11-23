@@ -75,7 +75,6 @@
 	"fileimporter-post-import-revision-annotation": "",
 	"fileimporter-revision-removed-text": "Hidden text removed by FileImporter.",
 	"fileimporter-revision-removed-comment": "Hidden comment removed by FileImporter.",
-	"fileimporter-in-beta": "File import is in beta mode: We tested it carefully but it still might have some problems. If you encounter problems, please [//www.mediawiki.org/wiki/Extension_talk:FileImporter report them on our help page] - ideally with a step by step way to reproduce the problem, so we can understand and fix it.",
 	"fileimporter-filemissinginrevision": "Can't import file because at least one of its revisions is missing an image file.",
 	"fileimporter-filetoolarge": "The {{PLURAL:$1|file|$1 file versions}} you are currently trying to import {{PLURAL:$1|exceeds|exceed}} the file size limit the import can handle.",
 	"fileimporter-import-wait": "The import may take a few minutes.",

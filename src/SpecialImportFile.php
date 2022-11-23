@@ -463,10 +463,6 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function showLandingPage() {
-		if ( $this->getConfig()->get( 'FileImporterInBeta' ) ) {
-			$this->showWarningMessage( $this->msg( 'fileimporter-in-beta' )->parse(), 'notice' );
-		}
-
 		$page = $this->getConfig()->get( 'FileImporterShowInputScreen' )
 			? new InputFormPage( $this )
 			: new InfoPage( $this );

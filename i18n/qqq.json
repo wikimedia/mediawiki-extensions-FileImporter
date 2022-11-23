@@ -82,7 +82,6 @@
 	"fileimporter-post-import-revision-annotation": "{{notranslate}}\nExtra text to add to the file info page after importing. This will only be rendered using the target wiki's content language.\n\nParameters:\n* $1 - Full URL to the imported file on the source wiki.\n* $2 - Time of import, as ISO 8601.",
 	"fileimporter-revision-removed-text": "Text inserted if the original text is hidden.",
 	"fileimporter-revision-removed-comment": "Text inserted as a revision comment if the original comment is hidden.",
-	"fileimporter-in-beta": "Text shown when the special page is loaded warning the user that the extension is in beta.",
 	"fileimporter-filemissinginrevision": "Error message shown when the file contains at least one revision with a missing image file.",
 	"fileimporter-filetoolarge": "Text shown when a user tries to import a file with a history of one or more file versions that exceed the maximum file size limit.\n\nParameters:\n* $1 - Number of file revisions to be imported, could be used with PLURAL",
 	"fileimporter-import-wait": "Text shown during the file preview informing the user that the import may take a few minutes.",
