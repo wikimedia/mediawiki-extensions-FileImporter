@@ -326,12 +326,12 @@ class WikitextContentCleaner {
 	 * @return string
 	 */
 	private function addRequiredTemplateParameters(
-		$wikitext,
+		string $wikitext,
 		array $required,
 		array $parameters,
-		$offset
-	) {
-		if ( $required === [] ) {
+		int $offset
+	): string {
+		if ( !$required ) {
 			return $wikitext;
 		}
 
@@ -340,7 +340,7 @@ class WikitextContentCleaner {
 			unset( $required[$name] );
 		}
 
-		$format = $parameters ? $parameters[0]['format'] : '|_=';
+		$format = $parameters[0]['format'] ?? '|_=';
 		$newWikitext = '';
 		foreach ( $required as $name => $value ) {
 			$newWikitext .= str_replace( '_', $name, $format ) . $value;

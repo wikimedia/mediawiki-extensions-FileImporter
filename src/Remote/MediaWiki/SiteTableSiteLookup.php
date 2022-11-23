@@ -47,17 +47,8 @@ class SiteTableSiteLookup {
 	 * @return Site|null
 	 */
 	public function getSite( SourceUrl $sourceUrl ) {
-		$site = $this->getSiteFromHostMap( $sourceUrl->getHost() );
-		if ( $site ) {
-			return $site;
-		}
-
-		$site = $this->getSiteFromSitesLoop( $sourceUrl->getHost() );
-		if ( $site ) {
-			return $site;
-		}
-
-		return null;
+		return $this->getSiteFromHostMap( $sourceUrl->getHost() ) ??
+			$this->getSiteFromSitesLoop( $sourceUrl->getHost() );
 	}
 
 	/**
