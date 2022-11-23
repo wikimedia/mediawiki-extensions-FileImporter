@@ -22,10 +22,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
-		$newText = $importPlan->getRequest()->getIntendedText();
-		if ( $newText === null ) {
-			$newText = $importPlan->getFileInfoText();
-		}
+		$newText = $importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText();
 
 		return Html::openElement(
 				'form',

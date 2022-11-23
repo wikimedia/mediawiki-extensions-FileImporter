@@ -21,10 +21,7 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
 		// Try showing the user provided value first if present
-		$wikitext = $importPlan->getRequest()->getIntendedText();
-		if ( $wikitext === null ) {
-			$wikitext = $importPlan->getFileInfoText();
-		}
+		$wikitext = $importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText();
 
 		return Html::openElement(
 			'form',
