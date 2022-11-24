@@ -87,7 +87,6 @@
 	"fileimporter-delete-failed": "Le fichier n’a pas pu être supprimé automatiquement sur $1. Veuillez retourner au [$2 fichier d’origine] et le supprimer manuellement.",
 	"fileimporter-revision-removed-text": "Le texte masqué a été effacé par FileImporter.",
 	"fileimporter-revision-removed-comment": "Le commentaire masqué a été effacé par FileImporter.",
-	"fileimporter-in-beta": "L’importation de fichiers est en mode bêta : nous l’avons testée soigneusement mais elle peut encore comporter des erreurs. Si vous en rencontrez, vous pouvez [//www.mediawiki.org/wiki/Extension_talk:FileImporter les signaler sur notre page d’aide] — idéalement en détaillant les étapes pas à pas pour pouvoir reproduire le problème, afin que nous puissions le comprendre et le corriger.",
 	"fileimporter-filemissinginrevision": "Impossible d’importer le fichier parce qu’il manque un fichier image à au moins une de ses révisions.",
 	"fileimporter-filetoolarge": "L{{PLURAL:$1|a|es $1}} version{{PLURAL:$1||s}} du fichier que vous essayez actuellement d’importer dépasse{{PLURAL:$1||nt}} la taille maximale autorisée.",
 	"fileimporter-import-wait": "L’import peut durer quelques minutes.",

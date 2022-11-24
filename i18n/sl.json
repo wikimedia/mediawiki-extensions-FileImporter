@@ -77,7 +77,6 @@
 	"fileimporter-delete-failed": "Datoteke v $1 ni bilo mogoče samodejno izbrisati. Vrnite se na [$2 izvorno datoteko] in jo izbrišite ročno.",
 	"fileimporter-revision-removed-text": "Uvoznik datotek je odstranil skrito besedilo.",
 	"fileimporter-revision-removed-comment": "Uvoznik datotek je odstranil skrit komentar.",
-	"fileimporter-in-beta": "Uvažanje datotek je v razvojni fazi: Navkljub natančnim testiranjem se še vedno lahko pojavijo težave. Če si naletel/-a na kakšno, prosimo [//www.mediawiki.org/wiki/Extension_talk:FileImporter poročaj o njen na naši strani za pomoč] - če je le možno korak za korakom, da težavo poustvarimo, s čimer jo lahko prepoznamo in odpravimo.",
 	"fileimporter-filemissinginrevision": "Uvoz datoteke ni mogoč, saj vsaj eni redakciji manjka slika.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|datoteka, ki jo|$1 različici datoteke, ki ju|$1 različice datoteke, ki jih|$1 različic datoteke, ki jih}} želite uvoziti, {{PLURAL:$1|presega|presegata|presegajo|presega}} omejitev velikosti datoteke, ki jo omogoča uvoz.",
 	"fileimporter-import-wait": "Uvoz lahko traja nekaj minut.",

@@ -87,7 +87,6 @@
 	"fileimporter-delete-failed": "无法在$1上自动删除该文件。请返回[$2 原文件]手动删除。",
 	"fileimporter-revision-removed-text": "由文件导入器移除的已隐藏文本。",
 	"fileimporter-revision-removed-comment": "由文件导入器移除的已隐藏评论。",
-	"fileimporter-in-beta": "文件导入尚处于测试阶段。我们已经仔细地测试了相关功能，但可能仍然存在一些问题。如果您遇到问题，请[//www.mediawiki.org/wiki/Extension_talk:FileImporter 在我们的帮助页面报告它们]——尽可能地一步步说明如何重现问题，这样我们可以理解并修复它。",
 	"fileimporter-filemissinginrevision": "不能导入文件，因为至少一个修订版本缺少图片文件。",
 	"fileimporter-filetoolarge": "您当前正尝试导入的{{PLURAL:$1|文件|$1个文件版本}}超过了导入可以处理的文件大小限制。",
 	"fileimporter-import-wait": "导入可能需要数分钟。",

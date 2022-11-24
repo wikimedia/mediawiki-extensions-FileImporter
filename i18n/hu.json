@@ -68,7 +68,6 @@
 	"fileimporter-delete-checkboxlabel": "A fájl törlése a forráswikin a nevemben",
 	"fileimporter-delete-summary": "Átmozgatva a(z) {{SITENAME}} wikibe $1 címre a FileImporter használatával",
 	"fileimporter-delete-failed": "A fájl automatikus törlése sikertelen a(z) $1 wikin. Lépj vissza az [$2 eredeti fájlhoz], és töröld kézzel.",
-	"fileimporter-in-beta": "A fájlimportálás jelenleg béta állapotú: bár alaposan teszteltük, maradhattak még benne hibák. Ha problémát észlelsz, kérjük, [https://www.mediawiki.org/wiki/Extension_talk:FileImporter jelezd a súgólapunkon] – ideális esetben a hiba előidézésének leírásával lépésről lépésre, hogy megérthessük és javíthassuk azt.",
 	"fileimporter-filemissinginrevision": "Nem lehet importálni a fájlt, mert legalább egy változatához nem tartozik képfájl.",
 	"fileimporter-filetoolarge": "Az éppen importálni próbált {{PLURAL:$1|fájl|$1 fájlverzió}} túllépi azt a fájlmérethatárt, amit az importálás még képes kezelni.",
 	"fileimporter-import-wait": "Az importálás pár percet igényelhet.",

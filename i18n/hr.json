@@ -73,7 +73,6 @@
 	"fileimporter-delete-failed": "Datoteku nije bilo moguće automatski izbrisati na $1. Molimo, vratite se na [$2 izvornu datoteku] i izbrišite je ručno.",
 	"fileimporter-revision-removed-text": "Sakriveni tekst koji je uklonio alat za uvoz datoteka.",
 	"fileimporter-revision-removed-comment": "Sakriveni komentar koji je uklonio alat za uvoz datoteka.",
-	"fileimporter-in-beta": "Uvoznik datoteka je u beta inačici. Pažljivo je testiran ali još uvijek postoje određeni problemi. Ako naiđete na probleme, molimo [//www.mediawiki.org/wiki/Extension_talk:FileImporter prijavite ih na našoj stranici za pomoć]. Najbolje je da prikažete problem korak po korak kako bismo ga razumjeli i popravili.",
 	"fileimporter-filemissinginrevision": "Uvoz datoteke nije moguć jer u bar jednoj od izmjena nedostaje datoteka.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Datoteka koju|$1 inačice datoteke koje|$1 inačica datoteka koje }} pokušavate uvesti {{PLURAL:$1|prekoračuje|prekoračuju|prekoračuje}} veličinu koju uvoznik može obraditi.",
 	"fileimporter-import-wait": "Uvoz može potrajati par minuta.",

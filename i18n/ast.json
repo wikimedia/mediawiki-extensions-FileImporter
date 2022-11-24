@@ -63,7 +63,6 @@
 	"fileimporter-delete-failed": "El ficheru nun pudo desaniciase automáticamente en $1. Torna al [$2 ficheru orixinal] y desanícialu manualmente.",
 	"fileimporter-revision-removed-text": "Testu suprimíu desaniciáu por FileImporter.",
 	"fileimporter-revision-removed-comment": "Comentariu suprimíu desaniciáu por FileImporter.",
-	"fileimporter-in-beta": "La importación de ficheros ta en mou beta: Probñamosla con procuru, pero inda podría dar dellos problemes. Si t'alcuentres dalgunu, por favor, [//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter informa d'ellos na páxina d'ayuda] (idealmente n'inglés, con una manera pasu a pasu pa reproducir el problema), pa que podamos entendelo ya igualo.",
 	"fileimporter-filemissinginrevision": "Nun pudo importase'l ficheru porque polo menos n'una de les revisiones falta un ficheru d'imaxe.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|El ficheru|$1 versiones del ficheru}} que tas tentando importar {{PLURAL:$1|pasa|pasen}} la llende de tamañu máximu que puede xestionar la importación.",
 	"fileimporter-import-wait": "La importación puede tardar dellos minutos.",

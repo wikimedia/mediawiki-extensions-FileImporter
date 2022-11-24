@@ -67,7 +67,6 @@
 	"fileimporter-cleanup-failed": "Non è possibile modificare automaticamente il wiki di origine.",
 	"fileimporter-delete-checkboxlabel": "Cancella il file nel wiki di origine per mio conto",
 	"fileimporter-delete-summary": "Questo file ora si trova su {{SITENAME}} a $1 (spostato con FileImporter).",
-	"fileimporter-in-beta": "L'importazione dei file è in modalità beta: noi lo abbiamo testato accuratamente ma potrebbe ancora avere qualche problema. Se incontri problemi, per favore [//www.mediawiki.org/wiki/Extension_talk:FileImporter segnalali sulla nostra pagina di aiuto] - possibilmente con una spiegazione passo passo per riprodurre il problema, in modo che possiamo capire e risolverlo.",
 	"fileimporter-filemissinginrevision": "Impossibile importare il file perché almeno una delle sue versioni manca di un file immagine.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Il file|Le $1 versioni del file}} che stai cercando di importare {{PLURAL:$1|eccede|eccedono}} i limiti che l'importazione può gestire.",
 	"fileimporter-import-wait": "L'importazione potrebbe impiegare alcuni minuti.",

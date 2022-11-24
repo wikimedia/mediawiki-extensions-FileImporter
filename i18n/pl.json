@@ -82,7 +82,6 @@
 	"fileimporter-delete-failed": "Nie udało się automatycznie usunąć pliku na {{GRAMMAR:MS.lp|$1}}. Wróć na [$2 oryginalną stronę pliku] i usuń go ręcznie.",
 	"fileimporter-revision-removed-text": "Ukryty tekst usunięty przez importera plików.",
 	"fileimporter-revision-removed-comment": "Ukryty komentarz usunięty przez importera plików.",
-	"fileimporter-in-beta": "Import plików znajduje się w trybie beta. Uważnie go przetestowaliśmy, ale wciąż może mieć pewne problemy. Jeśli jakieś napotkasz, prosimy, aby [//www.mediawiki.org/wiki/Extension_talk:FileImporter zgłosić je na naszej stronie pomocy] – z instrukcjami krok po kroku jak odtworzyć Twój problem powinniśmy być w stanie go zrozumieć i naprawić.",
 	"fileimporter-filemissinginrevision": "Nie można zaimportować pliku, ponieważ przynajmniej jedna z jego wersji nie zawiera pliku z obrazem.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Plik, który|$1 wersje pliku, które|$1 wersji pliku, które}} próbujesz zaimportować, {{PLURAL:$1|przekracza|przekraczają}} maksymalny limit rozmiaru pliku, który obsługuje importer.",
 	"fileimporter-import-wait": "Importowanie może potrwać kilka minut.",

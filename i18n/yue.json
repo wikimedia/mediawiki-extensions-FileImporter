@@ -52,7 +52,6 @@
 	"fileimporter-heading-filehistory": "快勞史",
 	"fileimporter-revision-removed-text": "FileImporter 刪走咗已經廢止嘅文字。",
 	"fileimporter-revision-removed-comment": "FileImporter 刪走咗已經廢止嘅註解。",
-	"fileimporter-in-beta": "FileImporter （檔案匯入器）試用緊。我哋小心測試過，但難保完全冇問題。如果出現問題，請[//www.mediawiki.org/w/index.php?title=Extension_talk:FileImporter 去留言區]話俾我哋知。最好講清楚點樣重覆呢個問題，等我哋明白個問題，解決個問題。",
 	"fileimporter-filemissinginrevision": "匯入唔到呢個檔案，因為其中部分版本冇相應嘅圖檔。",
 	"fileimporter-filetoolarge": "你想匯入嗰$1個檔案版本大得滯，匯入工具頂唔順。",
 	"fileimporter-import-wait": "匯入可能要幾分鐘。",

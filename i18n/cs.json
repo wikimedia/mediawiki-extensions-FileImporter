@@ -42,7 +42,6 @@
 	"fileimporter-heading-filehistory": "Historie souboru",
 	"fileimporter-revision-removed-text": "Potlačený text odebraný Exportérem souborů.",
 	"fileimporter-revision-removed-comment": "Potlačené shrnutí odebrané Exportérem souborů.",
-	"fileimporter-in-beta": "Exportér souborů je v beta verzi: Vyzkoušeli jsme jej pečlivě, ale stále může mít nějaké problémy. Pokud se setkáte s problémy, prosím, [//www.mediawiki.org/wiki/Extension_talk:FileImporter nahlaste je na naší stránce nápovědy] – ideálně s postupem krok za krokem, jak problém zreprodukovat, abychom jej pochopili a opravili.",
 	"fileimporter-filemissinginrevision": "Nelze importovat soubor, protože nejméně jedné jeho revizi chybí platný soubor s obrázkem.",
 	"fileimporter-import-wait": "Export může trvat několik minut.",
 	"fileimporter-imported-success-banner": "Tento soubor byl importován na {{GRAMMAR:4sg|{{SITENAME}}}}.",

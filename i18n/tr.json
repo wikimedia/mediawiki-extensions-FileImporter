@@ -80,7 +80,6 @@
 	"fileimporter-delete-failed": "Dosya $1 otomatik olarak silinemedi. Lütfen [$2 orijinal dosyasına] geri dönün ve manüel olarak silin.",
 	"fileimporter-revision-removed-text": "Gizli metin FileImporter tarafından kaldırıldı.",
 	"fileimporter-revision-removed-comment": "Gizli yorum FileImporter tarafından kaldırıldı.",
-	"fileimporter-in-beta": "Dosya içe aktarımı beta modunda: Dikkatlice test ettik, ancak yine de bazı sorunları olabilir. Sorun yaşarsanız [//www.mediawiki.org/wiki/Extension_talk:FileImporter lütfen yardım sayfamızda bildirin]. İdeal olarak sorunu yeniden oluşturabilmek için adım adım ilerleyelim, böylece bunu anlayabilir ve düzeltebiliriz.",
 	"fileimporter-filemissinginrevision": "Dosyalardan içe aktarılamıyor çünkü revizyonlarından en az birinde resim dosyası eksik",
 	"fileimporter-filetoolarge": "Şu anda almaya çalıştığınız {{PLURAL:$1|dosya sürüm|dosya sürümleri}}, içe aktarmanın işleyebileceği dosya boyutu sınırını {{PLURAL:$1|aşıyor|aştı}}.",
 	"fileimporter-import-wait": "İçe aktarma birkaç dakika sürebilir.",

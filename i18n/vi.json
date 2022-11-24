@@ -78,7 +78,6 @@
 	"fileimporter-delete-failed": "Không thể tự động xóa tập tin trên $1. Vui lòng quay lại [$2 tập tin gốc] và xóa tập tin theo cách thủ công.",
 	"fileimporter-revision-removed-text": "Đã xóa văn bản bị chặn bởi FileImporter.",
 	"fileimporter-revision-removed-comment": "Đã xóa nhận xét bị chặn bởi FileImporter.",
-	"fileimporter-in-beta": "Xuất tập tin ở chế độ thử nghiệm: Tiện ích này có thể gặp một số vấn đề. Nếu bạn gặp sự cố, hãy [//www.mediawiki.org/wiki/Extension_talk:FileImporter báo cáo sự cố trên trang trợ giúp của chúng tôi] để chúng tôi có thể khắc phục sự cố.",
 	"fileimporter-filemissinginrevision": "Không thể xuất tập tin vì ít nhất một trong các bản sửa đổi của nó không có hình ảnh.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|tập tin|$1 lịch sử tập tin}} mà bạn hiện đang cố nhập {{PLURAL:$1|vượt quá|vượt quá}} giới hạn kích thước tập tin có thể xử lý.",
 	"fileimporter-import-wait": "Quá trình xuất có thể mất vài phút.",

@@ -80,7 +80,6 @@
 	"fileimporter-delete-failed": "此檔案無法在$1自動刪除。請返回[$2 原始檔案]並手動刪除它。",
 	"fileimporter-revision-removed-text": "由檔案匯入器移除的隱藏文字。",
 	"fileimporter-revision-removed-comment": "由檔案匯入器移除的隱藏評論。",
-	"fileimporter-in-beta": "檔案匯入器目前為測試階段：我們已經過仔細地測試，但仍可能會有著一些問題。 若您遇到了問題，請[/www.mediawiki.org/wiki/Extension_talk:FileImporter 在我們的求助頁面上回報] - 請盡可能一步步地重現問題，以讓我們能更好理解並修復。",
 	"fileimporter-filemissinginrevision": "因為至少有一個修訂內容缺少圖片檔案，因此無法匯入。",
 	"fileimporter-filetoolarge": "您正嘗試匯入的{{PLURAL:$1|檔案|$1 個檔案版本}}，{{PLURAL:$1|超出|超出}}了可處理的匯入檔案大小限制。",
 	"fileimporter-import-wait": "匯入可能會花上幾分鐘。",

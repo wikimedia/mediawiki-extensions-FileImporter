@@ -73,7 +73,6 @@
 	"fileimporter-delete-failed": "Le file non poteva esser delite automaticamente sur $1. Per favor retorna al [$2 file original] e dele lo manualmente.",
 	"fileimporter-revision-removed-text": "Texto celate removite per FileImporter.",
 	"fileimporter-revision-removed-comment": "Commento celate removite per FileImporter.",
-	"fileimporter-in-beta": "Le importation de files es in modo beta: nos lo ha testate con cura ma illo pote ancora haber problemas. Si tu incontra problemas, per favor [//www.mediawiki.org/wiki/Extension_talk:FileImporter reporta los sur nostre pagina de adjuta] – includente, si possibile, un explication passo a passo pro reproducer le problema de sorta que nos pote comprender e resolver lo.",
 	"fileimporter-filemissinginrevision": "Impossibile importar iste file perque al minus un de su versiones non ha un file de imagine.",
 	"fileimporter-filetoolarge": "Le {{PLURAL:$1|file|$1 versiones del file}} que tu presentemente tenta de importar excede le limite de dimension de file que le importation pote gerer.",
 	"fileimporter-import-wait": "Le importation pote durar alcun minutas.",
