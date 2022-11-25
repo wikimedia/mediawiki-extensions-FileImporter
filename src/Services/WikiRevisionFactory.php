@@ -33,6 +33,12 @@ class WikiRevisionFactory {
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
 	}
 
+	/**
+	 * @param string $title
+	 * @param string $timestamp
+	 * @param string|null $sha1
+	 * @return WikiRevision
+	 */
 	private function newWikiRevision(
 		string $title,
 		string $timestamp,

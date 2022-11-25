@@ -10,11 +10,9 @@ use Wikimedia\Assert\Assert;
  */
 class FileRevisions {
 
-	/**
-	 * @var FileRevision[]
-	 */
+	/** @var FileRevision[] */
 	private $fileRevisions;
-
+	/** @var int|null */
 	private $latestKey = null;
 
 	/**

@@ -176,6 +176,10 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		);
 	}
 
+	/**
+	 * @param ImportPlan $importPlan
+	 * @return string
+	 */
 	private function buildEditSummaryHtml( ImportPlan $importPlan ) {
 		$summary = $importPlan->getRequest()->getIntendedSummary();
 		if ( $summary === null ) {

@@ -162,6 +162,10 @@ class RemoteApiActionExecutor {
 		return $this->statusFromApiResponse( $result );
 	}
 
+	/**
+	 * @param array|null $apiResponse
+	 * @return StatusValue
+	 */
 	private function statusFromApiResponse( array $apiResponse = null ): StatusValue {
 		$status = StatusValue::newGood();
 

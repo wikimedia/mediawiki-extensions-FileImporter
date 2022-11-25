@@ -19,8 +19,11 @@ use User;
  */
 class ImportPlanFactory {
 
+	/** @var SourceSiteLocator */
 	private $sourceSiteLocator;
+	/** @var DuplicateFileRevisionChecker */
 	private $duplicateFileRevisionChecker;
+	/** @var UploadBaseFactory */
 	private $uploadBaseFactory;
 
 	/**

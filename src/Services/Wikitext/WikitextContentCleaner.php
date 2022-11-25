@@ -84,6 +84,10 @@ class WikitextContentCleaner {
 		);
 	}
 
+	/**
+	 * @param string $wikitext
+	 * @return string
+	 */
 	private function cleanTemplates( $wikitext ) {
 		$this->latestNumberOfReplacements = 0;
 

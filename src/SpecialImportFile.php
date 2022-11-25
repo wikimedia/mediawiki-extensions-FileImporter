@@ -402,7 +402,10 @@ class SpecialImportFile extends SpecialPage {
 		}
 	}
 
-	private function logActionStats( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function logActionStats( ImportPlan $importPlan ): void {
 		foreach ( $importPlan->getActionStats() as $key => $_ ) {
 			if ( $key === ImportPreviewPage::ACTION_EDIT_TITLE ||
 				$key === ImportPreviewPage::ACTION_EDIT_INFO ||
@@ -456,13 +459,16 @@ class SpecialImportFile extends SpecialPage {
 		);
 	}
 
-	private function showImportPage( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function showImportPage( ImportPlan $importPlan ): void {
 		$this->getOutput()->addHTML(
 			( new ImportPreviewPage( $this ) )->getHtml( $importPlan )
 		);
 	}
 
-	private function showLandingPage() {
+	private function showLandingPage(): void {
 		$page = $this->getConfig()->get( 'FileImporterShowInputScreen' )
 			? new InputFormPage( $this )
 			: new InfoPage( $this );

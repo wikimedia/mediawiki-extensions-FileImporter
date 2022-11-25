@@ -84,6 +84,12 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		}
 	}
 
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param User $user
+	 * @param string|null $warningMsg
+	 * @return StatusValue
+	 */
 	private function manualTemplateFallback(
 		ImportPlan $importPlan,
 		User $user,

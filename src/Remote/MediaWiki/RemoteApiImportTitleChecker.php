@@ -17,8 +17,11 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 	private const ERROR_TITLE_STATE = 'noTitleStateFetched';
 
+	/** @var HttpApiLookup */
 	private $httpApiLookup;
+	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;
+	/** @var LoggerInterface */
 	private $logger;
 
 	/**
@@ -78,6 +81,10 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 		return array_key_exists( 'missing', $requestData['query']['pages'][0] );
 	}
 
+	/**
+	 * @param string $titleString
+	 * @return array
+	 */
 	private function getParams( string $titleString ): array {
 		return [
 			'format' => 'json',

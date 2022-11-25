@@ -16,7 +16,9 @@ use Title;
  */
 class CategoriesSnippet {
 
+	/** @var string[] */
 	private $visibleCategories;
+	/** @var string[] */
 	private $hiddenCategories;
 
 	/** @var ILanguageConverter */

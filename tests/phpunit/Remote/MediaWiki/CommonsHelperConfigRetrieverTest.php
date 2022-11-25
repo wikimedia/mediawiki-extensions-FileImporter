@@ -14,10 +14,6 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  */
 class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 
-	// TODO: Test incompatible URLs
-	// TODO: Test the "missing" code-path
-	// TODO: Test all kinds of failures
-
 	public function provideSourceUrls() {
 		return [
 			[ '//de.wikipedia.org/wiki/Example.svg', 'Data_de.wikipedia' ],

@@ -41,7 +41,10 @@ class FileRevision {
 		$this->fields = $fields;
 	}
 
-	private function throwExceptionIfMissingFields( array $fields ) {
+	/**
+	 * @param array $fields
+	 */
+	private function throwExceptionIfMissingFields( array $fields ): void {
 		$diff = array_diff_key( array_flip( self::REQUIRED_FIELDS ), $fields );
 		if ( $diff !== [] ) {
 			throw new InvalidArgumentException(

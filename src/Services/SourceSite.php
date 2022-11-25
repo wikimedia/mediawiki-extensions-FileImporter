@@ -20,11 +20,17 @@ use FileImporter\Interfaces\SourceUrlChecker;
  */
 class SourceSite {
 
+	/** @var SourceUrlChecker */
 	private $sourceUrlChecker;
+	/** @var DetailRetriever */
 	private $detailRetriever;
+	/** @var ImportTitleChecker */
 	private $importTitleChecker;
+	/** @var SourceUrlNormalizer */
 	private $sourceUrlNormalizer;
+	/** @var LinkPrefixLookup */
 	private $linkPrefixLookup;
+	/** @var PostImportHandler */
 	private $postImportHandler;
 
 	/**

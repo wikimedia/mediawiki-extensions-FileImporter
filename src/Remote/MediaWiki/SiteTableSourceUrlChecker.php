@@ -17,11 +17,9 @@ use Psr\Log\NullLogger;
 class SiteTableSourceUrlChecker implements SourceUrlChecker {
 	use MediaWikiSourceUrlParser;
 
+	/** @var SiteTableSiteLookup */
 	private $siteTableSiteLookup;
-
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
 
 	/**

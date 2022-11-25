@@ -17,7 +17,7 @@ class ImportIdentityFormSnippet {
 	 */
 	private $identityParts;
 
-	private static $identityKeys = [
+	private const IDENTITY_KEYS = [
 		'clientUrl',
 		'intendedFileName',
 		'intendedRevisionSummary',
@@ -46,7 +46,7 @@ class ImportIdentityFormSnippet {
 	public function getHtml() {
 		$html = '';
 
-		foreach ( self::$identityKeys as $identityKey ) {
+		foreach ( self::IDENTITY_KEYS as $identityKey ) {
 			if ( array_key_exists( $identityKey, $this->identityParts ) ) {
 				$html .= Html::element(
 					'input',

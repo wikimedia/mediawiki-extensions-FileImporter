@@ -249,7 +249,10 @@ class Importer {
 		return $importOperations;
 	}
 
-	private function prepareImportOperations( ImportOperations $importOperations ) {
+	/**
+	 * @param ImportOperations $importOperations
+	 */
+	private function prepareImportOperations( ImportOperations $importOperations ): void {
 		if ( !$importOperations->prepare()->isOK() ) {
 			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
 			throw new ImportException( 'Failed to prepare operations.',
@@ -257,7 +260,11 @@ class Importer {
 		}
 	}
 
-	private function validateImportOperations( StatusValue $status, ImportPlan $importPlan ) {
+	/**
+	 * @param StatusValue $status
+	 * @param ImportPlan $importPlan
+	 */
+	private function validateImportOperations( StatusValue $status, ImportPlan $importPlan ): void {
 		if ( !$status->isGood() ) {
 			/** @var \IApiMessage[] $newAbuseFilterWarnings */
 			$newAbuseFilterWarnings = [];
@@ -295,7 +302,10 @@ class Importer {
 		}
 	}
 
-	private function commitImportOperations( ImportOperations $importOperations ) {
+	/**
+	 * @param ImportOperations $importOperations
+	 */
+	private function commitImportOperations( ImportOperations $importOperations ): void {
 		if ( !$importOperations->commit()->isOK() ) {
 			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
 			throw new ImportException( 'Failed to commit operations.',

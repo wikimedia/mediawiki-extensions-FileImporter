@@ -125,7 +125,10 @@ class ImportPlanValidator {
 		$this->runRemoteTitleConflictCheck( $importPlan );
 	}
 
-	private function runCommonsHelperChecksAndConversions( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runCommonsHelperChecksAndConversions( ImportPlan $importPlan ): void {
 		if ( !$this->commonsHelperConfigRetriever ) {
 			return;
 		}
@@ -150,14 +153,22 @@ class ImportPlanValidator {
 		$this->cleanWikitext( $importPlan, $commonHelperConfigParser->getWikitextConversions() );
 	}
 
-	private function runLicenseChecks( ImportDetails $details, WikitextConversions $conversions ) {
+	/**
+	 * @param ImportDetails $details
+	 * @param WikitextConversions $conversions
+	 */
+	private function runLicenseChecks( ImportDetails $details, WikitextConversions $conversions ): void {
 		$validator = new FileDescriptionPageValidator( $conversions );
 		$validator->hasRequiredTemplate( $details->getTemplates() );
 		$validator->validateTemplates( $details->getTemplates() );
 		$validator->validateCategories( $details->getCategories() );
 	}
 
-	private function cleanWikitext( ImportPlan $importPlan, WikitextConversions $conversions ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param WikitextConversions $conversions
+	 */
+	private function cleanWikitext( ImportPlan $importPlan, WikitextConversions $conversions ): void {
 		$wikitext = $importPlan->getCleanedLatestRevisionText();
 		$cleaner = new WikitextContentCleaner( $conversions );
 
@@ -173,7 +184,10 @@ class ImportPlanValidator {
 		$importPlan->setNumberOfTemplateReplacements( $cleaner->getLatestNumberOfReplacements() );
 	}
 
-	private function runWikiLinkConversions( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runWikiLinkConversions( ImportPlan $importPlan ): void {
 		$parser = $this->wikiLinkParserFactory->getWikiLinkParser(
 			$importPlan->getDetails()->getPageLanguage(),
 			$importPlan->getInterWikiPrefix()
@@ -182,7 +196,10 @@ class ImportPlanValidator {
 		$importPlan->setCleanedLatestRevisionText( $parser->parse( $wikitext ) );
 	}
 
-	private function runBasicTitleCheck( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runBasicTitleCheck( ImportPlan $importPlan ): void {
 		try {
 			$importPlan->getTitle();
 		} catch ( MalformedTitleException $e ) {
@@ -194,7 +211,10 @@ class ImportPlanValidator {
 		}
 	}
 
-	private function warnOnAutomaticTitleChanges( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function warnOnAutomaticTitleChanges( ImportPlan $importPlan ): void {
 		if ( $importPlan->getRequest()->getIntendedName() !== null &&
 			$importPlan->getFileName() !== $importPlan->getRequest()->getIntendedName()
 		) {
@@ -209,7 +229,11 @@ class ImportPlanValidator {
 		}
 	}
 
-	private function runPermissionTitleChecks( ImportPlan $importPlan, Authority $user ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param Authority $user
+	 */
+	private function runPermissionTitleChecks( ImportPlan $importPlan, Authority $user ): void {
 		$title = $importPlan->getTitle();
 
 		/**
@@ -239,7 +263,10 @@ class ImportPlanValidator {
 		return $language->listToText( $fileExtensions );
 	}
 
-	private function runFileTitleCheck( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runFileTitleCheck( ImportPlan $importPlan ): void {
 		$plannedTitleText = $importPlan->getTitle()->getText();
 		if ( $plannedTitleText != wfStripIllegalFilenameChars( $plannedTitleText ) ) {
 			throw new RecoverableTitleException(
@@ -277,7 +304,10 @@ class ImportPlanValidator {
 		throw new RecoverableTitleException( $errorMessage, $importPlan );
 	}
 
-	private function runFileExtensionCheck( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runFileExtensionCheck( ImportPlan $importPlan ): void {
 		$sourcePathInfo = pathinfo( $importPlan->getDetails()->getSourceLinkTarget()->getText() );
 		$plannedPathInfo = pathinfo( $importPlan->getTitle()->getText() );
 
@@ -298,7 +328,10 @@ class ImportPlanValidator {
 		}
 	}
 
-	private function runDuplicateFilesCheck( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runDuplicateFilesCheck( ImportPlan $importPlan ): void {
 		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
 			$importPlan->getDetails()->getFileRevisions()->getLatest()
 		);
@@ -308,7 +341,10 @@ class ImportPlanValidator {
 		}
 	}
 
-	private function runLocalTitleConflictCheck( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runLocalTitleConflictCheck( ImportPlan $importPlan ): void {
 		if ( $importPlan->getTitle()->exists() ) {
 			throw new RecoverableTitleException(
 				'fileimporter-localtitleexists',
@@ -317,7 +353,10 @@ class ImportPlanValidator {
 		}
 	}
 
-	private function runRemoteTitleConflictCheck( ImportPlan $importPlan ) {
+	/**
+	 * @param ImportPlan $importPlan
+	 */
+	private function runRemoteTitleConflictCheck( ImportPlan $importPlan ): void {
 		$request = $importPlan->getRequest();
 		$details = $importPlan->getDetails();
 		$title = $importPlan->getTitle();

@@ -13,7 +13,9 @@ use StatusValue;
  */
 class HttpRequestException extends ImportException {
 
+	/** @var StatusValue */
 	private $statusValue;
+	/** @var MWHttpRequest */
 	private $httpRequest;
 
 	/**

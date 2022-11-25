@@ -110,7 +110,11 @@ class FileChunkSaver implements LoggerAwareInterface {
 		return $nbytes;
 	}
 
-	private function throwExceptionIfOnShortWrite( $nbytes, $buffer ) {
+	/**
+	 * @param int $nbytes
+	 * @param string $buffer
+	 */
+	private function throwExceptionIfOnShortWrite( $nbytes, $buffer ): void {
 		if ( $nbytes != strlen( $buffer ) ) {
 			$this->closeHandleLogAndThrowException(
 				'Short write ' . $nbytes . '/' . strlen( $buffer ) .
