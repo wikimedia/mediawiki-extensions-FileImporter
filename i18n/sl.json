@@ -76,7 +76,7 @@
 	"fileimporter-revision-removed-comment": "Uvoznik datotek je odstranil ukinjen komentar.",
 	"fileimporter-in-beta": "Uvažanje datotek je v razvojni fazi: Navkljub natančnim testiranjem se še vedno lahko pojavijo težave. Če si naletel/-a na kakšno, prosimo [[mw:Extension_talk:FileImporter|poročaj o njen na naši strani za pomoč]] - če je le možno korak za korakom, da težavo poustvarimo, s čimer jo lahko prepoznamo in odpravimo.",
 	"fileimporter-filemissinginrevision": "Uvoz datoteke ni mogoč, saj vsaj eni redakciji manjka slika.",
-	"fileimporter-filetoolarge": "{{PLURAL:$1|datoteka, ki jo|$1 različici datoteke, ki ju|različice datoteke, ki jih|različic datoteke, ki jih}} želiš uvoziti {{PLURAL:$1|presega|presegata|presegajo|presega}} omejitev velikosti datoteke, ki je na voljo za uvoz.",
+	"fileimporter-filetoolarge": "{{PLURAL:$1|datoteka, ki jo|$1 različici datoteke, ki ju|$1 različice datoteke, ki jih|$1 različic datoteke, ki jih}} želite uvoziti, {{PLURAL:$1|presega|presegata|presegajo|presega}} omejitev velikosti datoteke, ki jo omogoča uvoz.",
 	"fileimporter-import-wait": "Uvoz lahko traja nekaj minut.",
 	"fileimporter-imported-success-banner": "Dateka je uvožena v projekt {{SITENAME}}.",
 	"fileimporter-add-specific-template": "Datoteka je bila uvožena. Če želite označiti, da je datoteka zdaj na voljo v projektu {{SITENAME}}, se vrnite na [$1 izvirno datoteko] in dodajte ustrezno predlogo, običajno <code><nowiki>{{$2|$3}}</nowiki></code>.",
