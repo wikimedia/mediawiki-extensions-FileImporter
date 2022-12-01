@@ -25,6 +25,7 @@ use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Storage\PageUpdateStatus;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserIdentityLookup;
 use Message;
@@ -361,7 +362,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 				false,
 				[ 'fileimporter' ]
 			)
-			->willReturn( \StatusValue::newGood() );
+			->willReturn( PageUpdateStatus::newGood() );
 
 		$factory = $this->createMock( WikiPageFactory::class );
 		$factory->expects( $this->once() )
