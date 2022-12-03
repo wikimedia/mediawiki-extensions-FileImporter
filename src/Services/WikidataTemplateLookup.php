@@ -96,7 +96,7 @@ class WikidataTemplateLookup {
 			return null;
 		}
 
-		return $this->removePrefixes( $localPageName );
+		return $this->removeNamespace( $localPageName );
 	}
 
 	/**
@@ -124,8 +124,8 @@ class WikidataTemplateLookup {
 	 *
 	 * @return string
 	 */
-	private function removePrefixes( string $title ): string {
-		$splitTitle = explode( ':', $title );
+	private function removeNamespace( string $title ): string {
+		$splitTitle = explode( ':', $title, 2 );
 		return end( $splitTitle );
 	}
 
