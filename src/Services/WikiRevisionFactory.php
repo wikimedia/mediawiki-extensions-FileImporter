@@ -150,7 +150,7 @@ class WikiRevisionFactory {
 			return $summaryText;
 		}
 
-		/** Mostly taken from @see Linker::formatLinksInComment */
+		/** Mostly taken from @see MediaWiki\CommentFormatter\CommentParser::doWikiLinks */
 		return preg_replace(
 			'/
 				\[\[
