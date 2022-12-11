@@ -130,8 +130,7 @@ For now only code is included to import from other MediaWiki installations.
 
 Direct database access to a remote MediaWiki installation is not required. All request are done
 server-side utilizing MediaWiki's HttpRequest infrastructure (see `HttpRequestExecutor`). MediaWiki
-typically utilizes CURL for this, depending on the servers configuration (see
-`MWHttpRequest::factory` and `HttpRequestFactory`).
+typically utilizes CURL for this, depending on the servers configuration (see `HttpRequestFactory`).
 
 - The import process starts with the user providing the URL of a file description page they want to
   transfer.

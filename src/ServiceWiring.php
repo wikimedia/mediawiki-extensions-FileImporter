@@ -56,6 +56,7 @@ return [
 		$config = $services->getMainConfig();
 		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
 		$service = new HttpRequestExecutor(
+			$services->getHttpRequestFactory(),
 			[
 				'originalRequest' => RequestContext::getMain()->getRequest(),
 				'proxy' => $config->get( 'CopyUploadProxy' ),

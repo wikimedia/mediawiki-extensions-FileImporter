@@ -3,7 +3,7 @@
 namespace FileImporter\Services\Http;
 
 use FileImporter\Exceptions\HttpRequestException;
-use MWException;
+use MediaWiki\Http\HttpRequestFactory;
 use MWHttpRequest;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -21,9 +21,9 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	private $logger;
 
 	/**
-	 * @var callable
+	 * @var HttpRequestFactory
 	 */
-	private $requestFactoryCallable;
+	private $httpRequestFactory;
 
 	/**
 	 * @var array
@@ -36,6 +36,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	private $maxFileSize;
 
 	/**
+	 * @param HttpRequestFactory $httpRequestFactory
 	 * @param array $httpOptions in the following format:
 	 * [
 	 *     'originalRequest' => WebRequest|string[] When in array form, it's expected to have the
@@ -45,8 +46,12 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * ]
 	 * @param int $maxFileSize in bytes
 	 */
-	public function __construct( array $httpOptions, $maxFileSize ) {
-		$this->requestFactoryCallable = [ MWHttpRequest::class, 'factory' ];
+	public function __construct(
+		HttpRequestFactory $httpRequestFactory,
+		array $httpOptions,
+		$maxFileSize
+	) {
+		$this->httpRequestFactory = $httpRequestFactory;
 		$this->logger = new NullLogger();
 		$this->maxFileSize = $maxFileSize;
 		$this->httpOptions = $httpOptions;
@@ -61,20 +66,6 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param callable $callable
-	 *
-	 * @throws MWException
-	 */
-	public function overrideRequestFactory( callable $callable ) {
-		if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
-			throw new MWException(
-				'Cannot override MWHttpRequest::factory callback in operation.'
-			);
-		}
-		$this->requestFactoryCallable = $callable;
-	}
-
-	/**
 	 * @param string $url
 	 * @param array $parameters
 	 *
@@ -82,7 +73,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @throws HttpRequestException
 	 */
 	public function execute( $url, array $parameters = [] ) {
-		return $this->executeWithCallback( wfAppendQuery( $url, $parameters ) );
+		return $this->executeHttpRequest( wfAppendQuery( $url, $parameters ) );
 	}
 
 	/**
@@ -92,7 +83,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @return MWHttpRequest
 	 */
 	public function executePost( $url, array $postData ) {
-		return $this->executeWithCallback( $url, null, $postData );
+		return $this->executeHttpRequest( $url, null, $postData );
 	}
 
 	/**
@@ -105,7 +96,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	public function executeAndSave( $url, $filePath ) {
 		$chunkSaver = new FileChunkSaver( $filePath, $this->maxFileSize );
 		$chunkSaver->setLogger( $this->logger );
-		return $this->executeWithCallback( $url, [ $chunkSaver, 'saveFileChunk' ] );
+		return $this->executeHttpRequest( $url, [ $chunkSaver, 'saveFileChunk' ] );
 	}
 
 	/**
@@ -116,7 +107,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
-	private function executeWithCallback( $url, $callback = null, $postData = null ) {
+	private function executeHttpRequest( $url, $callback = null, $postData = null ) {
 		$options = [
 			'logger' => $this->logger,
 			'followRedirects' => true,
@@ -138,7 +129,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		$options['userAgent'] = $this->buildUserAgentString();
 
 		/** @var MWHttpRequest $request */
-		$request = ( $this->requestFactoryCallable )( $url, $options, __METHOD__ );
+		$request = $this->httpRequestFactory->create( $url, $options, __METHOD__ );
 
 		$request->setCallback( $callback );
 
