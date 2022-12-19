@@ -71,7 +71,8 @@ return [
 	'FileImporterCategoryExtractor' => static function ( MediaWikiServices $services ) {
 		return new CategoryExtractor(
 			$services->getParser(),
-			$services->getDBLoadBalancer()
+			$services->getDBLoadBalancer(),
+			$services->getLinkBatchFactory()
 		);
 	},
 

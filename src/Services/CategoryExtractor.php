@@ -2,7 +2,7 @@
 
 namespace FileImporter\Services;
 
-use LinkBatch;
+use MediaWiki\Cache\LinkBatchFactory;
 use MediaWiki\User\UserIdentity;
 use Parser;
 use ParserOptions;
@@ -20,13 +20,22 @@ class CategoryExtractor {
 	/** @var ILoadBalancer */
 	private $loadBalancer;
 
+	/** @var LinkBatchFactory */
+	private $linkBatchFactory;
+
 	/**
 	 * @param Parser $parser
 	 * @param ILoadBalancer $loadBalancer
+	 * @param LinkBatchFactory $linkBatchFactory
 	 */
-	public function __construct( Parser $parser, ILoadBalancer $loadBalancer ) {
+	public function __construct(
+		Parser $parser,
+		ILoadBalancer $loadBalancer,
+		LinkBatchFactory $linkBatchFactory
+	) {
 		$this->parser = $parser;
 		$this->loadBalancer = $loadBalancer;
+		$this->linkBatchFactory = $linkBatchFactory;
 	}
 
 	/**
@@ -66,7 +75,7 @@ class CategoryExtractor {
 		}
 
 		$arr = [ NS_CATEGORY => array_flip( $categories ) ];
-		$lb = new LinkBatch;
+		$lb = $this->linkBatchFactory->newLinkBatch();
 		$lb->setArray( $arr );
 
 		# Fetch categories having the `hiddencat` property.

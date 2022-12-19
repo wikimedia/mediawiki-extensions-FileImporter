@@ -64,7 +64,8 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	public function testGetCategories( $allCategories, $hiddenCategories, $visibleCategories ) {
 		$extractor = new CategoryExtractor(
 			$this->buildParserMock( $allCategories ),
-			$this->buildLoadBalancerMock( $hiddenCategories )
+			$this->buildLoadBalancerMock( $hiddenCategories ),
+			$this->services->getLinkBatchFactory()
 		);
 
 		$title = Title::makeTitle( NS_FILE, 'Foo' );
@@ -101,7 +102,8 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
 		$extractor = new CategoryExtractor(
 			$this->createMock( Parser::class ),
-			$this->services->getDBLoadBalancer()
+			$this->services->getDBLoadBalancer(),
+			$this->services->getLinkBatchFactory()
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
 
@@ -131,7 +133,8 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
 		$extractor = new CategoryExtractor(
 			$this->createMock( Parser::class ),
-			$this->services->getDBLoadBalancer()
+			$this->services->getDBLoadBalancer(),
+			$this->services->getLinkBatchFactory()
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
 
