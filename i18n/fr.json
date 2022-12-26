@@ -38,7 +38,7 @@
 	"fileimporter-cantparseurl": "Impossible d’analyser l’URL fournie : $1",
 	"fileimporter-cantimporturl": "Impossible d’importer l’URL fournie",
 	"fileimporter-cantimportfromsharedrepo": "Impossible d’importer un fichier depuis un répertoire partagé.",
-	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier absent.",
+	"fileimporter-cantimportmissingfile": "Impossible d’importer un fichier manquant.",
 	"fileimporter-cantimportfilehidden": "Impossible d’importer le fichier parce qu’au moins une de ses révisions contient un fichier supprimé.",
 	"fileimporter-cantimportfileinvalid": "Ce fichier (ou une révision antérieure de ce fichier) contient des éléments qui ne peuvent être acceptés pour des raisons de sécurité : $1",
 	"fileimporter-warningabusefilter": "Un [//fr.wikipedia.org/wiki/Wikipédia:AbuseFilter filtre automatique] a identifié une modification potentiellement dommageable dans l’historique des changements  de ce fichier. Une ou plusieurs révisions ont pu le déclencher ; chacune est affichée ci-dessous avec l’avertissement associé. Appuyez à nouveau sur soumettre pour ignorer tous les avertissements et continuer l’importation.",

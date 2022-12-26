@@ -46,7 +46,7 @@
 	"fileimporter-sourcetitleexists": "Naslov, ki ga skušaš uvoziti, že obstaja na izvirnem wikiju.",
 	"fileimporter-illegalfilenamechars": "Naslov, ki ga skušaš uvoziti, vsebuje neveljavne znake.",
 	"fileimporter-duplicatefilesdetected": "Datoteka, ki jo trenutno poskušate uvoziti, v tem vikiju že obstaja.",
-	"fileimporter-duplicatefilesdetected-prefix": "Dvojniki",
+	"fileimporter-duplicatefilesdetected-prefix": "Podvojitve",
 	"fileimporter-exampleprefix": "Zgled",
 	"fileimporter-textrevisions": "Iz zgodovine redakcij {{PLURAL:bo uvožena|bosta uvoženi|bodo uvožene|bo uvoženih}} $1/$2 {{PLURAL:$2|redakcija|redakciji|redakcije|redakcij}} strani.",
 	"fileimporter-filerevisions": "{{PLURAL:$1|Uvožena bo|Uvoženi bosta|Uvožene bodo|Uvoženih bo}} $1/$2 {{PLURAL:$2|različice|različic}} datoteke.",
