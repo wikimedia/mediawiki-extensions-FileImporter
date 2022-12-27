@@ -14,13 +14,14 @@
 			"WQL",
 			"Xiplus",
 			"列维劳德",
-			"水獭很懒"
+			"水獭很懒",
+			"Diskdance"
 		]
 	},
 	"fileimporter": "文件导入器",
 	"fileimporter-desc": "从其他网站轻松导入文件",
 	"fileimporter-help-banner-text": "'''从其他wiki导入'''\n#检查并编辑下面的文件标题和信息。\n#选择您是否希望文件导入器通过将[//zh.wikipedia.org/wiki/Template:Now_Commons NowCommons]模板添加到源文件来清理源wiki。（如果您有管理员权限，您还可以选择删除源文件。）\n#点击'''{{int:fileimporter-import}}'''将文件复制到{{SITENAME}}。\n\n有关许可信息，请查看{{SITENAME}}[[Project:Licensing|社群方针]]。<br />有关如何使用文件导入器的更多详细说明，请参阅[//www.mediawiki.org/wiki/ Help:Extension:FileImporter 帮助页面]。\n\n如果您对改进文件导入器有任何反馈意见，请在其[//www.mediawiki.org/wiki/Extension_talk:FileImporter 讨论页]上发表评论。",
-	"fileimporter-help-banner-close-tooltip": "不要再次显示这条消息",
+	"fileimporter-help-banner-close-tooltip": "不再显示此消息",
 	"tag-fileimporter": "已由FileImporter修改",
 	"tag-fileimporter-description": "从另一wiki导入后添加的修订版本和日志消息",
 	"tag-fileimporter-imported": "用文件导入器导入",
