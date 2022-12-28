@@ -5,7 +5,8 @@
 			"Omotecho",
 			"Otokoume",
 			"しぃ",
-			"つぶあん派"
+			"つぶあん派",
+			"春春眠眠"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -48,5 +49,7 @@
 	"fileimporter-previewnote": "インポートされようとしているファイルのプレビューを表示しています。インポートの前にページの細部をご確認ください。",
 	"fileimporter-heading-fileinfo": "ファイルの情報",
 	"fileimporter-heading-filehistory": "ファイルの履歴",
-	"fileimporter-heading-cleanup": "ウィキ構文を整理"
+	"fileimporter-heading-cleanup": "ウィキ構文を整理",
+	"fileimporter-cleanup-summary": "このファイルは現在 {{SITENAME}} の $1 にあります (FileImporterで移動)。",
+	"fileimporter-delete-summary": "このファイルは現在 {{SITENAME}} の $1 にあります (FileImporterで移動)。"
 }
