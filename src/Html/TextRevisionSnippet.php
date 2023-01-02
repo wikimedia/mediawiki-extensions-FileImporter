@@ -2,7 +2,6 @@
 
 namespace FileImporter\Html;
 
-use ContentHandler;
 use FileImporter\Data\TextRevision;
 use MediaWiki\MediaWikiServices;
 use ParserOptions;
@@ -32,12 +31,12 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 			$text = $intendedWikitext;
 		}
 
-		$content = ContentHandler::makeContent(
-			$text,
-			$title,
-			$textRevision->getField( 'contentmodel' ),
-			$textRevision->getField( 'contentformat' )
-		);
+		$content = $services->getContentHandlerFactory()
+			->getContentHandler( $textRevision->getField( 'contentmodel' ) )
+			->unserializeContent(
+				$text,
+				$textRevision->getField( 'contentformat' )
+			);
 
 		$parserOptions = new ParserOptions( $this->getUser(), $this->getLanguage() );
 		$parserOptions->setIsPreview( true );

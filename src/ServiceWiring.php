@@ -114,7 +114,9 @@ return [
 	},
 
 	'FileImporterWikiRevisionFactory' => static function ( MediaWikiServices $services ) {
-		return new WikiRevisionFactory();
+		return new WikiRevisionFactory(
+			$services->getContentHandlerFactory()
+		);
 	},
 
 	'FileImporterNullRevisionCreator' => static function ( MediaWikiServices $services ) {

@@ -20,6 +20,7 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -340,12 +341,13 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 
 	private function newWikiRevisionFactory(): WikiRevisionFactory {
 		$mock = $this->getMockBuilder( WikiRevisionFactory::class )
+			->setConstructorArgs( [ $this->getServiceContainer()->getContentHandlerFactory() ] )
 			->onlyMethods( [ 'newFromFileRevision' ] )
 			->getMock();
 		$mock->method( 'newFromFileRevision' )
 			->willReturnCallback(
 				function ( FileRevision $fileRevision, $src ) {
-					$realFactory = new WikiRevisionFactory();
+					$realFactory = new WikiRevisionFactory( $this->createMock( IContentHandlerFactory::class ) );
 
 					$tempFile = $this->getNewTempFile();
 					$srcFile = $fileRevision->getField( '_test_file_src' );

@@ -9,6 +9,9 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use HamcrestPHPUnitIntegration;
 use HashSiteStore;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Content\IContentHandlerFactory;
+use MediaWiki\User\UserOptionsManager;
 use MWHttpRequest;
 use PermissionsError;
 use Site;
@@ -69,8 +72,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$services->getService( 'FileImporterSourceSiteLocator' ),
 			$services->getService( 'FileImporterImporter' ),
 			$services->getService( 'FileImporterImportPlanFactory' ),
-			$services->getStatsdDataFactory(),
-			$services->getUserOptionsManager(),
+			$this->createMock( IContentHandlerFactory::class ),
+			$this->createMock( StatsdDataFactoryInterface::class ),
+			$this->createMock( UserOptionsManager::class ),
 			$services->getMainConfig()
 		);
 	}

@@ -32,6 +32,7 @@ use FileImporter\Services\SourceSiteLocator;
 use Html;
 use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Extension\GlobalBlocking\GlobalBlocking;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\User\UserOptionsManager;
@@ -63,6 +64,8 @@ class SpecialImportFile extends SpecialPage {
 	private $importer;
 	/** @var ImportPlanFactory */
 	private $importPlanFactory;
+	/** @var IContentHandlerFactory */
+	private $contentHandlerFactory;
 	/** @var UserOptionsManager */
 	private $userOptionsManager;
 	/** @var StatsdDataFactoryInterface */
@@ -74,6 +77,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @param SourceSiteLocator $sourceSiteLocator
 	 * @param Importer $importer
 	 * @param ImportPlanFactory $importPlanFactory
+	 * @param IContentHandlerFactory $contentHandlerFactory
 	 * @param StatsdDataFactoryInterface $statsdDataFactory
 	 * @param UserOptionsManager $userOptionsManager
 	 * @param Config $config
@@ -82,6 +86,7 @@ class SpecialImportFile extends SpecialPage {
 		SourceSiteLocator $sourceSiteLocator,
 		Importer $importer,
 		ImportPlanFactory $importPlanFactory,
+		IContentHandlerFactory $contentHandlerFactory,
 		StatsdDataFactoryInterface $statsdDataFactory,
 		UserOptionsManager $userOptionsManager,
 		Config $config
@@ -95,8 +100,9 @@ class SpecialImportFile extends SpecialPage {
 		$this->sourceSiteLocator = $sourceSiteLocator;
 		$this->importer = $importer;
 		$this->importPlanFactory = $importPlanFactory;
-		$this->userOptionsManager = $userOptionsManager;
+		$this->contentHandlerFactory = $contentHandlerFactory;
 		$this->stats = $statsdDataFactory;
+		$this->userOptionsManager = $userOptionsManager;
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
 	}
 
@@ -273,8 +279,9 @@ class SpecialImportFile extends SpecialPage {
 				);
 				break;
 			case ImportPreviewPage::ACTION_VIEW_DIFF:
+				$contentHandler = $this->contentHandlerFactory->getContentHandler( CONTENT_MODEL_WIKITEXT );
 				$this->getOutput()->addHTML(
-					( new FileInfoDiffPage( $this ) )->getHtml( $importPlan )
+					( new FileInfoDiffPage( $this ) )->getHtml( $importPlan, $contentHandler )
 				);
 				break;
 			default:
