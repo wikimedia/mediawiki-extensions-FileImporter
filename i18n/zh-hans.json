@@ -14,12 +14,13 @@
 			"FakeGreenHand",
 			"GuoPC",
 			"Lakejason0",
-			"Shizhao"
+			"Shizhao",
+			"Diskdance"
 		]
 	},
 	"fileimporter": "文件导入器",
 	"fileimporter-desc": "从其他网站轻松导入文件",
-	"fileimporter-help-banner-close-tooltip": "不要再次显示这条消息",
+	"fileimporter-help-banner-close-tooltip": "不再显示此消息",
 	"tag-fileimporter": "已由FileImporter修改",
 	"tag-fileimporter-description": "从另一wiki导入后添加的修订版本和日志消息",
 	"tag-fileimporter-imported": "用文件导入器导入",
