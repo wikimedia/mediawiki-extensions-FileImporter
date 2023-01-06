@@ -12,14 +12,9 @@ use InvalidArgumentException;
  */
 class CommonsHelperConfigParser {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $commonsHelperConfigUrl;
-
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $wikitext;
 
 	/**

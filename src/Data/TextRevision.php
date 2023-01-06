@@ -28,9 +28,7 @@ class TextRevision {
 		'tags',
 	];
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private $fields;
 
 	/**

@@ -13,9 +13,7 @@ use Psr\Log\LoggerInterface;
  */
 class UploadBaseFactory {
 
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
 
 	/**

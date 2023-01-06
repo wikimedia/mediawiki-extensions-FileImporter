@@ -13,9 +13,7 @@ use Language;
  */
 class LocalizedMediaWikiNamespaceLookup implements NamespaceNameLookup {
 
-	/**
-	 * @var Language
-	 */
+	/** @var Language */
 	private $language;
 
 	/**

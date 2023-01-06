@@ -22,14 +22,9 @@ class NullRevisionCreator {
 
 	private const ERROR_REVISION_CREATE = 'noNullRevisionCreated';
 
-	/**
-	 * @var ILoadBalancer
-	 */
+	/** @var ILoadBalancer */
 	private $loadBalancer;
-
-	/**
-	 * @var RevisionStore
-	 */
+	/** @var RevisionStore */
 	private $revisionStore;
 
 	/**

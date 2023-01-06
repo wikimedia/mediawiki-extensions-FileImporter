@@ -8,9 +8,7 @@ namespace FileImporter\Services\Wikitext;
  */
 class WikiLinkParser {
 
-	/**
-	 * @var WikiLinkCleaner[]
-	 */
+	/** @var WikiLinkCleaner[] */
 	private $cleaners = [];
 
 	/**

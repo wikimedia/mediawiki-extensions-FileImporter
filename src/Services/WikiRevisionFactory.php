@@ -18,15 +18,9 @@ class WikiRevisionFactory {
 
 	/** @var IContentHandlerFactory */
 	private $contentHandlerFactory;
-
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $interwikiPrefix;
-
-	/**
-	 * @var ExternalUserNames
-	 */
+	/** @var ExternalUserNames */
 	private $externalUserNames;
 
 	// TODO: should be changed back to lowercase when T221235 is fixed.

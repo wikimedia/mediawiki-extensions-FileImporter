@@ -19,29 +19,15 @@ use User;
  */
 class RemoteApiRequestExecutor implements LoggerAwareInterface {
 
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
-
-	/**
-	 * @var HttpApiLookup
-	 */
+	/** @var HttpApiLookup */
 	private $httpApiLookup;
-
-	/**
-	 * @var HttpRequestExecutor
-	 */
+	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;
-
-	/**
-	 * @var CentralAuthTokenProvider
-	 */
+	/** @var CentralAuthTokenProvider */
 	private $centralAuthTokenProvider;
-
-	/**
-	 * @var CentralIdLookup
-	 */
+	/** @var CentralIdLookup */
 	private $centralIdLookup;
 
 	/**

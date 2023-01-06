@@ -24,9 +24,7 @@ use User;
  */
 abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 
-	/**
-	 * @var SpecialPage
-	 */
+	/** @var SpecialPage */
 	private $specialPage;
 
 	/**

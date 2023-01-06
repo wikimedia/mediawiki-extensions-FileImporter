@@ -14,34 +14,17 @@ use MediaWiki\MediaWikiServices;
  */
 class CommonsHelperConfigRetriever {
 
-	/**
-	 * @var \Config
-	 */
+	/** @var \Config */
 	private $mainConfig;
-
-	/**
-	 * @var HttpRequestExecutor
-	 */
+	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;
-
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $configServer;
-
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $configBasePageName;
-
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $configWikitext = null;
-
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $configWikiUrl = null;
 
 	/**

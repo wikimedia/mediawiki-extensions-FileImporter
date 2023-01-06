@@ -24,29 +24,15 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	private const STATSD_SOURCE_EDIT_FAIL = 'FileImporter.import.postImport.edit.failed';
 	private const STATSD_SOURCE_EDIT_SUCCESS = 'FileImporter.import.postImport.edit.successful';
 
-	/**
-	 * @var PostImportHandler
-	 */
+	/** @var PostImportHandler */
 	private $fallbackHandler;
-
-	/**
-	 * @var WikidataTemplateLookup
-	 */
+	/** @var WikidataTemplateLookup */
 	private $templateLookup;
-
-	/**
-	 * @var RemoteApiActionExecutor
-	 */
+	/** @var RemoteApiActionExecutor */
 	private $remoteAction;
-
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
-
-	/**
-	 * @var StatsdDataFactoryInterface
-	 */
+	/** @var StatsdDataFactoryInterface */
 	private $statsd;
 
 	/**

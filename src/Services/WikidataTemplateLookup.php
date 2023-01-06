@@ -25,22 +25,15 @@ class WikidataTemplateLookup {
 
 	/** @var SiteTableSiteLookup */
 	private $siteLookup;
-
 	/** @var HttpRequestExecutor */
 	private $requestExecutor;
-
 	/** @var LoggerInterface */
 	private $logger;
-
 	/** @var string */
 	private $entityEndpoint;
-
 	/** @var string */
 	private $nowCommonsEntityId;
-
-	/**
-	 * @var string[][] Array mapping site id and entity id to a template title name
-	 */
+	/** @var string[][] Array mapping site id and entity id to a template title name */
 	private $templateCache = [];
 
 	/**

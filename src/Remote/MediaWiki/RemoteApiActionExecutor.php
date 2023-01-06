@@ -13,9 +13,7 @@ class RemoteApiActionExecutor {
 
 	public const CHANGE_TAG = 'fileimporter-remote';
 
-	/**
-	 * @var RemoteApiRequestExecutor
-	 */
+	/** @var RemoteApiRequestExecutor */
 	private $remoteApiRequestExecutor;
 
 	/**

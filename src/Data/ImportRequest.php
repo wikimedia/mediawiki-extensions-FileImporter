@@ -14,29 +14,15 @@ use FileImporter\Exceptions\LocalizedImportException;
  */
 class ImportRequest {
 
-	/**
-	 * @var SourceUrl
-	 */
+	/** @var SourceUrl */
 	private $url;
-
-	/**
-	 * @var null|string
-	 */
+	/** @var null|string */
 	private $intendedName;
-
-	/**
-	 * @var null|string
-	 */
+	/** @var null|string */
 	private $intendedText;
-
-	/**
-	 * @var null|string
-	 */
+	/** @var null|string */
 	private $intendedSummary;
-
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $importDetailsHash;
 
 	/**

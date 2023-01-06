@@ -12,9 +12,7 @@ use Html;
  */
 class ImportIdentityFormSnippet {
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private $identityParts;
 
 	private const IDENTITY_KEYS = [

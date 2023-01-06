@@ -10,19 +10,11 @@ use FileImporter\Data\WikitextConversions;
  */
 class WikitextContentCleaner {
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $latestNumberOfReplacements = 0;
-
-	/**
-	 * @var WikitextConversions
-	 */
+	/** @var WikitextConversions */
 	private $wikitextConversions;
-
-	/**
-	 * @var string|false
-	 */
+	/** @var string|false */
 	private $sourceWikiLanguageTemplate = false;
 
 	/**

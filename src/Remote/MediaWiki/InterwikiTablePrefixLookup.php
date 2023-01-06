@@ -19,41 +19,23 @@ use Psr\Log\NullLogger;
  */
 class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
-	/**
-	 * @var InterwikiLookup
-	 */
+	/** @var InterwikiLookup */
 	private $interwikiLookup;
-
-	/**
-	 * @var HttpApiLookup
-	 */
+	/** @var HttpApiLookup */
 	private $httpApiLookup;
-
-	/**
-	 * @var HttpRequestExecutor
-	 */
+	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;
-
-	/**
-	 * @var string[] Array mapping full host name to interwiki prefix
-	 */
+	/** @var string[] Array mapping full host name to interwiki prefix */
 	private $interwikiTableMap;
-
 	/**
 	 * @var string[] Array mapping parent domain to a representative URL.  The idea is that, for
 	 * example, a site matching *.wiktionary.* will have interwiki links to each language version
 	 * of wiktionary.
 	 */
 	private $parentDomainToUrlMap;
-
-	/**
-	 * @var string[]
-	 */
+	/** @var string[] */
 	private $interWikiConfigMap;
-
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
 
 	/**

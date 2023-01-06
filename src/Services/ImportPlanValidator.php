@@ -29,39 +29,19 @@ use UploadBase;
  */
 class ImportPlanValidator {
 
-	/**
-	 * @var DuplicateFileRevisionChecker
-	 */
+	/** @var DuplicateFileRevisionChecker */
 	private $duplicateFileChecker;
-
-	/**
-	 * @var ImportTitleChecker
-	 */
+	/** @var ImportTitleChecker */
 	private $importTitleChecker;
-
-	/**
-	 * @var UploadBaseFactory
-	 */
+	/** @var UploadBaseFactory */
 	private $uploadBaseFactory;
-
-	/**
-	 * @var CommonsHelperConfigRetriever|null
-	 */
+	/** @var CommonsHelperConfigRetriever|null */
 	private $commonsHelperConfigRetriever;
-
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $commonsHelperHelpPage;
-
-	/**
-	 * @var WikiLinkParserFactory
-	 */
+	/** @var WikiLinkParserFactory */
 	private $wikiLinkParserFactory;
-
-	/**
-	 * @var RestrictionStore
-	 */
+	/** @var RestrictionStore */
 	private $restrictionStore;
 
 	/**

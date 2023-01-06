@@ -21,49 +21,23 @@ use WikiRevision;
  */
 class TextRevisionFromTextRevision implements ImportOperation {
 
-	/**
-	 * @var Title
-	 */
+	/** @var Title */
 	private $plannedTitle;
-
-	/**
-	 * @var User user performing the import
-	 */
+	/** @var User user performing the import */
 	private $user;
-
-	/**
-	 * @var TextRevision
-	 */
+	/** @var TextRevision */
 	private $textRevision;
-
-	/**
-	 * @var WikiRevisionFactory
-	 */
+	/** @var WikiRevisionFactory */
 	private $wikiRevisionFactory;
-
-	/**
-	 * @var WikiRevision|null
-	 */
+	/** @var WikiRevision|null */
 	private $wikiRevision;
-
-	/**
-	 * @var OldRevisionImporter
-	 */
+	/** @var OldRevisionImporter */
 	private $importer;
-
-	/**
-	 * @var FileTextRevisionValidator
-	 */
+	/** @var FileTextRevisionValidator */
 	private $textRevisionValidator;
-
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
-
-	/**
-	 * @var RestrictionStore
-	 */
+	/** @var RestrictionStore */
 	private $restrictionStore;
 
 	/**

@@ -20,69 +20,31 @@ use Title;
  */
 class ImportPlan {
 
-	/**
-	 * @var ImportRequest
-	 */
+	/** @var ImportRequest */
 	private $request;
-
-	/**
-	 * @var ImportDetails
-	 */
+	/** @var ImportDetails */
 	private $details;
-
-	/**
-	 * @var Config
-	 */
+	/** @var Config */
 	private $config;
-
-	/**
-	 * @var MessageLocalizer
-	 */
+	/** @var MessageLocalizer */
 	private $messageLocalizer;
-
-	/**
-	 * @var Title|null
-	 */
+	/** @var Title|null */
 	private $title = null;
-
-	/**
-	 * @var Title|null
-	 */
+	/** @var Title|null */
 	private $originalTitle = null;
-
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $interWikiPrefix;
-
-	/**
-	 * @var string|null
-	 */
+	/** @var string|null */
 	private $cleanedLatestRevisionText;
-
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $numberOfTemplateReplacements = 0;
-
-	/**
-	 * @var int[]
-	 */
+	/** @var int[] */
 	private $actionStats = [];
-
-	/**
-	 * @var int[]
-	 */
+	/** @var int[] */
 	private $validationWarnings = [];
-
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $automateSourceWikiCleanUp = false;
-
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	private $automateSourceWikiDelete = false;
 
 	/**
