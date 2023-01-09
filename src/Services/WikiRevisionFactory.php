@@ -2,10 +2,10 @@
 
 namespace FileImporter\Services;
 
-use ContentHandler;
 use ExternalUserNames;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Revision\SlotRecord;
 use Title;
 use WikiRevision;
@@ -15,6 +15,9 @@ use WikiRevision;
  * @author Addshore
  */
 class WikiRevisionFactory {
+
+	/** @var IContentHandlerFactory */
+	private $contentHandlerFactory;
 
 	/**
 	 * @var string
@@ -29,7 +32,11 @@ class WikiRevisionFactory {
 	// TODO: should be changed back to lowercase when T221235 is fixed.
 	public const DEFAULT_USERNAME_PREFIX = 'Imported';
 
-	public function __construct() {
+	/**
+	 * @param IContentHandlerFactory $contentHandlerFactory
+	 */
+	public function __construct( IContentHandlerFactory $contentHandlerFactory ) {
+		$this->contentHandlerFactory = $contentHandlerFactory;
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
 	}
 
@@ -104,12 +111,12 @@ class WikiRevisionFactory {
 	 * @return WikiRevision
 	 */
 	public function newFromTextRevision( TextRevision $textRevision ) {
-		$content = ContentHandler::makeContent(
-			$textRevision->getField( '*' ),
-			null,
-			$textRevision->getField( 'contentmodel' ),
-			$textRevision->getField( 'contentformat' )
-		);
+		$content = $this->contentHandlerFactory
+			->getContentHandler( $textRevision->getField( 'contentmodel' ) )
+			->unserializeContent(
+				$textRevision->getField( '*' ),
+				$textRevision->getField( 'contentformat' )
+			);
 
 		$revision = $this->newWikiRevision(
 			$textRevision->getField( 'title' ),

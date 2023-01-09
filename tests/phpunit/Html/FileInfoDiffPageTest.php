@@ -124,9 +124,16 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( MessageLocalizer::class ),
 			''
 		);
+
+		$contentHandler = $this->getServiceContainer()->getContentHandlerFactory()
+			->getContentHandler( CONTENT_MODEL_WIKITEXT );
+
 		$diffPage = new FileInfoDiffPage( $this->getMockSpecialPage() );
 
-		$this->assertStringContainsString( $expected, $diffPage->getHtml( $importPlan ) );
+		$this->assertStringContainsString(
+			$expected,
+			$diffPage->getHtml( $importPlan, $contentHandler )
+		);
 	}
 
 }

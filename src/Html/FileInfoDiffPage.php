@@ -6,7 +6,6 @@ use ContentHandler;
 use FileImporter\Data\ImportPlan;
 use Html;
 use OOUI\ButtonInputWidget;
-use Title;
 
 /**
  * Page to display a diff from changed file info text.
@@ -18,10 +17,11 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 
 	/**
 	 * @param ImportPlan $importPlan
+	 * @param ContentHandler $contentHandler
 	 *
 	 * @return string
 	 */
-	public function getHtml( ImportPlan $importPlan ) {
+	public function getHtml( ImportPlan $importPlan, ContentHandler $contentHandler ) {
 		$newText = $importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText();
 
 		return Html::openElement(
@@ -34,7 +34,11 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 			Html::rawElement(
 				'div',
 				[],
-				$this->buildDiff( $importPlan->getTitle(), $importPlan->getInitialFileInfoText(), $newText )
+				$this->buildDiff(
+					$importPlan->getInitialFileInfoText(),
+					$newText,
+					$contentHandler
+				)
 			) .
 			( new ImportIdentityFormSnippet( [
 				'clientUrl' => $importPlan->getRequest()->getUrl(),
@@ -59,28 +63,17 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 	}
 
 	/**
-	 * @param Title $title
 	 * @param string $originalText
 	 * @param string $newText
+	 * @param ContentHandler $contentHandler
 	 *
 	 * @return string HTML
 	 */
-	private function buildDiff( Title $title, $originalText, $newText ) {
-		$originalContent = ContentHandler::makeContent(
-			$originalText,
-			$title,
-			CONTENT_MODEL_WIKITEXT,
-			CONTENT_FORMAT_WIKITEXT
-		);
-		$newContent = ContentHandler::makeContent(
-			$newText,
-			$title,
-			CONTENT_MODEL_WIKITEXT,
-			CONTENT_FORMAT_WIKITEXT
-		);
+	private function buildDiff( $originalText, $newText, ContentHandler $contentHandler ) {
+		$originalContent = $contentHandler->unserializeContent( $originalText );
+		$newContent = $contentHandler->unserializeContent( $newText );
 
-		$contenHandler = ContentHandler::getForModelID( CONTENT_MODEL_WIKITEXT );
-		$diffEngine = $contenHandler->createDifferenceEngine( $this->getContext() );
+		$diffEngine = $contentHandler->createDifferenceEngine( $this->getContext() );
 		$diffEngine->setContent( $originalContent, $newContent );
 
 		$diffEngine->showDiffStyle();

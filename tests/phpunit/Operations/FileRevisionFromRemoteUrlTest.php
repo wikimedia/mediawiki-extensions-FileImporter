@@ -9,6 +9,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
@@ -96,7 +97,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$this->assertTrue( $fileRevisionFromRemoteUrl->validate()->isOK() );
 		$status = $fileRevisionFromRemoteUrl->commit();
 
-		$this->assertTrue( $status->isOK() );
+		$this->assertTrue( $status->isOK(), $status );
 		$this->assertTrue( $title->exists() );
 
 		// there will be a text revision created with the upload
@@ -163,7 +164,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$mock->method( 'newFromFileRevision' )
 			->willReturnCallback(
 				function ( FileRevision $fileRevision, $src ) {
-					$realFactory = new WikiRevisionFactory();
+					$realFactory = new WikiRevisionFactory( $this->createMock( IContentHandlerFactory::class ) );
 
 					$tempFile = $this->getNewTempFile();
 					// the file will be moved or deleted in the process so create a copy
