@@ -8,11 +8,13 @@
 			"SeoJeongHo",
 			"Tkwiki",
 			"Ykhwong",
-			"Kwj2772"
+			"Kwj2772",
+			"Bluehill"
 		]
 	},
 	"fileimporter-desc": "쉽게 다른 사이트에서 파일 가져오기",
 	"fileimporter-help-banner-close-tooltip": "이 메시지를 더 이상 보지 않기",
+	"tag-fileimporter": "FileImporter에 의해 수정됨",
 	"tag-fileimporter-imported": "FileImporter를 통해 가져옴",
 	"fileimporter-specialpage": "파일 가져오기",
 	"fileimporter-importfailed": "가져오기를 실패했습니다",
