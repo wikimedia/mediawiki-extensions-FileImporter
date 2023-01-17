@@ -3,7 +3,8 @@
 		"authors": [
 			"Johanna Strodt (WMDE)",
 			"Metalhead64",
-			"Mirzali"
+			"Mirzali",
+			"Brettchenweber"
 		]
 	},
 	"fileimporter": "Dateiimporteur",
@@ -70,7 +71,7 @@
 	"fileimporter-cleanup-checkboxlabel": "Markiere die Datei im Ursprungswiki als importiert nach {{SITENAME}}",
 	"fileimporter-cleanup-summary": "Diese Datei ist nun in {{SITENAME}} als $1 (verschoben vom Dateiimporteur).",
 	"fileimporter-cleanup-failed": "Das automatische Bearbeiten des Ursprungswikis war nicht möglich.",
-	"fileimporter-delete-text": "Du hast das Recht die Datei im Ursprungswiki zu löschen. Wenn du möchtest, dass der Dateiimporteur die Datei in deinem Namen löscht, wähle diese Option aus:",
+	"fileimporter-delete-text": "Du hast das Recht, die Datei im Ursprungswiki zu löschen. Wenn du möchtest, dass der Dateiimporteur die Datei in deinem Namen löscht, wähle diese Option aus:",
 	"fileimporter-delete-checkboxlabel": "Lösche die Datei im Ursprungswiki in meinem Namen",
 	"fileimporter-delete-summary": "Diese Datei ist auf {{SITENAME}} als $1 vorhanden (verschoben mit dem Dateiimporteur)",
 	"fileimporter-delete-failed": "Die Datei konnte nicht automatisch in $1 gelöscht werden. Bitte kehre zur [$2 Originaldatei] zurück und lösche sie manuell.",
