@@ -14,7 +14,7 @@ use FileImporter\Services\FileDescriptionPageValidator;
 class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 
 	public function testSuccess() {
-		$conversions = new WikitextConversions( [], [], [], [], [] );
+		$conversions = new WikitextConversions( [] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		// Provide at least one title to cover the full code-path
@@ -27,7 +27,9 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testHasAtLeastOneRequiredGoodTemplate() {
-		$conversions = new WikitextConversions( [ 'Required1', 'Required2' ], [], [], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::REQUIRED_TEMPLATES => [ 'Required1', 'Required2' ],
+		] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		$validator->hasRequiredTemplate( [ 'Template:Required2' ] );
@@ -35,7 +37,9 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testMissingRequiredGoodTemplate() {
-		$conversions = new WikitextConversions( [ 'Required' ], [], [], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::REQUIRED_TEMPLATES => [ 'Required' ],
+		] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		$this->expectException( LocalizedImportException::class );
@@ -43,7 +47,9 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testBadTemplate() {
-		$conversions = new WikitextConversions( [], [ 'Bad' ], [], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::FORBIDDEN_TEMPLATES => [ 'Bad' ],
+		] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		$this->expectException( LocalizedImportException::class );
@@ -51,7 +57,9 @@ class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testBadCategory() {
-		$conversions = new WikitextConversions( [], [], [ 'Bad' ], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::FORBIDDEN_CATEGORIES => [ 'Bad' ],
+		] );
 		$validator = new FileDescriptionPageValidator( $conversions );
 
 		$this->expectException( LocalizedImportException::class );

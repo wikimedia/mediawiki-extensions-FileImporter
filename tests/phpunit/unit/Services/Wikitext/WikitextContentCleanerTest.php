@@ -336,7 +336,9 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 		$expectedWikitext,
 		$expectedCount = 1
 	) {
-		$conversions = new WikitextConversions( [], [], [], [], $replacements );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS => $replacements,
+		] );
 		$cleaner = new WikitextContentCleaner( $conversions );
 		$cleaner->setSourceWikiLanguageTemplate( 'de' );
 

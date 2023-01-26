@@ -280,13 +280,12 @@ WIKITEXT
 		}
 		$conversions = $parser->getWikitextConversions();
 
-		$expected = new WikitextConversions(
-			$expectedGoodTemplates,
-			$expectedBadTemplates,
-			$expectedBadCategories,
-			$expectedObsoleteTemplates,
-			[]
-		);
+		$expected = new WikitextConversions( [
+			WikitextConversions::REQUIRED_TEMPLATES => $expectedGoodTemplates,
+			WikitextConversions::FORBIDDEN_TEMPLATES => $expectedBadTemplates,
+			WikitextConversions::FORBIDDEN_CATEGORIES => $expectedBadCategories,
+			WikitextConversions::OBSOLETE_TEMPLATES => $expectedObsoleteTemplates,
+		] );
 		$this->assertEquals( $expected, $conversions );
 	}
 
@@ -468,7 +467,9 @@ WIKITEXT
 			"$wikitext\n== Information ==\n=== Description ===\n=== Licensing ===";
 		$parser = new CommonsHelperConfigParser( '', $wikitext );
 
-		$expected = new WikitextConversions( [], [], [], [], $expected );
+		$expected = new WikitextConversions( [
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS => $expected,
+		] );
 		$this->assertEquals( $expected, $parser->getWikitextConversions() );
 	}
 

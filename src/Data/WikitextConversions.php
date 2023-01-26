@@ -66,19 +66,12 @@ class WikitextConversions {
 	 *  unreachable, as the only provider is the CommonsHelperConfigParser.
 	 */
 	public function __construct( array $conversions ) {
-		// FIXME: Backwards-compatibility with the old signature, still used in some tests. Remove
-		// when not needed any more.
-		if ( func_num_args() > 1 ) {
-			[ $goodTemplates, $badTemplates, $badCategories, $obsoleteTemplates,
-				$transferTemplates ] = func_get_args();
-		} else {
-			$goodTemplates = $conversions[self::REQUIRED_TEMPLATES] ?? [];
-			$badTemplates = $conversions[self::FORBIDDEN_TEMPLATES] ?? [];
-			$obsoleteTemplates = $conversions[self::OBSOLETE_TEMPLATES] ?? [];
-			$transferTemplates = $conversions[self::TEMPLATE_TRANSFORMATIONS] ?? [];
-			$badCategories = $conversions[self::FORBIDDEN_CATEGORIES] ?? [];
-			$this->headingReplacements = $conversions[self::HEADING_REPLACEMENTS] ?? [];
-		}
+		$goodTemplates = $conversions[self::REQUIRED_TEMPLATES] ?? [];
+		$badTemplates = $conversions[self::FORBIDDEN_TEMPLATES] ?? [];
+		$obsoleteTemplates = $conversions[self::OBSOLETE_TEMPLATES] ?? [];
+		$transferTemplates = $conversions[self::TEMPLATE_TRANSFORMATIONS] ?? [];
+		$badCategories = $conversions[self::FORBIDDEN_CATEGORIES] ?? [];
+		$this->headingReplacements = $conversions[self::HEADING_REPLACEMENTS] ?? [];
 
 		foreach ( $goodTemplates as $pageName ) {
 			$this->goodTemplates[$this->lowercasePageName( $pageName )] = true;

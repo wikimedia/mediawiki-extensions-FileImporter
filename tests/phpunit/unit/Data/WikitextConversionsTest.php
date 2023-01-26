@@ -15,13 +15,17 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	public function testInvalidTargetTemplateName() {
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'targetTemplate' );
-		new WikitextConversions( [], [], [], [], [ [ 'targetTemplate' => '' ] ] );
+		new WikitextConversions( [
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS => [ [ 'targetTemplate' => '' ] ],
+		] );
 	}
 
 	public function testMissingTemplateParameters() {
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'parameters' );
-		new WikitextConversions( [], [], [], [], [ [ 'targetTemplate' => 'a' ] ] );
+		new WikitextConversions( [
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS => [ [ 'targetTemplate' => 'a' ] ],
+		] );
 	}
 
 	public function testHeadingReplacements() {
@@ -49,7 +53,9 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsTemplateGood( $listed, $requested, $expected ) {
-		$conversions = new WikitextConversions( [ $listed ], [], [], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::REQUIRED_TEMPLATES => [ $listed ],
+		] );
 		$this->assertSame( $expected, $conversions->isTemplateGood( $requested ) );
 	}
 
@@ -74,7 +80,9 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsTemplateBad( $listed, $requested, $expected ) {
-		$conversions = new WikitextConversions( [], [ $listed ], [], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::FORBIDDEN_TEMPLATES => [ $listed ],
+		] );
 		$this->assertSame( $expected, $conversions->isTemplateBad( $requested ) );
 	}
 
@@ -82,12 +90,16 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
 	public function testIsCategoryBad( $listed, $requested, $expected ) {
-		$conversions = new WikitextConversions( [], [], [ $listed ], [], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::FORBIDDEN_CATEGORIES => [ $listed ],
+		] );
 		$this->assertSame( $expected, $conversions->isCategoryBad( $requested ) );
 	}
 
 	public function testIsObsoleteTemplate() {
-		$conversions = new WikitextConversions( [], [], [], [ 'Л_Г И' ], [] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::OBSOLETE_TEMPLATES => [ 'Л_Г И' ],
+		] );
 		$this->assertTrue( $conversions->isObsoleteTemplate( 'л г_и' ) );
 	}
 
@@ -108,7 +120,9 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideTemplateReplacements
 	 */
 	public function testTemplateReplacements( array $replacements, $requested, $expected ) {
-		$conversions = new WikitextConversions( [], [], [], [], $replacements );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS => $replacements,
+		] );
 		$this->assertSame( $expected, $conversions->swapTemplate( $requested ) );
 	}
 
@@ -153,10 +167,12 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideTemplateParameterReplacements
 	 */
 	public function testGetTemplateParameters( array $replacements, array $expected ) {
-		$conversions = new WikitextConversions( [], [], [], [], [ 's' => [
-			'targetTemplate' => 't',
-			'parameters' => $replacements,
-		] ] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS => [ 's' => [
+				'targetTemplate' => 't',
+				'parameters' => $replacements,
+			] ],
+		] );
 		$expected = array_map( static function ( $target ) {
 			return [ 'target' => $target, 'addLanguageTemplate' => false ];
 		}, $expected );
@@ -192,10 +208,12 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	 * @dataProvider provideRequiredTemplateParameters
 	 */
 	public function testGetRequiredTemplateParameters( array $replacements, array $expected ) {
-		$conversions = new WikitextConversions( [], [], [], [], [ 's' => [
-			'targetTemplate' => 't',
-			'parameters' => $replacements,
-		] ] );
+		$conversions = new WikitextConversions( [
+			WikitextConversions::TEMPLATE_TRANSFORMATIONS => [ 's' => [
+				'targetTemplate' => 't',
+				'parameters' => $replacements,
+			] ],
+		] );
 		$this->assertSame( $expected, $conversions->getRequiredTemplateParameters( 's' ) );
 	}
 
