@@ -17,14 +17,9 @@ use TitleParser;
  */
 class WikiLinkPrefixer implements WikiLinkCleaner {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $interWikiPrefix;
-
-	/**
-	 * @var TitleParser
-	 */
+	/** @var TitleParser */
 	private $parser;
 
 	/**

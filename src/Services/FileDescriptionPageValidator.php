@@ -13,9 +13,7 @@ use FileImporter\Exceptions\CommunityPolicyException;
  */
 class FileDescriptionPageValidator {
 
-	/**
-	 * @var WikitextConversions
-	 */
+	/** @var WikitextConversions */
 	private $wikitextConversions;
 
 	/**

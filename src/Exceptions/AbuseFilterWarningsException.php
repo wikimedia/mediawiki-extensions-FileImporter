@@ -9,9 +9,7 @@ use MessageSpecifier;
  */
 class AbuseFilterWarningsException extends LocalizedImportException {
 
-	/**
-	 * @var MessageSpecifier[]
-	 */
+	/** @var MessageSpecifier[] */
 	protected $messages;
 
 	/**

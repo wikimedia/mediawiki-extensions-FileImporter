@@ -19,14 +19,9 @@ use NamespaceInfo;
  */
 class NamespaceUnlocalizer implements WikiLinkCleaner {
 
-	/**
-	 * @var NamespaceNameLookup
-	 */
+	/** @var NamespaceNameLookup */
 	private $namespaceNameLookup;
-
-	/**
-	 * @var NamespaceInfo|null
-	 */
+	/** @var NamespaceInfo|null */
 	private $namespaceInfo;
 
 	/**

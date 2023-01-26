@@ -20,9 +20,7 @@ use User;
  */
 class FileTextRevisionValidator {
 
-	/**
-	 * @var DerivativeContext
-	 */
+	/** @var DerivativeContext */
 	private $context;
 
 	public function __construct() {

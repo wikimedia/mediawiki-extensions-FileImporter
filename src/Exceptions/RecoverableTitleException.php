@@ -15,9 +15,7 @@ use Throwable;
  */
 class RecoverableTitleException extends TitleException {
 
-	/**
-	 * @var ImportPlan
-	 */
+	/** @var ImportPlan */
 	private $importPlan;
 
 	/**

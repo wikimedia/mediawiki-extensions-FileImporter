@@ -26,9 +26,7 @@ class FileRevision {
 		'url',
 	];
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	private $fields;
 
 	/**

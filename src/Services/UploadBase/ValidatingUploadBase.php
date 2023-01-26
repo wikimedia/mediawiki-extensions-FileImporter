@@ -22,9 +22,7 @@ use WebRequest;
  */
 class ValidatingUploadBase extends UploadBase {
 
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
 
 	/**

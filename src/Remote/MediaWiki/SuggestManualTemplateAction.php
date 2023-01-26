@@ -16,9 +16,7 @@ use User;
  */
 class SuggestManualTemplateAction implements PostImportHandler {
 
-	/**
-	 * @var WikidataTemplateLookup
-	 */
+	/** @var WikidataTemplateLookup */
 	private $templateLookup;
 
 	/**

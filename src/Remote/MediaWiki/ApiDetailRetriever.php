@@ -26,40 +26,22 @@ use TitleValue;
 class ApiDetailRetriever implements DetailRetriever {
 	use MediaWikiSourceUrlParser;
 
-	/**
-	 * @var HttpApiLookup
-	 */
+	/** @var HttpApiLookup */
 	private $httpApiLookup;
-
-	/**
-	 * @var HttpRequestExecutor
-	 */
+	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;
-
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $maxBytes;
-
-	/**
-	 * @var LoggerInterface
-	 */
+	/** @var LoggerInterface */
 	private $logger;
-
 	/**
 	 * @var string Placeholder name replacing usernames that have been suppressed as part of
 	 * a steward action on the source site.
 	 */
 	private $suppressedUsername;
-
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $maxRevisions;
-
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $maxAggregatedBytes;
 
 	private const API_RESULT_LIMIT = 500;
