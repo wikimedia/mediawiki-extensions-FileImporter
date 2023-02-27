@@ -12,6 +12,7 @@
 		]
 	},
 	"fileimporter-desc": "Eenvoudig bestanden van andere sites importeren",
+	"fileimporter-help-banner-text": "'''Importeren uit andere wiki's'''\n#Controleer en bewerk de titel en informatie van het bestand hieronder.\n#Kies of u wilt dat FileImporter de oorspronkelijke wiki opschoont door het sjabloon [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] toe te voegen aan het bronbestand. (Als u beheerdersrechten hebt, kunt u eventueel ook het bronbestand verwijderen.)\n#Klik op '''{{int:fileimporter-import}}''' om het bestand naar {{SITENAME}} te kopiëren. \n\nLees voor informatie over licenties het [[Project:Licensing|communitybeleid]] van {{SITENAME}}.<br /> Zie de [//www.mediawiki.org/wiki/Help:Extension:FileImporter hulppagina] voor een meer gedetailleerde gebruiksaanwijzing van FileImporter.",
 	"fileimporter-help-banner-close-tooltip": "Dit bericht niet meer weergeven",
 	"fileimporter-specialpage": "Bestand importeren",
 	"fileimporter-importfailed": "Importeren is mislukt",
