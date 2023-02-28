@@ -67,7 +67,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		$this->importer = $importer;
 		$this->textRevisionValidator = $textRevisionValidator;
 		$this->restrictionStore = $restrictionStore;
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

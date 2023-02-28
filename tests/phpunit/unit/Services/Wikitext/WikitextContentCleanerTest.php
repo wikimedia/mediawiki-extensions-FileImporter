@@ -342,7 +342,7 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 		$cleaner = new WikitextContentCleaner( $conversions );
 		$cleaner->setSourceWikiLanguageTemplate( 'de' );
 
-		$this->assertSame( $expectedWikitext ?: $wikitext, $cleaner->cleanWikitext( $wikitext ) );
+		$this->assertSame( $expectedWikitext ?? $wikitext, $cleaner->cleanWikitext( $wikitext ) );
 		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 

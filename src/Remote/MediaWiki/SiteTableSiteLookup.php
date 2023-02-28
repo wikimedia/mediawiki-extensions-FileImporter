@@ -30,7 +30,7 @@ class SiteTableSiteLookup {
 	 */
 	public function __construct( SiteLookup $siteLookup, LoggerInterface $logger = null ) {
 		$this->siteLookup = $siteLookup;
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

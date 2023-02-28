@@ -52,8 +52,8 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$this->fallbackHandler = $fallbackHandler;
 		$this->templateLookup = $templateLookup;
 		$this->remoteAction = $remoteAction;
-		$this->logger = $logger ?: new NullLogger();
-		$this->statsd = $statsd ?: new NullStatsdDataFactory();
+		$this->logger = $logger ?? new NullLogger();
+		$this->statsd = $statsd ?? new NullStatsdDataFactory();
 	}
 
 	/**

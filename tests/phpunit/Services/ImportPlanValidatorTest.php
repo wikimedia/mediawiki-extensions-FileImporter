@@ -189,7 +189,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$mock = $this->createMock( WikiLinkParserFactory::class );
 		$mock->expects( $this->exactly( $callCount ) )
 			->method( 'getWikiLinkParser' )
-			->willReturn( $wikiLinkParser ?: new WikiLinkParser() );
+			->willReturn( $wikiLinkParser ?? new WikiLinkParser() );
 		return $mock;
 	}
 

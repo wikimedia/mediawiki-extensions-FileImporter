@@ -48,7 +48,7 @@ class SourceWikiCleanupSnippet {
 	) {
 		$this->sourceEditingEnabled = $sourceEditingEnabled;
 		$this->sourceDeletionEnabled = $sourceDeletionEnabled;
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger ?? new NullLogger();
 
 		// TODO: Inject
 		$this->lookup = MediaWikiServices::getInstance()->getService(

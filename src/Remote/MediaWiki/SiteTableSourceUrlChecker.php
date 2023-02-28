@@ -31,7 +31,7 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 		LoggerInterface $logger = null
 	) {
 		$this->siteTableSiteLookup = $siteTableSiteLookup;
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

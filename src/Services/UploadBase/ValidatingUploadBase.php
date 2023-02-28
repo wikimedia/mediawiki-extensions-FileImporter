@@ -41,7 +41,7 @@ class ValidatingUploadBase extends UploadBase {
 			null,
 			false
 		);
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

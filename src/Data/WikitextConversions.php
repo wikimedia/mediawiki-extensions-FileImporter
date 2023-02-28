@@ -173,9 +173,7 @@ class WikitextConversions {
 	 */
 	public function swapTemplate( $templateName ) {
 		$templateName = $this->lowercasePageName( $templateName );
-		return array_key_exists( $templateName, $this->transferTemplates )
-			? $this->transferTemplates[$templateName]['targetTemplate']
-			: false;
+		return $this->transferTemplates[$templateName]['targetTemplate'] ?? false;
 	}
 
 	/**

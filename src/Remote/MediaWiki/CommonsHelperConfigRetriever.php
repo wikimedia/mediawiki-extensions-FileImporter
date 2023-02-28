@@ -55,9 +55,7 @@ class CommonsHelperConfigRetriever {
 	public function retrieveConfiguration( SourceUrl $sourceUrl ) {
 		$response = $this->sendApiRequest( $sourceUrl );
 
-		if ( !isset( $response['query']['pages'] ) ||
-			count( $response['query']['pages'] ) !== 1
-		) {
+		if ( count( $response['query']['pages'] ?? [] ) !== 1 ) {
 			return false;
 		}
 

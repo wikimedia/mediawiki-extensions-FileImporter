@@ -107,8 +107,8 @@ class Importer {
 		$this->uploadRevisionImporter = $uploadRevisionImporter;
 		$this->textRevisionValidator = $textRevisionValidator;
 		$this->restrictionStore = $restrictionStore;
-		$this->logger = $logger ?: new NullLogger();
-		$this->stats = $statsdDataFactory ?: new NullStatsdDataFactory();
+		$this->logger = $logger ?? new NullLogger();
+		$this->stats = $statsdDataFactory ?? new NullStatsdDataFactory();
 	}
 
 	/**

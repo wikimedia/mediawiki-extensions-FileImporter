@@ -56,7 +56,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->interWikiConfigMap = $interWikiConfigMap;
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

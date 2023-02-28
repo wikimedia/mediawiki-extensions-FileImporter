@@ -65,7 +65,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->maxBytes = $maxBytes;
-		$this->logger = $logger ?: new NullLogger();
+		$this->logger = $logger ?? new NullLogger();
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
@@ -115,7 +115,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$requestData = $this->sendApiRequest( $sourceUrl, $params );
 
-		if ( !isset( $requestData['query'] ) || count( $requestData['query']['pages'] ) !== 1 ) {
+		if ( count( $requestData['query']['pages'] ?? [] ) !== 1 ) {
 			$this->logger->warning(
 				'No pages returned by the API',
 				[
@@ -340,7 +340,7 @@ class ApiDetailRetriever implements DetailRetriever {
 				$revisionInfo['user'] = $this->suppressedUsername;
 			}
 
-			if ( isset( $revisionInfo['size'] ) && $revisionInfo['size'] > $this->maxBytes ) {
+			if ( ( $revisionInfo['size'] ?? 0 ) > $this->maxBytes ) {
 				$versions = count( $imageInfo );
 				throw new LocalizedImportException( [ 'fileimporter-filetoolarge', $versions ] );
 			}
