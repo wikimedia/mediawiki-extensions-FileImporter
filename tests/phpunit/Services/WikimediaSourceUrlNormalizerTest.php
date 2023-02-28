@@ -37,7 +37,7 @@ class WikimediaSourceUrlNormalizerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideUrls
 	 */
-	public function testNormalization( $url, $expected ) {
+	public function testNormalization( string $url, string $expected ) {
 		$normalizer = new WikimediaSourceUrlNormalizer();
 		$normalized = $normalizer->normalize( new SourceUrl( $url ) );
 		$this->assertSame( $expected, $normalized->getUrl() );

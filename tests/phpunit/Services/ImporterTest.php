@@ -30,6 +30,7 @@ use Message;
 use MessageLocalizer;
 use Psr\Log\NullLogger;
 use TitleValue;
+use WikiRevision;
 
 /**
  * @covers \FileImporter\Services\Importer
@@ -192,10 +193,10 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	 */
 	private function assertTextRevisionLogEntry(
 		RevisionRecord $revision,
-		$type,
-		$expectedSubType,
-		$expectedTag = null
-	) {
+		string $type,
+		string $expectedSubType,
+		string $expectedTag = null
+	): void {
 		$logEntry = $this->getLogType(
 			$revision->getPageId(),
 			$type,
@@ -242,7 +243,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	 * @param int $revId
 	 * @param string $expectedTag
 	 */
-	private function assertFileImporterTagWasAdded( $logId, $revId, $expectedTag ) {
+	private function assertFileImporterTagWasAdded( int $logId, int $revId, string $expectedTag ) {
 		$this->assertSame( 1, $this->db->selectRowCount(
 			[ 'change_tag', 'change_tag_def' ],
 			'*',
@@ -346,7 +347,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			->getMock();
 		$mock->method( 'newFromFileRevision' )
 			->willReturnCallback(
-				function ( FileRevision $fileRevision, $src ) {
+				function ( FileRevision $fileRevision, string $src ): WikiRevision {
 					$realFactory = new WikiRevisionFactory( $this->createMock( IContentHandlerFactory::class ) );
 
 					$tempFile = $this->getNewTempFile();

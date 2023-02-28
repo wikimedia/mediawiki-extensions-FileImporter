@@ -12,6 +12,7 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
+use Hamcrest\Matcher;
 use HamcrestPHPUnitIntegration;
 use HashConfig;
 use MediaWiki\Linker\LinkTarget;
@@ -52,7 +53,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	/**
 	 * @dataProvider providePlanContent
 	 */
-	public function testGetHtml( $submittedText, $replacements ) {
+	public function testGetHtml( string $submittedText, int $replacements ) {
 		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'qqx' );
 
 		$importPlan = new ImportPlan(
@@ -118,18 +119,18 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$this->assertSelectedCheckbox( $html, 'automateSourceWikiCleanup' );
 	}
 
-	private function getMockTemplateLookup() {
+	private function getMockTemplateLookup(): WikidataTemplateLookup {
 		$mock = $this->createMock( WikidataTemplateLookup::class );
 		$mock->method( 'fetchNowCommonsLocalTitle' )
 			->willReturn( 'TestNowCommons' );
 		return $mock;
 	}
 
-	private function assertPreviewPageText( $html ) {
+	private function assertPreviewPageText( string $html ): void {
 		$this->assertStringContainsString( '<div class="mw-importfile-parsedContent">', $html );
 	}
 
-	private function assertPreviewPageForm( $html ) {
+	private function assertPreviewPageForm( string $html ): void {
 		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
@@ -159,11 +160,11 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		);
 	}
 
-	private function assertSelectedCheckbox( $html, $name ) {
+	private function assertSelectedCheckbox( string $html, string $name ): void {
 		$this->assertStringContainsString( " name='$name' value='1' checked='checked'", $html );
 	}
 
-	private function assertSummary( $html, $submittedText, $replacements ) {
+	private function assertSummary( string $html, string $submittedText, int $replacements ): void {
 		if ( $replacements > 0 ) {
 			$this->assertStringContainsString( " name='intendedRevisionSummary'" .
 				" value='(fileimporter-auto-replacements-summary: $replacements)'", $html );
@@ -174,13 +175,13 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		}
 	}
 
-	private function thatIsInputField( $name, $value ) {
+	private function thatIsInputField( string $name, string $value ): Matcher {
 		return both( withTagName( 'input' ) )
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) )
 			->andAlso( withAttribute( 'value' )->havingValue( $value ) );
 	}
 
-	private function thatIsInputFieldWithSomeValue( $name ) {
+	private function thatIsInputFieldWithSomeValue( string $name ): Matcher {
 		return both( withTagName( 'input' ) )
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) );
 	}
@@ -205,7 +206,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	private function getMockImportDetails( $wikitext ): ImportDetails {
+	private function getMockImportDetails( string $wikitext ): ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getSourceLinkTarget' )
 			->willReturn( $this->createMock( LinkTarget::class ) );
@@ -218,7 +219,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	private function getMockTextRevisions( $wikitext ): TextRevisions {
+	private function getMockTextRevisions( string $wikitext ): TextRevisions {
 		$mockTextRevision = $this->getMockTextRevision( $wikitext, self::NAME );
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
@@ -228,10 +229,10 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	private function getMockTextRevision( $wikitext, $title ): TextRevision {
+	private function getMockTextRevision( string $wikitext, string $title ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
-			->willReturnCallback( static function ( $field ) use ( $wikitext, $title ) {
+			->willReturnCallback( static function ( string $field ) use ( $wikitext, $title ): string {
 				switch ( $field ) {
 					case '*':
 						return $wikitext;

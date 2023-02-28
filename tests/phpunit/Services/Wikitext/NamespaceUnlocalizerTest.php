@@ -62,7 +62,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideLinks
 	 */
-	public function testInterwikiPrefixing( $link, $expected ) {
+	public function testInterwikiPrefixing( string $link, string $expected ) {
 		$namespaceNameLookup = $this->createMock( NamespaceNameLookup::class );
 		$namespaceNameLookup->method( 'getIndex' )
 			->willReturnMap( [

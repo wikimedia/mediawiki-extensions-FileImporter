@@ -52,7 +52,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
-	public function testIsTemplateGood( $listed, $requested, $expected ) {
+	public function testIsTemplateGood( string $listed, string $requested, bool $expected ) {
 		$conversions = new WikitextConversions( [
 			WikitextConversions::REQUIRED_TEMPLATES => [ $listed ],
 		] );
@@ -69,7 +69,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideHasGoodTemplates
 	 */
-	public function testHasGoodTemplates( array $goodTemplates, $expected ) {
+	public function testHasGoodTemplates( array $goodTemplates, bool $expected ) {
 		$conversions = new WikitextConversions( [
 			WikitextConversions::REQUIRED_TEMPLATES => $goodTemplates,
 		] );
@@ -79,7 +79,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
-	public function testIsTemplateBad( $listed, $requested, $expected ) {
+	public function testIsTemplateBad( string $listed, string $requested, bool $expected ) {
 		$conversions = new WikitextConversions( [
 			WikitextConversions::FORBIDDEN_TEMPLATES => [ $listed ],
 		] );
@@ -89,7 +89,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideCaseInsensitivePageNames
 	 */
-	public function testIsCategoryBad( $listed, $requested, $expected ) {
+	public function testIsCategoryBad( string $listed, string $requested, bool $expected ) {
 		$conversions = new WikitextConversions( [
 			WikitextConversions::FORBIDDEN_CATEGORIES => [ $listed ],
 		] );
@@ -119,7 +119,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideTemplateReplacements
 	 */
-	public function testTemplateReplacements( array $replacements, $requested, $expected ) {
+	public function testTemplateReplacements( array $replacements, string $requested, $expected ) {
 		$conversions = new WikitextConversions( [
 			WikitextConversions::TEMPLATE_TRANSFORMATIONS => $replacements,
 		] );
@@ -173,7 +173,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 				'parameters' => $replacements,
 			] ],
 		] );
-		$expected = array_map( static function ( $target ) {
+		$expected = array_map( static function ( string $target ): array {
 			return [ 'target' => $target, 'addLanguageTemplate' => false ];
 		}, $expected );
 		$this->assertSame( $expected, $conversions->getTemplateParameters( 's' ) );

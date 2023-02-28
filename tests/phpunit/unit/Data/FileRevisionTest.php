@@ -52,7 +52,7 @@ class FileRevisionTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideMissingField
 	 */
-	public function testMissingField( array $fields, $expectedMessage ) {
+	public function testMissingField( array $fields, string $expectedMessage ) {
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( $expectedMessage );
 		new FileRevision( $fields );

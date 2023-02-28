@@ -32,7 +32,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider providePerformTitleChecks
 	 */
-	public function testPerformTitleChecks( $targetTitle, $expected ) {
+	public function testPerformTitleChecks( string $targetTitle, int $expected ) {
 		$base = new ValidatingUploadBase(
 			new TitleValue( NS_FILE, $targetTitle ),
 			''
@@ -60,8 +60,11 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider providePerformFileChecks
 	 */
-	public function testPerformFileChecks( $targetTitle, $tempPath,
-		$expectedSuccess, $expectedError
+	public function testPerformFileChecks(
+		string $targetTitle,
+		string $tempPath,
+		bool $expectedSuccess,
+		?string $expectedError
 	) {
 		$base = new ValidatingUploadBase(
 			new TitleValue( NS_FILE, $targetTitle ),
@@ -76,7 +79,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		unlink( $tempPath );
 	}
 
-	private function skipTestIfImageFunctionsMissing() {
+	private function skipTestIfImageFunctionsMissing(): void {
 		if (
 			!function_exists( 'imagejpeg' ) ||
 			!function_exists( 'imagepng' ) ||
@@ -91,7 +94,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return string tmp image file path
 	 */
-	private function getGetImagePath( $saveMethod ) {
+	private function getGetImagePath( string $saveMethod ): string {
 		$tmpPath = tempnam( sys_get_temp_dir(), __CLASS__ );
 		$im = imagecreate( 100, 100 );
 		imagecolorallocate( $im, 0, 0, 0 );

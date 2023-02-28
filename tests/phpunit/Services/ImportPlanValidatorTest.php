@@ -102,7 +102,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 *
 	 * @return Title
 	 */
-	private function getMockTitle( $text, $exists = false ): Title {
+	private function getMockTitle( string $text, bool $exists = false ): Title {
 		return $this->makeMockTitle( $text, [ 'id' => (int)$exists ] );
 	}
 
@@ -126,16 +126,16 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	/**
-	 * @param Title|false $planTitle False makes {@see ImportPlan::getTitle} throw an exception.
+	 * @param Title|null $planTitle False makes {@see ImportPlan::getTitle} throw an exception.
 	 * @param LinkTarget|null $sourceTitle Defaults to a valid title.
 	 *
 	 * @return ImportPlan
 	 */
-	private function getMockImportPlan( $planTitle, LinkTarget $sourceTitle = null ): ImportPlan {
+	private function getMockImportPlan( Title $planTitle = null, LinkTarget $sourceTitle = null ): ImportPlan {
 		$mock = $this->getMockBuilder( ImportPlan::class )
 			->setConstructorArgs( [
 				new ImportRequest( '//w.invalid' ),
-				$this->getMockImportDetails( $sourceTitle ?: $this->getMockTitle( 'Source.JPG' ) ),
+				$this->getMockImportDetails( $sourceTitle ?? $this->getMockTitle( 'Source.JPG' ) ),
 				new HashConfig(),
 				$this->createMock( MessageLocalizer::class ),
 				''
@@ -194,7 +194,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	public function provideValidate() {
-		$emptyPlan = $this->getMockImportPlan( false );
+		$emptyPlan = $this->getMockImportPlan();
 
 		$allowedFileTitles = [
 			'Regular name' => 'SourceName.JPG',
@@ -308,7 +308,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					'mockexception',
 					$emptyPlan
 				),
-				$this->getMockImportPlan( false ),
+				$this->getMockImportPlan(),
 				$this->getMockDuplicateFileRevisionChecker(),
 				$this->getMockImportTitleChecker(),
 				$this->getMockWikiLinkParserFactory(),

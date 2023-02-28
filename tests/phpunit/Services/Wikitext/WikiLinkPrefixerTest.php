@@ -59,7 +59,7 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideLinks
 	 */
-	public function testInterwikiPrefixing( $link, $prefix, $expected ) {
+	public function testInterwikiPrefixing( string $link, string $prefix, string $expected ) {
 		$prefixer = new WikiLinkPrefixer( $prefix, $this->newTitleParser() );
 		$this->assertSame( $expected, $prefixer->process( $link ) );
 	}
@@ -67,9 +67,9 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @return TitleParser
 	 */
-	private function newTitleParser() {
+	private function newTitleParser(): TitleParser {
 		$parser = $this->createMock( TitleParser::class );
-		$parser->method( 'parseTitle' )->willReturnCallback( static function ( $text ) {
+		$parser->method( 'parseTitle' )->willReturnCallback( static function ( string $text ): TitleValue {
 			switch ( ltrim( $text, ':' ) ) {
 				case 'w:de:foo':
 					return new TitleValue( NS_MAIN, '', '', 'w:de' );

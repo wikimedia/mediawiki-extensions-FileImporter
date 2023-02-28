@@ -59,7 +59,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideSourceUrls
 	 */
-	public function testSourceUrlParsing( $sourceUrl, $expected ) {
+	public function testSourceUrlParsing( string $sourceUrl, ?string $expected ) {
 		$apiRetriever = $this->newInstance();
 		$title = $apiRetriever->parseTitleFromSourceUrl( new SourceUrl( $sourceUrl ) );
 		$this->assertSame( $expected, $title );
@@ -420,7 +420,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return array[]
 	 */
-	private function getFullRequestContent( $titleString ) {
+	private function getFullRequestContent( string $titleString ): array {
 		return [
 			'query' => [
 				'pages' => [
@@ -509,7 +509,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return HttpRequestExecutor
 	 */
-	private function getMockHttpRequestExecutor( $titleString, $content ): HttpRequestExecutor {
+	private function getMockHttpRequestExecutor( string $titleString, string $content ): HttpRequestExecutor {
 		return $this->getMockHttpRequestExecutorWithExpectedRequest(
 			$this->getExpectedApiParameters( $titleString ),
 			$content
@@ -524,7 +524,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 */
 	private function getMockHttpRequestExecutorWithExpectedRequest(
 		array $expectedApiParameters,
-		$content
+		string $content
 	): HttpRequestExecutor {
 		$mock = $this->createMock( HttpRequestExecutor::class );
 		$mock->expects( $this->once() )
@@ -539,7 +539,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return array
 	 */
-	private function getExpectedApiParameters( $titleString ) {
+	private function getExpectedApiParameters( string $titleString ) {
 		return [
 			'action' => 'query',
 			'format' => 'json',
@@ -563,7 +563,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return MWHttpRequest
 	 */
-	private function getMockMWHttpRequest( $content ): MWHttpRequest {
+	private function getMockMWHttpRequest( string $content ): MWHttpRequest {
 		$mock = $this->createMock( MWHttpRequest::class );
 		$mock->method( 'getContent' )
 			->willReturn( $content );

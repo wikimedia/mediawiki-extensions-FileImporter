@@ -45,7 +45,7 @@ class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return SourceSite
 	 */
-	private function newSourceSite( $isSourceSite ): SourceSite {
+	private function newSourceSite( bool $isSourceSite ): SourceSite {
 		$site = $this->createMock( SourceSite::class );
 		$site->method( 'isSourceSiteFor' )
 			->willReturn( $isSourceSite );

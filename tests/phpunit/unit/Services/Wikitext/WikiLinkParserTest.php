@@ -75,20 +75,20 @@ class WikiLinkParserTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideWikitext
 	 */
-	public function testParser( $wikitext, $expected ) {
+	public function testParser( string $wikitext, string $expected ) {
 		$parser = new WikiLinkParser();
 		$this->assertSame( $wikitext, $parser->parse( $wikitext ), 'no cleaner registered' );
 
 		$toLowerCleaner = $this->createMock( WikiLinkCleaner::class );
 		$toLowerCleaner->method( 'process' )
-			->willReturnCallback( function ( $link ) {
+			->willReturnCallback( function ( string $link ): string {
 				$this->assertNotSame( '', $link, 'does not process empty strings' );
 				return strtolower( $link );
 			} );
 
 		$prefixingCleaner = $this->createMock( WikiLinkCleaner::class );
 		$prefixingCleaner->method( 'process' )
-			->willReturnCallback( static function ( $link ) {
+			->willReturnCallback( static function ( string $link ): string {
 				return 'Prefix>' . $link;
 			} );
 

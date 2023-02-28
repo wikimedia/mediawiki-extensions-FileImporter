@@ -31,7 +31,7 @@ class AnyMediaWikiFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideTestCheck
 	 */
-	public function testCheck( $url, $expected ) {
+	public function testCheck( string $url, bool $expected ) {
 		$sourceUrl = new SourceUrl( $url );
 		$checker = new AnyMediaWikiFileUrlChecker();
 		$result = $checker->checkSourceUrl( $sourceUrl );

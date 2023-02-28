@@ -137,13 +137,13 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 	 * @dataProvider provideTexts
 	 */
 	public function testTextGetters(
-		$originalText,
-		$cleanedText,
-		$intendedText,
-		$postImportComment,
-		$postImportAnnotation,
-		$expectedText,
-		$expectedChangedSignal
+		string $originalText,
+		?string $cleanedText,
+		?string $intendedText,
+		string $postImportComment,
+		string $postImportAnnotation,
+		string $expectedText,
+		bool $expectedChangedSignal
 	) {
 		$this->setMwGlobals( 'wgFileImporterTextForPostImportRevision', '' );
 

@@ -22,7 +22,7 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideInvalidConstruction
 	 */
-	public function testInvalidConstruction( $input ) {
+	public function testInvalidConstruction( string $input ) {
 		$this->expectException( InvalidArgumentException::class );
 		new SourceUrl( $input );
 	}

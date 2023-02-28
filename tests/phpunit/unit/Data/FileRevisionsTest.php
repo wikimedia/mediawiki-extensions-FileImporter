@@ -63,7 +63,7 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideGetLatest
 	 */
-	public function testGetLatest( array $fileRevisions, $expected ) {
+	public function testGetLatest( array $fileRevisions, FileRevision $expected ) {
 		$fileRevisionsObject = new FileRevisions( $fileRevisions );
 		$this->assertSame( $expected, $fileRevisionsObject->getLatest() );
 	}

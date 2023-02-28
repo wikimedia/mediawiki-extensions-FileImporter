@@ -138,7 +138,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 	 * @param string $origHash
 	 * @return ImportPlan
 	 */
-	private function createMockImportPlan( $origHash ): ImportPlan {
+	private function createMockImportPlan( string $origHash ): ImportPlan {
 		$importDetailsMock = $this->createMock( ImportDetails::class );
 		$importDetailsMock->method( 'getOriginalHash' )
 			->willReturn( $origHash );

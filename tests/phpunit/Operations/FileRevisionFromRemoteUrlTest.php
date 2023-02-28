@@ -17,6 +17,7 @@ use MediaWiki\User\UserIdentityLookup;
 use MediaWiki\User\UserIdentityValue;
 use Psr\Log\NullLogger;
 use Title;
+use WikiRevision;
 
 /**
  * @covers \FileImporter\Operations\FileRevisionFromRemoteUrl
@@ -157,7 +158,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$mock = $this->createMock( WikiRevisionFactory::class );
 		$mock->method( 'newFromFileRevision' )
 			->willReturnCallback(
-				function ( FileRevision $fileRevision, $src ) {
+				function ( FileRevision $fileRevision, string $src ): WikiRevision {
 					$realFactory = new WikiRevisionFactory( $this->createMock( IContentHandlerFactory::class ) );
 
 					$tempFile = $this->getNewTempFile();
@@ -174,7 +175,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	 * @param string $url
 	 * @return FileRevision
 	 */
-	private function newFileRevision( $url ): FileRevision {
+	private function newFileRevision( string $url ): FileRevision {
 		return new FileRevision( [
 			'name' => 'File:test.jpg',
 			'description' => 'Original upload comment of Test.png',

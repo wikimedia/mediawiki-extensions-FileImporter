@@ -69,7 +69,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	 * @param string $originalInput
 	 * @return ImportDetails
 	 */
-	private function getMockImportDetails( $originalInput ): ImportDetails {
+	private function getMockImportDetails( string $originalInput ): ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions( $originalInput ) );
@@ -80,7 +80,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	 * @param string $originalInput
 	 * @return TextRevisions
 	 */
-	private function getMockTextRevisions( $originalInput ): TextRevisions {
+	private function getMockTextRevisions( string $originalInput ): TextRevisions {
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $this->getMockTextRevision( $originalInput ) );
@@ -91,7 +91,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	 * @param string $originalInput
 	 * @return TextRevision
 	 */
-	private function getMockTextRevision( $originalInput ): TextRevision {
+	private function getMockTextRevision( string $originalInput ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->willReturn( $originalInput );
@@ -116,7 +116,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideTestTextDisplayedInInputBox
 	 */
-	public function testTextDisplayedInInputBox( $originalInput, $userInput, $expected ) {
+	public function testTextDisplayedInInputBox( string $originalInput, string $userInput, string $expected ) {
 		$importPlan = new ImportPlan(
 			new ImportRequest( '//w.invalid', 'Foo', $userInput ),
 			$this->getMockImportDetails( $originalInput ),

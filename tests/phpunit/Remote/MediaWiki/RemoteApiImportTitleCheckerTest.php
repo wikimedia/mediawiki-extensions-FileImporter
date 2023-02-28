@@ -32,7 +32,7 @@ class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideJsonResponses
 	 */
-	public function test( $json, $expected, $expectedLoggerCalls ) {
+	public function test( string $json, bool $expected, int $expectedLoggerCalls ) {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 
 		$apiLookup = $this->createMock( HttpApiLookup::class );

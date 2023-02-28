@@ -54,7 +54,7 @@ class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideHttpRequestErrors
 	 */
-	public function testHttpRequestErrorHandling( $httpStatus, $expectedMessage ) {
+	public function testHttpRequestErrorHandling( int $httpStatus, string $expectedMessage ) {
 		$status = \StatusValue::newFatal( 'error-message' );
 
 		$request = $this->createMock( \MWHttpRequest::class );

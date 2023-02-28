@@ -48,7 +48,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 	 * @dataProvider provideGetPrefixFromLegacyConfig
 	 */
 	public function testGetPrefixFromLegacyConfig(
-		array $interWikiMap, $source, $validPrefix, $expected
+		array $interWikiMap, string $source, bool $validPrefix, string $expected
 	) {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( $validPrefix, [] ),
@@ -145,7 +145,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideGetPrefixFromLocalTable
 	 */
-	public function testGetPrefixFromLocalTable( array $iwMap, $source, $expected ) {
+	public function testGetPrefixFromLocalTable( array $iwMap, string $source, string $expected ) {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $iwMap ),
 			$this->createMock( HttpApiLookup::class ),
@@ -274,14 +274,9 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideIntermediaryCases
-	 *
-	 * @param array $localIwMap
-	 * @param array $remoteIwMap
-	 * @param string $source
-	 * @param string $expectedPrefix
 	 */
 	public function testGetPrefix_throughIntermediary(
-		array $localIwMap, array $remoteIwMap, $source, $expectedPrefix
+		array $localIwMap, array $remoteIwMap, string $source, string $expectedPrefix
 	) {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $localIwMap ),

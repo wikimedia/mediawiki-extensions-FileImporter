@@ -78,10 +78,8 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @dataProvider provideTestTextDisplayedInInputBox
-	 * @param string $fileName
-	 * @param string $expectedInputText
 	 */
-	public function testTextDisplayedInInputBox( $fileName, $expectedInputText ) {
+	public function testTextDisplayedInInputBox( string $fileName, string $expectedInputText ) {
 		$importPlan = $this->createMock( ImportPlan::class );
 		$importPlan->method( 'getRequest' )
 			->willReturn( new ImportRequest( '//w.invalid' ) );

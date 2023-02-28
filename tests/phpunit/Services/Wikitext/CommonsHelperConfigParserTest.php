@@ -236,7 +236,7 @@ WIKITEXT
 === Remove ===
 *<!-- Comment -->\n
 * ObsoleteTemplate
-*	<!-- Comment -->	
+*	<!-- Comment -->
 === Transfer ===
 == Categories ==
 === Bad ===
@@ -461,7 +461,7 @@ WIKITEXT
 	/**
 	 * @dataProvider provideTransferRules
 	 */
-	public function testTransferRules( $wikitext, array $expected ) {
+	public function testTransferRules( string $wikitext, array $expected ) {
 		$wikitext = "== Categories ==\n=== Bad ===\n" .
 			"== Templates ==\n=== Good ===\n=== Bad ===\n=== Remove ===\n=== Transfer ===\n" .
 			"$wikitext\n== Information ==\n=== Description ===\n=== Licensing ===";
