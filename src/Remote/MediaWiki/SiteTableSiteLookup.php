@@ -24,31 +24,17 @@ class SiteTableSiteLookup {
 	/** @var string[] */
 	private $hostGlobalIdMap = [];
 
-	/**
-	 * @param SiteLookup $siteLookup
-	 * @param LoggerInterface|null $logger
-	 */
 	public function __construct( SiteLookup $siteLookup, LoggerInterface $logger = null ) {
 		$this->siteLookup = $siteLookup;
 		$this->logger = $logger ?? new NullLogger();
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return Site|null
-	 */
-	public function getSite( SourceUrl $sourceUrl ) {
+	public function getSite( SourceUrl $sourceUrl ): ?Site {
 		return $this->getSiteFromHostMap( $sourceUrl->getHost() ) ??
 			$this->getSiteFromSitesLoop( $sourceUrl->getHost() );
 	}
 
-	/**
-	 * @param string $host
-	 *
-	 * @return Site|null
-	 */
-	private function getSiteFromSitesLoop( $host ) {
+	private function getSiteFromSitesLoop( string $host ): ?Site {
 		/** @var Site|null $siteFound */
 		$siteFound = null;
 
@@ -79,12 +65,7 @@ class SiteTableSiteLookup {
 		return null;
 	}
 
-	/**
-	 * @param string $host
-	 *
-	 * @return Site|null
-	 */
-	private function getSiteFromHostMap( $host ) {
+	private function getSiteFromHostMap( string $host ): ?Site {
 		if ( array_key_exists( $host, $this->hostGlobalIdMap ) ) {
 			return $this->siteLookup->getSite( $this->hostGlobalIdMap[$host] );
 		}
@@ -92,11 +73,7 @@ class SiteTableSiteLookup {
 		return null;
 	}
 
-	/**
-	 * @param Site $site
-	 * @param string $host
-	 */
-	private function addSiteToHostMap( Site $site, $host ) {
+	private function addSiteToHostMap( Site $site, string $host ): void {
 		if ( $site->getGlobalId() ) {
 			$this->hostGlobalIdMap[$host] = $site->getGlobalId();
 		}

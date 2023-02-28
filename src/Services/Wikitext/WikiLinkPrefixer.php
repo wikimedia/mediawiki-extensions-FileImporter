@@ -26,16 +26,11 @@ class WikiLinkPrefixer implements WikiLinkCleaner {
 	 * @param string $interWikiPrefix E.g. "de" for the German Wikipedia.
 	 * @param TitleParser $parser
 	 */
-	public function __construct( $interWikiPrefix, TitleParser $parser ) {
-		$this->interWikiPrefix = (string)$interWikiPrefix;
+	public function __construct( string $interWikiPrefix, TitleParser $parser ) {
+		$this->interWikiPrefix = $interWikiPrefix;
 		$this->parser = $parser;
 	}
 
-	/**
-	 * @param string $link
-	 *
-	 * @return string
-	 */
 	public function process( string $link ): string {
 		if ( $this->interWikiPrefix === ''
 			// Bail out early if the prefix is already there; the extra + avoid backtracking

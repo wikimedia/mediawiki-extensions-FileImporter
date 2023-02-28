@@ -36,10 +36,7 @@ class LocalizedImportException extends ImportException implements ILocalizedExce
 		parent::__construct( $msg->plain(), $code, $previous );
 	}
 
-	/**
-	 * @return Message
-	 */
-	public function getMessageObject() {
+	public function getMessageObject(): Message {
 		return Message::newFromSpecifier( $this->messageSpec );
 	}
 

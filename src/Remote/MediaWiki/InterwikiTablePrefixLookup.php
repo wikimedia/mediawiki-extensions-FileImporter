@@ -81,7 +81,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @param string $host
 	 * @return string|null
 	 */
-	private function getPrefixFromLegacyConfig( $host ) {
+	private function getPrefixFromLegacyConfig( string $host ): ?string {
 		if ( isset( $this->interWikiConfigMap[$host] ) ) {
 			$prefixes = explode( ':', $this->interWikiConfigMap[$host], 2 );
 			if ( !$this->interwikiLookup->isValidInterwiki( $prefixes[0] ) ) {
@@ -108,7 +108,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 *
 	 * @return string|null
 	 */
-	private function getPrefixFromInterwikiTable( $host ) {
+	private function getPrefixFromInterwikiTable( string $host ): ?string {
 		if ( $this->interwikiTableMap === null ) {
 			$this->interwikiTableMap = $this->prefetchInterwikiMap();
 		}
@@ -138,7 +138,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 *
 	 * @return string|null
 	 */
-	private function getTwoHopPrefixThroughIntermediary( $host ) {
+	private function getTwoHopPrefixThroughIntermediary( string $host ): ?string {
 		if ( $this->parentDomainToUrlMap === null ) {
 			$this->parentDomainToUrlMap = $this->prefetchParentDomainToHostMap();
 		}
@@ -173,7 +173,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 *
 	 * @return string|null
 	 */
-	private function fetchSecondHopPrefix( $intermediateWikiPrefix, $host ) {
+	private function fetchSecondHopPrefix( string $intermediateWikiPrefix, string $host ): ?string {
 		$this->logger->debug( 'Fetching second hop to {host} via {prefix}', [
 			'host' => $host,
 			'prefix' => $intermediateWikiPrefix ] );
@@ -234,7 +234,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	/**
 	 * @return string[]
 	 */
-	private function prefetchInterwikiMap() {
+	private function prefetchInterwikiMap(): array {
 		$map = [];
 
 		foreach ( $this->interwikiLookup->getAllPrefixes() as $row ) {
@@ -252,7 +252,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	/**
 	 * @return string[]
 	 */
-	private function prefetchParentDomainToHostMap() {
+	private function prefetchParentDomainToHostMap(): array {
 		if ( $this->interwikiTableMap === null ) {
 			$this->interwikiTableMap = $this->prefetchInterwikiMap();
 		}
@@ -273,7 +273,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 *
 	 * @return string|null New hostname with the minor sub-*-domain removed.
 	 */
-	private function getParentDomain( $host ) {
+	private function getParentDomain( string $host ): ?string {
 		$parts = explode( '.', $host, 2 );
 		// It doesn't make sense to reduce e.g. "mediawiki.org" to "org"
 		if ( isset( $parts[1] ) && strpos( $parts[1], '.' ) !== false ) {
@@ -288,7 +288,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 *
 	 * @return bool true if $a is shorter or alphabetically before $b
 	 */
-	private function isSmaller( $a, $b ) {
+	private function isSmaller( string $a, string $b ): bool {
 		return strlen( $a ) < strlen( $b )
 			|| ( strlen( $a ) === strlen( $b ) && strcmp( $a, $b ) < 0 );
 	}

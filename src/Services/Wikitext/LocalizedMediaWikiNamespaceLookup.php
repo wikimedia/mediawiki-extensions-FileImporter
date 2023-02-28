@@ -16,9 +16,6 @@ class LocalizedMediaWikiNamespaceLookup implements NamespaceNameLookup {
 	/** @var Language */
 	private $language;
 
-	/**
-	 * @param Language $language
-	 */
 	public function __construct( Language $language ) {
 		$this->language = $language;
 	}
@@ -27,7 +24,7 @@ class LocalizedMediaWikiNamespaceLookup implements NamespaceNameLookup {
 	 * @param string $namespaceName
 	 * @return int|false False if there is no namespace with this name.
 	 */
-	public function getIndex( $namespaceName ) {
+	public function getIndex( string $namespaceName ) {
 		return $this->language->getLocalNsIndex( $namespaceName );
 	}
 

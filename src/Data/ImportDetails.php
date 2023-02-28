@@ -48,42 +48,39 @@ class ImportDetails {
 	/**
 	 * @param string|null $languageCode
 	 */
-	public function setPageLanguage( $languageCode ) {
+	public function setPageLanguage( ?string $languageCode ): void {
 		$this->pageLanguage = $languageCode;
 	}
 
 	/**
 	 * @param string[] $templates
 	 */
-	public function setTemplates( array $templates ) {
+	public function setTemplates( array $templates ): void {
 		$this->templates = $templates;
 	}
 
 	/**
 	 * @param string[] $categories
 	 */
-	public function setCategories( array $categories ) {
+	public function setCategories( array $categories ): void {
 		$this->categories = $categories;
 	}
 
-	/**
-	 * @return LinkTarget
-	 */
-	public function getSourceLinkTarget() {
+	public function getSourceLinkTarget(): LinkTarget {
 		return $this->sourceLinkTarget;
 	}
 
 	/**
 	 * @return string File extension. Example: 'png'
 	 */
-	public function getSourceFileExtension() {
+	public function getSourceFileExtension(): string {
 		return pathinfo( $this->sourceLinkTarget->getText(), PATHINFO_EXTENSION );
 	}
 
 	/**
 	 * @return string Filename with no namespace prefix or file extension. Example: 'Berlin'
 	 */
-	public function getSourceFileName() {
+	public function getSourceFileName(): string {
 		return pathinfo( $this->sourceLinkTarget->getText(), PATHINFO_FILENAME );
 	}
 
@@ -94,31 +91,19 @@ class ImportDetails {
 		return $this->pageLanguage;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getImageDisplayUrl() {
+	public function getImageDisplayUrl(): string {
 		return $this->fileRevisions->getLatest()->getField( 'thumburl' );
 	}
 
-	/**
-	 * @return SourceUrl
-	 */
-	public function getSourceUrl() {
+	public function getSourceUrl(): SourceUrl {
 		return $this->sourceUrl;
 	}
 
-	/**
-	 * @return TextRevisions
-	 */
-	public function getTextRevisions() {
+	public function getTextRevisions(): TextRevisions {
 		return $this->textRevisions;
 	}
 
-	/**
-	 * @return FileRevisions
-	 */
-	public function getFileRevisions() {
+	public function getFileRevisions(): FileRevisions {
 		return $this->fileRevisions;
 	}
 
@@ -128,7 +113,7 @@ class ImportDetails {
 	 *
 	 * @return string[]
 	 */
-	public function getTemplates() {
+	public function getTemplates(): array {
 		return $this->templates;
 	}
 
@@ -137,7 +122,7 @@ class ImportDetails {
 	 *
 	 * @return string[]
 	 */
-	public function getCategories() {
+	public function getCategories(): array {
 		return $this->categories;
 	}
 
@@ -152,7 +137,7 @@ class ImportDetails {
 	 *
 	 * @return string
 	 */
-	public function getOriginalHash() {
+	public function getOriginalHash(): string {
 		$hashes = [
 			sha1( $this->sourceLinkTarget->getText() ),
 			sha1( $this->sourceUrl->getUrl() ),

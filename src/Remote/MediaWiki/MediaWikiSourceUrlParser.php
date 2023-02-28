@@ -15,7 +15,7 @@ trait MediaWikiSourceUrlParser {
 	 *
 	 * @return string|null
 	 */
-	private function parseTitleFromSourceUrl( SourceUrl $sourceUrl ) {
+	private function parseTitleFromSourceUrl( SourceUrl $sourceUrl ): ?string {
 		$parsed = $sourceUrl->getParsedUrl();
 
 		$query = $parsed['query'] ?? '';

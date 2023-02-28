@@ -21,7 +21,7 @@ class CommonsHelperConfigParser {
 	 * @param string $commonsHelperConfigUrl
 	 * @param string $wikitext
 	 */
-	public function __construct( $commonsHelperConfigUrl, $wikitext ) {
+	public function __construct( $commonsHelperConfigUrl, string $wikitext ) {
 		$this->commonsHelperConfigUrl = $commonsHelperConfigUrl;
 		$this->wikitext = $wikitext;
 	}
@@ -30,7 +30,7 @@ class CommonsHelperConfigParser {
 	 * @return WikitextConversions
 	 * @throws ImportException e.g. when the provided wikitext is incomplete
 	 */
-	public function getWikitextConversions() {
+	public function getWikitextConversions(): WikitextConversions {
 		// HTML comments must be removed first
 		$wikitext = preg_replace( '/<!--.*?-->/s', '', $this->wikitext );
 
@@ -75,7 +75,7 @@ class CommonsHelperConfigParser {
 	 * @return string
 	 * @throws ImportException if the section could not be found
 	 */
-	private function grepSection( $wikitext, $header, $sectionName ) {
+	private function grepSection( string $wikitext, string $header, string $sectionName ): string {
 		$level = strpos( $header, '= ' );
 		if ( $level === false ) {
 			throw new InvalidArgumentException( '$header must follow this format: "== … =="' );
@@ -106,7 +106,7 @@ class CommonsHelperConfigParser {
 	 *
 	 * @return string[]
 	 */
-	private function getItemList( $wikitext ) {
+	private function getItemList( string $wikitext ): array {
 		// Extract non-empty first-level list elements, exclude 2nd and deeper levels
 		preg_match_all( '/^\*\h*([^\s*#:;].*?)\h*$/mu', $wikitext, $matches );
 		return $matches[1];
@@ -117,7 +117,7 @@ class CommonsHelperConfigParser {
 	 *
 	 * @return array[]
 	 */
-	private function parseTransferList( $wikitext ) {
+	private function parseTransferList( string $wikitext ): array {
 		$transfers = [];
 
 		preg_match_all(

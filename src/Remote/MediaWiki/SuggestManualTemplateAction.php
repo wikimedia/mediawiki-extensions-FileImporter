@@ -19,9 +19,6 @@ class SuggestManualTemplateAction implements PostImportHandler {
 	/** @var WikidataTemplateLookup */
 	private $templateLookup;
 
-	/**
-	 * @param WikidataTemplateLookup $templateLookup
-	 */
 	public function __construct( WikidataTemplateLookup $templateLookup ) {
 		$this->templateLookup = $templateLookup;
 	}

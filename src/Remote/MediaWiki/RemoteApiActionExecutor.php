@@ -16,9 +16,6 @@ class RemoteApiActionExecutor {
 	/** @var RemoteApiRequestExecutor */
 	private $remoteApiRequestExecutor;
 
-	/**
-	 * @param RemoteApiRequestExecutor $remoteApiRequestExecutor
-	 */
 	public function __construct( RemoteApiRequestExecutor $remoteApiRequestExecutor ) {
 		$this->remoteApiRequestExecutor = $remoteApiRequestExecutor;
 	}

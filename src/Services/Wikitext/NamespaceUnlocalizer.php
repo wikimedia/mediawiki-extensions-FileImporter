@@ -24,10 +24,6 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 	/** @var NamespaceInfo|null */
 	private $namespaceInfo;
 
-	/**
-	 * @param NamespaceNameLookup $namespaceNameLookup
-	 * @param NamespaceInfo $namespaceInfo
-	 */
 	public function __construct(
 		NamespaceNameLookup $namespaceNameLookup,
 		NamespaceInfo $namespaceInfo
@@ -36,11 +32,6 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 		$this->namespaceInfo = $namespaceInfo;
 	}
 
-	/**
-	 * @param string $link
-	 *
-	 * @return string
-	 */
 	public function process( string $link ): string {
 		return preg_replace_callback(
 			'/^
@@ -51,13 +42,13 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 				# Must be followed by a colon and something plausible
 				(?=\h*+:[^\v:][^\v]*$)
 			/xu',
-			function ( $matches ) {
+			function ( array $matches ): string {
 				[ $unchanged, $colon, $name ] = $matches;
 				// Normalize to use underscores, as this is what the services require
 				$name = trim( preg_replace( '/[\s\xA0_]+/u', '_', $name ), '_' );
 
 				$namespaceId = $this->namespaceNameLookup->getIndex( $name );
-				if ( $namespaceId === false
+				if ( !is_int( $namespaceId )
 					|| $namespaceId === NS_MAIN
 					// The Project namespace shouldn't be "unlocalized" because it is not localized,
 					// but configured via $wgMetaNamespace or $wgSitename.
@@ -67,7 +58,7 @@ class NamespaceUnlocalizer implements WikiLinkCleaner {
 				}
 
 				$canonicalName = $this->namespaceInfo->getCanonicalName( $namespaceId );
-				if ( $canonicalName === false || $canonicalName === $name ) {
+				if ( !is_string( $canonicalName ) || $canonicalName === $name ) {
 					return $unchanged;
 				}
 

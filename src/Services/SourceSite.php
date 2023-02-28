@@ -87,16 +87,10 @@ class SourceSite {
 		return $this->detailRetriever->getImportDetails( $sourceUrl );
 	}
 
-	/**
-	 * @return ImportTitleChecker
-	 */
 	public function getImportTitleChecker(): ImportTitleChecker {
 		return $this->importTitleChecker;
 	}
 
-	/**
-	 * @return PostImportHandler
-	 */
 	public function getPostImportHandler(): PostImportHandler {
 		return $this->postImportHandler;
 	}

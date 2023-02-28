@@ -30,9 +30,6 @@ class HttpApiLookup implements LoggerAwareInterface {
 	/** @var string[] url => apiUrl */
 	private $resultCache = [];
 
-	/**
-	 * @param HttpRequestExecutor $httpRequestExecutor
-	 */
 	public function __construct( HttpRequestExecutor $httpRequestExecutor ) {
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->logger = new NullLogger();
@@ -76,7 +73,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 	 * @return string|null
 	 * @throws ImportException when the request failed
 	 */
-	private function actuallyGetApiUrl( $pageUrl ) {
+	private function actuallyGetApiUrl( string $pageUrl ): ?string {
 		try {
 			$req = $this->httpRequestExecutor->execute( $pageUrl );
 		} catch ( HttpRequestException $ex ) {

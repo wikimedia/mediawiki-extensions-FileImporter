@@ -38,7 +38,7 @@ class ImportPlan {
 	private $cleanedLatestRevisionText;
 	/** @var int */
 	private $numberOfTemplateReplacements = 0;
-	/** @var int[] */
+	/** @var array<string,int> */
 	private $actionStats = [];
 	/** @var (int|string)[] */
 	private $validationWarnings = [];
@@ -71,24 +71,15 @@ class ImportPlan {
 		$this->interWikiPrefix = $prefix;
 	}
 
-	/**
-	 * @return ImportRequest
-	 */
-	public function getRequest() {
+	public function getRequest(): ImportRequest {
 		return $this->request;
 	}
 
-	/**
-	 * @return ImportDetails
-	 */
-	public function getDetails() {
+	public function getDetails(): ImportDetails {
 		return $this->details;
 	}
 
-	/**
-	 * @return Title
-	 */
-	public function getOriginalTitle() {
+	public function getOriginalTitle(): Title {
 		if ( !$this->originalTitle ) {
 			$this->originalTitle = Title::newFromLinkTarget( $this->details->getSourceLinkTarget() );
 		}
@@ -100,7 +91,7 @@ class ImportPlan {
 	 * @return Title
 	 * @throws MalformedTitleException
 	 */
-	public function getTitle() {
+	public function getTitle(): Title {
 		if ( !$this->title ) {
 			$intendedFileName = $this->request->getIntendedName();
 			if ( $intendedFileName !== null ) {
@@ -117,31 +108,19 @@ class ImportPlan {
 		return $this->title;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getFileName() {
+	public function getFileName(): string {
 		return pathinfo( $this->getTitle()->getText() )['filename'];
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getInterWikiPrefix(): string {
 		return $this->interWikiPrefix;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getFileExtension() {
+	public function getFileExtension(): string {
 		return $this->details->getSourceFileExtension();
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getFileInfoText() {
+	public function getFileInfoText(): string {
 		$text = $this->request->getIntendedText();
 		if ( $text !== null ) {
 			return $text;
@@ -150,74 +129,47 @@ class ImportPlan {
 		return $this->addImportAnnotation( $this->getCleanedLatestRevisionText() );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getInitialFileInfoText() {
+	public function getInitialFileInfoText(): string {
 		$textRevision = $this->details->getTextRevisions()->getLatest();
 		return $textRevision ? $textRevision->getContent() : '';
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getCleanedLatestRevisionText() {
+	public function getCleanedLatestRevisionText(): string {
 		return $this->cleanedLatestRevisionText ?? $this->getInitialFileInfoText();
 	}
 
 	/**
 	 * @param string $text
 	 */
-	public function setCleanedLatestRevisionText( $text ) {
+	public function setCleanedLatestRevisionText( $text ): void {
 		$this->cleanedLatestRevisionText = $text;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getNumberOfTemplateReplacements() {
+	public function getNumberOfTemplateReplacements(): int {
 		return $this->numberOfTemplateReplacements;
 	}
 
-	/**
-	 * @param int $replacements
-	 */
-	public function setNumberOfTemplateReplacements( $replacements ) {
+	public function setNumberOfTemplateReplacements( int $replacements ): void {
 		$this->numberOfTemplateReplacements = $replacements;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function getAutomateSourceWikiCleanUp() {
+	public function getAutomateSourceWikiCleanUp(): bool {
 		return $this->automateSourceWikiCleanUp;
 	}
 
-	/**
-	 * @param bool $bool
-	 */
-	public function setAutomateSourceWikiCleanUp( $bool ) {
+	public function setAutomateSourceWikiCleanUp( bool $bool ): void {
 		$this->automateSourceWikiCleanUp = $bool;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function getAutomateSourceWikiDelete() {
+	public function getAutomateSourceWikiDelete(): bool {
 		return $this->automateSourceWikiDelete;
 	}
 
-	/**
-	 * @param bool $bool
-	 */
-	public function setAutomateSourceWikiDelete( $bool ) {
+	public function setAutomateSourceWikiDelete( bool $bool ): void {
 		$this->automateSourceWikiDelete = $bool;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function wasFileInfoTextChanged() {
+	public function wasFileInfoTextChanged(): bool {
 		return $this->getFileInfoText() !== $this->getInitialFileInfoText();
 	}
 
@@ -225,7 +177,7 @@ class ImportPlan {
 	 * @param string $text
 	 * @return string
 	 */
-	private function addImportAnnotation( $text ) {
+	private function addImportAnnotation( string $text ): string {
 		return $this->joinWikitextChunks(
 			wfMsgReplaceArgs(
 				$this->config->get( 'FileImporterTextForPostImportRevision' ),
@@ -251,35 +203,32 @@ class ImportPlan {
 	 *  single parameter with the chunks as an array.
 	 * @return string Result of concatenation.
 	 */
-	private function joinWikitextChunks( ...$chunks ) {
+	private function joinWikitextChunks( ...$chunks ): string {
 		if ( is_array( reset( $chunks ) ) ) {
 			$chunks = $chunks[0];
 		}
 		$chunks = array_filter(
 			$chunks,
-			static function ( $wikitext ) {
+			static function ( $wikitext ): bool {
 				return $wikitext !== null && $wikitext !== '';
 			}
 		);
 		return implode( "\n", $chunks );
 	}
 
-	/**
-	 * @param string $actionKey
-	 */
-	public function setActionIsPerformed( string $actionKey ) {
+	public function setActionIsPerformed( string $actionKey ): void {
 		$this->actionStats[$actionKey] = 1;
 	}
 
 	/**
-	 * @param int[] $stats
+	 * @param array<string,int> $stats
 	 */
-	public function setActionStats( array $stats ) {
+	public function setActionStats( array $stats ): void {
 		$this->actionStats = $stats;
 	}
 
 	/**
-	 * @return int[] Array mapping string keys to optional counts. The numbers default to 1 and are
+	 * @return array<string,int> Array mapping string keys to optional counts. The numbers default to 1 and are
 	 *  typically not really of interest.
 	 */
 	public function getActionStats(): array {
@@ -289,14 +238,14 @@ class ImportPlan {
 	/**
 	 * @param (int|string)[] $warnings
 	 */
-	public function setValidationWarnings( array $warnings ) {
+	public function setValidationWarnings( array $warnings ): void {
 		$this->validationWarnings = $warnings;
 	}
 
 	/**
 	 * @param int|string $warning
 	 */
-	public function addValidationWarning( $warning ) {
+	public function addValidationWarning( $warning ): void {
 		$this->validationWarnings[] = $warning;
 	}
 

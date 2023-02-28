@@ -107,9 +107,6 @@ class ImportPlanValidator {
 		$this->runRemoteTitleConflictCheck( $importPlan );
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runCommonsHelperChecksAndConversions( ImportPlan $importPlan ): void {
 		if ( !$this->commonsHelperConfigRetriever ) {
 			return;
@@ -135,10 +132,6 @@ class ImportPlanValidator {
 		$this->cleanWikitext( $importPlan, $commonHelperConfigParser->getWikitextConversions() );
 	}
 
-	/**
-	 * @param ImportDetails $details
-	 * @param WikitextConversions $conversions
-	 */
 	private function runLicenseChecks( ImportDetails $details, WikitextConversions $conversions ): void {
 		$validator = new FileDescriptionPageValidator( $conversions );
 		$validator->hasRequiredTemplate( $details->getTemplates() );
@@ -146,10 +139,6 @@ class ImportPlanValidator {
 		$validator->validateCategories( $details->getCategories() );
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param WikitextConversions $conversions
-	 */
 	private function cleanWikitext( ImportPlan $importPlan, WikitextConversions $conversions ): void {
 		$wikitext = $importPlan->getCleanedLatestRevisionText();
 		$cleaner = new WikitextContentCleaner( $conversions );
@@ -166,9 +155,6 @@ class ImportPlanValidator {
 		$importPlan->setNumberOfTemplateReplacements( $cleaner->getLatestNumberOfReplacements() );
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runWikiLinkConversions( ImportPlan $importPlan ): void {
 		$parser = $this->wikiLinkParserFactory->getWikiLinkParser(
 			$importPlan->getDetails()->getPageLanguage(),
@@ -178,9 +164,6 @@ class ImportPlanValidator {
 		$importPlan->setCleanedLatestRevisionText( $parser->parse( $wikitext ) );
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runBasicTitleCheck( ImportPlan $importPlan ): void {
 		try {
 			$importPlan->getTitle();
@@ -193,9 +176,6 @@ class ImportPlanValidator {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function warnOnAutomaticTitleChanges( ImportPlan $importPlan ): void {
 		if ( $importPlan->getRequest()->getIntendedName() !== null &&
 			$importPlan->getFileName() !== $importPlan->getRequest()->getIntendedName()
@@ -211,10 +191,6 @@ class ImportPlanValidator {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param Authority $user
-	 */
 	private function runPermissionTitleChecks( ImportPlan $importPlan, Authority $user ): void {
 		$title = $importPlan->getTitle();
 
@@ -245,9 +221,6 @@ class ImportPlanValidator {
 		return $language->listToText( $fileExtensions );
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runFileTitleCheck( ImportPlan $importPlan ): void {
 		$plannedTitleText = $importPlan->getTitle()->getText();
 		if ( $plannedTitleText != wfStripIllegalFilenameChars( $plannedTitleText ) ) {
@@ -286,9 +259,6 @@ class ImportPlanValidator {
 		throw new RecoverableTitleException( $errorMessage, $importPlan );
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runFileExtensionCheck( ImportPlan $importPlan ): void {
 		$sourcePathInfo = pathinfo( $importPlan->getDetails()->getSourceLinkTarget()->getText() );
 		$plannedPathInfo = pathinfo( $importPlan->getTitle()->getText() );
@@ -310,9 +280,6 @@ class ImportPlanValidator {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runDuplicateFilesCheck( ImportPlan $importPlan ): void {
 		$duplicateFiles = $this->duplicateFileChecker->findDuplicates(
 			$importPlan->getDetails()->getFileRevisions()->getLatest()
@@ -323,9 +290,6 @@ class ImportPlanValidator {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runLocalTitleConflictCheck( ImportPlan $importPlan ): void {
 		if ( $importPlan->getTitle()->exists() ) {
 			throw new RecoverableTitleException(
@@ -335,9 +299,6 @@ class ImportPlanValidator {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function runRemoteTitleConflictCheck( ImportPlan $importPlan ): void {
 		$request = $importPlan->getRequest();
 		$details = $importPlan->getDetails();

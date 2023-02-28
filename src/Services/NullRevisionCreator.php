@@ -27,10 +27,6 @@ class NullRevisionCreator {
 	/** @var RevisionStore */
 	private $revisionStore;
 
-	/**
-	 * @param RevisionStore $revisionStore
-	 * @param IConnectionProvider $connectionProvider
-	 */
 	public function __construct( RevisionStore $revisionStore, IConnectionProvider $connectionProvider ) {
 		$this->connectionProvider = $connectionProvider;
 		$this->revisionStore = $revisionStore;
@@ -96,20 +92,13 @@ class NullRevisionCreator {
 		);
 	}
 
-	/**
-	 * @param IDatabase $db
-	 * @param string $type
-	 * @param string $subtype
-	 * @param RevisionRecord $revision
-	 * @param array $parameters
-	 */
 	private function publishLogEntry(
 		IDatabase $db,
 		string $type,
 		string $subtype,
 		RevisionRecord $revision,
 		array $parameters = []
-	) {
+	): void {
 		$logEntry = new ManualLogEntry( $type, $subtype );
 
 		$logEntry->setParameters( $parameters );

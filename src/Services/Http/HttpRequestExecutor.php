@@ -38,7 +38,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	public function __construct(
 		HttpRequestFactory $httpRequestFactory,
 		array $httpOptions,
-		$maxFileSize
+		int $maxFileSize
 	) {
 		$this->httpRequestFactory = $httpRequestFactory;
 		$this->logger = new NullLogger();
@@ -50,7 +50,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @param LoggerInterface $logger
 	 * @codeCoverageIgnore
 	 */
-	public function setLogger( LoggerInterface $logger ) {
+	public function setLogger( LoggerInterface $logger ): void {
 		$this->logger = $logger;
 	}
 
@@ -61,7 +61,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
-	public function execute( $url, array $parameters = [] ) {
+	public function execute( string $url, array $parameters = [] ): MWHttpRequest {
 		return $this->executeHttpRequest( wfAppendQuery( $url, $parameters ) );
 	}
 
@@ -71,7 +71,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 *
 	 * @return MWHttpRequest
 	 */
-	public function executePost( $url, array $postData ) {
+	public function executePost( string $url, array $postData ): MWHttpRequest {
 		return $this->executeHttpRequest( $url, null, $postData );
 	}
 
@@ -82,7 +82,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
-	public function executeAndSave( $url, $filePath ) {
+	public function executeAndSave( string $url, string $filePath ): MWHttpRequest {
 		$chunkSaver = new FileChunkSaver( $filePath, $this->maxFileSize );
 		$chunkSaver->setLogger( $this->logger );
 		return $this->executeHttpRequest( $url, [ $chunkSaver, 'saveFileChunk' ] );
@@ -96,7 +96,11 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
-	private function executeHttpRequest( $url, $callback = null, $postData = null ) {
+	private function executeHttpRequest(
+		string $url,
+		callable $callback = null,
+		array $postData = null
+	): MWHttpRequest {
 		$options = [
 			'logger' => $this->logger,
 			'followRedirects' => true,
@@ -130,7 +134,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 		return $request;
 	}
 
-	private function buildUserAgentString() {
+	private function buildUserAgentString(): string {
 		// TODO: Pull URL and version from ExtensionRegistry.
 		return 'mw-ext-FileImporter/* (https://www.mediawiki.org/wiki/Extension:FileImporter)';
 	}

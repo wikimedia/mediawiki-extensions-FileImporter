@@ -32,11 +32,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	/** @var LoggerInterface */
 	private $logger;
 
-	/**
-	 * @param string $filePath
-	 * @param int $maxBytes
-	 */
-	public function __construct( $filePath, $maxBytes ) {
+	public function __construct( string $filePath, int $maxBytes ) {
 		$this->filePath = $filePath;
 		$this->maxBytes = $maxBytes;
 		$this->logger = new NullLogger();
@@ -46,7 +42,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	 * @param LoggerInterface $logger
 	 * @codeCoverageIgnore
 	 */
-	public function setLogger( LoggerInterface $logger ) {
+	public function setLogger( LoggerInterface $logger ): void {
 		$this->logger = $logger;
 	}
 
@@ -78,13 +74,13 @@ class FileChunkSaver implements LoggerAwareInterface {
 	 * Callback: save a chunk of the result of an HTTP request to the file.
 	 * Intended for use with HttpRequestFactory::request
 	 *
-	 * @param int $curlResource Required by the cURL library, see CURLOPT_WRITEFUNCTION
+	 * @param mixed $curlResource Required by the cURL library, see CURLOPT_WRITEFUNCTION
 	 * @param string $buffer
 	 *
 	 * @return int Number of bytes handled
 	 * @throws ImportException
 	 */
-	public function saveFileChunk( $curlResource, $buffer ) {
+	public function saveFileChunk( $curlResource, string $buffer ): int {
 		$handle = $this->getHandle();
 		$this->logger->debug( 'Received chunk of ' . strlen( $buffer ) . ' bytes' );
 		$nbytes = fwrite( $handle, $buffer );
@@ -96,11 +92,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 		return $nbytes;
 	}
 
-	/**
-	 * @param int $nbytes
-	 * @param string $buffer
-	 */
-	private function throwExceptionIfOnShortWrite( $nbytes, $buffer ): void {
+	private function throwExceptionIfOnShortWrite( int $nbytes, string $buffer ): void {
 		if ( $nbytes != strlen( $buffer ) ) {
 			$this->closeHandleLogAndThrowException(
 				'Short write ' . $nbytes . '/' . strlen( $buffer ) .
@@ -109,7 +101,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 		}
 	}
 
-	private function throwExceptionIfMaxBytesExceeded() {
+	private function throwExceptionIfMaxBytesExceeded(): void {
 		if ( $this->fileSize > $this->maxBytes ) {
 			$this->closeHandleLogAndThrowException(
 				'File downloaded ' . $this->fileSize . ' bytes, ' .
@@ -122,13 +114,13 @@ class FileChunkSaver implements LoggerAwareInterface {
 	 * @param string $message
 	 * @return never
 	 */
-	private function closeHandleLogAndThrowException( $message ) {
+	private function closeHandleLogAndThrowException( string $message ) {
 		$this->closeHandle();
 		$this->logger->debug( $message );
 		throw new ImportException( $message, self::ERROR_CHUNK_SAVE );
 	}
 
-	private function closeHandle() {
+	private function closeHandle(): void {
 		fclose( $this->handle );
 		$this->handle = false;
 	}

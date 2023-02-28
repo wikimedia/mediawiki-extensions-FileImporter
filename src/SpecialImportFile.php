@@ -42,6 +42,7 @@ use OOUI\MessageWidget;
 use PermissionsError;
 use Psr\Log\LoggerInterface;
 use SpecialPage;
+use StatusValue;
 use UploadBase;
 use User;
 use UserBlockedError;
@@ -191,7 +192,7 @@ class SpecialImportFile extends SpecialPage {
 	/**
 	 * @param string|null $subPage
 	 */
-	public function execute( $subPage ) {
+	public function execute( $subPage ): void {
 		$this->setHeaders();
 		$this->setupPage();
 		$this->executeStandardChecks();
@@ -263,7 +264,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @param string|null $action
 	 * @param ImportPlan $importPlan
 	 */
-	private function handleAction( $action, ImportPlan $importPlan ) {
+	private function handleAction( ?string $action, ImportPlan $importPlan ): void {
 		switch ( $action ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
 				$this->doImport( $importPlan );
@@ -331,19 +332,11 @@ class SpecialImportFile extends SpecialPage {
 		return $importPlan;
 	}
 
-	/**
-	 * @param string $type
-	 * @param bool $isRecoverable
-	 */
-	private function logErrorStats( $type, $isRecoverable ) {
+	private function logErrorStats( string $type, bool $isRecoverable ): void {
 		$this->stats->increment( 'FileImporter.error.byRecoverable.'
 			. wfBoolToStr( $isRecoverable ) . '.byType.' . $type );
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @return bool
-	 */
 	private function doImport( ImportPlan $importPlan ): bool {
 		$out = $this->getOutput();
 		$importDetails = $importPlan->getDetails();
@@ -411,9 +404,6 @@ class SpecialImportFile extends SpecialPage {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function logActionStats( ImportPlan $importPlan ): void {
 		foreach ( $importPlan->getActionStats() as $key => $_ ) {
 			if ( $key === ImportPreviewPage::ACTION_EDIT_TITLE ||
@@ -426,11 +416,7 @@ class SpecialImportFile extends SpecialPage {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @return \StatusValue
-	 */
-	private function performPostImportActions( ImportPlan $importPlan ) {
+	private function performPostImportActions( ImportPlan $importPlan ): StatusValue {
 		$sourceSite = $importPlan->getRequest()->getUrl();
 		$postImportHandler = $this->sourceSiteLocator->getSourceSite( $sourceSite )
 			->getPostImportHandler();
@@ -456,7 +442,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @param string $type Set to "notice" for a gray box, defaults to "error" (red)
 	 * @param bool $inline
 	 */
-	private function showWarningMessage( string $html, string $type = 'error', $inline = false ) {
+	private function showWarningMessage( string $html, string $type = 'error', bool $inline = false ): void {
 		$this->getOutput()->enableOOUI();
 		$this->getOutput()->addHTML(
 			new MessageWidget( [
@@ -468,9 +454,6 @@ class SpecialImportFile extends SpecialPage {
 		);
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 */
 	private function showImportPage( ImportPlan $importPlan ): void {
 		$this->getOutput()->addHTML(
 			( new ImportPreviewPage( $this ) )->getHtml( $importPlan )

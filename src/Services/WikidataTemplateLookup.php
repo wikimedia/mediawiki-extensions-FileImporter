@@ -31,7 +31,7 @@ class WikidataTemplateLookup {
 	private $logger;
 	/** @var string */
 	private $entityEndpoint;
-	/** @var string */
+	/** @var string|null */
 	private $nowCommonsEntityId;
 	/** @var string[][] Array mapping site id and entity id to a template title name */
 	private $templateCache = [];
@@ -53,7 +53,7 @@ class WikidataTemplateLookup {
 		$this->logger = $logger;
 
 		$this->entityEndpoint = $config->get( 'FileImporterWikidataEntityEndpoint' );
-		$this->nowCommonsEntityId = $config->get( 'FileImporterWikidataNowCommonsEntity' );
+		$this->nowCommonsEntityId = $config->get( 'FileImporterWikidataNowCommonsEntity' ) ?: null;
 	}
 
 	/**
@@ -74,11 +74,11 @@ class WikidataTemplateLookup {
 	}
 
 	/**
-	 * @param string $entityId
+	 * @param string|null $entityId
 	 * @param SourceUrl $sourceUrl
 	 * @return string|null
 	 */
-	private function fetchLocalTemplateForSource( $entityId, SourceUrl $sourceUrl ): ?string {
+	private function fetchLocalTemplateForSource( ?string $entityId, SourceUrl $sourceUrl ): ?string {
 		$sourceSite = $this->siteLookup->getSite( $sourceUrl );
 		if ( !$sourceSite || !$entityId ) {
 			return null;
@@ -97,7 +97,7 @@ class WikidataTemplateLookup {
 	 * @param string $siteId
 	 * @return string|null
 	 */
-	private function fetchSiteLinkPageName( $entityId, $siteId ): ?string {
+	private function fetchSiteLinkPageName( string $entityId, string $siteId ): ?string {
 		if ( isset( $this->templateCache[$siteId][$entityId] ) ) {
 			return $this->templateCache[$siteId][$entityId];
 		}
