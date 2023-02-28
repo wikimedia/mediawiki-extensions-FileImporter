@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Kimberli Mäkäräinen (WMNO)"
 		]
 	},
-	"fileimporter-exampleprefix": "Ovdamearka"
+	"fileimporter-exampleprefix": "Ovdamearka",
+	"fileimporter-cancel": "Šluhtte"
 }
