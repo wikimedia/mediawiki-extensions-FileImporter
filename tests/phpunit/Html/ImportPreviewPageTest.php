@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Html;
 
-use Config;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -14,6 +13,7 @@ use FileImporter\Html\ImportPreviewPage;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use HamcrestPHPUnitIntegration;
+use HashConfig;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MessageLocalizer;
@@ -58,7 +58,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
 			$this->getMockImportDetails( $submittedText ),
-			$this->createMock( Config::class ),
+			new HashConfig(),
 			$this->createMock( MessageLocalizer::class ),
 			''
 		);
@@ -79,7 +79,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
 			$this->getMockImportDetails( 'Bar' ),
-			$this->createMock( Config::class ),
+			new HashConfig(),
 			$this->createMock( MessageLocalizer::class ),
 			''
 		);
@@ -107,7 +107,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
 			$this->getMockImportDetails( 'Bar' ),
-			$this->createMock( Config::class ),
+			new HashConfig(),
 			$this->createMock( MessageLocalizer::class ),
 			''
 		);

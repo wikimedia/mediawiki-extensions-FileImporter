@@ -7,6 +7,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
+use HashConfig;
 use MediaWikiIntegrationTestCase;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
@@ -22,16 +23,10 @@ use Site;
 class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 
 	public function testFetchNowCommonsLocalTitle_success() {
-		$mockConfig = $this->createMock( Config::class );
-		$mockConfig->method( 'get' )
-			->willReturnCallback( static function ( $key ) {
-				$data = [
-					'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
-					'FileImporterWikidataNowCommonsEntity' => 'Q123'
-				];
-
-				return $data[$key];
-			} );
+		$config = new HashConfig( [
+			'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
+			'FileImporterWikidataNowCommonsEntity' => 'Q123',
+		] );
 
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
@@ -54,7 +49,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(
-			$mockConfig,
+			$config,
 			$mockSiteLookup,
 			$mockRequestExecutor,
 			$this->createMock( LoggerInterface::class )
@@ -88,16 +83,10 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testFetchLocalTemplateForSource_noSiteLink() {
-		$mockConfig = $this->createMock( Config::class );
-		$mockConfig->method( 'get' )
-			->willReturnCallback( static function ( $key ) {
-				$data = [
-					'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
-					'FileImporterWikidataNowCommonsEntity' => 'Q123'
-				];
-
-				return $data[$key];
-			} );
+		$config = new HashConfig( [
+			'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
+			'FileImporterWikidataNowCommonsEntity' => 'Q123',
+		] );
 
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
@@ -116,7 +105,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(
-			$mockConfig,
+			$config,
 			$mockSiteLookup,
 			$mockRequestExecutor,
 			$this->createMock( LoggerInterface::class )

@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Html;
 
-use Config;
 use DerivativeContext;
 use FauxRequest;
 use FileImporter\Data\ImportDetails;
@@ -11,6 +10,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\FileInfoDiffPage;
+use HashConfig;
 use IContextSource;
 use Language;
 use MessageLocalizer;
@@ -120,7 +120,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 		$importPlan = new ImportPlan(
 			new ImportRequest( '//w.invalid', 'Foo', $userInput ),
 			$this->getMockImportDetails( $originalInput ),
-			$this->createMock( Config::class ),
+			new HashConfig(),
 			$this->createMock( MessageLocalizer::class ),
 			''
 		);

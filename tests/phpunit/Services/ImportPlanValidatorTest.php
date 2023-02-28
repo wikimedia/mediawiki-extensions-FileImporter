@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Services;
 
-use Config;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -24,6 +23,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\Wikitext\WikiLinkParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
+use HashConfig;
 use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
@@ -136,7 +136,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			->setConstructorArgs( [
 				new ImportRequest( '//w.invalid' ),
 				$this->getMockImportDetails( $sourceTitle ?: $this->getMockTitle( 'Source.JPG' ) ),
-				$this->createMock( Config::class ),
+				new HashConfig(),
 				$this->createMock( MessageLocalizer::class ),
 				''
 			] )
@@ -361,7 +361,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			->method( 'getIntendedName' )
 			->willReturn( 'Before.jpg#After' );
 		$mockDetails = $this->getMockImportDetails( new TitleValue( NS_FILE, 'SourceName.jpg' ) );
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$importPlan = new ImportPlan( $mockRequest, $mockDetails, $config, $messageLocalizer, '' );
@@ -391,7 +391,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$importRequest = new ImportRequest( '//w.invalid' );
 		$mockTitle = $this->getMockTitle( 'Title.jpg', true );
 		$mockDetails = $this->getMockImportDetails( $mockTitle );
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$importPlan = new ImportPlan( $importRequest, $mockDetails, $config, $messageLocalizer, '' );

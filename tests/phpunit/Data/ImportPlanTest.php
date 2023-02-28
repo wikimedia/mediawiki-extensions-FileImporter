@@ -2,12 +2,12 @@
 
 namespace FileImporter\Tests\Data;
 
-use Config;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
+use HashConfig;
 use Message;
 use MessageLocalizer;
 use TitleValue;
@@ -23,7 +23,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 	public function testConstruction() {
 		$request = new ImportRequest( '//w.invalid' );
 		$details = $this->createMock( ImportDetails::class );
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 		$prefix = 'wiki';
 
@@ -39,7 +39,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		$details = $this->createMock( ImportDetails::class );
 		$details->method( 'getTextRevisions' )
 			->willReturn( $this->createMock( TextRevisions::class ) );
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
@@ -70,7 +70,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 	public function testSetActionIsPerformed() {
 		$request = new ImportRequest( '//w.invalid' );
 		$details = $this->createMock( ImportDetails::class );
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
@@ -91,7 +91,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		$details->method( 'getSourceLinkTarget' )
 			->willReturn( new TitleValue( NS_FILE, 'TestFileName.EXT' ) );
 
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
@@ -109,7 +109,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		$details->method( 'getSourceFileExtension' )
 			->willReturn( 'EXT' );
 
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
@@ -161,10 +161,9 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
 
-		$config = $this->createMock( Config::class );
-		$config->method( 'get' )
-			->with( 'FileImporterTextForPostImportRevision' )
-			->willReturn( $postImportComment );
+		$config = new HashConfig( [
+			'FileImporterTextForPostImportRevision' => $postImportComment,
+		] );
 
 		$message = $this->createMock( Message::class );
 		$message->method( 'inContentLanguage' )
@@ -203,7 +202,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		$details->method( 'getTextRevisions' )
 			->willReturn( $textRevisions );
 
-		$config = $this->createMock( Config::class );
+		$config = new HashConfig();
 		$messageLocalizer = $this->createMock( MessageLocalizer::class );
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
