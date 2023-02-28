@@ -10,8 +10,8 @@ use Parser;
 use ParserOutput;
 use Title;
 use User;
-use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\ILoadBalancer;
+use Wikimedia\Rdbms\IConnectionProvider;
+use Wikimedia\Rdbms\IReadableDatabase;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -64,7 +64,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	public function testGetCategories( array $allCategories, array $hiddenCategories, array $visibleCategories ) {
 		$extractor = new CategoryExtractor(
 			$this->buildParserMock( $allCategories ),
-			$this->buildLoadBalancerMock( $hiddenCategories ),
+			$this->buildConnectionProviderMock( $hiddenCategories ),
 			$this->services->getLinkBatchFactory()
 		);
 
@@ -102,7 +102,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
 		$extractor = new CategoryExtractor(
 			$this->createMock( Parser::class ),
-			$this->services->getDBLoadBalancer(),
+			$this->services->getDBLoadBalancerFactory(),
 			$this->services->getLinkBatchFactory()
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
@@ -133,7 +133,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
 		$extractor = new CategoryExtractor(
 			$this->createMock( Parser::class ),
-			$this->services->getDBLoadBalancer(),
+			$this->services->getDBLoadBalancerFactory(),
 			$this->services->getLinkBatchFactory()
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
@@ -155,16 +155,16 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		return $parser;
 	}
 
-	private function buildLoadBalancerMock( array $hiddenCategories ): ILoadBalancer {
-		$database = $this->createMock( IDatabase::class );
+	private function buildConnectionProviderMock( array $hiddenCategories ): IConnectionProvider {
+		$database = $this->createMock( IReadableDatabase::class );
 		$database->method( 'selectFieldValues' )
 			->willReturn( $hiddenCategories );
 
-		$loadBalancer = $this->createMock( ILoadBalancer::class );
-		$loadBalancer->method( 'getConnection' )
+		$connectionProvider = $this->createMock( IConnectionProvider::class );
+		$connectionProvider->method( 'getReplicaDatabase' )
 			->willReturn( $database );
 
-		return $loadBalancer;
+		return $connectionProvider;
 	}
 
 	private function setHiddencat( int $page_id ): void {

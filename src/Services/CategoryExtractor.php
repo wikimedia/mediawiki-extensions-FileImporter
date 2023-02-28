@@ -7,7 +7,7 @@ use MediaWiki\User\UserIdentity;
 use Parser;
 use ParserOptions;
 use Title;
-use Wikimedia\Rdbms\ILoadBalancer;
+use Wikimedia\Rdbms\IConnectionProvider;
 
 /**
  * @license GPL-2.0-or-later
@@ -16,25 +16,23 @@ class CategoryExtractor {
 
 	/** @var Parser */
 	private $parser;
-
-	/** @var ILoadBalancer */
-	private $loadBalancer;
-
+	/** @var IConnectionProvider */
+	private $connectionProvider;
 	/** @var LinkBatchFactory */
 	private $linkBatchFactory;
 
 	/**
 	 * @param Parser $parser
-	 * @param ILoadBalancer $loadBalancer
+	 * @param IConnectionProvider $connectionProvider
 	 * @param LinkBatchFactory $linkBatchFactory
 	 */
 	public function __construct(
 		Parser $parser,
-		ILoadBalancer $loadBalancer,
+		IConnectionProvider $connectionProvider,
 		LinkBatchFactory $linkBatchFactory
 	) {
 		$this->parser = $parser;
-		$this->loadBalancer = $loadBalancer;
+		$this->connectionProvider = $connectionProvider;
 		$this->linkBatchFactory = $linkBatchFactory;
 	}
 
@@ -79,7 +77,7 @@ class CategoryExtractor {
 		$lb->setArray( $arr );
 
 		# Fetch categories having the `hiddencat` property.
-		$dbr = $this->loadBalancer->getConnection( DB_REPLICA );
+		$dbr = $this->connectionProvider->getReplicaDatabase();
 		$hiddenCategories = $dbr->selectFieldValues(
 			[ 'page', 'page_props' ],
 			'page_title',

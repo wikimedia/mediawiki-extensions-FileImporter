@@ -68,7 +68,7 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator(
 			$revisionStore,
-			$this->getServiceContainer()->getDBLoadBalancer()
+			$this->getServiceContainer()->getDBLoadBalancerFactory()
 		);
 
 		$nullRevisionCreator->createForLinkTarget( $title, $fileRevision, $user, $summary );
@@ -83,7 +83,7 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator(
 			$revisionStore,
-			$this->getServiceContainer()->getDBLoadBalancer()
+			$this->getServiceContainer()->getDBLoadBalancerFactory()
 		);
 
 		$this->expectException( \RuntimeException::class );

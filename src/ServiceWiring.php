@@ -72,7 +72,7 @@ return [
 	'FileImporterCategoryExtractor' => static function ( MediaWikiServices $services ) {
 		return new CategoryExtractor(
 			$services->getParser(),
-			$services->getDBLoadBalancer(),
+			$services->getDBLoadBalancerFactory(),
 			$services->getLinkBatchFactory()
 		);
 	},
@@ -123,7 +123,7 @@ return [
 	'FileImporterNullRevisionCreator' => static function ( MediaWikiServices $services ) {
 		return new NullRevisionCreator(
 			$services->getRevisionStore(),
-			$services->getDBLoadBalancer()
+			$services->getDBLoadBalancerFactory()
 		);
 	},
 

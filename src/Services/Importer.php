@@ -340,10 +340,8 @@ class Importer {
 	 * @throws ImportException
 	 */
 	private function getPageFromImportPlan( ImportPlan $importPlan ) {
-		/**
-		 * T164729 GAID_FOR_UPDATE needed to select for a write
-		 */
-		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( Title::GAID_FOR_UPDATE );
+		// T164729: READ_LATEST needed to select for a write
+		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( Title::READ_LATEST );
 		// T181391: Read from primary database, as the page has only just been created, and in multi-DB setups
 		// replicas will have lag.
 		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate, WikiPage::READ_LATEST );

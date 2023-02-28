@@ -11,8 +11,8 @@ use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\User\UserIdentity;
 use Title;
+use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\ILoadBalancer;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 
 /**
@@ -22,17 +22,17 @@ class NullRevisionCreator {
 
 	private const ERROR_REVISION_CREATE = 'noNullRevisionCreated';
 
-	/** @var ILoadBalancer */
-	private $loadBalancer;
+	/** @var IConnectionProvider */
+	private $connectionProvider;
 	/** @var RevisionStore */
 	private $revisionStore;
 
 	/**
 	 * @param RevisionStore $revisionStore
-	 * @param ILoadBalancer $loadBalancer
+	 * @param IConnectionProvider $connectionProvider
 	 */
-	public function __construct( RevisionStore $revisionStore, ILoadBalancer $loadBalancer ) {
-		$this->loadBalancer = $loadBalancer;
+	public function __construct( RevisionStore $revisionStore, IConnectionProvider $connectionProvider ) {
+		$this->connectionProvider = $connectionProvider;
 		$this->revisionStore = $revisionStore;
 	}
 
@@ -50,7 +50,7 @@ class NullRevisionCreator {
 		UserIdentity $user,
 		$summary
 	) {
-		$db = $this->loadBalancer->getConnection( DB_PRIMARY );
+		$db = $this->connectionProvider->getPrimaryDatabase();
 		$nullRevision = $this->revisionStore->newNullRevision(
 			$db,
 			$title,
