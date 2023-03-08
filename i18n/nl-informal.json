@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"fileimporter-help-banner-text": "'''Importeren uit andere wiki's'''\n#Controleer en bewerk de titel en informatie van het bestand hieronder.\n#Kies of je wilt dat FileImporter de oorspronkelijke wiki opschoont door het sjabloon [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] toe te voegen aan het bronbestand. (Als je beheerdersrechten hebt, kun je eventueel ook het bronbestand verwijderen.)\n#Klik op '''{{int:fileimporter-import}}''' om het bestand naar {{SITENAME}} te kopiëren. \n\nLees voor informatie over licenties het [[Project:Licensing|communitybeleid]] van {{SITENAME}}.<br /> Zie de [//www.mediawiki.org/wiki/Help:Extension:FileImporter hulppagina] voor een meer gedetailleerde gebruiksaanwijzing van FileImporter."
+}
