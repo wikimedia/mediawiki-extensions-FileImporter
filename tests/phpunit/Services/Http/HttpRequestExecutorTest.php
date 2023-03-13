@@ -42,7 +42,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 				$this->assertInstanceOf( LoggerInterface::class, $options['logger'] );
 				$this->assertTrue( $options['followRedirects'] );
 				$this->assertSame( [ 'ip' => '9.9.9.9' ], $options['originalRequest'] );
-				$this->assertSame( $caller, HttpRequestExecutor::class . '::executeHttpRequest' );
+				$this->assertSame( HttpRequestExecutor::class . '::executeHttpRequest', $caller );
 				$this->assertStringContainsString( 'FileImporter', $options['userAgent'] );
 
 				$request = $this->createMock( MWHttpRequest::class );
@@ -87,7 +87,7 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 				$this->assertSame( [ 'ip' => '9.9.9.9' ], $options['originalRequest'] );
 				$this->assertEquals( 'POST', $options['method'] );
 				$this->assertEquals( $postData, $options['postData'] );
-				$this->assertSame( $caller, HttpRequestExecutor::class . '::executeHttpRequest' );
+				$this->assertSame( HttpRequestExecutor::class . '::executeHttpRequest', $caller );
 				$this->assertStringContainsString( 'FileImporter', $options['userAgent'] );
 
 				$request = $this->createMock( MWHttpRequest::class );
