@@ -330,7 +330,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterNullRevisionCreator' ),
 			$userLookup,
-			$this->newHttpRequestExecutor(),
+			$this->createMock( HttpRequestExecutor::class ),
 			$services->getService( 'FileImporterUploadBaseFactory' ),
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
@@ -357,12 +357,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 					return $realFactory->newFromFileRevision( $fileRevision, $tempFile );
 				}
 			);
-		return $mock;
-	}
-
-	private function newHttpRequestExecutor(): HttpRequestExecutor {
-		$mock = $this->createMock( HttpRequestExecutor::class );
-		$mock->method( 'executeAndSave' )->willReturn( true );
 		return $mock;
 	}
 

@@ -143,7 +143,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$this->newFileRevision( 'http://example.com/Test.png' ),
 			$this->newTextRevision(),
 			$userLookup,
-			$this->newHttpRequestExecutor(),
+			$this->createMock( HttpRequestExecutor::class ),
 			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterUploadBaseFactory' ),
 			$this->newUploadRevisionImporter(),
@@ -151,12 +151,6 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		);
 
 		return $fileRevisionFromRemoteUrl;
-	}
-
-	private function newHttpRequestExecutor(): HttpRequestExecutor {
-		$mock = $this->createMock( HttpRequestExecutor::class );
-		$mock->method( 'executeAndSave' )->willReturn( true );
-		return $mock;
 	}
 
 	private function newWikiRevisionFactory(): WikiRevisionFactory {

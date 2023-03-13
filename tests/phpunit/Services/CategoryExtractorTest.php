@@ -11,7 +11,7 @@ use ParserOutput;
 use Title;
 use User;
 use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\LoadBalancer;
+use Wikimedia\Rdbms\ILoadBalancer;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -160,7 +160,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$database->method( 'selectFieldValues' )
 			->willReturn( $hiddenCategories );
 
-		$loadBalancer = $this->createMock( LoadBalancer::class );
+		$loadBalancer = $this->createMock( ILoadBalancer::class );
 		$loadBalancer->method( 'getConnection' )
 			->willReturn( $database );
 

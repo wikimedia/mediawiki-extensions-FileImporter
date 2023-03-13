@@ -83,16 +83,14 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 				'prepare' => 1,
 				'validate' => 1,
 				'commit' => 1
-			],
-			false
+			]
 		);
 		$prepareCommitNeverCalled = $this->newImportOperation(
 			[
 				'prepare' => 0,
 				'validate' => 1,
 				'commit' => 0
-			],
-			false
+			]
 		);
 
 		$operations = new ImportOperations();
