@@ -61,6 +61,7 @@ class ValidatingUploadBase extends UploadBase {
 			$this->logger->info(
 				__METHOD__ . ' checks failed', [ 'fileVerification' => $fileVerification ]
 			);
+			// @phan-suppress-next-line PhanParamTooFewUnpack
 			return StatusValue::newFatal( ...$fileVerification );
 		}
 
@@ -96,9 +97,7 @@ class ValidatingUploadBase extends UploadBase {
 
 		// @phan-suppress-next-line PhanImpossibleCondition May set by hook
 		if ( $error ) {
-			if ( !is_array( $error ) ) {
-				$error = [ $error ];
-			}
+			// @phan-suppress-next-line PhanParamTooFewUnpack
 			return StatusValue::newFatal( ...$error );
 		}
 

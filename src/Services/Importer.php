@@ -291,6 +291,7 @@ class Importer {
 
 				// Skip AbuseFilter warnings we have seen before
 				if ( !in_array( $data['id'], $importPlan->getValidationWarnings() ) ) {
+					// @phan-suppress-next-line PhanTypeMismatchArgument
 					$importPlan->addValidationWarning( $data['id'] );
 					$newAbuseFilterWarnings[] = $message;
 				}
