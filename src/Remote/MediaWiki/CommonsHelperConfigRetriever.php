@@ -7,6 +7,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -101,7 +102,7 @@ class CommonsHelperConfigRetriever {
 		$title = $this->getQueryParamTitle( $sourceUrl );
 
 		// We assume the wiki holding the config pages uses the same configuration.
-		$articlePath = str_replace( '$1', $title, $this->mainConfig->get( 'ArticlePath' ) );
+		$articlePath = str_replace( '$1', $title, $this->mainConfig->get( MainConfigNames::ArticlePath ) );
 
 		return $this->configServer . $articlePath;
 	}
@@ -114,7 +115,7 @@ class CommonsHelperConfigRetriever {
 	 */
 	private function sendApiRequest( SourceUrl $sourceUrl ) {
 		// We assume the wiki holding the config pages uses the same configuration.
-		$scriptPath = $this->mainConfig->get( 'ScriptPath' );
+		$scriptPath = $this->mainConfig->get( MainConfigNames::ScriptPath );
 		$apiUrl = $this->configServer . $scriptPath . '/api.php';
 		$apiParameters = [
 			'action' => 'query',

@@ -30,6 +30,7 @@ use FileImporter\Services\WikimediaSourceUrlNormalizer;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use UploadBase;
@@ -59,8 +60,8 @@ return [
 			$services->getHttpRequestFactory(),
 			[
 				'originalRequest' => RequestContext::getMain()->getRequest(),
-				'proxy' => $config->get( 'CopyUploadProxy' ),
-				'timeout' => $config->get( 'CopyUploadTimeout' ),
+				'proxy' => $config->get( MainConfigNames::CopyUploadProxy ),
+				'timeout' => $config->get( MainConfigNames::CopyUploadTimeout ),
 			],
 			$maxFileSize
 		);

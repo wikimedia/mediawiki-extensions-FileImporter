@@ -16,6 +16,7 @@ use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
 use MalformedTitleException;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\PermissionStatus;
@@ -238,7 +239,7 @@ class ImportPlanValidator {
 	 */
 	private function getAllowedFileExtensions() {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$fileExtensions = array_unique( $config->get( 'FileExtensions' ) );
+		$fileExtensions = array_unique( $config->get( MainConfigNames::FileExtensions ) );
 		$language = RequestContext::getMain()->getLanguage();
 		return $language->listToText( $fileExtensions );
 	}
