@@ -34,7 +34,7 @@ class FileChunkSaverTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideSaveFileChunk
 	 */
-	public function testSaveFileChunk( $buffer, $maxBytes, $expectedResult ) {
+	public function testSaveFileChunk( string $buffer, int $maxBytes, $expectedResult ) {
 		$saver = $this->createChunkSaver( $maxBytes );
 
 		if ( !is_int( $expectedResult ) ) {
@@ -54,7 +54,7 @@ class FileChunkSaverTest extends \MediaWikiIntegrationTestCase {
 		$saver->getHandle();
 	}
 
-	private function createChunkSaver( $maxBytes ) {
+	private function createChunkSaver( int $maxBytes ): FileChunkSaver {
 		$file = $this->getNewTempFile();
 		return new FileChunkSaver( $file, $maxBytes );
 	}

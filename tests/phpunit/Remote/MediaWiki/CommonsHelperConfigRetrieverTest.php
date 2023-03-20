@@ -33,7 +33,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideSourceUrls
 	 */
-	public function testSuccess( $sourceUrl, $configPage ) {
+	public function testSuccess( string $sourceUrl, string $configPage ) {
 		$this->overrideMwServices( new \HashConfig( [
 			'ArticlePath' => '/wiki/$1',
 			'ScriptPath' => '/w',
@@ -88,7 +88,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideMissingResponses
 	 */
-	public function testRetrievalFails( $queryResponse ) {
+	public function testRetrievalFails( array $queryResponse ) {
 		$request = $this->createMWHttpRequest( $queryResponse );
 
 		$requestExecutor = $this->createMock( HttpRequestExecutor::class );

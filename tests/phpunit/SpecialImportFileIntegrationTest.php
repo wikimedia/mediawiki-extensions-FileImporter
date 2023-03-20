@@ -7,6 +7,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
+use Hamcrest\Matcher;
 use HamcrestPHPUnitIntegration;
 use HashSiteStore;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
@@ -55,7 +56,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 *
 	 * @return Site
 	 */
-	private function getMockSite( $globalId, $domain ): Site {
+	private function getMockSite( string $globalId, string $domain ): Site {
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
 			->willReturn( $globalId );
@@ -94,7 +95,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 *
 	 * @return MWHttpRequest
 	 */
-	private function getHttpRequestMock( $fileName ): MWHttpRequest {
+	private function getHttpRequestMock( string $fileName ): MWHttpRequest {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
 		$httpRequestMock->method( 'getContent' )->willReturn(
 			file_get_contents( __DIR__ . '/res/IntegrationTests/' . $fileName )
@@ -105,7 +106,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	/**
 	 * @return MWHttpRequest[]
 	 */
-	private function getSuccessfulHttpRequestExecutorCalls() {
+	private function getSuccessfulHttpRequestExecutorCalls(): array {
 		return [
 			// HttpApiLookup::actuallyGetApiUrl
 			$this->getHttpRequestMock( 'apiLookup.html' ),
@@ -132,7 +133,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				new FauxRequest(),
 				true,
 				null,
-				function ( $html ) {
+				function ( string $html ): void {
 					$this->assertStringContainsString( " name='clientUrl'", $html );
 				}
 			],
@@ -142,7 +143,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				] ),
 				true,
 				null,
-				function ( $html ) {
+				function ( string $html ): void {
 					$this->assertErrorBox( $html, 'Can\'t import the given URL' );
 				},
 				[ 'FileImporter-WikimediaSitesTableSite' ]
@@ -153,7 +154,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				] ),
 				true,
 				null,
-				function ( $html ) {
+				function ( string $html ): void {
 					$this->assertErrorBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
 				}
 			],
@@ -163,7 +164,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				] ),
 				true,
 				null,
-				function ( $html ) {
+				function ( string $html ): void {
 					$this->assertErrorBox(
 						$html,
 						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar.'
@@ -178,7 +179,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				] ),
 				true,
 				null,
-				function ( $html ) {
+				function ( string $html ): void {
 					$this->assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
@@ -201,7 +202,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				] ),
 				true,
 				null,
-				function ( $html ) {
+				function ( string $html ): void {
 					$this->assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
@@ -218,13 +219,13 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		];
 	}
 
-	private function assertErrorBox( $html, $text ) {
+	private function assertErrorBox( string $html, string $text ): void {
 		$this->assertStringContainsString( 'mw-importfile-error-banner', $html );
 		$this->assertStringContainsString( 'mw-message-box-error', $html );
 		$this->assertStringContainsString( htmlspecialchars( $text, ENT_NOQUOTES ), $html );
 	}
 
-	private function assertPreviewPage( $html, $clientUrl, $intendedFileName ) {
+	private function assertPreviewPage( string $html, string $clientUrl, string $intendedFileName ): void {
 		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
@@ -247,14 +248,14 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		);
 	}
 
-	private function thatIsHiddenInputField( $name, $value ) {
+	private function thatIsHiddenInputField( string $name, string $value ): Matcher {
 		return both( withTagName( 'input' ) )
 			->andAlso( withAttribute( 'type' )->havingValue( 'hidden' ) )
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) )
 			->andAlso( withAttribute( 'value' )->havingValue( $value ) );
 	}
 
-	private function thatIsHiddenInputFieldWithSomeValue( $name ) {
+	private function thatIsHiddenInputFieldWithSomeValue( string $name ): Matcher {
 		return both( withTagName( 'input' ) )
 			->andAlso( withAttribute( 'type' )->havingValue( 'hidden' ) )
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) )

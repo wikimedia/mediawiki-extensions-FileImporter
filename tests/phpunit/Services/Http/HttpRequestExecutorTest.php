@@ -28,14 +28,12 @@ class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideTestExecute
 	 */
-	public function testExecute( $testUrl, $expectedResult ) {
+	public function testExecute( string $testUrl, $expectedResult ) {
 		$httpRequestFactory = $this->createMock( HttpRequestFactory::class );
 		$httpRequestFactory->method( 'create' )
-			->willReturnCallback( function (
-				$url, $options = null, $caller = __METHOD__
-			) use (
+			->willReturnCallback( function ( string $url, array $options, string $caller ) use (
 				$testUrl, $expectedResult
-			) {
+			): MWHttpRequest {
 				$this->assertSame( $testUrl, $url );
 				$this->assertArrayHasKey( 'logger', $options );
 				$this->assertArrayHasKey( 'followRedirects', $options );

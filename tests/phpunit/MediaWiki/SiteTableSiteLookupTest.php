@@ -21,7 +21,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 	 *
 	 * @return Site
 	 */
-	private function getSite( $globalId, $linkPath ): Site {
+	private function getSite( string $globalId, string $linkPath ): Site {
 		$site = new Site();
 		$site->setGlobalId( $globalId );
 		$site->setLinkPath( $linkPath );
@@ -42,7 +42,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideGetSite
 	 */
-	public function testGetSite( $url, $expected ) {
+	public function testGetSite( string $url, ?string $expected ) {
 		$hashSiteStore = new HashSiteStore( [
 			$this->getSite( 'enwiki', 'https://en.wikipedia.org/wiki/$1' ),
 			$this->getSite( 'dewiki', 'https://de.wikipedia.org/wiki/$1' ),

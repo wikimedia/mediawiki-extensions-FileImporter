@@ -61,7 +61,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::getCategoriesGrouped
 	 * @dataProvider provideCategories
 	 */
-	public function testGetCategories( $allCategories, $hiddenCategories, $visibleCategories ) {
+	public function testGetCategories( array $allCategories, array $hiddenCategories, array $visibleCategories ) {
 		$extractor = new CategoryExtractor(
 			$this->buildParserMock( $allCategories ),
 			$this->buildLoadBalancerMock( $hiddenCategories ),
@@ -143,7 +143,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->assertEquals( [], array_values( $hiddenCategories ) );
 	}
 
-	private function buildParserMock( array $categories ) {
+	private function buildParserMock( array $categories ): Parser {
 		$parserOutput = $this->createMock( ParserOutput::class );
 		$parserOutput->method( 'getCategories' )
 			->willReturn( array_flip( $categories ) );
@@ -155,7 +155,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		return $parser;
 	}
 
-	private function buildLoadBalancerMock( $hiddenCategories ) {
+	private function buildLoadBalancerMock( array $hiddenCategories ): ILoadBalancer {
 		$database = $this->createMock( IDatabase::class );
 		$database->method( 'selectFieldValues' )
 			->willReturn( $hiddenCategories );
@@ -167,7 +167,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		return $loadBalancer;
 	}
 
-	private function setHiddencat( $page_id ) {
+	private function setHiddencat( int $page_id ): void {
 		$this->db->insert(
 			'page_props',
 			[

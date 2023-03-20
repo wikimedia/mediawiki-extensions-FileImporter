@@ -173,7 +173,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
-	private function minimalImportDetails() {
+	private function minimalImportDetails(): ImportDetails {
 		return new ImportDetails(
 			new SourceUrl( '//SOURCE.URL' ),
 			new TitleValue( NS_FILE, 'FILE' ),
@@ -186,7 +186,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	 * @param array $fields
 	 * @return FileRevision
 	 */
-	private function createFileRevision( $fields = [] ) {
+	private function createFileRevision( array $fields = [] ): FileRevision {
 		return new FileRevision(
 			$fields + [
 				'name' => '',
@@ -204,7 +204,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	 * @param array $fields
 	 * @return TextRevision
 	 */
-	private function createTextRevision( $fields = [] ) {
+	private function createTextRevision( array $fields = [] ): TextRevision {
 		return new TextRevision(
 			$fields + [
 				'minor' => false,

@@ -40,10 +40,8 @@ class ImportRequestTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @dataProvider provideTestRemoveTrailingWhitespacesInText
-	 * @param string $userInput
-	 * @param string $expectedRequestObjectText
 	 */
-	public function testRemoveTrailingWhitespacesInText( $userInput, $expectedRequestObjectText ) {
+	public function testRemoveTrailingWhitespacesInText( ?string $userInput, ?string $expectedRequestObjectText ) {
 		$importRequest = new ImportRequest( 'http://foo', null, $userInput );
 
 		$this->assertSame( $expectedRequestObjectText, $importRequest->getIntendedText() );

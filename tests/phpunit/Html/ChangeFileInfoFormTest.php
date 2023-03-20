@@ -101,10 +101,8 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideTestTextDisplayedInInputBox
-	 * @param string $userInput
-	 * @param string $expectedInputText
 	 */
-	public function testTextDisplayedInInputBox( $userInput, $expectedInputText ) {
+	public function testTextDisplayedInInputBox( string $userInput, string $expectedInputText ) {
 		$importPlan = new ImportPlan(
 			new ImportRequest( '//w.invalid', 'Foo', $userInput ),
 			$this->getMockImportDetails(),

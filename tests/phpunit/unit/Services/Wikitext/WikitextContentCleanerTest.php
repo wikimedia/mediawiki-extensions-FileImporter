@@ -363,7 +363,7 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideHeadingReplacements
 	 */
-	public function testHeadingReplacements( $wikitext, $expectedWikitext ) {
+	public function testHeadingReplacements( string $wikitext, string $expectedWikitext ) {
 		$conversions = new WikitextConversions( [ WikitextConversions::HEADING_REPLACEMENTS => [
 			'Description' => '{{int:filedesc}}',
 			'Licensing' => '{{int:license-header}}',

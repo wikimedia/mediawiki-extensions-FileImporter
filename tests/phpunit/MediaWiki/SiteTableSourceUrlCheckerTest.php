@@ -74,7 +74,7 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideCheckSourceUrl
 	 */
-	public function testCanGetImportDetails( SourceUrl $sourceUrl, array $knownSites, $expected ) {
+	public function testCanGetImportDetails( SourceUrl $sourceUrl, array $knownSites, bool $expected ) {
 		$checker = $this->getSiteTableSourceUrlChecker( $knownSites );
 		$this->assertSame( $expected, $checker->checkSourceUrl( $sourceUrl ) );
 	}

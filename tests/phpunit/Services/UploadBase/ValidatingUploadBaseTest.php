@@ -37,7 +37,7 @@ class ValidatingUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideValidateTitle
 	 */
-	public function testValidateTitle( LinkTarget $linkTarget, $expected ) {
+	public function testValidateTitle( LinkTarget $linkTarget, int $expected ) {
 		$base = new ValidatingUploadBase(
 			$linkTarget,
 			''

@@ -18,7 +18,7 @@ class TextRevisionsTest extends \MediaWikiUnitTestCase {
 	 *
 	 * @return TextRevision
 	 */
-	private function newTextRevision( $timestamp = '' ): TextRevision {
+	private function newTextRevision( string $timestamp = '' ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
 			->with( 'timestamp' )
@@ -55,7 +55,7 @@ class TextRevisionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideLatestTextRevision
 	 */
-	public function testGetLatest( array $revisions, $expected ) {
+	public function testGetLatest( array $revisions, TextRevision $expected ) {
 		$instance = new TextRevisions( $revisions );
 		$this->assertSame( $expected, $instance->getLatest() );
 	}

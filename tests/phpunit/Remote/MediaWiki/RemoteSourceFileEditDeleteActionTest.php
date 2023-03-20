@@ -151,7 +151,12 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		$this->assertTrue( $status->hasMessage( 'fileimporter-delete-failed' ) );
 	}
 
-	private function createImportPlanMock( $autoCleanup, $autoDelete, $url, $host = '' ) {
+	private function createImportPlanMock(
+		bool $autoCleanup,
+		bool $autoDelete,
+		string $url,
+		string $host = ''
+	): ImportPlan {
 		$mockTitle = $this->createMock( Title::class );
 		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'TestTitle' );
