@@ -6,5 +6,7 @@
 	},
 	"fileimporter-desc": "ఇతర సైట్ల నుండి తేలిగ్గా దిగుమతులు చేసుకోవడం",
 	"fileimporter-exampleprefix": "ఉదాహరణ",
-	"fileimporter-submit": "పంపించు"
+	"fileimporter-submit": "పంపించు",
+	"fileimporter-cleanup-summary": "ఈ దస్త్రం ఇప్పుడు {{SITENAME}} లో $1 వద్ద ఉంది (FileImporter తో తరలించారు).",
+	"fileimporter-delete-summary": "ఈ దస్త్రం ఇప్పుడు {{SITENAME}} లో $1 వద్ద ఉంది (FileImporter తో తరలించారు)."
 }
