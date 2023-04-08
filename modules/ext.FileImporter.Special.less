@@ -1,4 +1,4 @@
-@import 'mediawiki.ui/variables';
+@import 'mediawiki.skin.variables.less';
 
 .mw-fileimporter-url-submit,
 .mw-importfile-backButton {
@@ -12,19 +12,19 @@
 // Mostly copied from the .editOptions styles, see …/mediawiki.action/mediawiki.action.edit.styles.less
 .mw-importfile-parsedContent,
 .mw-importfile-importOptions {
-	background-color: @colorGray14;
-	border: 1px solid @colorGray12;
+	background-color: #eaecf0;
+	border: @border-width-base @border-style-base @border-color-subtle;
 	border-radius: @border-radius-base;
 	margin-top: 1em;
 	padding: 1em 1em 1.5em 1em;
 }
 
 .mw-importfile-parsedContent {
-	background-color: @colorGray15;
+	background-color: #f8f9fa;
 }
 
 .mw-importfile-header {
-	border-bottom: 1px solid @colorGray10;
+	border-bottom: @border-width-base @border-style-base @border-color-base;
 	margin: 1em 0 0.25em 0;
 	overflow: auto;
 	padding-bottom: 0.2em;
@@ -46,7 +46,7 @@
 }
 
 .mw-importfile-help-banner {
-	margin-bottom: 40px;
+	margin-bottom: @spacing-250;
 
 	span.oo-ui-labelElement-label {
 		display: flex;
@@ -70,13 +70,13 @@
 	.mw-importfile-image-help-banner {
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: 100%;
-		margin: 0 32px;
+		background-size: @size-full;
+		margin: 0 @spacing-200;
 		min-width: 250px;
 	}
 
 	.oo-ui-icon-close {
-		cursor: pointer;
+		cursor: @cursor-base--hover;
 	}
 
 	input[ type='checkbox' ] {
