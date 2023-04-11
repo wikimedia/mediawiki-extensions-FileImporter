@@ -20,7 +20,18 @@
 }
 
 .mw-importfile-parsedContent {
+	// Same as .catlinks
 	background-color: #f8f9fa;
+
+	.mw-parser-output {
+		> :first-child {
+			margin-top: 0;
+		}
+
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
 }
 
 .mw-importfile-header {
@@ -29,14 +40,14 @@
 	overflow: auto;
 	padding-bottom: 0.2em;
 	position: relative;
-}
 
-.mw-body-content .mw-importfile-header-title {
-	border: 0;
-	bottom: 0;
-	display: inline-block;
-	margin: 0;
-	position: absolute;
+	h2 {
+		border: 0;
+		bottom: 0;
+		display: inline-block;
+		margin: 0;
+		position: absolute;
+	}
 }
 
 .mw-importfile-rightAlign {
@@ -53,11 +64,13 @@
 	}
 
 	.mw-importfile-help-banner-text {
-		p:first-child {
+		flex-grow: 1;
+
+		:first-child {
 			margin-top: 0;
 		}
 
-		p:last-child {
+		:last-child {
 			margin-bottom: 0;
 		}
 
