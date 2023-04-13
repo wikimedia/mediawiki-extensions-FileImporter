@@ -95,9 +95,11 @@ class ValidatingUploadBase extends UploadBase {
 			] );
 		}
 
-		// @phan-suppress-next-line PhanImpossibleCondition May set by hook
+		'@phan-var array|MessageSpecifier|null $error';
 		if ( $error ) {
-			// @phan-suppress-next-line PhanParamTooFewUnpack
+			if ( !is_array( $error ) ) {
+				$error = [ $error ];
+			}
 			return StatusValue::newFatal( ...$error );
 		}
 
