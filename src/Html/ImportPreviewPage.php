@@ -67,7 +67,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			[ 'class' => 'mw-importfile-header' ],
 			Html::element(
 				'h2',
-				[ 'class' => 'mw-importfile-header-title' ],
+				[],
 				$title->getText()
 			) .
 			new ButtonInputWidget(
@@ -86,7 +86,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			[ 'class' => 'mw-importfile-header' ],
 			Html::element(
 				'h2',
-				[ 'class' => 'mw-importfile-header-title' ],
+				[],
 				$this->msg( 'fileimporter-heading-fileinfo' )->plain()
 			) .
 			new ButtonInputWidget(

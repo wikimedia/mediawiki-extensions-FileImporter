@@ -186,7 +186,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'Chicken In Snow'
 					);
 					$this->assertStringContainsString(
-						'<h2 class="mw-importfile-header-title">Chicken In Snow.JPG</h2>',
+						'<h2>Chicken In Snow.JPG</h2>',
 						$html
 					);
 				},
@@ -209,7 +209,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						'Chicken In Snow CHANGED'
 					);
 					$this->assertStringContainsString(
-						'<h2 class="mw-importfile-header-title">Chicken In Snow CHANGED.JPG</h2>',
+						'<h2>Chicken In Snow CHANGED.JPG</h2>',
 						$html
 					);
 				},
