@@ -5,7 +5,7 @@ namespace FileImporter\Services;
 use Content;
 use DerivativeContext;
 use FauxRequest;
-use Hooks;
+use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Status;
 use StatusValue;
@@ -52,7 +52,7 @@ class FileTextRevisionValidator {
 		$this->context->setUser( $user );
 		$this->context->setTitle( $title );
 
-		Hooks::run( 'EditFilterMergedContent', [
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'EditFilterMergedContent', [
 			$this->context,
 			$content,
 			$status,
