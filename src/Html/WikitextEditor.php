@@ -57,7 +57,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 		);
 		$editPage->setContextTitle( $filePage );
 
-		\Hooks::run( 'EditPage::showEditForm:initial',
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'EditPage::showEditForm:initial',
 			[ &$editPage, $this->getOutput() ]
 		);
 	}
