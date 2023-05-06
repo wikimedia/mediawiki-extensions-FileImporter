@@ -2,12 +2,12 @@
 
 namespace FileImporter\Html;
 
-use EditPage;
 use ExtensionRegistry;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Services\CategoryExtractor;
 use Html;
 use Linker;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 use OOUI\ButtonInputWidget;

@@ -53,7 +53,7 @@ class ImportRequest {
 
 		if ( $intendedText !== null ) {
 			/**
-			 * White spaces and carriage returns are trimmed (inline with EditPage) so that we can
+			 * White spaces and carriage returns are trimmed (inline with \MediaWiki\EditPage\EditPage) so that we can
 			 * actually detect if the text to be saved has changed at all.
 			 */
 			// TODO: This is identical to TextContent::normalizeLineEndings(). Just call that?

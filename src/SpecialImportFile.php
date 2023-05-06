@@ -3,7 +3,6 @@
 namespace FileImporter;
 
 use Config;
-use EditPage;
 use ErrorPageError;
 use Exception;
 use ExtensionRegistry;
@@ -33,6 +32,7 @@ use Html;
 use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\Extension\GlobalBlocking\GlobalBlocking;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\User\UserOptionsManager;

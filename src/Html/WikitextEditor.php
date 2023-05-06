@@ -2,8 +2,8 @@
 
 namespace FileImporter\Html;
 
-use EditPage;
 use Html;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
 use MutableContext;
 use Title;
