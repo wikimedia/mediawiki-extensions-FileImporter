@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ella Lachow"
+		]
+	},
+	"fileimporter-submit": "Shiishsha",
+	"fileimporter-submit-fileinfo": "Fayiliyaa qonccissota laamma",
+	"fileimporter-submit-title": "Huuphe yohuwaa laamma",
+	"fileimporter-resubmit": "Zaara shiishsha",
+	"fileimporter-import": "Gelissa",
+	"fileimporter-cancel": "qucca",
+	"fileimporter-edittitle": "Huuphe yohuwaa goyida",
+	"fileimporter-editinfo": "Fayiliyaa qonccissota goyida",
+	"fileimporter-extensionlabel": "Fayiliyaa Aasettaa:",
+	"fileimporter-newfilename": "Ooratta fayiliyaa sunttaa:",
+	"fileimporter-editsummary": "Giigissuwaa kuuyettaa"
+}
