@@ -6,12 +6,13 @@
 			"Meno25",
 			"TMg",
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Alshamiri1"
 		]
 	},
 	"fileimporter": "مستورد ملفات",
 	"fileimporter-desc": "سهولة استيراد الملفات من المواقع الأخرى",
-	"fileimporter-help-banner-text": "'''الاستيراد من مواقع الويكي الأخرى'''\n# تحقق من عنوان الملف والمعلومات أدناه وحررها.\n# اختر ما إذا كنت ترغب في أن يقوم FileImporter بترتيب موقع wiki الأصلي عن طريق إضافة [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] إلى الملف المصدر. (إذا كانت لديك حقوق المسؤول ، فلديك أيضًا خيار حذف الملف المصدر.)\n# انقر '''{{int: fileimporter-import}}''' لنسخ الملف إلى {{SITENAME}}.\n\nللحصول على معلومات الترخيص ، يرجى مراجعة {{SITENAME}} [[Project:Licensing|سياسة المجتمع]].<br /> لمزيد من الإرشادات التفصيلية حول كيفية استخدام FileImporter ، راجع [//www.mediawiki.org/wiki/Help:Extension:FileImporter Help Page].\n\nإذا كان لديك أي ملاحظات لتحسين FileImporter ، فالرجاء ترك قم بالتعليق على [//www.mediawiki.org/wiki/Extension_talk:FileImporter صفحة النقاش].",
+	"fileimporter-help-banner-text": "'' 'الاستيراد من مواقع الويكي الأخرى' ''! N! # تحقق من عنوان الملف والمعلومات أدناه وحررها.! N! # اختر ما إذا كنت ترغب في أن يقوم FileImporter بترتيب موقع wiki الأصلي عن طريق إضافة [//en.wikipedia. org / wiki / Template: Now_Commons NowCommons] إلى الملف المصدر. (إذا كانت لديك حقوق المسؤول ، فلديك أيضًا خيار حذف الملف المصدر.)! N! # انقر '' '{{int: fileimporter-import}}' 'لنسخ الملف إلى {{SITENAME}}. ! N !! N! للحصول على معلومات الترخيص ، يرجى مراجعة {{SITENAME}} [[المشروع: الترخيص | سياسة المجتمع]].<br /> لمزيد من الإرشادات التفصيلية حول كيفية استخدام FileImporter ، راجع [//www.mediawiki.org/wiki/Help:Extension:FileImporter Help Page].",
 	"fileimporter-help-banner-close-tooltip": "لا تظهر هذه الرسالة مرة أخرى",
 	"tag-fileimporter": "تم التعديل بواسطة مستورد الملفات",
 	"tag-fileimporter-description": "المراجعات ورسائل السجل المضافة بعد الاستيراد من ويكي آخر",

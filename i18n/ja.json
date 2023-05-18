@@ -6,7 +6,8 @@
 			"Otokoume",
 			"しぃ",
 			"つぶあん派",
-			"春春眠眠"
+			"春春眠眠",
+			"Shirayuki"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -14,12 +15,12 @@
 	"tag-fileimporter": "FileImporterによる修正",
 	"tag-fileimporter-description": "履歴と記録のメッセージは他のウィキからインポートした後に追加されます。",
 	"tag-fileimporter-imported": "FileImporterによるインポート",
-	"tag-fileimporter-imported-description": "履歴は他のウィキからインポートしました",
+	"tag-fileimporter-imported-description": "別のウィキからからインポートされた版",
 	"fileimporter-specialpage": "ファイルのインポート",
 	"fileimporter-importfailed": "インポートに失敗しました",
 	"fileimporter-api-badinfo": "画像または版情報が正しくありません。",
 	"fileimporter-api-failedtogetinfo": "次のページからファイルの情報を取得するのに失敗しました: $1",
-	"fileimporter-api-toomanyrevisions": "APIによって大量の履歴が検出されたため、インポートできません。",
+	"fileimporter-api-toomanyrevisions": "API によって大量の版が検出されたため、インポートできません。",
 	"fileimporter-api-file-notfound": "ファイルが見つかりませんでした: $1",
 	"fileimporter-api-failedtofindapi": "次のURLからAPIのロケーションを見つけるのに失敗しました: $1。$2 $3",
 	"fileimporter-http-statuscode": "HTTP ステータスコード $1",
@@ -27,7 +28,7 @@
 	"fileimporter-cantimporturl": "指定された URL をインポートできません",
 	"fileimporter-cantimportfromsharedrepo": "$1上にファイルがないため、共有リポジトリ上でホストされているファイルをインポートすることはできません。",
 	"fileimporter-cantimportmissingfile": "消失したファイルはインポートできません。",
-	"fileimporter-cantimportfilehidden": "ファイルのリビジョンのうち、少なくとも1つが非表示になっているため、ファイルを読み込めません。",
+	"fileimporter-cantimportfilehidden": "ファイルの版のうち、少なくとも 1 つが非表示になっているため、ファイルを読み込めません。",
 	"fileimporter-badtoken": "あなたのセッションは現在有効ではありません。インポートを再開してください。",
 	"fileimporter-badimporthash": "インポートハッシュが一致しません。最初からやり直してみてください。",
 	"fileimporter-filenameerror-default": "ファイル名に関する不明な問題があります。",
