@@ -3,6 +3,7 @@
 namespace FileImporter\Tests\Services;
 
 use FileImporter\Services\FileTextRevisionValidator;
+use MediaWiki\Language\RawMessage;
 
 /**
  * @covers \FileImporter\Services\FileTextRevisionValidator
@@ -68,7 +69,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 				$this->assertTrue( $minor );
 
 				// This is the way AbuseFilter communicates with the caller
-				$status->warning( new \RawMessage( '<RAW>' ) );
+				$status->warning( new RawMessage( '<RAW>' ) );
 			}
 		);
 

@@ -9,6 +9,7 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
 use HamcrestPHPUnitIntegration;
+use MediaWiki\Language\RawMessage;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use RequestContext;
@@ -38,7 +39,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 	private function getMockSpecialPage(): SpecialPage {
 		$context = $this->createMock( RequestContext::class );
 		$context->method( 'msg' )
-			->willReturn( new \RawMessage( '' ) );
+			->willReturn( new RawMessage( '' ) );
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )

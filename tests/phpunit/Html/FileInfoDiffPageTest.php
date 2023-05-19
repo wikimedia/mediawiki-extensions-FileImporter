@@ -13,6 +13,7 @@ use FileImporter\Html\FileInfoDiffPage;
 use HashConfig;
 use IContextSource;
 use Language;
+use MediaWiki\Language\RawMessage;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
@@ -55,7 +56,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 		$mock->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
 		$mock->method( 'msg' )
-			->willReturn( new \RawMessage( '' ) );
+			->willReturn( new RawMessage( '' ) );
 		return $mock;
 	}
 

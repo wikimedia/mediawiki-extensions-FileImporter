@@ -12,6 +12,7 @@ use FileImporter\Html\ChangeFileInfoForm;
 use HamcrestPHPUnitIntegration;
 use HashConfig;
 use Language;
+use MediaWiki\Language\RawMessage;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
@@ -61,7 +62,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 		$context->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
 		$context->method( 'msg' )
-			->willReturn( new \RawMessage( '' ) );
+			->willReturn( new RawMessage( '' ) );
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )

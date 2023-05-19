@@ -3,7 +3,7 @@
 namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Exceptions\AbuseFilterWarningsException;
-use RawMessage;
+use MediaWiki\Language\RawMessage;
 
 /**
  * @covers \FileImporter\Exceptions\AbuseFilterWarningsException
