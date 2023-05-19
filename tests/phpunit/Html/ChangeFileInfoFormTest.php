@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Html;
 
-use FauxRequest;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
@@ -13,6 +12,7 @@ use HamcrestPHPUnitIntegration;
 use HashConfig;
 use Language;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\Request\FauxRequest;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;

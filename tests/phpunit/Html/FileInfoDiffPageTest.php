@@ -3,7 +3,6 @@
 namespace FileImporter\Tests\Html;
 
 use DerivativeContext;
-use FauxRequest;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
@@ -14,6 +13,7 @@ use HashConfig;
 use IContextSource;
 use Language;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\Request\FauxRequest;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;

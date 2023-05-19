@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests;
 
-use FauxRequest;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
@@ -14,6 +13,7 @@ use FileImporter\Services\SourceSiteLocator;
 use FileImporter\SpecialImportFile;
 use Liuggio\StatsdClient\Factory\StatsdDataFactory;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\Request\FauxRequest;
 use MediaWiki\Session\CsrfTokenSet;
 use MediaWiki\Session\CsrfTokenSetProvider;
 use OOUI\BlankTheme;

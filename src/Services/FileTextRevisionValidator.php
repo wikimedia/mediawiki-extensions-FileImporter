@@ -4,8 +4,8 @@ namespace FileImporter\Services;
 
 use Content;
 use DerivativeContext;
-use FauxRequest;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\FauxRequest;
 use RequestContext;
 use Status;
 use StatusValue;

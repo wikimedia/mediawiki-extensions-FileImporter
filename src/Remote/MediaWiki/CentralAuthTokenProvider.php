@@ -4,7 +4,7 @@ namespace FileImporter\Remote\MediaWiki;
 
 use ApiMain;
 use ApiUsageException;
-use FauxRequest;
+use MediaWiki\Request\FauxRequest;
 use RequestContext;
 use RuntimeException;
 use User;

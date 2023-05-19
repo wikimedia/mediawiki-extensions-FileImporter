@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests;
 
-use FauxRequest;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
@@ -12,6 +11,7 @@ use HamcrestPHPUnitIntegration;
 use HashSiteStore;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
+use MediaWiki\Request\FauxRequest;
 use MediaWiki\User\UserOptionsManager;
 use MWHttpRequest;
 use PermissionsError;
