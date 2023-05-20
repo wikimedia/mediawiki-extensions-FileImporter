@@ -13,7 +13,7 @@ use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
  */
 class AnyMediaWikiFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideTestCheck() {
+	public static function provideTestCheck() {
 		return [
 			[ 'https://en.wikipedia.org/wiki/File:Foo.png', true ],
 			[ 'https://en.wikipedia.org/wiki/File:Foo.png#Bar', true ],

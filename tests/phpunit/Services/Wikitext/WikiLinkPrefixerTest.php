@@ -14,7 +14,7 @@ use TitleValue;
  */
 class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideLinks() {
+	public static function provideLinks() {
 		return [
 			// No-op when no prefix given
 			[ '', '', '' ],

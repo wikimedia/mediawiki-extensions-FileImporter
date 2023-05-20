@@ -14,7 +14,7 @@ use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
  */
 class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideCommonsHelperConfig() {
+	public static function provideCommonsHelperConfig() {
 		return [
 			'empty' => [
 				'wikitext' => '',
@@ -302,7 +302,7 @@ WIKITEXT
 		$this->assertEquals( $expected, $parser->getWikitextConversions() );
 	}
 
-	public function provideTransferRules() {
+	public static function provideTransferRules() {
 		return [
 			'empty' => [
 				'wikitext' => '',

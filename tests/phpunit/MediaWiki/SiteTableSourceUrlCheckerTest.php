@@ -35,7 +35,7 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function provideCheckSourceUrl() {
+	public static function provideCheckSourceUrl() {
 		return [
 			'bad target & known site' => [
 				new SourceUrl( 'http://en.wikipedia.org' ),

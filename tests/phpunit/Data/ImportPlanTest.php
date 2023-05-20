@@ -120,7 +120,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( 'EXT', $plan->getFileExtension() );
 	}
 
-	public function provideTexts() {
+	public static function provideTexts() {
 		return [
 			[ 'Some Text', 'Some Text', null, '', '', 'Some Text', false ],
 			[ 'Some Text', 'Some Text', 'Some Other Text', '', '', 'Some Other Text', true ],

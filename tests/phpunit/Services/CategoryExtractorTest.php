@@ -35,7 +35,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->wikiPageFactory = $this->services->getWikiPageFactory();
 	}
 
-	public function provideCategories() {
+	public static function provideCategories() {
 		yield [
 			[], [], []
 		];

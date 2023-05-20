@@ -14,7 +14,7 @@ use FileImporter\Services\WikimediaSourceUrlNormalizer;
  */
 class WikimediaSourceUrlNormalizerTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideUrls() {
+	public static function provideUrls() {
 		return [
 			// Intended normalizations
 			[ 'https://de.m.wikipedia.org/wiki/File:X.svg', 'https://de.wikipedia.org/wiki/File:X.svg' ],

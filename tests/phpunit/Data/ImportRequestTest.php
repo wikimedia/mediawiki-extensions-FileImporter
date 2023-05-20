@@ -29,7 +29,7 @@ class ImportRequestTest extends \PHPUnit\Framework\TestCase {
 		new ImportRequest( 'invalid' );
 	}
 
-	public function provideTestRemoveTrailingWhitespacesInText() {
+	public static function provideTestRemoveTrailingWhitespacesInText() {
 		return [
 			[ 'Some Input Text', 'Some Input Text' ],
 			[ 'Some Input Text ', 'Some Input Text' ],

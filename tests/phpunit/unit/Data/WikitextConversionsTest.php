@@ -35,7 +35,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( 'b', $conversions->swapHeading( 'a' ) );
 	}
 
-	public function provideCaseInsensitivePageNames() {
+	public static function provideCaseInsensitivePageNames() {
 		return [
 			[ 'Not equal to empty string', '', false ],
 			[ '', 'Not equal to empty string', false ],
@@ -59,7 +59,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $conversions->isTemplateGood( $requested ) );
 	}
 
-	public function provideHasGoodTemplates() {
+	public static function provideHasGoodTemplates() {
 		return [
 			[ [], false ],
 			[ [ 'Good' ], true ]
@@ -103,7 +103,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 		$this->assertTrue( $conversions->isObsoleteTemplate( 'л г_и' ) );
 	}
 
-	public function provideTemplateReplacements() {
+	public static function provideTemplateReplacements() {
 		return [
 			'empty' => [ [], 'a', false ],
 			'no substring matching' => [ [ 'a' => 'b' ], 'aa', false ],
@@ -126,7 +126,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $conversions->swapTemplate( $requested ) );
 	}
 
-	public function provideTemplateParameterReplacements() {
+	public static function provideTemplateParameterReplacements() {
 		return [
 			'empty' => [
 				[],
@@ -179,7 +179,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $conversions->getTemplateParameters( 's' ) );
 	}
 
-	public function provideRequiredTemplateParameters() {
+	public static function provideRequiredTemplateParameters() {
 		return [
 			'empty' => [
 				[],

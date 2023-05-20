@@ -21,12 +21,12 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	public function testValueObject() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'PATH/FILENAME.EXT' );
-		$textRevisions = new TextRevisions( [ $this->createTextRevision() ] );
+		$textRevisions = new TextRevisions( [ self::createTextRevision() ] );
 
 		$fileRevisions = $this->createMock( FileRevisions::class );
 		$fileRevisions->method( 'toArray' )->willReturn( [] );
 		$fileRevisions->method( 'getLatest' )
-			->willReturn( $this->createFileRevision( [ 'thumburl' => 'IMAGEDISPLAYURL' ] ) );
+			->willReturn( self::createFileRevision( [ 'thumburl' => 'IMAGEDISPLAYURL' ] ) );
 
 		$details = new ImportDetails(
 			$sourceUrl,
@@ -49,7 +49,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testSetters() {
-		$details = $this->minimalImportDetails();
+		$details = self::minimalImportDetails();
 
 		$this->assertNull( $details->getPageLanguage() );
 		$this->assertSame( [], $details->getTemplates() );
@@ -65,12 +65,12 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testMissingExtension() {
-		$this->assertSame( '', $this->minimalImportDetails()->getSourceFileExtension() );
+		$this->assertSame( '', self::minimalImportDetails()->getSourceFileExtension() );
 	}
 
 	public function testInvalidFileRevisionTimestamp() {
 		$this->expectException( \LogicException::class );
-		$this->minimalImportDetails()->getImageDisplayUrl();
+		self::minimalImportDetails()->getImageDisplayUrl();
 	}
 
 	/**
@@ -80,8 +80,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $original->getOriginalHash(), $other->getOriginalHash() );
 	}
 
-	public function provideSameHashes() {
-		$original = $this->minimalImportDetails();
+	public static function provideSameHashes() {
+		$original = self::minimalImportDetails();
 
 		yield 'same' => [ $original, $original ];
 	}
@@ -93,11 +93,11 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertNotSame( $original->getOriginalHash(), $other->getOriginalHash() );
 	}
 
-	public function provideNotSameHashes() {
+	public static function provideNotSameHashes() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, 'FILE' );
-		$textRevisions = new TextRevisions( [ $this->createTextRevision() ] );
-		$fileRevisions = new FileRevisions( [ $this->createFileRevision() ] );
+		$textRevisions = new TextRevisions( [ self::createTextRevision() ] );
+		$fileRevisions = new FileRevisions( [ self::createFileRevision() ] );
 
 		$original = new ImportDetails(
 			$sourceUrl,
@@ -132,8 +132,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				$sourceUrl,
 				$sourceLinkTarget,
 				new TextRevisions( [
-					$this->createTextRevision(),
-					$this->createTextRevision(),
+					self::createTextRevision(),
+					self::createTextRevision(),
 				] ),
 				$fileRevisions
 			)
@@ -146,8 +146,8 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				$sourceLinkTarget,
 				$textRevisions,
 				new FileRevisions( [
-					$this->createFileRevision(),
-					$this->createFileRevision(),
+					self::createFileRevision(),
+					self::createFileRevision(),
 				] )
 			)
 		];
@@ -157,7 +157,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 			new ImportDetails(
 				$sourceUrl,
 				$sourceLinkTarget,
-				new TextRevisions( [ $this->createTextRevision( [ 'sha1' => 'OTHER' ] ) ] ),
+				new TextRevisions( [ self::createTextRevision( [ 'sha1' => 'OTHER' ] ) ] ),
 				$fileRevisions
 			)
 		];
@@ -168,17 +168,17 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				$sourceUrl,
 				$sourceLinkTarget,
 				$textRevisions,
-				new FileRevisions( [ $this->createFileRevision( [ 'sha1' => 'OTHER' ] ) ] )
+				new FileRevisions( [ self::createFileRevision( [ 'sha1' => 'OTHER' ] ) ] )
 			)
 		];
 	}
 
-	private function minimalImportDetails(): ImportDetails {
+	private static function minimalImportDetails(): ImportDetails {
 		return new ImportDetails(
 			new SourceUrl( '//SOURCE.URL' ),
 			new TitleValue( NS_FILE, 'FILE' ),
-			new TextRevisions( [ $this->createTextRevision() ] ),
-			new FileRevisions( [ $this->createFileRevision() ] )
+			new TextRevisions( [ self::createTextRevision() ] ),
+			new FileRevisions( [ self::createFileRevision() ] )
 		);
 	}
 
@@ -186,7 +186,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	 * @param array $fields
 	 * @return FileRevision
 	 */
-	private function createFileRevision( array $fields = [] ): FileRevision {
+	private static function createFileRevision( array $fields = [] ): FileRevision {
 		return new FileRevision(
 			$fields + [
 				'name' => '',
@@ -204,7 +204,7 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 	 * @param array $fields
 	 * @return TextRevision
 	 */
-	private function createTextRevision( array $fields = [] ): TextRevision {
+	private static function createTextRevision( array $fields = [] ): TextRevision {
 		return new TextRevision(
 			$fields + [
 				'minor' => false,

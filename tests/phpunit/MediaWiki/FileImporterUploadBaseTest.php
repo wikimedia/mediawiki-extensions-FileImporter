@@ -3,6 +3,7 @@
 namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
+use PHPUnit\Framework\Assert;
 use TitleValue;
 use UploadBase;
 
@@ -20,7 +21,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		$this->setMwGlobals( 'wgProhibitedFileExtensions', [ 'jpg' ] );
 	}
 
-	public function providePerformTitleChecks() {
+	public static function providePerformTitleChecks() {
 		return [
 			'fileNameTooLongValidJPEG' =>
 				[ str_repeat( 'a', 237 ) . '.jpg', UploadBase::FILENAME_TOO_LONG ],
@@ -40,19 +41,19 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected, $base->validateTitle() );
 	}
 
-	public function providePerformFileChecks() {
-		$this->skipTestIfImageFunctionsMissing();
+	public static function providePerformFileChecks() {
+		self::skipTestIfImageFunctionsMissing();
 
 		return [
 			// File vs title checks
-			'validPNG' => [ 'Foo.png', $this->getGetImagePath( 'imagepng' ), true, null ],
-			'validGIF' => [ 'Foo.gif', $this->getGetImagePath( 'imagegif' ), true, null ],
-			'validJPEG' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagejpeg' ), true, null ],
-			'PNGwithBadExtension' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagepng' ),
+			'validPNG' => [ 'Foo.png', self::getGetImagePath( 'imagepng' ), true, null ],
+			'validGIF' => [ 'Foo.gif', self::getGetImagePath( 'imagegif' ), true, null ],
+			'validJPEG' => [ 'Foo.jpeg', self::getGetImagePath( 'imagejpeg' ), true, null ],
+			'PNGwithBadExtension' => [ 'Foo.jpeg', self::getGetImagePath( 'imagepng' ),
 				false, 'filetype-mime-mismatch' ],
-			'GIFwithBadExtension' => [ 'Foo.jpeg', $this->getGetImagePath( 'imagegif' ),
+			'GIFwithBadExtension' => [ 'Foo.jpeg', self::getGetImagePath( 'imagegif' ),
 				false, 'filetype-mime-mismatch' ],
-			'JPEGwithBadExtension' => [ 'Foo.gif', $this->getGetImagePath( 'imagejpeg' ),
+			'JPEGwithBadExtension' => [ 'Foo.gif', self::getGetImagePath( 'imagejpeg' ),
 				false, 'filetype-mime-mismatch' ],
 		];
 	}
@@ -79,13 +80,13 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		unlink( $tempPath );
 	}
 
-	private function skipTestIfImageFunctionsMissing(): void {
+	private static function skipTestIfImageFunctionsMissing(): void {
 		if (
 			!function_exists( 'imagejpeg' ) ||
 			!function_exists( 'imagepng' ) ||
 			!function_exists( 'imagegif' )
 		) {
-			$this->markTestSkipped( 'image* functions required for this test.' );
+			Assert::markTestSkipped( 'image* functions required for this test.' );
 		}
 	}
 
@@ -94,7 +95,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return string tmp image file path
 	 */
-	private function getGetImagePath( string $saveMethod ): string {
+	private static function getGetImagePath( string $saveMethod ): string {
 		$tmpPath = tempnam( sys_get_temp_dir(), __CLASS__ );
 		$im = imagecreate( 100, 100 );
 		imagecolorallocate( $im, 0, 0, 0 );

@@ -14,7 +14,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  */
 class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 
-	public function provideSourceUrls() {
+	public static function provideSourceUrls() {
 		return [
 			[ '//de.wikipedia.org/wiki/Example.svg', 'Data_de.wikipedia' ],
 			[ '//en.MediaWiki.org', 'Data_en.mediawiki' ],
@@ -76,7 +76,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( '<WIKITEXT>', $retriever->getConfigWikitext() );
 	}
 
-	public function provideMissingResponses() {
+	public static function provideMissingResponses() {
 		return [
 			[ [], ],
 			[ [ 'query' => [], ], ],

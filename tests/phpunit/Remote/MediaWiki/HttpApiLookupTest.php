@@ -40,7 +40,7 @@ class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $url1, $url2, 'second call' );
 	}
 
-	public function provideHttpRequestErrors() {
+	public static function provideHttpRequestErrors() {
 		return [
 			[ 404, 'File not found: //source.url.' ],
 			[ 200, 'Failed to discover API location from: //source.url.  ⧼error-message⧽' ],

@@ -13,7 +13,7 @@ use FileImporter\Services\Wikitext\WikitextContentCleaner;
  */
 class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 
-	public function provideTemplateRemovals() {
+	public static function provideTemplateRemovals() {
 		return [
 			'empty' => [
 				'removals' => [],
@@ -74,7 +74,7 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 
-	public function provideTemplateReplacements() {
+	public static function provideTemplateReplacements() {
 		return [
 			'nothing to do' => [
 				'replacements' => [ 'here' => 'there' ],
@@ -346,7 +346,7 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( $expectedCount, $cleaner->getLatestNumberOfReplacements() );
 	}
 
-	public function provideHeadingReplacements() {
+	public static function provideHeadingReplacements() {
 		return [
 			[ '==Description==', '=={{int:filedesc}}==' ],
 			[ '==Licensing==', '=={{int:license-header}}==' ],

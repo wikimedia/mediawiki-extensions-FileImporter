@@ -23,7 +23,7 @@ class ValidatingUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		] );
 	}
 
-	public function provideValidateTitle() {
+	public static function provideValidateTitle() {
 		return [
 			'valid title' =>
 				[ new TitleValue( NS_FILE, 'ValidTitle.JPG' ), UploadBase::OK ],

@@ -21,7 +21,7 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 	private const URL = 'http://w.invalid';
 	private const TITLE = 'FilePageTitle';
 
-	public function provideExecute() {
+	public static function provideExecute() {
 		yield [ 'TestTemplate', 'fileimporter-add-specific-template' ];
 		yield [ null, 'fileimporter-add-unknown-template' ];
 	}

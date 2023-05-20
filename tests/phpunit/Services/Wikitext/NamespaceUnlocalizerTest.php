@@ -12,7 +12,7 @@ use FileImporter\Services\Wikitext\NamespaceUnlocalizer;
  */
 class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideLinks() {
+	public static function provideLinks() {
 		return [
 			// Nothing to do
 			[ '', '' ],

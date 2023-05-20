@@ -32,10 +32,10 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	private const TEST_FILE_SRC = __DIR__ . '/../res/testfile.png';
 	private const TITLE = 'Test-29e7a6ff58c5eb980fc0642a13b59csb9c5a3cf55.png';
 
-	public function provideTestNewFileRevisionFromRemoteUrl() {
+	public static function provideTestNewFileRevisionFromRemoteUrl() {
 		return [
 			[ null ],
-			[ $this->newTextRevision() ],
+			[ self::newTextRevision() ],
 		];
 	}
 
@@ -142,7 +142,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$title,
 			$this->getTestUser()->getUser(),
 			$this->newFileRevision( 'http://example.com/Test.png' ),
-			$this->newTextRevision(),
+			self::newTextRevision(),
 			$userLookup,
 			$this->createMock( HttpRequestExecutor::class ),
 			$this->newWikiRevisionFactory(),
@@ -188,7 +188,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		] );
 	}
 
-	private function newTextRevision(): TextRevision {
+	private static function newTextRevision(): TextRevision {
 		return new TextRevision( [
 			'minor' => '',
 			'user' => '',

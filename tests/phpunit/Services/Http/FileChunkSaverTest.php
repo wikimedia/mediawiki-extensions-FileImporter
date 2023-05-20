@@ -14,7 +14,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class FileChunkSaverTest extends \MediaWikiIntegrationTestCase {
 
-	public function provideSaveFileChunk() {
+	public static function provideSaveFileChunk() {
 		return [
 			'save less bytes then allowed' =>
 				[ str_repeat( 'x', 10 ), 20, 10 ],

@@ -13,7 +13,7 @@ use FileImporter\Exceptions\InvalidArgumentException;
  */
 class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideInvalidConstruction() {
+	public static function provideInvalidConstruction() {
 		return [
 			[ 'foooooooo' ],
 		];
@@ -27,7 +27,7 @@ class SourceUrlTest extends \PHPUnit\Framework\TestCase {
 		new SourceUrl( $input );
 	}
 
-	public function provideValidConstruction() {
+	public static function provideValidConstruction() {
 		return [
 			[
 				'https://en.wikipedia.org/wiki/File:Foo.jpg',

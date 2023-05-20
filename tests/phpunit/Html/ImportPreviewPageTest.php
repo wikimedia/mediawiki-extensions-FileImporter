@@ -43,7 +43,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function providePlanContent() {
+	public static function providePlanContent() {
 		yield [ self::INITIAL_TEXT, 0 ];
 		yield [ self::INITIAL_TEXT, 1 ];
 		yield [ 'Bar', 0 ];

@@ -93,7 +93,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 		return $specialImportFileMock;
 	}
 
-	public function provideSpecialPageDoImportTest() {
+	public static function provideSpecialPageDoImportTest() {
 		return [
 			'wrong edit token will return false' =>
 			[

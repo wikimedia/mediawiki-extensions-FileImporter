@@ -30,7 +30,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		] );
 	}
 
-	public function provideSourceUrls() {
+	public static function provideSourceUrls() {
 		return [
 			[ 'http://w.wiki', null ],
 			[ 'http://w.wiki/', null ],
@@ -81,7 +81,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$apiRetriever->checkMaxRevisionAggregatedBytes( [ 'imageinfo' => [ [ 'size' => 1000 ] ] ] );
 	}
 
-	public function provideTestCheckMaxRevisionAggregatedBytes_passes() {
+	public static function provideTestCheckMaxRevisionAggregatedBytes_passes() {
 		return [
 			'one byte' => [
 				[ 'imageinfo' => [ [ 'size' => 1 ] ] ]
@@ -111,7 +111,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function provideTestCheckMaxRevisionAggregatedBytes_fails() {
+	public static function provideTestCheckMaxRevisionAggregatedBytes_fails() {
 		return [
 			'small sizes, to large when added' => [
 				[
@@ -138,7 +138,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$apiRetriever->checkMaxRevisionAggregatedBytes( $input );
 	}
 
-	public function provideCheckRevisionCount_fails() {
+	public static function provideCheckRevisionCount_fails() {
 		return [
 			'to many image revisions' => [
 				[
@@ -169,7 +169,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function provideCheckRevisionCount_passes() {
+	public static function provideCheckRevisionCount_passes() {
 		return [
 			'no revisions' => [
 				[
@@ -200,7 +200,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function provideGetMoreRevisions_passes() {
+	public static function provideGetMoreRevisions_passes() {
 		return [
 			'1st request continues' => [
 				'existingData' => [
@@ -353,7 +353,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected['data'], $existingData['pageInfoData'] );
 	}
 
-	public function provideTestInvalidResponse() {
+	public static function provideTestInvalidResponse() {
 		return [
 			[
 				[ 'query' => [ 'pages' => [] ] ],
@@ -390,12 +390,12 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$service->getImportDetails( new SourceUrl( 'http://foo.bar/wiki/File:Foo.jpg' ) );
 	}
 
-	public function provideTestValidResponse() {
+	public static function provideTestValidResponse() {
 		return [
 			[
 				new SourceUrl( 'http://en.wikipedia.org/wiki/File:Foo.png' ),
 				'File:Foo.png',
-				json_encode( $this->getFullRequestContent( 'File:Foo.png' ) ),
+				json_encode( self::getFullRequestContent( 'File:Foo.png' ) ),
 				[
 					'titlestring' => 'Foo.png',
 					'filename' => 'Foo',
@@ -405,7 +405,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 			[
 				new SourceUrl( 'http://de.wikipedia.org/wiki/Datei:Bar+%31.JPG' ),
 				'Datei:Bar+1.JPG',
-				json_encode( $this->getFullRequestContent( 'Datei:Bar+1.JPG' ) ),
+				json_encode( self::getFullRequestContent( 'Datei:Bar+1.JPG' ) ),
 				[
 					'titlestring' => 'Bar+1.JPG',
 					'filename' => 'Bar+1',
@@ -420,7 +420,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return array[]
 	 */
-	private function getFullRequestContent( string $titleString ): array {
+	private static function getFullRequestContent( string $titleString ): array {
 		return [
 			'query' => [
 				'pages' => [

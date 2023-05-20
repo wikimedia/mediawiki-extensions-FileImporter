@@ -11,7 +11,7 @@ use FileImporter\Exceptions\ImportException;
  */
 class ImportExceptionTest extends \MediaWikiUnitTestCase {
 
-	public function provideErrorCodes() {
+	public static function provideErrorCodes() {
 		return [
 			[ 0, 0 ],
 			[ 404, 404 ],

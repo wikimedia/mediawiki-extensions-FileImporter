@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
  */
 class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideJsonResponses() {
+	public static function provideJsonResponses() {
 		return [
 			[ '{"query":{"pages":[{"missing":true}]}}', true, 0 ],
 			[ '{"query":{"pages":[{"missing":""}]}}', true, 0 ],

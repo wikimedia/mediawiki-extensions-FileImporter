@@ -11,7 +11,7 @@ use FileImporter\FileImporterUtils;
  */
 class FileImporterUtilsTest extends \MediaWikiUnitTestCase {
 
-	public function provideHtmlSnippets() {
+	public static function provideHtmlSnippets() {
 		return [
 			'success' => [
 				'<a>… <a href="#">…',

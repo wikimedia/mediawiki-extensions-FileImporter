@@ -13,7 +13,7 @@ use FileImporter\Remote\MediaWiki\AllowedDomainsFileUrlChecker;
  */
 class AllowedDomainsFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideTestCheck() {
+	public static function provideTestCheck() {
 		return [
 			// Success
 			[ [ 'en.wikipedia.org' ], 'https://en.wikipedia.org/wiki/File:Foo.png', true ],

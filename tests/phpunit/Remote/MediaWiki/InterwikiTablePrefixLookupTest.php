@@ -20,7 +20,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 
-	public function provideGetPrefixFromLegacyConfig() {
+	public static function provideGetPrefixFromLegacyConfig() {
 		return [
 			'interWikiMap contains host' => [
 				[ 'de.wikipedia.org' => 'wiki:de' ],
@@ -63,7 +63,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function provideGetPrefixFromLocalTable() {
+	public static function provideGetPrefixFromLocalTable() {
 		return [
 			'interWiki table contains host' => [
 				[
@@ -203,7 +203,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 		return $mock;
 	}
 
-	public function provideIntermediaryCases() {
+	public static function provideIntermediaryCases() {
 		return [
 			'Successful get through parent domain' => [
 				[

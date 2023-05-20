@@ -93,7 +93,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 		return $mock;
 	}
 
-	public function provideTestTextDisplayedInInputBox() {
+	public static function provideTestTextDisplayedInInputBox() {
 		return [
 			[ 'Some Input Text', "Some Input Text\n" ],
 			[ 'Some Input Text ', "Some Input Text\n" ],

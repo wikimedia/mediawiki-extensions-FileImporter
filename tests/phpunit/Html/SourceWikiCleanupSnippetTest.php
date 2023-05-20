@@ -32,7 +32,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function provideNoSnippetSetups() {
+	public static function provideNoSnippetSetups() {
 		yield [ false, false, false, false ];
 		yield [ false, false, true, true ];
 		yield [ true, true, false, false ];

@@ -28,7 +28,7 @@ class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 		return $site;
 	}
 
-	public function provideGetSite() {
+	public static function provideGetSite() {
 		return [
 			'google' => [ '//google.com', null ],
 			'commons' => [ '//commons.wikimedia.org', 'commonswiki' ],

@@ -18,7 +18,7 @@ use StatusValue;
  */
 class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
 
-	public function provideTestExecute() {
+	public static function provideTestExecute() {
 		return [
 			[ 'http://example.com', false ],
 			[ 'http://example.com', 'Some Real Content' ],

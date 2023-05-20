@@ -70,7 +70,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 		return $mock;
 	}
 
-	public function provideTestTextDisplayedInInputBox() {
+	public static function provideTestTextDisplayedInInputBox() {
 		return [
 			[ 'Loo', 'Loo' ],
 			[ 'Foooo/Barr', 'Foooo/Barr' ],

@@ -43,7 +43,7 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 		$this->assertNull( $instance->getField( 'sha1' ) );
 	}
 
-	public function provideMissingField() {
+	public static function provideMissingField() {
 		foreach ( self::REQUIRED_FIELD_NAMES as $field ) {
 			$fields = array_flip( self::REQUIRED_FIELD_NAMES );
 			unset( $fields[$field] );

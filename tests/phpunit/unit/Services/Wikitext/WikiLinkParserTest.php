@@ -13,7 +13,7 @@ use FileImporter\Services\Wikitext\WikiLinkParser;
  */
 class WikiLinkParserTest extends \MediaWikiUnitTestCase {
 
-	public function provideWikitext() {
+	public static function provideWikitext() {
 		return [
 			'empty brackets' => [
 				'[[]]',

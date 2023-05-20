@@ -99,7 +99,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 		return $mock;
 	}
 
-	public function provideTestTextDisplayedInInputBox() {
+	public static function provideTestTextDisplayedInInputBox() {
 		return [
 			[
 				'This is old text.',
