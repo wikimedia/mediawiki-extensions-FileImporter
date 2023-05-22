@@ -5,7 +5,9 @@
 			"Omotecho",
 			"Otokoume",
 			"しぃ",
-			"つぶあん派"
+			"つぶあん派",
+			"Shirayuki",
+			"春春眠眠"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -13,12 +15,12 @@
 	"tag-fileimporter": "FileImporterによる修正",
 	"tag-fileimporter-description": "履歴と記録のメッセージは他のウィキからインポートした後に追加されます。",
 	"tag-fileimporter-imported": "FileImporterによるインポート",
-	"tag-fileimporter-imported-description": "履歴は他のウィキからインポートしました",
+	"tag-fileimporter-imported-description": "別のウィキからからインポートされた版",
 	"fileimporter-specialpage": "ファイルのインポート",
 	"fileimporter-importfailed": "インポートに失敗しました",
 	"fileimporter-api-badinfo": "画像または版情報が正しくありません。",
 	"fileimporter-api-failedtogetinfo": "次のページからファイルの情報を取得するのに失敗しました: $1",
-	"fileimporter-api-toomanyrevisions": "APIによって大量の履歴が検出されたため、インポートできません。",
+	"fileimporter-api-toomanyrevisions": "API によって大量の版が検出されたため、インポートできません。",
 	"fileimporter-api-file-notfound": "ファイルが見つかりませんでした: $1",
 	"fileimporter-api-failedtofindapi": "次のURLからAPIのロケーションを見つけるのに失敗しました: $1。$2 $3",
 	"fileimporter-http-statuscode": "HTTP ステータスコード $1",
