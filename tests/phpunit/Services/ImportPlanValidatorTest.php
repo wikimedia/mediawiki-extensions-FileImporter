@@ -186,7 +186,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	public function provideValidate() {
-		$emptyPlan = $this->getMockImportPlan( '<invalid title>' );
+		$emptyPlan = $this->getMockImportPlan( 'unused' );
 
 		$allowedFileTitles = [
 			'Regular name' => 'SourceName.JPG',
@@ -197,7 +197,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		foreach ( $allowedFileTitles as $description => $titleString ) {
 			$validTests["Valid Plan - '$titleString' ($description)"] = [
 				null,
-				$this->getMockImportPlan( 'FinalName.JPG', $titleString ),
+				'importPlan' => [ 'FinalName.JPG', $titleString ],
 				'hasDuplicates' => false,
 				'importAllowed' => true,
 				'wikiLinkParserFactoryCalls' => 1
@@ -207,7 +207,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$invalidTests = [
 			'Invalid, duplicate file found' => [
 				new DuplicateFilesException( [] ),
-				$this->getMockImportPlan( 'FinalName.JPG' ),
+				'importPlan' => [ 'FinalName.JPG' ],
 				'hasDuplicates' => true,
 			],
 			'Invalid, title exists on target site' => [
@@ -215,7 +215,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					'fileimporter-localtitleexists',
 					$emptyPlan
 				),
-				$this->getMockImportPlan( 'FinalName.JPG', null, true ),
+				'importPlan' => [ 'FinalName.JPG', null, true ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
 				'wikiLinkParserFactoryCalls' => 1,
@@ -225,29 +225,29 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					'fileimporter-sourcetitleexists',
 					$emptyPlan
 				),
-				$this->getMockImportPlan( 'FinalName.JPG' ),
+				'importPlan' => [ 'FinalName.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => false,
 				'wikiLinkParserFactoryCalls' => 1,
 			],
 			'Invalid, file extension has changed' => [
 				new TitleException( 'fileimporter-filenameerror-missmatchextension' ),
-				$this->getMockImportPlan( 'FinalName.JPG', 'SourceName.PNG' ),
+				'importPlan' => [ 'FinalName.JPG', 'SourceName.PNG' ],
 			],
 			'Invalid, No Extension on planned name' => [
 				new TitleException( 'fileimporter-filenameerror-noplannedextension' ),
-				$this->getMockImportPlan( 'FinalName.JPG/Foo' ),
+				'importPlan' => [ 'FinalName.JPG/Foo' ],
 			],
 			'Invalid, No Extension on source name' => [
 				new TitleException( 'fileimporter-filenameerror-nosourceextension' ),
-				$this->getMockImportPlan( 'FinalName.JPG', 'SourceName.jpg/Foo' ),
+				'importPlan' => [ 'FinalName.JPG', 'SourceName.jpg/Foo' ],
 			],
 			'Invalid, Bad title (includes another namespace)' => [
 				new RecoverableTitleException(
 					'fileimporter-illegalfilenamechars',
 					$emptyPlan
 				),
-				$this->getMockImportPlan( 'File:Talk:FinalName.JPG' ),
+				'importPlan' => [ 'File:Talk:FinalName.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
 				'wikiLinkParserFactoryCalls' => 1,
@@ -257,7 +257,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					'fileimporter-filenameerror-toolong',
 					$emptyPlan
 				),
-				$this->getMockImportPlan( str_repeat( 'a', 242 ) . '.JPG' ),
+				'importPlan' => [ str_repeat( 'a', 242 ) . '.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
 				'wikiLinkParserFactoryCalls' => 1,
@@ -268,7 +268,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 					'mockexception',
 					$emptyPlan
 				),
-				$this->getMockImportPlan( '<invalid title>' ),
+				'importPlan' => [ '<invalid title>' ],
 			],
 		];
 
@@ -280,7 +280,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 */
 	public function testValidate(
 		?ImportException $expected,
-		ImportPlan $plan,
+		array $importPlan,
 		?bool $hasDuplicates = null,
 		?bool $importAllowed = null,
 		int $wikiLinkParserFactoryCalls = 0,
@@ -304,7 +304,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		}
 
 		$validator->validate(
-			$plan,
+			$this->getMockImportPlan( ...$importPlan ),
 			$this->mockRegisteredAuthorityWithPermissions( [ 'edit', 'upload' ] )
 		);
 	}
