@@ -40,13 +40,13 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 		$this->assertSame( $revisions, $instance->toArray() );
 	}
 
-	public function provideGetLatest() {
+	public function testGetLatest() {
 		$firstFileRevision = $this->newFileRevision( '2013-11-18T13:19:01Z' );
 		$secondFileRevision = $this->newFileRevision( '2014-11-18T13:19:01Z' );
 		$thirdFileRevision = $this->newFileRevision( '2015-11-18T13:19:01Z' );
 		$reverted = $this->newFileRevision( '2016-11-18T13:19:01Z', true );
 
-		return [
+		foreach ( [
 			[ [ $firstFileRevision ], $firstFileRevision ],
 			[ [ $secondFileRevision ], $secondFileRevision ],
 			[ [ $firstFileRevision, $secondFileRevision ], $secondFileRevision ],
@@ -57,15 +57,10 @@ class FileRevisionsTest extends \MediaWikiUnitTestCase {
 			// Ignore archived revisions, no matter which order
 			[ [ $thirdFileRevision, $reverted ], $thirdFileRevision ],
 			[ [ $reverted, $thirdFileRevision ], $thirdFileRevision ],
-		];
-	}
-
-	/**
-	 * @dataProvider provideGetLatest
-	 */
-	public function testGetLatest( array $fileRevisions, FileRevision $expected ) {
-		$fileRevisionsObject = new FileRevisions( $fileRevisions );
-		$this->assertSame( $expected, $fileRevisionsObject->getLatest() );
+		] as [ $revisions, $expected ] ) {
+			$instance = new FileRevisions( $revisions );
+			$this->assertSame( $expected, $instance->getLatest() );
+		}
 	}
 
 }
