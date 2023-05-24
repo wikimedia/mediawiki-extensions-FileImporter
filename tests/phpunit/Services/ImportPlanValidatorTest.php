@@ -10,7 +10,6 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Exceptions\DuplicateFilesException;
-use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
@@ -185,9 +184,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	public function provideValidate() {
-		$emptyPlan = $this->getMockImportPlan( 'unused' );
-
+	public static function provideValidate() {
 		$allowedFileTitles = [
 			'Regular name' => 'SourceName.JPG',
 			'Multiple extensions are allowed' => 'SourceName.JPG.JPG',
@@ -196,7 +193,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$validTests = [];
 		foreach ( $allowedFileTitles as $description => $titleString ) {
 			$validTests["Valid Plan - '$titleString' ($description)"] = [
-				null,
+				'expectException' => [],
 				'importPlan' => [ 'FinalName.JPG', $titleString ],
 				'hasDuplicates' => false,
 				'importAllowed' => true,
@@ -206,57 +203,45 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 		$invalidTests = [
 			'Invalid, duplicate file found' => [
-				new DuplicateFilesException( [] ),
+				'expectException' => [ DuplicateFilesException::class ],
 				'importPlan' => [ 'FinalName.JPG' ],
 				'hasDuplicates' => true,
 			],
 			'Invalid, title exists on target site' => [
-				new RecoverableTitleException(
-					'fileimporter-localtitleexists',
-					$emptyPlan
-				),
+				'expectException' => [ RecoverableTitleException::class, 'fileimporter-localtitleexists' ],
 				'importPlan' => [ 'FinalName.JPG', null, true ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
 				'wikiLinkParserFactoryCalls' => 1,
 			],
 			'Invalid, title exists on source site' => [
-				new RecoverableTitleException(
-					'fileimporter-sourcetitleexists',
-					$emptyPlan
-				),
+				'expectException' => [ RecoverableTitleException::class, 'fileimporter-sourcetitleexists' ],
 				'importPlan' => [ 'FinalName.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => false,
 				'wikiLinkParserFactoryCalls' => 1,
 			],
 			'Invalid, file extension has changed' => [
-				new TitleException( 'fileimporter-filenameerror-missmatchextension' ),
+				'expectException' => [ TitleException::class, 'fileimporter-filenameerror-missmatchextension' ],
 				'importPlan' => [ 'FinalName.JPG', 'SourceName.PNG' ],
 			],
 			'Invalid, No Extension on planned name' => [
-				new TitleException( 'fileimporter-filenameerror-noplannedextension' ),
+				'expectException' => [ TitleException::class, 'fileimporter-filenameerror-noplannedextension' ],
 				'importPlan' => [ 'FinalName.JPG/Foo' ],
 			],
 			'Invalid, No Extension on source name' => [
-				new TitleException( 'fileimporter-filenameerror-nosourceextension' ),
+				'expectException' => [ TitleException::class, 'fileimporter-filenameerror-nosourceextension' ],
 				'importPlan' => [ 'FinalName.JPG', 'SourceName.jpg/Foo' ],
 			],
 			'Invalid, Bad title (includes another namespace)' => [
-				new RecoverableTitleException(
-					'fileimporter-illegalfilenamechars',
-					$emptyPlan
-				),
+				'expectException' => [ RecoverableTitleException::class, 'fileimporter-illegalfilenamechars' ],
 				'importPlan' => [ 'File:Talk:FinalName.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
 				'wikiLinkParserFactoryCalls' => 1,
 			],
 			'Invalid, Bad filename (too long)' => [
-				new RecoverableTitleException(
-					'fileimporter-filenameerror-toolong',
-					$emptyPlan
-				),
+				'expectException' => [ RecoverableTitleException::class, 'fileimporter-filenameerror-toolong' ],
 				'importPlan' => [ str_repeat( 'a', 242 ) . '.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
@@ -264,10 +249,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				'titleValidationError' => UploadBase::FILENAME_TOO_LONG,
 			],
 			'Invalid, Bad characters "<", getTitle throws MalformedTitleException' => [
-				new RecoverableTitleException(
-					'mockexception',
-					$emptyPlan
-				),
+				'expectException' => [ RecoverableTitleException::class, 'mockexception' ],
 				'importPlan' => [ '<invalid title>' ],
 			],
 		];
@@ -279,7 +261,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 * @dataProvider provideValidate
 	 */
 	public function testValidate(
-		?ImportException $expected,
+		array $expectedException,
 		array $importPlan,
 		?bool $hasDuplicates = null,
 		?bool $importAllowed = null,
@@ -298,9 +280,11 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getServiceContainer()->getRestrictionStore()
 		);
 
-		if ( $expected ) {
-			$this->expectException( get_class( $expected ) );
-			$this->expectExceptionMessage( $expected->getMessage() );
+		if ( $expectedException ) {
+			$this->expectException( $expectedException[0] );
+			if ( isset( $expectedException[1] ) ) {
+				$this->expectExceptionMessage( wfMessage( $expectedException[1] )->plain() );
+			}
 		}
 
 		$validator->validate(
