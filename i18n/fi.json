@@ -3,12 +3,13 @@
 		"authors": [
 			"Kyykaarme",
 			"Nike",
-			"Silvonen"
+			"Silvonen",
+			"Huusmik"
 		]
 	},
 	"tag-fileimporter": "FileImporterin muokkaama",
 	"tag-fileimporter-imported": "Tuotu FileImporterilla",
-	"fileimporter-cantimportfilehidden": "Tiedostoa ei voida tuoda, koska sen historiassa on ainakin yksi häivytetty tiedosto.",
+	"fileimporter-cantimportfilehidden": "Tiedostoa ei voida tuoda, koska sen historiassa on ainakin yksi piilotettu tiedosto.",
 	"fileimporter-filenameerror-automaticchanges": "Tiedostonimi \"$1\" muutettiin automaattisesti nimeksi \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "Lähdetiedoston nimessä ei ole tiedostopäätettä.",
 	"fileimporter-filenameerror-missmatchextension": "Kohdetiedoston pääte ei vastaa alkuperäisen tiedoston päätettä.",

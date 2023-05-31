@@ -4,7 +4,20 @@
 			"Saraiki"
 		]
 	},
+	"fileimporter-specialpage": "فائل اندر گھن آؤ",
+	"fileimporter-importfailed": "ٻاہروں آ نی سڳے",
+	"fileimporter-exampleprefix": "مثال",
+	"fileimporter-submit": "جمع کرواؤ",
+	"fileimporter-submit-fileinfo": "فائل ڄاݨکاری وٹاؤ",
 	"fileimporter-submit-title": "عنوان تبدیل کرو",
+	"fileimporter-resubmit": "ولدا جمع کرواؤ",
+	"fileimporter-import": "اندر گھن آؤ",
+	"fileimporter-cancel": "منسوخ",
+	"fileimporter-edittitle": "عنوان وچ تبدیلی کرو",
 	"fileimporter-extensionlabel": "فائل دی ایکسٹینشن",
-	"fileimporter-newfilename": "نویں فائل دا ناں"
+	"fileimporter-newfilename": "نویں فائل دا ناں",
+	"fileimporter-editsummary": "تبدیلی دا خلاصہ:",
+	"fileimporter-heading-fileinfo": "فائل معلومات",
+	"fileimporter-heading-filehistory": "فائل دا تاریخچہ",
+	"fileimporter-viewdiff": "تبدیلیاں ݙکھاؤ"
 }
