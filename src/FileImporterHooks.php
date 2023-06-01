@@ -40,7 +40,7 @@ class FileImporterHooks {
 		if ( $request->getVal( ImportSuccessSnippet::NOTICE_URL_KEY ) === null
 			|| !$title->inNamespace( NS_FILE )
 			|| !$title->exists()
-			|| !$user->isRegistered()
+			|| !$user->isNamed()
 		) {
 			return;
 		}

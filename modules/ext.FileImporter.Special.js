@@ -12,7 +12,7 @@ if ( $summary.length ) {
 $( '.mw-importfile-help-banner input[ type="checkbox" ]' ).change( function () {
 	// When the help banner is dismissed, set a user option indicating that it should not be shown
 	// again in the future
-	if ( this.checked ) {
+	if ( this.checked && mw.user.isNamed() ) {
 		( new mw.Api() ).saveOption( 'userjs-fileimporter-hide-help-banner', '1' );
 	}
 } );

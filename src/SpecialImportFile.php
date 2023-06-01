@@ -213,7 +213,9 @@ class SpecialImportFile extends SpecialPage {
 			return;
 		}
 
-		if ( $webRequest->getBool( HelpBanner::HIDE_HELP_BANNER_CHECK_BOX ) ) {
+		if ( $webRequest->getBool( HelpBanner::HIDE_HELP_BANNER_CHECK_BOX ) &&
+			$this->getUser()->isNamed()
+		) {
 			$this->userOptionsManager->setOption(
 				$this->getUser(),
 				HelpBanner::HIDE_HELP_BANNER_PREFERENCE,
