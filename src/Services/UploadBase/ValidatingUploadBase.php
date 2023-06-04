@@ -3,6 +3,7 @@
 namespace FileImporter\Services\UploadBase;
 
 use FileImporter\Data\TextRevision;
+use FileImporter\HookRunner;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LoggerInterface;
@@ -76,27 +77,26 @@ class ValidatingUploadBase extends UploadBase {
 	 */
 	public function validateUpload( User $user, TextRevision $textRevision = null ) {
 		$error = null;
-		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
+		$hookRunner = new HookRunner( MediaWikiServices::getInstance()->getHookContainer() );
 
 		if ( !$textRevision ) {
-			$hookContainer->run( 'UploadStashFile', [
+			$hookRunner->onUploadStashFile(
 				$this,
 				$user,
 				$this->mFileProps,
-				&$error
-			] );
+				$error
+			);
 		} else {
-			$hookContainer->run( 'UploadVerifyUpload', [
+			$hookRunner->onUploadVerifyUpload(
 				$this,
 				$user,
 				$this->mFileProps,
 				$textRevision->getField( 'comment' ),
 				$textRevision->getField( '*' ),
-				&$error
-			] );
+				$error
+			);
 		}
 
-		'@phan-var array|MessageSpecifier|null $error';
 		if ( $error ) {
 			if ( !is_array( $error ) ) {
 				$error = [ $error ];
