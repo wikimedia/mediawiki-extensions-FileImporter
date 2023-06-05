@@ -21,7 +21,7 @@
 	"fileimporter-api-failedtogetinfo": "Spodletelo pridobivanje informacij o datoteki iz: $1",
 	"fileimporter-api-nopagesreturned": "Ni strani, ki bi jih vrnil oddaljeni API.",
 	"fileimporter-api-toomanyrevisions": "Preveč redakcij, vrnjenih od API-ja, uvoz ni mogoč.",
-	"fileimporter-api-file-notfound": "Datoteke ni bilo mogoče najti: $1.",
+	"fileimporter-api-file-notfound": "Datoteka ni bila najdena: $1.",
 	"fileimporter-api-failedtofindapi": "Lokacije API-ja ni bilo mogoče odkriti od: $1 . $2 $3",
 	"fileimporter-http-statuscode": "Oznaka stanja HTTP $1.",
 	"fileimporter-cantparseurl": "Navedenega spletnega naslova $1 ni mogoče razčleniti.",
