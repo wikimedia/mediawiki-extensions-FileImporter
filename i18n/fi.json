@@ -4,6 +4,7 @@
 			"Huusmik",
 			"Kyykaarme",
 			"Nike",
+			"Pyscowicz",
 			"Silvonen"
 		]
 	},
@@ -14,6 +15,7 @@
 	"fileimporter-filenameerror-nosourceextension": "Lähdetiedoston nimessä ei ole tiedostopäätettä.",
 	"fileimporter-filenameerror-missmatchextension": "Kohdetiedoston pääte ei vastaa alkuperäisen tiedoston päätettä.",
 	"fileimporter-resubmit": "Lähetä uudestaan",
+	"fileimporter-cancel": "Peruuta",
 	"fileimporter-heading-filehistory": "Tiedoston historia",
 	"fileimporter-delete-text": "Sinulla on oikeudet poistaa tämä tiedosto lähdewikistä. Jos haluat FileImporterin poistavan tiedoston sinun nimissäsi, valitse tämä vaihtoehto:",
 	"fileimporter-delete-checkboxlabel": "Poista tiedosto lähdewikistä minun nimissäni",
