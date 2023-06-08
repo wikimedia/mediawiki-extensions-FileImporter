@@ -3,7 +3,8 @@
 		"authors": [
 			"Deryck Chan",
 			"Hello903hello",
-			"Moon0319"
+			"Moon0319",
+			"捍粵者"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -25,7 +26,7 @@
 	"fileimporter-badimporthash": "匯入雜湊值 (import hash) 唔啱。唔該由頭嚟過。",
 	"fileimporter-filenameerror-default": "你個檔名有不明問題。",
 	"fileimporter-filenameerror-illegal": "你想匯入嗰個檔案個名唔啱規格。",
-	"fileimporter-filenameerror-toolong": "你想匯入嗰個檔案個名太長。",
+	"fileimporter-filenameerror-toolong": "您想匯入嘅檔名太長。",
 	"fileimporter-filenameerror-automaticchanges": "檔案名由《$1》自動轉咗做《$2》。",
 	"fileimporter-filenameerror-nosourceextension": "源檔名冇副檔名。",
 	"fileimporter-filenameerror-noplannedextension": "目標檔名冇副檔名。",
