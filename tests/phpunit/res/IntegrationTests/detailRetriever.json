@@ -61,107 +61,147 @@
 				"pagelanguagehtmlcode": "en",
 				"revisions": [
 					{
-						"*": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-sa-3.0}}",
 						"comment": "{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"sha1": "bc8214142b503eb1169494a74c8ebfbc9d0f6c0c",
+						"slots": {
+							"main": {
+								"content": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-sa-3.0}}",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2008-04-19T18:49:25Z",
 						"user": "Addshore"
 					},
 					{
-						"*": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}",
 						"comment": "/* Licensing */",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "faeda28878ba71a4371651df8ae465489f4090ae",
+						"slots": {
+							"main": {
+								"content": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2008-04-19T18:59:03Z",
 						"user": "Addshore"
 					},
 					{
-						"*": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}\n{{Uncategorized|year=2008|month=August|day=5}}",
 						"comment": "Please add categories to this image",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "75262ef03d1ff422de560570739e8558f70b76a3",
+						"slots": {
+							"main": {
+								"content": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}\n{{Uncategorized|year=2008|month=August|day=5}}",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2008-08-05T06:57:08Z",
 						"user": "BotMultichill"
 					},
 					{
-						"*": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
 						"comment": "Quick-adding category \"Hens\"; removed {{uncategorized}} (using [[MediaWiki:Gadget-HotCat.js|HotCat.js]])",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "fbd0db7f3020f5e417d3a8d328df755f0553e358",
+						"slots": {
+							"main": {
+								"content": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=18.April.2008\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2008-11-26T20:28:54Z",
 						"user": "Kilom691"
 					},
 					{
-						"*": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
 						"comment": "[[User:Slobot/date|normalize date format to allow localization]]",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "450bc9f34e42a3a3a0ff2b2056538381e467d2d3",
+						"slots": {
+							"main": {
+								"content": "== Summary ==\n{{Information\n|Description=A chicken running in snow\n|Source=self-made\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== [[Commons:Copyright tags|Licensing]] ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2009-04-29T18:50:06Z",
 						"user": "Slobot"
 					},
 					{
-						"*": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
 						"comment": "BOT - Changes to allow localization: self-made \u2192 {{Own}}; [[Commons:Copyright tags|Licensing]]  \u2192 {{int:license}}; Summary  \u2192 {{int:filedesc}};",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "cd8d41c27053eb2b8b0eef08bf4805e55d1dc624",
+						"slots": {
+							"main": {
+								"content": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2009-08-08T13:33:13Z",
 						"user": "Emijrpbot"
 					},
 					{
-						"*": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
 						"comment": "Bot: [[Com:IntRegex|Internationalisation]].",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"minor": "",
 						"sha1": "4914282635e00725c8410ec7f7956953faead4ae",
+						"slots": {
+							"main": {
+								"content": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2014-07-14T04:06:56Z",
 						"user": "YaCBot"
 					},
 					{
-						"*": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
 						"comment": "/* wbsetlabel-add:1|en */ A chicken in the snow",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"sha1": "5ecdadb69b69fe195549872cc302e9b028f65271",
+						"slots": {
+							"main": {
+								"content": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2019-01-10T16:17:23Z",
 						"user": "Addshore"
 					},
 					{
-						"*": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
 						"comment": "/* wbsetlabel-set:1|en */ A Hen in the snow",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"sha1": "635319c346ff44dbeedfaa0c97e9d8a9dd17b89c",
+						"slots": {
+							"main": {
+								"content": "== {{int:filedesc}} ==\n{{Information\n|Description=A chicken running in snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2019-01-10T16:19:06Z",
 						"user": "Addshore"
 					},
 					{
-						"*": "== {{int:filedesc}} ==\n{{Information\n|Description=A Hen in the snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
 						"comment": "/* {{int:filedesc}} */ fix desc",
-						"contentformat": "text/x-wiki",
-						"contentmodel": "wikitext",
 						"sha1": "b18208459b75af6db3f51b7ff5e4eb9167ce2144",
+						"slots": {
+							"main": {
+								"content": "== {{int:filedesc}} ==\n{{Information\n|Description=A Hen in the snow\n|Source={{Own}}\n|Date=2008-04-18\n|Author= [[User:Addshore|Addshore]]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{self|GFDL|cc-by-3.0}}\n\n[[Category:Hens]]",
+								"contentformat": "text/x-wiki",
+								"contentmodel": "wikitext"
+							}
+						},
 						"tags": [],
 						"timestamp": "2019-01-10T16:25:04Z",
 						"user": "Addshore"
@@ -263,11 +303,8 @@
 		}
 	},
 	"warnings": {
-		"main": {
-			"*": "Subscribe to the mediawiki-api-announce mailing list at <https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce> for notice of API deprecations and breaking changes. Use [[Special:ApiFeatureUsage]] to see usage of deprecated features by your application."
-		},
 		"revisions": {
-			"*": "\"rvlimit\" may not be over 50 (set to 500) for users.\nBecause \"rvslots\" was not specified, a legacy format has been used for the output. This format is deprecated, and in the future the new format will always be used."
+			"*": "\"rvlimit\" may not be over 50 (set to 500) for users."
 		}
 	}
 }

@@ -5,6 +5,7 @@ namespace FileImporter\Tests\Remote\MediaWiki;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Revision\SlotRecord;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever
@@ -44,7 +45,11 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 					'pages' => [
 						[
 							'revisions' => [
-								[ 'content' => '<WIKITEXT>' ]
+								[
+									'slots' => [
+										SlotRecord::MAIN => [ 'content' => '<WIKITEXT>' ],
+									],
+								],
 							],
 						],
 					],
@@ -62,6 +67,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 				'formatversion' => 2,
 				'rvprop' => 'content',
 				'rvlimit' => 1,
+				'rvslots' => SlotRecord::MAIN,
 				'rvdir' => 'older',
 			] )
 			->willReturn( $request );

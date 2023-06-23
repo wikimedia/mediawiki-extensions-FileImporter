@@ -8,6 +8,7 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Revision\SlotRecord;
 use MWHttpRequest;
 use Wikimedia\TestingAccessWrapper;
 
@@ -233,6 +234,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 						'action' => 'query',
 						'errorformat' => 'plaintext',
 						'format' => 'json',
+						'formatversion' => 2,
 						'titles' => 'Föo',
 						'prop' => 'info',
 					],
@@ -290,6 +292,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 						'action' => 'query',
 						'errorformat' => 'plaintext',
 						'format' => 'json',
+						'formatversion' => 2,
 						'titles' => 'File:Foo.jpg',
 						'prop' => 'info|imageinfo|revisions',
 						'iistart' => 'iiStartHere',
@@ -301,6 +304,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 						'rvlimit' => 500,
 						'rvdir' => 'newer',
 						'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content|tags',
+						'rvslots' => SlotRecord::MAIN,
 					],
 					'data' => [
 						'imageinfo' => [
@@ -447,10 +451,14 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 								'user' => 'user',
 								'timestamp' => '201701010202',
 								'sha1' => 'sha1-rev',
-								'contentmodel' => 'contentmodel',
-								'contentformat' => 'contentformat',
 								'comment' => 'comment',
-								'*' => '*',
+								'slots' => [
+									SlotRecord::MAIN => [
+										'contentmodel' => 'wikitext',
+										'contentformat' => 'text/x-wiki',
+										'content' => 'FOO',
+									]
+								],
 								'title' => $titleString,
 								'tags' => [],
 							],
@@ -546,6 +554,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 			'action' => 'query',
 			'errorformat' => 'plaintext',
 			'format' => 'json',
+			'formatversion' => 2,
 			'titles' => $titleString,
 			'prop' => 'info|imageinfo|revisions|templates|categories',
 			'iilimit' => 500,
@@ -555,6 +564,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 			'rvlimit' => 500,
 			'rvdir' => 'newer',
 			'rvprop' => 'flags|timestamp|user|sha1|contentmodel|comment|content|tags',
+			'rvslots' => SlotRecord::MAIN,
 			'tlnamespace' => NS_TEMPLATE,
 			'tllimit' => 500,
 			'cllimit' => 500,

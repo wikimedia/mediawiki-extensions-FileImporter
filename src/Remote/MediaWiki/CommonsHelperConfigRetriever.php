@@ -9,6 +9,7 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
 
 /**
  * @license GPL-2.0-or-later
@@ -67,9 +68,11 @@ class CommonsHelperConfigRetriever {
 
 		if ( array_key_exists( 'revisions', $currPage ) ) {
 			$latestRevision = end( $currPage['revisions'] );
-			if ( array_key_exists( 'content', $latestRevision ) ) {
+			if ( array_key_exists( 'slots', $latestRevision ) &&
+				array_key_exists( SlotRecord::MAIN, $latestRevision['slots'] ) &&
+				array_key_exists( 'content', $latestRevision['slots'][SlotRecord::MAIN] ) ) {
 				$this->configWikiUrl = $this->buildCommonsHelperConfigUrl( $sourceUrl );
-				$this->configWikitext = $latestRevision['content'];
+				$this->configWikitext = $latestRevision['slots'][SlotRecord::MAIN]['content'];
 				return true;
 			}
 		}
@@ -124,6 +127,7 @@ class CommonsHelperConfigRetriever {
 			'formatversion' => 2,
 			'rvprop' => 'content',
 			'rvlimit' => 1,
+			'rvslots' => SlotRecord::MAIN,
 			'rvdir' => 'older'
 		];
 

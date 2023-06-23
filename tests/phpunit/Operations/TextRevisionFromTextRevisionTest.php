@@ -8,6 +8,7 @@ use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
+use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use StatusValue;
 
@@ -108,10 +109,14 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 			'user' => 'SourceUser1',
 			'timestamp' => '2018-06-24T13:37:23Z',
 			'sha1' => 'TextSHA1',
-			'contentmodel' => 'wikitext',
-			'contentformat' => 'text/x-wiki',
 			'comment' => 'Original upload comment of Test.png',
-			'*' => 'Original text of Test.png',
+			'slots' => [
+				SlotRecord::MAIN => [
+					'contentmodel' => 'wikitext',
+					'contentformat' => 'text/x-wiki',
+					'content' => 'Original text of Test.png',
+				]
+			],
 			'title' => 'Test.png',
 			'tags' => [],
 		] );

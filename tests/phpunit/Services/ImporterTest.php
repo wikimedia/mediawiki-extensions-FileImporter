@@ -400,10 +400,14 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 				'user' => 'TextChangeUser',
 				'timestamp' => '2018-06-27T13:37:23Z',
 				'sha1' => '',
-				'contentmodel' => 'wikitext',
-				'contentformat' => 'text/x-wiki',
 				'comment' => 'I like more text',
-				'*' => 'This is my text!',
+				'slots' => [
+					SlotRecord::MAIN => [
+						'contentmodel' => 'wikitext',
+						'contentformat' => 'text/x-wiki',
+						'content' => 'This is my text!',
+					]
+				],
 				'title' => 'test.jpg',
 				'tags' => [],
 			] ),
@@ -412,10 +416,14 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 				'user' => 'SourceUser1',
 				'timestamp' => '2018-06-24T13:37:23Z',
 				'sha1' => '',
-				'contentmodel' => 'wikitext',
-				'contentformat' => 'text/x-wiki',
 				'comment' => 'Original upload comment of Test.png',
-				'*' => 'Original text of test.jpg',
+				'slots' => [
+					SlotRecord::MAIN => [
+						'contentmodel' => 'wikitext',
+						'contentformat' => 'text/x-wiki',
+						'content' => 'Original text of test.jpg',
+					]
+				],
 				'title' => 'test.jpg',
 				'tags' => [ 'tag1', 'tag2' ],
 			] ),

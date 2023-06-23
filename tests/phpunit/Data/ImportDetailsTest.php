@@ -8,6 +8,7 @@ use FileImporter\Data\ImportDetails;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
+use MediaWiki\Revision\SlotRecord;
 use TitleValue;
 
 /**
@@ -210,10 +211,14 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 				'minor' => false,
 				'user' => '',
 				'timestamp' => '',
-				'contentmodel' => '',
-				'contentformat' => '',
 				'comment' => '',
-				'*' => '',
+				'slots' => [
+					SlotRecord::MAIN => [
+						'contentmodel' => '',
+						'contentformat' => '',
+						'content' => ''
+					]
+				],
 				'title' => '',
 				'tags' => '',
 			]
