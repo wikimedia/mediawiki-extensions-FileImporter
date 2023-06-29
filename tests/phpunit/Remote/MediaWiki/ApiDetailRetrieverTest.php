@@ -231,6 +231,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 				'expected' => [
 					'apiParameters' => [
 						'action' => 'query',
+						'errorformat' => 'plaintext',
 						'format' => 'json',
 						'titles' => 'Föo',
 						'prop' => 'info',
@@ -287,6 +288,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 				'expected' => [
 					'apiParameters' => [
 						'action' => 'query',
+						'errorformat' => 'plaintext',
 						'format' => 'json',
 						'titles' => 'File:Foo.jpg',
 						'prop' => 'info|imageinfo|revisions',
@@ -542,6 +544,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	private function getExpectedApiParameters( string $titleString ) {
 		return [
 			'action' => 'query',
+			'errorformat' => 'plaintext',
 			'format' => 'json',
 			'titles' => $titleString,
 			'prop' => 'info|imageinfo|revisions|templates|categories',

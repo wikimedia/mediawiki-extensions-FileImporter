@@ -117,6 +117,7 @@ class CommonsHelperConfigRetriever {
 		$apiUrl = $this->configServer . $scriptPath . '/api.php';
 		$apiParameters = [
 			'action' => 'query',
+			'errorformat' => 'plaintext',
 			'format' => 'json',
 			'titles' => $this->getQueryParamTitle( $sourceUrl ),
 			'prop' => 'revisions',

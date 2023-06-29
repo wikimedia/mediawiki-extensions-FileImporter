@@ -411,6 +411,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	private function getBaseParams( SourceUrl $sourceUrl ) {
 		return [
 			'action' => 'query',
+			'errorformat' => 'plaintext',
 			'format' => 'json',
 			'titles' => $this->parseTitleFromSourceUrl( $sourceUrl ),
 			'prop' => 'info'

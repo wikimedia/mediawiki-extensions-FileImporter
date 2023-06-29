@@ -53,6 +53,7 @@ class RemoteApiImportTitleCheckerTest extends \PHPUnit\Framework\TestCase {
 				'format' => 'json',
 				'action' => 'query',
 				'titles' => 'File:<TITLE>',
+				'errorformat' => 'plaintext',
 				'formatversion' => 2,
 			] )
 			->willReturn( $httpRequest );
