@@ -155,7 +155,7 @@ class ImportPlan {
 	 */
 	public function getInitialFileInfoText() {
 		$textRevision = $this->details->getTextRevisions()->getLatest();
-		return $textRevision ? $textRevision->getField( '*' ) : '';
+		return $textRevision ? $textRevision->getContent() : '';
 	}
 
 	/**

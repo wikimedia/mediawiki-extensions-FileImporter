@@ -234,20 +234,17 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	private function getMockTextRevision( string $wikitext, string $title ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )
-			->willReturnCallback( static function ( string $field ) use ( $wikitext, $title ): string {
+			->willReturnCallback( static function ( string $field ) use ( $title ): string {
 				switch ( $field ) {
-					case '*':
-						return $wikitext;
 					case 'title':
 						return $title;
-					case 'contentmodel':
-						return CONTENT_MODEL_WIKITEXT;
-					case 'contentformat':
-						return CONTENT_FORMAT_WIKITEXT;
 					default:
 						return '';
 				}
 			} );
+		$mock->method( 'getContent' )->willReturn( $wikitext );
+		$mock->method( 'getContentFormat' )->willReturn( CONTENT_FORMAT_WIKITEXT );
+		$mock->method( 'getContentModel' )->willReturn( CONTENT_MODEL_WIKITEXT );
 		return $mock;
 	}
 

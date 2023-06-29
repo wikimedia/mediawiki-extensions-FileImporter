@@ -92,7 +92,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	 */
 	private function getMockTextRevision( string $originalInput ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
-		$mock->method( 'getField' )
+		$mock->method( 'getContent' )
 			->willReturn( $originalInput );
 		return $mock;
 	}

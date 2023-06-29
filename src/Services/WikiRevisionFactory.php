@@ -106,10 +106,10 @@ class WikiRevisionFactory {
 	 */
 	public function newFromTextRevision( TextRevision $textRevision ) {
 		$content = $this->contentHandlerFactory
-			->getContentHandler( $textRevision->getField( 'contentmodel' ) )
+			->getContentHandler( $textRevision->getContentModel() )
 			->unserializeContent(
-				$textRevision->getField( '*' ),
-				$textRevision->getField( 'contentformat' )
+				$textRevision->getContent(),
+				$textRevision->getContentFormat()
 			);
 
 		$revision = $this->newWikiRevision(

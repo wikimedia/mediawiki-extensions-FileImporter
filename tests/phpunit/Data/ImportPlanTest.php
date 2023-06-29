@@ -150,7 +150,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		$request = new ImportRequest( '//w.invalid', null, $intendedText );
 
 		$textRevision = $this->createMock( TextRevision::class );
-		$textRevision->method( 'getField' )
+		$textRevision->method( 'getContent' )
 			->willReturn( $originalText );
 
 		$textRevisions = $this->createMock( TextRevisions::class );

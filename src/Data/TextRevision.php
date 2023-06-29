@@ -63,6 +63,27 @@ class TextRevision {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getContent(): string {
+		return $this->fields['*'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentFormat(): string {
+		return $this->fields['contentformat'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentModel(): string {
+		return $this->fields['contentmodel'];
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getFields() {

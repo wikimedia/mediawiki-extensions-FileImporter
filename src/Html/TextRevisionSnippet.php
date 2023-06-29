@@ -26,16 +26,16 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 		$title = Title::newFromText( $textRevision->getField( 'title' ), NS_FILE );
 
 		if ( $intendedWikitext === null ) {
-			$text = $textRevision->getField( '*' );
+			$text = $textRevision->getContent();
 		} else {
 			$text = $intendedWikitext;
 		}
 
 		$content = $services->getContentHandlerFactory()
-			->getContentHandler( $textRevision->getField( 'contentmodel' ) )
+			->getContentHandler( $textRevision->getContentModel() )
 			->unserializeContent(
 				$text,
-				$textRevision->getField( 'contentformat' )
+				$textRevision->getContentFormat()
 			);
 
 		$parserOptions = new ParserOptions( $this->getUser(), $this->getLanguage() );

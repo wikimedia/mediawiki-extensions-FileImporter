@@ -92,7 +92,7 @@ class ValidatingUploadBase extends UploadBase {
 				$user,
 				$this->mFileProps,
 				$textRevision->getField( 'comment' ),
-				$textRevision->getField( '*' ),
+				$textRevision->getContent(),
 				$error
 			);
 		}
