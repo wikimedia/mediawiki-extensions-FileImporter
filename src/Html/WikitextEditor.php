@@ -21,19 +21,13 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( Title $filePage, string $wikitext ): string {
-		$this->loadModules();
+		$outputPage = $this->getOutput();
+		$outputPage->addModules( 'mediawiki.action.edit' );
+		$outputPage->addModuleStyles( 'mediawiki.action.edit.styles' );
 		$this->runEditFormInitialHook( $filePage );
 
 		return EditPage::getEditToolbar() .
 			$this->buildEditor( $wikitext );
-	}
-
-	/**
-	 * Load modules mainly related to the toolbar functions
-	 */
-	private function loadModules() {
-		$this->getOutput()->addModules( 'mediawiki.action.edit' );
-		$this->getOutput()->addModuleStyles( 'mediawiki.action.edit.styles' );
 	}
 
 	/**
