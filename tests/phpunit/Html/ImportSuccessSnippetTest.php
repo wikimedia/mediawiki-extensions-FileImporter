@@ -55,7 +55,9 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 			$user
 		);
 
-		$this->assertStringContainsString( 'icon-check', $html );
+		// Disable this assertion to allow OOUI to be updated from v0.47.1 to v0.47.2
+		// Once that is done, reinstate this but change icon-check to icon-success
+		// $this->assertStringContainsString( 'icon-check', $html );
 		$this->assertStringContainsString( '(fileimporter-cleanup-summary)', $html );
 		$this->assertStringNotContainsString( 'icon-alert', $html );
 	}
@@ -75,7 +77,9 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 			$user
 		);
 
-		$this->assertStringContainsString( 'icon-check', $html );
+		// Disable this assertion to allow OOUI to be updated from v0.47.1 to v0.47.2
+		// Once that is done, reinstate this but change icon-check to icon-success
+		// $this->assertStringContainsString( 'icon-check', $html );
 		$this->assertStringContainsString( '(fileimporter-cleanup-summary)', $html );
 		$this->assertStringContainsString( 'icon-alert', $html );
 		$this->assertStringContainsString( '(fileimporter-import-wait)', $html );
