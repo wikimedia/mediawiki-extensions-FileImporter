@@ -2,6 +2,7 @@
 
 namespace FileImporter\Html;
 
+use FileImporter\HookRunner;
 use Html;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
@@ -51,8 +52,8 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 		);
 		$editPage->setContextTitle( $filePage );
 
-		MediaWikiServices::getInstance()->getHookContainer()->run( 'EditPage::showEditForm:initial',
-			[ &$editPage, $this->getOutput() ]
+		( new HookRunner( MediaWikiServices::getInstance()->getHookContainer() ) )->onEditPage__showEditForm_initial(
+			$editPage, $this->getOutput()
 		);
 	}
 
