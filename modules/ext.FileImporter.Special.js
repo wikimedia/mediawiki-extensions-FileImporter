@@ -1,6 +1,6 @@
 'use strict';
 
-var $summary = $( '.mw-importfile-import-summary' );
+const $summary = $( '.mw-importfile-import-summary' );
 if ( $summary.length ) {
 	// Submit the import form when hitting return in the edit summary
 	OO.ui.TextInputWidget.static.infuse( $summary ).on( 'enter', function ( e ) {
