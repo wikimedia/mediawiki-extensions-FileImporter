@@ -22,8 +22,10 @@ use User;
 
 /**
  * @coversNothing
+ * @group Database
  *
  * TODO: Rename to make it clear that we're only testing preview, not submit.
+ * TODO: Remove from Database group once it's possible to use Authority for permission checks.
  *
  * @license GPL-2.0-or-later
  * @author Addshore

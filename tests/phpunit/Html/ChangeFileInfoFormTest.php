@@ -20,6 +20,7 @@ use OutputPage;
 use RequestContext;
 use SpecialPage;
 use Title;
+use User;
 
 /**
  * @covers \FileImporter\Html\ChangeFileInfoForm
@@ -46,7 +47,6 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function getMockSpecialPage(): SpecialPage {
-		$user = $this->getTestUser()->getUser();
 		$title = Title::newFromText( __METHOD__ );
 		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
 
@@ -58,7 +58,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 		$context->method( 'getOutput' )
 			->willReturn( $this->createMock( OutputPage::class ) );
 		$context->method( 'getUser' )
-			->willReturn( $user );
+			->willReturn( $this->createMock( User::class ) );
 		$context->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
 		$context->method( 'msg' )

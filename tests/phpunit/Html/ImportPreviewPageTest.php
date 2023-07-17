@@ -23,6 +23,7 @@ use OOUI\Theme;
 use SpecialPage;
 use StatusValue;
 use Title;
+use User;
 
 /**
  * @covers \FileImporter\Html\ImportPreviewPage
@@ -189,7 +190,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	private function getMockSpecialPage(): SpecialPage {
 		$context = $this->createMock( \IContextSource::class );
 		$context->method( 'getUser' )
-			->willReturn( $this->getTestUser()->getUser() );
+			->willReturn( $this->createMock( User::class ) );
 		$context->method( 'getConfig' )
 			->willReturn( new \HashConfig( [
 				'FileImporterSourceWikiTemplating' => true,

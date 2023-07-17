@@ -57,17 +57,14 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	private const NULL_EDIT_SUMMARY = 'Imported with FileImporter from ' . self::URL;
 	private const USER_SUMMARY = 'User-provided summary';
 
-	/** @var User */
-	private $user;
-
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( 'wgHooks', [] );
-		$this->user = $this->getTestUser()->getUser();
 	}
 
 	public function testImportingOneFileRevision() {
+		$user = $this->createMock( User::class );
 		$textRevision = $this->newTextRevision();
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
@@ -89,22 +86,23 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision, $fileRevision, $messageLocalizer );
 
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $this->user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
+			$this->createWikiPageFactoryMock( $user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
-			$this->createNullRevisionCreatorMock( $this->user ),
+			$this->createNullRevisionCreatorMock( $user ),
 			$this->createMock( UserIdentityLookup::class ),
 			$this->createHttpRequestExecutorMock(),
-			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
+			$this->createUploadBaseFactoryMock( $user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
 			new FileTextRevisionValidator(),
 			$this->getServiceContainer()->getRestrictionStore()
 		);
 
-		$importer->import( $this->user, $importPlan );
+		$importer->import( $user, $importPlan );
 	}
 
 	public function testImportingOneFileRevisionWithUserProvidedValues() {
+		$user = $this->createMock( User::class );
 		$textRevision = $this->newTextRevision();
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
@@ -114,19 +112,19 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$importPlan = $this->newImportPlan( $request, $textRevision, $fileRevision, $messageLocalizer );
 
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $this->user, self::USER_WIKITEXT, self::USER_SUMMARY ),
+			$this->createWikiPageFactoryMock( $user, self::USER_WIKITEXT, self::USER_SUMMARY ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
-			$this->createNullRevisionCreatorMock( $this->user ),
+			$this->createNullRevisionCreatorMock( $user ),
 			$this->createMock( UserIdentityLookup::class ),
 			$this->createHttpRequestExecutorMock(),
-			$this->createUploadBaseFactoryMock( $this->user, $textRevision ),
+			$this->createUploadBaseFactoryMock( $user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
 			new FileTextRevisionValidator(),
 			$this->getServiceContainer()->getRestrictionStore()
 		);
 
-		$importer->import( $this->user, $importPlan );
+		$importer->import( $user, $importPlan );
 	}
 
 	public function testValidateImportOperations() {
