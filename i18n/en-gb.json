@@ -4,7 +4,5 @@
 			"Piano1forte2"
 		]
 	},
-	"fileimporter-filenameerror-automaticchanges": "The file name was automatically changed from '$1' to '$2'",
-	"fileimporter-commonshelper-parsing-failed": "The configuration page for your wiki ($1) is incomplete. Please make sure it contains a section '$2'.",
 	"fileimporter-category-encouragement": "Files on {{SITENAME}} should be categorised. This makes it easier to find them. You can change categories for this file by editing the file info on this page."
 }
