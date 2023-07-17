@@ -7,7 +7,6 @@ use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use Hamcrest\Matcher;
-use HamcrestPHPUnitIntegration;
 use HashSiteStore;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
@@ -30,7 +29,6 @@ use User;
  * @author Addshore
  */
 class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
-	use HamcrestPHPUnitIntegration;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -98,7 +96,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		return $httpRequestMock;
 	}
 
-	public function provideTestData() {
+	public static function provideTestData() {
 		$successfulHttpResponses = [
 			// HttpApiLookup::actuallyGetApiUrl
 			__DIR__ . '/res/IntegrationTests/apiLookup.html',
@@ -124,7 +122,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					$this->assertStringContainsString( " name='clientUrl'", $html );
+					self::assertStringContainsString( " name='clientUrl'", $html );
 				}
 			],
 			'Bad domain (not in allowed sites)' => [
@@ -134,7 +132,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					$this->assertErrorBox( $html, 'Can\'t import the given URL' );
+					self::assertErrorBox( $html, 'Can\'t import the given URL' );
 				},
 				'sourceSiteServices' => [ 'FileImporter-WikimediaSitesTableSite' ],
 			],
@@ -145,7 +143,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					$this->assertErrorBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
+					self::assertErrorBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
 				}
 			],
 			'Bad file' => [
@@ -155,7 +153,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					$this->assertErrorBox(
+					self::assertErrorBox(
 						$html,
 						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar.'
 					);
@@ -170,12 +168,12 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					$this->assertPreviewPage(
+					self::assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow'
 					);
-					$this->assertStringContainsString(
+					self::assertStringContainsString(
 						'<h2>Chicken In Snow.JPG</h2>',
 						$html
 					);
@@ -193,12 +191,12 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					$this->assertPreviewPage(
+					self::assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow CHANGED'
 					);
-					$this->assertStringContainsString(
+					self::assertStringContainsString(
 						'<h2>Chicken In Snow CHANGED.JPG</h2>',
 						$html
 					);
@@ -209,25 +207,25 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		];
 	}
 
-	private function assertErrorBox( string $html, string $text ): void {
-		$this->assertStringContainsString( 'mw-importfile-error-banner', $html );
-		$this->assertStringContainsString( 'mw-message-box-error', $html );
-		$this->assertStringContainsString( htmlspecialchars( $text, ENT_NOQUOTES ), $html );
+	private static function assertErrorBox( string $html, string $text ): void {
+		self::assertStringContainsString( 'mw-importfile-error-banner', $html );
+		self::assertStringContainsString( 'mw-message-box-error', $html );
+		self::assertStringContainsString( htmlspecialchars( $text, ENT_NOQUOTES ), $html );
 	}
 
-	private function assertPreviewPage( string $html, string $clientUrl, string $intendedFileName ): void {
-		$this->assertThatHamcrest(
+	private static function assertPreviewPage( string $html, string $clientUrl, string $intendedFileName ): void {
+		assertThat(
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'form' ) )
 					->andAlso( withAttribute( 'action' ) )
 					->andAlso( withAttribute( 'method' )->havingValue( 'POST' ) )
-					->andAlso( havingChild( $this->thatIsHiddenInputField( 'clientUrl', $clientUrl ) ) )
+					->andAlso( havingChild( self::thatIsHiddenInputField( 'clientUrl', $clientUrl ) ) )
 					->andAlso(
-						havingChild( $this->thatIsHiddenInputField( 'intendedFileName', $intendedFileName ) )
+						havingChild( self::thatIsHiddenInputField( 'intendedFileName', $intendedFileName ) )
 					)
-					->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'importDetailsHash' ) ) )
-					->andAlso( havingChild( $this->thatIsHiddenInputFieldWithSomeValue( 'token' ) ) )
+					->andAlso( havingChild( self::thatIsHiddenInputField( 'importDetailsHash', anything() ) ) )
+					->andAlso( havingChild( self::thatIsHiddenInputField( 'token', anything() ) ) )
 					->andAlso( havingChild(
 						both( withTagName( 'button' ) )
 							->andAlso( withAttribute( 'type' )->havingValue( 'submit' ) )
@@ -238,18 +236,11 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		);
 	}
 
-	private function thatIsHiddenInputField( string $name, string $value ): Matcher {
+	private static function thatIsHiddenInputField( string $name, $value ): Matcher {
 		return both( withTagName( 'input' ) )
 			->andAlso( withAttribute( 'type' )->havingValue( 'hidden' ) )
 			->andAlso( withAttribute( 'name' )->havingValue( $name ) )
 			->andAlso( withAttribute( 'value' )->havingValue( $value ) );
-	}
-
-	private function thatIsHiddenInputFieldWithSomeValue( string $name ): Matcher {
-		return both( withTagName( 'input' ) )
-			->andAlso( withAttribute( 'type' )->havingValue( 'hidden' ) )
-			->andAlso( withAttribute( 'name' )->havingValue( $name ) )
-			->andAlso( withAttribute( 'value' ) );
 	}
 
 	/**
