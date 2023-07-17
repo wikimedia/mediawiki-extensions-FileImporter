@@ -20,7 +20,6 @@ use SpecialPage;
 use SpecialPageTestBase;
 use StatusValue;
 use User;
-use WebRequest;
 
 /**
  * @coversNothing
@@ -80,14 +79,10 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		);
 	}
 
-	private function getPageNotFoundHttpException(): HttpRequestException {
+	private function newHttpRequestException( int $statusCode ): HttpRequestException {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
-		$httpRequestMock->method( 'getStatus' )->willReturn( 404 );
-
-		$statusValueMock = $this->createMock( StatusValue::class );
-		$statusValueMock->method( 'getErrors' )->willReturn( [] );
-
-		return new HttpRequestException( $statusValueMock, $httpRequestMock );
+		$httpRequestMock->method( 'getStatus' )->willReturn( $statusCode );
+		return new HttpRequestException( StatusValue::newGood(), $httpRequestMock );
 	}
 
 	/**
@@ -98,88 +93,83 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	private function getHttpRequestMock( string $fileName ): MWHttpRequest {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
 		$httpRequestMock->method( 'getContent' )->willReturn(
-			file_get_contents( __DIR__ . '/res/IntegrationTests/' . $fileName )
+			file_get_contents( $fileName )
 		);
 		return $httpRequestMock;
 	}
 
-	/**
-	 * @return MWHttpRequest[]
-	 */
-	private function getSuccessfulHttpRequestExecutorCalls(): array {
-		return [
-			// HttpApiLookup::actuallyGetApiUrl
-			$this->getHttpRequestMock( 'apiLookup.html' ),
-			// ApiDetailRetriever::sendApiRequest
-			$this->getHttpRequestMock( 'detailRetriever.json' ),
-			// RemoteApiImportTitleChecker::importAllowed
-			$this->getHttpRequestMock( 'titleChecker.json' )
-		];
-	}
-
 	public function provideTestData() {
+		$successfulHttpResponses = [
+			// HttpApiLookup::actuallyGetApiUrl
+			__DIR__ . '/res/IntegrationTests/apiLookup.html',
+			// ApiDetailRetriever::sendApiRequest
+			__DIR__ . '/res/IntegrationTests/detailRetriever.json',
+			// RemoteApiImportTitleChecker::importAllowed
+			__DIR__ . '/res/IntegrationTests/titleChecker.json',
+		];
+
 		return [
 			'Anon user, Expect Groups required' => [
-				new FauxRequest(),
-				new User(),
-				[
-					'name' => PermissionsError::class,
+				'webRequest' => [],
+				'user' => new User(),
+				'expectedException' => [
+					'class' => PermissionsError::class,
 					'message' => 'The action you have requested is limited to users in one of the groups',
 				],
-				static function () {
+				'htmlAssertions' => static function () {
 				}
 			],
 			'Uploader, Expect input form' => [
-				new FauxRequest(),
-				true,
-				null,
-				function ( string $html ): void {
+				'webRequest' => [],
+				'user' => true,
+				'expectedException' => null,
+				'htmlAssertions' => function ( string $html ): void {
 					$this->assertStringContainsString( " name='clientUrl'", $html );
 				}
 			],
 			'Bad domain (not in allowed sites)' => [
-				new FauxRequest( [
+				'webRequest' => [
 					'clientUrl' => 'https://test.wikimedia.org/wiki/File:AnyFile.JPG'
-				] ),
-				true,
-				null,
-				function ( string $html ): void {
+				],
+				'user' => true,
+				'expectedException' => null,
+				'htmlAssertions' => function ( string $html ): void {
 					$this->assertErrorBox( $html, 'Can\'t import the given URL' );
 				},
-				[ 'FileImporter-WikimediaSitesTableSite' ]
+				'sourceSiteServices' => [ 'FileImporter-WikimediaSitesTableSite' ],
 			],
 			'Bad domain (malformed?)' => [
-				new FauxRequest( [
+				'webRequest' => [
 					'clientUrl' => 't243ju89gujwe9fjka09jg'
-				] ),
-				true,
-				null,
-				function ( string $html ): void {
+				],
+				'user' => true,
+				'expectedException' => null,
+				'htmlAssertions' => function ( string $html ): void {
 					$this->assertErrorBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
 				}
 			],
 			'Bad file' => [
-				new FauxRequest( [
+				'webRequest' => [
 					'clientUrl' => 'https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar'
-				] ),
-				true,
-				null,
-				function ( string $html ): void {
+				],
+				'user' => true,
+				'expectedException' => null,
+				'htmlAssertions' => function ( string $html ): void {
 					$this->assertErrorBox(
 						$html,
 						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar.'
 					);
 				},
-				[],
-				[ $this->throwException( $this->getPageNotFoundHttpException() ) ],
+				'sourceSiteServices' => [],
+				'httpResponses' => [ 404 ],
 			],
 			'Good file' => [
-				new FauxRequest( [
+				'webRequest' => [
 					'clientUrl' => 'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
-				] ),
-				true,
-				null,
-				function ( string $html ): void {
+				],
+				'user' => true,
+				'expectedException' => null,
+				'htmlAssertions' => function ( string $html ): void {
 					$this->assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
@@ -190,19 +180,19 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						$html
 					);
 				},
-				[],
-				$this->getSuccessfulHttpRequestExecutorCalls(),
+				'sourceSiteServices' => [],
+				'httpResponses' => $successfulHttpResponses,
 			],
 			'Good file & Good target title' => [
-				new FauxRequest( [
+				'webRequest' => [
 					'clientUrl' => 'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 					'intendedFileName' => 'Chicken In Snow CHANGED',
 					// XXX: This is currently not checked?
 					'importDetailsHash' => 'SomeHash',
-				] ),
-				true,
-				null,
-				function ( string $html ): void {
+				],
+				'user' => true,
+				'expectedException' => null,
+				'htmlAssertions' => function ( string $html ): void {
 					$this->assertPreviewPage(
 						$html,
 						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
@@ -213,8 +203,8 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 						$html
 					);
 				},
-				[],
-				$this->getSuccessfulHttpRequestExecutorCalls(),
+				'sourceSiteServices' => [],
+				'httpResponses' => $successfulHttpResponses,
 			],
 		];
 	}
@@ -266,7 +256,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 * @dataProvider provideTestData
 	 */
 	public function testSpecialPageExecutionWithVariousInputs(
-		WebRequest $request,
+		array $webRequest,
 		$userOrBool,
 		?array $expectedExceptionDetails,
 		callable $htmlAssertionCallable,
@@ -276,15 +266,20 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$httpRequestExecutorMock = $this->createMock( HttpRequestExecutor::class );
 		$httpRequestExecutorMock->expects( $this->atMost( 3 ) )
 			->method( 'execute' )
-			->willReturnOnConsecutiveCalls( ...$httpRequestMockResponses );
+			->willReturnOnConsecutiveCalls( ...array_map( function ( $response ) {
+				if ( is_int( $response ) ) {
+					return $this->throwException( $this->newHttpRequestException( $response ) );
+				}
+				return $this->getHttpRequestMock( $response );
+			}, $httpRequestMockResponses ) );
 		$this->setService( 'FileImporterHttpRequestExecutor', $httpRequestExecutorMock );
 
-		if ( $sourceSiteServicesOverride !== [] ) {
+		if ( $sourceSiteServicesOverride ) {
 			$this->setMwGlobals( 'wgFileImporterSourceSiteServices', $sourceSiteServicesOverride );
 		}
 
 		if ( $expectedExceptionDetails ) {
-			$this->expectException( $expectedExceptionDetails['name'] );
+			$this->expectException( $expectedExceptionDetails['class'] );
 			$this->expectExceptionMessage( $expectedExceptionDetails['message'] );
 		}
 
@@ -298,7 +293,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 
 		[ $html, ] = $this->executeSpecialPage(
 			'',
-			$request,
+			new FauxRequest( $webRequest ),
 			'en',
 			$user
 		);
