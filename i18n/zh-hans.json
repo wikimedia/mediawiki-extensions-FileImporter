@@ -15,7 +15,9 @@
 			"GuoPC",
 			"Lakejason0",
 			"Shizhao",
-			"Diskdance"
+			"Diskdance",
+			"Jbyccc",
+			"SunAfterRain"
 		]
 	},
 	"fileimporter": "文件导入器",
@@ -33,7 +35,7 @@
 	"fileimporter-api-nopagesreturned": "远程API没有返回页面。",
 	"fileimporter-api-toomanyrevisions": "API返回了太多的修订版本，不能导入。",
 	"fileimporter-api-file-notfound": "未找到文件$1。",
-	"fileimporter-api-failedtofindapi": "未能从以下位置发现API位置：$1。$2 $3",
+	"fileimporter-api-failedtofindapi": "无法找到 $1 的 API 位置。$2 $3",
 	"fileimporter-http-statuscode": "HTTP状态代码$1。",
 	"fileimporter-cantparseurl": "不能解析提供的URL：$1",
 	"fileimporter-cantimporturl": "不能导入提供的URL",
