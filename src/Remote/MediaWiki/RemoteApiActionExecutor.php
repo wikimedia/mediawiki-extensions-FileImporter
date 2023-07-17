@@ -39,6 +39,7 @@ class RemoteApiActionExecutor {
 			$user,
 			[
 				'action' => 'query',
+				'errorformat' => 'plaintext',
 				'format' => 'json',
 				'formatversion' => 2,
 				'prop' => 'info',
@@ -111,6 +112,7 @@ class RemoteApiActionExecutor {
 			$user,
 			[
 				'action' => 'query',
+				'errorformat' => 'plaintext',
 				'format' => 'json',
 				'meta' => 'userinfo',
 				'uiprop' => 'rights',
@@ -149,6 +151,7 @@ class RemoteApiActionExecutor {
 			$user,
 			[
 				'action' => 'delete',
+				'errorformat' => 'plaintext',
 				'format' => 'json',
 				'title' => $title,
 				'reason' => $deletionReason,
@@ -172,6 +175,7 @@ class RemoteApiActionExecutor {
 			return $status;
 		}
 
+		// TODO: Simplify once all requests are updated.
 		// It's an array of "errors" with errorformat=plaintext, but a single "error" without.
 		$errors = $apiResponse['errors'] ?? [];
 		if ( isset( $apiResponse['error'] ) ) {

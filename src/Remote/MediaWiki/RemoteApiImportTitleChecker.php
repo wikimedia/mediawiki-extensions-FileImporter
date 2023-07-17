@@ -90,6 +90,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 			'format' => 'json',
 			'action' => 'query',
 			'titles' => 'File:' . $titleString,
+			'errorformat' => 'plaintext',
 			'formatversion' => 2,
 		];
 	}

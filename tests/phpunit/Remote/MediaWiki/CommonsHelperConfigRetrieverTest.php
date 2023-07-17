@@ -58,6 +58,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 				'format' => 'json',
 				'titles' => $configPage,
 				'prop' => 'revisions',
+				'errorformat' => 'plaintext',
 				'formatversion' => 2,
 				'rvprop' => 'content',
 				'rvlimit' => 1,

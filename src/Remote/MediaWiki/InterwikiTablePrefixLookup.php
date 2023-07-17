@@ -199,6 +199,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 				$intermediateWikiApiUrl,
 				[
 					'action' => 'query',
+					'errorformat' => 'plaintext',
 					'format' => 'json',
 					'meta' => 'siteinfo',
 					'siprop' => 'interwikimap'
