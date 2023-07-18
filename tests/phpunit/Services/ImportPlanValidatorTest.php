@@ -25,10 +25,13 @@ use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use HashConfig;
 use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Permissions\Authority;
+use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
 use MediaWikiLangTestCase;
 use MessageLocalizer;
 use MockTitleTrait;
+use RawMessage;
 use Title;
 use TitleValue;
 use UploadBase;
@@ -323,9 +326,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	public function testValidateFailsOnFailingUploadPermissionCheck() {
-		$this->setMwGlobals( [
-			'wgGroupPermissions' => [ '*' => [ 'upload' => false, 'createpage' => true ] ],
-		] );
 		$importRequest = new ImportRequest( '//w.invalid' );
 		$mockDetails = $this->getMockImportDetails( $this->createMock( LinkTarget::class ) );
 		$config = new HashConfig();
@@ -343,9 +343,19 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getServiceContainer()->getRestrictionStore()
 		);
 
+		$errorMsg = 'Test upload not allowed';
+		$performer = $this->createMock( Authority::class );
+		$performer->method( 'authorizeWrite' )
+			->willReturnCallback( static function ( $action, $page, PermissionStatus $status ) use ( $errorMsg ) {
+				if ( $action === 'upload' ) {
+					$status->fatal( new RawMessage( $errorMsg ) );
+					return false;
+				}
+				return true;
+			} );
 		$this->expectException( RecoverableTitleException::class );
-		$this->expectExceptionMessage( 'You are not allowed to execute the action you have requested' );
-		$validator->validate( $importPlan, $this->getTestUser()->getUser() );
+		$this->expectExceptionMessage( $errorMsg );
+		$validator->validate( $importPlan, $performer );
 	}
 
 	public function testCommonsHelperAndWikiLinkParserIntegration() {
