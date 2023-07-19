@@ -27,11 +27,13 @@ class LocalizedImportException extends ImportException implements ILocalizedExce
 		$this->messageSpec = $messageSpec;
 		$msg = $this->getMessageObject();
 		$code = str_replace( 'fileimporter-', '', $msg->getKey() );
+		if ( $msg->getLanguage()->getCode() !== 'qqx' ) {
+			// Re-use the localizable part for the internal exception message string, but in
+			// canonical English. Appears only in logging/debugging.
+			$msg = $msg->inLanguage( 'en' )->useDatabase( false );
+		}
 
-		parent::__construct(
-			$msg->inLanguage( 'en' )->useDatabase( false )->text(),
-			$code,
-			$previous );
+		parent::__construct( $msg->plain(), $code, $previous );
 	}
 
 	/**

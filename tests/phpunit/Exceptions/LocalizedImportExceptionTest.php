@@ -21,8 +21,7 @@ class LocalizedImportExceptionTest extends \MediaWikiIntegrationTestCase {
 	public function testGetMessageObject() {
 		$ex = new LocalizedImportException( [ 'fileimporter-filetoolarge', 1 ] );
 
-		$expectedMessage = wfMessage( 'fileimporter-filetoolarge', 1 )->inLanguage( 'en' );
-		$this->assertSame( $expectedMessage->text(), $ex->getMessage() );
+		$this->assertSame( '(fileimporter-filetoolarge: 1)', $ex->getMessage() );
 		$this->assertSame( 'qqx', $ex->getMessageObject()->getLanguage()->getCode() );
 	}
 

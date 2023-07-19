@@ -31,7 +31,6 @@ use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
 use MediaWikiLangTestCase;
 use MessageLocalizer;
 use MockTitleTrait;
-use RawMessage;
 use Title;
 use TitleValue;
 use UploadBase;
@@ -49,10 +48,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
-			'wgHooks' => [],
-			'wgGroupPermissions' => [ '*' => [ 'upload' => true, 'createpage' => true ] ],
-		] );
+		$this->setMwGlobals( 'wgHooks', [] );
+		$this->setUserLang( 'qqx' );
 
 		// FIXME: The following can be removed when the services are injected via the constructor.
 		$httpRequestExecutor = $this->createMock( HttpRequestExecutor::class );
@@ -211,40 +208,40 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				'hasDuplicates' => true,
 			],
 			'Invalid, title exists on target site' => [
-				'expectException' => [ RecoverableTitleException::class, 'fileimporter-localtitleexists' ],
+				'expectException' => [ RecoverableTitleException::class, '(fileimporter-localtitleexists)' ],
 				'importPlan' => [ 'FinalName.JPG', null, true ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
 				'wikiLinkParserFactoryCalls' => 1,
 			],
 			'Invalid, title exists on source site' => [
-				'expectException' => [ RecoverableTitleException::class, 'fileimporter-sourcetitleexists' ],
+				'expectException' => [ RecoverableTitleException::class, '(fileimporter-sourcetitleexists)' ],
 				'importPlan' => [ 'FinalName.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => false,
 				'wikiLinkParserFactoryCalls' => 1,
 			],
 			'Invalid, file extension has changed' => [
-				'expectException' => [ TitleException::class, 'fileimporter-filenameerror-missmatchextension' ],
+				'expectException' => [ TitleException::class, '(fileimporter-filenameerror-missmatchextension)' ],
 				'importPlan' => [ 'FinalName.JPG', 'SourceName.PNG' ],
 			],
 			'Invalid, No Extension on planned name' => [
-				'expectException' => [ TitleException::class, 'fileimporter-filenameerror-noplannedextension' ],
+				'expectException' => [ TitleException::class, '(fileimporter-filenameerror-noplannedextension)' ],
 				'importPlan' => [ 'FinalName.JPG/Foo' ],
 			],
 			'Invalid, No Extension on source name' => [
-				'expectException' => [ TitleException::class, 'fileimporter-filenameerror-nosourceextension' ],
+				'expectException' => [ TitleException::class, '(fileimporter-filenameerror-nosourceextension)' ],
 				'importPlan' => [ 'FinalName.JPG', 'SourceName.jpg/Foo' ],
 			],
 			'Invalid, Bad title (includes another namespace)' => [
-				'expectException' => [ RecoverableTitleException::class, 'fileimporter-illegalfilenamechars' ],
+				'expectException' => [ RecoverableTitleException::class, '(fileimporter-illegalfilenamechars)' ],
 				'importPlan' => [ 'File:Talk:FinalName.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
 				'wikiLinkParserFactoryCalls' => 1,
 			],
 			'Invalid, Bad filename (too long)' => [
-				'expectException' => [ RecoverableTitleException::class, 'fileimporter-filenameerror-toolong' ],
+				'expectException' => [ RecoverableTitleException::class, '(fileimporter-filenameerror-toolong)' ],
 				'importPlan' => [ str_repeat( 'a', 242 ) . '.JPG' ],
 				'hasDuplicates' => false,
 				'importAllowed' => null,
@@ -252,7 +249,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 				'titleValidationError' => UploadBase::FILENAME_TOO_LONG,
 			],
 			'Invalid, Bad characters "<", getTitle throws MalformedTitleException' => [
-				'expectException' => [ RecoverableTitleException::class, 'mockexception' ],
+				'expectException' => [ RecoverableTitleException::class, '(mockexception)' ],
 				'importPlan' => [ '<invalid title>' ],
 			],
 		];
@@ -286,7 +283,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		if ( $expectedException ) {
 			$this->expectException( $expectedException[0] );
 			if ( isset( $expectedException[1] ) ) {
-				$this->expectExceptionMessage( wfMessage( $expectedException[1] )->plain() );
+				$this->expectExceptionMessage( $expectedException[1] );
 			}
 		}
 
@@ -318,7 +315,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		);
 
 		$this->expectException( RecoverableTitleException::class );
-		$this->expectExceptionMessage( '"Before"' );
+		$this->expectExceptionMessage( '(fileimporter-filenameerror-automaticchanges: Before.jpg#After, Before)' );
 		$validator->validate(
 			$importPlan,
 			$this->mockRegisteredAuthorityWithPermissions( [ 'edit', 'upload' ] )
@@ -343,18 +340,17 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->getServiceContainer()->getRestrictionStore()
 		);
 
-		$errorMsg = 'Test upload not allowed';
 		$performer = $this->createMock( Authority::class );
 		$performer->method( 'authorizeWrite' )
-			->willReturnCallback( static function ( $action, $page, PermissionStatus $status ) use ( $errorMsg ) {
-				if ( $action === 'upload' ) {
-					$status->fatal( new RawMessage( $errorMsg ) );
-					return false;
+			->willReturnCallback( static function ( string $action, $target, PermissionStatus $status ) {
+				$allowed = $action !== 'upload';
+				if ( !$allowed ) {
+					$status->error( 'badaccess-group0' );
 				}
-				return true;
+				return $allowed;
 			} );
 		$this->expectException( RecoverableTitleException::class );
-		$this->expectExceptionMessage( $errorMsg );
+		$this->expectExceptionMessage( '(badaccess-group0)' );
 		$validator->validate( $importPlan, $performer );
 	}
 
