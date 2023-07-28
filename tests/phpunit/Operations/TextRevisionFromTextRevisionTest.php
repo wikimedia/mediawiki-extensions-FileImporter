@@ -25,7 +25,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 	private const TITLE = 'Test-29e8a6ff58c5eb980fc0642a13b59cb9c5a3cf66.png';
 
 	public function testPrepare() {
-		$title = Title::newFromText( self::TITLE, NS_FILE );
+		$title = Title::makeTitle( NS_FILE, self::TITLE );
 		$textRevisionFromTextRevision = $this->newTextRevisionFromTextRevision( $title );
 
 		$this->assertNull( $textRevisionFromTextRevision->getWikiRevision() );
@@ -48,7 +48,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testValidate() {
-		$title = Title::newFromText( self::TITLE, NS_FILE );
+		$title = Title::makeTitle( NS_FILE, self::TITLE );
 		$textRevisionFromTextRevision = $this->newTextRevisionFromTextRevision( $title );
 
 		$this->assertTrue( $textRevisionFromTextRevision->prepare()->isOK() );
@@ -57,7 +57,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testCommit() {
-		$title = Title::newFromText( self::TITLE, NS_FILE );
+		$title = Title::makeTitle( NS_FILE, self::TITLE );
 		$textRevisionFromTextRevision = $this->newTextRevisionFromTextRevision( $title );
 
 		$this->assertTrue( $textRevisionFromTextRevision->prepare()->isOK() );
