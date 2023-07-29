@@ -40,7 +40,7 @@ class ImportPlan {
 	private $numberOfTemplateReplacements = 0;
 	/** @var int[] */
 	private $actionStats = [];
-	/** @var int[] */
+	/** @var (int|string)[] */
 	private $validationWarnings = [];
 	/** @var bool */
 	private $automateSourceWikiCleanUp = false;
@@ -287,21 +287,21 @@ class ImportPlan {
 	}
 
 	/**
-	 * @param int[] $warnings
+	 * @param (int|string)[] $warnings
 	 */
 	public function setValidationWarnings( array $warnings ) {
 		$this->validationWarnings = $warnings;
 	}
 
 	/**
-	 * @param int $warning
+	 * @param int|string $warning
 	 */
-	public function addValidationWarning( int $warning ) {
+	public function addValidationWarning( $warning ) {
 		$this->validationWarnings[] = $warning;
 	}
 
 	/**
-	 * @return int[]
+	 * @return (int|string)[]
 	 */
 	public function getValidationWarnings(): array {
 		return $this->validationWarnings;
