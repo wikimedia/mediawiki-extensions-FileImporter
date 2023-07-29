@@ -7,6 +7,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWikiIntegrationTestCase;
 use Parser;
+use ParserFactory;
 use ParserOutput;
 use Title;
 use User;
@@ -63,7 +64,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testGetCategories( array $allCategories, array $hiddenCategories, array $visibleCategories ) {
 		$extractor = new CategoryExtractor(
-			$this->buildParserMock( $allCategories ),
+			$this->buildParserFactoryMock( $allCategories ),
 			$this->buildConnectionProviderMock( $hiddenCategories ),
 			$this->services->getLinkBatchFactory()
 		);
@@ -101,7 +102,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
-			$this->createMock( Parser::class ),
+			$this->createMock( ParserFactory::class ),
 			$this->services->getDBLoadBalancerFactory(),
 			$this->services->getLinkBatchFactory()
 		);
@@ -132,7 +133,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
-			$this->createMock( Parser::class ),
+			$this->createMock( ParserFactory::class ),
 			$this->services->getDBLoadBalancerFactory(),
 			$this->services->getLinkBatchFactory()
 		);
@@ -143,7 +144,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->assertEquals( [], array_values( $hiddenCategories ) );
 	}
 
-	private function buildParserMock( array $categories ): Parser {
+	private function buildParserFactoryMock( array $categories ): ParserFactory {
 		$parserOutput = $this->createMock( ParserOutput::class );
 		$parserOutput->method( 'getCategories' )
 			->willReturn( array_flip( $categories ) );
@@ -152,7 +153,11 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$parser->method( 'parse' )
 			->willReturn( $parserOutput );
 
-		return $parser;
+		$parserFactory = $this->createMock( ParserFactory::class );
+		$parserFactory->method( 'getInstance' )
+			->willReturn( $parser );
+
+		return $parserFactory;
 	}
 
 	private function buildConnectionProviderMock( array $hiddenCategories ): IConnectionProvider {

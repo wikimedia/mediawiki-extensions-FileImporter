@@ -4,7 +4,7 @@ namespace FileImporter\Services;
 
 use MediaWiki\Cache\LinkBatchFactory;
 use MediaWiki\User\UserIdentity;
-use Parser;
+use ParserFactory;
 use ParserOptions;
 use Title;
 use Wikimedia\Rdbms\IConnectionProvider;
@@ -14,24 +14,24 @@ use Wikimedia\Rdbms\IConnectionProvider;
  */
 class CategoryExtractor {
 
-	/** @var Parser */
-	private $parser;
+	/** @var ParserFactory */
+	private $parserFactory;
 	/** @var IConnectionProvider */
 	private $connectionProvider;
 	/** @var LinkBatchFactory */
 	private $linkBatchFactory;
 
 	/**
-	 * @param Parser $parser
+	 * @param ParserFactory $parserFactory
 	 * @param IConnectionProvider $connectionProvider
 	 * @param LinkBatchFactory $linkBatchFactory
 	 */
 	public function __construct(
-		Parser $parser,
+		ParserFactory $parserFactory,
 		IConnectionProvider $connectionProvider,
 		LinkBatchFactory $linkBatchFactory
 	) {
-		$this->parser = $parser;
+		$this->parserFactory = $parserFactory;
 		$this->connectionProvider = $connectionProvider;
 		$this->linkBatchFactory = $linkBatchFactory;
 	}
@@ -47,7 +47,7 @@ class CategoryExtractor {
 	 * 		[ $visibleCategories, $hiddenCategories ]
 	 */
 	public function getCategoriesGrouped( $text, Title $title, UserIdentity $user ) {
-		$categoryMap = $this->parser->parse(
+		$categoryMap = $this->parserFactory->getInstance()->parse(
 			$text,
 			$title,
 			new ParserOptions( $user )
