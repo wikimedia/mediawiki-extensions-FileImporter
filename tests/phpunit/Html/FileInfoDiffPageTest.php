@@ -12,7 +12,6 @@ use FileImporter\Html\FileInfoDiffPage;
 use HashConfig;
 use IContextSource;
 use Language;
-use MediaWiki\Language\RawMessage;
 use MediaWiki\Request\FauxRequest;
 use MessageLocalizer;
 use OOUI\BlankTheme;
@@ -44,7 +43,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function getMockSpecialPage(): SpecialPage {
-		$title = Title::newFromText( __METHOD__ );
+		$title = Title::makeTitle( NS_MAIN, __METHOD__ );
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
@@ -55,8 +54,6 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 			->willReturn( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) );
 		$mock->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
-		$mock->method( 'msg' )
-			->willReturn( new RawMessage( '' ) );
 		return $mock;
 	}
 

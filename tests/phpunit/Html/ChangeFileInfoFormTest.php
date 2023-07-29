@@ -48,7 +48,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function getMockSpecialPage(): SpecialPage {
-		$title = Title::newFromText( __METHOD__ );
+		$title = Title::makeTitle( NS_MAIN, __METHOD__ );
 		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
 
 		$context = $this->createMock( RequestContext::class );

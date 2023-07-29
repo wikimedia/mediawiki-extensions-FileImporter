@@ -35,6 +35,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	protected function setUp(): void {
 		parent::setUp();
 
+		$this->setUserLang( 'qqx' );
 		$this->setMwGlobals( [
 			'wgEnableUploads' => true,
 			'wgFileImporterShowInputScreen' => true,
@@ -134,7 +135,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					self::assertErrorBox( $html, 'Can\'t import the given URL' );
+					self::assertErrorBox( $html, '(fileimporter-cantimporturl)' );
 				},
 				'sourceSiteServices' => [ 'FileImporter-WikimediaSitesTableSite' ],
 			],
@@ -145,19 +146,19 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
-					self::assertErrorBox( $html, 'Can\'t parse the given URL: t243ju89gujwe9fjka09jg' );
+					self::assertErrorBox( $html, '(fileimporter-cantparseurl: t243ju89gujwe9fjka09jg)' );
 				}
 			],
 			'Bad file' => [
 				'webRequest' => [
-					'clientUrl' => 'https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar'
+					'clientUrl' => 'https://commons.wikimedia.org/wiki/NotAFile'
 				],
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
 					self::assertErrorBox(
 						$html,
-						'File not found: https://commons.wikimedia.org/wiki/ThisIsNotAFileFooBarBarBar.'
+						'(fileimporter-api-file-notfound: https://commons.wikimedia.org/wiki/NotAFile)'
 					);
 				},
 				'sourceSiteServices' => [],

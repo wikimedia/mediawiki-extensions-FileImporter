@@ -43,7 +43,7 @@ class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
 
 		$mock = $this->createMock( SpecialPage::class );
 		$mock->method( 'getPageTitle' )
-			->willReturn( Title::newFromText( __METHOD__ ) );
+			->willReturn( Title::makeTitle( NS_MAIN, __METHOD__ ) );
 		$mock->method( 'getContext' )
 			->willReturn( $context );
 		return $mock;

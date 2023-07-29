@@ -44,7 +44,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	 */
 	public function testPrepareWithBrokenUrl( TextRevision $textRevision = null ) {
 		$fileRevisionFromRemoteUrl = new FileRevisionFromRemoteUrl(
-			Title::newFromText( __METHOD__ ),
+			Title::makeTitle( NS_MAIN, __METHOD__ ),
 			$this->getTestUser()->getUser(),
 			$this->newFileRevision( 'NULL' ),
 			$textRevision,
@@ -60,7 +60,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testPrepare() {
-		$title = Title::newFromText( self::TITLE, NS_FILE );
+		$title = Title::makeTitle( NS_FILE, self::TITLE );
 		$fileRevisionFromRemoteUrl = $this->newFileRevisionFromRemoteUrl( $title );
 
 		$this->assertNull( $fileRevisionFromRemoteUrl->getWikiRevision() );
@@ -82,7 +82,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testValidate() {
-		$title = Title::newFromText( self::TITLE, NS_FILE );
+		$title = Title::makeTitle( NS_FILE, self::TITLE );
 		$fileRevisionFromRemoteUrl = $this->newFileRevisionFromRemoteUrl( $title );
 
 		$this->assertTrue( $fileRevisionFromRemoteUrl->prepare()->isOK() );
@@ -91,7 +91,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testCommit() {
-		$title = Title::newFromText( self::TITLE, NS_FILE );
+		$title = Title::makeTitle( NS_FILE, self::TITLE );
 		$fileRevisionFromRemoteUrl = $this->newFileRevisionFromRemoteUrl( $title );
 
 		$this->assertTrue( $fileRevisionFromRemoteUrl->prepare()->isOK() );
