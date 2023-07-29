@@ -18,6 +18,7 @@ use OOUI\BlankTheme;
 use OOUI\Theme;
 use OutputPage;
 use RequestContext;
+use Skin;
 use SpecialPage;
 use Title;
 use User;
@@ -61,6 +62,8 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 			->willReturn( $this->createMock( User::class ) );
 		$context->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
+		$context->method( 'getSkin' )
+			->willReturn( $this->createMock( Skin::class ) );
 		$context->method( 'msg' )
 			->willReturn( new RawMessage( '' ) );
 
