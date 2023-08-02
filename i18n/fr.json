@@ -18,7 +18,6 @@
 			"Wladek92"
 		]
 	},
-	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importation facile de fichiers provenant d’autres sites",
 	"fileimporter-help-banner-text": "'''Importer depuis d’autres wikis'''\n# Vérifiez et corrigez le titre du fichier et les informations ci-dessous.\n# Choisissez si vous souhaitez que l’assistant d’importation de fichier (''FileImporter'') nettoie le wiki d’origine, en ajoutant le modèle [//fr.wikipedia.org/wiki/Modèle:Image_sur_Commons Image sur Commons] au fichier source (si vous avez des droits d’administrateur, vous avez également l’option de supprimer le fichier source).\n# Cliquez sur '''{{int:fileimporter-import}}''' pour copier le fichier vers {{SITENAME}}.\n\nPour des informations sur les licences, veuillez passer en revue la [[Project:Licensing|politique communautaire]] de {{SITENAME}}.<br /> Pour des instructions plus détaillées sur la manière d’utiliser l’assistant ''FileImporter'', consultez [//www.mediawiki.org/wiki/Help:Extension:FileImporter sa page d’aide].",
 	"fileimporter-help-banner-close-tooltip": "Ne plus afficher ce message",

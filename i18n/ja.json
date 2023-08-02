@@ -10,7 +10,6 @@
 			"春春眠眠"
 		]
 	},
-	"fileimporter": "FileImporter",
 	"fileimporter-desc": "他のサイトからファイルを容易にインポートする",
 	"tag-fileimporter": "FileImporterによる修正",
 	"tag-fileimporter-description": "履歴と記録のメッセージは他のウィキからインポートした後に追加されます。",
