@@ -40,6 +40,7 @@ use WikiRevision;
 /**
  * @covers \FileImporter\Services\Importer
  *
+ * @group Database
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
@@ -60,7 +61,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( 'wgHooks', [] );
+		$this->clearHooks();
 	}
 
 	public function testImportingOneFileRevision() {
@@ -95,7 +96,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
 			new FileTextRevisionValidator(),
-			$this->getServiceContainer()->getRestrictionStore()
+			$this->createMock( RestrictionStore::class )
 		);
 
 		$importer->import( $user, $importPlan );

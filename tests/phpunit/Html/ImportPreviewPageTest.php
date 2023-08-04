@@ -28,6 +28,7 @@ use User;
 /**
  * @covers \FileImporter\Html\ImportPreviewPage
  *
+ * @group Database
  * @license GPL-2.0-or-later
  */
 class ImportPreviewPageTest extends \MediaWikiLangTestCase {

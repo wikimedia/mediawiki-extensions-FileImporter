@@ -25,6 +25,7 @@ use Title;
  * @covers \FileImporter\Html\ImportIdentityFormSnippet
  * @covers \FileImporter\Html\SpecialPageHtmlFragment
  *
+ * @group Database
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */

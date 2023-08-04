@@ -10,6 +10,7 @@ use OOUI\Theme;
 /**
  * @covers \FileImporter\Html\CategoriesSnippet
  *
+ * @group Database
  * @license GPL-2.0-or-later
  */
 class CategoriesSnippetTest extends MediaWikiIntegrationTestCase {

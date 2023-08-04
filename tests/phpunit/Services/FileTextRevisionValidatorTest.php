@@ -17,7 +17,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( 'wgHooks', [] );
+		$this->clearHooks();
 	}
 
 	public function testSuccess() {

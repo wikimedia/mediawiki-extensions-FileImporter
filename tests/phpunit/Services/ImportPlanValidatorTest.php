@@ -38,6 +38,7 @@ use UploadBase;
 /**
  * @covers \FileImporter\Services\ImportPlanValidator
  *
+ * @group Database
  * @license GPL-2.0-or-later
  * @author Addshore
  */
@@ -48,7 +49,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( 'wgHooks', [] );
+		$this->clearHooks();
 		$this->setUserLang( 'qqx' );
 
 		// FIXME: The following can be removed when the services are injected via the constructor.

@@ -29,6 +29,7 @@ use User;
  * @covers \FileImporter\Html\SpecialPageHtmlFragment
  * @covers \FileImporter\Html\WikitextEditor
  *
+ * @group Database
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
