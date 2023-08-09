@@ -177,7 +177,7 @@ class SpecialImportFile extends SpecialPage {
 
 	/** @inheritDoc */
 	public function getDescription() {
-		return $this->msg( 'fileimporter-specialpage' )->text();
+		return $this->msg( 'fileimporter-specialpage' );
 	}
 
 	private function setupPage() {
