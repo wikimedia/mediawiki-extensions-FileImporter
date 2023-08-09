@@ -38,7 +38,8 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 			} ],
 		] );
 
-		$title = Title::makeTitle( NS_FILE, __METHOD__ );
+		$title = Title::makeTitle( NS_FILE, 'NullRevisionCreatorTest' );
+
 		$fileRevision = $this->createMock( FileRevision::class );
 		$user = $this->getTestUser()->getUser();
 		$summary = 'Summary';
@@ -47,8 +48,12 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 		$revisionRecord = $this->createMock( MutableRevisionRecord::class );
 		$revisionRecord->method( 'getUser' )
 			->willReturn( $user );
+		$revisionRecord->method( 'getPage' )
+			->willReturn( $title );
 		$revisionRecord->method( 'getPageAsLinkTarget' )
 			->willReturn( $title );
+		$revisionRecord->method( 'getTimestamp' )
+			->willReturn( '2023-08-09T19:42:19-04:00' );
 		$revisionRecord->method( 'getComment' )
 			->willReturn( $commentStore );
 		$revisionRecord->expects( $this->exactly( 2 ) )
