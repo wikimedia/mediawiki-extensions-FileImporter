@@ -21,6 +21,7 @@ use Title;
 class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 	public function testCreateForLinkTargetSuccess() {
+		$this->clearHooks();
 		$this->setMwGlobals( 'wgHooks', [
 			'ChangeTagsAfterUpdateTags' => [ function (
 				$tagsToAdd,

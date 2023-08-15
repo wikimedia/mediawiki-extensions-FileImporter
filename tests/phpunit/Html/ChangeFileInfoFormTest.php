@@ -39,6 +39,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
+		$this->clearHooks();
 		$this->setMwGlobals( 'wgHooks', [] );
 		Theme::setSingleton( new BlankTheme() );
 	}
