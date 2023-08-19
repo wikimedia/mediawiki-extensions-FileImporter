@@ -10,11 +10,11 @@ use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileNameForm;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\Title\Title;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use RequestContext;
 use SpecialPage;
-use Title;
 
 /**
  * @covers \FileImporter\Html\ChangeFileNameForm

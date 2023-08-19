@@ -17,12 +17,12 @@ use HamcrestPHPUnitIntegration;
 use HashConfig;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Title\Title;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use SpecialPage;
 use StatusValue;
-use Title;
 use User;
 
 /**

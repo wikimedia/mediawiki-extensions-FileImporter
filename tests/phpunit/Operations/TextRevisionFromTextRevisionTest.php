@@ -8,9 +8,9 @@ use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Psr\Log\NullLogger;
 use StatusValue;
-use Title;
 
 /**
  * @covers \FileImporter\Operations\TextRevisionFromTextRevision

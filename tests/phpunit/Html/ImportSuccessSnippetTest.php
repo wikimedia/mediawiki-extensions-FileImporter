@@ -5,13 +5,13 @@ namespace FileImporter\Tests\Html;
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
 use HashBagOStuff;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use Message;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use StatusValue;
-use Title;
 use User;
 
 /**

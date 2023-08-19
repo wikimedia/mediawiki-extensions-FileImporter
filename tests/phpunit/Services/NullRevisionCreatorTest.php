@@ -7,7 +7,7 @@ use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
-use Title;
+use MediaWiki\Title\Title;
 
 /**
  * @covers \FileImporter\Services\NullRevisionCreator

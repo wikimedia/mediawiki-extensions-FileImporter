@@ -7,7 +7,7 @@ use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Revision\SlotRecord;
-use Title;
+use MediaWiki\Title\Title;
 use WikiRevision;
 
 /**

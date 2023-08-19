@@ -7,10 +7,10 @@ use DerivativeContext;
 use FileImporter\HookRunner;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Title\Title;
 use RequestContext;
 use Status;
 use StatusValue;
-use Title;
 use User;
 
 /**

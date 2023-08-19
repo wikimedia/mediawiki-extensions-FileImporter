@@ -5,6 +5,7 @@ namespace FileImporter\Html;
 use FileImporter\Services\SuccessCache;
 use Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 use Message;
 use MessageLocalizer;
@@ -12,7 +13,6 @@ use MessageSpecifier;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use StatusValue;
-use Title;
 
 /**
  * Informational block embedded at the top of page after a successful import.

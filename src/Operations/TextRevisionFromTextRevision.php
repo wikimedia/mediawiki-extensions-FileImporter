@@ -7,11 +7,11 @@ use FileImporter\Interfaces\ImportOperation;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Permissions\RestrictionStore;
+use MediaWiki\Title\Title;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
-use Title;
 use User;
 use WikiRevision;
 

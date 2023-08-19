@@ -6,8 +6,8 @@ use FileImporter\HookRunner;
 use Html;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MutableContext;
-use Title;
 
 /**
  * @license GPL-2.0-or-later

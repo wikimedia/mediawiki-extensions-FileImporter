@@ -7,8 +7,8 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SuggestManualTemplateAction;
 use FileImporter\Services\WikidataTemplateLookup;
+use MediaWiki\Title\Title;
 use StatusValue;
-use Title;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\SuggestManualTemplateAction

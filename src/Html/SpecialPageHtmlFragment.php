@@ -5,12 +5,12 @@ namespace FileImporter\Html;
 use IContextSource;
 use InvalidArgumentException;
 use Language;
+use MediaWiki\Title\Title;
 use Message;
 use MessageLocalizer;
 use MutableContext;
 use OutputPage;
 use SpecialPage;
-use Title;
 use User;
 
 /**

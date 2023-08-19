@@ -13,12 +13,12 @@ use HashConfig;
 use IContextSource;
 use Language;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Title\Title;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use RequestContext;
 use SpecialPage;
-use Title;
 
 /**
  * @covers \FileImporter\Html\FileInfoDiffPage

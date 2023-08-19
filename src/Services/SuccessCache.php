@@ -3,11 +3,11 @@
 namespace FileImporter\Services;
 
 use BagOStuff;
+use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
-use Title;
 use Wikimedia\LightweightObjectStore\ExpirationAwareness;
 
 /**

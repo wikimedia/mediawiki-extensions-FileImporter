@@ -13,6 +13,7 @@ use HashConfig;
 use Language;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Title\Title;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
@@ -20,7 +21,6 @@ use OutputPage;
 use RequestContext;
 use Skin;
 use SpecialPage;
-use Title;
 use User;
 
 /**

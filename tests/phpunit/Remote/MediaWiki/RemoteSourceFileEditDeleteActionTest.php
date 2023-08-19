@@ -9,9 +9,9 @@ use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Services\WikidataTemplateLookup;
+use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use StatusValue;
-use Title;
 use User;
 
 /**
