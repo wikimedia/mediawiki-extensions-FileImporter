@@ -21,6 +21,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Permissions\RestrictionStore;
+use MediaWiki\Title\Title;
 use RequestContext;
 use UploadBase;
 
@@ -155,7 +156,7 @@ class ImportPlanValidator {
 
 		$sourceLanguage = $importPlan->getDetails()->getPageLanguage();
 		if ( $sourceLanguage ) {
-			$languageTemplate = \Title::makeTitleSafe( NS_TEMPLATE, $sourceLanguage );
+			$languageTemplate = Title::makeTitleSafe( NS_TEMPLATE, $sourceLanguage );
 			if ( $languageTemplate->exists() ) {
 				$cleaner->setSourceWikiLanguageTemplate( $sourceLanguage );
 			}

@@ -5,9 +5,9 @@ namespace FileImporter;
 use FileImporter\Html\ImportSuccessSnippet;
 use MediaWiki;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use OutputPage;
 use Skin;
-use Title;
 use User;
 use WebRequest;
 

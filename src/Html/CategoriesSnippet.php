@@ -6,10 +6,10 @@ use Html;
 use IContextSource;
 use ILanguageConverter;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use OOUI\IconWidget;
 use RequestContext;
 use SpecialPage;
-use Title;
 
 /**
  * @license GPL-2.0-or-later

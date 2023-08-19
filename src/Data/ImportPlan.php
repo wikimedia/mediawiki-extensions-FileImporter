@@ -7,8 +7,8 @@ use DateTime;
 use DateTimeZone;
 use MalformedTitleException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MessageLocalizer;
-use Title;
 
 /**
  * Planned import.
