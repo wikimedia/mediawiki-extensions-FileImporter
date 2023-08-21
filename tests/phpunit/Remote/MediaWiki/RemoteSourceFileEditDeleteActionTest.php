@@ -9,6 +9,7 @@ use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Services\WikidataTemplateLookup;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use StatusValue;
@@ -20,6 +21,11 @@ use User;
  * @license GPL-2.0-or-later
  */
 class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase {
+
+	protected function setUp(): void {
+		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'qqx' );
+		parent::setUp();
+	}
 
 	public function testExecute_noCleanupRequested() {
 		$fallbackHandler = $this->createMock( PostImportHandler::class );

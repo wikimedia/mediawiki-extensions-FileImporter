@@ -53,7 +53,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( WikiRevisionFactory::class ),
 			$this->createMock( UploadBaseFactory::class ),
 			$this->createMock( ImportableUploadRevisionImporter::class ),
-			$this->createMock( RestrictionStore::class )
+			$this->createNoOpMock( RestrictionStore::class )
 		);
 
 		$this->assertFalse( $fileRevisionFromRemoteUrl->prepare()->isOK() );
@@ -148,7 +148,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$this->newWikiRevisionFactory(),
 			$services->getService( 'FileImporterUploadBaseFactory' ),
 			$this->newUploadRevisionImporter(),
-			$services->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 
 		return $fileRevisionFromRemoteUrl;

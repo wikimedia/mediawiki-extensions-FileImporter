@@ -96,7 +96,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
 			new FileTextRevisionValidator(),
-			$this->createMock( RestrictionStore::class )
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 
 		$importer->import( $user, $importPlan );
@@ -122,7 +122,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createOldRevisionImporterMock( $wikiRevision ),
 			$this->createUploadRevisionImporterMock( $wikiRevision ),
 			new FileTextRevisionValidator(),
-			$this->getServiceContainer()->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 
 		$importer->import( $user, $importPlan );
@@ -172,7 +172,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( OldRevisionImporter::class ),
 			$this->createMock( UploadRevisionImporter::class ),
 			new FileTextRevisionValidator(),
-			$this->createMock( RestrictionStore::class )
+			$this->createNoOpMock( RestrictionStore::class )
 		);
 
 		/** @var Importer $importer */
@@ -231,7 +231,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( OldRevisionImporter::class ),
 			$this->createMock( UploadRevisionImporter::class ),
 			new FileTextRevisionValidator(),
-			$this->createMock( RestrictionStore::class )
+			$this->createNoOpMock( RestrictionStore::class )
 		);
 
 		/** @var Importer $importer */
@@ -253,7 +253,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createMock( OldRevisionImporter::class ),
 			$this->createMock( UploadRevisionImporter::class ),
 			new FileTextRevisionValidator(),
-			$this->createMock( RestrictionStore::class )
+			$this->createNoOpMock( RestrictionStore::class )
 		) );
 
 		$status = StatusValue::newFatal( 'fileimporter-cantimportfileinvalid', 'The reason' );

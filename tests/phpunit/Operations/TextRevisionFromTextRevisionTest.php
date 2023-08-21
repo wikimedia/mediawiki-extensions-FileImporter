@@ -8,6 +8,7 @@ use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableOldRevisionImporter;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Title\Title;
 use Psr\Log\NullLogger;
 use StatusValue;
@@ -101,7 +102,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 			new WikiRevisionFactory( $this->getServiceContainer()->getContentHandlerFactory() ),
 			$oldRevisionImporter,
 			$this->newFileTextRevisionValidator(),
-			$services->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 	}
 

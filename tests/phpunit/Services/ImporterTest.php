@@ -22,6 +22,7 @@ use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\User\UserIdentityLookup;
@@ -336,7 +337,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$oldRevisionImporter,
 			$uploadRevisionImporter,
 			new FileTextRevisionValidator(),
-			$services->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 	}
 

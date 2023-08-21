@@ -27,6 +27,7 @@ use MalformedTitleException;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\PermissionStatus;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
 use MediaWiki\Title\Title;
 use MediaWikiLangTestCase;
@@ -278,7 +279,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			null,
 			null,
 			$this->getMockWikiLinkParserFactory( $wikiLinkParserFactoryCalls ),
-			$this->getServiceContainer()->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 
 		if ( $expectedException ) {
@@ -312,7 +313,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			null,
 			null,
 			$this->getMockWikiLinkParserFactory( 1 ),
-			$this->getServiceContainer()->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 
 		$this->expectException( RecoverableTitleException::class );
@@ -338,7 +339,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			null,
 			null,
 			$this->getMockWikiLinkParserFactory(),
-			$this->getServiceContainer()->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class )
 		);
 
 		$performer = $this->createMock( Authority::class );
@@ -386,7 +387,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$commonsHelperConfigRetriever,
 			'',
 			$this->getMockWikiLinkParserFactory( 1, $wikiLinkParser ),
-			$this->getServiceContainer()->getRestrictionStore()
+			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 
 		$validator->validate(
