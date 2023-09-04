@@ -25,10 +25,7 @@ class ImportOperations implements ImportOperation {
 	private const VALIDATE_RUN = 2;
 	private const COMMIT_RUN = 3;
 
-	/**
-	 * @param ImportOperation $importOperation
-	 */
-	public function add( ImportOperation $importOperation ) {
+	public function add( ImportOperation $importOperation ): void {
 		$this->throwExceptionOnBadState( self::BUILDING );
 		$this->importOperations[] = $importOperation;
 	}
@@ -38,7 +35,7 @@ class ImportOperations implements ImportOperation {
 	 *
 	 * @throws ImportException when the expected state doesn't match
 	 */
-	private function throwExceptionOnBadState( $expectedState ) {
+	private function throwExceptionOnBadState( int $expectedState ): void {
 		if ( $this->state !== $expectedState ) {
 			throw new ImportException(
 				__CLASS__ . ' methods run out of order', self::ERROR_OUT_OF_ORDER );

@@ -29,7 +29,7 @@ class SourceUrl {
 	 *
 	 * @throws InvalidArgumentException When $url is not parsable
 	 */
-	public function __construct( $url ) {
+	public function __construct( string $url ) {
 		$this->url = trim( $url );
 		$this->parsed = wfParseUrl( $this->url );
 		if ( !$this->parsed ) {
@@ -41,25 +41,25 @@ class SourceUrl {
 	/**
 	 * @return string The raw URL
 	 */
-	public function getUrl() {
+	public function getUrl(): string {
 		return $this->url;
 	}
 
 	/**
 	 * @return string[] Parsed URL array provided by wfParseUrl
 	 */
-	public function getParsedUrl() {
+	public function getParsedUrl(): array {
 		return $this->parsed;
 	}
 
 	/**
 	 * @return string The host, for example "en.wikipedia.org"
 	 */
-	public function getHost() {
+	public function getHost(): string {
 		return strtolower( $this->parsed['host'] );
 	}
 
-	public function __toString() {
+	public function __toString(): string {
 		return $this->url;
 	}
 

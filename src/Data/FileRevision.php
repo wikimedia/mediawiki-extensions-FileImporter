@@ -39,9 +39,6 @@ class FileRevision {
 		$this->fields = $fields;
 	}
 
-	/**
-	 * @param array $fields
-	 */
 	private function throwExceptionIfMissingFields( array $fields ): void {
 		$diff = array_diff_key( array_flip( self::REQUIRED_FIELDS ), $fields );
 		if ( $diff !== [] ) {
@@ -56,14 +53,11 @@ class FileRevision {
 	 *
 	 * @return mixed|null Null if the field isn't known
 	 */
-	public function getField( $name ) {
+	public function getField( string $name ) {
 		return $this->fields[$name] ?? null;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function getFields() {
+	public function getFields(): array {
 		return $this->fields;
 	}
 

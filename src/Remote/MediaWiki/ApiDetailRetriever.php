@@ -195,14 +195,14 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @return string[]
 	 */
-	private function reduceTitleList( array $titles, $namespace ) {
+	private function reduceTitleList( array $titles, int $namespace ): array {
 		return array_map(
-			static function ( array $title ) {
+			static function ( array $title ): string {
 				return $title['title'];
 			},
 			array_filter(
 				$titles,
-				static function ( array $title ) use ( $namespace ) {
+				static function ( array $title ) use ( $namespace ): bool {
 					return $title['ns'] === $namespace;
 				}
 			)
@@ -223,7 +223,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		SourceUrl $sourceUrl,
 		array &$requestData,
 		array &$pageInfoData
-	) {
+	): void {
 		$rvContinue = $requestData['continue']['rvcontinue'] ?? null;
 		$iiStart = $requestData['continue']['iistart'] ?? null;
 		$tlContinue = $requestData['continue']['tlcontinue'] ?? null;
@@ -284,7 +284,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @throws ImportException when exceeding the acceptable maximum
 	 */
-	private function checkRevisionCount( SourceUrl $sourceUrl, array $pageInfoData ) {
+	private function checkRevisionCount( SourceUrl $sourceUrl, array $pageInfoData ): void {
 		if ( count( $pageInfoData['revisions'] ) > $this->maxRevisions ||
 			count( $pageInfoData['imageinfo'] ) > $this->maxRevisions ||
 			count( $pageInfoData['revisions'] ) > static::MAX_REVISIONS ||
@@ -306,7 +306,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @throws ImportException when exceeding the maximum file size
 	 */
-	private function checkMaxRevisionAggregatedBytes( array $pageInfoData ) {
+	private function checkMaxRevisionAggregatedBytes( array $pageInfoData ): void {
 		$aggregatedFileBytes = 0;
 		foreach ( $pageInfoData['imageinfo'] as $fileVersion ) {
 			$aggregatedFileBytes += $fileVersion['size'] ?? 0;
@@ -325,7 +325,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @return FileRevisions
 	 * @throws ImportException when the file is not acceptable, e.g. hidden or to big
 	 */
-	private function getFileRevisionsFromImageInfo( array $imageInfo, $pageTitle ) {
+	private function getFileRevisionsFromImageInfo( array $imageInfo, string $pageTitle ): FileRevisions {
 		$revisions = [];
 		foreach ( $imageInfo as $revisionInfo ) {
 			if ( array_key_exists( 'filehidden', $revisionInfo ) ) {
@@ -372,7 +372,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @return TextRevisions
 	 */
-	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, $pageTitle ) {
+	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, string $pageTitle ): TextRevisions {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
@@ -408,7 +408,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param SourceUrl $sourceUrl
 	 * @return string[]
 	 */
-	private function getBaseParams( SourceUrl $sourceUrl ) {
+	private function getBaseParams( SourceUrl $sourceUrl ): array {
 		return [
 			'action' => 'query',
 			'errorformat' => 'plaintext',
@@ -426,7 +426,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @return array
 	 */
-	private function addTextRevisionsToParams( array $params, $rvContinue = null ) {
+	private function addTextRevisionsToParams( array $params, string $rvContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|revisions' : 'revisions';
 
 		if ( $rvContinue ) {
@@ -460,7 +460,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @return array
 	 */
-	private function addFileRevisionsToParams( array $params, $iiStart = null ) {
+	private function addFileRevisionsToParams( array $params, string $iiStart = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|imageinfo' : 'imageinfo';
 
 		if ( $iiStart ) {
@@ -496,7 +496,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @return array
 	 */
-	private function addTemplatesToParams( array $params, $tlContinue = null ) {
+	private function addTemplatesToParams( array $params, string $tlContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|templates' : 'templates';
 
 		if ( $tlContinue ) {
@@ -514,7 +514,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	 *
 	 * @return array
 	 */
-	private function addCategoriesToParams( array $params, $clContinue = null ) {
+	private function addCategoriesToParams( array $params, string $clContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|categories' : 'categories';
 
 		if ( $clContinue ) {

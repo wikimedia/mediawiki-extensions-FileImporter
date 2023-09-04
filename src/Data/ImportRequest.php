@@ -66,24 +66,21 @@ class ImportRequest {
 		$this->importDetailsHash = $importDetailsHash;
 	}
 
-	/**
-	 * @return SourceUrl
-	 */
-	public function getUrl() {
+	public function getUrl(): SourceUrl {
 		return $this->url;
 	}
 
 	/**
 	 * @return string|null Guaranteed to be a trimmed, non-empty string, or null
 	 */
-	public function getIntendedName() {
+	public function getIntendedName(): ?string {
 		return $this->intendedName;
 	}
 
 	/**
 	 * @return null|string
 	 */
-	public function getIntendedText() {
+	public function getIntendedText(): ?string {
 		return $this->intendedText;
 	}
 
@@ -99,7 +96,7 @@ class ImportRequest {
 	 *
 	 * @return string
 	 */
-	public function getImportDetailsHash() {
+	public function getImportDetailsHash(): string {
 		return $this->importDetailsHash;
 	}
 

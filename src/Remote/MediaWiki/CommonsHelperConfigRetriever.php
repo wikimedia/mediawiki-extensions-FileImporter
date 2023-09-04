@@ -35,8 +35,8 @@ class CommonsHelperConfigRetriever {
 	 */
 	public function __construct(
 		HttpRequestExecutor $httpRequestExecutor,
-		$configServer,
-		$configBasePageName
+		string $configServer,
+		string $configBasePageName
 	) {
 		// TODO: Inject?
 		$this->mainConfig = MediaWikiServices::getInstance()->getMainConfig();
@@ -52,7 +52,7 @@ class CommonsHelperConfigRetriever {
 	 * @return bool True if a config was found
 	 * @throws ImportException e.g. when the config page doesn't exist
 	 */
-	public function retrieveConfiguration( SourceUrl $sourceUrl ) {
+	public function retrieveConfiguration( SourceUrl $sourceUrl ): bool {
 		$response = $this->sendApiRequest( $sourceUrl );
 
 		if ( count( $response['query']['pages'] ?? [] ) !== 1 ) {
@@ -96,7 +96,7 @@ class CommonsHelperConfigRetriever {
 	 *
 	 * @return string
 	 */
-	private function buildCommonsHelperConfigUrl( SourceUrl $sourceUrl ) {
+	private function buildCommonsHelperConfigUrl( SourceUrl $sourceUrl ): string {
 		$title = $this->getQueryParamTitle( $sourceUrl );
 
 		// We assume the wiki holding the config pages uses the same configuration.
@@ -111,7 +111,7 @@ class CommonsHelperConfigRetriever {
 	 * @return array[]
 	 * @throws ImportException when the request failed
 	 */
-	private function sendApiRequest( SourceUrl $sourceUrl ) {
+	private function sendApiRequest( SourceUrl $sourceUrl ): array {
 		// We assume the wiki holding the config pages uses the same configuration.
 		$scriptPath = $this->mainConfig->get( MainConfigNames::ScriptPath );
 		$apiUrl = $this->configServer . $scriptPath . '/api.php';
@@ -142,7 +142,7 @@ class CommonsHelperConfigRetriever {
 	 *
 	 * @return string
 	 */
-	private function getQueryParamTitle( SourceUrl $sourceUrl ) {
+	private function getQueryParamTitle( SourceUrl $sourceUrl ): string {
 		$domain = $this->getHostWithoutTopLevelDomain( $sourceUrl );
 
 		if ( ctype_alpha( $domain ) ) {
@@ -159,7 +159,7 @@ class CommonsHelperConfigRetriever {
 	 * @return string Full host with all subdomains, but without the top-level domain (if a
 	 *  top-level domain was given), e.g. "en.wikipedia".
 	 */
-	private function getHostWithoutTopLevelDomain( SourceUrl $sourceUrl ) {
+	private function getHostWithoutTopLevelDomain( SourceUrl $sourceUrl ): string {
 		$domain = $sourceUrl->getHost();
 
 		// Reuse the original configuration pages for test imports from the Beta cluster

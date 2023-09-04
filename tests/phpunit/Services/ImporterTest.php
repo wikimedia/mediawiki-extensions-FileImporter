@@ -221,9 +221,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		}
 	}
 
-	/**
-	 * @param \File $file
-	 */
 	private function assertFileLogEntry(
 		\File $file
 	) {

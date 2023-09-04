@@ -16,9 +16,6 @@ class UploadBaseFactory {
 	/** @var LoggerInterface */
 	private $logger;
 
-	/**
-	 * @param LoggerInterface $logger
-	 */
 	public function __construct( LoggerInterface $logger ) {
 		$this->logger = $logger;
 	}
@@ -29,7 +26,7 @@ class UploadBaseFactory {
 	 *
 	 * @return ValidatingUploadBase
 	 */
-	public function newValidatingUploadBase( LinkTarget $targetTitle, $tempPath ) {
+	public function newValidatingUploadBase( LinkTarget $targetTitle, $tempPath ): ValidatingUploadBase {
 		return new ValidatingUploadBase( $targetTitle, $tempPath, $this->logger );
 	}
 

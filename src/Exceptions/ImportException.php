@@ -16,7 +16,7 @@ class ImportException extends RuntimeException {
 	 * @param int|string $code
 	 * @param Throwable|null $previous
 	 */
-	public function __construct( $message, $code, Throwable $previous = null ) {
+	public function __construct( string $message, $code, Throwable $previous = null ) {
 		if ( is_string( $code ) && ctype_digit( $code ) ) {
 			$code = (int)$code;
 		}

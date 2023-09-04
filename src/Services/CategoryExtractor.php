@@ -46,7 +46,7 @@ class CategoryExtractor {
 	 * @return array Two lists of category names, grouped by local visibility.
 	 * 		[ $visibleCategories, $hiddenCategories ]
 	 */
-	public function getCategoriesGrouped( $text, Title $title, UserIdentity $user ) {
+	public function getCategoriesGrouped( string $text, Title $title, UserIdentity $user ): array {
 		$categoryMap = $this->parserFactory->getInstance()->parse(
 			$text,
 			$title,
@@ -67,7 +67,7 @@ class CategoryExtractor {
 	 *
 	 * @return string[] List of hidden categories.
 	 */
-	private function queryHiddenCategories( array $categories ) {
+	private function queryHiddenCategories( array $categories ): array {
 		if ( $categories === [] ) {
 			return [];
 		}

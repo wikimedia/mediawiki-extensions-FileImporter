@@ -249,9 +249,6 @@ class Importer {
 		return $importOperations;
 	}
 
-	/**
-	 * @param ImportOperations $importOperations
-	 */
 	private function prepareImportOperations( ImportOperations $importOperations ): void {
 		if ( !$importOperations->prepare()->isOK() ) {
 			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
@@ -260,10 +257,6 @@ class Importer {
 		}
 	}
 
-	/**
-	 * @param StatusValue $status
-	 * @param ImportPlan $importPlan
-	 */
 	private function validateImportOperations( StatusValue $status, ImportPlan $importPlan ): void {
 		if ( !$status->isGood() ) {
 			/** @var \IApiMessage[] $newAbuseFilterWarnings */
@@ -303,9 +296,6 @@ class Importer {
 		}
 	}
 
-	/**
-	 * @param ImportOperations $importOperations
-	 */
 	private function commitImportOperations( ImportOperations $importOperations ): void {
 		if ( !$importOperations->commit()->isOK() ) {
 			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
@@ -355,14 +345,10 @@ class Importer {
 		return $page;
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param UserIdentity $user
-	 */
 	private function createPostImportNullRevision(
 		ImportPlan $importPlan,
 		UserIdentity $user
-	) {
+	): void {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$summary = wfMsgReplaceArgs(
 			$config->get( 'FileImporterCommentForPostImportRevision' ),

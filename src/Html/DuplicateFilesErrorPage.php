@@ -21,7 +21,7 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 	 *
 	 * @return string
 	 */
-	public function getHtml( array $files, $url ) {
+	public function getHtml( array $files, ?string $url ): string {
 		$output = new MessageWidget( [
 			'label' => $this->msg( 'fileimporter-duplicatefilesdetected' )->plain(),
 			'type' => 'error',

@@ -113,7 +113,7 @@ class WikitextConversions {
 	 *
 	 * @return string
 	 */
-	public function swapHeading( $heading ) {
+	public function swapHeading( string $heading ): string {
 		return $this->headingReplacements[$heading] ?? $heading;
 	}
 
@@ -123,15 +123,12 @@ class WikitextConversions {
 	 *
 	 * @return bool
 	 */
-	public function isTemplateGood( $pageName ) {
+	public function isTemplateGood( string $pageName ): bool {
 		$pageName = $this->removeNamespace( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->goodTemplates );
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function hasGoodTemplates() {
+	public function hasGoodTemplates(): bool {
 		return $this->goodTemplates !== [];
 	}
 
@@ -141,7 +138,7 @@ class WikitextConversions {
 	 *
 	 * @return bool
 	 */
-	public function isTemplateBad( $pageName ) {
+	public function isTemplateBad( string $pageName ): bool {
 		$pageName = $this->removeNamespace( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->badTemplates );
 	}
@@ -152,7 +149,7 @@ class WikitextConversions {
 	 *
 	 * @return bool
 	 */
-	public function isCategoryBad( $pageName ) {
+	public function isCategoryBad( string $pageName ): bool {
 		$pageName = $this->removeNamespace( $pageName );
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->badCategories );
 	}
@@ -162,7 +159,7 @@ class WikitextConversions {
 	 *
 	 * @return bool
 	 */
-	public function isObsoleteTemplate( $pageName ) {
+	public function isObsoleteTemplate( string $pageName ): bool {
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->obsoleteTemplates );
 	}
 
@@ -171,7 +168,7 @@ class WikitextConversions {
 	 *
 	 * @return string|false
 	 */
-	public function swapTemplate( $templateName ) {
+	public function swapTemplate( string $templateName ) {
 		$templateName = $this->lowercasePageName( $templateName );
 		return $this->transferTemplates[$templateName]['targetTemplate'] ?? false;
 	}
@@ -188,7 +185,7 @@ class WikitextConversions {
 	 *     …
 	 * ]
 	 */
-	public function getTemplateParameters( $templateName ) {
+	public function getTemplateParameters( string $templateName ): array {
 		$templateName = $this->lowercasePageName( $templateName );
 		if ( !isset( $this->transferTemplates[$templateName] ) ) {
 			return [];
@@ -216,7 +213,7 @@ class WikitextConversions {
 	 *
 	 * @return string[] Array mapping required target parameter names to static string values.
 	 */
-	public function getRequiredTemplateParameters( $templateName ) {
+	public function getRequiredTemplateParameters( string $templateName ): array {
 		$templateName = $this->lowercasePageName( $templateName );
 		if ( !isset( $this->transferTemplates[$templateName] ) ) {
 			return [];
@@ -237,7 +234,7 @@ class WikitextConversions {
 	 *
 	 * @return string
 	 */
-	private function lowercasePageName( $pageName ) {
+	private function lowercasePageName( string $pageName ): string {
 		return mb_convert_case( $this->normalizePageName( $pageName ), MB_CASE_LOWER );
 	}
 
@@ -246,7 +243,7 @@ class WikitextConversions {
 	 *
 	 * @return string
 	 */
-	private function normalizePageName( $pageName ) {
+	private function normalizePageName( string $pageName ): string {
 		return trim( str_replace( '_', ' ', $pageName ) );
 	}
 
@@ -255,7 +252,7 @@ class WikitextConversions {
 	 *
 	 * @return string
 	 */
-	private function removeNamespace( $title ) {
+	private function removeNamespace( string $title ): string {
 		$splitTitle = explode( ':', $title, 2 );
 		return end( $splitTitle );
 	}

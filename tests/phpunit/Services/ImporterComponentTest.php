@@ -308,9 +308,6 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		] );
 	}
 
-	/**
-	 * @return WikiRevision
-	 */
 	private function createWikiRevisionMock(): WikiRevision {
 		$revision = $this->createMock( WikiRevision::class );
 		$revision->expects( $this->once() )

@@ -14,27 +14,18 @@ class WikitextContentCleaner {
 	private $latestNumberOfReplacements = 0;
 	/** @var WikitextConversions */
 	private $wikitextConversions;
-	/** @var string|false */
-	private $sourceWikiLanguageTemplate = false;
+	/** @var string|null */
+	private $sourceWikiLanguageTemplate = null;
 
-	/**
-	 * @param WikitextConversions $conversions
-	 */
 	public function __construct( WikitextConversions $conversions ) {
 		$this->wikitextConversions = $conversions;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getLatestNumberOfReplacements() {
+	public function getLatestNumberOfReplacements(): int {
 		return $this->latestNumberOfReplacements;
 	}
 
-	/**
-	 * @param string $template
-	 */
-	public function setSourceWikiLanguageTemplate( $template ) {
+	public function setSourceWikiLanguageTemplate( string $template ): void {
 		$this->sourceWikiLanguageTemplate = $template;
 	}
 
@@ -43,7 +34,7 @@ class WikitextContentCleaner {
 	 *
 	 * @return string
 	 */
-	public function cleanWikitext( $wikitext ) {
+	public function cleanWikitext( string $wikitext ): string {
 		$wikitext = $this->cleanHeadings( $wikitext );
 		$wikitext = $this->cleanTemplates( $wikitext );
 		return trim( $wikitext );
@@ -54,7 +45,7 @@ class WikitextContentCleaner {
 	 *
 	 * @return string
 	 */
-	private function cleanHeadings( $wikitext ) {
+	private function cleanHeadings( string $wikitext ): string {
 		return preg_replace_callback(
 			'/^
 				# Group 1
@@ -69,7 +60,7 @@ class WikitextContentCleaner {
 				# Look-ahead for what group 2 captured
 				(?=\h*\2\h*$)
 			/mx',
-			function ( $matches ) {
+			function ( array $matches ): string {
 				return $matches[1] . $this->wikitextConversions->swapHeading( $matches[3] );
 			},
 			$wikitext
@@ -80,7 +71,7 @@ class WikitextContentCleaner {
 	 * @param string $wikitext
 	 * @return string
 	 */
-	private function cleanTemplates( $wikitext ) {
+	private function cleanTemplates( string $wikitext ): string {
 		$this->latestNumberOfReplacements = 0;
 
 		preg_match_all(
@@ -101,7 +92,7 @@ class WikitextContentCleaner {
 				continue;
 			}
 
-			$endOfTemplateName = $offset + strlen( $oldTemplateName );
+			$endOfTemplateName = (int)$offset + strlen( $oldTemplateName );
 			$parseResult = $this->parseTemplate( $wikitext, $endOfTemplateName );
 
 			$this->latestNumberOfReplacements++;
@@ -159,7 +150,7 @@ class WikitextContentCleaner {
 	 *     ]
 	 * ]
 	 */
-	private function parseTemplate( $wikitext, $startPosition ) {
+	private function parseTemplate( string $wikitext, int $startPosition ): array {
 		$max = strlen( $wikitext );
 		// Templates can be nested, but links can not
 		$inWikiLink = false;
@@ -239,7 +230,7 @@ class WikitextContentCleaner {
 	 * @return string Substring from $wikitext including the character at $offset, and all
 	 *  whitespace left and right
 	 */
-	private function scanFormatSnippet( $wikitext, $offset ) {
+	private function scanFormatSnippet( string $wikitext, int $offset ): string {
 		$from = $offset;
 		while ( $from > 0 && ctype_space( $wikitext[$from - 1] ) ) {
 			$from--;
@@ -259,7 +250,7 @@ class WikitextContentCleaner {
 	 * @param int $end
 	 * @param array &$param
 	 */
-	private function scanValue( $wikitext, $end, array &$param ) {
+	private function scanValue( string $wikitext, int $end, array &$param ): void {
 		// To not place replacements for empty values in the next line, we skip horizontal
 		// whitespace only
 		preg_match( '/(?!\h)/u', $wikitext, $matches, PREG_OFFSET_CAPTURE, $param['valueOffset'] );
@@ -273,16 +264,16 @@ class WikitextContentCleaner {
 	 * @param array[] $parameters "parameters" list as returned by {@see parseTemplateParameters}
 	 * @param array[] $replacements Array mapping old to new parameters, as returned by
 	 *  {@see WikitextConversions::getTemplateParameters}
-	 * @param string|false $languageTemplate a template name representing the source wiki's language
+	 * @param string|null $languageTemplate a template name representing the source wiki's language
 	 *
 	 * @return string
 	 */
 	private function renameTemplateParameters(
-		$wikitext,
+		string $wikitext,
 		array $parameters,
 		array $replacements,
-		$languageTemplate
-	) {
+		?string $languageTemplate
+	): string {
 		if ( $replacements === [] ) {
 			return $wikitext;
 		}
@@ -292,7 +283,7 @@ class WikitextContentCleaner {
 			$from = $parameters[$i]['name'] ?? $parameters[$i]['number'];
 
 			if ( isset( $replacements[$from] ) ) {
-				if ( $languageTemplate && $replacements[$from]['addLanguageTemplate'] ) {
+				if ( $languageTemplate !== null && $replacements[$from]['addLanguageTemplate'] ) {
 					$start = $parameters[$i]['valueOffset'];
 					$end = $start + strlen( $parameters[$i]['value'] );
 					$wikitext = substr_replace( $wikitext, '}}', $end, 0 );

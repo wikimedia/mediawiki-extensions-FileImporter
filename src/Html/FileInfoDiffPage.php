@@ -69,7 +69,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 	 *
 	 * @return string HTML
 	 */
-	private function buildDiff( $originalText, $newText, ContentHandler $contentHandler ) {
+	private function buildDiff( string $originalText, string $newText, ContentHandler $contentHandler ): string {
 		$originalContent = $contentHandler->unserializeContent( $originalText );
 		$newContent = $contentHandler->unserializeContent( $newText );
 

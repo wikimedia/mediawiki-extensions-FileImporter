@@ -21,7 +21,7 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 	 *
 	 * @return string
 	 */
-	public function getHtml( TextRevision $textRevision, $intendedWikitext ) {
+	public function getHtml( TextRevision $textRevision, ?string $intendedWikitext ): string {
 		$services = MediaWikiServices::getInstance();
 		$title = Title::newFromText( $textRevision->getField( 'title' ), NS_FILE );
 

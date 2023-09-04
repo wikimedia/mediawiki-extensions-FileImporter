@@ -16,9 +16,6 @@ class FileDescriptionPageValidator {
 	/** @var WikitextConversions */
 	private $wikitextConversions;
 
-	/**
-	 * @param WikitextConversions $conversions
-	 */
 	public function __construct( WikitextConversions $conversions ) {
 		$this->wikitextConversions = $conversions;
 	}
@@ -44,7 +41,7 @@ class FileDescriptionPageValidator {
 	 *
 	 * @throws CommunityPolicyException
 	 */
-	public function validateCategories( array $categories ) {
+	public function validateCategories( array $categories ): void {
 		foreach ( $categories as $category ) {
 			if ( $this->wikitextConversions->isCategoryBad( $category ) ) {
 				throw new CommunityPolicyException( [

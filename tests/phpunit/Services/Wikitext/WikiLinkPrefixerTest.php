@@ -64,9 +64,6 @@ class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $expected, $prefixer->process( $link ) );
 	}
 
-	/**
-	 * @return TitleParser
-	 */
 	private function newTitleParser(): TitleParser {
 		$parser = $this->createMock( TitleParser::class );
 		$parser->method( 'parseTitle' )->willReturnCallback( static function ( string $text ): TitleValue {

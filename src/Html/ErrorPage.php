@@ -18,7 +18,7 @@ class ErrorPage extends SpecialPageHtmlFragment {
 	 *
 	 * @return string
 	 */
-	public function getHtml( $errorMessage, $url, $type = 'error' ) {
+	public function getHtml( string $errorMessage, ?string $url, string $type = 'error' ): string {
 		$output = ( new HelpBanner( $this ) )->getHtml();
 
 		if ( $type === 'error' ) {

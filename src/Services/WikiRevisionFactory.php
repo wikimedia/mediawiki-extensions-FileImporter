@@ -26,9 +26,6 @@ class WikiRevisionFactory {
 	// TODO: should be changed back to lowercase when T221235 is fixed.
 	public const DEFAULT_USERNAME_PREFIX = 'Imported';
 
-	/**
-	 * @param IContentHandlerFactory $contentHandlerFactory
-	 */
 	public function __construct( IContentHandlerFactory $contentHandlerFactory ) {
 		$this->contentHandlerFactory = $contentHandlerFactory;
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
@@ -61,10 +58,7 @@ class WikiRevisionFactory {
 		return $revision;
 	}
 
-	/**
-	 * @param string $prefix
-	 */
-	public function setInterWikiPrefix( $prefix ) {
+	public function setInterWikiPrefix( string $prefix ): void {
 		$this->interwikiPrefix = $prefix;
 		$this->externalUserNames = new ExternalUserNames(
 			$prefix ?: self::DEFAULT_USERNAME_PREFIX,
@@ -78,7 +72,7 @@ class WikiRevisionFactory {
 	 *
 	 * @return WikiRevision
 	 */
-	public function newFromFileRevision( FileRevision $fileRevision, $src ) {
+	public function newFromFileRevision( FileRevision $fileRevision, string $src ): WikiRevision {
 		$revision = $this->newWikiRevision(
 			$fileRevision->getField( 'name' ),
 			$fileRevision->getField( 'timestamp' ),
@@ -146,7 +140,7 @@ class WikiRevisionFactory {
 	 *
 	 * @return string
 	 */
-	private function prefixCommentLinks( $summaryText ) {
+	private function prefixCommentLinks( string $summaryText ): string {
 		if ( !$this->interwikiPrefix ) {
 			return $summaryText;
 		}

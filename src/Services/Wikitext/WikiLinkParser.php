@@ -11,10 +11,7 @@ class WikiLinkParser {
 	/** @var WikiLinkCleaner[] */
 	private $cleaners = [];
 
-	/**
-	 * @param WikiLinkCleaner $cleaner
-	 */
-	public function registerWikiLinkCleaner( WikiLinkCleaner $cleaner ) {
+	public function registerWikiLinkCleaner( WikiLinkCleaner $cleaner ): void {
 		$this->cleaners[] = $cleaner;
 	}
 
@@ -23,7 +20,7 @@ class WikiLinkParser {
 	 *
 	 * @return string
 	 */
-	public function parse( $wikitext ) {
+	public function parse( string $wikitext ): string {
 		return preg_replace_callback(
 			'/
 				# Look-behind for the opening [[
@@ -33,7 +30,7 @@ class WikiLinkParser {
 				# Look-ahead for | or the closing ]]
 				(?=\||\]\])
 			/xu',
-			function ( $matches ) {
+			function ( array $matches ): string {
 				$link = $matches[0];
 				foreach ( $this->cleaners as $cleaner ) {
 					$link = $cleaner->process( $link );
