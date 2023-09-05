@@ -57,6 +57,8 @@
 	"fileimporter-cancel": "Cancel",
 	"fileimporter-edittitle": "Edit Title",
 	"fileimporter-editinfo": "Edit File Info",
+	"fileimporter-previewtitle": "Preview Title",
+	"fileimporter-previewinfo": "Preview File Info",
 	"fileimporter-extensionlabel": "File extension:",
 	"fileimporter-newfilename": "New file name:",
 	"fileimporter-editsummary": "Edit summary:",
@@ -91,5 +93,6 @@
 	"fileimporter-auto-replacements-summary": "$1 automatic {{PLURAL:$1|change|changes}} to templates {{PLURAL:$1|has|have}} been made",
 	"fileimporter-input-page-info-text": "Learn more by visiting our [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons help page].",
 	"fileimporter-viewdiff": "Show changes",
-	"fileimporter-to-preview": "Back to preview"
+	"fileimporter-to-preview": "Back to preview",
+	"fileimporter-no-script-warning": "JavaScript is unsupported or disabled by your browser. File Importer relies on JavaScript to function."
 }

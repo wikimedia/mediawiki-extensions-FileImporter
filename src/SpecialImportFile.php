@@ -35,6 +35,7 @@ use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Extension\GlobalBlocking\GlobalBlocking;
 use MediaWiki\Logger\LoggerFactory;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\User\UserOptionsManager;
 use Message;
 use OOUI\HtmlSnippet;
@@ -181,24 +182,24 @@ class SpecialImportFile extends SpecialPage {
 		return $this->msg( 'fileimporter-specialpage' );
 	}
 
-	private function setupPage() {
-		$output = $this->getOutput();
-		$output->enableOOUI();
-		$output->addModuleStyles( 'ext.FileImporter.SpecialCss' );
-		$output->addModuleStyles( 'ext.FileImporter.Images' );
-		$output->addModules( 'ext.FileImporter.SpecialJs' );
-	}
-
 	/**
 	 * @param string|null $subPage
 	 */
 	public function execute( $subPage ): void {
 		$this->setHeaders();
-		$this->setupPage();
+		$this->getOutput()->enableOOUI();
 		$this->executeStandardChecks();
 
 		$webRequest = $this->getRequest();
 		$clientUrl = $webRequest->getVal( 'clientUrl', '' );
+		$isCodex = $webRequest->getBool( 'codex' ) &&
+			MediaWikiServices::getInstance()->getMainConfig()->get( 'FileImporterCodexMode' );
+
+		if ( !$isCodex ) {
+			$this->getOutput()->addModuleStyles( 'ext.FileImporter.SpecialCss' );
+			$this->getOutput()->addModuleStyles( 'ext.FileImporter.Images' );
+			$this->getOutput()->addModules( 'ext.FileImporter.SpecialJs' );
+		}
 
 		// Note: executions by users that don't have the rights to view the page etc will not be
 		// shown in this metric as executeStandardChecks will have already kicked them out,
@@ -233,7 +234,24 @@ class SpecialImportFile extends SpecialPage {
 			if ( $action ) {
 				$this->logger->info( "Performing $action on ImportPlan for URL: $clientUrl" );
 			}
-			$this->handleAction( $action, $importPlan );
+
+			if ( $isCodex ) {
+				if ( $action === 'viewdiff' ) {
+					$this->getOutput()->addJsConfigVars( [
+						'wgFileImporterFileInfoDiffHtml' => $this->buildInfoDiff( $importPlan )
+					] );
+				}
+
+				if ( $this->getRequest()->wasPosted() && $action === 'submit' ) {
+					$this->doImport( $importPlan );
+					// TODO: return if successful, otherwise show the page with inline errors
+				}
+
+				$this->getOutput()->addModules( 'ext.FileImporter.SpecialCodexJs' );
+				$this->showCodexImportPage( $importPlan );
+			} else {
+				$this->handleAction( $action, $importPlan );
+			}
 		} catch ( ImportException $exception ) {
 			$this->logger->info( 'ImportException: ' . $exception->getMessage() );
 			$this->logErrorStats(
@@ -258,6 +276,24 @@ class SpecialImportFile extends SpecialPage {
 			$this->getOutput()->enableOOUI();
 			$this->getOutput()->addHTML( $html );
 		}
+	}
+
+	private function buildInfoDiff( ImportPlan $importPlan ): string {
+		$contentHandler = $this->contentHandlerFactory->getContentHandler( CONTENT_MODEL_WIKITEXT );
+		$originalText = $importPlan->getInitialFileInfoText();
+		$newText = $importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText();
+
+		$originalContent = $contentHandler->unserializeContent( $originalText );
+		$newContent = $contentHandler->unserializeContent( $newText );
+
+		$diffEngine = $contentHandler->createDifferenceEngine( $this->getContext() );
+		$diffEngine->setContent( $originalContent, $newContent );
+
+		$diffEngine->showDiffStyle();
+		return $diffEngine->getDiff(
+			$this->msg( 'currentrev' )->parse(),
+			$this->msg( 'yourtext' )->parse()
+		);
 	}
 
 	/**
@@ -362,6 +398,7 @@ class SpecialImportFile extends SpecialPage {
 				$importPlan
 			);
 			$this->stats->increment( 'FileImporter.import.result.success' );
+			// TODO: inline at site of action
 			$this->logActionStats( $importPlan );
 
 			$postImportResult = $this->performPostImportActions( $importPlan );
@@ -458,6 +495,84 @@ class SpecialImportFile extends SpecialPage {
 		$this->getOutput()->addHTML(
 			( new ImportPreviewPage( $this ) )->getHtml( $importPlan )
 		);
+	}
+
+	/**
+	 * @param ImportPlan $importPlan
+	 * @return array of automation features and whether they are available
+	 */
+	private function getAutomatedCapabilities( ImportPlan $importPlan ) {
+		$capabilities = [];
+
+		$config = $this->getContext()->getConfig();
+		$isCentralAuthEnabled = ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' );
+		$lookup = MediaWikiServices::getInstance()->getService(
+			'FileImporterTemplateLookup' );
+		$remoteActionApi = MediaWikiServices::getInstance()->getService(
+			'FileImporterMediaWikiRemoteApiActionExecutor' );
+		$sourceUrl = $importPlan->getRequest()->getUrl();
+
+		$capabilities['canAutomateEdit'] =
+			$isCentralAuthEnabled &&
+			$config->get( 'FileImporterSourceWikiTemplating' ) &&
+			$lookup->fetchNowCommonsLocalTitle( $sourceUrl ) &&
+			$remoteActionApi->executeTestEditActionQuery(
+				$sourceUrl, $this->getUser(), $importPlan->getTitle() )->isGood();
+		$capabilities['canAutomateDelete'] =
+			$isCentralAuthEnabled &&
+			$config->get( 'FileImporterSourceWikiDeletion' ) &&
+			$remoteActionApi->executeUserRightsQuery( $sourceUrl, $this->getUser() )->isGood();
+
+		if ( $capabilities['canAutomateDelete'] ) {
+			$capabilities['automateDeleteSelected'] = $importPlan->getAutomateSourceWikiDelete();
+			$this->stats->increment( 'FileImporter.specialPage.action.offeredSourceDelete' );
+		} elseif ( $capabilities['canAutomateEdit'] ) {
+			$capabilities['automateEditSelected'] =
+				$importPlan->getAutomateSourceWikiCleanUp() ||
+				$importPlan->getRequest()->getImportDetailsHash() === '';
+			$capabilities['cleanupTitle'] =
+				$lookup->fetchNowCommonsLocalTitle( $sourceUrl );
+			$this->stats->increment( 'FileImporter.specialPage.action.offeredSourceEdit' );
+		}
+
+		return $capabilities;
+	}
+
+	private function showCodexImportPage( ImportPlan $importPlan ): void {
+		$this->getOutput()->addHTML(
+			Html::rawElement( 'noscript', [], $this->msg( 'fileimporter-no-script-warning' ) )
+		);
+
+		$this->getOutput()->addHTML(
+			Html::rawElement( 'div', [ 'id' => 'ext-fileimporter-vue-root' ] )
+		);
+
+		$showHelpBanner = !MediaWikiServices::getInstance()->getService( 'UserOptionsLookup' )
+			->getBoolOption( $this->getUser(), 'userjs-fileimporter-hide-help-banner' );
+
+		$this->getOutput()->addJsConfigVars( [
+			'wgFileImporterAutomatedCapabilities' => $this->getAutomatedCapabilities( $importPlan ),
+			'wgFileImporterClientUrl' => $importPlan->getRequest()->getUrl()->getUrl(),
+			'wgFileImporterEditToken' => $this->getUser()->getEditToken(),
+			'wgFileImporterFileRevisionsCount' =>
+				count( $importPlan->getDetails()->getFileRevisions()->toArray() ),
+			'wgFileImporterHelpBannerContentHtml' => $showHelpBanner ?
+				FileImporterUtils::addTargetBlankToLinks(
+					$this->msg( 'fileimporter-help-banner-text' )->parse()
+				) : null,
+			'wgFileImporterTextRevisionsCount' =>
+				count( $importPlan->getDetails()->getTextRevisions()->toArray() ),
+			'wgFileImporterTitle' => $importPlan->getFileName(),
+			'wgFileImporterFileExtension' => $importPlan->getFileExtension(),
+			'wgFileImporterPrefixedTitle' => $importPlan->getTitle()->getPrefixedText(),
+			'wgFileImporterImageUrl' => $importPlan->getDetails()->getImageDisplayUrl(),
+			'wgFileImporterFileInfoWikitext' =>
+				// FIXME: can assume the edit field is persistent
+				$importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText(),
+			'wgFileImporterEditSummary' => $importPlan->getRequest()->getIntendedSummary(),
+			'wgFileImporterDetailsHash' => $importPlan->getDetails()->getOriginalHash(),
+			'wgFileImporterTemplateReplacementCount' => $importPlan->getNumberOfTemplateReplacements(),
+		] );
 	}
 
 	private function showLandingPage(): void {

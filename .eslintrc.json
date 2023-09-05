@@ -4,12 +4,10 @@
 		"commonjs": true
 	},
 	"extends": [
-		"wikimedia/client-es6",
-		"wikimedia/jquery",
-		"wikimedia/mediawiki"
+		"wikimedia/mediawiki",
+		"wikimedia/server"
 	],
-	"rules": {
-		"no-jquery/no-global-selector": "off",
-		"no-jquery/no-event-shorthand": "off"
-	}
+	"ignorePatterns": [
+		"coverage"
+	]
 }

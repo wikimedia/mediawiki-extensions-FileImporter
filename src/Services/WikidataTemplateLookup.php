@@ -112,7 +112,7 @@ class WikidataTemplateLookup {
 	}
 
 	/**
-	 * FIXME: copied from WikitextConversions
+	 * FIXME: copied from WikitextConversions, should use Title methods instead.
 	 * @param string $title
 	 *
 	 * @return string

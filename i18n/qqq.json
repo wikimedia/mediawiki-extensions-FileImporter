@@ -64,6 +64,8 @@
 	"fileimporter-cancel": "Text for the cancel button on the special page.\n{{Identical|Cancel}}",
 	"fileimporter-edittitle": "Text for the button allowing a user to edit the file title for import.",
 	"fileimporter-editinfo": "Text for the button allowing a user to edit the file info for import.",
+	"fileimporter-previewtitle": "Text shown when the edit title button is toggled and the next click will begin a preview",
+	"fileimporter-previewinfo": "Text shown when the edit file info button is toggled and the next click will begin a preview",
 	"fileimporter-extensionlabel": "Label for the display of the file extension.",
 	"fileimporter-newfilename": "Label for the new file name input box.",
 	"fileimporter-editsummary": "Label for the edit summary input box.\n{{Identical|Edit summary}}",
@@ -98,5 +100,6 @@
 	"fileimporter-auto-replacements-summary": "Automatic summary line protocolling how many automatic changes have been done.\n\nParameters:\n* $1 - Number of changes done, could be used with PLURAL.",
 	"fileimporter-input-page-info-text": "Message shown to the user when visiting the URL input page.",
 	"fileimporter-viewdiff": "Text for the show changes button on the special page.\n{{Identical|Show changes}}",
-	"fileimporter-to-preview": "Text for the button on the diff page to get back to the preview."
+	"fileimporter-to-preview": "Text for the button on the diff page to get back to the preview.",
+	"fileimporter-no-script-warning": "Warning message shown to users who cannot run File Importer because JavaScript is unsupported."
 }

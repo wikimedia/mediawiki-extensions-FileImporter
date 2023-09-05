@@ -96,6 +96,7 @@ class ImportPlan {
 			$intendedFileName = $this->request->getIntendedName();
 			if ( $intendedFileName !== null ) {
 				$linkTarget = MediaWikiServices::getInstance()->getTitleParser()->parseTitle(
+					// FIXME: will be incorrect for Codex UI
 					$intendedFileName . '.' . $this->details->getSourceFileExtension(),
 					NS_FILE
 				);

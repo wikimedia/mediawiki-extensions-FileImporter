@@ -122,6 +122,11 @@
 			"value": false,
 			"description": "When set to true, FileImporter offers an option to automatically edit the source file after a successful import. Requires the CentralAuth extension to be set up and running on both the source and target wiki.",
 			"public": true
+		},
+		"FileImporterCodexMode": {
+			"value": false,
+			"description": "When set to true, FileImporter will allow a mode where some parts of it's interface are replaced with Codex to provide a more dynamic workflow.",
+			"public": true
 		}
 	},
 	"ResourceModules": {
@@ -150,6 +155,49 @@
 					}
 				}
 			}
+		},
+		"ext.FileImporter.SpecialCodexJs": {
+			"packageFiles": [
+				"modules/ext.FileImporter.SpecialCodex.js",
+				"modules/components/App.vue",
+				"modules/components/CategoriesList.vue",
+				"modules/components/CategoriesSection.vue",
+				"modules/components/HelpBanner.vue",
+				"modules/components/ImportFile.vue"
+			],
+			"dependencies": [
+				"@wikimedia/codex",
+				"mediawiki.api",
+				"mediawiki.jqueryMsg"
+			],
+			"messages": [
+				"colon-separator",
+				"fileimporter-auto-replacements-summary",
+				"fileimporter-cancel",
+				"fileimporter-category-encouragement",
+				"fileimporter-cleanup-checkboxlabel",
+				"fileimporter-cleanup-text",
+				"fileimporter-delete-checkboxlabel",
+				"fileimporter-delete-text",
+				"fileimporter-editinfo",
+				"fileimporter-editsummary",
+				"fileimporter-edittitle",
+				"fileimporter-filerevisions",
+				"fileimporter-heading-cleanup",
+				"fileimporter-heading-filehistory",
+				"fileimporter-heading-fileinfo",
+				"fileimporter-help-banner-close-tooltip",
+				"fileimporter-help-banner-text",
+				"fileimporter-import",
+				"fileimporter-import-wait",
+				"fileimporter-previewinfo",
+				"fileimporter-previewnote",
+				"fileimporter-previewtitle",
+				"fileimporter-textrevisions",
+				"fileimporter-viewdiff",
+				"hidden-categories",
+				"pagecategories"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
