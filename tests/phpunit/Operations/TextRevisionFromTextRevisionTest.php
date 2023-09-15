@@ -6,10 +6,8 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
-use ImportableOldRevisionImporter;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use Psr\Log\NullLogger;
 use StatusValue;
 
 /**
@@ -85,21 +83,12 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 
 	private function newTextRevisionFromTextRevision( Title $title ) {
 		$services = MediaWikiServices::getInstance();
-		$oldRevisionImporter = new ImportableOldRevisionImporter(
-			true,
-			new NullLogger(),
-			$services->getDBLoadBalancer(),
-			$services->getRevisionStore(),
-			$services->getSlotRoleRegistry(),
-			$services->getWikiPageFactory()
-		);
-
 		return new TextRevisionFromTextRevision(
 			$title,
 			$this->getTestUser()->getUser(),
 			$this->newTextRevision(),
 			new WikiRevisionFactory( $this->getServiceContainer()->getContentHandlerFactory() ),
-			$oldRevisionImporter,
+			$services->getOldRevisionImporter(),
 			$this->newFileTextRevisionValidator(),
 			$services->getRestrictionStore()
 		);

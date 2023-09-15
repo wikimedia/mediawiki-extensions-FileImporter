@@ -18,7 +18,6 @@ use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\WikiRevisionFactory;
-use ImportableOldRevisionImporter;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MediaWikiServices;
@@ -314,15 +313,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		);
 		$uploadRevisionImporter->setNullRevisionCreation( false );
 
-		$oldRevisionImporter = new ImportableOldRevisionImporter(
-			true,
-			new NullLogger(),
-			$services->getDBLoadBalancer(),
-			$services->getRevisionStore(),
-			$services->getSlotRoleRegistry(),
-			$services->getWikiPageFactory()
-		);
-
 		return new Importer(
 			$services->getWikiPageFactory(),
 			$this->newWikiRevisionFactory(),
@@ -330,7 +320,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$userLookup,
 			$this->createMock( HttpRequestExecutor::class ),
 			$services->getService( 'FileImporterUploadBaseFactory' ),
-			$oldRevisionImporter,
+			$services->getOldRevisionImporter(),
 			$uploadRevisionImporter,
 			new FileTextRevisionValidator(),
 			$services->getRestrictionStore()
