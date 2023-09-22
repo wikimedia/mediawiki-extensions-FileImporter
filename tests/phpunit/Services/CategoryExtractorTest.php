@@ -146,8 +146,8 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
 	private function buildParserFactoryMock( array $categories ): ParserFactory {
 		$parserOutput = $this->createMock( ParserOutput::class );
-		$parserOutput->method( 'getCategories' )
-			->willReturn( array_flip( $categories ) );
+		$parserOutput->method( 'getCategoryNames' )
+			->willReturn( $categories );
 
 		$parser = $this->createMock( Parser::class );
 		$parser->method( 'parse' )

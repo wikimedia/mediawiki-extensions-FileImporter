@@ -47,12 +47,11 @@ class CategoryExtractor {
 	 * 		[ $visibleCategories, $hiddenCategories ]
 	 */
 	public function getCategoriesGrouped( string $text, Title $title, UserIdentity $user ): array {
-		$categoryMap = $this->parserFactory->getInstance()->parse(
+		$allCategories = $this->parserFactory->getInstance()->parse(
 			$text,
 			$title,
 			new ParserOptions( $user )
-		)->getCategories();
-		$allCategories = array_keys( $categoryMap );
+		)->getCategoryNames();
 
 		$hiddenCategories = $this->queryHiddenCategories( $allCategories );
 		$visibleCategories = array_diff( $allCategories, $hiddenCategories );
