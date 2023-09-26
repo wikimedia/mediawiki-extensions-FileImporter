@@ -12,6 +12,7 @@ use FileImporter\Exceptions\AbuseFilterWarningsException;
 use FileImporter\Exceptions\CommunityPolicyException;
 use FileImporter\Exceptions\DuplicateFilesException;
 use FileImporter\Exceptions\ImportException;
+use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Html\ChangeFileInfoForm;
 use FileImporter\Html\ChangeFileNameForm;
@@ -29,7 +30,6 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
 use Html;
-use ILocalizedException;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
@@ -430,7 +430,7 @@ class SpecialImportFile extends SpecialPage {
 	 * @return string HTML
 	 */
 	private function getWarningMessage( Exception $ex ): string {
-		if ( $ex instanceof ILocalizedException ) {
+		if ( $ex instanceof LocalizedImportException ) {
 			return $ex->getMessageObject()->parse();
 		}
 

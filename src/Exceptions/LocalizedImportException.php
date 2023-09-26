@@ -2,7 +2,6 @@
 
 namespace FileImporter\Exceptions;
 
-use ILocalizedException;
 use Message;
 use MessageSpecifier;
 use Throwable;
@@ -14,7 +13,7 @@ use Throwable;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class LocalizedImportException extends ImportException implements ILocalizedException {
+class LocalizedImportException extends ImportException {
 
 	/** @var string|array|MessageSpecifier */
 	protected $messageSpec;
