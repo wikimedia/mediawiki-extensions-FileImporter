@@ -2,8 +2,6 @@
 
 namespace FileImporter\Data;
 
-use InvalidArgumentException;
-
 /**
  * Class holding validation and cleanup rules for the file description wikitext. This class is not
  * aware of the source of these rules. They can be extracted from CommonsHelper2-compatible
@@ -62,7 +60,7 @@ class WikitextConversions {
 	 *         without any `==` syntax
 	 * ]
 	 *
-	 * @throws InvalidArgumentException if the input format misses expected fields. This should be
+	 * @throws \InvalidArgumentException if the input format misses expected fields. This should be
 	 *  unreachable, as the only provider is the CommonsHelperConfigParser.
 	 */
 	public function __construct( array $conversions ) {
@@ -96,10 +94,10 @@ class WikitextConversions {
 			}
 
 			if ( empty( $to['targetTemplate'] ) ) {
-				throw new InvalidArgumentException( "$from transfer rule misses targetTemplate" );
+				throw new \InvalidArgumentException( "$from transfer rule misses targetTemplate" );
 			}
 			if ( !isset( $to['parameters'] ) ) {
-				throw new InvalidArgumentException( "$from transfer rule misses parameters" );
+				throw new \InvalidArgumentException( "$from transfer rule misses parameters" );
 			}
 
 			$from = $this->lowercasePageName( $from );
