@@ -8,6 +8,7 @@
 			v-if="isEditingTitle"
 			ref="titleInput"
 			v-model="fileTitle"
+			@update:model-value="unsavedChangesFlag = true;"
 			@vue:mounted="mountedTitleEdit"
 		></cdx-text-input>
 		<h2
@@ -48,6 +49,7 @@
 			ref="fileInfoInput"
 			v-model="fileInfoWikitext"
 			rows="10"
+			@update:model-value="unsavedChangesFlag = true;"
 			@vue:mounted="mountedFileInfoInput"
 		></cdx-text-area>
 		<div
@@ -97,6 +99,7 @@
 		<cdx-text-input
 			v-model="editSummary"
 			class="mw-importfile-import-summary"
+			@update:model-value="unsavedChangesFlag = true;"
 		></cdx-text-input>
 
 		<p>
@@ -111,7 +114,7 @@
 			action="progressive"
 			class="mw-importfile-import-submit"
 			weight="primary"
-			@click="submitForm( 'submit' )"
+			@click="submitForm( 'submit' );"
 		>
 			{{ $i18n( 'fileimporter-import' ).plain() }}
 		</cdx-button>
@@ -219,6 +222,11 @@ module.exports = {
 			visibleCategories: ref( [] )
 		};
 	},
+	data() {
+		return {
+			unsavedChangesFlag: false
+		};
+	},
 	methods: {
 		cancelChanges() {
 			window.location.assign( window.location );
@@ -254,6 +262,7 @@ module.exports = {
 			} );
 		},
 		submitForm( action ) {
+			this.unsavedChangesFlag = false;
 			postRedirect( {
 				action,
 				automateSourceWikiCleanup: this.automateSourceWikiCleanup,
@@ -273,6 +282,17 @@ module.exports = {
 		viewDiff() {
 			// TODO: replace this POST with an API request.
 			this.submitForm( 'viewdiff' );
+		}
+	},
+	watch: {
+		unsavedChangesFlag( newValue ) {
+			if ( newValue ) {
+				window.onbeforeunload = function () {
+					return '';
+				};
+			} else {
+				window.onbeforeunload = null;
+			}
 		}
 	}
 };
