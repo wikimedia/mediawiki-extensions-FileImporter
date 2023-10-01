@@ -14,7 +14,7 @@ class FileImporterHooksTest extends \MediaWikiIntegrationTestCase {
 
 	public function testOnListDefinedTags() {
 		$tags = [];
-		FileImporterHooks::onListDefinedTags( $tags );
+		( new FileImporterHooks )->onListDefinedTags( $tags );
 		$this->assertSame(
 			[ 'fileimporter', 'fileimporter-imported' ],
 			$tags );
@@ -23,7 +23,7 @@ class FileImporterHooksTest extends \MediaWikiIntegrationTestCase {
 	public function testOnUserGetReservedNames() {
 		$this->setMwGlobals( 'wgFileImporterAccountForSuppressedUsername', '<SUPPRESSED>' );
 		$reservedUsernames = [];
-		FileImporterHooks::onUserGetReservedNames( $reservedUsernames );
+		( new FileImporterHooks )->onUserGetReservedNames( $reservedUsernames );
 		$this->assertSame( [ '<SUPPRESSED>' ], $reservedUsernames );
 	}
 

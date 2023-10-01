@@ -157,10 +157,15 @@
 		"remoteExtPath": "FileImporter"
 	},
 	"Hooks": {
-		"BeforeInitialize": "FileImporter\\FileImporterHooks::onBeforeInitialize",
-		"ChangeTagsListActive": "FileImporter\\FileImporterHooks::onListDefinedTags",
-		"ListDefinedTags": "FileImporter\\FileImporterHooks::onListDefinedTags",
-		"UserGetReservedNames": "FileImporter\\FileImporterHooks::onUserGetReservedNames",
+		"BeforeInitialize": "main",
+		"ChangeTagsListActive": "main",
+		"ListDefinedTags": "main",
+		"UserGetReservedNames": "main",
 		"VisualEditorBeforeEditor": "FileImporter\\FileImporterHooks::onVisualEditorBeforeEditor"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "FileImporter\\FileImporterHooks"
+		}
 	}
 }

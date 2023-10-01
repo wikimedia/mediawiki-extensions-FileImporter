@@ -4,8 +4,12 @@ namespace FileImporter;
 
 use FileImporter\Html\ImportSuccessSnippet;
 use MediaWiki;
+use MediaWiki\ChangeTags\Hook\ChangeTagsListActiveHook;
+use MediaWiki\ChangeTags\Hook\ListDefinedTagsHook;
+use MediaWiki\Hook\BeforeInitializeHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\User\Hook\UserGetReservedNamesHook;
 use OutputPage;
 use Skin;
 use User;
@@ -15,7 +19,12 @@ use WebRequest;
  * @license GPL-2.0-or-later
  * @author Andrew Kostka
  */
-class FileImporterHooks {
+class FileImporterHooks implements
+	BeforeInitializeHook,
+	ChangeTagsListActiveHook,
+	ListDefinedTagsHook,
+	UserGetReservedNamesHook
+{
 
 	/**
 	 * Show an import success message when appropriate.
@@ -29,12 +38,12 @@ class FileImporterHooks {
 	 * @param WebRequest $request
 	 * @param MediaWiki $mediaWiki
 	 */
-	public static function onBeforeInitialize(
-		Title $title,
+	public function onBeforeInitialize(
+		$title,
 		$unused,
-		OutputPage $output,
-		User $user,
-		WebRequest $request,
+		$output,
+		$user,
+		$request,
 		$mediaWiki
 	) {
 		if ( $request->getVal( ImportSuccessSnippet::NOTICE_URL_KEY ) === null
@@ -53,11 +62,20 @@ class FileImporterHooks {
 
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ChangeTagsListActive
+	 *
+	 * @param string[] &$tags
+	 */
+	public function onChangeTagsListActive( &$tags ) {
+		$tags[] = 'fileimporter';
+		$tags[] = 'fileimporter-imported';
+	}
+
+	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ListDefinedTags
 	 *
 	 * @param string[] &$tags
 	 */
-	public static function onListDefinedTags( array &$tags ) {
+	public function onListDefinedTags( &$tags ) {
 		$tags[] = 'fileimporter';
 		$tags[] = 'fileimporter-imported';
 	}
@@ -68,7 +86,7 @@ class FileImporterHooks {
 	 *
 	 * @param string[] &$reservedUsernames
 	 */
-	public static function onUserGetReservedNames( array &$reservedUsernames ) {
+	public function onUserGetReservedNames( &$reservedUsernames ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$reservedUsernames[] = $config->get( 'FileImporterAccountForSuppressedUsername' );
 	}
