@@ -83,6 +83,7 @@ class RemoteApiActionExecutor {
 					'action' => 'edit',
 					'token' => $token,
 					'format' => 'json',
+					'formatversion' => 2,
 					'title' => $title,
 					'summary' => $editSummary,
 					'tags' => self::CHANGE_TAG,
@@ -103,7 +104,6 @@ class RemoteApiActionExecutor {
 	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ): StatusValue {
 		// Expected return values:
 		// { "query": { "userinfo": { "rights": [ "delete", …
-		// Same with formatversion=2
 		$result = $this->remoteApiRequestExecutor->execute(
 			$sourceUrl,
 			$user,
@@ -111,6 +111,7 @@ class RemoteApiActionExecutor {
 				'action' => 'query',
 				'errorformat' => 'plaintext',
 				'format' => 'json',
+				'formatversion' => 2,
 				'meta' => 'userinfo',
 				'uiprop' => 'rights',
 			]
@@ -150,6 +151,7 @@ class RemoteApiActionExecutor {
 				'action' => 'delete',
 				'errorformat' => 'plaintext',
 				'format' => 'json',
+				'formatversion' => 2,
 				'title' => $title,
 				'reason' => $deletionReason,
 				'tags' => self::CHANGE_TAG,

@@ -286,10 +286,8 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			'user' => null,
 			'timestamp' => '20190101000000',
 			'sha1' => null,
-			'contentmodel' => null,
-			'contentformat' => null,
 			'comment' => null,
-			'*' => null,
+			'slots' => null,
 			'title' => null,
 			'tags' => [],
 		] );

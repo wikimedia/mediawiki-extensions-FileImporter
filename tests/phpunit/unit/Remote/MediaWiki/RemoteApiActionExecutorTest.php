@@ -47,6 +47,7 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 				[
 					'action' => 'edit',
 					'format' => 'json',
+					'formatversion' => 2,
 					'title' => 'TestTitle',
 					'summary' => 'TestSummary',
 					'prepend' => 'text',

@@ -14,11 +14,9 @@ use FileImporter\Exceptions\InvalidArgumentException;
 class TextRevisionTest extends \MediaWikiUnitTestCase {
 
 	private const REQUIRED_FIELD_NAMES = [
-		'*',
 		'comment',
-		'contentformat',
-		'contentmodel',
 		'minor',
+		'slots',
 		'timestamp',
 		'title',
 		'user',
@@ -29,6 +27,7 @@ class TextRevisionTest extends \MediaWikiUnitTestCase {
 		$fields = array_flip( self::REQUIRED_FIELD_NAMES ) + [ 'sha1' => 'TestSha1' ];
 		$instance = new TextRevision( $fields );
 
+		// FIXME: test slots
 		$this->assertSame( $fields, $instance->getFields(), 'getFields' );
 
 		foreach ( $fields as $field => $expected ) {

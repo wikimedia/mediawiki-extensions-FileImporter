@@ -194,10 +194,14 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			'user' => '',
 			'timestamp' => '',
 			'sha1' => '',
-			'contentmodel' => '',
-			'contentformat' => '',
 			'comment' => '',
-			'*' => '',
+			'slots' => [
+				SlotRecord::MAIN => [
+					'contentmodel' => '',
+					'contentformat' => '',
+					'content' => '',
+				]
+			],
 			'title' => '',
 			'tags' => [],
 		] );

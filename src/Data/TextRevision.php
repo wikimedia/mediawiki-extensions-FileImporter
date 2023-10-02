@@ -3,6 +3,7 @@
 namespace FileImporter\Data;
 
 use FileImporter\Exceptions\InvalidArgumentException;
+use MediaWiki\Revision\SlotRecord;
 
 /**
  * This class represents a single revision of text, as recognized by MediaWiki.
@@ -20,10 +21,8 @@ class TextRevision {
 		'minor',
 		'user',
 		'timestamp',
-		'contentmodel',
-		'contentformat',
 		'comment',
-		'*',
+		'slots',
 		'title',
 		'tags',
 	];
@@ -60,15 +59,15 @@ class TextRevision {
 	}
 
 	public function getContent(): string {
-		return $this->fields['*'];
+		return $this->fields['slots'][SlotRecord::MAIN]['content'];
 	}
 
 	public function getContentFormat(): string {
-		return $this->fields['contentformat'];
+		return $this->fields['slots'][SlotRecord::MAIN]['contentformat'];
 	}
 
 	public function getContentModel(): string {
-		return $this->fields['contentmodel'];
+		return $this->fields['slots'][SlotRecord::MAIN]['contentmodel'];
 	}
 
 	public function getFields(): array {

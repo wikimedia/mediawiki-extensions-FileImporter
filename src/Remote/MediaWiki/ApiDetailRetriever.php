@@ -15,6 +15,7 @@ use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use TitleValue;
@@ -380,21 +381,13 @@ class ApiDetailRetriever implements DetailRetriever {
 			}
 
 			if ( array_key_exists( 'texthidden', $revisionInfo ) ) {
-				$revisionInfo['*'] = wfMessage( 'fileimporter-revision-removed-text' )
+				$revisionInfo['slots'][SlotRecord::MAIN]['content'] = wfMessage( 'fileimporter-revision-removed-text' )
 					->plain();
 			}
 
 			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
 				$revisionInfo['comment'] = wfMessage( 'fileimporter-revision-removed-comment' )
 					->plain();
-			}
-
-			if ( !array_key_exists( 'contentmodel', $revisionInfo ) ) {
-				$revisionInfo['contentmodel'] = CONTENT_MODEL_WIKITEXT;
-			}
-
-			if ( !array_key_exists( 'contentformat', $revisionInfo ) ) {
-				$revisionInfo['contentformat'] = CONTENT_FORMAT_WIKITEXT;
 			}
 
 			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );
@@ -413,6 +406,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			'action' => 'query',
 			'errorformat' => 'plaintext',
 			'format' => 'json',
+			'formatversion' => '2',
 			'titles' => $this->parseTitleFromSourceUrl( $sourceUrl ),
 			'prop' => 'info'
 		];
@@ -436,6 +430,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		return $params + [
 			'rvlimit' => static::API_RESULT_LIMIT,
 			'rvdir' => 'newer',
+			'rvslots' => SlotRecord::MAIN,
 			'rvprop' => implode(
 				'|',
 				[
