@@ -6,7 +6,9 @@
 			"ديفيد",
 			"محمد أحمد عبد الفتاح",
 			"TMg",
-			"Meno25"
+			"Meno25",
+			"Alshamiri1",
+			"Karim185.3"
 		]
 	},
 	"fileimporter": "مستورد ملفات",
@@ -40,7 +42,7 @@
 	"fileimporter-filenameerror-illegal": "اسم الملف الذي تحاول استيراده حاليًا غير صالح.",
 	"fileimporter-filenameerror-toolong": "اسم الملف الذي تحاول استيراده حاليًا طويل جدًا.",
 	"fileimporter-filenameerror-notallowed": "أنت تحاول استيراد ملف بالملحق <code>$1</code> . الملفات ذات هذا الامتداد غير مسموح بها في هذا الويكي. الامتدادات المسموح بها هي: $2 .",
-	"fileimporter-filenameerror-automaticchanges": "تم تغيير اسم الملف تلقائيا من \"$1\" إلى \"$2\"",
+	"fileimporter-filenameerror-automaticchanges": "غُيّر اسم الملف تلقائيا من \"$1\" إلى \"$2\"",
 	"fileimporter-filenameerror-nosourceextension": "لا يحتوي اسم الملف المصدر على ملحق.",
 	"fileimporter-filenameerror-noplannedextension": "لا يحتوي اسم الملف المخطط على ملحق.",
 	"fileimporter-filenameerror-missmatchextension": "لا يتطابق ملحق الملف الهدف مع ملحق الملف الأصلي.",
