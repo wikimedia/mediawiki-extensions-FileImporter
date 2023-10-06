@@ -7,7 +7,7 @@
 		<cdx-text-input
 			v-if="isEditingTitle"
 			ref="titleInput"
-			v-model="fileTitle"
+			v-model="currentFileTitle"
 			@update:model-value="unsavedChangesFlag = true;"
 			@vue:mounted="mountedTitleEdit"
 		></cdx-text-input>
@@ -15,7 +15,7 @@
 			v-else
 			@click="isEditingTitle = true"
 		>
-			{{ fileTitle + '.' + fileExtension }}
+			{{ currentFileTitle + '.' + fileExtension }}
 		</h2>
 
 		<cdx-toggle-button
@@ -32,22 +32,30 @@
 		<h2>{{ $i18n( 'fileimporter-heading-fileinfo' ).plain() }}</h2>
 		<cdx-toggle-button
 			v-model="isEditingInfo"
+			@click="diffOutput = null"
 		>
 			{{ isEditingInfo ?
 				$i18n( 'fileimporter-previewinfo' ).text() : $i18n( 'fileimporter-editinfo' ).text() }}
 		</cdx-toggle-button>
 	</div>
 
-	<div
-		v-if="fileInfoDiffHtml"
-		v-html="fileInfoDiffHtml"></div>
+	<table class="diff">
+		<colgroup>
+			<col class="diff-marker">
+			<col class="diff-content">
+			<col class="diff-marker">
+			<col class="diff-content">
+		</colgroup>
+		<tbody v-html="diffOutput">
+		</tbody>
+	</table>
 
 	<div>
 		<!-- TODO find a working autosize option -->
 		<cdx-text-area
 			v-if="isEditingInfo"
 			ref="fileInfoInput"
-			v-model="fileInfoWikitext"
+			v-model="currentFileInfoWikitext"
 			rows="10"
 			@update:model-value="unsavedChangesFlag = true;"
 			@vue:mounted="mountedFileInfoInput"
@@ -97,7 +105,7 @@
 	<div class="mw-importfile-importOptions">
 		<p>{{ $i18n( 'fileimporter-editsummary' ).plain() }}</p>
 		<cdx-text-input
-			v-model="editSummary"
+			v-model="currentEditSummary"
 			class="mw-importfile-import-summary"
 			@update:model-value="unsavedChangesFlag = true;"
 		></cdx-text-input>
@@ -119,7 +127,6 @@
 			{{ $i18n( 'fileimporter-import' ).plain() }}
 		</cdx-button>
 
-		<!-- TODO: show conditionally when there are unsaved changes -->
 		<cdx-button
 			class="mw-importfile-import-diff"
 			@click="viewDiff"
@@ -196,13 +203,13 @@ module.exports = {
 		detailsHash: { type: String, required: true },
 		editToken: { type: String, required: true },
 		fileExtension: { type: String, required: true },
-		fileInfoDiffHtml: { type: String, required: true },
 		filePrefixed: { type: String, required: true },
 		fileRevisionsCount: { type: Number, required: true },
 		imageUrl: { type: String, required: true },
-		initialEditSummary: { type: String, required: true },
+		editSummary: { type: String, required: true },
+		fileInfoWikitext: { type: String, required: true },
 		initialFileInfoWikitext: { type: String, required: true },
-		initialFileTitle: { type: String, required: true },
+		fileTitle: { type: String, required: true },
 		textRevisionsCount: { type: Number, required: true }
 	},
 	setup( props ) {
@@ -212,13 +219,14 @@ module.exports = {
 			canAutomateDelete: props.automatedCapabilities.canAutomateDelete,
 			canAutomateEdit: props.automatedCapabilities.canAutomateEdit,
 			isEditingInfo: ref( false ),
+			diffOutput: ref( null ),
 			isEditingTitle: ref( false ),
 			fileInfoHtml: ref( null ),
 			fileInfoLoading: ref( false ),
 			hiddenCategories: ref( [] ),
-			editSummary: ref( props.initialEditSummary ),
-			fileInfoWikitext: ref( props.initialFileInfoWikitext ),
-			fileTitle: ref( props.initialFileTitle ),
+			currentEditSummary: ref( props.editSummary ),
+			currentFileInfoWikitext: ref( props.fileInfoWikitext ),
+			currentFileTitle: ref( props.fileTitle ),
 			visibleCategories: ref( [] )
 		};
 	},
@@ -252,8 +260,8 @@ module.exports = {
 				disableeditsection: true,
 				formatversion: 2,
 				prop: [ 'text', 'categories' ],
-				text: this.fileInfoWikitext,
-				title: mw.Title.makeTitle( NS_FILE, this.fileTitle ).getPrefixedText()
+				text: this.currentFileInfoWikitext,
+				title: mw.Title.makeTitle( NS_FILE, this.currentFileTitle ).getPrefixedText()
 			} ).then( ( response ) => {
 				this.fileInfoHtml = response.parse.text;
 				[ this.hiddenCategories, this.visibleCategories ] =
@@ -269,9 +277,9 @@ module.exports = {
 				automateSourceWikiDelete: this.automateSourceWikiDelete,
 				clientUrl: this.clientUrl,
 				importDetailsHash: this.detailsHash,
-				intendedFileName: this.fileTitle,
-				intendedRevisionSummary: this.editSummary,
-				intendedWikitext: this.fileInfoWikitext,
+				intendedFileName: this.currentFileTitle,
+				intendedRevisionSummary: this.currentEditSummary,
+				intendedWikitext: this.currentFileInfoWikitext,
 				token: this.editToken
 
 				// TODO:
@@ -280,8 +288,17 @@ module.exports = {
 			} );
 		},
 		viewDiff() {
-			// TODO: replace this POST with an API request.
-			this.submitForm( 'viewdiff' );
+			const params = {
+				action: 'compare',
+				format: 'json',
+				formatversion: 2,
+				fromtext: this.initialFileInfoWikitext,
+				totext: this.currentFileInfoWikitext,
+				prop: 'diff'
+			};
+			new mw.Api().get( params ).done( ( data ) => {
+				this.diffOutput = data.compare.body;
+			} );
 		}
 	},
 	watch: {
@@ -357,5 +374,9 @@ module.exports = {
 
 .mw-importfile-import-summary {
 	margin-bottom: 14px;
+}
+
+.diff {
+	font-family: monospace;
 }
 </style>

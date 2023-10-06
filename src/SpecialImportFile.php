@@ -236,11 +236,6 @@ class SpecialImportFile extends SpecialPage {
 			}
 
 			if ( $isCodex ) {
-				if ( $action === 'viewdiff' ) {
-					$this->getOutput()->addJsConfigVars( [
-						'wgFileImporterFileInfoDiffHtml' => $this->buildInfoDiff( $importPlan )
-					] );
-				}
 
 				if ( $this->getRequest()->wasPosted() && $action === 'submit' ) {
 					$this->doImport( $importPlan );
@@ -276,24 +271,6 @@ class SpecialImportFile extends SpecialPage {
 			$this->getOutput()->enableOOUI();
 			$this->getOutput()->addHTML( $html );
 		}
-	}
-
-	private function buildInfoDiff( ImportPlan $importPlan ): string {
-		$contentHandler = $this->contentHandlerFactory->getContentHandler( CONTENT_MODEL_WIKITEXT );
-		$originalText = $importPlan->getInitialFileInfoText();
-		$newText = $importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText();
-
-		$originalContent = $contentHandler->unserializeContent( $originalText );
-		$newContent = $contentHandler->unserializeContent( $newText );
-
-		$diffEngine = $contentHandler->createDifferenceEngine( $this->getContext() );
-		$diffEngine->setContent( $originalContent, $newContent );
-
-		$diffEngine->showDiffStyle();
-		return $diffEngine->getDiff(
-			$this->msg( 'currentrev' )->parse(),
-			$this->msg( 'yourtext' )->parse()
-		);
 	}
 
 	/**
@@ -408,7 +385,8 @@ class SpecialImportFile extends SpecialPage {
 					$importPlan->getTitle(),
 					$this->getUser(),
 					$postImportResult
-				) );
+				)
+			);
 
 			return true;
 		} catch ( ImportException $exception ) {
@@ -443,7 +421,8 @@ class SpecialImportFile extends SpecialPage {
 
 	private function logActionStats( ImportPlan $importPlan ): void {
 		foreach ( $importPlan->getActionStats() as $key => $_ ) {
-			if ( $key === ImportPreviewPage::ACTION_EDIT_TITLE ||
+			if (
+				$key === ImportPreviewPage::ACTION_EDIT_TITLE ||
 				$key === ImportPreviewPage::ACTION_EDIT_INFO ||
 				$key === SourceWikiCleanupSnippet::ACTION_OFFERED_SOURCE_DELETE ||
 				$key === SourceWikiCleanupSnippet::ACTION_OFFERED_SOURCE_EDIT
@@ -517,7 +496,10 @@ class SpecialImportFile extends SpecialPage {
 			$config->get( 'FileImporterSourceWikiTemplating' ) &&
 			$lookup->fetchNowCommonsLocalTitle( $sourceUrl ) &&
 			$remoteActionApi->executeTestEditActionQuery(
-				$sourceUrl, $this->getUser(), $importPlan->getTitle() )->isGood();
+				$sourceUrl,
+				$this->getUser(),
+				$importPlan->getTitle()
+			)->isGood();
 		$capabilities['canAutomateDelete'] =
 			$isCentralAuthEnabled &&
 			$config->get( 'FileImporterSourceWikiDeletion' ) &&
@@ -566,6 +548,7 @@ class SpecialImportFile extends SpecialPage {
 			'wgFileImporterFileExtension' => $importPlan->getFileExtension(),
 			'wgFileImporterPrefixedTitle' => $importPlan->getTitle()->getPrefixedText(),
 			'wgFileImporterImageUrl' => $importPlan->getDetails()->getImageDisplayUrl(),
+			'wgFileImporterInitialFileInfoWikitext' => $importPlan->getInitialFileInfoText(),
 			'wgFileImporterFileInfoWikitext' =>
 				// FIXME: can assume the edit field is persistent
 				$importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText(),

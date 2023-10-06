@@ -10,13 +10,13 @@
 			:details-hash="detailsHash"
 			:edit-token="editToken"
 			:file-extension="fileExtension"
-			:file-info-diff-html="fileInfoDiffHtml"
 			:file-prefixed="filePrefixed"
 			:file-revisions-count="fileRevisionsCount"
 			:image-url="imageUrl"
-			:initial-edit-summary="editSummary"
-			:initial-file-info-wikitext="fileInfoWikitext"
-			:initial-file-title="fileTitle"
+			:edit-summary="editSummary"
+			:file-info-wikitext="fileInfoWikitext"
+			:initial-file-info-wikitext="initialFileInfoWikitext"
+			:file-title="fileTitle"
 			:text-revisions-count="textRevisionsCount"
 		></import-file>
 	</div>
@@ -51,7 +51,7 @@ module.exports = {
 			editSummary: defaultEditSummary,
 			editToken: mw.config.get( 'wgFileImporterEditToken' ),
 			fileExtension: mw.config.get( 'wgFileImporterFileExtension' ),
-			fileInfoDiffHtml: mw.config.get( 'wgFileImporterFileInfoDiffHtml' ),
+			initialFileInfoWikitext: mw.config.get( 'wgFileImporterInitialFileInfoWikitext' ),
 			fileInfoWikitext: mw.config.get( 'wgFileImporterFileInfoWikitext' ),
 			filePrefixed: mw.config.get( 'wgFileImporterPrefixedTitle' ),
 			fileTitle: mw.config.get( 'wgFileImporterTitle' ),
