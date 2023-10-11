@@ -4,6 +4,7 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use Html;
+use MediaWiki\Title\MalformedTitleException;
 use OOUI\ButtonInputWidget;
 use OOUI\FieldLayout;
 use OOUI\FieldsetLayout;
@@ -23,7 +24,11 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
-		$filenameValue = $importPlan->getRequest()->getIntendedName() ?? $importPlan->getFileName();
+		try {
+			$filenameValue = $importPlan->getFileName();
+		} catch ( MalformedTitleException $ex ) {
+			$filenameValue = $importPlan->getRequest()->getIntendedName();
+		}
 
 		return Html::openElement(
 			'form',
