@@ -56,6 +56,8 @@
 	"fileimporter-cancel": "Cancellar",
 	"fileimporter-edittitle": "Modificar titulo",
 	"fileimporter-editinfo": "Modificar info del file",
+	"fileimporter-previewtitle": "Previsualisar titulo",
+	"fileimporter-previewinfo": "Previsualisar information del file",
 	"fileimporter-extensionlabel": "Extension del file:",
 	"fileimporter-newfilename": "Nove nomine del file:",
 	"fileimporter-editsummary": "Summario del modification:",
@@ -89,5 +91,6 @@
 	"fileimporter-auto-replacements-summary": "$1 cambiamento{{PLURAL:$1||s}} automatic ha essite apportate al patronos",
 	"fileimporter-input-page-info-text": "Apprende plus visitante nostre [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons pagina de adjuta].",
 	"fileimporter-viewdiff": "Detaliar modificationes",
-	"fileimporter-to-preview": "Retornar al previsualisation"
+	"fileimporter-to-preview": "Retornar al previsualisation",
+	"fileimporter-no-script-warning": "JavaScript es indisponibile o disactivate in tu navigator. File Importer depende de JavaScript pro functionar."
 }

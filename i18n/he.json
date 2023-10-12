@@ -63,6 +63,8 @@
 	"fileimporter-cancel": "ביטול",
 	"fileimporter-edittitle": "עריכת כותרת",
 	"fileimporter-editinfo": "עריכת מידע על הקובץ",
+	"fileimporter-previewtitle": "תצוגה מקדימה של כותרת",
+	"fileimporter-previewinfo": "תצוגה מקדימה של מידע על הקובץ",
 	"fileimporter-extensionlabel": "סיומת קובץ:",
 	"fileimporter-newfilename": "שם קובץ חדש:",
 	"fileimporter-editsummary": "עריכת תקציר:",
@@ -96,5 +98,6 @@
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|בוצע שינוי אוטומטי אחד|בוצעו $1 שינויים אוטומטיים}} בתבניות",
 	"fileimporter-input-page-info-text": "ניתן למצוא מידע נוסף ב[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons דף העזרה] שלנו.",
 	"fileimporter-viewdiff": "הצגת שינויים",
-	"fileimporter-to-preview": "חזרה לתצוגה המקדימה"
+	"fileimporter-to-preview": "חזרה לתצוגה המקדימה",
+	"fileimporter-no-script-warning": "JavaScript אינו נתמך או מושבת בדפדפן שלך. מייבא הקבצים מסתמך על JavaScript כדי לתפקד."
 }

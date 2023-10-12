@@ -8,6 +8,8 @@
 			"Jrenteria",
 			"Macofe",
 			"MarcoAurelio",
+			"McDutchie",
+			"No se",
 			"Rodney Araujo",
 			"Tiberius1701"
 		]
@@ -59,6 +61,8 @@
 	"fileimporter-cancel": "Cancelar",
 	"fileimporter-edittitle": "Editar título",
 	"fileimporter-editinfo": "Editar información del archivo",
+	"fileimporter-previewtitle": "Vista previa del título",
+	"fileimporter-previewinfo": "Vista previa de Información del archivo",
 	"fileimporter-extensionlabel": "Extensión de archivo:",
 	"fileimporter-newfilename": "Nombre de archivo nuevo:",
 	"fileimporter-editsummary": "Resumen de edición:",
@@ -92,5 +96,6 @@
 	"fileimporter-auto-replacements-summary": "Se {{PLURAL:$1|ha realizado|han realizado}} $1 {{PLURAL:$1|cambio automático|cambios automáticos}} en las plantillas.",
 	"fileimporter-input-page-info-text": "Obtén más información visitando la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons página de ayuda].",
 	"fileimporter-viewdiff": "Mostrar cambios",
-	"fileimporter-to-preview": "Volver a la previsualización"
+	"fileimporter-to-preview": "Volver a la previsualización",
+	"fileimporter-no-script-warning": "JavaScript es incompatible o está deshabilitado por su navegador. El Importador de archivos se basa en JavaScript para funcionar."
 }
