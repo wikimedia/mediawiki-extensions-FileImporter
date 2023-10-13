@@ -4,19 +4,26 @@
 	</div>
 
 	<div class="mw-importfile-header">
-		<cdx-text-input
-			v-if="isEditingTitle"
-			ref="titleInput"
-			v-model="currentFileTitle"
-			@update:model-value="unsavedChangesFlag = true;"
-			@vue:mounted="mountedTitleEdit"
-		></cdx-text-input>
-		<h2
-			v-else
-			@click="isEditingTitle = true"
+		<cdx-field
+			:status="status"
+			:messages="messages"
 		>
-			{{ currentFileTitle + '.' + fileExtension }}
-		</h2>
+			<cdx-text-input
+				v-if="isEditingTitle"
+				ref="titleInput"
+				v-model="currentFileTitle"
+				@update:model-value="unsavedChangesFlag = true;"
+				@vue:mounted="mountedTitleEdit"
+				@input="this.status = 'default'"
+				@change="normalizeTitle"
+			></cdx-text-input>
+			<h2
+				v-else
+				@click="isEditingTitle = true"
+			>
+				{{ currentFileTitle + '.' + fileExtension }}
+			</h2>
+		</cdx-field>
 
 		<cdx-toggle-button
 			v-model="isEditingTitle"
@@ -150,7 +157,7 @@
 <script>
 const { ref } = require( 'vue' );
 const {
-	CdxButton, CdxCheckbox, CdxTextArea, CdxTextInput, CdxToggleButton
+	CdxButton, CdxCheckbox, CdxTextArea, CdxField, CdxTextInput, CdxToggleButton
 } = require( '@wikimedia/codex' );
 const CategoriesSection = require( './CategoriesSection.vue' );
 
@@ -192,6 +199,7 @@ module.exports = {
 		CategoriesSection,
 		CdxButton,
 		CdxCheckbox,
+		CdxField,
 		CdxTextArea,
 		CdxTextInput,
 		CdxToggleButton
@@ -218,6 +226,8 @@ module.exports = {
 			automateSourceWikiDelete: ref( props.automatedCapabilities.automateSourceWikiDelete ),
 			canAutomateDelete: props.automatedCapabilities.canAutomateDelete,
 			canAutomateEdit: props.automatedCapabilities.canAutomateEdit,
+			status: ref( 'default' ),
+			messages: { warning: '' },
 			isEditingInfo: ref( false ),
 			diffOutput: ref( null ),
 			isEditingTitle: ref( false ),
@@ -252,6 +262,19 @@ module.exports = {
 		},
 		mountedTitleEdit() {
 			this.$refs.titleInput.focus();
+		},
+		normalizeTitle() {
+			const inputTitle = mw.Title.newFromUserInput( this.currentFileTitle );
+			if ( inputTitle ) {
+				const cleanTitle = inputTitle.getNameText();
+				if ( inputTitle.title !== cleanTitle ) {
+					this.status = 'warning';
+					this.messages.warning = mw.message(
+						'fileimporter-filenameerror-automaticchanges', inputTitle.title, cleanTitle
+					).text();
+					this.currentFileTitle = cleanTitle;
+				}
+			}
 		},
 		parseFileInfo() {
 			new mw.Api().post( {

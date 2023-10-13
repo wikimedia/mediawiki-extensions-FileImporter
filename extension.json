@@ -183,6 +183,7 @@
 				"fileimporter-editinfo",
 				"fileimporter-editsummary",
 				"fileimporter-edittitle",
+				"fileimporter-filenameerror-automaticchanges",
 				"fileimporter-filerevisions",
 				"fileimporter-heading-cleanup",
 				"fileimporter-heading-filehistory",
