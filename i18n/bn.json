@@ -47,6 +47,8 @@
 	"fileimporter-cancel": "বাতিল",
 	"fileimporter-edittitle": "শিরোনাম সম্পাদনা করুন",
 	"fileimporter-editinfo": "ফাইলের তথ্য সম্পাদনা করুন",
+	"fileimporter-previewtitle": "শিরোনাম প্রাকদর্শন",
+	"fileimporter-previewinfo": "ফাইলের তথ্য প্রাকদর্শন করুন",
 	"fileimporter-extensionlabel": "ফাইলের এক্সটেনশন:",
 	"fileimporter-newfilename": "নতুন ফাইলের নাম:",
 	"fileimporter-editsummary": "সম্পাদনা সারাংশ:",
