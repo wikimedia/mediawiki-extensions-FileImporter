@@ -60,6 +60,8 @@
 	"fileimporter-cancel": "Prekliči",
 	"fileimporter-edittitle": "Uredi naslov",
 	"fileimporter-editinfo": "Uredi informacije o datoteki",
+	"fileimporter-previewtitle": "Predogled naslova",
+	"fileimporter-previewinfo": "Predogled informacij o datoteki",
 	"fileimporter-extensionlabel": "Razširitev datoteke:",
 	"fileimporter-newfilename": "Novo ime datoteke:",
 	"fileimporter-editsummary": "Povzetek urejanja:",
@@ -93,5 +95,6 @@
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Opravljena je bila|Opravljeni sta bili|Opravljene so bile|Opravljenih je bilo}} $1 {{PLURAL:$1|samodejna sprememba|samodejni spremembi|samodejne spremembe|samodejnih sprememb}} predlog.",
 	"fileimporter-input-page-info-text": "Poizvedi več in obišči našo [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons stran za pomoč].",
 	"fileimporter-viewdiff": "Prikaži spremembe",
-	"fileimporter-to-preview": "Nazaj na predogled"
+	"fileimporter-to-preview": "Nazaj na predogled",
+	"fileimporter-no-script-warning": "JavaScript ni podprt ali ga vaš brskalnik onemogoča. Uvoznik datotek se za delovanje zanaša na JavaScript."
 }
