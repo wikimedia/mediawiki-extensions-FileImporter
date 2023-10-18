@@ -168,7 +168,8 @@
 			"dependencies": [
 				"@wikimedia/codex",
 				"mediawiki.api",
-				"mediawiki.jqueryMsg"
+				"mediawiki.jqueryMsg",
+				"mediawiki.diff.styles"
 			],
 			"messages": [
 				"colon-separator",
