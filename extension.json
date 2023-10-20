@@ -197,7 +197,8 @@
 				"fileimporter-textrevisions",
 				"fileimporter-viewdiff",
 				"hidden-categories",
-				"pagecategories"
+				"pagecategories",
+				"fileimporter-cdx-diff-failed"
 			]
 		}
 	},
