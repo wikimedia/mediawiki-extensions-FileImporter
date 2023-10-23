@@ -3,7 +3,6 @@
 namespace FileImporter\Html;
 
 use IContextSource;
-use InvalidArgumentException;
 use Language;
 use MediaWiki\Title\Title;
 use Message;
@@ -32,14 +31,12 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	 * their `getHtml` method.
 	 *
 	 * @param SpecialPage|self $specialPage
-	 *
-	 * @throws InvalidArgumentException when the provided parent object is not acceptable
 	 */
 	final public function __construct( $specialPage ) {
 		if ( $specialPage instanceof self ) {
 			$specialPage = $specialPage->specialPage;
 		} elseif ( !( $specialPage instanceof SpecialPage ) ) {
-			throw new InvalidArgumentException(
+			throw new \InvalidArgumentException(
 				'$specialPage must be a SpecialPage or SpecialPageHtmlFragment' );
 		}
 

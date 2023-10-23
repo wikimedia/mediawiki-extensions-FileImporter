@@ -39,7 +39,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 			[ 'Kategorie__Diskussion:foo', 'Category talk:foo' ],
 			[ '_Kategorie_Diskussion_:_foo_', 'Category talk:_foo_' ],
 			[ "Kategorie \u{00A0} Diskussion:foo", 'Category talk:foo' ],
-			[ "\u{2000}Kategorie Diskussion\u{3000}:foo","\u{2000}Category talk\u{3000}:foo" ],
+			[ "\u{2000}Kategorie Diskussion\u{3000}:foo", "\u{2000}Category talk\u{3000}:foo" ],
 
 			// Interwiki links might break when fiddled with, so don't do it
 			[ 'de:Kategorie:foo', 'de:Kategorie:foo' ],

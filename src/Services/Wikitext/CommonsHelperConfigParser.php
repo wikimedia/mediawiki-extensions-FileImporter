@@ -5,7 +5,6 @@ namespace FileImporter\Services\Wikitext;
 use FileImporter\Data\WikitextConversions;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
-use InvalidArgumentException;
 
 /**
  * @license GPL-2.0-or-later
@@ -78,7 +77,7 @@ class CommonsHelperConfigParser {
 	private function grepSection( string $wikitext, string $header, string $sectionName ): string {
 		$level = strpos( $header, '= ' );
 		if ( $level === false ) {
-			throw new InvalidArgumentException( '$header must follow this format: "== … =="' );
+			throw new \InvalidArgumentException( '$header must follow this format: "== … =="' );
 		}
 		$level++;
 
