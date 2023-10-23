@@ -4,7 +4,7 @@ const assert = require( 'assert' ),
 	ImportPreviewPage = require( '../pageobjects/importpreview.page' ),
 	UserLoginPage = require( 'wdio-mediawiki/LoginPage' ),
 
-	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Phalke.jpg';
+	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Wikimedia_Commons_favicon.png';
 
 describe( 'ImportPreview page', function () {
 	it( 'shows dismissible help banner', async function () {
