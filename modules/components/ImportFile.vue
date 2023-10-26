@@ -1,4 +1,11 @@
 <template>
+	<cdx-message v-if="importSuccess" type="success">
+		<span v-html="importOutput"></span>
+	</cdx-message>
+	<cdx-message v-if="importError" type="error">
+		<span v-html="importOutput"></span>
+	</cdx-message>
+
 	<div>
 		{{ $i18n( 'fileimporter-previewnote' ).text() }}
 	</div>
@@ -161,12 +168,16 @@
 
 		<span>{{ $i18n( 'fileimporter-import-wait' ).plain() }}</span>
 	</div>
+
+	<div v-if="progressBar" class="mw-importfile-import-overlay">
+		<cdx-progress-bar aria--label="{{ $i18n( 'fileimporter-import-wait' ).plain() }}"></cdx-progress-bar>
+	</div>
 </template>
 
 <script>
 const { ref } = require( 'vue' );
 const {
-	CdxButton, CdxCheckbox, CdxTextArea, CdxField, CdxTextInput, CdxToggleButton
+	CdxButton, CdxCheckbox, CdxTextArea, CdxField, CdxMessage, CdxTextInput, CdxToggleButton, CdxProgressBar
 } = require( '@wikimedia/codex' );
 const CategoriesSection = require( './CategoriesSection.vue' );
 
@@ -187,18 +198,8 @@ const parseCategories = ( rawCategories ) => {
 	}, [ [], [] ] );
 };
 
-const postRedirect = ( params ) => {
-	const $form = $( '<form>' );
-	$form.attr( 'method', 'post' );
-	Object.keys( params ).forEach( ( key ) => {
-		const $input = $( '<input>' );
-		$input.attr( 'type', 'hidden' );
-		$input.attr( 'name', key );
-		$input.attr( 'value', params[ key ] );
-		$form.append( $input );
-	} );
-	$( 'body' ).append( $form );
-	$form.submit();
+const scrollToTop = () => {
+	$( 'html, body' ).animate( { scrollTop: $( '#content' ).offset().top }, 500 );
 };
 
 // @vue/component
@@ -209,9 +210,11 @@ module.exports = {
 		CdxButton,
 		CdxCheckbox,
 		CdxField,
+		CdxMessage,
 		CdxTextArea,
 		CdxTextInput,
-		CdxToggleButton
+		CdxToggleButton,
+		CdxProgressBar
 	},
 	props: {
 		// See SpecialImportFile::getAutomatedCapabilities
@@ -251,8 +254,12 @@ module.exports = {
 	},
 	data() {
 		return {
-			unsavedChangesFlag: false,
-			diffErrorMessage: ''
+			diffErrorMessage: '',
+			importError: null,
+			importSuccess: null,
+			importOutput: null,
+			progressBar: false,
+			unsavedChangesFlag: false
 		};
 	},
 	methods: {
@@ -269,7 +276,7 @@ module.exports = {
 			$textarea.focus();
 		},
 		mountedFileInfoRendered() {
-			// TODO: don't refresh when unchanged.  Could require an advanced
+			// TODO: don't refresh when unchanged. Could require an advanced
 			// "customRef" style of watching to combine debounce and other needs.
 			this.fileInfoLoading = true;
 			this.parseFileInfo();
@@ -308,7 +315,10 @@ module.exports = {
 		},
 		submitForm( action ) {
 			this.unsavedChangesFlag = false;
-			postRedirect( {
+			this.importSuccess = false;
+			this.importError = false;
+
+			const params = {
 				action,
 				automateSourceWikiCleanup: this.automateSourceWikiCleanup,
 				automateSourceWikiDelete: this.automateSourceWikiDelete,
@@ -318,10 +328,27 @@ module.exports = {
 				intendedRevisionSummary: this.currentEditSummary,
 				intendedWikitext: this.currentFileInfoWikitext,
 				token: this.editToken
+			};
 
-				// TODO:
-				// actionStats: {},
-				// validationWarnings: {}
+			this.progressBar = true;
+			$.ajax( {
+				type: 'POST',
+				data: params,
+				dataType: 'json',
+				success: ( data ) => {
+					this.progressBar = false;
+					this.importSuccess = !!data.success;
+					this.importError = !!data.error;
+					this.importOutput = data.output;
+					scrollToTop();
+				},
+				error: () => {
+					this.progressBar = false;
+					this.importError = true;
+					// TODO: Error handling
+					this.importOutput = 'Failure';
+					scrollToTop();
+				}
 			} );
 		},
 		viewDiff() {
@@ -357,6 +384,22 @@ module.exports = {
 <style lang="less">
 // To access Codex design tokens and mixins inside Vue files, import MediaWiki skin variables.
 @import 'mediawiki.skin.variables.less';
+
+.mw-importfile-import-overlay {
+	position: absolute;
+	display: block;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba( 0, 0, 0, 0.5 );
+
+	.cdx-progress-bar {
+		top: 50%;
+		margin: 50px;
+	}
+}
 
 .mw-importfile-loading {
 	opacity: 0.5;

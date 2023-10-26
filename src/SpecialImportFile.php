@@ -188,14 +188,22 @@ class SpecialImportFile extends SpecialPage {
 	 * @param string|null $subPage
 	 */
 	public function execute( $subPage ): void {
-		$this->setHeaders();
-		$this->getOutput()->enableOOUI();
-		$this->executeStandardChecks();
-
 		$webRequest = $this->getRequest();
 		$clientUrl = $webRequest->getVal( 'clientUrl', '' );
+		$action = $webRequest->getRawVal( ImportPreviewPage::ACTION_BUTTON );
+		if ( $action ) {
+			$this->logger->info( "Performing $action on ImportPlan for URL: $clientUrl" );
+		}
+
 		$isCodex = $webRequest->getBool( 'codex' ) &&
 			MediaWikiServices::getInstance()->getMainConfig()->get( 'FileImporterCodexMode' );
+		$isCodexSubmit = $isCodex && $this->getRequest()->wasPosted() && $action === 'submit';
+
+		if ( !$isCodexSubmit ) {
+			$this->setHeaders();
+			$this->getOutput()->enableOOUI();
+		}
+		$this->executeStandardChecks();
 
 		if ( !$isCodex ) {
 			$this->getOutput()->addModuleStyles( 'ext.FileImporter.SpecialCss' );
@@ -232,18 +240,12 @@ class SpecialImportFile extends SpecialPage {
 			$this->logger->info( 'Getting ImportPlan for URL: ' . $clientUrl );
 			$importPlan = $this->makeImportPlan( $webRequest );
 
-			$action = $webRequest->getRawVal( ImportPreviewPage::ACTION_BUTTON );
-			if ( $action ) {
-				$this->logger->info( "Performing $action on ImportPlan for URL: $clientUrl" );
-			}
-
-			if ( $isCodex ) {
-
-				if ( $this->getRequest()->wasPosted() && $action === 'submit' ) {
-					$this->doImport( $importPlan );
-					// TODO: return if successful, otherwise show the page with inline errors
-				}
-
+			if ( $isCodexSubmit ) {
+				// disable all default output of the special page, like headers, title, navigation
+				$this->getOutput()->disable();
+				header( 'Content-type: application/json; charset=utf-8' );
+				$this->doCodexImport( $importPlan );
+			} elseif ( $isCodex ) {
 				$this->getOutput()->addModules( 'ext.FileImporter.SpecialCodexJs' );
 				$this->showCodexImportPage( $importPlan );
 			} else {
@@ -350,6 +352,34 @@ class SpecialImportFile extends SpecialPage {
 	private function logErrorStats( string $type, bool $isRecoverable ): void {
 		$this->stats->increment( 'FileImporter.error.byRecoverable.'
 			. wfBoolToStr( $isRecoverable ) . '.byType.' . $type );
+	}
+
+	private function doCodexImport( ImportPlan $importPlan ): void {
+		// TODO handle error cases and echo JSON to allow Codex to visualize the errors
+		try {
+			$this->importer->import(
+				$this->getUser(),
+				$importPlan
+			);
+			$this->stats->increment( 'FileImporter.import.result.success' );
+			$this->logActionStats( $importPlan );
+
+			$postImportResult = $this->performPostImportActions( $importPlan );
+
+			// TODO: Either redirect or stay on page and show dynamic success response
+
+			echo json_encode( [
+				'success' => true,
+				// TODO: We assume all is fine. Implement a more detailed handling and see importSuccessSnippet
+				'output' => Message::newFromSpecifier( $postImportResult->getValue() )->parse(),
+			] );
+		} catch ( ImportException $exception ) {
+			// TODO: Graceful error handling
+			echo json_encode( [
+				'error' => true,
+				'output' => $exception->getTrace(),
+			] );
+		}
 	}
 
 	private function doImport( ImportPlan $importPlan ): bool {
