@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -43,7 +44,7 @@
 	"fileimporter-submit-title": "Camudar el títulu",
 	"fileimporter-resubmit": "Volver a unviar",
 	"fileimporter-import": "Importar",
-	"fileimporter-cancel": "Encaboxar",
+	"fileimporter-cancel": "Zarrar",
 	"fileimporter-edittitle": "Editar el títulu",
 	"fileimporter-editinfo": "Editar la información del ficheru",
 	"fileimporter-extensionlabel": "Estensión de ficheru:",
