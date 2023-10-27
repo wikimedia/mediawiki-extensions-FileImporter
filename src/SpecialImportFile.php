@@ -11,6 +11,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\AbuseFilterWarningsException;
 use FileImporter\Exceptions\CommunityPolicyException;
 use FileImporter\Exceptions\DuplicateFilesException;
+use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Exceptions\RecoverableTitleException;
@@ -36,6 +37,7 @@ use MediaWiki\EditPage\EditPage;
 use MediaWiki\Extension\GlobalBlocking\GlobalBlocking;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Status\Status;
 use MediaWiki\User\UserOptionsManager;
 use Message;
 use OOUI\HtmlSnippet;
@@ -448,6 +450,10 @@ class SpecialImportFile extends SpecialPage {
 	private function getWarningMessage( Exception $ex ): string {
 		if ( $ex instanceof LocalizedImportException ) {
 			return $ex->getMessageObject()->parse();
+		}
+		if ( $ex instanceof HttpRequestException ) {
+			return Status::wrap( $ex->getStatusValue() )->getHTML( false, false,
+				$this->getLanguage() );
 		}
 
 		return htmlspecialchars( $ex->getMessage() );
