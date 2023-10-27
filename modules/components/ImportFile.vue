@@ -46,7 +46,7 @@
 		</cdx-toggle-button>
 	</div>
 
-	<table class="diff">
+	<table v-if="!diffErrorMessage" class="diff">
 		<colgroup>
 			<col class="diff-marker">
 			<col class="diff-content">
@@ -56,6 +56,15 @@
 		<tbody v-html="diffOutput">
 		</tbody>
 	</table>
+	<div
+		v-if="diffErrorMessage"
+		class="cdx-message cdx-message--block cdx-message--error"
+		role="alert">
+		<span class="cdx-message__icon"></span>
+		<div class="cdx-message__content">
+			{{ diffErrorMessage }}
+		</div>
+	</div>
 
 	<div>
 		<!-- TODO find a working autosize option -->
@@ -242,7 +251,8 @@ module.exports = {
 	},
 	data() {
 		return {
-			unsavedChangesFlag: false
+			unsavedChangesFlag: false,
+			diffErrorMessage: ''
 		};
 	},
 	methods: {
@@ -321,6 +331,8 @@ module.exports = {
 			};
 			new mw.Api().get( params ).done( ( data ) => {
 				this.diffOutput = data.compare.body;
+			} ).fail( () => {
+				this.diffErrorMessage = this.$i18n( 'fileimporter-cdx-diff-failed' ).text();
 			} );
 		}
 	},

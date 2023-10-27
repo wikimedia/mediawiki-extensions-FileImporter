@@ -101,5 +101,6 @@
 	"fileimporter-input-page-info-text": "Message shown to the user when visiting the URL input page.",
 	"fileimporter-viewdiff": "Text for the show changes button on the special page.\n{{Identical|Show changes}}",
 	"fileimporter-to-preview": "Text for the button on the diff page to get back to the preview.",
-	"fileimporter-no-script-warning": "Warning message shown to users who cannot run File Importer because JavaScript is unsupported."
+	"fileimporter-no-script-warning": "Warning message shown to users who cannot run File Importer because JavaScript is unsupported.",
+	"fileimporter-cdx-diff-failed": "Error message shown when the dynamic retrieval of the changes failed."
 }
