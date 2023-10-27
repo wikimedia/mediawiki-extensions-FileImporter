@@ -4,6 +4,7 @@
 			"Ajeje Brazorf",
 			"Alno",
 			"Benoit Rochon",
+			"BlueCamille",
 			"Derugon",
 			"Djiboun",
 			"DreZhsh",
@@ -103,5 +104,6 @@
 	"fileimporter-auto-replacements-summary": "$1 modification{{PLURAL:$1||s}} automatique{{PLURAL:$1||s}} de modèles {{PLURAL:$1|a|ont}} été effectuée{{PLURAL:$1||s}}",
 	"fileimporter-input-page-info-text": "En savoir plus en visitant notre [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons page d’aide].",
 	"fileimporter-viewdiff": "Afficher les modifications",
-	"fileimporter-to-preview": "Retour à l’aperçu"
+	"fileimporter-to-preview": "Retour à l’aperçu",
+	"fileimporter-no-script-warning": "JavaScript n'est pas supporté ou est désactivé par votre navigateur. L'importateur de fichiers s'appuie sur JavaScript pour fonctionner."
 }
