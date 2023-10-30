@@ -95,5 +95,6 @@
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|È stata eseguita|Sono state eseguite}} $1 {{PLURAL:$1|modifica automatica|modifiche automatiche}} ai template",
 	"fileimporter-input-page-info-text": "Scopri di più visitando la nostra [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons pagina d'aiuto].",
 	"fileimporter-viewdiff": "Mostra modifiche",
-	"fileimporter-to-preview": "Torna all'anteprima"
+	"fileimporter-to-preview": "Torna all'anteprima",
+	"fileimporter-cdx-diff-failed": "Qualcosa è andato storto durante il recupero delle modifiche. Per favore, riprova."
 }

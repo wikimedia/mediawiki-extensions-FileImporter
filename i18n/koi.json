@@ -6,5 +6,6 @@
 	},
 	"fileimporter-previewtitle": "Одзжык сетӧм юрним",
 	"fileimporter-previewinfo": "Файл йылісь юӧр одзвывса видзӧтӧм",
-	"fileimporter-no-script-warning": "JavaScript оз уджав либо пӧдналӧм браузернаныт.File\n Importer уджалӧм понда колӧ JavaScript"
+	"fileimporter-no-script-warning": "JavaScript оз уджав либо пӧдналӧм браузернаныт.File\n Importer уджалӧм понда колӧ JavaScript",
+	"fileimporter-cdx-diff-failed": "Вежсьӧммез судзӧтікӧ мыйкӧ лоис не сідз. Пожалуйста,пондылӧ серӧнжык"
 }

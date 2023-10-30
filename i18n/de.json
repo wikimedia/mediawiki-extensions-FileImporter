@@ -96,5 +96,6 @@
 	"fileimporter-input-page-info-text": "Erfahre mehr auf unserer [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons Hilfeseite].",
 	"fileimporter-viewdiff": "Änderungen anzeigen",
 	"fileimporter-to-preview": "Zurück zur Vorschau",
-	"fileimporter-no-script-warning": "JavaScript wird von deinem Browser nicht unterstützt oder ist deaktiviert. Der Dateiimporter ist auf JavaScript angewiesen, um zu funktionieren."
+	"fileimporter-no-script-warning": "JavaScript wird von deinem Browser nicht unterstützt oder ist deaktiviert. Der Dateiimporter ist auf JavaScript angewiesen, um zu funktionieren.",
+	"fileimporter-cdx-diff-failed": "Beim Abrufen der Änderungen ist ein Fehler aufgetreten. Bitte versuche es später noch einmal."
 }

@@ -94,5 +94,6 @@
 	"fileimporter-input-page-info-text": "Дознајте повеќе на [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons помошната страница].",
 	"fileimporter-viewdiff": "Прикажи промени",
 	"fileimporter-to-preview": "Назад на прегледот",
-	"fileimporter-no-script-warning": "JavaScript не е поддржан или е исклучен во вашиот прелистувач. На Увозникот на податотеки му треба JavaScript за да работи."
+	"fileimporter-no-script-warning": "JavaScript не е поддржан или е исклучен во вашиот прелистувач. На Увозникот на податотеки му треба JavaScript за да работи.",
+	"fileimporter-cdx-diff-failed": "Се јави проблем со добивањето на страниците. Обидете се подоцна."
 }

@@ -62,6 +62,7 @@
 	"fileimporter-cancel": "Откажи",
 	"fileimporter-edittitle": "Уреди наслов",
 	"fileimporter-editinfo": "Уреди податке о датотеци",
+	"fileimporter-previewtitle": "Преглед наслова",
 	"fileimporter-extensionlabel": "Датотечни наставак:",
 	"fileimporter-newfilename": "Ново име датотеке:",
 	"fileimporter-editsummary": "Опис измене:",
@@ -95,5 +96,6 @@
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Учињена је $1 аутоматска замена|Учињене су $1 аутоматске замене|Учињено је $1 аутоматских замена}} у {{PLURAL:$1|шаблону|шаблонима}}",
 	"fileimporter-input-page-info-text": "Сазнајте више на нашој [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons страници помоћи].",
 	"fileimporter-viewdiff": "Прикажи измене",
-	"fileimporter-to-preview": "Назад на претпреглед"
+	"fileimporter-to-preview": "Назад на претпреглед",
+	"fileimporter-no-script-warning": "JavaScript-а није подржана или је онемогућена у Вашем веб-прегледачу. Увозника датотека не може да ради без JavaScript-е."
 }

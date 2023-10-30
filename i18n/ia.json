@@ -92,5 +92,6 @@
 	"fileimporter-input-page-info-text": "Apprende plus visitante nostre [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons pagina de adjuta].",
 	"fileimporter-viewdiff": "Detaliar modificationes",
 	"fileimporter-to-preview": "Retornar al previsualisation",
-	"fileimporter-no-script-warning": "JavaScript es indisponibile o disactivate in tu navigator. File Importer depende de JavaScript pro functionar."
+	"fileimporter-no-script-warning": "JavaScript es indisponibile o disactivate in tu navigator. File Importer depende de JavaScript pro functionar.",
+	"fileimporter-cdx-diff-failed": "Un problema ha occurrite durante le obtention del cambiamentos. Per favor reproba plus tarde."
 }
