@@ -17,6 +17,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserIdentityLookup;
@@ -38,11 +39,7 @@ use WikiPage;
  */
 class Importer {
 
-	private const ERROR_OPERATION_COMMIT = 'operationCommit';
-	private const ERROR_OPERATION_PREPARE = 'operationPrepare';
-	private const ERROR_OPERATION_VALIDATE = 'operationValidate';
 	private const ERROR_NO_NEW_PAGE = 'noPageCreated';
-	private const ERROR_FAILED_POST_IMPORT_EDIT = 'failedPostImportEdit';
 
 	/** @var WikiPageFactory */
 	private $wikiPageFactory;
@@ -250,10 +247,12 @@ class Importer {
 	}
 
 	private function prepareImportOperations( ImportOperations $importOperations ): void {
-		if ( !$importOperations->prepare()->isOK() ) {
-			$this->logger->error( __METHOD__ . 'Failed to prepare operations.' );
-			throw new ImportException( 'Failed to prepare operations.',
-				self::ERROR_OPERATION_PREPARE );
+		$status = $importOperations->prepare();
+		if ( !$status->isOK() ) {
+			$this->logger->error( __METHOD__ . ' Failed to prepare operations.', [
+				'status' => $status->__toString(),
+			] );
+			throw new LocalizedImportException( Status::wrap( $status )->getMessage() );
 		}
 	}
 
@@ -297,10 +296,12 @@ class Importer {
 	}
 
 	private function commitImportOperations( ImportOperations $importOperations ): void {
-		if ( !$importOperations->commit()->isOK() ) {
-			$this->logger->error( __METHOD__ . 'Failed to commit operations.' );
-			throw new ImportException( 'Failed to commit operations.',
-				self::ERROR_OPERATION_COMMIT );
+		$status = $importOperations->commit();
+		if ( !$status->isOK() ) {
+			$this->logger->error( __METHOD__ . ' Failed to commit operations.', [
+				'status' => $status->__toString(),
+			] );
+			throw new LocalizedImportException( Status::wrap( $status )->getMessage() );
 		}
 	}
 
@@ -389,9 +390,10 @@ class Importer {
 		);
 
 		if ( !$editResult->isOK() ) {
-			$this->logger->error( __METHOD__ . ' Failed to create user edit.' );
-			throw new ImportException(
-				'Failed to create user edit', self::ERROR_FAILED_POST_IMPORT_EDIT );
+			$this->logger->error( __METHOD__ . ' Failed to create user edit.', [
+				'status' => $editResult->__toString(),
+			] );
+			throw new LocalizedImportException( Status::wrap( $editResult )->getMessage() );
 		}
 	}
 
