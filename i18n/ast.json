@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"fileimporter": "FileImporter",
@@ -43,7 +44,7 @@
 	"fileimporter-submit-title": "Camudar el títulu",
 	"fileimporter-resubmit": "Volver a unviar",
 	"fileimporter-import": "Importar",
-	"fileimporter-cancel": "Encaboxar",
+	"fileimporter-cancel": "Zarrar",
 	"fileimporter-edittitle": "Editar el títulu",
 	"fileimporter-editinfo": "Editar la información del ficheru",
 	"fileimporter-extensionlabel": "Estensión de ficheru:",
@@ -73,7 +74,7 @@
 	"fileimporter-go-to-original-file-button": "Volver al ficheru orixinal",
 	"fileimporter-commonshelper-retrieval-failed": "Asocedió un error al comprobar los ficheros bloquiaos.",
 	"fileimporter-commonshelper-missing-config": "Inda nun ye posible importar ficheros dende la wiki d'orixe ($1). Nun esiste configuración pa la wiki en $2.",
-	"fileimporter-commonshelper-parsing-failed": "La páxina de configuración de la to wiki ($1) ta incompleta. Comprueba que contien una seición «$2».",
+	"fileimporter-commonshelper-parsing-failed": "La páxina de configuración de la to wiki ($1) ta incompleta. Comprueba que contién una seición «$2».",
 	"fileimporter-file-contains-blocked-category-template": "El ficheru nun puede tresferise a $2 porque ta marcáu como $1. $2 nun permite estos ficheros. Esto podría iguase, pero probablemente significa que'l ficheru nun ye compatible. Consulta [[Project:Licensing|la política de la comunidá de $2 y les páxines d'alderique sobro llicencies]].",
 	"fileimporter-file-missing-required-template": "El ficheru nun puede tresferise a $1 porque nun ta marcáu con una llicencia compatible. $1 nun permite estos ficheros. Esto podría iguase, pero probablemente significa que'l ficheru nun ye compatible. Consulta [[Project:Licensing|la política de la comunidá de $1 y les páxines d'alderique sobro llicencies]].",
 	"fileimporter-category-encouragement": "Los ficheros de {{SITENAME}} tienen de tener categoríes. Esto fai más cenciello alcontralos. Puedes camudar les categoríes d'esti ficheru editando la información del ficheru nesta páxina.",
