@@ -11,7 +11,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\Hook\UserGetReservedNamesHook;
 use OutputPage;
-use Skin;
 use User;
 use WebRequest;
 
@@ -89,20 +88,6 @@ class FileImporterHooks implements
 	public function onUserGetReservedNames( &$reservedUsernames ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$reservedUsernames[] = $config->get( 'FileImporterAccountForSuppressedUsername' );
-	}
-
-	/**
-	 * Same parameters as {@see \MediaWiki\Hook\BeforePageDisplayHook}.
-	 *
-	 * @param OutputPage $output
-	 * @param Skin $skin
-	 * @return bool
-	 */
-	public static function onVisualEditorBeforeEditor( OutputPage $output, Skin $skin ) {
-		// The context gets changed to be that of a file page in WikiEditor::runEditFormInitialHook
-		// so re-construct the original title from the request.
-		$requestTitle = Title::newFromText( $output->getRequest()->getVal( 'title' ) );
-		return !$requestTitle || !$requestTitle->isSpecial( 'ImportFile' );
 	}
 
 }

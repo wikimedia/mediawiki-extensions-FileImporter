@@ -212,11 +212,14 @@
 		"ChangeTagsListActive": "main",
 		"ListDefinedTags": "main",
 		"UserGetReservedNames": "main",
-		"VisualEditorBeforeEditor": "FileImporter\\FileImporterHooks::onVisualEditorBeforeEditor"
+		"VisualEditorBeforeEditor": "visualeditor"
 	},
 	"HookHandlers": {
 		"main": {
 			"class": "FileImporter\\FileImporterHooks"
+		},
+		"visualeditor": {
+			"class": "FileImporter\\VisualEditorHooks"
 		}
 	}
 }
