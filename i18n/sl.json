@@ -82,7 +82,7 @@
 	"fileimporter-add-specific-template": "Datoteka je bila uvožena. Če želite označiti, da je datoteka zdaj na voljo v projektu {{SITENAME}}, se vrnite na [$1 izvirno datoteko] in dodajte ustrezno predlogo, običajno <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Vrnitev na izvorno datoteko",
 	"fileimporter-commonshelper-retrieval-failed": "Pri preverjanju blokiranih datotek je prišlo do napake.",
-	"fileimporter-commonshelper-parsing-failed": "Stran z nastavitvami za vaš wiki ($1) ni popolna. Prosimo, prepričajte se, da vsebuje razdelek »$2«.",
+	"fileimporter-commonshelper-parsing-failed": "Stran z nastavitvami za vaš viki ($1) ni popolna. Prosimo, prepričajte se, da vsebuje razdelek »$2«.",
 	"fileimporter-file-contains-blocked-category-template": "Datoteke ni možno prenesti na $2, ker je označena kot $1. $2 takšnih datotek ne dovoljuje. To morda lahko razrešite, ampak zelo verjetno pomeni, da datoteka ni skladna. Prosimo, oglejte si [[Project:Licensing|pravilnik skupnosti $2 in pogovorne strani o licenciranju]].",
 	"fileimporter-file-missing-required-template": "Datoteke ni možno prenesti na $1, ker ni označena s skladnim dovoljenjem. $1 takšnih datotek ne dovoljuje. To morda lahko razrešite, ampak zelo verjetno pomeni, da datoteka ni skladna. Prosimo, oglejte si [[Project:Licensing|pravilnik skupnosti $1 in pogovorne strani o licenciranju]].",
 	"fileimporter-category-encouragement": "Datoteke je treba v projektu {{SITENAME}} kategorizirati. Tako jih je lažje najti. Kategorije za to datoteko lahko spremenite tako, da na tej strani uredite podatke o datoteki.",
