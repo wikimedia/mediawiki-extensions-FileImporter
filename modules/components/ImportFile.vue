@@ -260,9 +260,13 @@ module.exports = {
 			window.location.assign( window.location );
 		},
 		mountedFileInfoInput() {
+			const $textarea = $( this.$refs.fileInfoInput.$el ).find( 'textarea' );
+			mw.loader.using( [ 'ext.wikiEditor' ], function () {
+				mw.addWikiEditor( $textarea );
+			} );
 			// TODO: CdxTextArea should support the "focus" method.  This is
 			// fragile because it assumes the component's DOM structure.
-			$( this.$refs.fileInfoInput.$el ).find( 'textarea' ).focus();
+			$textarea.focus();
 		},
 		mountedFileInfoRendered() {
 			// TODO: don't refresh when unchanged.  Could require an advanced
