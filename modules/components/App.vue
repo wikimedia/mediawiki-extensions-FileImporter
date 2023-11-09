@@ -8,15 +8,15 @@
 			:automated-capabilities="automatedCapabilities"
 			:client-url="clientUrl"
 			:details-hash="detailsHash"
+			:edit-summary="editSummary"
 			:edit-token="editToken"
 			:file-extension="fileExtension"
+			:file-info-wikitext="fileInfoWikitext"
 			:file-prefixed="filePrefixed"
 			:file-revisions-count="fileRevisionsCount"
-			:image-url="imageUrl"
-			:edit-summary="editSummary"
-			:file-info-wikitext="fileInfoWikitext"
-			:initial-file-info-wikitext="initialFileInfoWikitext"
 			:file-title="fileTitle"
+			:image-url="imageUrl"
+			:initial-file-info-wikitext="initialFileInfoWikitext"
 			:text-revisions-count="textRevisionsCount"
 		></import-file>
 	</div>
@@ -51,13 +51,13 @@ module.exports = {
 			editSummary: defaultEditSummary,
 			editToken: mw.config.get( 'wgFileImporterEditToken' ),
 			fileExtension: mw.config.get( 'wgFileImporterFileExtension' ),
-			initialFileInfoWikitext: mw.config.get( 'wgFileImporterInitialFileInfoWikitext' ),
 			fileInfoWikitext: mw.config.get( 'wgFileImporterFileInfoWikitext' ),
 			filePrefixed: mw.config.get( 'wgFileImporterPrefixedTitle' ),
 			fileTitle: mw.config.get( 'wgFileImporterTitle' ),
 			fileRevisionsCount: mw.config.get( 'wgFileImporterFileRevisionsCount' ),
 			helpBannerContentHtml: mw.config.get( 'wgFileImporterHelpBannerContentHtml' ),
 			imageUrl: mw.config.get( 'wgFileImporterImageUrl' ),
+			initialFileInfoWikitext: mw.config.get( 'wgFileImporterInitialFileInfoWikitext' ),
 			textRevisionsCount: mw.config.get( 'wgFileImporterTextRevisionsCount' )
 		};
 	}

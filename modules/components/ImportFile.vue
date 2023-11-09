@@ -19,9 +19,9 @@
 				v-if="isEditingTitle"
 				ref="titleInput"
 				v-model="currentFileTitle"
-				@update:model-value="unsavedChangesFlag = true;"
+				@update:model-value="unsavedChangesFlag = true"
 				@vue:mounted="mountedTitleEdit"
-				@input="this.status = 'default'"
+				@input="status = 'default'"
 				@change="normalizeTitle"
 			></cdx-text-input>
 			<h2
@@ -49,7 +49,8 @@
 			@click="diffOutput = null"
 		>
 			{{ isEditingInfo ?
-				$i18n( 'fileimporter-previewinfo' ).text() : $i18n( 'fileimporter-editinfo' ).text() }}
+				$i18n( 'fileimporter-previewinfo' ).text() :
+				$i18n( 'fileimporter-editinfo' ).text() }}
 		</cdx-toggle-button>
 	</div>
 
@@ -170,14 +171,16 @@
 	</div>
 
 	<div v-if="progressBar" class="mw-importfile-import-overlay">
-		<cdx-progress-bar aria--label="{{ $i18n( 'fileimporter-import-wait' ).plain() }}"></cdx-progress-bar>
+		<cdx-progress-bar aria--label="{{ $i18n( 'fileimporter-import-wait' ).plain() }}">
+		</cdx-progress-bar>
 	</div>
 </template>
 
 <script>
 const { ref } = require( 'vue' );
 const {
-	CdxButton, CdxCheckbox, CdxTextArea, CdxField, CdxMessage, CdxTextInput, CdxToggleButton, CdxProgressBar
+	CdxButton, CdxCheckbox, CdxField, CdxMessage, CdxProgressBar, CdxTextArea,
+	CdxTextInput, CdxToggleButton
 } = require( '@wikimedia/codex' );
 const CategoriesSection = require( './CategoriesSection.vue' );
 
@@ -211,25 +214,25 @@ module.exports = {
 		CdxCheckbox,
 		CdxField,
 		CdxMessage,
+		CdxProgressBar,
 		CdxTextArea,
 		CdxTextInput,
-		CdxToggleButton,
-		CdxProgressBar
+		CdxToggleButton
 	},
 	props: {
 		// See SpecialImportFile::getAutomatedCapabilities
 		automatedCapabilities: { type: Object, required: true },
 		clientUrl: { type: String, required: true },
 		detailsHash: { type: String, required: true },
+		editSummary: { type: String, required: true },
 		editToken: { type: String, required: true },
 		fileExtension: { type: String, required: true },
+		fileInfoWikitext: { type: String, required: true },
 		filePrefixed: { type: String, required: true },
 		fileRevisionsCount: { type: Number, required: true },
-		imageUrl: { type: String, required: true },
-		editSummary: { type: String, required: true },
-		fileInfoWikitext: { type: String, required: true },
-		initialFileInfoWikitext: { type: String, required: true },
 		fileTitle: { type: String, required: true },
+		imageUrl: { type: String, required: true },
+		initialFileInfoWikitext: { type: String, required: true },
 		textRevisionsCount: { type: Number, required: true }
 	},
 	setup( props ) {
@@ -238,28 +241,28 @@ module.exports = {
 			automateSourceWikiDelete: ref( props.automatedCapabilities.automateSourceWikiDelete ),
 			canAutomateDelete: props.automatedCapabilities.canAutomateDelete,
 			canAutomateEdit: props.automatedCapabilities.canAutomateEdit,
-			status: ref( 'default' ),
-			messages: { warning: '' },
-			isEditingInfo: ref( false ),
-			diffOutput: ref( null ),
-			isEditingTitle: ref( false ),
-			fileInfoHtml: ref( null ),
-			fileInfoLoading: ref( false ),
-			hiddenCategories: ref( [] ),
 			currentEditSummary: ref( props.editSummary ),
 			currentFileInfoWikitext: ref( props.fileInfoWikitext ),
-			currentFileTitle: ref( props.fileTitle ),
-			visibleCategories: ref( [] )
+			currentFileTitle: ref( props.fileTitle )
 		};
 	},
 	data() {
 		return {
 			diffErrorMessage: '',
+			diffOutput: null,
+			fileInfoHtml: null,
+			fileInfoLoading: false,
+			hiddenCategories: [],
 			importError: null,
 			importSuccess: null,
 			importOutput: null,
+			isEditingInfo: false,
+			isEditingTitle: false,
+			messages: { warning: '' },
 			progressBar: false,
-			unsavedChangesFlag: false
+			status: 'default',
+			unsavedChangesFlag: false,
+			visibleCategories: []
 		};
 	},
 	methods: {
