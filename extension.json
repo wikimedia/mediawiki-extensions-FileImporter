@@ -162,6 +162,7 @@
 				"modules/components/App.vue",
 				"modules/components/CategoriesList.vue",
 				"modules/components/CategoriesSection.vue",
+				"modules/components/FileTitle.vue",
 				"modules/components/HelpBanner.vue",
 				"modules/components/ImportFile.vue"
 			],
