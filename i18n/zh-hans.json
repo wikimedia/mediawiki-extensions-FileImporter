@@ -17,7 +17,8 @@
 			"WQL",
 			"Xiplus",
 			"列维劳德",
-			"水獭很懒"
+			"水獭很懒",
+			"沈澄心"
 		]
 	},
 	"fileimporter": "文件导入器",
@@ -73,6 +74,8 @@
 	"fileimporter-cancel": "取消",
 	"fileimporter-edittitle": "编辑标题",
 	"fileimporter-editinfo": "编辑文件信息",
+	"fileimporter-previewtitle": "预览标题",
+	"fileimporter-previewinfo": "预览文件信息",
 	"fileimporter-extensionlabel": "文件扩展名：",
 	"fileimporter-newfilename": "新的文件名：",
 	"fileimporter-editsummary": "编辑摘要：",
@@ -106,5 +109,7 @@
 	"fileimporter-auto-replacements-summary": "$1个对模板的自动修改已经完成",
 	"fileimporter-input-page-info-text": "访问我们的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 帮助页面]了解更多。",
 	"fileimporter-viewdiff": "显示更改",
-	"fileimporter-to-preview": "返回预览"
+	"fileimporter-to-preview": "返回预览",
+	"fileimporter-no-script-warning": "您的浏览器不支持或已禁用JavaScript。文件导入器依赖JavaScript来运行。",
+	"fileimporter-cdx-diff-failed": "获取更改时出错。请稍后再试。"
 }
