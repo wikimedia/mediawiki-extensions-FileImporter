@@ -288,7 +288,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		[ $html, ] = $this->executeSpecialPage(
 			'',
 			new FauxRequest( $webRequest ),
-			'en',
+			'qqx',
 			$user
 		);
 
