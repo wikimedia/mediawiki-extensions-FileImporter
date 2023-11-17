@@ -28,7 +28,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$content = new \TextContent( '' );
 
 		$status = $validator->validate( $title, $user, $content, '', false );
-		$this->assertTrue( $status->isOK() );
+		$this->assertStatusGood( $status );
 	}
 
 	public function testInvalidNamespace() {
@@ -76,8 +76,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		);
 
 		$status = $validator->validate( $expectedTitle, $expectedUser, $expectedContent, '<SUMMARY>', true );
-		$this->assertTrue( $status->isOK() );
-		$this->assertTrue( $status->hasMessage( '<RAW>' ) );
+		$this->assertStatusWarning( '<RAW>', $status );
 	}
 
 }

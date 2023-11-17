@@ -46,15 +46,15 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 
 		return [
 			// File vs title checks
-			'validPNG' => [ 'Foo.png', self::getGetImagePath( 'imagepng' ), true, null ],
-			'validGIF' => [ 'Foo.gif', self::getGetImagePath( 'imagegif' ), true, null ],
-			'validJPEG' => [ 'Foo.jpeg', self::getGetImagePath( 'imagejpeg' ), true, null ],
+			'validPNG' => [ 'Foo.png', self::getGetImagePath( 'imagepng' ) ],
+			'validGIF' => [ 'Foo.gif', self::getGetImagePath( 'imagegif' ) ],
+			'validJPEG' => [ 'Foo.jpeg', self::getGetImagePath( 'imagejpeg' ) ],
 			'PNGwithBadExtension' => [ 'Foo.jpeg', self::getGetImagePath( 'imagepng' ),
-				false, 'filetype-mime-mismatch' ],
+				'filetype-mime-mismatch' ],
 			'GIFwithBadExtension' => [ 'Foo.jpeg', self::getGetImagePath( 'imagegif' ),
-				false, 'filetype-mime-mismatch' ],
+				'filetype-mime-mismatch' ],
 			'JPEGwithBadExtension' => [ 'Foo.gif', self::getGetImagePath( 'imagejpeg' ),
-				false, 'filetype-mime-mismatch' ],
+				'filetype-mime-mismatch' ],
 		];
 	}
 
@@ -64,17 +64,17 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	public function testPerformFileChecks(
 		string $targetTitle,
 		string $tempPath,
-		bool $expectedSuccess,
-		?string $expectedError
+		string $expectedError = null
 	) {
 		$base = new ValidatingUploadBase(
 			new TitleValue( NS_FILE, $targetTitle ),
 			$tempPath
 		);
 		$status = $base->validateFile();
-		$this->assertSame( $expectedSuccess, $status->isOK() );
 		if ( $expectedError ) {
-			$this->assertTrue( $status->hasMessage( $expectedError ) );
+			$this->assertStatusError( $expectedError, $status );
+		} else {
+			$this->assertStatusGood( $status );
 		}
 		// Delete the file that we created post test
 		unlink( $tempPath );

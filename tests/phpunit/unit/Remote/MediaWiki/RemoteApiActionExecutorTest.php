@@ -29,7 +29,7 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 			[],
 			''
 		);
-		$this->assertFalse( $status->isOK() );
+		$this->assertStatusNotOK( $status );
 	}
 
 	public function testExecuteEditAction_success() {

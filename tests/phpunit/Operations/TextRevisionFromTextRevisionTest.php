@@ -33,7 +33,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 		$status = $textRevisionFromTextRevision->prepare();
 		$wikiRevision = $textRevisionFromTextRevision->getWikiRevision();
 
-		$this->assertTrue( $status->isOK() );
+		$this->assertStatusGood( $status );
 		$this->assertFalse( $title->exists() );
 		$this->assertTrue( $title->isWikitextPage() );
 		$this->assertSame( 0, $wikiRevision->getID() );
