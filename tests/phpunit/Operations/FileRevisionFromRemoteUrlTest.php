@@ -68,7 +68,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$status = $fileRevisionFromRemoteUrl->prepare();
 		$wikiRevision = $fileRevisionFromRemoteUrl->getWikiRevision();
 
-		$this->assertTrue( $status->isOK() );
+		$this->assertStatusGood( $status );
 		$this->assertFalse( $title->exists() );
 		$this->assertTrue( $title->isWikitextPage() );
 		$this->assertSame( 0, $wikiRevision->getID() );
@@ -98,7 +98,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$this->assertTrue( $fileRevisionFromRemoteUrl->validate()->isOK() );
 		$status = $fileRevisionFromRemoteUrl->commit();
 
-		$this->assertTrue( $status->isOK(), $status );
+		$this->assertStatusGood( $status );
 		$this->assertTrue( $title->exists() );
 
 		// there will be a text revision created with the upload
