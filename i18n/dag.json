@@ -2,9 +2,33 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"Attah Mohammed",
 			"Musahfm",
 			"Sir Amugi"
 		]
 	},
-	"fileimporter-filenameerror-protected": "Faalsheli a ni bor' ni a zaŋ kpehina ŋo nyela bi ni gu sheli."
+	"fileimporter-desc": "Zaŋdi mazagaya kpɛhiri dundɔŋ shɛli ni kuli nyɛla alaha",
+	"fileimporter-help-banner-close-tooltip": "Di lahi yihi yɛltɔɣili ŋɔ na yaha",
+	"tag-fileimporter-imported-description": "Teebu din kpe wiki shɛli ni",
+	"fileimporter-specialpage": "Kpɛhimi mazagali",
+	"fileimporter-importfailed": "Kpehibu bi nya nasara",
+	"fileimporter-api-badinfo": "API labisi yɛl' biɛɣu bee yɛl' teerili la.",
+	"fileimporter-api-failedtogetinfo": "Nasara bi nya zaŋ chaŋ mazagali labisibu yɛltɔɣili la: $1",
+	"fileimporter-api-toomanyrevisions": "Teebu yi zooi yina API, ku tooi lahi kpɛhi.",
+	"fileimporter-api-file-notfound": "Mazagali maa kani: $1",
+	"fileimporter-http-statuscode": "HTTP zashee dalinli $1.",
+	"fileimporter-filenameerror-protected": "Faalsheli a ni bor' ni a zaŋ kpehina ŋo nyela bi ni gu sheli.",
+	"fileimporter-duplicatefilesdetected-prefix": "Balima",
+	"fileimporter-exampleprefix": "shɛhira",
+	"fileimporter-submit": "Zaŋ ti",
+	"fileimporter-submit-title": "Taɣimi yuli",
+	"fileimporter-resubmit": "Labi zaŋ ti",
+	"fileimporter-import": "Kpɛhima",
+	"fileimporter-cancel": "Nyahima",
+	"fileimporter-edittitle": "Taɣimi yuli",
+	"fileimporter-previewtitle": "Labi lihi yuli",
+	"fileimporter-heading-cleanup": "Nyɛhimi wiki yibu shee na",
+	"fileimporter-import-wait": "Di kpebu na ni di saha biɛla.",
+	"fileimporter-viewdiff": "Wuhimi taɣibu",
+	"fileimporter-to-preview": "Labi yuli nyaanga"
 }
