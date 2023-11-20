@@ -10,35 +10,11 @@
 		{{ $i18n( 'fileimporter-previewnote' ).text() }}
 	</div>
 
-	<div class="mw-importfile-header">
-		<cdx-field
-			:status="status"
-			:messages="messages"
-		>
-			<cdx-text-input
-				v-if="isEditingTitle"
-				ref="titleInput"
-				v-model="currentFileTitle"
-				@update:model-value="unsavedChangesFlag = true"
-				@vue:mounted="mountedTitleEdit"
-				@input="status = 'default'"
-				@change="normalizeTitle"
-			></cdx-text-input>
-			<h2
-				v-else
-				@click="isEditingTitle = true"
-			>
-				{{ currentFileTitle + '.' + fileExtension }}
-			</h2>
-		</cdx-field>
-
-		<cdx-toggle-button
-			v-model="isEditingTitle"
-		>
-			<span v-if="isEditingTitle">{{ $i18n( 'fileimporter-previewtitle' ).text() }}</span>
-			<span v-else>{{ $i18n( 'fileimporter-edittitle' ).text() }}</span>
-		</cdx-toggle-button>
-	</div>
+	<file-title
+		:file-extension="fileExtension"
+		:file-title="currentFileTitle"
+		@update:model-value="fileTitleChanged"
+	></file-title>
 
 	<img :src="imageUrl" :alt="filePrefixed">
 
@@ -179,10 +155,11 @@
 <script>
 const { ref } = require( 'vue' );
 const {
-	CdxButton, CdxCheckbox, CdxField, CdxMessage, CdxProgressBar, CdxTextArea,
+	CdxButton, CdxCheckbox, CdxMessage, CdxProgressBar, CdxTextArea,
 	CdxTextInput, CdxToggleButton
 } = require( '@wikimedia/codex' );
 const CategoriesSection = require( './CategoriesSection.vue' );
+const FileTitle = require( './FileTitle.vue' );
 
 const NS_FILE = mw.config.get( 'wgNamespaceIds' ).file;
 
@@ -212,12 +189,12 @@ module.exports = {
 		CategoriesSection,
 		CdxButton,
 		CdxCheckbox,
-		CdxField,
 		CdxMessage,
 		CdxProgressBar,
 		CdxTextArea,
 		CdxTextInput,
-		CdxToggleButton
+		CdxToggleButton,
+		FileTitle
 	},
 	props: {
 		// See SpecialImportFile::getAutomatedCapabilities
@@ -257,10 +234,7 @@ module.exports = {
 			importSuccess: null,
 			importOutput: null,
 			isEditingInfo: false,
-			isEditingTitle: false,
-			messages: { warning: '' },
 			progressBar: false,
-			status: 'default',
 			unsavedChangesFlag: false,
 			visibleCategories: []
 		};
@@ -268,6 +242,10 @@ module.exports = {
 	methods: {
 		cancelChanges() {
 			window.location.assign( window.location );
+		},
+		fileTitleChanged( newValue ) {
+			this.currentFileTitle = newValue;
+			this.unsavedChangesFlag = true;
 		},
 		mountedFileInfoInput() {
 			const $textarea = $( this.$refs.fileInfoInput.$el ).find( 'textarea' );
@@ -283,22 +261,6 @@ module.exports = {
 			// "customRef" style of watching to combine debounce and other needs.
 			this.fileInfoLoading = true;
 			this.parseFileInfo();
-		},
-		mountedTitleEdit() {
-			this.$refs.titleInput.focus();
-		},
-		normalizeTitle() {
-			const inputTitle = mw.Title.newFromUserInput( this.currentFileTitle );
-			if ( inputTitle ) {
-				const cleanTitle = inputTitle.getNameText();
-				if ( inputTitle.title !== cleanTitle ) {
-					this.status = 'warning';
-					this.messages.warning = mw.message(
-						'fileimporter-filenameerror-automaticchanges', inputTitle.title, cleanTitle
-					).text();
-					this.currentFileTitle = cleanTitle;
-				}
-			}
 		},
 		parseFileInfo() {
 			new mw.Api().post( {
