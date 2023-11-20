@@ -37,7 +37,7 @@ const {
 } = require( '@wikimedia/codex' );
 
 // @vue/component
-module.exports = {
+module.exports = exports = {
 	name: 'FileTitle',
 	components: {
 		CdxField,
