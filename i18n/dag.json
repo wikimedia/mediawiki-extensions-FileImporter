@@ -1,0 +1,43 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80",
+			"Attah Mohammed",
+			"Musahfm",
+			"Sir Amugi"
+		]
+	},
+	"fileimporter-desc": "Zaŋdi mazagaya kpɛhiri dundɔŋ shɛli ni kuli nyɛla alaha",
+	"fileimporter-help-banner-close-tooltip": "Di lahi yihi yɛltɔɣili ŋɔ na yaha",
+	"tag-fileimporter-imported-description": "Teebu din kpe wiki shɛli ni",
+	"fileimporter-specialpage": "Kpɛhimi mazagali",
+	"fileimporter-importfailed": "Kpehibu bi nya nasara",
+	"fileimporter-api-badinfo": "API labisi yɛl' biɛɣu bee yɛl' teerili la.",
+	"fileimporter-api-failedtogetinfo": "Nasara bi nya zaŋ chaŋ mazagali labisibu yɛltɔɣili la: $1",
+	"fileimporter-api-toomanyrevisions": "Teebu yi zooi yina API, ku tooi lahi kpɛhi.",
+	"fileimporter-api-file-notfound": "Mazagali maa kani: $1",
+	"fileimporter-http-statuscode": "HTTP zashee dalinli $1.",
+	"fileimporter-cantimportmissingfile": "Faali shɛli din barigi maa ku lahi tooi kpɛhi.",
+	"fileimporter-cantimportfileinvalid": "Faali ŋɔ (bee faali kurili din taɣiri li ŋɔ) malila neen' shɛŋa din ku tooi deegi zaŋ chaŋ di gu ka taɣi polo. $1",
+	"fileimporter-badnamespace": "Sabbu din bi niŋ dede taɣibu shee m-bɔŋɔ.",
+	"fileimporter-badtoken": "A kpɛbu na saha yaɣiya. Pahimi suɣulo ka labi pili kpɛhibu.",
+	"fileimporter-badimporthash": "Kpɛhibu maa bi ŋmani taba. Pahimi suɣulo labi pili kpɛhibu maa.",
+	"fileimporter-filenameerror-default": "Yɛlimuɣisirili din ku tooi baŋ m-be a faali maa yuli ni.",
+	"fileimporter-filenameerror-toolong": "Yu' shɛli a ni bɔri ni a zaŋ niŋ maa waɣi pam.",
+	"fileimporter-filenameerror-notallowed": "A bɔri ni a kpɛhi faali din yɛligi <code>$1</code>. Faali shɛŋa din yɛligi ŋ-ŋɔ bi saɣi ti ni di be wiki ŋɔ ni. Di ni saɣi ti shɛŋa yɛliŋ nyɛla: $2",
+	"fileimporter-filenameerror-automaticchanges": "Faali maa yuli maŋmaŋa taɣila \"$1\" n-kpe \"$2\"",
+	"fileimporter-filenameerror-nosourceextension": "Faali maa yuli ni yi shɛli na dii bi galisi.",
+	"fileimporter-filenameerror-noplannedextension": "Yu' shɛli di ni bɔ n-ti faali maa bi galisi.",
+	"fileimporter-duplicatefilesdetected-prefix": "Balima",
+	"fileimporter-exampleprefix": "shɛhira",
+	"fileimporter-submit": "Zaŋ ti",
+	"fileimporter-submit-title": "Taɣimi yuli",
+	"fileimporter-resubmit": "Labi zaŋ ti",
+	"fileimporter-import": "Kpɛhima",
+	"fileimporter-cancel": "Nyahima",
+	"fileimporter-edittitle": "Taɣimi yuli",
+	"fileimporter-heading-cleanup": "Nyɛhimi wiki yibu shee na",
+	"fileimporter-import-wait": "Di kpebu na ni di saha biɛla.",
+	"fileimporter-viewdiff": "Wuhimi taɣibu",
+	"fileimporter-to-preview": "Labi yuli nyaanga"
+}
