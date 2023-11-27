@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"Akakiiri"
+		]
+	},
+	"fileimporter-desc": "Tana dikera faali duma zɛ'ɛta zi'isi sisesi naana la",
+	"fileimporter-help-banner-close-tooltip": "Dale pa'alɛ sooleŋo wa yɛ'ɛsa",
+	"tag-fileimporter": "FileImporter n malum tee ka",
+	"tag-fileimporter-description": "A malum iŋɛ la 'log' sooleŋo n pa'asɛ pooren dɔla la ba n dikɛ ze'ele wiki ayima puan na la",
+	"tag-fileimporter-imported": "Tarı loŋɛ mɛ la 'FileImporter'",
+	"fileimporter-duplicatefilesdetected-prefix": "Dupileketi duma",
+	"fileimporter-exampleprefix": "Magesɛ wuu",
+	"fileimporter-textrevisions": "$1/$2 pɛgerɛ {{PLURAL:$2|revision|revisions}} na tarı loŋɛ ze'ele amalum iŋɛ tuusum la puan.",
+	"fileimporter-filerevisions": "$1/$2 faali {{PLURAL:$2| version|versions}} na tarı loŋɛ na.",
+	"fileimporter-submit": "Dikɛ kɛ'ɛsɛ",
+	"fileimporter-submit-fileinfo": "Tee faali la lasebaarɛ",
+	"fileimporter-submit-title": "Tee zuo",
+	"fileimporter-resubmit": "Le malum dikɛ kɛ'ɛsɛ",
+	"fileimporter-import": "Dikɛ loŋɛ",
+	"fileimporter-cancel": "Gu basɛ",
+	"fileimporter-edittitle": "Demese Zuo la",
+	"fileimporter-editinfo": "Demese faali la lasebaarɛ la",
+	"fileimporter-previewtitle": "Te'ele bisɛ Zuo la",
+	"fileimporter-previewinfo": "Te'ele bisɛ faali la lasebaarɛ",
+	"fileimporter-extensionlabel": "Faali la tukurɛ",
+	"fileimporter-newfilename": "Faali paalega yu'urɛ",
+	"fileimporter-editsummary": "Demese kilesego la",
+	"fileimporter-heading-fileinfo": "Faali lasebaarɛ",
+	"fileimporter-heading-filehistory": "Faali tuusum",
+	"fileimporter-heading-cleanup": "Saalum wiki sɔa la za'an",
+	"fileimporter-cleanup-checkboxlabel": "Daalɛ wiki faali duma sɔ'a la ti fu tarı loŋɛ {{SITENAME}} na la",
+	"fileimporter-cleanup-summary": "Faali dina wa nyaa bo la {{ SITENAME}} bɔna $1 (tee la 'FileImporter'."
+}
