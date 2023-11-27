@@ -1,7 +1,4 @@
 <template>
-	<cdx-message v-if="importSuccess" type="success">
-		<span v-html="importOutput"></span>
-	</cdx-message>
 	<div v-for="warning in warningMessages" :key="warning.type + warning.message">
 		<cdx-message :type="warning.type">
 			<span v-html="warning.message"></span>
@@ -233,7 +230,6 @@ module.exports = {
 			fileInfoLoading: false,
 			hiddenCategories: [],
 			importError: null,
-			importSuccess: null,
 			importOutput: null,
 			warningMessages: [],
 			validationWarnings: [],
@@ -284,7 +280,6 @@ module.exports = {
 		},
 		submitForm( action ) {
 			this.unsavedChangesFlag = false;
-			this.importSuccess = false;
 			this.importError = false;
 
 			const params = {
@@ -306,13 +301,16 @@ module.exports = {
 				data: params,
 				dataType: 'json',
 				success: ( data ) => {
-					this.progressBar = false;
-					this.importSuccess = !!data.success;
-					this.importError = !!data.error;
-					this.importOutput = data.output;
-					this.warningMessages = data.warningMessages;
-					this.validationWarnings = data.validationWarnings;
-					scrollToTop();
+					if ( data.redirect ) {
+						window.location.replace( data.redirect );
+					} else {
+						this.progressBar = false;
+						this.importError = !!data.error;
+						this.importOutput = data.output;
+						this.warningMessages = data.warningMessages;
+						this.validationWarnings = data.validationWarnings;
+						scrollToTop();
+					}
 				},
 				error: () => {
 					this.progressBar = false;

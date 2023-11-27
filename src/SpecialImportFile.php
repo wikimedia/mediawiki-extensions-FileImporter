@@ -365,13 +365,15 @@ class SpecialImportFile extends SpecialPage {
 			$this->logActionStats( $importPlan );
 
 			$postImportResult = $this->performPostImportActions( $importPlan );
-
-			// TODO: Either redirect or stay on page and show dynamic success response
+			$successRedirectUrl = ( new ImportSuccessSnippet() )->getRedirectWithNotice(
+				$importPlan->getTitle(),
+				$this->getUser(),
+				$postImportResult
+			);
 
 			echo json_encode( [
 				'success' => true,
-				// TODO: We assume all is fine. Implement a more detailed handling and see importSuccessSnippet
-				'output' => Message::newFromSpecifier( $postImportResult->getValue() )->parse(),
+				'redirect' => $successRedirectUrl,
 			] );
 		} catch ( ImportException $exception ) {
 			if ( $exception instanceof AbuseFilterWarningsException ) {
