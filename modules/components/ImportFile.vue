@@ -2,9 +2,11 @@
 	<cdx-message v-if="importSuccess" type="success">
 		<span v-html="importOutput"></span>
 	</cdx-message>
-	<cdx-message v-if="importError" type="error">
-		<span v-html="importOutput"></span>
-	</cdx-message>
+	<div v-for="warning in warningMessages" :key="warning.type + warning.message">
+		<cdx-message :type="warning.type">
+			<span v-html="warning.message"></span>
+		</cdx-message>
+	</div>
 
 	<div>
 		{{ $i18n( 'fileimporter-previewnote' ).text() }}
@@ -233,6 +235,8 @@ module.exports = {
 			importError: null,
 			importSuccess: null,
 			importOutput: null,
+			warningMessages: [],
+			validationWarnings: [],
 			isEditingInfo: false,
 			progressBar: false,
 			unsavedChangesFlag: false,
@@ -292,7 +296,8 @@ module.exports = {
 				intendedFileName: this.currentFileTitle,
 				intendedRevisionSummary: this.currentEditSummary,
 				intendedWikitext: this.currentFileInfoWikitext,
-				token: this.editToken
+				token: this.editToken,
+				validationWarnings: JSON.stringify( this.validationWarnings )
 			};
 
 			this.progressBar = true;
@@ -305,13 +310,18 @@ module.exports = {
 					this.importSuccess = !!data.success;
 					this.importError = !!data.error;
 					this.importOutput = data.output;
+					this.warningMessages = data.warningMessages;
+					this.validationWarnings = data.validationWarnings;
 					scrollToTop();
 				},
 				error: () => {
 					this.progressBar = false;
 					this.importError = true;
-					// TODO: Error handling
-					this.importOutput = 'Failure';
+					this.warningMessages = [ {
+						type: 'error',
+						// TODO: Proper i18n feedback message for submission errors
+						message: 'Something went wrong with the request.'
+					} ];
 					scrollToTop();
 				}
 			} );

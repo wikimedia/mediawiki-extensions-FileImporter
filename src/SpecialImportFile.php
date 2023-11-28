@@ -374,11 +374,33 @@ class SpecialImportFile extends SpecialPage {
 				'output' => Message::newFromSpecifier( $postImportResult->getValue() )->parse(),
 			] );
 		} catch ( ImportException $exception ) {
-			// TODO: Graceful error handling
-			echo json_encode( [
-				'error' => true,
-				'output' => $exception->getTrace(),
-			] );
+			if ( $exception instanceof AbuseFilterWarningsException ) {
+
+				$warningMessages = [];
+				$warningMessages[] = [
+					'type' => 'warning',
+					'message' => $this->getWarningMessage( $exception )
+				];
+
+				foreach ( $exception->getMessages() as $msg ) {
+					$warningMessages[] = [
+						'type' => 'warning',
+						'message' => Message::newFromSpecifier( $msg )->parse()
+					];
+				}
+
+				echo json_encode( [
+					'error' => true,
+					'warningMessages' => $warningMessages,
+					'validationWarnings' => $importPlan->getValidationWarnings()
+				] );
+			} else {
+				// TODO: More graceful error handling
+				echo json_encode( [
+					'error' => true,
+					'output' => $exception->getTrace(),
+				] );
+			}
 		}
 	}
 
