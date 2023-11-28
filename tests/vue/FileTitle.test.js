@@ -4,16 +4,21 @@ const { mount } = require( '@vue/test-utils' );
 const FileTitle = require( '../../modules/components/FileTitle.vue' );
 
 const messageOutput = 'Text';
+const userInput = 'bar';
 const getNameTextOutput = 'Bar';
 
+const newFromUserInput = jest.fn().mockReturnValue( {
+	getNameText: () => { return getNameTextOutput; }
+} );
+
 global.mw = {
-	message: jest.fn().mockReturnValue( {
-		text: jest.fn().mockReturnValue( messageOutput )
-	} ),
+	message: () => {
+		return {
+			text: () => { return messageOutput; }
+		};
+	},
 	Title: {
-		newFromUserInput: jest.fn().mockReturnValue( {
-			getNameText: jest.fn().mockReturnValue( getNameTextOutput )
-		} )
+		newFromUserInput: newFromUserInput
 	}
 };
 
@@ -42,9 +47,10 @@ describe( 'Basic usage', () => {
 		} );
 
 		await wrapper.find( 'h2' ).trigger( 'click' );
-		wrapper.find( 'input' ).setValue( 'bar' );
+		wrapper.find( 'input' ).setValue( userInput );
 		await wrapper.find( 'button' ).trigger( 'click' );
 
+		expect( newFromUserInput ).toHaveBeenCalledWith( userInput );
 		expect( wrapper.find( '.cdx-message--warning' ).text() ).toBe( messageOutput );
 		expect( wrapper.find( 'h2' ).text() ).toBe( getNameTextOutput + '.png' );
 	} );
