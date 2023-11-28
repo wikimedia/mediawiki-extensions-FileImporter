@@ -21,12 +21,14 @@
 			</h2>
 		</cdx-field>
 
-		<cdx-toggle-button
-			v-model="isEditingTitle"
-		>
-			<span v-if="isEditingTitle">{{ $i18n( 'fileimporter-previewtitle' ).text() }}</span>
-			<span v-else>{{ $i18n( 'fileimporter-edittitle' ).text() }}</span>
-		</cdx-toggle-button>
+		<div>
+			<cdx-toggle-button
+				v-model="isEditingTitle"
+			>
+				<span v-if="isEditingTitle">{{ $i18n( 'fileimporter-previewtitle' ).text() }}</span>
+				<span v-else>{{ $i18n( 'fileimporter-edittitle' ).text() }}</span>
+			</cdx-toggle-button>
+		</div>
 	</div>
 </template>
 
