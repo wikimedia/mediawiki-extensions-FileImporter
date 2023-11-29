@@ -14,7 +14,7 @@
 	"type": "specialpage",
 	"manifest_version": 2,
 	"requires": {
-		"MediaWiki": ">= 1.41"
+		"MediaWiki": ">= 1.42.0"
 	},
 	"MessagesDirs": {
 		"FileImporter": [

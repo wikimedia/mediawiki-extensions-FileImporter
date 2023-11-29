@@ -11,7 +11,7 @@ use HashSiteStore;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Request\FauxRequest;
-use MediaWiki\User\UserOptionsManager;
+use MediaWiki\User\Options\UserOptionsManager;
 use MWHttpRequest;
 use PermissionsError;
 use Site;
