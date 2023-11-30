@@ -5,7 +5,7 @@ namespace FileImporter\Html;
 use FileImporter\FileImporterUtils;
 use Html;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\User\UserOptionsLookup;
+use MediaWiki\User\Options\UserOptionsLookup;
 use OOUI\HtmlSnippet;
 use OOUI\IconWidget;
 use OOUI\MessageWidget;
