@@ -145,7 +145,7 @@
 			]
 		},
 		"ext.FileImporter.Images": {
-			"class": "ResourceLoaderImageModule",
+			"class": "MediaWiki\\ResourceLoader\\ImageModule",
 			"selector": ".mw-importfile-image-{name}",
 			"images": {
 				"help-banner": {
