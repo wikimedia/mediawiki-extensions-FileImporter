@@ -70,7 +70,7 @@ const config = {
 	// A map from regular expressions to paths to transformers
 	transform: {
 		'.+\\.vue$': '@vue/vue3-jest'
-	}
+	},
 
 	// An array of regexp pattern strings that are matched against all source
 	// file paths, matched files will skip transformation
@@ -84,7 +84,7 @@ const config = {
 	// unmockedModulePathPatterns: undefined,
 
 	// Indicates whether each individual test should be reported during the run
-	// verbose: undefined,
+	verbose: true
 
 	// An array of regexp patterns that are matched against all source file
 	// paths before re-running tests in watch mode
