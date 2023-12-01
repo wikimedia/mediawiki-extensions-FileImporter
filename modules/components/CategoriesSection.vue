@@ -31,7 +31,7 @@ const { CdxMessage } = require( '@wikimedia/codex' );
 const NS_SPECIAL = mw.config.get( 'wgNamespaceIds' ).special;
 
 // @vue/component
-module.exports = {
+module.exports = exports = {
 	name: 'CategoriesSection',
 	components: {
 		CategoriesList,
