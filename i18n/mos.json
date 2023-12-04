@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Soumaya"
+		]
+	},
+	"fileimporter-desc": "D tõe n talld koe-rãmb ne zĩ-kãens n tɩ tall-b n tɩ kẽ-b zĩis a taab n tɩ tall n tɩ tall a pʋgẽ",
+	"fileimporter-help-banner-close-tooltip": "Da le wilg-y koɛɛg kãngã ye",
+	"tag-fileimporter": "FileImporter sẽn toeem-a",
+	"tag-fileimporter-description": "Sõsg nins b sẽn da lebg n paas n yiis wiki a to wã poore",
+	"tag-fileimporter-imported": "D sẽn tall- a ne FileImporterã",
+	"tag-fileimporter-imported-description": "Sõsg ning b sẽn tall wiki a to pʋgẽ wã",
+	"fileimporter-specialpage": "Damsã import filter",
+	"fileimporter-importfailed": "Damsã import filter",
+	"fileimporter-mediawiki-api-notfound": "A pa tõog n paam MediaWiki API wã SourceUrl nengẽ ye.",
+	"fileimporter-api-badinfo": "B sẽn lebg n wa ne b sẽn pa rat n tall tagsgã bɩ b sẽn lebg n lebg n wa n wa ne tagsgã.",
+	"fileimporter-api-failedtogetinfo": "Pa tõog n paam sɛb-kãnga sẽn be: $1",
+	"fileimporter-api-nopagesreturned": "Pa tar seb-n-taar sẽn lebg n wa ne API wã ye."
+}
