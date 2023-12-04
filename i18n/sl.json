@@ -96,5 +96,6 @@
 	"fileimporter-input-page-info-text": "Poizvedi več in obišči našo [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons stran za pomoč].",
 	"fileimporter-viewdiff": "Prikaži spremembe",
 	"fileimporter-to-preview": "Nazaj na predogled",
-	"fileimporter-no-script-warning": "JavaScript ni podprt ali ga vaš brskalnik onemogoča. Uvoznik datotek se za delovanje zanaša na JavaScript."
+	"fileimporter-no-script-warning": "JavaScript ni podprt ali ga vaš brskalnik onemogoča. Uvoznik datotek se za delovanje zanaša na JavaScript.",
+	"fileimporter-cdx-diff-failed": "Pri pridobivanju slike je šlo nekaj narobe. Prosimo, poskusite pozneje znova."
 }
