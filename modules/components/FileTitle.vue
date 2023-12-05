@@ -78,7 +78,8 @@ module.exports = exports = {
 			const inputTitle = mw.Title.newFromUserInput( this.currentFileTitle );
 			if ( inputTitle ) {
 				const cleanTitle = inputTitle.getNameText();
-				if ( inputTitle.title !== cleanTitle ) {
+
+				if ( this.currentFileTitle !== cleanTitle ) {
 					this.status = 'warning';
 					this.messages.warning = mw.message(
 						'fileimporter-filenameerror-automaticchanges', this.currentFileTitle, cleanTitle
