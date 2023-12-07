@@ -34,7 +34,7 @@ const formatCategories = ( categories ) => {
 };
 
 // @vue/component
-module.exports = {
+module.exports = exports = {
 	name: 'CategoriesList',
 	props: {
 		categories: { type: Array, required: true }

@@ -8,7 +8,8 @@ config.global.mocks = {
 		return {
 			text: () => str,
 			parse: () => str,
-			toString: () => str
+			toString: () => str,
+			escaped: () => str
 		};
 	}
 };
