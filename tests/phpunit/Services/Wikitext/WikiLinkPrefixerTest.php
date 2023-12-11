@@ -3,9 +3,9 @@
 namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\WikiLinkPrefixer;
-use MalformedTitleException;
-use TitleParser;
-use TitleValue;
+use MediaWiki\Title\MalformedTitleException;
+use MediaWiki\Title\TitleParser;
+use MediaWiki\Title\TitleValue;
 
 /**
  * @covers \FileImporter\Services\Wikitext\WikiLinkPrefixer

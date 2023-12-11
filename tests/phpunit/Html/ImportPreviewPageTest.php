@@ -14,16 +14,16 @@ use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use Hamcrest\Matcher;
 use HamcrestPHPUnitIntegration;
-use HashConfig;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use SpecialPage;
 use StatusValue;
-use User;
 
 /**
  * @covers \FileImporter\Html\ImportPreviewPage
@@ -193,7 +193,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$context->method( 'getUser' )
 			->willReturn( $this->createMock( User::class ) );
 		$context->method( 'getConfig' )
-			->willReturn( new \HashConfig( [
+			->willReturn( new HashConfig( [
 				'FileImporterSourceWikiTemplating' => true,
 				'FileImporterSourceWikiDeletion' => true,
 			] ) );

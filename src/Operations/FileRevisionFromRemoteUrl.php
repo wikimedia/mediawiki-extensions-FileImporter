@@ -15,17 +15,17 @@ use FileImporter\Services\WikiRevisionFactory;
 use ManualLogEntry;
 use MediaWiki\FileBackend\FSFile\TempFSFileFactory;
 use MediaWiki\Permissions\RestrictionStore;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MediaWiki\User\UserIdentityLookup;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Status;
 use StatusValue;
 use UnexpectedValueException;
 use UploadBase;
 use UploadRevisionImporter;
-use User;
 use WikiRevision;
 
 /**

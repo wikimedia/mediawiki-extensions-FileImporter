@@ -7,10 +7,10 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
-use HashConfig;
+use MediaWiki\Config\HashConfig;
+use MediaWiki\Title\TitleValue;
 use Message;
 use MessageLocalizer;
-use TitleValue;
 
 /**
  * @covers \FileImporter\Data\ImportPlan

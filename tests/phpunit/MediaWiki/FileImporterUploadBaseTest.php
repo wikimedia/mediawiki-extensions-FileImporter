@@ -3,8 +3,8 @@
 namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
+use MediaWiki\Title\TitleValue;
 use PHPUnit\Framework\Assert;
-use TitleValue;
 use UploadBase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace FileImporter\Services\Wikitext;
 
-use NamespaceInfo;
+use MediaWiki\Title\NamespaceInfo;
 
 /**
  * A small parser for wiki links that is able to understand namespace prefixes in a specific

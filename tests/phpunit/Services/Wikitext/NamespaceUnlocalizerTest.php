@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Services\Wikitext;
 
 use FileImporter\Services\Wikitext\NamespaceNameLookup;
 use FileImporter\Services\Wikitext\NamespaceUnlocalizer;
+use MediaWiki\Title\NamespaceInfo;
 
 /**
  * @covers \FileImporter\Services\Wikitext\NamespaceUnlocalizer
@@ -73,7 +74,7 @@ class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
 				[ '兵庫県立考古博物館', NS_CATEGORY ],
 			] );
 
-		$namespaceInfo = $this->createMock( \NamespaceInfo::class );
+		$namespaceInfo = $this->createMock( NamespaceInfo::class );
 		$namespaceInfo->method( 'getCanonicalName' )
 			->willReturnCallback( static function ( $index ) {
 				switch ( $index ) {

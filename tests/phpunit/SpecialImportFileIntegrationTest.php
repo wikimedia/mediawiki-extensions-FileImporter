@@ -11,14 +11,14 @@ use HashSiteStore;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\User\Options\UserOptionsManager;
+use MediaWiki\User\User;
 use MWHttpRequest;
 use PermissionsError;
 use Site;
-use SpecialPage;
 use SpecialPageTestBase;
 use StatusValue;
-use User;
 
 /**
  * @coversNothing

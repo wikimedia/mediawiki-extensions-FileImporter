@@ -2,8 +2,8 @@
 
 namespace FileImporter\Html;
 
-use Html;
 use MediaWiki\EditPage\EditPage;
+use MediaWiki\Html\Html;
 use OOUI\ButtonInputWidget;
 use OOUI\TextInputWidget;
 

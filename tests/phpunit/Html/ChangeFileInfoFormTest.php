@@ -9,19 +9,19 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileInfoForm;
 use HamcrestPHPUnitIntegration;
-use HashConfig;
 use Language;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use OutputPage;
 use RequestContext;
 use Skin;
-use SpecialPage;
-use User;
 
 /**
  * @covers \FileImporter\Html\ChangeFileInfoForm

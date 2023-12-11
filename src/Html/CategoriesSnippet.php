@@ -2,14 +2,14 @@
 
 namespace FileImporter\Html;
 
-use Html;
 use IContextSource;
 use ILanguageConverter;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use OOUI\IconWidget;
 use RequestContext;
-use SpecialPage;
 
 /**
  * @license GPL-2.0-or-later

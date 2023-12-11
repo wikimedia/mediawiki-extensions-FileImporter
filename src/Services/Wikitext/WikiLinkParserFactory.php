@@ -5,8 +5,8 @@ namespace FileImporter\Services\Wikitext;
 use FileImporter\Remote\MediaWiki\MediaWikiSourceUrlParser;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\MediaWikiServices;
-use NamespaceInfo;
-use TitleParser;
+use MediaWiki\Title\NamespaceInfo;
+use MediaWiki\Title\TitleParser;
 
 /**
  * @license GPL-2.0-or-later

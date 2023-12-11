@@ -5,7 +5,7 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Services\FileTextRevisionValidator;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\Title\Title;
-use User;
+use MediaWiki\User\User;
 
 /**
  * @covers \FileImporter\Services\FileTextRevisionValidator

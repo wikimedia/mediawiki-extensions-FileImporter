@@ -7,11 +7,11 @@ use DerivativeContext;
 use FileImporter\HookRunner;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use RequestContext;
-use Status;
 use StatusValue;
-use User;
 
 /**
  * Class that can be used to validate the content of a text revision

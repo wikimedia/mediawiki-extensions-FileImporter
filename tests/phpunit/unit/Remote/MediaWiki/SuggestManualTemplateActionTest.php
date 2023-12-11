@@ -8,6 +8,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SuggestManualTemplateAction;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use StatusValue;
 
 /**
@@ -54,7 +55,7 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 
 		$status = $this->createStatus( $templateResult, $expected );
 
-		$this->assertEquals( $status, $importHandler->execute( $importPlanMock, new \User() ) );
+		$this->assertEquals( $status, $importHandler->execute( $importPlanMock, new User() ) );
 	}
 
 	private function createStatus( ?string $templateName, string $expectedMessage ): StatusValue {

@@ -7,15 +7,15 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
-use Html;
 use IContextSource;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\User\User;
 use OOUI\CheckboxInputWidget;
 use OOUI\FieldLayout;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RequestContext;
-use User;
 
 /**
  * @license GPL-2.0-or-later

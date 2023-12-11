@@ -5,8 +5,8 @@ namespace FileImporter\Remote\MediaWiki;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
+use MediaWiki\User\User;
 use StatusValue;
-use User;
 
 /**
  * Display an educated guess about how to correctly mark a source file as having been imported to

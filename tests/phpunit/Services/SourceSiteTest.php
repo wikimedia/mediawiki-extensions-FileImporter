@@ -12,6 +12,7 @@ use FileImporter\Interfaces\SourceUrlChecker;
 use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceUrlNormalizer;
+use MediaWiki\User\User;
 
 /**
  * @covers \FileImporter\Services\SourceSite
@@ -64,7 +65,7 @@ class SourceSiteTest extends \MediaWikiIntegrationTestCase {
 
 		$site->getPostImportHandler()->execute(
 			$this->createMock( ImportPlan::class ),
-			$this->createMock( \User::class )
+			$this->createMock( User::class )
 		);
 
 		$this->assertTrue( $site->isSourceSiteFor( $sourceUrl ) );

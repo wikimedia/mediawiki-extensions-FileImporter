@@ -7,6 +7,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Config\Config;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
@@ -16,7 +17,7 @@ use MediaWiki\Revision\SlotRecord;
  */
 class CommonsHelperConfigRetriever {
 
-	/** @var \Config */
+	/** @var Config */
 	private $mainConfig;
 	/** @var HttpRequestExecutor */
 	private $httpRequestExecutor;

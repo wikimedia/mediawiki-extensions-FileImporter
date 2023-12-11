@@ -3,8 +3,8 @@
 namespace FileImporter\Interfaces;
 
 use FileImporter\Data\ImportPlan;
+use MediaWiki\User\User;
 use StatusValue;
-use User;
 
 /**
  * This interface is used to execute actions after a successful import.

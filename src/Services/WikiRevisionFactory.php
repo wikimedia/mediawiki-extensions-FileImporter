@@ -2,12 +2,12 @@
 
 namespace FileImporter\Services;
 
-use ExternalUserNames;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
+use MediaWiki\User\ExternalUserNames;
 use WikiRevision;
 
 /**

@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Services;
 
 use Article;
 use ChangeTags;
-use CommentStoreComment;
 use DatabaseLogEntry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
@@ -19,17 +18,18 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\TitleValue;
 use MediaWiki\User\UserIdentityLookup;
 use MediaWiki\User\UserIdentityValue;
 use Message;
 use MessageLocalizer;
 use Psr\Log\NullLogger;
-use TitleValue;
 use WikiRevision;
 
 /**

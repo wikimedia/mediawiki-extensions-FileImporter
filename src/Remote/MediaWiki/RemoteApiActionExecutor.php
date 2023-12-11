@@ -3,8 +3,8 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
+use MediaWiki\User\User;
 use StatusValue;
-use User;
 
 /**
  * @license GPL-2.0-or-later

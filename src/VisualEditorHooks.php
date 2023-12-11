@@ -3,8 +3,8 @@
 namespace FileImporter;
 
 use MediaWiki\Extension\VisualEditor\VisualEditorBeforeEditorHook;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
-use OutputPage;
 use Skin;
 
 /**

@@ -22,18 +22,18 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\Wikitext\WikiLinkParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
-use HashConfig;
-use MalformedTitleException;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
+use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleValue;
 use MediaWikiLangTestCase;
 use MessageLocalizer;
 use MockTitleTrait;
-use TitleValue;
 use UploadBase;
 
 /**

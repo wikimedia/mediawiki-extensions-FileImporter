@@ -2,9 +2,9 @@
 
 namespace FileImporter\Tests\Services;
 
-use CommentStoreComment;
 use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Title\Title;

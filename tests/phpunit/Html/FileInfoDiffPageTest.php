@@ -9,16 +9,16 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\FileInfoDiffPage;
-use HashConfig;
 use IContextSource;
 use Language;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use RequestContext;
-use SpecialPage;
 
 /**
  * @covers \FileImporter\Html\FileInfoDiffPage

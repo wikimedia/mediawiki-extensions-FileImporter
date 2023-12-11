@@ -2,7 +2,6 @@
 
 namespace FileImporter\Remote\MediaWiki;
 
-use ConfigException;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -14,11 +13,12 @@ use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Interfaces\DetailRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Config\ConfigException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\TitleValue;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use TitleValue;
 
 /**
  * @license GPL-2.0-or-later

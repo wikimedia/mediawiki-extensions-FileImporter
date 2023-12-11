@@ -3,7 +3,7 @@
 namespace FileImporter\Html;
 
 use FileImporter\FileImporterUtils;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\Options\UserOptionsLookup;
 use OOUI\HtmlSnippet;

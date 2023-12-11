@@ -3,7 +3,7 @@
 namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\Title\MalformedTitleException;
 use OOUI\ButtonInputWidget;
 use OOUI\FieldLayout;

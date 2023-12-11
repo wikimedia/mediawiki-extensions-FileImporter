@@ -5,9 +5,9 @@ namespace FileImporter\Remote\MediaWiki;
 use ApiMain;
 use ApiUsageException;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\User\User;
 use RequestContext;
 use RuntimeException;
-use User;
 
 /**
  * @license GPL-2.0-or-later

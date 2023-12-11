@@ -2,11 +2,11 @@
 
 namespace FileImporter\Data;
 
-use Config;
 use DateTime;
 use DateTimeZone;
-use MalformedTitleException;
+use MediaWiki\Config\Config;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\Title;
 use MessageLocalizer;
 

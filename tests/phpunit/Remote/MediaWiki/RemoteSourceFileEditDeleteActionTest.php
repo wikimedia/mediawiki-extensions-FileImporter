@@ -11,9 +11,9 @@ use FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use StatusValue;
-use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteSourceFileEditDeleteAction

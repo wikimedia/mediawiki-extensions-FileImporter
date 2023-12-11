@@ -26,6 +26,8 @@ use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdateStatus;
+use MediaWiki\Title\TitleValue;
+use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserIdentityLookup;
 use Message;
@@ -33,7 +35,6 @@ use MessageLocalizer;
 use OldRevisionImporter;
 use StatusValue;
 use UploadRevisionImporter;
-use User;
 use Wikimedia\TestingAccessWrapper;
 use WikiRevision;
 
@@ -269,7 +270,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	) {
 		$details = new ImportDetails(
 			new SourceUrl( self::URL ),
-			new \TitleValue( NS_FILE, self::TITLE ),
+			new TitleValue( NS_FILE, self::TITLE ),
 			new TextRevisions( [ $textRevision ] ),
 			new FileRevisions( [ $fileRevision ] )
 		);

@@ -10,8 +10,8 @@ use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\User\User;
 use RequestContext;
-use User;
 
 /**
  * @license GPL-2.0-or-later

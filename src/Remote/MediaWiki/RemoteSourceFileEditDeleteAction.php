@@ -6,11 +6,11 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\User\User;
 use NullStatsdDataFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
-use User;
 
 /**
  * Delete the source file, or edit to add the {{NowCommons}} template.

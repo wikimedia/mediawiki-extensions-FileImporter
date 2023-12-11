@@ -2,7 +2,6 @@
 
 namespace FileImporter;
 
-use Config;
 use ErrorPageError;
 use Exception;
 use ExtensionRegistry;
@@ -30,26 +29,27 @@ use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
-use Html;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Config\Config;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Extension\GlobalBlocking\GlobalBlocking;
+use MediaWiki\Html\Html;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\WebRequest;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsManager;
+use MediaWiki\User\User;
 use Message;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use PermissionsError;
 use Psr\Log\LoggerInterface;
-use SpecialPage;
 use StatusValue;
 use UploadBase;
-use User;
 use UserBlockedError;
-use WebRequest;
 
 /**
  * @license GPL-2.0-or-later

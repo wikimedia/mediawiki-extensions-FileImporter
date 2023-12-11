@@ -2,16 +2,16 @@
 
 namespace FileImporter\Tests\Remote\MediaWiki;
 
-use CentralIdLookup;
 use Exception;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\CentralAuthTokenProvider;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\User\CentralId\CentralIdLookup;
+use MediaWiki\User\User;
 use MediaWikiUnitTestCase;
 use MWHttpRequest;
-use User;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor

@@ -19,6 +19,7 @@ use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserIdentityLookup;
 use NullStatsdDataFactory;
@@ -28,7 +29,6 @@ use Psr\Log\NullLogger;
 use RuntimeException;
 use StatusValue;
 use UploadRevisionImporter;
-use User;
 use WikiPage;
 
 /**

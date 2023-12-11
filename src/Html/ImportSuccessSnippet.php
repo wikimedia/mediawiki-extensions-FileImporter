@@ -3,7 +3,7 @@
 namespace FileImporter\Html;
 
 use FileImporter\Services\SuccessCache;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;

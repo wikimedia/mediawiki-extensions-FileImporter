@@ -13,15 +13,15 @@ use FileImporter\Services\SourceSiteLocator;
 use FileImporter\SpecialImportFile;
 use Liuggio\StatsdClient\Factory\StatsdDataFactory;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\CsrfTokenSet;
 use MediaWiki\Session\CsrfTokenSetProvider;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use OutputPage;
-use User;
-use WebRequest;
 use Wikimedia\TestingAccessWrapper;
 
 /**

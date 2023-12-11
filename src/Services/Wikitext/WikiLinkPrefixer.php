@@ -2,8 +2,8 @@
 
 namespace FileImporter\Services\Wikitext;
 
-use MalformedTitleException;
-use TitleParser;
+use MediaWiki\Title\MalformedTitleException;
+use MediaWiki\Title\TitleParser;
 
 /**
  * A small parser that adds an interwiki prefix to all links it can't understand. Incoming links are

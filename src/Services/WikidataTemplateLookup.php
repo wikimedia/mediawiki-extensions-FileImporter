@@ -2,10 +2,10 @@
 
 namespace FileImporter\Services;
 
-use Config;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Config\Config;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 

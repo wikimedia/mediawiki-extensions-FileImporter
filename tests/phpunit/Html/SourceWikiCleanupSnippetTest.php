@@ -9,14 +9,14 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
-use HashConfig;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use StatusValue;
-use User;
 use Wikimedia\TestingAccessWrapper;
 
 /**

@@ -9,7 +9,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use MediaWiki\Revision\SlotRecord;
-use TitleValue;
+use MediaWiki\Title\TitleValue;
 
 /**
  * @covers \FileImporter\Data\ImportDetails

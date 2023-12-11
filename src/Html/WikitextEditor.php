@@ -3,8 +3,8 @@
 namespace FileImporter\Html;
 
 use FileImporter\HookRunner;
-use Html;
 use MediaWiki\EditPage\EditPage;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MutableContext;

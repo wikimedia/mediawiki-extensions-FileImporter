@@ -4,7 +4,7 @@ namespace FileImporter\Tests\Services\UploadBase;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWiki\Linker\LinkTarget;
-use TitleValue;
+use MediaWiki\Title\TitleValue;
 use UploadBase;
 
 /**

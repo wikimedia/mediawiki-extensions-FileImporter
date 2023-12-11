@@ -4,13 +4,13 @@ namespace FileImporter\Html;
 
 use IContextSource;
 use Language;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use Message;
 use MessageLocalizer;
 use MutableContext;
-use OutputPage;
-use SpecialPage;
-use User;
 
 /**
  * Common framework for classes providing HTML fragments (similar to

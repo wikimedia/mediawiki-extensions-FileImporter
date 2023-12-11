@@ -2,7 +2,7 @@
 
 namespace FileImporter\Html;
 
-use Html;
+use MediaWiki\Html\Html;
 
 /**
  * Collection of input elements that are used to persist the request from page load to page load.

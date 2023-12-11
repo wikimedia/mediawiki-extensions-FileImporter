@@ -2,12 +2,12 @@
 
 namespace FileImporter\Tests\Services;
 
-use Config;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
-use HashConfig;
+use MediaWiki\Config\Config;
+use MediaWiki\Config\HashConfig;
 use MediaWikiIntegrationTestCase;
 use MWHttpRequest;
 use Psr\Log\LoggerInterface;
