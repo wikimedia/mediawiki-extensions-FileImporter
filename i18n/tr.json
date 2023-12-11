@@ -3,6 +3,7 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Hedda",
+			"Joseph",
 			"Karduelis",
 			"Mirzali",
 			"MuratTheTurkish",
@@ -62,6 +63,8 @@
 	"fileimporter-cancel": "İptal",
 	"fileimporter-edittitle": "Başlığı Değiştir",
 	"fileimporter-editinfo": "Dosya Bilgilerini Değiştir",
+	"fileimporter-previewtitle": "Önizleme Başlığı",
+	"fileimporter-previewinfo": "Dosya Bilgilerini Önizle",
 	"fileimporter-extensionlabel": "Dosya uzantısı:",
 	"fileimporter-newfilename": "Yeni dosya adı:",
 	"fileimporter-editsummary": "Değişiklik özeti:",
@@ -95,5 +98,7 @@
 	"fileimporter-auto-replacements-summary": "Şablonlarda $1 otomatik değişiklik yapıldı.",
 	"fileimporter-input-page-info-text": "[https://meta.wikimedia.org/wiki/Special:MyLanguage/WMDE_Technical_Wishes/Move_files_to_Commons Yardım sayfamızı] ziyaret ederek daha fazla bilgi edinin.",
 	"fileimporter-viewdiff": "Değişiklikleri göster",
-	"fileimporter-to-preview": "Önizlemeye geri dön"
+	"fileimporter-to-preview": "Önizlemeye geri dön",
+	"fileimporter-no-script-warning": "JavaScript tarayıcınız tarafından desteklenmiyor ya da devre dışı bırakılmış. Dosya İçe Aktarıcının çalışması JavaScript'e dayanır.",
+	"fileimporter-cdx-diff-failed": "Değişiklikler alınırken bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin."
 }
