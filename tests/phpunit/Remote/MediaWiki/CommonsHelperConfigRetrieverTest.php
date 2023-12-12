@@ -5,7 +5,7 @@ namespace FileImporter\Tests\Remote\MediaWiki;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use MediaWiki\Config\HashConfig;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Revision\SlotRecord;
 
 /**
@@ -36,10 +36,10 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 * @dataProvider provideSourceUrls
 	 */
 	public function testSuccess( string $sourceUrl, string $configPage ) {
-		$this->overrideMwServices( new HashConfig( [
-			'ArticlePath' => '/wiki/$1',
-			'ScriptPath' => '/w',
-		] ) );
+		$this->overrideConfigValues( [
+			MainConfigNames::ArticlePath => '/wiki/$1',
+			MainConfigNames::ScriptPath => '/w',
+		] );
 
 		$request = $this->createMWHttpRequest( [
 				'query' => [
