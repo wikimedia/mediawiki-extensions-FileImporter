@@ -13,7 +13,7 @@
 	},
 	"fileimporter": "檔案匯入器",
 	"fileimporter-desc": "輕鬆匯入來自其它站台的檔案",
-	"fileimporter-help-banner-text": "'''從其他wiki導入'''\n#檢查並編輯檔案的標題以及以下資訊。\n#透過添加 [//zh.wikipedia.org/wiki/Template:Now_Commons NowCommons] 模版到來源檔案，選擇您是否要用檔案匯入器對來源 wiki 彙整（如果您有管理員權限，您另外可以選擇刪除來源檔案。）\n#點擊'''{{int:fileimporter-import}}'''，來將檔案複製到{{SITENAME}}上。\n\n關於授權資訊，請參閱{{SITENAME}}的[[Project:Licensing|社群方針]]。<br />有關如何使用檔案匯入器的更多詳細說明，請查看[//www.mediawiki.org/wiki/Help:Extension:FileImporter 說明頁面]。\n\n如果您有任何可以改善檔案匯入器的意見回饋，請在[//www.mediawiki.org/wiki/Extension_talk:FileImporter 討論頁]留下意見。",
+	"fileimporter-help-banner-text": "'''從其他wiki匯入'''\n#檢查並編輯檔案的標題和下面的資訊。\n#選擇您是否希望 FileImporter 透過添加[//en.wikipedia.org/wiki/Template:Now_Commons NowCommons]模板到原始檔來整理wiki。 （如果您有管理員權限，您還可以選擇刪除原始檔案。）\n#點擊'''{{int:fileimporter-import}}'''將檔案複製到{{SITENAME}}。 \n\n有關許可資訊，請檢視{{SITENAME}} [[Project:Licensing|community policy]]。<br />有關如何使用 FileImporter 的更多詳細說明，請參閱 [//www.mediawiki.org/wiki/Help:Extension:FileImporter 幫助頁面]。",
 	"fileimporter-help-banner-close-tooltip": "不要再顯示此訊息",
 	"tag-fileimporter": "由FileImporter修改",
 	"tag-fileimporter-description": "從其它wiki匯入後所添加的版本及日誌訊息",
@@ -64,6 +64,8 @@
 	"fileimporter-cancel": "取消",
 	"fileimporter-edittitle": "編輯標題",
 	"fileimporter-editinfo": "編輯檔案訊息",
+	"fileimporter-previewtitle": "預覽標題",
+	"fileimporter-previewinfo": "預覽檔案資訊",
 	"fileimporter-extensionlabel": "副檔名：",
 	"fileimporter-newfilename": "新的檔案名稱：",
 	"fileimporter-editsummary": "編輯摘要：",
@@ -97,5 +99,7 @@
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|已|已}}對模板做出 $1 個自動{{PLURAL:$1|更改|更改}}",
 	"fileimporter-input-page-info-text": "查看我們的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 說明頁面]來了解更多。",
 	"fileimporter-viewdiff": "顯示更改",
-	"fileimporter-to-preview": "返回預覽"
+	"fileimporter-to-preview": "返回預覽",
+	"fileimporter-no-script-warning": "您的瀏覽器不支持或已禁用JavaScript。檔案匯入器依賴JavaScript來執行。",
+	"fileimporter-cdx-diff-failed": "取得變更時出錯。請稍後再試。"
 }
