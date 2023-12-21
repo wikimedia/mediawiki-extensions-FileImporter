@@ -17,12 +17,13 @@
 			"Xiplus",
 			"列维劳德",
 			"水獭很懒",
-			"SunAfterRain"
+			"SunAfterRain",
+			"沈澄心"
 		]
 	},
 	"fileimporter": "文件导入器",
 	"fileimporter-desc": "从其他网站轻松导入文件",
-	"fileimporter-help-banner-text": "'''从其他wiki导入'''\n#检查并编辑文件的标题和下面的信息。\n#选择您是否希望 FileImporter 通过添加[//en.wikipedia. org/wiki/Template:Now_Commons NowCommons]模板到源文件来整理wiki。 （如果您有管理员权限，您还可以选择删除源文件。）\n#点击'''{{int:fileimporter-import}}'''将文件复制到{{SITENAME}}。 \n\n有关许可信息，请查看{{SITENAME}} [[Project:Licensing|community policy]]。<br />有关如何使用 FileImporter 的更多详细说明，请参阅 [//www.mediawiki.org/wiki/Help:Extension:FileImporter 帮助页面]。",
+	"fileimporter-help-banner-text": "'''从其他wiki导入'''\n#检查并编辑文件的标题和下面的信息。\n#选择您是否希望 FileImporter 通过添加[//en.wikipedia.org/wiki/Template:Now_Commons NowCommons]模板到源文件来整理wiki。 （如果您有管理员权限，您还可以选择删除源文件。）\n#点击'''{{int:fileimporter-import}}'''将文件复制到{{SITENAME}}。 \n\n有关许可信息，请查看{{SITENAME}} [[Project:Licensing|community policy]]。<br />有关如何使用 FileImporter 的更多详细说明，请参阅 [//www.mediawiki.org/wiki/Help:Extension:FileImporter 帮助页面]。",
 	"fileimporter-help-banner-close-tooltip": "不再显示此消息",
 	"tag-fileimporter": "已由FileImporter修改",
 	"tag-fileimporter-description": "从另一wiki导入后添加的修订版本和日志消息",
