@@ -8,6 +8,7 @@
 			"SunAfterRain",
 			"Winston Sung",
 			"Xiplus",
+			"列维劳德",
 			"烈羽"
 		]
 	},
@@ -54,7 +55,7 @@
 	"fileimporter-duplicatefilesdetected": "您正嘗試匯入的檔案已存在此 wiki。",
 	"fileimporter-duplicatefilesdetected-prefix": "重複",
 	"fileimporter-exampleprefix": "範例",
-	"fileimporter-textrevisions": "$1/$2 個頁面{{PLURAL:$1|修訂|修訂}}會從修訂歷史裡匯入。",
+	"fileimporter-textrevisions": "$1/$2 個頁面{{PLURAL:$1|修訂}}會從修訂紀錄裡匯入。",
 	"fileimporter-filerevisions": "$1/$2 個檔案{{PLURAL:$2|版本|版本}}會被匯入。",
 	"fileimporter-submit": "送出",
 	"fileimporter-submit-fileinfo": "更改檔案資訊",
