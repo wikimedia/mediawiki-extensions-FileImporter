@@ -3,7 +3,7 @@
 namespace FileImporter;
 
 use FileImporter\Html\ImportSuccessSnippet;
-use MediaWiki;
+use MediaWiki\Actions\ActionEntryPoint;
 use MediaWiki\ChangeTags\Hook\ChangeTagsListActiveHook;
 use MediaWiki\ChangeTags\Hook\ListDefinedTagsHook;
 use MediaWiki\Hook\BeforeInitializeHook;
@@ -35,7 +35,7 @@ class FileImporterHooks implements
 	 * @param OutputPage $output
 	 * @param User $user
 	 * @param WebRequest $request
-	 * @param MediaWiki $mediaWiki
+	 * @param ActionEntryPoint $mediaWiki
 	 */
 	public function onBeforeInitialize(
 		$title,
