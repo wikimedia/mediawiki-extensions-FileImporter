@@ -82,11 +82,6 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::queryHiddenCategories
 	 */
 	public function testQueryHiddenCategories() {
-		$this->tablesUsed += [
-			'page',
-			'page_props',
-		];
-
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
 		$categoryPageVisible = $this->wikiPageFactory->newFromTitle( $categoryTitleVisible );
 		$categoryPageVisible->insertOn( $this->db );
@@ -118,11 +113,6 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::queryHiddenCategories
 	 */
 	public function testQueryHiddenCategories_empty() {
-		$this->tablesUsed += [
-			'page',
-			'page_props',
-		];
-
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
 		$categoryPageVisible = $this->wikiPageFactory->newFromTitle( $categoryTitleVisible );
 		$categoryPageVisible->insertOn( $this->db );

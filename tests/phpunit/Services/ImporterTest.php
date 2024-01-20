@@ -50,10 +50,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->tablesUsed[] = 'change_tag';
-		$this->tablesUsed[] = 'change_tag_def';
-		$this->tablesUsed[] = 'logging';
-
 		$this->overrideConfigValues( [
 			'FileImporterCommentForPostImportRevision' => 'imported from $1',
 			'FileImporterTextForPostImportRevision' => '<!--imported from $1-->',
