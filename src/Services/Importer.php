@@ -12,6 +12,7 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use IDBAccessObject;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
@@ -332,10 +333,10 @@ class Importer {
 	 */
 	private function getPageFromImportPlan( ImportPlan $importPlan ) {
 		// T164729: READ_LATEST needed to select for a write
-		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( Title::READ_LATEST );
+		$articleIdForUpdate = $importPlan->getTitle()->getArticleID( IDBAccessObject::READ_LATEST );
 		// T181391: Read from primary database, as the page has only just been created, and in multi-DB setups
 		// replicas will have lag.
-		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate, WikiPage::READ_LATEST );
+		$page = $this->wikiPageFactory->newFromId( $articleIdForUpdate, IDBAccessObject::READ_LATEST );
 
 		if ( !$page ) {
 			throw new ImportException(
