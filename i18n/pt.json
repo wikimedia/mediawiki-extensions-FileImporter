@@ -10,7 +10,7 @@
 	},
 	"fileimporter": "Importador de Ficheiros",
 	"fileimporter-desc": "Importação fácil de ficheiros de outros sítios",
-	"fileimporter-help-banner-text": "'''Importar de outras wikis'''\n#Verifique e edite o título do ficheiro e a informação abaixo.\n#Escolha se quer que o Importador de Ficheiros componha a wiki de origem, adicionando a predefinição [//pt.wikipedia.org/wiki/Predefinição:Now_Commons Now Commons] ao ficheiro de origem (se tiver privilégios de administrador também pode optar por eliminar o ficheiro de origem).\n#Clique '''{{int:fileimporter-import}}''' para copiar o ficheiro para a wiki {{SITENAME}}.\n\nSobre a informação de licenciamento, consulte as [[Project:Licensing|normas da comunidade]] da wiki {{SITENAME}}.<br />Para mais instruções detalhadas de utilização do Importador de Ficheiros, consulte a [//www.mediawiki.org/wiki/Help:Extension:FileImporter página de ajuda].\n\nSe tem sugestões para melhorar o Importador de Ficheiros, deixe um comentário na respetiva [//www.mediawiki.org/wiki/Extension_talk:FileImporter página de discussão].",
+	"fileimporter-help-banner-text": "'''Importar de outras wikis'''\n#Verifique e edite o título do ficheiro e a informação abaixo.\n#Escolha se quer que o Importador de Ficheiros componha a wiki de origem, adicionando a predefinição [//pt.wikipedia.org/wiki/Predefinição:Now_Commons Now Commons] ao ficheiro de origem (se tiver privilégios de administrador também pode optar por eliminar o ficheiro de origem).\n#Clique '''{{int:fileimporter-import}}''' para copiar o ficheiro para a wiki {{SITENAME}}.\n\nSobre a informação de licenciamento, consulte as [[Project:Licensing|normas da comunidade]] da wiki {{SITENAME}}.<br />Para mais instruções detalhadas de utilização do Importador de Ficheiros, consulte a [//www.mediawiki.org/wiki/Help:Extension:FileImporter página de ajuda].",
 	"fileimporter-help-banner-close-tooltip": "Não voltar a mostrar esta mensagem",
 	"tag-fileimporter": "Modificado pelo Importador de Ficheiros",
 	"tag-fileimporter-description": "Revisões e mensagens do registo adicionadas após a importação de outra wiki",
@@ -61,6 +61,8 @@
 	"fileimporter-cancel": "Cancelar",
 	"fileimporter-edittitle": "Editar título",
 	"fileimporter-editinfo": "Editar informação do ficheiro",
+	"fileimporter-previewtitle": "Antever título",
+	"fileimporter-previewinfo": "Antever informações do ficheiro",
 	"fileimporter-extensionlabel": "Extensão do ficheiro:",
 	"fileimporter-newfilename": "Nome de ficheiro novo:",
 	"fileimporter-editsummary": "Resumo da edição:",
@@ -94,5 +96,7 @@
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Foi realizada $1 alteração automática|Foram realizadas $1 alterações automáticas}} a predefinições",
 	"fileimporter-input-page-info-text": "Saiba mais na nossa [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons página de ajuda].",
 	"fileimporter-viewdiff": "Mostrar alterações",
-	"fileimporter-to-preview": "Voltar à antevisão"
+	"fileimporter-to-preview": "Voltar à antevisão",
+	"fileimporter-no-script-warning": "O JavaScript não é suportado ou está desativado pelo seu ''browser''. O importador de ficheiros depende do JavaScript para funcionar.",
+	"fileimporter-cdx-diff-failed": "Ocorreu um erro ao obter as mudanças. Tente novamente mais tarde, por favor."
 }

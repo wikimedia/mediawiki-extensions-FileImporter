@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"ऐक्टिवेटेड्"
+		]
+	},
+	"fileimporter-specialpage": "सञ्चिका आयात",
+	"fileimporter-importfailed": "आयात असफल",
+	"fileimporter-api-file-notfound": "सञ्चिका न भेटल: $1।",
+	"fileimporter-duplicatefilesdetected-prefix": "नकली",
+	"fileimporter-exampleprefix": "उदाहरण",
+	"fileimporter-submit": "जमा करी",
+	"fileimporter-submit-fileinfo": "सञ्चिका जानकारी बदली",
+	"fileimporter-submit-title": "शीर्षक बदली",
+	"fileimporter-resubmit": "पुनः जमा करी",
+	"fileimporter-import": "आयात करी",
+	"fileimporter-cancel": "निरस्त करी",
+	"fileimporter-edittitle": "शीर्षक सम्पादित करी",
+	"fileimporter-editinfo": "सञ्चिका जानकारी सम्पादित करी",
+	"fileimporter-heading-fileinfo": "सञ्चिका जानकारी",
+	"fileimporter-heading-filehistory": "सञ्चिकाके इतिहास",
+	"fileimporter-heading-cleanup": "स्रोतविकि साफ करी",
+	"fileimporter-viewdiff": "परिवर्तन देखावी",
+	"fileimporter-to-preview": "झलक प वापिस जायी"
+}
