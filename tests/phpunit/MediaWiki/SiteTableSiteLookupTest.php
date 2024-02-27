@@ -15,12 +15,6 @@ use Site;
  */
 class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
 
-	/**
-	 * @param string $globalId
-	 * @param string $linkPath
-	 *
-	 * @return Site
-	 */
 	private function getSite( string $globalId, string $linkPath ): Site {
 		$site = new Site();
 		$site->setGlobalId( $globalId );

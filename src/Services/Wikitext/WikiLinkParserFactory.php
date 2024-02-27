@@ -29,12 +29,6 @@ class WikiLinkParserFactory {
 		$this->languageFactory = $services->getLanguageFactory();
 	}
 
-	/**
-	 * @param string|null $languageCode
-	 * @param string $interWikiPrefix
-	 *
-	 * @return WikiLinkParser
-	 */
 	public function getWikiLinkParser( ?string $languageCode, string $interWikiPrefix ): WikiLinkParser {
 		$parser = new WikiLinkParser();
 

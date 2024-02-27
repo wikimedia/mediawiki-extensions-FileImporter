@@ -30,12 +30,6 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	/** @var CentralIdLookup */
 	private $centralIdLookup;
 
-	/**
-	 * @param HttpApiLookup $httpApiLookup
-	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param CentralAuthTokenProvider $centralAuthTokenProvider
-	 * @param CentralIdLookup $centralIdLookup
-	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
@@ -50,7 +44,6 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param LoggerInterface $logger
 	 * @codeCoverageIgnore
 	 */
 	public function setLogger( LoggerInterface $logger ) {
@@ -92,10 +85,6 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		return $result;
 	}
 
-	/**
-	 * @param UserIdentity $user
-	 * @return int
-	 */
 	private function getCentralId( UserIdentity $user ): int {
 		return $this->centralIdLookup->centralIdFromLocalUser(
 			$user,
@@ -103,19 +92,12 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		);
 	}
 
-	/**
-	 * @param User $user
-	 * @return bool
-	 */
 	private function canUseCentralAuth( User $user ): bool {
 		return $user->isSafeToLoad() &&
 			$this->getCentralId( $user ) !== 0;
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param User $user
-	 * @return string
 	 * @throws Exception
 	 */
 	private function getAuthorizedApiUrl(
@@ -128,11 +110,6 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 		] );
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param User $user
-	 * @return string|null
-	 */
 	public function getCsrfToken( SourceUrl $sourceUrl, User $user ): ?string {
 		try {
 			$tokenRequestUrl = $this->getAuthorizedApiUrl( $sourceUrl, $user );

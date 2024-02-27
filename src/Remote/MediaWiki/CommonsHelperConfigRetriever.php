@@ -49,8 +49,6 @@ class CommonsHelperConfigRetriever {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
 	 * @return bool True if a config was found
 	 * @throws ImportException e.g. when the config page doesn't exist
 	 */
@@ -95,11 +93,6 @@ class CommonsHelperConfigRetriever {
 		return $this->configWikiUrl;
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return string
-	 */
 	private function buildCommonsHelperConfigUrl( SourceUrl $sourceUrl ): string {
 		$title = $this->getQueryParamTitle( $sourceUrl );
 
@@ -110,8 +103,6 @@ class CommonsHelperConfigRetriever {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
 	 * @return array[]
 	 * @throws ImportException when the request failed
 	 */
@@ -142,11 +133,6 @@ class CommonsHelperConfigRetriever {
 		return json_decode( $request->getContent(), true );
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return string
-	 */
 	private function getQueryParamTitle( SourceUrl $sourceUrl ): string {
 		$domain = $this->getHostWithoutTopLevelDomain( $sourceUrl );
 
@@ -159,8 +145,6 @@ class CommonsHelperConfigRetriever {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
 	 * @return string Full host with all subdomains, but without the top-level domain (if a
 	 *  top-level domain was given), e.g. "en.wikipedia".
 	 */

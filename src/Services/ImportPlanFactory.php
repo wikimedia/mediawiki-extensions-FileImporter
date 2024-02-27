@@ -26,11 +26,6 @@ class ImportPlanFactory {
 	/** @var UploadBaseFactory */
 	private $uploadBaseFactory;
 
-	/**
-	 * @param SourceSiteLocator $sourceSiteLocator
-	 * @param DuplicateFileRevisionChecker $duplicateFileRevisionChecker
-	 * @param UploadBaseFactory $uploadBaseFactory
-	 */
 	public function __construct(
 		SourceSiteLocator $sourceSiteLocator,
 		DuplicateFileRevisionChecker $duplicateFileRevisionChecker,
@@ -42,10 +37,6 @@ class ImportPlanFactory {
 	}
 
 	/**
-	 * @param ImportRequest $importRequest
-	 * @param ImportDetails $importDetails
-	 * @param User $user
-	 *
 	 * @return ImportPlan A valid ImportPlan
 	 * @throws ImportException
 	 */

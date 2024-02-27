@@ -422,8 +422,6 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @param string $titleString
-	 *
 	 * @return array[]
 	 */
 	private static function getFullRequestContent( string $titleString ): array {
@@ -513,12 +511,6 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @param string $titleString
-	 * @param string $content
-	 *
-	 * @return HttpRequestExecutor
-	 */
 	private function getMockHttpRequestExecutor( string $titleString, string $content ): HttpRequestExecutor {
 		return $this->getMockHttpRequestExecutorWithExpectedRequest(
 			$this->getExpectedApiParameters( $titleString ),
@@ -526,12 +518,6 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	/**
-	 * @param array $expectedApiParameters
-	 * @param string $content
-	 *
-	 * @return HttpRequestExecutor
-	 */
 	private function getMockHttpRequestExecutorWithExpectedRequest(
 		array $expectedApiParameters,
 		string $content
@@ -545,8 +531,6 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @param string $titleString
-	 *
 	 * @return array
 	 */
 	private function getExpectedApiParameters( string $titleString ) {
@@ -571,11 +555,6 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		];
 	}
 
-	/**
-	 * @param string $content
-	 *
-	 * @return MWHttpRequest
-	 */
 	private function getMockMWHttpRequest( string $content ): MWHttpRequest {
 		$mock = $this->createMock( MWHttpRequest::class );
 		$mock->method( 'getContent' )

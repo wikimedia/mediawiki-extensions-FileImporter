@@ -29,8 +29,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	public const ACTION_VIEW_DIFF = 'viewdiff';
 
 	/**
-	 * @param ImportPlan $importPlan
-	 *
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {
@@ -177,7 +175,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
 	 * @return string
 	 */
 	private function buildEditSummaryHtml( ImportPlan $importPlan ) {
@@ -213,7 +210,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
 	 * @return string
 	 */
 	private function buildImportIdentityFormSnippet( ImportPlan $importPlan ) {
@@ -228,7 +224,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
 	 * @return string HTML snippet for a box showing the categories, or empty string if there are
 	 * no categories.
 	 */
@@ -248,7 +243,6 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
 	 * @return bool
 	 */
 	private function wasEdited( ImportPlan $importPlan ) {

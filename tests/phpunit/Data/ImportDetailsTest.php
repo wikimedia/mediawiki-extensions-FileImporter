@@ -183,10 +183,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	/**
-	 * @param array $fields
-	 * @return FileRevision
-	 */
 	private static function createFileRevision( array $fields = [] ): FileRevision {
 		return new FileRevision(
 			$fields + [
@@ -201,10 +197,6 @@ class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	/**
-	 * @param array $fields
-	 * @return TextRevision
-	 */
 	private static function createTextRevision( array $fields = [] ): TextRevision {
 		return new TextRevision(
 			$fields + [

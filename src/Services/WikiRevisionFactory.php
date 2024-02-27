@@ -31,12 +31,6 @@ class WikiRevisionFactory {
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
 	}
 
-	/**
-	 * @param string $title
-	 * @param string $timestamp
-	 * @param string|null $sha1
-	 * @return WikiRevision
-	 */
 	private function newWikiRevision(
 		string $title,
 		string $timestamp,
@@ -66,12 +60,6 @@ class WikiRevisionFactory {
 		);
 	}
 
-	/**
-	 * @param FileRevision $fileRevision
-	 * @param string $src
-	 *
-	 * @return WikiRevision
-	 */
 	public function newFromFileRevision( FileRevision $fileRevision, string $src ): WikiRevision {
 		$revision = $this->newWikiRevision(
 			$fileRevision->getField( 'name' ),
@@ -94,8 +82,6 @@ class WikiRevisionFactory {
 	}
 
 	/**
-	 * @param TextRevision $textRevision
-	 *
 	 * @return WikiRevision
 	 */
 	public function newFromTextRevision( TextRevision $textRevision ) {
@@ -123,8 +109,6 @@ class WikiRevisionFactory {
 	}
 
 	/**
-	 * @param string $username
-	 *
 	 * @return string Either the unchanged username if it's a known local or valid CentralAuth/SUL
 	 *  user, otherwise the name with the DEFAULT_USERNAME_PREFIX prefix prepended.
 	 */
@@ -135,10 +119,6 @@ class WikiRevisionFactory {
 
 	/**
 	 * TODO: We can almost certainly replace this with WikiLinkCleaners.
-	 *
-	 * @param string $summaryText
-	 *
-	 * @return string
 	 */
 	private function prefixCommentLinks( string $summaryText ): string {
 		if ( !$this->interwikiPrefix ) {

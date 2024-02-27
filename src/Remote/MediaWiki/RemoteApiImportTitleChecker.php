@@ -24,11 +24,6 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 	/** @var LoggerInterface */
 	private $logger;
 
-	/**
-	 * @param HttpApiLookup $httpApiLookup
-	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param LoggerInterface $logger
-	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
@@ -81,10 +76,6 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 		return array_key_exists( 'missing', $requestData['query']['pages'][0] );
 	}
 
-	/**
-	 * @param string $titleString
-	 * @return array
-	 */
 	private function getParams( string $titleString ): array {
 		return [
 			'format' => 'json',

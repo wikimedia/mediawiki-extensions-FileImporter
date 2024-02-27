@@ -33,14 +33,6 @@ class SourceSite {
 	/** @var PostImportHandler */
 	private $postImportHandler;
 
-	/**
-	 * @param SourceUrlChecker $sourceUrlChecker
-	 * @param DetailRetriever $detailRetriever
-	 * @param ImportTitleChecker $importTitleChecker
-	 * @param SourceUrlNormalizer $sourceUrlNormalizer
-	 * @param LinkPrefixLookup $linkPrefixLookup
-	 * @param PostImportHandler $postImportHandler
-	 */
 	public function __construct(
 		SourceUrlChecker $sourceUrlChecker,
 		DetailRetriever $detailRetriever,
@@ -58,8 +50,6 @@ class SourceSite {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
 	 * @return bool is this the source site for the given URL
 	 */
 	public function isSourceSiteFor( SourceUrl $sourceUrl ): bool {
@@ -67,21 +57,11 @@ class SourceSite {
 		return $this->sourceUrlChecker->checkSourceUrl( $sourceUrl );
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return string
-	 */
 	public function getLinkPrefix( SourceUrl $sourceUrl ): string {
 		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
 		return $this->linkPrefixLookup->getPrefix( $sourceUrl );
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return ImportDetails
-	 */
 	public function retrieveImportDetails( SourceUrl $sourceUrl ): ImportDetails {
 		$sourceUrl = $this->sourceUrlNormalizer->normalize( $sourceUrl );
 		return $this->detailRetriever->getImportDetails( $sourceUrl );

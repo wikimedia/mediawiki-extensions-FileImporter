@@ -16,9 +16,6 @@ use FileImporter\Exceptions\SourceUrlException;
 interface DetailRetriever {
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return ImportDetails
 	 * @throws SourceUrlException if the given target can't be imported by this importer
 	 */
 	public function getImportDetails( SourceUrl $sourceUrl ): ImportDetails;

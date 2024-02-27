@@ -13,11 +13,6 @@ use FileImporter\Data\TextRevisions;
  */
 class TextRevisionsTest extends \MediaWikiUnitTestCase {
 
-	/**
-	 * @param string $timestamp
-	 *
-	 * @return TextRevision
-	 */
 	private function newTextRevision( string $timestamp = '' ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getField' )

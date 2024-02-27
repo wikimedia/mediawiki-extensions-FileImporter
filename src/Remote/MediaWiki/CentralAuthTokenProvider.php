@@ -15,8 +15,6 @@ use RuntimeException;
 class CentralAuthTokenProvider {
 
 	/**
-	 * @param User $user
-	 *
 	 * @return string
 	 * @throws ApiUsageException e.g. when CentralAuth is not available locally
 	 * @throws RuntimeException when there is an unexpected API result

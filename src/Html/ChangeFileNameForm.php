@@ -19,8 +19,6 @@ use OOUI\TextInputWidget;
 class ChangeFileNameForm extends SpecialPageHtmlFragment {
 
 	/**
-	 * @param ImportPlan $importPlan
-	 *
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {

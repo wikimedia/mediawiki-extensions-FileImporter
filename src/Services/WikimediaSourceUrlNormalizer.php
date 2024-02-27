@@ -14,8 +14,6 @@ use FileImporter\Data\SourceUrl;
 class WikimediaSourceUrlNormalizer extends MediaWikiSourceUrlNormalizer {
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
 	 * @return SourceUrl
 	 */
 	public function normalize( SourceUrl $sourceUrl ) {

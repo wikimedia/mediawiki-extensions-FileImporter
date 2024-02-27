@@ -36,12 +36,6 @@ class WikidataTemplateLookup {
 	/** @var string[][] Array mapping site id and entity id to a template title name */
 	private $templateCache = [];
 
-	/**
-	 * @param Config $config
-	 * @param SiteTableSiteLookup $siteLookup
-	 * @param HttpRequestExecutor $requestExecutor
-	 * @param LoggerInterface $logger
-	 */
 	public function __construct(
 		Config $config,
 		SiteTableSiteLookup $siteLookup,
@@ -73,11 +67,6 @@ class WikidataTemplateLookup {
 		}
 	}
 
-	/**
-	 * @param string|null $entityId
-	 * @param SourceUrl $sourceUrl
-	 * @return string|null
-	 */
 	private function fetchLocalTemplateForSource( ?string $entityId, SourceUrl $sourceUrl ): ?string {
 		$sourceSite = $this->siteLookup->getSite( $sourceUrl );
 		if ( !$sourceSite || !$entityId ) {
@@ -92,11 +81,6 @@ class WikidataTemplateLookup {
 		return $this->removeNamespace( $localPageName );
 	}
 
-	/**
-	 * @param string $entityId
-	 * @param string $siteId
-	 * @return string|null
-	 */
 	private function fetchSiteLinkPageName( string $entityId, string $siteId ): ?string {
 		if ( isset( $this->templateCache[$siteId][$entityId] ) ) {
 			return $this->templateCache[$siteId][$entityId];
@@ -113,9 +97,6 @@ class WikidataTemplateLookup {
 
 	/**
 	 * FIXME: copied from WikitextConversions, should use Title methods instead.
-	 * @param string $title
-	 *
-	 * @return string
 	 */
 	private function removeNamespace( string $title ): string {
 		$splitTitle = explode( ':', $title, 2 );

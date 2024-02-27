@@ -24,9 +24,6 @@ class SuggestManualTemplateAction implements PostImportHandler {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
-	 * @param User $user
-	 *
 	 * @return StatusValue Always good, i.e. never contains warnings. The status's value is a
 	 *  message specifier explaining the suggested manual action.
 	 */

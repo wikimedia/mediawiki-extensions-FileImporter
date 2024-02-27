@@ -105,8 +105,6 @@ class ImportOperationsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @param array $calls Number of calls to each of the steps
 	 * @param bool $success
-	 *
-	 * @return ImportOperation
 	 */
 	private function newImportOperation( array $calls, bool $success = false ): ImportOperation {
 		$mock = $this->createMock( ImportOperation::class );

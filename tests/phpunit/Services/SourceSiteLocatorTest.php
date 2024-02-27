@@ -40,11 +40,6 @@ class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $site, $locator->getSourceSite( $url ) );
 	}
 
-	/**
-	 * @param bool $isSourceSite
-	 *
-	 * @return SourceSite
-	 */
 	private function newSourceSite( bool $isSourceSite ): SourceSite {
 		$site = $this->createMock( SourceSite::class );
 		$site->method( 'isSourceSiteFor' )

@@ -29,22 +29,12 @@ class WikitextContentCleaner {
 		$this->sourceWikiLanguageTemplate = $template;
 	}
 
-	/**
-	 * @param string $wikitext
-	 *
-	 * @return string
-	 */
 	public function cleanWikitext( string $wikitext ): string {
 		$wikitext = $this->cleanHeadings( $wikitext );
 		$wikitext = $this->cleanTemplates( $wikitext );
 		return trim( $wikitext );
 	}
 
-	/**
-	 * @param string $wikitext
-	 *
-	 * @return string
-	 */
 	private function cleanHeadings( string $wikitext ): string {
 		return preg_replace_callback(
 			'/^
@@ -67,10 +57,6 @@ class WikitextContentCleaner {
 		);
 	}
 
-	/**
-	 * @param string $wikitext
-	 * @return string
-	 */
 	private function cleanTemplates( string $wikitext ): string {
 		$this->latestNumberOfReplacements = 0;
 
@@ -224,9 +210,6 @@ class WikitextContentCleaner {
 	}
 
 	/**
-	 * @param string $wikitext
-	 * @param int $offset
-	 *
 	 * @return string Substring from $wikitext including the character at $offset, and all
 	 *  whitespace left and right
 	 */
@@ -245,11 +228,6 @@ class WikitextContentCleaner {
 		return substr( $wikitext, $from, $to - $from );
 	}
 
-	/**
-	 * @param string $wikitext
-	 * @param int $end
-	 * @param array &$param
-	 */
 	private function scanValue( string $wikitext, int $end, array &$param ): void {
 		// To not place replacements for empty values in the next line, we skip horizontal
 		// whitespace only
@@ -265,8 +243,6 @@ class WikitextContentCleaner {
 	 * @param array[] $replacements Array mapping old to new parameters, as returned by
 	 *  {@see WikitextConversions::getTemplateParameters}
 	 * @param string|null $languageTemplate a template name representing the source wiki's language
-	 *
-	 * @return string
 	 */
 	private function renameTemplateParameters(
 		string $wikitext,
@@ -309,8 +285,6 @@ class WikitextContentCleaner {
 	 * @param string[] $required List of parameter name => string value pairs
 	 * @param array[] $parameters "parameters" list as returned by {@see parseTemplateParameters}
 	 * @param int $offset Exact position where to insert the new parameter
-	 *
-	 * @return string
 	 */
 	private function addRequiredTemplateParameters(
 		string $wikitext,

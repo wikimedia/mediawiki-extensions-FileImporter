@@ -82,8 +82,6 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @param StatusValue $status
-	 *
 	 * @return Title
 	 */
 	private function createTitleWithResult( StatusValue $status ) {

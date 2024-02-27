@@ -43,9 +43,6 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @param WebRequest $fauxRequest
-	 * @param bool $tokenMatches
-	 * @param bool $importerResult
 	 * @return SpecialImportFile
 	 */
 	protected function newSpecialPage( WebRequest $fauxRequest, bool $tokenMatches, bool $importerResult ) {
@@ -134,10 +131,6 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( $expected, $specialImportFile->doImport( $importPlanMock ) );
 	}
 
-	/**
-	 * @param string $origHash
-	 * @return ImportPlan
-	 */
 	private function createMockImportPlan( string $origHash ): ImportPlan {
 		$importDetailsMock = $this->createMock( ImportDetails::class );
 		$importDetailsMock->method( 'getOriginalHash' )
@@ -158,10 +151,6 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 		return $importPlanMock;
 	}
 
-	/**
-	 * @param bool $tokenMatches
-	 * @return CsrfTokenSetProvider
-	 */
 	private function createTokenProvider( bool $tokenMatches ): CsrfTokenSetProvider {
 		$token = $this->createMock( CsrfTokenSet::class );
 		$token->method( 'matchToken' )

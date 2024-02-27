@@ -25,20 +25,12 @@ class SuccessCache {
 	/** @var LoggerInterface */
 	private $logger;
 
-	/**
-	 * @param BagOStuff $cache
-	 * @param LoggerInterface|null $logger
-	 */
 	public function __construct( BagOStuff $cache, LoggerInterface $logger = null ) {
 		$this->cache = $cache;
 		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**
-	 * @param Title $targetTitle
-	 * @param UserIdentity $user
-	 * @param StatusValue $importResult
-	 *
 	 * @return bool If caching was successful or not.
 	 */
 	public function stashImportResult( Title $targetTitle, UserIdentity $user, StatusValue $importResult ) {
@@ -48,9 +40,6 @@ class SuccessCache {
 	}
 
 	/**
-	 * @param Title $targetTitle
-	 * @param UserIdentity $user
-	 *
 	 * @return StatusValue|null
 	 */
 	public function fetchImportResult( Title $targetTitle, UserIdentity $user ) {
@@ -64,9 +53,6 @@ class SuccessCache {
 	}
 
 	/**
-	 * @param Title $targetTitle
-	 * @param UserIdentity $user
-	 *
 	 * @return string
 	 */
 	private function makeCacheKey( Title $targetTitle, UserIdentity $user ) {

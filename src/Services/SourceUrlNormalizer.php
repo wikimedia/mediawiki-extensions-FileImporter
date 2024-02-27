@@ -14,8 +14,6 @@ use FileImporter\Data\SourceUrl;
 interface SourceUrlNormalizer {
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
 	 * @return SourceUrl
 	 */
 	public function normalize( SourceUrl $sourceUrl );

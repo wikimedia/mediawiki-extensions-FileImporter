@@ -181,12 +181,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$this->assertFileLogEntry( $firstFileRevision );
 	}
 
-	/**
-	 * @param RevisionRecord $revision
-	 * @param string $type
-	 * @param string $expectedSubType
-	 * @param string|null $expectedTag
-	 */
 	private function assertTextRevisionLogEntry(
 		RevisionRecord $revision,
 		string $type,
@@ -231,11 +225,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $file->getUploader()->getId(), $logEntry->getPerformerIdentity()->getId() );
 	}
 
-	/**
-	 * @param int $logId
-	 * @param int $revId
-	 * @param string $expectedTag
-	 */
 	private function assertFileImporterTagWasAdded( int $logId, int $revId, string $expectedTag ) {
 		$this->assertSame( 1, $this->db->selectRowCount(
 			[ 'change_tag', 'change_tag_def' ],
@@ -256,7 +245,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	 * @param string $type
 	 * @param int $timestamp
 	 * @param string|null $expectedTag
-	 * @return DatabaseLogEntry
 	 */
 	private function getLogType(
 		$pageId,

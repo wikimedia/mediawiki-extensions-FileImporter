@@ -64,10 +64,6 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 		return $context;
 	}
 
-	/**
-	 * @param string $originalInput
-	 * @return ImportDetails
-	 */
 	private function getMockImportDetails( string $originalInput ): ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
@@ -75,10 +71,6 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @param string $originalInput
-	 * @return TextRevisions
-	 */
 	private function getMockTextRevisions( string $originalInput ): TextRevisions {
 		$mock = $this->createMock( TextRevisions::class );
 		$mock->method( 'getLatest' )
@@ -86,10 +78,6 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @param string $originalInput
-	 * @return TextRevision
-	 */
 	private function getMockTextRevision( string $originalInput ): TextRevision {
 		$mock = $this->createMock( TextRevision::class );
 		$mock->method( 'getContent' )

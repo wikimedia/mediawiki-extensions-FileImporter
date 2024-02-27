@@ -50,12 +50,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$this->setService( 'FileImporterMediaWikiSiteTableSiteLookup', $siteTableSiteLookup );
 	}
 
-	/**
-	 * @param string $globalId
-	 * @param string $domain
-	 *
-	 * @return Site
-	 */
 	private function getMockSite( string $globalId, string $domain ): Site {
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
@@ -86,11 +80,6 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		return new HttpRequestException( StatusValue::newGood(), $httpRequestMock );
 	}
 
-	/**
-	 * @param string $fileName
-	 *
-	 * @return MWHttpRequest
-	 */
 	private function getHttpRequestMock( string $fileName ): MWHttpRequest {
 		$httpRequestMock = $this->createMock( MWHttpRequest::class );
 		$httpRequestMock->method( 'getContent' )->willReturn(

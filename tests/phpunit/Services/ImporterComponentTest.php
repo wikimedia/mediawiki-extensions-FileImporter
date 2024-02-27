@@ -336,8 +336,6 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	 * @param Authority $expectedUser
 	 * @param string $expectedWikitext
 	 * @param string|null $expectedSummary
-	 *
-	 * @return WikiPageFactory
 	 */
 	private function createWikiPageFactoryMock(
 		Authority $expectedUser,

@@ -35,13 +35,6 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	/** @var StatsdDataFactoryInterface */
 	private $statsd;
 
-	/**
-	 * @param PostImportHandler $fallbackHandler
-	 * @param WikidataTemplateLookup $templateLookup
-	 * @param RemoteApiActionExecutor $remoteAction
-	 * @param LoggerInterface|null $logger
-	 * @param StatsdDataFactoryInterface|null $statsd
-	 */
 	public function __construct(
 		PostImportHandler $fallbackHandler,
 		WikidataTemplateLookup $templateLookup,
@@ -70,12 +63,6 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param User $user
-	 * @param string|null $warningMsg
-	 * @return StatusValue
-	 */
 	private function manualTemplateFallback(
 		ImportPlan $importPlan,
 		User $user,
@@ -88,11 +75,6 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		return $status;
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param User $user
-	 * @return StatusValue
-	 */
 	private function addNowCommonsToSource( ImportPlan $importPlan, User $user ): StatusValue {
 		$templateName = $this->templateLookup->fetchNowCommonsLocalTitle(
 			$importPlan->getDetails()->getSourceUrl()
@@ -135,11 +117,6 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		}
 	}
 
-	/**
-	 * @param ImportPlan $importPlan
-	 * @param User $user
-	 * @return StatusValue
-	 */
 	private function deleteSourceFile( ImportPlan $importPlan, User $user ): StatusValue {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage(

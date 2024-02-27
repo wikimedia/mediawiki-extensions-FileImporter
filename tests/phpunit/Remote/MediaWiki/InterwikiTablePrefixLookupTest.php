@@ -184,7 +184,6 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @param bool $validPrefix
 	 * @param array[] $iwMap
-	 * @return InterwikiLookup
 	 */
 	private function createInterWikiLookupMock(
 		$validPrefix,

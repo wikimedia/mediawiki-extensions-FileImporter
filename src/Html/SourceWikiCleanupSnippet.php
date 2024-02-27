@@ -58,8 +58,6 @@ class SourceWikiCleanupSnippet {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
-	 * @param User $user
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan, User $user ) {
@@ -138,7 +136,6 @@ class SourceWikiCleanupSnippet {
 	}
 
 	/**
-	 * @param ImportRequest $importRequest
 	 * @return bool
 	 */
 	private function isFreshImport( ImportRequest $importRequest ) {
@@ -148,10 +145,6 @@ class SourceWikiCleanupSnippet {
 	/**
 	 * Warning, contrary to the method name this currently doesn't check if the user is allowed to
 	 * edit the page!
-	 *
-	 * @param SourceUrl $sourceUrl
-	 * @param User $user
-	 * @param string $title
 	 *
 	 * @return bool True if source wiki editing is enabled and a localized {{Now Commons}} template
 	 *  can be found.
@@ -169,9 +162,6 @@ class SourceWikiCleanupSnippet {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param User $user
-	 *
 	 * @return bool True if source wiki deletions are enabled and the user does have the right to
 	 *  delete pages. Also returns false if querying the user rights failed.
 	 */

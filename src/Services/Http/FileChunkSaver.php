@@ -39,7 +39,6 @@ class FileChunkSaver implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param LoggerInterface $logger
 	 * @codeCoverageIgnore
 	 */
 	public function setLogger( LoggerInterface $logger ): void {
@@ -111,7 +110,6 @@ class FileChunkSaver implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param string $message
 	 * @return never
 	 */
 	private function closeHandleLogAndThrowException( string $message ) {

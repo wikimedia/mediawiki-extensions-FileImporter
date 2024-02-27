@@ -10,11 +10,6 @@ use FileImporter\Data\SourceUrl;
  */
 trait MediaWikiSourceUrlParser {
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return string|null
-	 */
 	private function parseTitleFromSourceUrl( SourceUrl $sourceUrl ): ?string {
 		$parsed = $sourceUrl->getParsedUrl();
 

@@ -18,8 +18,6 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 	/**
 	 * @param TextRevision $textRevision Latest test revision
 	 * @param string|null $intendedWikitext This will override the text provided in the TextRevision
-	 *
-	 * @return string
 	 */
 	public function getHtml( TextRevision $textRevision, ?string $intendedWikitext ): string {
 		$services = MediaWikiServices::getInstance();

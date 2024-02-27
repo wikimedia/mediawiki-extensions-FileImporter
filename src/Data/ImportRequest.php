@@ -93,8 +93,6 @@ class ImportRequest {
 
 	/**
 	 * @see \FileImporter\Data\ImportDetails::getOriginalHash
-	 *
-	 * @return string
 	 */
 	public function getImportDetailsHash(): string {
 		return $this->importDetailsHash;

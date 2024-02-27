@@ -23,8 +23,6 @@ class DuplicateFileRevisionChecker {
 	}
 
 	/**
-	 * @param FileRevision $fileRevision
-	 *
 	 * @return File[] array of matched files
 	 */
 	public function findDuplicates( FileRevision $fileRevision ) {

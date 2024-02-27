@@ -21,10 +21,6 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param User $user
-	 * @param string $title
-	 *
 	 * @return StatusValue ok if the user can edit the page
 	 */
 	public function executeTestEditActionQuery( SourceUrl $sourceUrl, User $user, string $title ): StatusValue {
@@ -60,8 +56,6 @@ class RemoteApiActionExecutor {
 	 * @param array $params At least one of the parameters "text", "appendtext", "prependtext" and
 	 *  "undo" is required.
 	 * @param string $editSummary
-	 *
-	 * @return StatusValue
 	 */
 	public function executeEditAction(
 		SourceUrl $sourceUrl,
@@ -96,9 +90,6 @@ class RemoteApiActionExecutor {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param User $user
-	 *
 	 * @return StatusValue ok if the user is allowed to delete pages
 	 */
 	public function executeUserRightsQuery( SourceUrl $sourceUrl, User $user ): StatusValue {
@@ -125,14 +116,6 @@ class RemoteApiActionExecutor {
 		return $status;
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param User $user
-	 * @param string $title
-	 * @param string $deletionReason
-	 *
-	 * @return StatusValue
-	 */
 	public function executeDeleteAction(
 		SourceUrl $sourceUrl,
 		User $user,
@@ -162,10 +145,6 @@ class RemoteApiActionExecutor {
 		return $this->statusFromApiResponse( $result );
 	}
 
-	/**
-	 * @param array|null $apiResponse
-	 * @return StatusValue
-	 */
 	private function statusFromApiResponse( array $apiResponse = null ): StatusValue {
 		$status = StatusValue::newGood();
 

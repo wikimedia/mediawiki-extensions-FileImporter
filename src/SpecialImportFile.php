@@ -77,15 +77,6 @@ class SpecialImportFile extends SpecialPage {
 	/** @var LoggerInterface */
 	private $logger;
 
-	/**
-	 * @param SourceSiteLocator $sourceSiteLocator
-	 * @param Importer $importer
-	 * @param ImportPlanFactory $importPlanFactory
-	 * @param IContentHandlerFactory $contentHandlerFactory
-	 * @param StatsdDataFactoryInterface $statsdDataFactory
-	 * @param UserOptionsManager $userOptionsManager
-	 * @param Config $config
-	 */
 	public function __construct(
 		SourceSiteLocator $sourceSiteLocator,
 		Importer $importer,
@@ -277,10 +268,6 @@ class SpecialImportFile extends SpecialPage {
 		}
 	}
 
-	/**
-	 * @param string|null $action
-	 * @param ImportPlan $importPlan
-	 */
 	private function handleAction( ?string $action, ImportPlan $importPlan ): void {
 		switch ( $action ) {
 			case ImportPreviewPage::ACTION_SUBMIT:
@@ -310,9 +297,6 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * @param WebRequest $webRequest
-	 *
-	 * @return ImportPlan
 	 * @throws ImportException
 	 */
 	private function makeImportPlan( WebRequest $webRequest ): ImportPlan {
@@ -497,8 +481,6 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * @param Exception $ex
-	 *
 	 * @return string HTML
 	 */
 	private function getWarningMessage( Exception $ex ): string {
@@ -537,7 +519,6 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
 	 * @return array of automation features and whether they are available
 	 */
 	private function getAutomatedCapabilities( ImportPlan $importPlan ) {

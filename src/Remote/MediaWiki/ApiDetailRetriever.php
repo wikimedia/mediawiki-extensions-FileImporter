@@ -82,9 +82,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param array $apiParameters
-	 *
 	 * @return array[]
 	 * @throws ImportException when the request failed
 	 */
@@ -102,9 +99,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * @param SourceUrl $sourceUrl
-	 *
-	 * @return ImportDetails
 	 * @throws ImportException e.g. when the file couldn't be found
 	 */
 	public function getImportDetails( SourceUrl $sourceUrl ): ImportDetails {
@@ -323,7 +317,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @param array[] $imageInfo
 	 * @param string $pageTitle
 	 *
-	 * @return FileRevisions
 	 * @throws ImportException when the file is not acceptable, e.g. hidden or to big
 	 */
 	private function getFileRevisionsFromImageInfo( array $imageInfo, string $pageTitle ): FileRevisions {
@@ -370,8 +363,6 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * @param array[] $revisionsInfo
 	 * @param string $pageTitle
-	 *
-	 * @return TextRevisions
 	 */
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, string $pageTitle ): TextRevisions {
 		$revisions = [];
@@ -397,10 +388,6 @@ class ApiDetailRetriever implements DetailRetriever {
 		return new TextRevisions( $revisions );
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 * @return string[]
-	 */
 	private function getBaseParams( SourceUrl $sourceUrl ): array {
 		return [
 			'action' => 'query',
@@ -414,11 +401,6 @@ class ApiDetailRetriever implements DetailRetriever {
 
 	/**
 	 * Adds to params base the properties for getting Text Revisions
-	 *
-	 * @param array $params
-	 * @param string|null $rvContinue
-	 *
-	 * @return array
 	 */
 	private function addTextRevisionsToParams( array $params, string $rvContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|revisions' : 'revisions';
@@ -449,11 +431,6 @@ class ApiDetailRetriever implements DetailRetriever {
 
 	/**
 	 * Adds to params base the properties for getting File Revisions
-	 *
-	 * @param array $params
-	 * @param string|null $iiStart
-	 *
-	 * @return array
 	 */
 	private function addFileRevisionsToParams( array $params, string $iiStart = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|imageinfo' : 'imageinfo';
@@ -485,11 +462,6 @@ class ApiDetailRetriever implements DetailRetriever {
 
 	/**
 	 * Adds to params base the properties for getting Templates
-	 *
-	 * @param array $params
-	 * @param string|null $tlContinue
-	 *
-	 * @return array
 	 */
 	private function addTemplatesToParams( array $params, string $tlContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|templates' : 'templates';
@@ -503,11 +475,6 @@ class ApiDetailRetriever implements DetailRetriever {
 
 	/**
 	 * Adds to params base the properties for getting Categories
-	 *
-	 * @param array $params
-	 * @param string|null $clContinue
-	 *
-	 * @return array
 	 */
 	private function addCategoriesToParams( array $params, string $clContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|categories' : 'categories';

@@ -22,10 +22,6 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 	/** @var LoggerInterface */
 	private $logger;
 
-	/**
-	 * @param SiteTableSiteLookup $siteTableSiteLookup
-	 * @param LoggerInterface|null $logger
-	 */
 	public function __construct(
 		SiteTableSiteLookup $siteTableSiteLookup,
 		LoggerInterface $logger = null

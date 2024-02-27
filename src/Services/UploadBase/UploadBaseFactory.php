@@ -23,8 +23,6 @@ class UploadBaseFactory {
 	/**
 	 * @param LinkTarget $targetTitle
 	 * @param string $tempPath
-	 *
-	 * @return ValidatingUploadBase
 	 */
 	public function newValidatingUploadBase( LinkTarget $targetTitle, $tempPath ): ValidatingUploadBase {
 		return new ValidatingUploadBase( $targetTitle, $tempPath, $this->logger );

@@ -15,8 +15,6 @@ use OOUI\MessageWidget;
 class RecoverableTitleExceptionPage extends SpecialPageHtmlFragment {
 
 	/**
-	 * @param RecoverableTitleException $exception
-	 *
 	 * @return string
 	 */
 	public function getHtml( RecoverableTitleException $exception ) {

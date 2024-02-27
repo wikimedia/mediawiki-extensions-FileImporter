@@ -15,10 +15,6 @@ class VisualEditorHooks implements VisualEditorBeforeEditorHook {
 
 	/**
 	 * Same parameters as {@see \MediaWiki\Hook\BeforePageDisplayHook}.
-	 *
-	 * @param OutputPage $output
-	 * @param Skin $skin
-	 * @return bool
 	 */
 	public function onVisualEditorBeforeEditor( OutputPage $output, Skin $skin ): bool {
 		// The context gets changed to be that of a file page in WikiEditor::runEditFormInitialHook

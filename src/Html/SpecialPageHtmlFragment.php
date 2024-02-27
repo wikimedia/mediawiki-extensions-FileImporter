@@ -74,8 +74,6 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	 *
 	 * @param string|string[]|\MessageSpecifier $key
 	 * @param mixed ...$params Any number of message parameters
-	 *
-	 * @return Message
 	 */
 	public function msg( $key, ...$params ): Message {
 		return $this->getContext()->msg( $key, ...$params );

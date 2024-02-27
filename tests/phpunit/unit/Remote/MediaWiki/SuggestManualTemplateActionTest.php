@@ -68,11 +68,6 @@ class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 		return StatusValue::newGood( $messageSpecifier );
 	}
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param string|null $templateResult
-	 * @return WikidataTemplateLookup
-	 */
 	private function createWikidataTemplateLookup(
 		SourceUrl $sourceUrl,
 		?string $templateResult

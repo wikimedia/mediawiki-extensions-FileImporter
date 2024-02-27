@@ -172,10 +172,6 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @param string $url
-	 * @return FileRevision
-	 */
 	private function newFileRevision( string $url ): FileRevision {
 		return new FileRevision( [
 			'name' => 'File:test.jpg',

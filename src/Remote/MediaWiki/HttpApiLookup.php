@@ -36,7 +36,6 @@ class HttpApiLookup implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param LoggerInterface $logger
 	 * @codeCoverageIgnore
 	 */
 	public function setLogger( LoggerInterface $logger ) {
@@ -68,9 +67,6 @@ class HttpApiLookup implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param string $pageUrl
-	 *
-	 * @return string|null
 	 * @throws ImportException when the request failed
 	 */
 	private function actuallyGetApiUrl( string $pageUrl ): ?string {

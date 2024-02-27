@@ -26,7 +26,6 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @return WikitextConversions
 	 * @throws ImportException e.g. when the provided wikitext is incomplete
 	 */
 	public function getWikitextConversions(): WikitextConversions {
@@ -67,11 +66,6 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @param string $wikitext
-	 * @param string $header
-	 * @param string $sectionName
-	 *
-	 * @return string
 	 * @throws ImportException if the section could not be found
 	 */
 	private function grepSection( string $wikitext, string $header, string $sectionName ): string {
@@ -101,8 +95,6 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @param string $wikitext
-	 *
 	 * @return string[]
 	 */
 	private function getItemList( string $wikitext ): array {
@@ -112,8 +104,6 @@ class CommonsHelperConfigParser {
 	}
 
 	/**
-	 * @param string $wikitext
-	 *
 	 * @return array[]
 	 */
 	private function parseTransferList( string $wikitext ): array {

@@ -15,11 +15,6 @@ class WikiLinkParser {
 		$this->cleaners[] = $cleaner;
 	}
 
-	/**
-	 * @param string $wikitext
-	 *
-	 * @return string
-	 */
 	public function parse( string $wikitext ): string {
 		return preg_replace_callback(
 			'/

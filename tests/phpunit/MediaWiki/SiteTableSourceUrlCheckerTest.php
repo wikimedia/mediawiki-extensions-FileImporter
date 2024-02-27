@@ -18,8 +18,6 @@ class SiteTableSourceUrlCheckerTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param string[] $knownSites
-	 *
-	 * @return SiteTableSourceUrlChecker
 	 */
 	private function getSiteTableSourceUrlChecker( array $knownSites ): SiteTableSourceUrlChecker {
 		$sites = [];

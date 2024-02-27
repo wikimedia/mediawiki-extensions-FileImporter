@@ -78,8 +78,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * Lookup the host in hardcoded configuration.
 	 *
 	 * @deprecated This configuration will go away once dynamic lookup is in place.
-	 * @param string $host
-	 * @return string|null
 	 */
 	private function getPrefixFromLegacyConfig( string $host ): ?string {
 		if ( isset( $this->interWikiConfigMap[$host] ) ) {
@@ -103,10 +101,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
 	/**
 	 * Lookup host in the local interwiki table.
-	 *
-	 * @param string $host
-	 *
-	 * @return string|null
 	 */
 	private function getPrefixFromInterwikiTable( string $host ): ?string {
 		if ( $this->interwikiTableMap === null ) {
@@ -133,10 +127,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * This is an optimization for Wikimedia projects which are split into
 	 * third-level subdomains by language, and often not present in the
 	 * target wiki's local Interwiki table.
-	 *
-	 * @param string $host
-	 *
-	 * @return string|null
 	 */
 	private function getTwoHopPrefixThroughIntermediary( string $host ): ?string {
 		if ( $this->parentDomainToUrlMap === null ) {
@@ -270,8 +260,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	}
 
 	/**
-	 * @param string $host
-	 *
 	 * @return string|null New hostname with the minor sub-*-domain removed.
 	 */
 	private function getParentDomain( string $host ): ?string {
@@ -284,9 +272,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	}
 
 	/**
-	 * @param string $a
-	 * @param string $b
-	 *
 	 * @return bool true if $a is shorter or alphabetically before $b
 	 */
 	private function isSmaller( string $a, string $b ): bool {

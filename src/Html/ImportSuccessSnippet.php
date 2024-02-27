@@ -34,10 +34,6 @@ class ImportSuccessSnippet {
 	/**
 	 * Prepares an URL for redirect and stashes additional information for retrieval from that page.
 	 *
-	 * @param Title $targetTitle
-	 * @param UserIdentity $user
-	 * @param StatusValue $importResult
-	 *
 	 * @return string Target file URL for redirect, including special parameter to show our notice.
 	 */
 	public function getRedirectWithNotice( Title $targetTitle, UserIdentity $user, StatusValue $importResult ) {

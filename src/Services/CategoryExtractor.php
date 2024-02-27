@@ -21,11 +21,6 @@ class CategoryExtractor {
 	/** @var LinkBatchFactory */
 	private $linkBatchFactory;
 
-	/**
-	 * @param ParserFactory $parserFactory
-	 * @param IConnectionProvider $connectionProvider
-	 * @param LinkBatchFactory $linkBatchFactory
-	 */
 	public function __construct(
 		ParserFactory $parserFactory,
 		IConnectionProvider $connectionProvider,

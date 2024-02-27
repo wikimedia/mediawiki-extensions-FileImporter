@@ -15,12 +15,6 @@ use MutableContext;
  */
 class WikitextEditor extends SpecialPageHtmlFragment {
 
-	/**
-	 * @param Title $filePage
-	 * @param string $wikitext
-	 *
-	 * @return string
-	 */
 	public function getHtml( Title $filePage, string $wikitext ): string {
 		$outputPage = $this->getOutput();
 		$outputPage->addModules( 'mediawiki.action.edit' );
@@ -35,8 +29,6 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 * Run EditPage::showEditForm:initial hook mainly for the WikiEditor toolbar
 	 * @see \MediaWiki\Extension\WikiEditor\Hooks::onEditPage__showEditForm_initial
 	 * Triggering the hook means we don't have special handling for any extensions.
-	 *
-	 * @param Title $filePage
 	 */
 	private function runEditFormInitialHook( Title $filePage ) {
 		// We need to fake the context to make extensions like CodeMirror believe they are editing
@@ -59,8 +51,6 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 
 	/**
 	 * @see EditPage::showTextbox
-	 *
-	 * @param string $wikitext
 	 *
 	 * @return string HTML
 	 */
@@ -89,10 +79,6 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 
 	/**
 	 * @see EditPage::addNewLineAtEnd
-	 *
-	 * @param string $wikitext
-	 *
-	 * @return string
 	 */
 	private function addNewLineAtEnd( string $wikitext ): string {
 		return $wikitext === '' ? '' : $wikitext . "\n";

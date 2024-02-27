@@ -65,8 +65,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 	/**
 	 * @param bool|null $importAllowed Null if the checker is not supposed to be called
-	 *
-	 * @return ImportTitleChecker
 	 */
 	private function getMockImportTitleChecker( ?bool $importAllowed = null ): ImportTitleChecker {
 		$mock = $this->createMock( ImportTitleChecker::class );
@@ -78,8 +76,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 	/**
 	 * @param bool|null $hasDuplicates Null if the checker is not supposed to be called
-	 *
-	 * @return DuplicateFileRevisionChecker
 	 */
 	private function getMockDuplicateFileRevisionChecker( ?bool $hasDuplicates = null ): DuplicateFileRevisionChecker {
 		$mock = $this->createMock( DuplicateFileRevisionChecker::class );
@@ -112,8 +108,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 * @param string $planTitle A "<" makes {@see ImportPlan::getTitle} throw an exception
 	 * @param string|null $sourceTitle Defaults to a valid title
 	 * @param bool $exists
-	 *
-	 * @return ImportPlan
 	 */
 	private function getMockImportPlan(
 		string $planTitle,
@@ -157,8 +151,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 	/**
 	 * @param int $titleValidationError Numeric error code or UploadBase::OK on success
-	 *
-	 * @return ValidatingUploadBase
 	 */
 	private function getMockValidatingUploadBase(
 		int $titleValidationError = UploadBase::OK
@@ -172,8 +164,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	/**
 	 * @param int $callCount
 	 * @param WikiLinkParser|null $wikiLinkParser
-	 *
-	 * @return WikiLinkParserFactory
 	 */
 	private function getMockWikiLinkParserFactory(
 		$callCount = 0,

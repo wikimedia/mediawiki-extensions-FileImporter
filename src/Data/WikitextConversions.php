@@ -106,11 +106,6 @@ class WikitextConversions {
 		}
 	}
 
-	/**
-	 * @param string $heading
-	 *
-	 * @return string
-	 */
 	public function swapHeading( string $heading ): string {
 		return $this->headingReplacements[$heading] ?? $heading;
 	}
@@ -118,8 +113,6 @@ class WikitextConversions {
 	/**
 	 * @param string $pageName Case-insensitive page name. The namespace is ignored. Titles like
 	 *  "Template:A" and "User:A" are considered equal.
-	 *
-	 * @return bool
 	 */
 	public function isTemplateGood( string $pageName ): bool {
 		$pageName = $this->removeNamespace( $pageName );
@@ -133,8 +126,6 @@ class WikitextConversions {
 	/**
 	 * @param string $pageName Case-insensitive page name. The namespace is ignored. Titles like
 	 *  "Template:A" and "User:A" are considered equal.
-	 *
-	 * @return bool
 	 */
 	public function isTemplateBad( string $pageName ): bool {
 		$pageName = $this->removeNamespace( $pageName );
@@ -144,8 +135,6 @@ class WikitextConversions {
 	/**
 	 * @param string $pageName Case-insensitive page name. The namespace is ignored. Titles like
 	 *  "Category:A" and "User:A" are considered equal.
-	 *
-	 * @return bool
 	 */
 	public function isCategoryBad( string $pageName ): bool {
 		$pageName = $this->removeNamespace( $pageName );
@@ -154,8 +143,6 @@ class WikitextConversions {
 
 	/**
 	 * @param string $pageName Case-insensitive page name. Prefixes are significant.
-	 *
-	 * @return bool
 	 */
 	public function isObsoleteTemplate( string $pageName ): bool {
 		return array_key_exists( $this->lowercasePageName( $pageName ), $this->obsoleteTemplates );
@@ -227,29 +214,14 @@ class WikitextConversions {
 		return $additions;
 	}
 
-	/**
-	 * @param string $pageName
-	 *
-	 * @return string
-	 */
 	private function lowercasePageName( string $pageName ): string {
 		return mb_convert_case( $this->normalizePageName( $pageName ), MB_CASE_LOWER );
 	}
 
-	/**
-	 * @param string $pageName
-	 *
-	 * @return string
-	 */
 	private function normalizePageName( string $pageName ): string {
 		return trim( str_replace( '_', ' ', $pageName ) );
 	}
 
-	/**
-	 * @param string $title
-	 *
-	 * @return string
-	 */
 	private function removeNamespace( string $title ): string {
 		$splitTitle = explode( ':', $title, 2 );
 		return end( $splitTitle );

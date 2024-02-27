@@ -18,8 +18,6 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 	/**
 	 * @param File[] $files
 	 * @param string|null $url
-	 *
-	 * @return string
 	 */
 	public function getHtml( array $files, ?string $url ): string {
 		$output = new MessageWidget( [

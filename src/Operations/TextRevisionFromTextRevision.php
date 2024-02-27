@@ -40,16 +40,6 @@ class TextRevisionFromTextRevision implements ImportOperation {
 	/** @var RestrictionStore */
 	private $restrictionStore;
 
-	/**
-	 * @param Title $plannedTitle
-	 * @param User $user
-	 * @param TextRevision $textRevision
-	 * @param WikiRevisionFactory $wikiRevisionFactory
-	 * @param OldRevisionImporter $importer
-	 * @param FileTextRevisionValidator $textRevisionValidator
-	 * @param RestrictionStore $restrictionStore
-	 * @param LoggerInterface|null $logger
-	 */
 	public function __construct(
 		Title $plannedTitle,
 		User $user,

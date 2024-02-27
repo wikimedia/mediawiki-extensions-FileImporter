@@ -16,9 +16,6 @@ use OOUI\ButtonInputWidget;
 class FileInfoDiffPage extends SpecialPageHtmlFragment {
 
 	/**
-	 * @param ImportPlan $importPlan
-	 * @param ContentHandler $contentHandler
-	 *
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan, ContentHandler $contentHandler ) {
@@ -63,10 +60,6 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 	}
 
 	/**
-	 * @param string $originalText
-	 * @param string $newText
-	 * @param ContentHandler $contentHandler
-	 *
 	 * @return string HTML
 	 */
 	private function buildDiff( string $originalText, string $newText, ContentHandler $contentHandler ): string {

@@ -13,10 +13,6 @@ use FileImporter\Data\SourceUrl;
  */
 interface LinkPrefixLookup {
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 * @return string
-	 */
 	public function getPrefix( SourceUrl $sourceUrl ): string;
 
 }

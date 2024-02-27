@@ -13,12 +13,6 @@ use FileImporter\Data\FileRevisions;
  */
 class FileRevisionsTest extends \MediaWikiUnitTestCase {
 
-	/**
-	 * @param string $timestamp
-	 * @param bool $isOld
-	 *
-	 * @return FileRevision
-	 */
 	private function newFileRevision( string $timestamp, bool $isOld = false ): FileRevision {
 		$mock = $this->createMock( FileRevision::class );
 		$mock->method( 'getField' )

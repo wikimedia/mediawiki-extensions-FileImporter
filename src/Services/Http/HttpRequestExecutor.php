@@ -47,7 +47,6 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param LoggerInterface $logger
 	 * @codeCoverageIgnore
 	 */
 	public function setLogger( LoggerInterface $logger ): void {
@@ -55,31 +54,17 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param string $url
-	 * @param array $parameters
-	 *
-	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
 	public function execute( string $url, array $parameters = [] ): MWHttpRequest {
 		return $this->executeHttpRequest( wfAppendQuery( $url, $parameters ) );
 	}
 
-	/**
-	 * @param string $url
-	 * @param array $postData
-	 *
-	 * @return MWHttpRequest
-	 */
 	public function executePost( string $url, array $postData ): MWHttpRequest {
 		return $this->executeHttpRequest( $url, null, $postData );
 	}
 
 	/**
-	 * @param string $url
-	 * @param string $filePath
-	 *
-	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
 	public function executeAndSave( string $url, string $filePath ): MWHttpRequest {
@@ -89,11 +74,6 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param string $url
-	 * @param callable|null $callback
-	 * @param array|null $postData
-	 *
-	 * @return MWHttpRequest
 	 * @throws HttpRequestException
 	 */
 	private function executeHttpRequest(

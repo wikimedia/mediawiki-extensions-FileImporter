@@ -177,7 +177,6 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @param string $centralAuthToken
-	 * @return CentralAuthTokenProvider
 	 */
 	private function createCentralAuthTokenProvider(
 		$centralAuthToken

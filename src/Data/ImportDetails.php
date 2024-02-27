@@ -27,12 +27,6 @@ class ImportDetails {
 	/** @var string[] */
 	private $categories = [];
 
-	/**
-	 * @param SourceUrl $sourceUrl
-	 * @param LinkTarget $sourceLinkTarget
-	 * @param TextRevisions $textRevisions
-	 * @param FileRevisions $fileRevisions
-	 */
 	public function __construct(
 		SourceUrl $sourceUrl,
 		LinkTarget $sourceLinkTarget,
@@ -45,9 +39,6 @@ class ImportDetails {
 		$this->fileRevisions = $fileRevisions;
 	}
 
-	/**
-	 * @param string|null $languageCode
-	 */
 	public function setPageLanguage( ?string $languageCode ): void {
 		$this->pageLanguage = $languageCode;
 	}
@@ -134,8 +125,6 @@ class ImportDetails {
 	 * Can be used to see if two ImportDetails objects appear to be for the same URL and have
 	 * the same number of text and file revisions.
 	 * Used to detect changes to a file between the start and end of an import.
-	 *
-	 * @return string
 	 */
 	public function getOriginalHash(): string {
 		$hashes = [

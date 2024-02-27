@@ -15,8 +15,6 @@ use OOUI\ButtonInputWidget;
 class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 
 	/**
-	 * @param ImportPlan $importPlan
-	 *
 	 * @return string
 	 */
 	public function getHtml( ImportPlan $importPlan ) {

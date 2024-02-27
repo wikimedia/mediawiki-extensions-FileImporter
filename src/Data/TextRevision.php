@@ -31,8 +31,6 @@ class TextRevision {
 	private $fields;
 
 	/**
-	 * @param array $fields
-	 *
 	 * @throws InvalidArgumentException if incorrect fields are entered
 	 */
 	public function __construct( array $fields ) {
@@ -50,8 +48,6 @@ class TextRevision {
 	}
 
 	/**
-	 * @param string $name
-	 *
 	 * @return mixed|null Null if the field isn't known
 	 */
 	public function getField( string $name ) {

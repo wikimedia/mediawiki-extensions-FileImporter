@@ -10,7 +10,6 @@ namespace FileImporter\Services\Wikitext;
 interface NamespaceNameLookup {
 
 	/**
-	 * @param string $namespaceName
 	 * @return int|false False if there is no namespace with this name.
 	 */
 	public function getIndex( string $namespaceName );

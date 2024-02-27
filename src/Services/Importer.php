@@ -67,20 +67,6 @@ class Importer {
 	/** @var StatsdDataFactoryInterface */
 	private $stats;
 
-	/**
-	 * @param WikiPageFactory $wikiPageFactory
-	 * @param WikiRevisionFactory $wikiRevisionFactory
-	 * @param NullRevisionCreator $nullRevisionCreator
-	 * @param UserIdentityLookup $userLookup
-	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param UploadBaseFactory $uploadBaseFactory
-	 * @param OldRevisionImporter $oldRevisionImporter
-	 * @param UploadRevisionImporter $uploadRevisionImporter
-	 * @param FileTextRevisionValidator $textRevisionValidator
-	 * @param RestrictionStore $restrictionStore
-	 * @param LoggerInterface|null $logger
-	 * @param StatsdDataFactoryInterface|null $statsdDataFactory
-	 */
 	public function __construct(
 		WikiPageFactory $wikiPageFactory,
 		WikiRevisionFactory $wikiRevisionFactory,
@@ -181,10 +167,6 @@ class Importer {
 	}
 
 	/**
-	 * @param User $user
-	 * @param Title $plannedTitle
-	 * @param ImportDetails $importDetails
-	 *
 	 * @return ImportOperations
 	 */
 	private function buildImportOperations(
@@ -307,8 +289,6 @@ class Importer {
 	}
 
 	/**
-	 * @param User $user
-	 * @param ImportPlan $importPlan
 	 * @return StatusValue isOK on success
 	 */
 	private function validateFileInfoText(
@@ -326,8 +306,6 @@ class Importer {
 	}
 
 	/**
-	 * @param ImportPlan $importPlan
-	 *
 	 * @return WikiPage
 	 * @throws ImportException
 	 */
