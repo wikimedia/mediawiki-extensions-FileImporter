@@ -2,6 +2,7 @@
 
 namespace FileImporter\Tests\Operations;
 
+use File;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use FileImporter\Operations\FileRevisionFromRemoteUrl;
@@ -121,7 +122,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 
 		// assert file was imported correctly
 		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
-		$this->assertTrue( $file !== false );
+		$this->assertInstanceOf( File::class, $file );
 		$this->assertSame( self::TITLE, $file->getName() );
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
 		$this->assertSame( 'Imported>SourceUser1', $file->getUploader()->getName() );

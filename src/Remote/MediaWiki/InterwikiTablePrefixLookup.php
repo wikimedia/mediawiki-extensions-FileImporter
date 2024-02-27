@@ -277,7 +277,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private function getParentDomain( string $host ): ?string {
 		$parts = explode( '.', $host, 2 );
 		// It doesn't make sense to reduce e.g. "mediawiki.org" to "org"
-		if ( isset( $parts[1] ) && strpos( $parts[1], '.' ) !== false ) {
+		if ( isset( $parts[1] ) && str_contains( $parts[1], '.' ) ) {
 			return $parts[1];
 		}
 		return null;

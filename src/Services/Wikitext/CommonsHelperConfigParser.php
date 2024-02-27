@@ -139,7 +139,7 @@ class CommonsHelperConfigParser {
 
 				// We don't want CommonsHelper's placeholders "%AUTHOR%" and "%TRANSFERUSER%" to
 				// show up as text values. Investigation and decision are documented in T198609.
-				if ( strpos( $sourceParam, '%' ) !== false ) {
+				if ( str_contains( $sourceParam, '%' ) ) {
 					continue;
 				}
 
