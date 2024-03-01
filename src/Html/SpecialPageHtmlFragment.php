@@ -2,15 +2,15 @@
 
 namespace FileImporter\Html;
 
-use IContextSource;
 use Language;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Context\MutableContext;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use Message;
 use MessageLocalizer;
-use MutableContext;
 
 /**
  * Common framework for classes providing HTML fragments (similar to
@@ -23,8 +23,7 @@ use MutableContext;
  */
 abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 
-	/** @var SpecialPage */
-	private $specialPage;
+	private SpecialPage $specialPage;
 
 	/**
 	 * Implementations should not have a constructor, but provide whatever is needed as arguments to

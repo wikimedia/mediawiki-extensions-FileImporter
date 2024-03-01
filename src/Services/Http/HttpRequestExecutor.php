@@ -15,14 +15,10 @@ use Psr\Log\NullLogger;
  */
 class HttpRequestExecutor implements LoggerAwareInterface {
 
-	/** @var LoggerInterface */
-	private $logger;
-	/** @var HttpRequestFactory */
-	private $httpRequestFactory;
-	/** @var array */
-	private $httpOptions;
-	/** @var int */
-	private $maxFileSize;
+	private HttpRequestFactory $httpRequestFactory;
+	private LoggerInterface $logger;
+	private int $maxFileSize;
+	private array $httpOptions;
 
 	/**
 	 * @param HttpRequestFactory $httpRequestFactory

@@ -26,8 +26,7 @@ class FileRevision {
 		'url',
 	];
 
-	/** @var array */
-	private $fields;
+	private array $fields;
 
 	/**
 	 * @throws InvalidArgumentException if incorrect fields are entered

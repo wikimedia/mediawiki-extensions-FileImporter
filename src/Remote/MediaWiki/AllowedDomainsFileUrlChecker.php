@@ -11,7 +11,7 @@ use FileImporter\Data\SourceUrl;
 class AllowedDomainsFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 
 	/** @var string[] */
-	private $allowedDomains;
+	private array $allowedDomains;
 
 	/**
 	 * @param string[] $allowedDomains

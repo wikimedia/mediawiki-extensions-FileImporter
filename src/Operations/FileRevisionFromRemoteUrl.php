@@ -34,28 +34,17 @@ use WikiRevision;
  */
 class FileRevisionFromRemoteUrl implements ImportOperation {
 
-	/** @var Title */
-	private $plannedTitle;
-	/** @var User */
-	private $user;
-	/** @var FileRevision */
-	private $fileRevision;
-	/** @var TextRevision|null */
-	private $textRevision;
-	/** @var UserIdentityLookup */
-	private $userLookup;
-	/** @var HttpRequestExecutor */
-	private $httpRequestExecutor;
-	/** @var WikiRevisionFactory */
-	private $wikiRevisionFactory;
-	/** @var UploadBaseFactory */
-	private $uploadBaseFactory;
-	/** @var UploadRevisionImporter */
-	private $importer;
-	/** @var RestrictionStore */
-	private $restrictionStore;
-	/** @var LoggerInterface */
-	private $logger;
+	private Title $plannedTitle;
+	private User $user;
+	private FileRevision $fileRevision;
+	private ?TextRevision $textRevision;
+	private UserIdentityLookup $userLookup;
+	private HttpRequestExecutor $httpRequestExecutor;
+	private WikiRevisionFactory $wikiRevisionFactory;
+	private UploadBaseFactory $uploadBaseFactory;
+	private UploadRevisionImporter $importer;
+	private RestrictionStore $restrictionStore;
+	private LoggerInterface $logger;
 
 	/** @var WikiRevision|null */
 	private $wikiRevision = null;

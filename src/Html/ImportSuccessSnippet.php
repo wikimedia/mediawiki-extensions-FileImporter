@@ -24,8 +24,7 @@ class ImportSuccessSnippet {
 
 	public const NOTICE_URL_KEY = 'fileImporterSuccess';
 
-	/** @var SuccessCache */
-	private $cache;
+	private SuccessCache $cache;
 
 	public function __construct() {
 		$this->cache = MediaWikiServices::getInstance()->getService( 'FileImporterSuccessCache' );

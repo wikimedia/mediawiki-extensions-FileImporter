@@ -14,7 +14,7 @@ use FileImporter\Exceptions\SourceUrlException;
 class SourceSiteLocator {
 
 	/** @var SourceSite[] */
-	private $sourceSites;
+	private array $sourceSites;
 
 	/**
 	 * @param SourceSite[] $sourceSites

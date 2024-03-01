@@ -15,12 +15,9 @@ use MediaWiki\Title\TitleParser;
 class WikiLinkParserFactory {
 	use MediaWikiSourceUrlParser;
 
-	/** @var TitleParser */
-	private $parser;
-	/** @var NamespaceInfo */
-	private $namespaceInfo;
-	/** @var LanguageFactory */
-	private $languageFactory;
+	private TitleParser $parser;
+	private NamespaceInfo $namespaceInfo;
+	private LanguageFactory $languageFactory;
 
 	public function __construct() {
 		$services = MediaWikiServices::getInstance();

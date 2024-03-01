@@ -15,8 +15,7 @@ use FileRepo;
  */
 class DuplicateFileRevisionChecker {
 
-	/** @var FileRepo */
-	private $fileRepo;
+	private FileRepo $fileRepo;
 
 	public function __construct( FileRepo $fileRepo ) {
 		$this->fileRepo = $fileRepo;

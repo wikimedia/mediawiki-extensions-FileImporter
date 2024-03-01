@@ -23,8 +23,7 @@ use UploadBase;
  */
 class ValidatingUploadBase extends UploadBase {
 
-	/** @var LoggerInterface */
-	private $logger;
+	private LoggerInterface $logger;
 
 	/**
 	 * @param LinkTarget $targetTitle

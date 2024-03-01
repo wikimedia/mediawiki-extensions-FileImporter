@@ -23,10 +23,9 @@ use Psr\Log\NullLogger;
  */
 class HttpApiLookup implements LoggerAwareInterface {
 
-	/** @var LoggerInterface */
-	private $logger;
-	/** @var HttpRequestExecutor */
-	private $httpRequestExecutor;
+	private HttpRequestExecutor $httpRequestExecutor;
+	private LoggerInterface $logger;
+
 	/** @var string[] url => apiUrl */
 	private $resultCache = [];
 

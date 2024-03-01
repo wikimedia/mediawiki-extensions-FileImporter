@@ -19,16 +19,11 @@ use Psr\Log\NullLogger;
  */
 class RemoteApiRequestExecutor implements LoggerAwareInterface {
 
-	/** @var LoggerInterface */
-	private $logger;
-	/** @var HttpApiLookup */
-	private $httpApiLookup;
-	/** @var HttpRequestExecutor */
-	private $httpRequestExecutor;
-	/** @var CentralAuthTokenProvider */
-	private $centralAuthTokenProvider;
-	/** @var CentralIdLookup */
-	private $centralIdLookup;
+	private HttpApiLookup $httpApiLookup;
+	private HttpRequestExecutor $httpRequestExecutor;
+	private CentralAuthTokenProvider $centralAuthTokenProvider;
+	private CentralIdLookup $centralIdLookup;
+	private LoggerInterface $logger;
 
 	public function __construct(
 		HttpApiLookup $httpApiLookup,

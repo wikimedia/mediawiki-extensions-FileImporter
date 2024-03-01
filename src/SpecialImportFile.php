@@ -62,20 +62,13 @@ class SpecialImportFile extends SpecialPage {
 	private const ERROR_LOCAL_BLOCK = 'userBlocked';
 	private const ERROR_GLOBAL_BLOCK = 'userGloballyBlocked';
 
-	/** @var SourceSiteLocator */
-	private $sourceSiteLocator;
-	/** @var Importer */
-	private $importer;
-	/** @var ImportPlanFactory */
-	private $importPlanFactory;
-	/** @var IContentHandlerFactory */
-	private $contentHandlerFactory;
-	/** @var UserOptionsManager */
-	private $userOptionsManager;
-	/** @var StatsdDataFactoryInterface */
-	private $stats;
-	/** @var LoggerInterface */
-	private $logger;
+	private SourceSiteLocator $sourceSiteLocator;
+	private Importer $importer;
+	private ImportPlanFactory $importPlanFactory;
+	private IContentHandlerFactory $contentHandlerFactory;
+	private StatsdDataFactoryInterface $stats;
+	private UserOptionsManager $userOptionsManager;
+	private LoggerInterface $logger;
 
 	public function __construct(
 		SourceSiteLocator $sourceSiteLocator,

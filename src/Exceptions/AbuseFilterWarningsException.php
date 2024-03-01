@@ -10,7 +10,7 @@ use MessageSpecifier;
 class AbuseFilterWarningsException extends LocalizedImportException {
 
 	/** @var MessageSpecifier[] */
-	protected $messages;
+	protected array $messages;
 
 	/**
 	 * @param MessageSpecifier[] $messages

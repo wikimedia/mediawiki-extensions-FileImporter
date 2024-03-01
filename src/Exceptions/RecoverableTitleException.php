@@ -15,8 +15,7 @@ use Throwable;
  */
 class RecoverableTitleException extends TitleException {
 
-	/** @var ImportPlan */
-	private $importPlan;
+	private ImportPlan $importPlan;
 
 	/**
 	 * @param string|array|MessageSpecifier $messageSpec See Message::newFromSpecifier

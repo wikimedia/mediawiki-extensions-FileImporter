@@ -11,7 +11,7 @@ use Wikimedia\Assert\Assert;
 class TextRevisions {
 
 	/** @var TextRevision[] */
-	private $textRevisions;
+	private array $textRevisions;
 	/** @var int|null */
 	private $latestKey = null;
 

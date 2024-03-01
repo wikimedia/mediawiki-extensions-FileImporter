@@ -43,30 +43,18 @@ class Importer {
 
 	private const ERROR_NO_NEW_PAGE = 'noPageCreated';
 
-	/** @var WikiPageFactory */
-	private $wikiPageFactory;
-	/** @var WikiRevisionFactory */
-	private $wikiRevisionFactory;
-	/** @var NullRevisionCreator */
-	private $nullRevisionCreator;
-	/** @var UserIdentityLookup */
-	private $userLookup;
-	/** @var HttpRequestExecutor */
-	private $httpRequestExecutor;
-	/** @var UploadBaseFactory */
-	private $uploadBaseFactory;
-	/** @var OldRevisionImporter */
-	private $oldRevisionImporter;
-	/** @var UploadRevisionImporter */
-	private $uploadRevisionImporter;
-	/** @var FileTextRevisionValidator */
-	private $textRevisionValidator;
-	/** @var RestrictionStore */
-	private $restrictionStore;
-	/** @var LoggerInterface */
-	private $logger;
-	/** @var StatsdDataFactoryInterface */
-	private $stats;
+	private WikiPageFactory $wikiPageFactory;
+	private WikiRevisionFactory $wikiRevisionFactory;
+	private NullRevisionCreator $nullRevisionCreator;
+	private UserIdentityLookup $userLookup;
+	private HttpRequestExecutor $httpRequestExecutor;
+	private UploadBaseFactory $uploadBaseFactory;
+	private OldRevisionImporter $oldRevisionImporter;
+	private UploadRevisionImporter $uploadRevisionImporter;
+	private FileTextRevisionValidator $textRevisionValidator;
+	private RestrictionStore $restrictionStore;
+	private LoggerInterface $logger;
+	private StatsdDataFactoryInterface $stats;
 
 	public function __construct(
 		WikiPageFactory $wikiPageFactory,

@@ -20,14 +20,10 @@ use MessageLocalizer;
  */
 class ImportPlan {
 
-	/** @var ImportRequest */
-	private $request;
-	/** @var ImportDetails */
-	private $details;
-	/** @var Config */
-	private $config;
-	/** @var MessageLocalizer */
-	private $messageLocalizer;
+	private ImportRequest $request;
+	private ImportDetails $details;
+	private Config $config;
+	private MessageLocalizer $messageLocalizer;
 	/** @var Title|null */
 	private $title = null;
 	/** @var Title|null */

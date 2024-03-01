@@ -5,6 +5,7 @@ namespace FileImporter\Html;
 use IContextSource;
 use ILanguageConverter;
 use MediaWiki\Html\Html;
+use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
@@ -17,18 +18,13 @@ use RequestContext;
 class CategoriesSnippet {
 
 	/** @var string[] */
-	private $visibleCategories;
+	private array $visibleCategories;
 	/** @var string[] */
-	private $hiddenCategories;
+	private array $hiddenCategories;
 
-	/** @var ILanguageConverter */
-	private $languageConverter;
-
-	/** @var \MediaWiki\Linker\LinkRenderer */
-	private $linkRenderer;
-
-	/** @var IContextSource */
-	private $context;
+	private ILanguageConverter $languageConverter;
+	private LinkRenderer $linkRenderer;
+	private IContextSource $context;
 
 	/**
 	 * @param string[] $visibleCategories

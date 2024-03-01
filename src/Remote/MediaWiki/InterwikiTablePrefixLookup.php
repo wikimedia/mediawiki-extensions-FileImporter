@@ -19,12 +19,9 @@ use Psr\Log\NullLogger;
  */
 class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
-	/** @var InterwikiLookup */
-	private $interwikiLookup;
-	/** @var HttpApiLookup */
-	private $httpApiLookup;
-	/** @var HttpRequestExecutor */
-	private $httpRequestExecutor;
+	private InterwikiLookup $interwikiLookup;
+	private HttpApiLookup $httpApiLookup;
+	private HttpRequestExecutor $httpRequestExecutor;
 	/** @var string[] Array mapping full host name to interwiki prefix */
 	private $interwikiTableMap;
 	/**
@@ -34,9 +31,8 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 */
 	private $parentDomainToUrlMap;
 	/** @var string[] */
-	private $interWikiConfigMap;
-	/** @var LoggerInterface */
-	private $logger;
+	private array $interWikiConfigMap;
+	private LoggerInterface $logger;
 
 	/**
 	 * @param InterwikiLookup $interwikiLookup

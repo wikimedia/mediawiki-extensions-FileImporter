@@ -17,10 +17,8 @@ use MediaWiki\Title\TitleParser;
  */
 class WikiLinkPrefixer implements WikiLinkCleaner {
 
-	/** @var string */
-	private $interWikiPrefix;
-	/** @var TitleParser */
-	private $parser;
+	private string $interWikiPrefix;
+	private TitleParser $parser;
 
 	/**
 	 * @param string $interWikiPrefix E.g. "de" for the German Wikipedia.

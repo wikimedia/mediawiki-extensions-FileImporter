@@ -14,8 +14,7 @@ use FileImporter\Exceptions\LocalizedImportException;
  */
 class ImportRequest {
 
-	/** @var SourceUrl */
-	private $url;
+	private SourceUrl $url;
 	/** @var null|string */
 	private $intendedName;
 	/** @var null|string */

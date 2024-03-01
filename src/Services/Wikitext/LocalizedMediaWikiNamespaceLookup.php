@@ -13,8 +13,7 @@ use Language;
  */
 class LocalizedMediaWikiNamespaceLookup implements NamespaceNameLookup {
 
-	/** @var Language */
-	private $language;
+	private Language $language;
 
 	public function __construct( Language $language ) {
 		$this->language = $language;

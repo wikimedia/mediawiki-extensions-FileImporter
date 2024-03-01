@@ -11,7 +11,7 @@ use Wikimedia\Assert\Assert;
 class FileRevisions {
 
 	/** @var FileRevision[] */
-	private $fileRevisions;
+	private array $fileRevisions;
 	/** @var int|null */
 	private $latestKey = null;
 

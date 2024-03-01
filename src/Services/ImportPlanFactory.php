@@ -19,12 +19,9 @@ use RequestContext;
  */
 class ImportPlanFactory {
 
-	/** @var SourceSiteLocator */
-	private $sourceSiteLocator;
-	/** @var DuplicateFileRevisionChecker */
-	private $duplicateFileRevisionChecker;
-	/** @var UploadBaseFactory */
-	private $uploadBaseFactory;
+	private SourceSiteLocator $sourceSiteLocator;
+	private DuplicateFileRevisionChecker $duplicateFileRevisionChecker;
+	private UploadBaseFactory $uploadBaseFactory;
 
 	public function __construct(
 		SourceSiteLocator $sourceSiteLocator,

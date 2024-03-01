@@ -21,24 +21,17 @@ use WikiRevision;
  */
 class TextRevisionFromTextRevision implements ImportOperation {
 
-	/** @var Title */
-	private $plannedTitle;
+	private Title $plannedTitle;
 	/** @var User user performing the import */
-	private $user;
-	/** @var TextRevision */
-	private $textRevision;
-	/** @var WikiRevisionFactory */
-	private $wikiRevisionFactory;
+	private User $user;
+	private TextRevision $textRevision;
+	private WikiRevisionFactory $wikiRevisionFactory;
 	/** @var WikiRevision|null */
 	private $wikiRevision;
-	/** @var OldRevisionImporter */
-	private $importer;
-	/** @var FileTextRevisionValidator */
-	private $textRevisionValidator;
-	/** @var LoggerInterface */
-	private $logger;
-	/** @var RestrictionStore */
-	private $restrictionStore;
+	private OldRevisionImporter $importer;
+	private FileTextRevisionValidator $textRevisionValidator;
+	private RestrictionStore $restrictionStore;
+	private LoggerInterface $logger;
 
 	public function __construct(
 		Title $plannedTitle,

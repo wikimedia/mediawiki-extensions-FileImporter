@@ -16,12 +16,10 @@ use WikiRevision;
  */
 class WikiRevisionFactory {
 
-	/** @var IContentHandlerFactory */
-	private $contentHandlerFactory;
+	private IContentHandlerFactory $contentHandlerFactory;
 	/** @var string */
 	private $interwikiPrefix;
-	/** @var ExternalUserNames */
-	private $externalUserNames;
+	private ExternalUserNames $externalUserNames;
 
 	// TODO: should be changed back to lowercase when T221235 is fixed.
 	public const DEFAULT_USERNAME_PREFIX = 'Imported';

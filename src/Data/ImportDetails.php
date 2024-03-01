@@ -12,16 +12,12 @@ use MediaWiki\Linker\LinkTarget;
  */
 class ImportDetails {
 
-	/** @var SourceUrl */
-	private $sourceUrl;
-	/** @var LinkTarget */
-	private $sourceLinkTarget;
+	private SourceUrl $sourceUrl;
+	private LinkTarget $sourceLinkTarget;
 	/** @var string|null */
 	private $pageLanguage;
-	/** @var TextRevisions */
-	private $textRevisions;
-	/** @var FileRevisions */
-	private $fileRevisions;
+	private TextRevisions $textRevisions;
+	private FileRevisions $fileRevisions;
 	/** @var string[] */
 	private $templates = [];
 	/** @var string[] */

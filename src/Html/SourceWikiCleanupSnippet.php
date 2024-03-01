@@ -29,12 +29,9 @@ class SourceWikiCleanupSnippet {
 	private $sourceEditingEnabled;
 	/** @var bool */
 	private $sourceDeletionEnabled;
-	/** @var WikidataTemplateLookup */
-	private $lookup;
-	/** @var RemoteApiActionExecutor */
-	private $remoteActionApi;
-	/** @var LoggerInterface */
-	private $logger;
+	private WikidataTemplateLookup $lookup;
+	private RemoteApiActionExecutor $remoteActionApi;
+	private LoggerInterface $logger;
 
 	/**
 	 * @param bool $sourceEditingEnabled

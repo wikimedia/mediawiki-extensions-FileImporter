@@ -12,8 +12,7 @@ class WikitextContentCleaner {
 
 	/** @var int */
 	private $latestNumberOfReplacements = 0;
-	/** @var WikitextConversions */
-	private $wikitextConversions;
+	private WikitextConversions $wikitextConversions;
 	/** @var string|null Name of a language template to wrap parameters in, e.g. "de" for the {{de|…}} template */
 	private $sourceWikiLanguageTemplate = null;
 

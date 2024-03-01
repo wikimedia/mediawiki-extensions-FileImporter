@@ -23,16 +23,14 @@ use RuntimeException;
  */
 class WikidataTemplateLookup {
 
-	/** @var SiteTableSiteLookup */
-	private $siteLookup;
-	/** @var HttpRequestExecutor */
-	private $requestExecutor;
-	/** @var LoggerInterface */
-	private $logger;
+	private SiteTableSiteLookup $siteLookup;
+	private HttpRequestExecutor $requestExecutor;
+	private LoggerInterface $logger;
 	/** @var string */
 	private $entityEndpoint;
 	/** @var string|null */
 	private $nowCommonsEntityId;
+
 	/** @var string[][] Array mapping site id and entity id to a template title name */
 	private $templateCache = [];
 

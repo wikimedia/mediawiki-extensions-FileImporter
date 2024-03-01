@@ -31,20 +31,14 @@ use UploadBase;
  */
 class ImportPlanValidator {
 
-	/** @var DuplicateFileRevisionChecker */
-	private $duplicateFileChecker;
-	/** @var ImportTitleChecker */
-	private $importTitleChecker;
-	/** @var UploadBaseFactory */
-	private $uploadBaseFactory;
-	/** @var CommonsHelperConfigRetriever|null */
-	private $commonsHelperConfigRetriever;
+	private DuplicateFileRevisionChecker $duplicateFileChecker;
+	private ImportTitleChecker $importTitleChecker;
+	private UploadBaseFactory $uploadBaseFactory;
+	private ?CommonsHelperConfigRetriever $commonsHelperConfigRetriever;
 	/** @var string|null */
 	private $commonsHelperHelpPage;
-	/** @var WikiLinkParserFactory */
-	private $wikiLinkParserFactory;
-	/** @var RestrictionStore */
-	private $restrictionStore;
+	private WikiLinkParserFactory $wikiLinkParserFactory;
+	private RestrictionStore $restrictionStore;
 
 	/**
 	 * @param DuplicateFileRevisionChecker $duplicateFileChecker

@@ -13,8 +13,7 @@ class RemoteApiActionExecutor {
 
 	public const CHANGE_TAG = 'fileimporter-remote';
 
-	/** @var RemoteApiRequestExecutor */
-	private $remoteApiRequestExecutor;
+	private RemoteApiRequestExecutor $remoteApiRequestExecutor;
 
 	public function __construct( RemoteApiRequestExecutor $remoteApiRequestExecutor ) {
 		$this->remoteApiRequestExecutor = $remoteApiRequestExecutor;

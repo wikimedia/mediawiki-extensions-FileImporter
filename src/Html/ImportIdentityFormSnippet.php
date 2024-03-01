@@ -12,8 +12,7 @@ use MediaWiki\Html\Html;
  */
 class ImportIdentityFormSnippet {
 
-	/** @var array */
-	private $identityParts;
+	private array $identityParts;
 
 	private const IDENTITY_KEYS = [
 		'clientUrl',

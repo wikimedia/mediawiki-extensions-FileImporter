@@ -21,16 +21,13 @@ class FileChunkSaver implements LoggerAwareInterface {
 	private const ERROR_CHUNK_OPEN = 'chunkNotOpened';
 	private const ERROR_CHUNK_SAVE = 'chunkNotSaved';
 
-	/** @var string */
-	private $filePath;
-	/** @var int */
-	private $maxBytes;
+	private string $filePath;
+	private int $maxBytes;
 	/** @var null|resource|bool */
 	private $handle = null;
 	/** @var int */
 	private $fileSize = 0;
-	/** @var LoggerInterface */
-	private $logger;
+	private LoggerInterface $logger;
 
 	public function __construct( string $filePath, int $maxBytes ) {
 		$this->filePath = $filePath;

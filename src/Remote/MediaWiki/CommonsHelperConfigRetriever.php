@@ -17,14 +17,11 @@ use MediaWiki\Revision\SlotRecord;
  */
 class CommonsHelperConfigRetriever {
 
-	/** @var Config */
-	private $mainConfig;
-	/** @var HttpRequestExecutor */
-	private $httpRequestExecutor;
-	/** @var string */
-	private $configServer;
-	/** @var string */
-	private $configBasePageName;
+	private Config $mainConfig;
+	private HttpRequestExecutor $httpRequestExecutor;
+	private string $configServer;
+	private string $configBasePageName;
+
 	/** @var string|null */
 	private $configWikitext = null;
 	/** @var string|null */
@@ -69,7 +66,8 @@ class CommonsHelperConfigRetriever {
 			$latestRevision = end( $currPage['revisions'] );
 			if ( array_key_exists( 'slots', $latestRevision ) &&
 				array_key_exists( SlotRecord::MAIN, $latestRevision['slots'] ) &&
-				array_key_exists( 'content', $latestRevision['slots'][SlotRecord::MAIN] ) ) {
+				array_key_exists( 'content', $latestRevision['slots'][SlotRecord::MAIN] )
+			) {
 				$this->configWikiUrl = $this->buildCommonsHelperConfigUrl( $sourceUrl );
 				$this->configWikitext = $latestRevision['slots'][SlotRecord::MAIN]['content'];
 				return true;

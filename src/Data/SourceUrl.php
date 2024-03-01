@@ -19,8 +19,7 @@ class SourceUrl {
 
 	private const ERROR_SOURCE_URL_UNPARSEABLE = 'sourceUrlUnparseable';
 
-	/** @var string */
-	private $url;
+	private string $url;
 	/** @var string[] */
 	private $parsed;
 

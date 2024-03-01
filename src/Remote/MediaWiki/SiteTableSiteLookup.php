@@ -17,10 +17,8 @@ use SiteLookup;
  */
 class SiteTableSiteLookup {
 
-	/** @var SiteLookup */
-	private $siteLookup;
-	/** @var LoggerInterface */
-	private $logger;
+	private SiteLookup $siteLookup;
+	private LoggerInterface $logger;
 	/** @var string[] */
 	private $hostGlobalIdMap = [];
 

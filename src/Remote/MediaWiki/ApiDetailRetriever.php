@@ -27,14 +27,11 @@ use Psr\Log\NullLogger;
 class ApiDetailRetriever implements DetailRetriever {
 	use MediaWikiSourceUrlParser;
 
-	/** @var HttpApiLookup */
-	private $httpApiLookup;
-	/** @var HttpRequestExecutor */
-	private $httpRequestExecutor;
+	private HttpApiLookup $httpApiLookup;
+	private HttpRequestExecutor $httpRequestExecutor;
 	/** @var int */
 	private $maxBytes;
-	/** @var LoggerInterface */
-	private $logger;
+	private LoggerInterface $logger;
 	/**
 	 * @var string Placeholder name replacing usernames that have been suppressed as part of
 	 * a steward action on the source site.

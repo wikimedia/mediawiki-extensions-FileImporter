@@ -13,7 +13,7 @@ class DuplicateFilesException extends ImportException {
 	private const ERROR_CODE = 'duplicateFiles';
 
 	/** @var File[] */
-	private $files;
+	private array $files;
 
 	/**
 	 * @param File[] $duplicateFiles
