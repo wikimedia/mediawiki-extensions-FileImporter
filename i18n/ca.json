@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
+			"Lluis Cat",
 			"Townie",
 			"Vfc"
 		]
 	},
 	"fileimporter-specialpage": "Importa un fitxer",
 	"fileimporter-cleanup-failed": "No ha estat possible editar automàticament el wiki d’origen.",
+	"fileimporter-add-specific-template": "S'ha importat el fitxer. Per declarar que el fitxer es troba ara a {{SITENAME}}, torneu al [$1 fitxer original] i afegiu-hi aquesta plantilla: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-commonshelper-parsing-failed": "La pàgina de configuració del wiki ($1) no s’ha completat. Assegureu-vos que conté la secció «$2»."
 }
