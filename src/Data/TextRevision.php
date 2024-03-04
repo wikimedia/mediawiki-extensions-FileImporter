@@ -55,17 +55,25 @@ class TextRevision {
 	}
 
 	public function getContent(): string {
-		return $this->fields['slots'][SlotRecord::MAIN]['content'];
+		// Old, incomplete database entries result in slots with no content but marked as "missing"
+		// or "badcontentformat", {@see ApiQueryRevisionsBase::extractAllSlotInfo}. FileImporter's
+		// general philosophy is to be ok with missing text, but not with missing files.
+		return $this->fields['slots'][SlotRecord::MAIN]['content'] ?? '';
 	}
 
 	public function getContentFormat(): string {
-		return $this->fields['slots'][SlotRecord::MAIN]['contentformat'];
+		// We know old, incomplete database entries can't be anything but wikitext
+		return $this->fields['slots'][SlotRecord::MAIN]['contentformat'] ?? CONTENT_FORMAT_WIKITEXT;
 	}
 
 	public function getContentModel(): string {
-		return $this->fields['slots'][SlotRecord::MAIN]['contentmodel'];
+		// We know old, incomplete database entries can't be anything but wikitext
+		return $this->fields['slots'][SlotRecord::MAIN]['contentmodel'] ?? CONTENT_MODEL_WIKITEXT;
 	}
 
+	/**
+	 * @internal for debugging only
+	 */
 	public function getFields(): array {
 		return $this->fields;
 	}
