@@ -53,6 +53,9 @@ class FileRevision {
 		return $this->fields[$name] ?? null;
 	}
 
+	/**
+	 * @internal for debugging only
+	 */
 	public function getFields(): array {
 		return $this->fields;
 	}

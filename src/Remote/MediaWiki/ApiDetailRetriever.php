@@ -331,7 +331,7 @@ class ApiDetailRetriever implements DetailRetriever {
 			}
 
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
-				$revisionInfo['user'] = $this->suppressedUsername;
+				$revisionInfo['user'] ??= $this->suppressedUsername;
 			}
 
 			if ( ( $revisionInfo['size'] ?? 0 ) > $this->maxBytes ) {
@@ -348,8 +348,8 @@ class ApiDetailRetriever implements DetailRetriever {
 			}
 
 			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
-				$revisionInfo['comment'] = wfMessage( 'fileimporter-revision-removed-comment' )
-					->plain();
+				$revisionInfo['comment'] ??=
+					wfMessage( 'fileimporter-revision-removed-comment' )->plain();
 			}
 
 			$revisionInfo['name'] = $pageTitle;
@@ -368,17 +368,17 @@ class ApiDetailRetriever implements DetailRetriever {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
 			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
-				$revisionInfo['user'] = $this->suppressedUsername;
+				$revisionInfo['user'] ??= $this->suppressedUsername;
 			}
 
 			if ( array_key_exists( 'texthidden', $revisionInfo ) ) {
-				$revisionInfo['slots'][SlotRecord::MAIN]['content'] = wfMessage( 'fileimporter-revision-removed-text' )
-					->plain();
+				$revisionInfo['slots'][SlotRecord::MAIN]['content'] ??=
+					wfMessage( 'fileimporter-revision-removed-text' )->plain();
 			}
 
 			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
-				$revisionInfo['comment'] = wfMessage( 'fileimporter-revision-removed-comment' )
-					->plain();
+				$revisionInfo['comment'] ??=
+					wfMessage( 'fileimporter-revision-removed-comment' )->plain();
 			}
 
 			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );
