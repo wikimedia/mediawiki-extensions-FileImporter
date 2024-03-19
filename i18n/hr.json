@@ -75,7 +75,7 @@
 	"fileimporter-revision-removed-comment": "Sakriveni komentar koji je uklonio alat za uvoz datoteka.",
 	"fileimporter-filemissinginrevision": "Uvoz datoteke nije moguć jer u bar jednoj od izmjena nedostaje datoteka.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Datoteka koju|$1 inačice datoteke koje|$1 inačica datoteka koje }} pokušavate uvesti {{PLURAL:$1|prekoračuje|prekoračuju|prekoračuje}} veličinu koju uvoznik može obraditi.",
-	"fileimporter-import-wait": "Uvoz može potrajati par minuta.",
+	"fileimporter-import-wait": "Uvoz može potrajati nekoliko minuta.",
 	"fileimporter-imported-success-banner": "Datoteka je uvezena na projekt {{SITENAME}}.",
 	"fileimporter-add-unknown-template": "Datoteka je uvezena. Da biste označili da je sada na projektu {{SITENAME}}, molimo vratite se na [$1 izvornu datoteku] i dodajte predložak.",
 	"fileimporter-add-specific-template": "Datoteka je uvezena. Da biste označili da je sada na projektu {{SITENAME}}, molimo vratite se na [$1 izvornu datoteku] i dodajte ovaj predložak: <code><nowiki>{{$2|$3}}</nowiki></code>.",
