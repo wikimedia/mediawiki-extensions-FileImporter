@@ -29,7 +29,7 @@ class AllowedDomainsFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 		foreach ( $this->allowedDomains as $allowedDomain ) {
 			if ( $host === $allowedDomain ||
 				// If the allowed domain starts with a . allow subdomains
-				str_starts_with( $allowedDomain, '.' ) && str_ends_with( $host, $allowedDomain )
+				( str_starts_with( $allowedDomain, '.' ) && str_ends_with( $host, $allowedDomain ) )
 			) {
 				return parent::checkSourceUrl( $sourceUrl );
 			}
