@@ -163,16 +163,16 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	private function setHiddencat( int $page_id ): void {
-		$this->db->insert(
-			'page_props',
-			[
+		$this->db->newInsertQueryBuilder()
+			->insertInto( 'page_props' )
+			->ignore()
+			->row( [
 				'pp_page' => $page_id,
 				'pp_propname' => 'hiddencat',
 				'pp_value' => 1,
-			],
-			__METHOD__,
-			[ 'IGNORE' ]
-		);
+			] )
+			->caller( __METHOD__ )
+			->execute();
 	}
 
 }
