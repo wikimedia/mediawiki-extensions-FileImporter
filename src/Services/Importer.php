@@ -12,6 +12,7 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
+use IApiMessage;
 use IDBAccessObject;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\MediaWikiServices;
@@ -241,18 +242,17 @@ class Importer {
 
 	private function validateImportOperations( StatusValue $status, ImportPlan $importPlan ): void {
 		if ( !$status->isGood() ) {
-			/** @var \IApiMessage[] $newAbuseFilterWarnings */
+			/** @var IApiMessage[] $newAbuseFilterWarnings */
 			$newAbuseFilterWarnings = [];
 
-			foreach ( $status->getErrors() as $error ) {
-				$message = $error['message'];
-
-				if ( is_string( $message ) && $error['params'] ) {
-					// Can be replaced with [ $string, ...$array ] in PHP 7.4
-					$message = array_merge( [ $message ], $error['params'] );
+			foreach ( $status->getErrors() as [ 'message' => $message, 'params' => $params ] ) {
+				if ( is_string( $message ) ) {
+					// Convert to an array compatible with MessageSpecifier
+					$message = [ $message, ...$params ];
 				}
 
-				if ( !( $message instanceof \IApiMessage ) ) {
+				if ( !( $message instanceof IApiMessage ) ) {
+					// Unexpected errors bubble up and surface in SpecialImportFile::doImport
 					throw new LocalizedImportException( $message );
 				}
 

@@ -152,16 +152,9 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			]
 		] );
 
-		$status = $this->createMock( StatusValue::class );
-		$status->expects( $this->once() )
-			->method( 'isGood' )
-			->willReturn( false );
-		$status->expects( $this->once() )
-			->method( 'getErrors' )
-			->willReturn( [
-				[ 'message' => $apiMessage1 ],
-				[ 'message' => $apiMessage2 ]
-			] );
+		$status = StatusValue::newGood();
+		$status->warning( $apiMessage1 );
+		$status->warning( $apiMessage2 );
 
 		$importer = new Importer(
 			$this->createMock( WikiPageFactory::class ),
@@ -211,16 +204,9 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			]
 		] );
 
-		$status = $this->createMock( StatusValue::class );
-		$status->expects( $this->once() )
-			->method( 'isGood' )
-			->willReturn( false );
-		$status->expects( $this->once() )
-			->method( 'getErrors' )
-			->willReturn( [
-				[ 'message' => $apiMessage1 ],
-				[ 'message' => $apiMessage2 ]
-			] );
+		$status = StatusValue::newGood();
+		$status->warning( $apiMessage1 );
+		$status->warning( $apiMessage2 );
 
 		$importer = new Importer(
 			$this->createMock( WikiPageFactory::class ),
