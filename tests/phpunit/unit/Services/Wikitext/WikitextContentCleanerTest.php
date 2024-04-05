@@ -213,6 +213,18 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 				'expectedWikitext' => "{{Info|desc = {{de|foo [[…|x=1]]}} \n|desc = {{de|}}\n}}",
 			],
 
+			'no language template when another one already exists' => [
+				'replacements' => [ 'Info' => [
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'desc' => [
+						'sourceParameters' => 'desc',
+						'addLanguageTemplate' => true
+					] ],
+				] ],
+				'wikitext' => '{{Info|desc = {{fr | … }} }}',
+				'expectedWikitext' => '{{Info|desc = {{fr | … }} }}',
+			],
+
 			'add language template to unnamed parameter' => [
 				'replacements' => [ 'Info' => [
 					'targetTemplate' => 'Info',

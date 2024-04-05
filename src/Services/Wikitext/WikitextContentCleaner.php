@@ -14,7 +14,7 @@ class WikitextContentCleaner {
 	private $latestNumberOfReplacements = 0;
 	/** @var WikitextConversions */
 	private $wikitextConversions;
-	/** @var string|null */
+	/** @var string|null Name of a language template to wrap parameters in, e.g. "de" for the {{de|…}} template */
 	private $sourceWikiLanguageTemplate = null;
 
 	public function __construct( WikitextConversions $conversions ) {
@@ -242,7 +242,8 @@ class WikitextContentCleaner {
 	 * @param array[] $parameters "parameters" list as returned by {@see parseTemplateParameters}
 	 * @param array[] $replacements Array mapping old to new parameters, as returned by
 	 *  {@see WikitextConversions::getTemplateParameters}
-	 * @param string|null $languageTemplate a template name representing the source wiki's language
+	 * @param string|null $languageTemplate Name of a language template to wrap parameters in,
+	 *  e.g. "de" for the {{de|…}} template
 	 */
 	private function renameTemplateParameters(
 		string $wikitext,
@@ -260,10 +261,13 @@ class WikitextContentCleaner {
 
 			if ( isset( $replacements[$from] ) ) {
 				if ( $languageTemplate !== null && $replacements[$from]['addLanguageTemplate'] ) {
+					$regex = '/\{\{\s*(' . preg_quote( $languageTemplate, '/' ) . '|[a-z]{2})\s*\|/A';
 					$start = $parameters[$i]['valueOffset'];
-					$end = $start + strlen( $parameters[$i]['value'] );
-					$wikitext = substr_replace( $wikitext, '}}', $end, 0 );
-					$wikitext = substr_replace( $wikitext, '{{' . $languageTemplate . '|', $start, 0 );
+					if ( !preg_match( $regex, $wikitext, $matches, 0, $start ) ) {
+						$end = $start + strlen( $parameters[$i]['value'] );
+						$wikitext = substr_replace( $wikitext, '}}', $end, 0 );
+						$wikitext = substr_replace( $wikitext, '{{' . $languageTemplate . '|', $start, 0 );
+					}
 				}
 
 				$to = $replacements[$from]['target'];
