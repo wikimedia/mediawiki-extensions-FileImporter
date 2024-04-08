@@ -35,22 +35,21 @@ class TextRevisions {
 	 * @return TextRevision|null
 	 */
 	public function getLatest() {
-		if ( $this->latestKey === null ) {
-			$this->calculateLatestKey();
-		}
-
+		$this->latestKey ??= $this->calculateLatestKey();
 		return $this->latestKey !== null ? $this->textRevisions[$this->latestKey] : null;
 	}
 
-	private function calculateLatestKey() {
+	private function calculateLatestKey(): ?int {
 		$latestTimestamp = 0;
+		$latestKey = null;
 		foreach ( $this->textRevisions as $key => $revision ) {
 			$timestamp = strtotime( $revision->getField( 'timestamp' ) );
 			if ( $latestTimestamp < $timestamp ) {
 				$latestTimestamp = $timestamp;
-				$this->latestKey = $key;
+				$latestKey = $key;
 			}
 		}
+		return $latestKey;
 	}
 
 }

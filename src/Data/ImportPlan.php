@@ -70,10 +70,7 @@ class ImportPlan {
 	}
 
 	public function getOriginalTitle(): Title {
-		if ( !$this->originalTitle ) {
-			$this->originalTitle = Title::newFromLinkTarget( $this->details->getSourceLinkTarget() );
-		}
-
+		$this->originalTitle ??= Title::newFromLinkTarget( $this->details->getSourceLinkTarget() );
 		return $this->originalTitle;
 	}
 

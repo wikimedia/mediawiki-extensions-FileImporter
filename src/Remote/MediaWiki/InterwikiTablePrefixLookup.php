@@ -99,22 +99,18 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * Lookup host in the local interwiki table.
 	 */
 	private function getPrefixFromInterwikiTable( string $host ): ?string {
-		if ( $this->interwikiTableMap === null ) {
-			$this->interwikiTableMap = $this->prefetchInterwikiMap();
-		}
+		$this->interwikiTableMap ??= $this->prefetchInterwikiMap();
 
-		if ( isset( $this->interwikiTableMap[$host] ) ) {
-			return $this->interwikiTableMap[$host];
-		} else {
+		if ( !isset( $this->interwikiTableMap[$host] ) ) {
 			$this->logger->debug(
 				'Host {host} does not match any local interwiki entry.',
 				[
 					'host' => $host,
 				]
 			);
-
-			return null;
 		}
+
+		return $this->interwikiTableMap[$host] ?? null;
 	}
 
 	/**
@@ -125,9 +121,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * target wiki's local Interwiki table.
 	 */
 	private function getTwoHopPrefixThroughIntermediary( string $host ): ?string {
-		if ( $this->parentDomainToUrlMap === null ) {
-			$this->parentDomainToUrlMap = $this->prefetchParentDomainToHostMap();
-		}
+		$this->parentDomainToUrlMap ??= $this->prefetchParentDomainToHostMap();
 
 		// TODO: The sub-domain-based intermediate host-guessing logic should be in its own
 		// class, and pluggable.
@@ -240,9 +234,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @return string[]
 	 */
 	private function prefetchParentDomainToHostMap(): array {
-		if ( $this->interwikiTableMap === null ) {
-			$this->interwikiTableMap = $this->prefetchInterwikiMap();
-		}
+		$this->interwikiTableMap ??= $this->prefetchInterwikiMap();
 
 		$maps = [];
 		foreach ( $this->interwikiTableMap as $host => $prefix ) {
