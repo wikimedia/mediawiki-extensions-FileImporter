@@ -105,8 +105,8 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 
 	public static function provideTemplateReplacements() {
 		return [
-			'empty' => [ [], 'a', false ],
-			'no substring matching' => [ [ 'a' => 'b' ], 'aa', false ],
+			'empty' => [ [], 'a', null ],
+			'no substring matching' => [ [ 'a' => 'b' ], 'aa', null ],
 			'rule is trimmed' => [ [ ' a ' => ' b ' ], 'a', 'b' ],
 			'input is trimmed' => [ [ 'a' => 'b' ], ' a ', 'b' ],
 			'rule is normalized' => [ [ 'a_a' => 'b_b' ], 'a a', 'b b' ],
@@ -119,7 +119,7 @@ class WikitextConversionsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideTemplateReplacements
 	 */
-	public function testTemplateReplacements( array $replacements, string $requested, $expected ) {
+	public function testTemplateReplacements( array $replacements, string $requested, ?string $expected ) {
 		$conversions = new WikitextConversions( [
 			WikitextConversions::TEMPLATE_TRANSFORMATIONS => $replacements,
 		] );
