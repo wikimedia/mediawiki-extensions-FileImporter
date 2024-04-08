@@ -18,8 +18,9 @@ class RecoverableTitleExceptionPage extends SpecialPageHtmlFragment {
 	 * @return string
 	 */
 	public function getHtml( RecoverableTitleException $exception ) {
+		$msg = $exception->getMessageObject()->inLanguage( $this->getLanguage() );
 		return new MessageWidget( [
-			'label' => new HtmlSnippet( $exception->getMessageObject()->parse() ),
+			'label' => new HtmlSnippet( $msg->parse() ),
 			'type' => 'warning',
 		] ) .
 		'<br>' .

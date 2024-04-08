@@ -42,7 +42,6 @@ use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsManager;
 use MediaWiki\User\User;
-use Message;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use PermissionsError;
@@ -354,7 +353,6 @@ class SpecialImportFile extends SpecialPage {
 			] );
 		} catch ( ImportException $exception ) {
 			if ( $exception instanceof AbuseFilterWarningsException ) {
-
 				$warningMessages = [];
 				$warningMessages[] = [
 					'type' => 'warning',
@@ -364,7 +362,7 @@ class SpecialImportFile extends SpecialPage {
 				foreach ( $exception->getMessages() as $msg ) {
 					$warningMessages[] = [
 						'type' => 'warning',
-						'message' => Message::newFromSpecifier( $msg )->parse()
+						'message' => $this->msg( $msg )->parse()
 					];
 				}
 
@@ -433,7 +431,7 @@ class SpecialImportFile extends SpecialPage {
 
 				foreach ( $exception->getMessages() as $msg ) {
 					$this->showWarningMessage(
-						Message::newFromSpecifier( $msg )->parse(),
+						$this->msg( $msg )->parse(),
 						'warning',
 						true
 					);
@@ -478,7 +476,7 @@ class SpecialImportFile extends SpecialPage {
 	 */
 	private function getWarningMessage( Exception $ex ): string {
 		if ( $ex instanceof LocalizedImportException ) {
-			return $ex->getMessageObject()->parse();
+			return $ex->getMessageObject()->inLanguage( $this->getLanguage() )->parse();
 		}
 		if ( $ex instanceof HttpRequestException ) {
 			return Status::wrap( $ex->getStatusValue() )->getHTML( false, false,

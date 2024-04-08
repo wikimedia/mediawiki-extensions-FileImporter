@@ -11,6 +11,7 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\SpecialImportFile;
+use Language;
 use Liuggio\StatsdClient\Factory\StatsdDataFactory;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\Output\OutputPage;
@@ -20,6 +21,7 @@ use MediaWiki\Session\CsrfTokenSet;
 use MediaWiki\Session\CsrfTokenSetProvider;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
+use MediaWikiIntegrationTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use Wikimedia\TestingAccessWrapper;
@@ -30,7 +32,7 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  * @author Christoph Jauera <christoph.jauera@wikimedia.de>
  */
-class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
+class SpecialImportFileDoImportTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -70,7 +72,7 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 
 		$specialImportFileMock = $this->getMockBuilder( SpecialImportFile::class )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'getContext', 'getOutput', 'getUser', 'msg' ] )
+			->onlyMethods( [ 'getContext', 'getOutput', 'getUser', 'getLanguage', 'msg' ] )
 			->getMock();
 		$specialImportFileMock->method( 'getContext' )
 			->willReturn( $this->createTokenProvider( $tokenMatches ) );
@@ -78,6 +80,10 @@ class SpecialImportFileDoImportTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $outPageMock );
 		$specialImportFileMock->method( 'getUser' )
 			->willReturn( $this->createMock( User::class ) );
+		$language = $this->createMock( Language::class );
+		$language->method( 'getCode' )->willReturn( 'qqx' );
+		$specialImportFileMock->method( 'getLanguage' )
+			->willReturn( $language );
 		$specialImportFileMock->method( 'msg' )
 			->willReturn( new RawMessage( '' ) );
 
