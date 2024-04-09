@@ -9,7 +9,8 @@
 			"Xiplus",
 			"烈羽",
 			"SunAfterRain",
-			"列维劳德"
+			"列维劳德",
+			"Cookai1205"
 		]
 	},
 	"fileimporter": "檔案匯入器",
@@ -97,6 +98,6 @@
 	"fileimporter-category-encouragement": "在{{SITENAME}}上的檔案應被分類，這會更容易來找到它們。您可以透過編輯此頁面上的檔案資訊，來更改該檔案的分類。",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|已|已}}對模板做出 $1 個自動{{PLURAL:$1|更改|更改}}",
 	"fileimporter-input-page-info-text": "查看我們的[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 說明頁面]來了解更多。",
-	"fileimporter-viewdiff": "顯示更改",
+	"fileimporter-viewdiff": "顯示變更",
 	"fileimporter-to-preview": "返回預覽"
 }
