@@ -150,12 +150,10 @@ class WikitextConversions {
 
 	/**
 	 * @param string $templateName Case-insensitive page name. Prefixes are significant.
-	 *
-	 * @return string|false
 	 */
-	public function swapTemplate( string $templateName ) {
+	public function swapTemplate( string $templateName ): ?string {
 		$templateName = $this->lowercasePageName( $templateName );
-		return $this->transferTemplates[$templateName]['targetTemplate'] ?? false;
+		return $this->transferTemplates[$templateName]['targetTemplate'] ?? null;
 	}
 
 	/**

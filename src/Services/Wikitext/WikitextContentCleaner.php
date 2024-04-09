@@ -87,6 +87,7 @@ class WikitextContentCleaner {
 				$wikitext = substr_replace( $wikitext, '', $start, $parseResult['end'] - $start );
 				continue;
 			}
+			'@phan-var string $newTemplateName';
 
 			$wikitext = $this->renameTemplateParameters(
 				$wikitext,
