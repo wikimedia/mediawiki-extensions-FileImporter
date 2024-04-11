@@ -10,7 +10,7 @@ use MediaWiki\Config\Config;
 use MediaWiki\Config\HashConfig;
 use MediaWikiIntegrationTestCase;
 use MWHttpRequest;
-use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Site;
 
 /**
@@ -52,7 +52,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			$config,
 			$mockSiteLookup,
 			$mockRequestExecutor,
-			$this->createMock( LoggerInterface::class )
+			new NullLogger()
 		);
 
 		$sourceUrl = new SourceUrl(
@@ -72,7 +72,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			$this->createMock( Config::class ),
 			$mockSiteLookup,
 			$this->createMock( HttpRequestExecutor::class ),
-			$this->createMock( LoggerInterface::class )
+			new NullLogger()
 		);
 
 		$sourceUrl = new SourceUrl(
@@ -108,7 +108,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			$config,
 			$mockSiteLookup,
 			$mockRequestExecutor,
-			$this->createMock( LoggerInterface::class )
+			new NullLogger()
 		);
 
 		$sourceUrl = new SourceUrl(
