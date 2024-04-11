@@ -7,16 +7,16 @@ use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use Hamcrest\Matcher;
-use HashSiteStore;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Site\HashSiteStore;
+use MediaWiki\Site\Site;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\User\Options\UserOptionsManager;
 use MediaWiki\User\User;
 use MWHttpRequest;
 use PermissionsError;
-use Site;
 use SpecialPageTestBase;
 use StatusValue;
 

@@ -3,14 +3,14 @@
 namespace FileImporter\Services;
 
 use Content;
-use DerivativeContext;
 use FileImporter\HookRunner;
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
-use RequestContext;
 use StatusValue;
 
 /**

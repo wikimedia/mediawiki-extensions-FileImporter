@@ -8,10 +8,10 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Site\Site;
 use MediaWikiIntegrationTestCase;
 use MWHttpRequest;
 use Psr\Log\NullLogger;
-use Site;
 
 /**
  * @covers \FileImporter\Services\WikidataTemplateLookup

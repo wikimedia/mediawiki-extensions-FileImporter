@@ -5,12 +5,12 @@ namespace FileImporter\Tests\Html;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
-use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\ChangeFileInfoForm;
 use HamcrestPHPUnitIntegration;
 use Language;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
@@ -20,7 +20,6 @@ use MediaWiki\User\User;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use RequestContext;
 use Skin;
 
 /**
@@ -80,21 +79,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 	private function getMockImportDetails(): ImportDetails {
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getTextRevisions' )
-			->willReturn( $this->getMockTextRevisions() );
-		return $mock;
-	}
-
-	private function getMockTextRevisions(): TextRevisions {
-		$mock = $this->createMock( TextRevisions::class );
-		$mock->method( 'getLatest' )
-			->willReturn( $this->getMockTextRevision() );
-		return $mock;
-	}
-
-	private function getMockTextRevision(): TextRevision {
-		$mock = $this->createMock( TextRevision::class );
-		$mock->method( 'getField' )
-			->willReturn( '' );
+			->willReturn( $this->createNoOpMock( TextRevisions::class ) );
 		return $mock;
 	}
 

@@ -3,10 +3,10 @@
 namespace FileImporter\Remote\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
+use MediaWiki\Site\Site;
+use MediaWiki\Site\SiteLookup;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Site;
-use SiteLookup;
 
 /**
  * Lookup that can be used to get a Site object from the locally configured sites based on the

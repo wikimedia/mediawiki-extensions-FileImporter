@@ -2,7 +2,7 @@
 
 namespace FileImporter\Exceptions;
 
-use Message;
+use MediaWiki\Message\Message;
 use MessageSpecifier;
 use Throwable;
 

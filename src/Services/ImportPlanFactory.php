@@ -9,9 +9,9 @@ use FileImporter\Exceptions\ImportException;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
-use RequestContext;
 
 /**
  * @license GPL-2.0-or-later

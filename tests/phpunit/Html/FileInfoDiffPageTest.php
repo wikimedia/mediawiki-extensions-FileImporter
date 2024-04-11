@@ -2,21 +2,21 @@
 
 namespace FileImporter\Tests\Html;
 
-use DerivativeContext;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\FileInfoDiffPage;
-use IContextSource;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MessageLocalizer;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use RequestContext;
 
 /**
  * @covers \FileImporter\Html\FileInfoDiffPage

@@ -95,6 +95,9 @@ class ImportPlan {
 		return $this->title;
 	}
 
+	/**
+	 * @throws MalformedTitleException
+	 */
 	public function getFileName(): string {
 		return pathinfo( $this->getTitle()->getText() )['filename'];
 	}

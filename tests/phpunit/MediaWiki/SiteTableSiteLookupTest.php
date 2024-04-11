@@ -4,8 +4,8 @@ namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
-use HashSiteStore;
-use Site;
+use MediaWiki\Site\HashSiteStore;
+use MediaWiki\Site\Site;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\SiteTableSiteLookup

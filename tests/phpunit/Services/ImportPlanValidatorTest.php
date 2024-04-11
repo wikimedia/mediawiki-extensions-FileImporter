@@ -14,9 +14,7 @@ use FileImporter\Exceptions\RecoverableTitleException;
 use FileImporter\Exceptions\TitleException;
 use FileImporter\Interfaces\ImportTitleChecker;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
-use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\DuplicateFileRevisionChecker;
-use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\ImportPlanValidator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
@@ -52,15 +50,6 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 		$this->clearHooks();
 		$this->setUserLang( 'qqx' );
-
-		// FIXME: The following can be removed when the services are injected via the constructor.
-		$httpRequestExecutor = $this->createMock( HttpRequestExecutor::class );
-		$httpRequestExecutor->method( 'execute' )
-			->willReturn( $this->createMock( \MWHttpRequest::class ) );
-		$this->setService( 'FileImporterHttpRequestExecutor', $httpRequestExecutor );
-
-		$httpApiLookup = $this->createMock( HttpApiLookup::class );
-		$this->setService( 'FileImporterMediaWikiHttpApiLookup', $httpApiLookup );
 	}
 
 	/**
@@ -85,20 +74,16 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	private function getMockFileRevisions(): FileRevisions {
-		$mock = $this->createMock( FileRevisions::class );
-		$mockFileRevision = $this->createNoOpMock( FileRevision::class );
-		$mock->method( 'getLatest' )
-			->willReturn( $mockFileRevision );
-		return $mock;
-	}
-
 	private function getMockImportDetails( LinkTarget $sourceTitle ): ImportDetails {
+		$fileRevision = $this->createNoOpMock( FileRevision::class );
+		$fileRevisions = $this->createMock( FileRevisions::class );
+		$fileRevisions->method( 'getLatest' )->willReturn( $fileRevision );
+
 		$details = new ImportDetails(
 			new SourceUrl( '//w.invalid' ),
 			$sourceTitle,
 			$this->createMock( TextRevisions::class ),
-			$this->getMockFileRevisions()
+			$fileRevisions
 		);
 		$details->setPageLanguage( 'de' );
 		return $details;

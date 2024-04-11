@@ -5,11 +5,11 @@ namespace FileImporter\Html;
 use Language;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\MutableContext;
+use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
-use Message;
 use MessageLocalizer;
 
 /**

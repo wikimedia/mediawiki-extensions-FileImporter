@@ -15,6 +15,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
@@ -22,7 +23,6 @@ use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\Title;
-use RequestContext;
 use UploadBase;
 
 /**

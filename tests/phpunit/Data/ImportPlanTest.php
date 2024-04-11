@@ -8,8 +8,8 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Message\Message;
 use MediaWiki\Title\TitleValue;
-use Message;
 use MessageLocalizer;
 
 /**

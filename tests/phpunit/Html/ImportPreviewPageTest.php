@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Html;
 
-use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
 use FileImporter\Data\ImportPlan;
@@ -207,13 +206,16 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function getMockImportDetails( string $wikitext ): ImportDetails {
+		$fileRevisions = $this->createMock( FileRevisions::class );
+		$fileRevisions->method( 'toArray' )->willReturn( [] );
+
 		$mock = $this->createMock( ImportDetails::class );
 		$mock->method( 'getSourceLinkTarget' )
 			->willReturn( $this->createMock( LinkTarget::class ) );
 		$mock->method( 'getTextRevisions' )
 			->willReturn( $this->getMockTextRevisions( $wikitext ) );
 		$mock->method( 'getFileRevisions' )
-			->willReturn( $this->getMockFileRevisions() );
+			->willReturn( $fileRevisions );
 		$mock->method( 'getOriginalHash' )
 			->willReturn( self::HASH );
 		return $mock;
@@ -243,21 +245,6 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$mock->method( 'getContent' )->willReturn( $wikitext );
 		$mock->method( 'getContentFormat' )->willReturn( CONTENT_FORMAT_WIKITEXT );
 		$mock->method( 'getContentModel' )->willReturn( CONTENT_MODEL_WIKITEXT );
-		return $mock;
-	}
-
-	private function getMockFileRevisions(): FileRevisions {
-		$mockFileRevision = $this->getMockFileRevision();
-		$mock = $this->createMock( FileRevisions::class );
-		$mock->method( 'getLatest' )
-			->willReturn( $mockFileRevision );
-		$mock->method( 'toArray' )
-			->willReturn( [ $mockFileRevision ] );
-		return $mock;
-	}
-
-	private function getMockFileRevision(): FileRevision {
-		$mock = $this->createMock( FileRevision::class );
 		return $mock;
 	}
 
