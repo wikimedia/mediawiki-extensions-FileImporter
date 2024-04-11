@@ -21,7 +21,6 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Message\Message;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
@@ -71,24 +70,17 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
 
-		$message = $this->createMock( Message::class );
-		$message->expects( $this->exactly( 2 ) )
-			->method( 'inContentLanguage' )
-			->willReturn( $message );
-		$message->expects( $this->exactly( 2 ) )
-			->method( 'plain' )
-			->willReturn( '' );
-
-		$messageLocalizer = $this->createMock( MessageLocalizer::class );
-		$messageLocalizer->expects( $this->exactly( 2 ) )
-			->method( 'msg' )
-			->willReturn( $message );
+		$localizer = $this->createMock( MessageLocalizer::class );
+		$localizer->method( 'msg' )
+			->willReturnCallback( fn ( $key ) => $this->getMockMessage( "($key)" ) );
 
 		$minimalRequest = new ImportRequest( self::URL );
-		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision, $fileRevision, $messageLocalizer );
+		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision, $fileRevision, $localizer );
 
+		$expectedWikitext = self::COMMENT . "(fileimporter-post-import-revision-annotation)\n" .
+			self::CLEANED_WIKITEXT;
 		$importer = new Importer(
-			$this->createWikiPageFactoryMock( $user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
+			$this->createWikiPageFactoryMock( $user, $expectedWikitext, null ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $user ),
 			$this->createNoOpMock( UserIdentityLookup::class ),

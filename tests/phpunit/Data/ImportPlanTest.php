@@ -8,7 +8,6 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use MediaWiki\Config\HashConfig;
-use MediaWiki\Message\Message;
 use MediaWiki\Title\TitleValue;
 use MessageLocalizer;
 
@@ -165,18 +164,12 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 			'FileImporterTextForPostImportRevision' => $postImportComment,
 		] );
 
-		$message = $this->createMock( Message::class );
-		$message->method( 'inContentLanguage' )
-			->willReturn( $message );
-		$message->method( 'plain' )
-			->willReturn( $postImportAnnotation );
-
-		$messageLocalizer = $this->createMock( MessageLocalizer::class );
-		$messageLocalizer->method( 'msg' )
+		$localizer = $this->createMock( MessageLocalizer::class );
+		$localizer->method( 'msg' )
 			->with( 'fileimporter-post-import-revision-annotation' )
-			->willReturn( $message );
+			->willReturn( $this->getMockMessage( $postImportAnnotation ) );
 
-		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, '' );
+		$plan = new ImportPlan( $request, $details, $config, $localizer, '' );
 		$plan->setCleanedLatestRevisionText( $cleanedText );
 
 		$this->assertSame( $originalText, $plan->getInitialFileInfoText(), 'initialFileInfoText' );

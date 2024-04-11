@@ -21,7 +21,6 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Message\Message;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -123,7 +122,8 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$lastRevision->getComment()->text
 		);
 		$this->assertSame(
-			"<!--imported from http://example.com/Test.png-->\nThis is my text!",
+			"<!--imported from http://example.com/Test.png-->\n" .
+			"(fileimporter-post-import-revision-annotation)\nThis is my text!",
 			$lastRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
 
@@ -344,19 +344,9 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		$message = $this->createMock( Message::class );
-		$message->expects( $this->exactly( 2 ) )
-			->method( 'inContentLanguage' )
-			->willReturn( $message );
-		$message->expects( $this->exactly( 2 ) )
-			->method( 'plain' )
-			->willReturn( '' );
-
-		$messageLocalizer = $this->createMock( MessageLocalizer::class );
-		$messageLocalizer->expects( $this->exactly( 2 ) )
-			->method( 'msg' )
-			->with( 'fileimporter-post-import-revision-annotation' )
-			->willReturn( $message );
+		$localizer = $this->createMock( MessageLocalizer::class );
+		$localizer->method( 'msg' )
+			->willReturnCallback( fn ( $key ) => $this->getMockMessage( "($key)" ) );
 
 		return new ImportPlan(
 			new ImportRequest(
@@ -367,7 +357,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			),
 			$importDetails,
 			$config,
-			$messageLocalizer,
+			$localizer,
 			'testprefix'
 		);
 	}

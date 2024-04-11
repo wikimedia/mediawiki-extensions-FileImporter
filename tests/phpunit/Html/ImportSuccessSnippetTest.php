@@ -10,6 +10,7 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use MessageLocalizer;
+use MessageSpecifier;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use StatusValue;
@@ -99,10 +100,8 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 	private function createMessageLocalizer() {
 		$localizer = $this->createMock( MessageLocalizer::class );
 		$localizer->method( 'msg' )->willReturnCallback( function ( $msg ): Message {
-			$key = is_string( $msg ) ? $msg : $msg->getKey();
-			$msg = $this->createMock( Message::class );
-			$msg->method( 'parse' )->willReturn( "($key)" );
-			return $msg;
+			$key = $msg instanceof MessageSpecifier ? $msg->getKey() : $msg;
+			return $this->getMockMessage( "($key)" );
 		} );
 		return $localizer;
 	}
