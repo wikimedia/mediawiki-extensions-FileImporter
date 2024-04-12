@@ -24,6 +24,7 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserIdentityLookup;
+use MessageSpecifier;
 use NullStatsdDataFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
@@ -230,33 +231,28 @@ class Importer {
 
 	private function validateImportOperations( StatusValue $status, ImportPlan $importPlan ): void {
 		if ( !$status->isGood() ) {
-			/** @var IApiMessage[] $newAbuseFilterWarnings */
+			/** @var MessageSpecifier[] $newAbuseFilterWarnings */
 			$newAbuseFilterWarnings = [];
 
-			foreach ( $status->getErrors() as [ 'message' => $message, 'params' => $params ] ) {
-				if ( is_string( $message ) ) {
-					// Convert to an array compatible with MessageSpecifier
-					$message = [ $message, ...$params ];
-				}
-
-				if ( !( $message instanceof IApiMessage ) ) {
+			foreach ( $status->getMessages() as $msg ) {
+				if ( !( $msg instanceof IApiMessage ) ) {
 					// Unexpected errors bubble up and surface in SpecialImportFile::doImport
-					throw new LocalizedImportException( $message );
+					throw new LocalizedImportException( $msg );
 				}
 
-				$data = $message->getApiData()['abusefilter'] ?? null;
+				$data = $msg->getApiData()['abusefilter'] ?? null;
 				if ( !$data ||
 					!in_array( 'warn', $data['actions'] ) ||
 					in_array( 'disallow', $data['actions'] )
 				) {
-					throw new LocalizedImportException( $message );
+					throw new LocalizedImportException( $msg );
 				}
 
 				// Skip AbuseFilter warnings we have seen before
 				if ( !in_array( $data['id'], $importPlan->getValidationWarnings() ) ) {
 					// @phan-suppress-next-line PhanTypeMismatchArgument
 					$importPlan->addValidationWarning( $data['id'] );
-					$newAbuseFilterWarnings[] = $message;
+					$newAbuseFilterWarnings[] = $msg;
 				}
 			}
 

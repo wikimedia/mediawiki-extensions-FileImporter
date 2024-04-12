@@ -98,7 +98,8 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 	 */
 	private function createMessageLocalizer() {
 		$localizer = $this->createMock( MessageLocalizer::class );
-		$localizer->method( 'msg' )->willReturnCallback( function ( string $key ): Message {
+		$localizer->method( 'msg' )->willReturnCallback( function ( $msg ): Message {
+			$key = is_string( $msg ) ? $msg : $msg->getKey();
 			$msg = $this->createMock( Message::class );
 			$msg->method( 'parse' )->willReturn( "($key)" );
 			return $msg;
