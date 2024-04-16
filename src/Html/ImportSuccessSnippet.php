@@ -7,7 +7,6 @@ use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
-use Message;
 use MessageLocalizer;
 use MessageSpecifier;
 use OOUI\HtmlSnippet;
@@ -56,10 +55,12 @@ class ImportSuccessSnippet {
 
 		$html = '';
 
-		/** @var string|array|MessageSpecifier|null $messageSpecifier */
-		$messageSpecifier = $importResult->getValue();
-		if ( $messageSpecifier ) {
-			$msg = Message::newFromSpecifier( $messageSpecifier );
+		/** @var string|array|MessageSpecifier|null $spec */
+		$spec = $importResult->getValue();
+		if ( $spec ) {
+			// This reimplements Message::newFromSpecifier, but that wouldn't allow us to reuse the
+			// Language from the provided MessageLocalizer.
+			$msg = $messageLocalizer->msg( ...is_array( $spec ) ? $spec : [ $spec ] );
 			$html .= new MessageWidget( [
 				'label' => new HtmlSnippet( $msg->parse() ),
 				'type' => 'success',
