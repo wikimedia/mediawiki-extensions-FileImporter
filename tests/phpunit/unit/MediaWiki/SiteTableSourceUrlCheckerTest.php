@@ -14,7 +14,7 @@ use Site;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class SiteTableSourceUrlCheckerTest extends \MediaWikiIntegrationTestCase {
+class SiteTableSourceUrlCheckerTest extends \MediaWikiUnitTestCase {
 
 	/**
 	 * @param string[] $knownSites
