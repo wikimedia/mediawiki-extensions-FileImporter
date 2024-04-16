@@ -23,7 +23,7 @@ use RequestContext;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class ChangeFileNameFormTest extends \PHPUnit\Framework\TestCase {
+class ChangeFileNameFormTest extends \MediaWikiIntegrationTestCase {
 	use HamcrestPHPUnitIntegration;
 
 	protected function setUp(): void {

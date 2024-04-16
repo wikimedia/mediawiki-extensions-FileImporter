@@ -11,7 +11,7 @@ use FileImporter\Services\FileDescriptionPageValidator;
  *
  * @license GPL-2.0-or-later
  */
-class FileDescriptionPageValidatorTest extends \PHPUnit\Framework\TestCase {
+class FileDescriptionPageValidatorTest extends \MediaWikiIntegrationTestCase {
 
 	public function testSuccess() {
 		$conversions = new WikitextConversions( [] );

@@ -16,7 +16,7 @@ use StatusValue;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class HttpRequestExecutorTest extends \PHPUnit\Framework\TestCase {
+class HttpRequestExecutorTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideTestExecute() {
 		return [

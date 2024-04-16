@@ -11,7 +11,7 @@ use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class AnyMediaWikiFileUrlCheckerTest extends \PHPUnit\Framework\TestCase {
+class AnyMediaWikiFileUrlCheckerTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideTestCheck() {
 		return [

@@ -12,7 +12,7 @@ use FileImporter\Services\WikimediaSourceUrlNormalizer;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikimediaSourceUrlNormalizerTest extends \PHPUnit\Framework\TestCase {
+class WikimediaSourceUrlNormalizerTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideUrls() {
 		return [

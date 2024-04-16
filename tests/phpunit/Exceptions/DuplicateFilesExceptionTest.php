@@ -11,7 +11,7 @@ use FileImporter\Exceptions\DuplicateFilesException;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class DuplicateFilesExceptionTest extends \PHPUnit\Framework\TestCase {
+class DuplicateFilesExceptionTest extends \MediaWikiIntegrationTestCase {
 
 	public function testException() {
 		$files = [ new FakeDimensionFile( [] ) ];

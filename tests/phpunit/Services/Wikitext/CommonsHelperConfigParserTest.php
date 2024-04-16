@@ -12,7 +12,7 @@ use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class CommonsHelperConfigParserTest extends \PHPUnit\Framework\TestCase {
+class CommonsHelperConfigParserTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideCommonsHelperConfig() {
 		return [

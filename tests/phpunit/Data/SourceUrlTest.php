@@ -11,7 +11,7 @@ use FileImporter\Exceptions\InvalidArgumentException;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class SourceUrlTest extends \PHPUnit\Framework\TestCase {
+class SourceUrlTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideInvalidConstruction() {
 		return [

@@ -12,7 +12,7 @@ use MediaWiki\Title\TitleValue;
  *
  * @license GPL-2.0-or-later
  */
-class WikiLinkPrefixerTest extends \PHPUnit\Framework\TestCase {
+class WikiLinkPrefixerTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideLinks() {
 		return [

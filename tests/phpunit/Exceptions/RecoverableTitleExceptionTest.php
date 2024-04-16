@@ -11,7 +11,7 @@ use FileImporter\Exceptions\RecoverableTitleException;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class RecoverableTitleExceptionTest extends \PHPUnit\Framework\TestCase {
+class RecoverableTitleExceptionTest extends \MediaWikiIntegrationTestCase {
 
 	public function testException() {
 		$importPlan = $this->createMock( ImportPlan::class );

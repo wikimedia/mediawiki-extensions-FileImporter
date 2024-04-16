@@ -13,7 +13,7 @@ use FileImporter\Services\Wikitext\WikiLinkParserFactory;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class WikiLinkParserFactoryTest extends \PHPUnit\Framework\TestCase {
+class WikiLinkParserFactoryTest extends \MediaWikiIntegrationTestCase {
 
 	public function testInterwikiPrefixing() {
 		$factory = new WikiLinkParserFactory();

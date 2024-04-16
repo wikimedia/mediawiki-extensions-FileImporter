@@ -11,7 +11,7 @@ use MediaWiki\Title\NamespaceInfo;
  *
  * @license GPL-2.0-or-later
  */
-class NamespaceUnlocalizerTest extends \PHPUnit\Framework\TestCase {
+class NamespaceUnlocalizerTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideLinks() {
 		return [

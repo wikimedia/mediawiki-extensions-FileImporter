@@ -13,7 +13,7 @@ use Site;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class SiteTableSiteLookupTest extends \PHPUnit\Framework\TestCase {
+class SiteTableSiteLookupTest extends \MediaWikiIntegrationTestCase {
 
 	private function getSite( string $globalId, string $linkPath ): Site {
 		$site = new Site();

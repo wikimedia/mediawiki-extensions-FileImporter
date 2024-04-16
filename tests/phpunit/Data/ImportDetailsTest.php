@@ -17,7 +17,7 @@ use MediaWiki\Title\TitleValue;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class ImportDetailsTest extends \PHPUnit\Framework\TestCase {
+class ImportDetailsTest extends \MediaWikiIntegrationTestCase {
 
 	public function testValueObject() {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );

@@ -13,7 +13,7 @@ use FileImporter\Services\SourceSiteLocator;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class SourceSiteLocatorTest extends \PHPUnit\Framework\TestCase {
+class SourceSiteLocatorTest extends \MediaWikiIntegrationTestCase {
 
 	public function testNoSitesGiven() {
 		$url = new SourceUrl( '//wikimedia.de' );
