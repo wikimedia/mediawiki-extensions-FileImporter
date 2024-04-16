@@ -35,14 +35,14 @@ class SourceSiteTest extends \MediaWikiIntegrationTestCase {
 			->with( $sourceUrl )
 			->willReturn( true );
 
-		$importDetails = $this->createMock( ImportDetails::class );
+		$importDetails = $this->createNoOpMock( ImportDetails::class );
 		$detailRetriever = $this->createMock( DetailRetriever::class );
 		$detailRetriever->expects( $this->once() )
 			->method( 'getImportDetails' )
 			->with( $sourceUrl )
 			->willReturn( $importDetails );
 
-		$importTitleChecker = $this->createMock( ImportTitleChecker::class );
+		$importTitleChecker = $this->createNoOpMock( ImportTitleChecker::class );
 
 		$linkPrefixLookup = $this->createMock( LinkPrefixLookup::class );
 		$linkPrefixLookup->expects( $this->once() )
@@ -64,8 +64,8 @@ class SourceSiteTest extends \MediaWikiIntegrationTestCase {
 		);
 
 		$site->getPostImportHandler()->execute(
-			$this->createMock( ImportPlan::class ),
-			$this->createMock( User::class )
+			$this->createNoOpMock( ImportPlan::class ),
+			$this->createNoOpMock( User::class )
 		);
 
 		$this->assertTrue( $site->isSourceSiteFor( $sourceUrl ) );

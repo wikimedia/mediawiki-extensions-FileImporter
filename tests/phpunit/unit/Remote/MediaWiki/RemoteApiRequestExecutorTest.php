@@ -54,7 +54,7 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 			$csrfToken,
 			$apiRequestExecutor->getCsrfToken(
 				$this->createMock( SourceUrl::class ),
-				$this->createMock( User::class ) )
+				$this->createNoOpMock( User::class ) )
 		);
 	}
 
@@ -78,7 +78,7 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		$this->assertNull(
 			$apiRequestExecutor->getCsrfToken(
 				$this->createMock( SourceUrl::class ),
-				$this->createMock( User::class ) )
+				$this->createNoOpMock( User::class ) )
 		);
 	}
 
@@ -116,7 +116,7 @@ class RemoteApiRequestExecutorTest extends MediaWikiUnitTestCase {
 		$this->assertNull(
 			$apiRequestExecutor->getCsrfToken(
 				$this->createMock( SourceUrl::class ),
-				$this->createMock( User::class ) )
+				$this->createNoOpMock( User::class ) )
 		);
 	}
 

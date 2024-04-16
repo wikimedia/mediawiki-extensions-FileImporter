@@ -52,8 +52,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 	) {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( $validPrefix, [] ),
-			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
+			$this->createNoOpMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class ),
 			$interWikiMap
 		);
 
@@ -148,7 +148,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 	public function testGetPrefixFromLocalTable( array $iwMap, string $source, string $expected ) {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $iwMap ),
-			$this->createMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpApiLookup::class ),
 			$this->createInterwikiApi()
 		);
 
@@ -171,8 +171,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$iwMock,
-			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class )
+			$this->createNoOpMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class )
 		);
 
 		$this->assertSame(
@@ -279,7 +279,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 	) {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, $localIwMap ),
-			$this->createMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpApiLookup::class ),
 			$this->createInterwikiApi( $remoteIwMap )
 		);
 
@@ -351,7 +351,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 					'iw_prefix' => 'wikisource'
 				],
 			] ),
-			$this->createMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpApiLookup::class ),
 			$mockRequestExecutor
 		);
 
@@ -375,8 +375,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$mockInterwikiLookup,
-			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class )
+			$this->createNoOpMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class )
 		);
 
 		$this->assertSame(
@@ -391,7 +391,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			$this->createInterWikiLookupMock( false, [
 				[ 'iw_url' => '//bad.org', 'iw_prefix' => 'bad' ],
 			] ),
-			$this->createMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpApiLookup::class ),
 			$this->createInterwikiApi( [ [ 'url' => '//good.org', 'prefix' => 'good' ] ] )
 		) );
 
@@ -413,8 +413,8 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 					'iw_prefix' => 'skipme'
 				],
 			] ),
-			$this->createMock( HttpApiLookup::class ),
-			$this->createMock( HttpRequestExecutor::class )
+			$this->createNoOpMock( HttpApiLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class )
 		);
 		/** @var InterwikiTablePrefixLookup $mockLookup */
 		$mockLookup = TestingAccessWrapper::newFromObject( $mockLookup );

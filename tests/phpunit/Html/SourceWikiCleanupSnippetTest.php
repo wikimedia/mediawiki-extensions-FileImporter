@@ -54,7 +54,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 			'',
 			$snippet->getHtml(
 				$this->createImportPlan(),
-				$this->createMock( User::class )
+				$this->createNoOpMock( User::class )
 			)
 		);
 	}
@@ -65,7 +65,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 		$snippet = new SourceWikiCleanupSnippet();
 		$html = $snippet->getHtml(
 			$this->createImportPlan(),
-			$this->createMock( User::class )
+			$this->createNoOpMock( User::class )
 		);
 
 		$this->assertStringContainsString(
@@ -81,7 +81,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertTrue( $snippet->isSourceEditAllowed(
 			$this->createMock( SourceUrl::class ),
-			$this->createMock( User::class ),
+			$this->createNoOpMock( User::class ),
 			''
 		) );
 	}
@@ -93,23 +93,20 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertFalse( $snippet->isSourceEditAllowed(
 			$this->createMock( SourceUrl::class ),
-			$this->createMock( User::class ),
+			$this->createNoOpMock( User::class ),
 			''
 		) );
 	}
 
 	public function testIsSourceEditAllowed_configShortCircuits() {
-		$mockLookup = $this->createMock( WikidataTemplateLookup::class );
-		$mockLookup
-			->expects( $this->never() )
-			->method( 'fetchNowCommonsLocalTitle' );
+		$mockLookup = $this->createNoOpMock( WikidataTemplateLookup::class );
 		$this->setService( 'FileImporterTemplateLookup', $mockLookup );
 		/** @var SourceWikiCleanupSnippet $snippet */
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet( false ) );
 
 		$this->assertFalse( $snippet->isSourceEditAllowed(
 			$this->createMock( SourceUrl::class ),
-			$this->createMock( User::class ),
+			$this->createNoOpMock( User::class ),
 			''
 		) );
 	}
@@ -152,10 +149,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testIsSourceDeleteAllowed_configShortCircuits() {
-		$mockApi = $this->createMock( RemoteApiActionExecutor::class );
-		$mockApi
-			->expects( $this->never() )
-			->method( 'executeUserRightsQuery' );
+		$mockApi = $this->createNoOpMock( RemoteApiActionExecutor::class );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
 		/** @var SourceWikiCleanupSnippet $snippet */
 		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet( true, false ) );

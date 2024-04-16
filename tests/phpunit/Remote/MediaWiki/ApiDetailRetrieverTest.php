@@ -498,7 +498,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	private function newInstance() {
 		$apiDetailRetriever = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
-			$this->createMock( HttpRequestExecutor::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class ),
 			0
 		);
 		return TestingAccessWrapper::newFromObject( $apiDetailRetriever );

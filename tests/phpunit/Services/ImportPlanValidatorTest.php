@@ -87,7 +87,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 
 	private function getMockFileRevisions(): FileRevisions {
 		$mock = $this->createMock( FileRevisions::class );
-		$mockFileRevision = $this->createMock( FileRevision::class );
+		$mockFileRevision = $this->createNoOpMock( FileRevision::class );
 		$mock->method( 'getLatest' )
 			->willReturn( $mockFileRevision );
 		return $mock;

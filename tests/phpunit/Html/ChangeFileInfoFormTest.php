@@ -65,11 +65,11 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 		$context->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
 		$context->method( 'getSkin' )
-			->willReturn( $this->createMock( Skin::class ) );
+			->willReturn( $this->createNoOpMock( Skin::class ) );
 		$context->method( 'msg' )
 			->willReturn( new RawMessage( '' ) );
 
-		$mock = $this->createMock( SpecialPage::class );
+		$mock = $this->createNoOpMock( SpecialPage::class, [ 'getPageTitle', 'getContext' ] );
 		$mock->method( 'getPageTitle' )
 			->willReturn( $title );
 		$mock->method( 'getContext' )

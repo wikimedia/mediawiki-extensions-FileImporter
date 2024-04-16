@@ -24,7 +24,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 	public function testSuccess() {
 		$validator = new FileTextRevisionValidator();
 		$title = Title::makeTitle( NS_FILE, __METHOD__ );
-		$user = $this->createMock( User::class );
+		$user = $this->createNoOpMock( User::class );
 		$content = new \TextContent( '' );
 
 		$status = $validator->validate( $title, $user, $content, '', false );
@@ -34,7 +34,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 	public function testInvalidNamespace() {
 		$validator = new FileTextRevisionValidator();
 		$title = Title::makeTitle( NS_MAIN, __METHOD__ );
-		$user = $this->createMock( User::class );
+		$user = $this->createNoOpMock( User::class );
 		$content = new \TextContent( '' );
 
 		$status = $validator->validate( $title, $user, $content, '', false );
@@ -45,7 +45,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 	public function testAbuseFilterHook() {
 		$validator = new FileTextRevisionValidator();
 		$expectedTitle = Title::makeTitle( NS_FILE, __METHOD__ );
-		$expectedUser = $this->createMock( User::class );
+		$expectedUser = $this->createNoOpMock( User::class );
 		$expectedContent = new \TextContent( '' );
 
 		$this->setTemporaryHook(

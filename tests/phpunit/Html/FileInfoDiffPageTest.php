@@ -10,9 +10,7 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use FileImporter\Html\FileInfoDiffPage;
 use IContextSource;
-use Language;
 use MediaWiki\Config\HashConfig;
-use MediaWiki\Request\FauxRequest;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MessageLocalizer;
@@ -46,15 +44,11 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	private function getMockSpecialPage(): SpecialPage {
 		$title = Title::makeTitle( NS_MAIN, __METHOD__ );
 
-		$mock = $this->createMock( SpecialPage::class );
+		$mock = $this->createNoOpMock( SpecialPage::class, [ 'getPageTitle', 'getContext' ] );
 		$mock->method( 'getPageTitle' )
 			->willReturn( $title );
 		$mock->method( 'getContext' )
 			->willReturn( $this->getTestContext( $title ) );
-		$mock->method( 'getRequest' )
-			->willReturn( new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] ) );
-		$mock->method( 'getLanguage' )
-			->willReturn( $this->createMock( Language::class ) );
 		return $mock;
 	}
 

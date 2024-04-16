@@ -49,11 +49,11 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			$this->getTestUser()->getUser(),
 			$this->newFileRevision( 'NULL' ),
 			$textRevision,
-			$this->createMock( UserIdentityLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
-			$this->createMock( WikiRevisionFactory::class ),
-			$this->createMock( UploadBaseFactory::class ),
-			$this->createMock( ImportableUploadRevisionImporter::class ),
+			$this->createNoOpMock( UserIdentityLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class ),
+			$this->createNoOpMock( WikiRevisionFactory::class ),
+			$this->createNoOpMock( UploadBaseFactory::class ),
+			$this->createNoOpMock( ImportableUploadRevisionImporter::class ),
 			$this->createNoOpMock( RestrictionStore::class )
 		);
 
@@ -160,7 +160,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$mock->method( 'newFromFileRevision' )
 			->willReturnCallback(
 				function ( FileRevision $fileRevision, string $src ): WikiRevision {
-					$realFactory = new WikiRevisionFactory( $this->createMock( IContentHandlerFactory::class ) );
+					$realFactory = new WikiRevisionFactory( $this->createNoOpMock( IContentHandlerFactory::class ) );
 
 					$tempFile = $this->getNewTempFile();
 					// the file will be moved or deleted in the process so create a copy

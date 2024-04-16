@@ -24,7 +24,7 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 		$remoteApiActionExecutor = new RemoteApiActionExecutor( $mockRequestExecutor );
 		$status = $remoteApiActionExecutor->executeEditAction(
 			$this->createMock( SourceUrl::class ),
-			$this->createMock( User::class ),
+			$this->createNoOpMock( User::class ),
 			'',
 			[],
 			''
@@ -61,7 +61,7 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 		$remoteApiActionExecutor = new RemoteApiActionExecutor( $mockRequestExecutor );
 		$status = $remoteApiActionExecutor->executeEditAction(
 			$this->createMock( SourceUrl::class ),
-			$this->createMock( User::class ),
+			$this->createNoOpMock( User::class ),
 			'TestTitle',
 			[ 'prepend' => 'text' ],
 			'TestSummary'

@@ -33,20 +33,16 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 			->method( 'execute' )
 			->willReturn( StatusValue::newGood() );
 
-		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );
-		$mockTemplateLookup->expects( $this->never() )
-			->method( 'fetchNowCommonsLocalTitle' );
-
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$fallbackHandler,
-			$mockTemplateLookup,
-			$this->createMock( RemoteApiActionExecutor::class )
+			$this->createNoOpMock( WikidataTemplateLookup::class ),
+			$this->createNoOpMock( RemoteApiActionExecutor::class )
 		);
 
 		$url = 'http://w.invalid/w/foo' . mt_rand();
 		$status = $postImportHandler->execute(
 			$this->createImportPlanMock( false, false, $url ),
-			$this->createMock( User::class )
+			$this->createNoOpMock( User::class )
 		);
 		$this->assertTrue( $status->isGood() );
 	}
@@ -54,7 +50,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 	public function testExecute_remoteEditSucceeds() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( true, false, $url );
-		$mockUser = $this->createMock( User::class );
+		$mockUser = $this->createNoOpMock( User::class );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
@@ -75,7 +71,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 			->willReturn( 'TestNowCommons<script>' );
 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
-			$this->createMock( PostImportHandler::class ),
+			$this->createNoOpMock( PostImportHandler::class ),
 			$mockTemplateLookup,
 			$mockRemoteAction
 		);
@@ -87,7 +83,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 	public function testExecute_remoteEditFails() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( true, false, $url );
-		$mockUser = $this->createMock( User::class );
+		$mockUser = $this->createNoOpMock( User::class );
 
 		$fallbackHandler = $this->createMock( PostImportHandler::class );
 		$fallbackHandler->expects( $this->once() )
@@ -115,7 +111,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 	public function testExecute_remoteDeleteSucceeds() {
 		$url = 'http://w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( false, true, $url );
-		$mockUser = $this->createMock( User::class );
+		$mockUser = $this->createNoOpMock( User::class );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
@@ -129,8 +125,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 			->willReturn( StatusValue::newGood() );
 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
-			$this->createMock( PostImportHandler::class ),
-			$this->createMock( WikidataTemplateLookup::class ),
+			$this->createNoOpMock( PostImportHandler::class ),
+			$this->createNoOpMock( WikidataTemplateLookup::class ),
 			$mockRemoteAction
 		);
 
@@ -142,15 +138,15 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		$host = 'w.' . mt_rand() . '.invalid';
 		$url = 'http://w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( false, true, $url, $host );
-		$mockUser = $this->createMock( User::class );
+		$mockUser = $this->createNoOpMock( User::class );
 
 		$mockRemoteAction = $this->createMock( RemoteApiActionExecutor::class );
 		$mockRemoteAction->expects( $this->once() )
 			->method( 'executeDeleteAction' );
 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
-			$this->createMock( PostImportHandler::class ),
-			$this->createMock( WikidataTemplateLookup::class ),
+			$this->createNoOpMock( PostImportHandler::class ),
+			$this->createNoOpMock( WikidataTemplateLookup::class ),
 			$mockRemoteAction
 		);
 

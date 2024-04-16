@@ -198,7 +198,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 		$context->method( 'msg' )
 			->willReturnCallback( 'wfMessage' );
 
-		$mock = $this->createMock( SpecialPage::class );
+		$mock = $this->createNoOpMock( SpecialPage::class, [ 'getPageTitle', 'getContext' ] );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::makeTitle( NS_MAIN, __METHOD__ ) );
 		$mock->method( 'getContext' )

@@ -71,7 +71,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 		$lookup = new WikidataTemplateLookup(
 			$this->createMock( Config::class ),
 			$mockSiteLookup,
-			$this->createMock( HttpRequestExecutor::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class ),
 			new NullLogger()
 		);
 

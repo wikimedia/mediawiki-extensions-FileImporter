@@ -67,9 +67,9 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$services->getService( 'FileImporterSourceSiteLocator' ),
 			$services->getService( 'FileImporterImporter' ),
 			$services->getService( 'FileImporterImportPlanFactory' ),
-			$this->createMock( IContentHandlerFactory::class ),
+			$this->createNoOpMock( IContentHandlerFactory::class ),
 			$this->createMock( StatsdDataFactoryInterface::class ),
-			$this->createMock( UserOptionsManager::class ),
+			$this->createNoOpMock( UserOptionsManager::class ),
 			$services->getMainConfig()
 		);
 	}

@@ -66,7 +66,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testImportingOneFileRevision() {
-		$user = $this->createMock( User::class );
+		$user = $this->createNoOpMock( User::class );
 		$textRevision = $this->newTextRevision();
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
@@ -91,7 +91,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createWikiPageFactoryMock( $user, self::COMMENT . self::CLEANED_WIKITEXT, null ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $user ),
-			$this->createMock( UserIdentityLookup::class ),
+			$this->createNoOpMock( UserIdentityLookup::class ),
 			$this->createHttpRequestExecutorMock(),
 			$this->createUploadBaseFactoryMock( $user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
@@ -104,7 +104,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testImportingOneFileRevisionWithUserProvidedValues() {
-		$user = $this->createMock( User::class );
+		$user = $this->createNoOpMock( User::class );
 		$textRevision = $this->newTextRevision();
 		$fileRevision = $this->newFileRevision();
 		$wikiRevision = $this->createWikiRevisionMock();
@@ -117,7 +117,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			$this->createWikiPageFactoryMock( $user, self::USER_WIKITEXT, self::USER_SUMMARY ),
 			$this->createWikiRevisionFactoryMock( $textRevision, $fileRevision, $wikiRevision ),
 			$this->createNullRevisionCreatorMock( $user ),
-			$this->createMock( UserIdentityLookup::class ),
+			$this->createNoOpMock( UserIdentityLookup::class ),
 			$this->createHttpRequestExecutorMock(),
 			$this->createUploadBaseFactoryMock( $user, $textRevision ),
 			$this->createOldRevisionImporterMock( $wikiRevision ),
@@ -157,14 +157,14 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$status->warning( $apiMessage2 );
 
 		$importer = new Importer(
-			$this->createMock( WikiPageFactory::class ),
-			$this->createMock( WikiRevisionFactory::class ),
-			$this->createMock( NullRevisionCreator::class ),
-			$this->createMock( UserIdentityLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
-			$this->createMock( UploadBaseFactory::class ),
-			$this->createMock( OldRevisionImporter::class ),
-			$this->createMock( UploadRevisionImporter::class ),
+			$this->createNoOpMock( WikiPageFactory::class ),
+			$this->createNoOpMock( WikiRevisionFactory::class ),
+			$this->createNoOpMock( NullRevisionCreator::class ),
+			$this->createNoOpMock( UserIdentityLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class ),
+			$this->createNoOpMock( UploadBaseFactory::class ),
+			$this->createNoOpMock( OldRevisionImporter::class ),
+			$this->createNoOpMock( UploadRevisionImporter::class ),
 			new FileTextRevisionValidator(),
 			$this->createNoOpMock( RestrictionStore::class )
 		);
@@ -209,14 +209,14 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$status->warning( $apiMessage2 );
 
 		$importer = new Importer(
-			$this->createMock( WikiPageFactory::class ),
-			$this->createMock( WikiRevisionFactory::class ),
-			$this->createMock( NullRevisionCreator::class ),
-			$this->createMock( UserIdentityLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
-			$this->createMock( UploadBaseFactory::class ),
-			$this->createMock( OldRevisionImporter::class ),
-			$this->createMock( UploadRevisionImporter::class ),
+			$this->createNoOpMock( WikiPageFactory::class ),
+			$this->createNoOpMock( WikiRevisionFactory::class ),
+			$this->createNoOpMock( NullRevisionCreator::class ),
+			$this->createNoOpMock( UserIdentityLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class ),
+			$this->createNoOpMock( UploadBaseFactory::class ),
+			$this->createNoOpMock( OldRevisionImporter::class ),
+			$this->createNoOpMock( UploadRevisionImporter::class ),
 			new FileTextRevisionValidator(),
 			$this->createNoOpMock( RestrictionStore::class )
 		);
@@ -231,21 +231,21 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	public function testValidateImportOperationsWithStatusParams() {
 		/** @var Importer $importer */
 		$importer = TestingAccessWrapper::newFromObject( new Importer(
-			$this->createMock( WikiPageFactory::class ),
-			$this->createMock( WikiRevisionFactory::class ),
-			$this->createMock( NullRevisionCreator::class ),
-			$this->createMock( UserIdentityLookup::class ),
-			$this->createMock( HttpRequestExecutor::class ),
-			$this->createMock( UploadBaseFactory::class ),
-			$this->createMock( OldRevisionImporter::class ),
-			$this->createMock( UploadRevisionImporter::class ),
+			$this->createNoOpMock( WikiPageFactory::class ),
+			$this->createNoOpMock( WikiRevisionFactory::class ),
+			$this->createNoOpMock( NullRevisionCreator::class ),
+			$this->createNoOpMock( UserIdentityLookup::class ),
+			$this->createNoOpMock( HttpRequestExecutor::class ),
+			$this->createNoOpMock( UploadBaseFactory::class ),
+			$this->createNoOpMock( OldRevisionImporter::class ),
+			$this->createNoOpMock( UploadRevisionImporter::class ),
 			new FileTextRevisionValidator(),
 			$this->createNoOpMock( RestrictionStore::class )
 		) );
 
 		$status = StatusValue::newFatal( 'fileimporter-cantimportfileinvalid', 'The reason' );
 		$this->expectExceptionMessage( 'The reason' );
-		$importer->validateImportOperations( $status, $this->createMock( ImportPlan::class ) );
+		$importer->validateImportOperations( $status, $this->createNoOpMock( ImportPlan::class ) );
 	}
 
 	private function newImportPlan(
@@ -352,7 +352,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function createHttpRequestExecutorMock(): HttpRequestExecutor {
-		$request = $this->createMock( \MWHttpRequest::class );
+		$request = $this->createNoOpMock( \MWHttpRequest::class );
 
 		$executor = $this->createMock( HttpRequestExecutor::class );
 		$executor->expects( $this->once() )
@@ -421,7 +421,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 				$expectedUser,
 				self::NULL_EDIT_SUMMARY
 			)
-			->willReturn( $this->createMock( RevisionRecord::class ) );
+			->willReturn( $this->createNoOpMock( RevisionRecord::class ) );
 		return $creator;
 	}
 

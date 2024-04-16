@@ -97,7 +97,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
-			$this->createMock( ParserFactory::class ),
+			$this->createNoOpMock( ParserFactory::class ),
 			$this->services->getDBLoadBalancerFactory(),
 			$this->services->getLinkBatchFactory()
 		);
@@ -123,7 +123,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
-			$this->createMock( ParserFactory::class ),
+			$this->createNoOpMock( ParserFactory::class ),
 			$this->services->getDBLoadBalancerFactory(),
 			$this->services->getLinkBatchFactory()
 		);

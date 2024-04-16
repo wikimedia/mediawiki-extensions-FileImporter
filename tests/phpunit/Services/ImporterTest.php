@@ -320,7 +320,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$mock->method( 'newFromFileRevision' )
 			->willReturnCallback(
 				function ( FileRevision $fileRevision, string $src ): WikiRevision {
-					$realFactory = new WikiRevisionFactory( $this->createMock( IContentHandlerFactory::class ) );
+					$realFactory = new WikiRevisionFactory( $this->createNoOpMock( IContentHandlerFactory::class ) );
 
 					$tempFile = $this->getNewTempFile();
 					$srcFile = $fileRevision->getField( '_test_file_src' );

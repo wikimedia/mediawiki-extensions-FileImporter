@@ -41,7 +41,7 @@ class ChangeFileNameFormTest extends \MediaWikiIntegrationTestCase {
 		$context->method( 'msg' )
 			->willReturn( new RawMessage( '' ) );
 
-		$mock = $this->createMock( SpecialPage::class );
+		$mock = $this->createNoOpMock( SpecialPage::class, [ 'getPageTitle', 'getContext' ] );
 		$mock->method( 'getPageTitle' )
 			->willReturn( Title::makeTitle( NS_MAIN, __METHOD__ ) );
 		$mock->method( 'getContext' )
