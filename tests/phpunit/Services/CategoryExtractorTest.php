@@ -13,6 +13,7 @@ use ParserFactory;
 use ParserOutput;
 use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IReadableDatabase;
+use Wikimedia\Rdbms\SelectQueryBuilder;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -151,9 +152,14 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	private function buildConnectionProviderMock( array $hiddenCategories ): IConnectionProvider {
-		$database = $this->createMock( IReadableDatabase::class );
-		$database->method( 'selectFieldValues' )
+		$queryBuilder = $this->createMock( SelectQueryBuilder::class );
+		$queryBuilder->method( $this->logicalOr( 'select', 'from', 'join', 'where', 'caller' ) )->willReturnSelf();
+		$queryBuilder->method( 'fetchFieldValues' )
 			->willReturn( $hiddenCategories );
+
+		$database = $this->createMock( IReadableDatabase::class );
+		$database->method( 'newSelectQueryBuilder' )
+			->willReturn( $queryBuilder );
 
 		$connectionProvider = $this->createMock( IConnectionProvider::class );
 		$connectionProvider->method( 'getReplicaDatabase' )

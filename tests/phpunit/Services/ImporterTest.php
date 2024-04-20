@@ -226,18 +226,17 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function assertFileImporterTagWasAdded( int $logId, int $revId, string $expectedTag ) {
-		$this->assertSame( 1, $this->db->selectRowCount(
-			[ 'change_tag', 'change_tag_def' ],
-			'*',
-			[
+		$this->assertSame( 1, $this->db->newSelectQueryBuilder()
+			->table( 'change_tag' )
+			->join( 'change_tag_def', null, 'ctd_id = ct_tag_id' )
+			->where( [
 				'ct_log_id' => $logId,
 				'ct_rev_id' => $revId,
 				'ctd_name' => $expectedTag,
-			],
-			__METHOD__,
-			[],
-			[ 'change_tag_def' => [ 'INNER JOIN', 'ctd_id = ct_tag_id' ] ]
-		) );
+			] )
+			->caller( __METHOD__ )
+			->fetchRowCount()
+		);
 	}
 
 	/**
@@ -267,14 +266,10 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$queryInfo['options']
 		);
 
-		$row = $this->db->selectRow(
-			$queryInfo['tables'],
-			$queryInfo['fields'],
-			$queryInfo['conds'],
-			__METHOD__,
-			$queryInfo['options'],
-			$queryInfo['join_conds']
-		);
+		$row = $this->db->newSelectQueryBuilder()
+			->queryInfo( $queryInfo )
+			->caller( __METHOD__ )
+			->fetchRow();
 
 		if ( $expectedTag !== null ) {
 			$this->assertContains(

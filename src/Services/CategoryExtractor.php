@@ -69,19 +69,16 @@ class CategoryExtractor {
 
 		# Fetch categories having the `hiddencat` property.
 		$dbr = $this->connectionProvider->getReplicaDatabase();
-		$hiddenCategories = $dbr->selectFieldValues(
-			[ 'page', 'page_props' ],
-			'page_title',
-			$lb->constructSet( 'page', $dbr ),
-			__METHOD__,
-			[],
-			[ 'page_props' => [ 'INNER JOIN', [
+		return $dbr->newSelectQueryBuilder()
+			->select( 'page_title' )
+			->from( 'page' )
+			->join( 'page_props', null, [
 				'pp_propname' => 'hiddencat',
 				'pp_page = page_id'
-			] ] ]
-		);
-
-		return $hiddenCategories;
+			] )
+			->where( $lb->constructSet( 'page', $dbr ) )
+			->caller( __METHOD__ )
+			->fetchFieldValues();
 	}
 
 }
