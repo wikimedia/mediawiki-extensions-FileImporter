@@ -34,17 +34,7 @@ class FileInfoDiffPage extends SpecialPageHtmlFragment {
 					$contentHandler
 				)
 			) .
-			( new ImportIdentityFormSnippet( [
-				'clientUrl' => $importPlan->getRequest()->getUrl(),
-				'intendedFileName' => $importPlan->getFileName(),
-				'intendedRevisionSummary' => $importPlan->getRequest()->getIntendedSummary(),
-				'intendedWikitext' => $importPlan->getFileInfoText(),
-				'actionStats' => json_encode( $importPlan->getActionStats() ),
-				'validationWarnings' => json_encode( $importPlan->getValidationWarnings() ),
-				'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
-				'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
-				'automateSourceWikiDelete' => $importPlan->getAutomateSourceWikiDelete(),
-			] ) )->getHtml() .
+			ImportIdentityFormSnippet::newFromImportPlan( $importPlan )->getHtml() .
 			new ButtonInputWidget(
 				[
 					'classes' => [ 'mw-importfile-backButton' ],

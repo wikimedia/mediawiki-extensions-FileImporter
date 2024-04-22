@@ -26,16 +26,8 @@ class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 			]
 		) .
 		( new WikitextEditor( $this ) )->getHtml( $importPlan->getTitle(), $wikitext ) .
-		( new ImportIdentityFormSnippet( [
-			'clientUrl' => $importPlan->getRequest()->getUrl(),
-			'intendedFileName' => $importPlan->getFileName(),
-			'intendedRevisionSummary' => $importPlan->getRequest()->getIntendedSummary(),
-			'actionStats' => json_encode( $importPlan->getActionStats() ),
-			'validationWarnings' => json_encode( $importPlan->getValidationWarnings() ),
-			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
-			'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
-			'automateSourceWikiDelete' => $importPlan->getAutomateSourceWikiDelete(),
-		] ) )->getHtml() .
+		ImportIdentityFormSnippet::newFromImportPlan( $importPlan, [ 'intendedWikitext' ] )
+			->getHtml() .
 		new ButtonInputWidget(
 			[
 				'classes' => [ 'mw-importfile-backButton' ],

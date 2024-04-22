@@ -56,16 +56,8 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 			$this->msg( 'fileimporter-extensionlabel' )->plain() .
 				' .' . $importPlan->getFileExtension()
 		) .
-		( new ImportIdentityFormSnippet( [
-			'clientUrl' => $importPlan->getRequest()->getUrl(),
-			'intendedWikitext' => $importPlan->getFileInfoText(),
-			'actionStats' => json_encode( $importPlan->getActionStats() ),
-			'validationWarnings' => json_encode( $importPlan->getValidationWarnings() ),
-			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
-			'intendedRevisionSummary' => $importPlan->getRequest()->getIntendedSummary(),
-			'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
-			'automateSourceWikiDelete' => $importPlan->getAutomateSourceWikiDelete(),
-		] ) )->getHtml() .
+		ImportIdentityFormSnippet::newFromImportPlan( $importPlan, [ 'intendedFileName' ] )
+			->getHtml() .
 		new ButtonInputWidget(
 			[
 				'classes' => [ 'mw-importfile-backButton' ],

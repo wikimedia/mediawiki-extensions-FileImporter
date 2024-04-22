@@ -2,6 +2,7 @@
 
 namespace FileImporter\Html;
 
+use FileImporter\Data\ImportPlan;
 use MediaWiki\Html\Html;
 
 /**
@@ -25,6 +26,25 @@ class ImportIdentityFormSnippet {
 		'automateSourceWikiCleanup',
 		'automateSourceWikiDelete'
 	];
+
+	/**
+	 * @param ImportPlan $importPlan
+	 * @param string[] $exclude Field names to exclude from the identity
+	 * @return self
+	 */
+	public static function newFromImportPlan( ImportPlan $importPlan, array $exclude = [] ): self {
+		return new self( array_diff_key( [
+			'clientUrl' => $importPlan->getRequest()->getUrl(),
+			'intendedFileName' => $importPlan->getFileName(),
+			'intendedRevisionSummary' => $importPlan->getRequest()->getIntendedSummary(),
+			'intendedWikitext' => $importPlan->getFileInfoText(),
+			'actionStats' => json_encode( $importPlan->getActionStats() ),
+			'validationWarnings' => json_encode( $importPlan->getValidationWarnings() ),
+			'importDetailsHash' => $importPlan->getRequest()->getImportDetailsHash(),
+			'automateSourceWikiCleanup' => $importPlan->getAutomateSourceWikiCleanUp(),
+			'automateSourceWikiDelete' => $importPlan->getAutomateSourceWikiDelete(),
+		], array_flip( $exclude ) ) );
+	}
 
 	/**
 	 * @param array $identityParts Keys:
