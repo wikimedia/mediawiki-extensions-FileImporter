@@ -23,11 +23,6 @@ use Psr\Log\NullLogger;
 class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 
 	public function testFetchNowCommonsLocalTitle_success() {
-		$config = new HashConfig( [
-			'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
-			'FileImporterWikidataNowCommonsEntity' => 'Q123',
-		] );
-
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
 			->willReturn( 'bat_smgwiki' );
@@ -49,7 +44,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(
-			$config,
+			$this->getConfig(),
 			$mockSiteLookup,
 			$mockRequestExecutor,
 			new NullLogger()
@@ -69,7 +64,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 		$mockSiteLookup = $this->createMock( SiteTableSiteLookup::class );
 
 		$lookup = new WikidataTemplateLookup(
-			$this->createMock( Config::class ),
+			$this->getConfig(),
 			$mockSiteLookup,
 			$this->createNoOpMock( HttpRequestExecutor::class ),
 			new NullLogger()
@@ -83,11 +78,6 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testFetchLocalTemplateForSource_noSiteLink() {
-		$config = new HashConfig( [
-			'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
-			'FileImporterWikidataNowCommonsEntity' => 'Q123',
-		] );
-
 		$mockSite = $this->createMock( Site::class );
 		$mockSite->method( 'getGlobalId' )
 			->willReturn( 'foowiki' );
@@ -105,7 +95,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(
-			$config,
+			$this->getConfig(),
 			$mockSiteLookup,
 			$mockRequestExecutor,
 			new NullLogger()
@@ -116,6 +106,13 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 		$localTitle = $lookup->fetchNowCommonsLocalTitle( $sourceUrl );
 
 		$this->assertNull( $localTitle );
+	}
+
+	private function getConfig(): Config {
+		return new HashConfig( [
+			'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
+			'FileImporterWikidataNowCommonsEntity' => 'Q123',
+		] );
 	}
 
 }
