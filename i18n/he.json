@@ -99,6 +99,6 @@
 	"fileimporter-input-page-info-text": "ניתן למצוא מידע נוסף ב[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons דף העזרה] שלנו.",
 	"fileimporter-viewdiff": "הצגת שינויים",
 	"fileimporter-to-preview": "חזרה לתצוגה המקדימה",
-	"fileimporter-no-script-warning": "JavaScript אינו נתמך או מושבת בדפדפן שלך. מייבא הקבצים מסתמך על JavaScript כדי לתפקד.",
+	"fileimporter-no-script-warning": "JavaScript אינו נתמך או כבוי בדפדפן שלך. מייבא הקבצים מסתמך על JavaScript כדי לתפקד.",
 	"fileimporter-cdx-diff-failed": "משהו השתבש בעת אחזור השינויים. נא לנסות שוב מאוחר יותר."
 }
