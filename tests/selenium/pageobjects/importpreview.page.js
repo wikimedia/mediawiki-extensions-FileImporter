@@ -8,8 +8,13 @@ class ImportPreviewPage extends Page {
 		await super.openTitle( 'Special:ImportFile', { clientUrl: clientUrl } );
 	}
 
-	get helpBanner() { return $( '.mw-importfile-help-banner .oo-ui-messageWidget' ); }
-	get helpBannerCloseButton() { return $( '.mw-importfile-help-banner .oo-ui-icon-close' ); }
+	get helpBanner() {
+		return $( '.mw-importfile-help-banner .oo-ui-messageWidget' );
+	}
+
+	get helpBannerCloseButton() {
+		return $( '.mw-importfile-help-banner .oo-ui-icon-close' );
+	}
 
 	async resetHelpBannerVisibility() {
 		await Util.waitForModuleState( 'mediawiki.base' );

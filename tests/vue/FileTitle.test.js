@@ -8,13 +8,17 @@ const userInput = 'bar';
 const getNameTextOutput = 'Bar';
 
 const newFromUserInput = jest.fn().mockReturnValue( {
-	getNameText: () => { return getNameTextOutput; }
+	getNameText: () => {
+		return getNameTextOutput;
+	}
 } );
 
 global.mw = {
 	message: () => {
 		return {
-			text: () => { return messageOutput; }
+			text: () => {
+				return messageOutput;
+			}
 		};
 	},
 	Title: {

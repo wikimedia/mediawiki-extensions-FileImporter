@@ -13,7 +13,7 @@ global.mw = {
 		makeTitle( namespace, name ) {
 			return {
 				getUrl() {
-					return `/wiki/Category${name}`;
+					return `/wiki/Category${ name }`;
 				},
 				getMainText() {
 					return name;
@@ -47,8 +47,8 @@ describe( 'CategoriesList', () => {
 		expect( wrapper.findAll( 'a' ) ).toHaveLength( categories.length );
 
 		categories.forEach( ( category, index ) => {
-			const expectedHref = `/wiki/Category${category.name}`;
-			expect( listItems[ index ].find( `a[href="${expectedHref}"]` ).exists() ).toBeTruthy();
+			const expectedHref = `/wiki/Category${ category.name }`;
+			expect( listItems[ index ].find( `a[href="${ expectedHref }"]` ).exists() ).toBeTruthy();
 		} );
 	} );
 } );
