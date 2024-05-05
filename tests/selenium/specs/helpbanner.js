@@ -3,44 +3,34 @@
 const assert = require( 'assert' ),
 	ImportPreviewPage = require( '../pageobjects/importpreview.page' ),
 	UserLoginPage = require( 'wdio-mediawiki/LoginPage' ),
-	Util = require( 'wdio-mediawiki/Util' ),
 
-	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Phalke.jpg';
+	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Wikimedia_Commons_favicon.png';
 
-describe( 'ImportPreview page', () => {
-	it( 'shows dismissible help banner', () => {
-		UserLoginPage.loginAdmin();
-		ImportPreviewPage.resetHelpBannerVisibility();
+describe( 'ImportPreview page', function () {
+	it( 'shows dismissible help banner', async function () {
+		await UserLoginPage.loginAdmin();
+		await ImportPreviewPage.resetHelpBannerVisibility();
 
-		ImportPreviewPage.openImportPreview( testFileUrl );
-		ImportPreviewPage.waitForJS();
+		await ImportPreviewPage.openImportPreview( testFileUrl );
 
 		assert(
-			ImportPreviewPage.helpBanner.isDisplayed(),
+			await ImportPreviewPage.helpBanner.isDisplayed(),
 			'the help banner is visible'
 		);
 
-		ImportPreviewPage.helpBannerCloseButton.click();
+		await ImportPreviewPage.helpBannerCloseButton.click();
 
 		assert(
-			!ImportPreviewPage.helpBanner.isDisplayed(),
+			!( await ImportPreviewPage.helpBanner.isDisplayed() ),
 			'the help banner is no longer visible'
 		);
 
-		// ensure that the user options had time to update
-		browser.waitUntil( () => {
-			UserLoginPage.open();
-			Util.waitForModuleState( 'mediawiki.user' );
-			return browser.execute( () => {
-				return mw.user.options.get( 'userjs-fileimporter-hide-help-banner' ) !== null;
-			} );
-		} );
+		await ImportPreviewPage.waitForUserSettingsUpdated();
 
-		ImportPreviewPage.openImportPreview( testFileUrl );
-		ImportPreviewPage.waitForJS();
+		await ImportPreviewPage.openImportPreview( testFileUrl );
 
 		assert(
-			!ImportPreviewPage.helpBanner.isDisplayed(),
+			!( await ImportPreviewPage.helpBanner.isDisplayed() ),
 			'the help banner is no longer visible on future visits'
 		);
 	} );
