@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Robby",
-			"Soued031"
+			"Soued031",
+			"Volvox"
 		]
 	},
 	"fileimporter-desc": "Einfacht Importéiere vu Fichiere vun aneren Internetsitten",
+	"fileimporter-help-banner-close-tooltip": "Dëse Message net méi weisen",
 	"fileimporter-specialpage": "Fichier importéieren",
 	"fileimporter-importfailed": "Den Import huet net funktionéiert",
 	"fileimporter-api-file-notfound": "Fichier net fonnt:$1",
