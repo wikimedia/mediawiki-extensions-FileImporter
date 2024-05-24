@@ -195,9 +195,7 @@ class ImportPlan {
 		}
 		$chunks = array_filter(
 			$chunks,
-			static function ( $wikitext ): bool {
-				return $wikitext !== null && $wikitext !== '';
-			}
+			static fn ( $wikitext ) => ( $wikitext ?? '' ) !== ''
 		);
 		return implode( "\n", $chunks );
 	}

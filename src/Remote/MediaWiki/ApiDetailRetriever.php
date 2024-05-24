@@ -182,23 +182,19 @@ class ApiDetailRetriever implements DetailRetriever {
 	}
 
 	/**
-	 * @param array[] $titles
+	 * @param array[] $results Result set as returned by the API
 	 * @param int $namespace
 	 *
 	 * @return string[]
 	 */
-	private function reduceTitleList( array $titles, int $namespace ): array {
-		return array_map(
-			static function ( array $title ): string {
-				return $title['title'];
-			},
-			array_filter(
-				$titles,
-				static function ( array $title ) use ( $namespace ): bool {
-					return $title['ns'] === $namespace;
-				}
-			)
-		);
+	private function reduceTitleList( array $results, int $namespace ): array {
+		$titles = [];
+		foreach ( $results as $result ) {
+			if ( $result['ns'] === $namespace ) {
+				$titles[] = $result['title'];
+			}
+		}
+		return $titles;
 	}
 
 	/**

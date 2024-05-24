@@ -23,11 +23,7 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 		$services = MediaWikiServices::getInstance();
 		$title = Title::newFromText( $textRevision->getField( 'title' ), NS_FILE );
 
-		if ( $intendedWikitext === null ) {
-			$text = $textRevision->getContent();
-		} else {
-			$text = $intendedWikitext;
-		}
+		$text = $intendedWikitext ?? $textRevision->getContent();
 
 		$content = $services->getContentHandlerFactory()
 			->getContentHandler( $textRevision->getContentModel() )

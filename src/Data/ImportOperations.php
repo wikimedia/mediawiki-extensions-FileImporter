@@ -90,9 +90,7 @@ class ImportOperations implements ImportOperation {
 			self::BUILDING,
 			self::PREPARE_RUN,
 			true,
-			static function ( ImportOperation $importOperation ) {
-				return $importOperation->prepare();
-			}
+			static fn ( ImportOperation $importOperation ) => $importOperation->prepare()
 		);
 	}
 
@@ -106,9 +104,7 @@ class ImportOperations implements ImportOperation {
 			self::PREPARE_RUN,
 			self::VALIDATE_RUN,
 			false,
-			static function ( ImportOperation $importOperation ) {
-				return $importOperation->validate();
-			}
+			static fn ( ImportOperation $importOperation ) => $importOperation->validate()
 		);
 	}
 
@@ -121,9 +117,7 @@ class ImportOperations implements ImportOperation {
 			self::VALIDATE_RUN,
 			self::COMMIT_RUN,
 			true,
-			static function ( ImportOperation $importOperation ) {
-				return $importOperation->commit();
-			}
+			static fn ( ImportOperation $importOperation ) => $importOperation->commit()
 		);
 	}
 
