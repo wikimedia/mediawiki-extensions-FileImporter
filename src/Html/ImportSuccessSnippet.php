@@ -66,12 +66,16 @@ class ImportSuccessSnippet {
 				'type' => 'success',
 			] );
 		}
-
-		foreach ( $importResult->getErrors() as $error ) {
-			$msg = $messageLocalizer->msg( $error['message'], $error['params'] ?? [] );
+		foreach ( $importResult->getMessages( 'error' ) as $msg ) {
 			$html .= new MessageWidget( [
-				'label' => new HtmlSnippet( $msg->parse() ),
-				'type' => $error['type'] === 'error' ? 'error' : 'warning',
+				'label' => new HtmlSnippet( $messageLocalizer->msg( $msg )->parse() ),
+				'type' => 'error'
+			] );
+		}
+		foreach ( $importResult->getMessages( 'warning' ) as $msg ) {
+			$html .= new MessageWidget( [
+				'label' => new HtmlSnippet( $messageLocalizer->msg( $msg )->parse() ),
+				'type' => 'warning',
 			] );
 		}
 

@@ -73,8 +73,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 			$req = $this->httpRequestExecutor->execute( $pageUrl );
 		} catch ( HttpRequestException $ex ) {
 			$statusCode = $ex->getHttpRequest()->getStatus();
-			$errors = $ex->getStatusValue()->getErrors();
-			$error = reset( $errors );
+			$error = $ex->getStatusValue()->getMessages()[0] ?? null;
 
 			if ( $statusCode === 404 ) {
 				$msg = [ 'fileimporter-api-file-notfound', Message::plaintextParam( $pageUrl ) ];
@@ -88,14 +87,14 @@ class HttpApiLookup implements LoggerAwareInterface {
 						? wfMessage( 'fileimporter-http-statuscode', $statusCode )
 						: '',
 					$error
-						? wfMessage( $error['message'], $error['params'] )
+						? wfMessage( $error )
 						: ''
 				];
 			}
 
 			$this->logger->error( 'Failed to discover API location from: ' . $pageUrl, [
 				'statusCode' => $statusCode,
-				'previousMessage' => $error ? $error['message'] : '',
+				'previousMessage' => $error ? $error->getKey() : '',
 				'responseContent' => $ex->getHttpRequest()->getContent(),
 			] );
 			throw new LocalizedImportException( $msg );
