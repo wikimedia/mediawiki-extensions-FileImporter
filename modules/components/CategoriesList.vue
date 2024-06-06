@@ -22,16 +22,14 @@ const { computed } = require( 'vue' );
 
 const NS_CATEGORY = mw.config.get( 'wgNamespaceIds' ).category;
 
-const formatCategories = ( categories ) => {
-	return categories.map( ( category ) => {
-		const categoryTitle = mw.Title.makeTitle( NS_CATEGORY, category.name );
-		return {
-			missing: category.missing,
-			url: categoryTitle.getUrl(),
-			text: categoryTitle.getMainText()
-		};
-	} );
-};
+const formatCategories = ( categories ) => categories.map( ( category ) => {
+	const categoryTitle = mw.Title.makeTitle( NS_CATEGORY, category.name );
+	return {
+		missing: category.missing,
+		url: categoryTitle.getUrl(),
+		text: categoryTitle.getMainText()
+	};
+} );
 
 // @vue/component
 module.exports = exports = {

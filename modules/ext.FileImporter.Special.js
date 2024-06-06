@@ -3,7 +3,7 @@
 const $summary = $( '.mw-importfile-import-summary' );
 if ( $summary.length ) {
 	// Submit the import form when hitting return in the edit summary
-	OO.ui.TextInputWidget.static.infuse( $summary ).on( 'enter', function ( e ) {
+	OO.ui.TextInputWidget.static.infuse( $summary ).on( 'enter', ( e ) => {
 		e.preventDefault();
 		OO.ui.ButtonWidget.static.infuse( $( '.mw-importfile-import-submit' ) ).$button.click();
 	} );
@@ -17,6 +17,6 @@ $( '.mw-importfile-help-banner input[ type="checkbox" ]' ).change( function () {
 	}
 } );
 
-mw.hook( 'centralauth-p-personal-reset' ).add( function () {
+mw.hook( 'centralauth-p-personal-reset' ).add( () => {
 	window.location.reload();
 } );

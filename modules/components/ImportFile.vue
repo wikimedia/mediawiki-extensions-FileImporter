@@ -162,20 +162,18 @@ const FileTitle = require( './FileTitle.vue' );
 
 const NS_FILE = mw.config.get( 'wgNamespaceIds' ).file;
 
-const parseCategories = ( rawCategories ) => {
-	return rawCategories.reduce( ( [ hiddenCategories, visibleCategories ], record ) => {
-		const formatted = {
-			missing: 'missing' in record,
-			name: record.category
-		};
-		if ( 'hidden' in record ) {
-			hiddenCategories.push( formatted );
-		} else {
-			visibleCategories.push( formatted );
-		}
-		return [ hiddenCategories, visibleCategories ];
-	}, [ [], [] ] );
-};
+const parseCategories = ( rawCategories ) => rawCategories.reduce( ( [ hiddenCategories, visibleCategories ], record ) => {
+	const formatted = {
+		missing: 'missing' in record,
+		name: record.category
+	};
+	if ( 'hidden' in record ) {
+		hiddenCategories.push( formatted );
+	} else {
+		visibleCategories.push( formatted );
+	}
+	return [ hiddenCategories, visibleCategories ];
+}, [ [], [] ] );
 
 const scrollToTop = () => {
 	$( 'html, body' ).animate( { scrollTop: $( '#content' ).offset().top }, 500 );
@@ -249,7 +247,7 @@ module.exports = {
 		},
 		mountedFileInfoInput() {
 			const $textarea = $( this.$refs.fileInfoInput.$el ).find( 'textarea' );
-			mw.loader.using( [ 'ext.wikiEditor' ], function () {
+			mw.loader.using( [ 'ext.wikiEditor' ], () => {
 				mw.addWikiEditor( $textarea );
 			} );
 			// TODO: CdxTextArea should support the "focus" method.  This is

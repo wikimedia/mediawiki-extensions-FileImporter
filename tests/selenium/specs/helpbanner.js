@@ -6,8 +6,8 @@ const assert = require( 'assert' ),
 
 	testFileUrl = 'https://commons.wikimedia.org/wiki/File:Wikimedia_Commons_favicon.png';
 
-describe( 'ImportPreview page', function () {
-	it( 'shows dismissible help banner', async function () {
+describe( 'ImportPreview page', () => {
+	it( 'shows dismissible help banner', async () => {
 		await UserLoginPage.loginAdmin();
 		await ImportPreviewPage.resetHelpBannerVisibility();
 
