@@ -16,7 +16,8 @@
 			"Pols12",
 			"Thibaut120094",
 			"Verdy p",
-			"Wladek92"
+			"Wladek92",
+			"Urhixidur"
 		]
 	},
 	"fileimporter-desc": "Importation facile de fichiers provenant d’autres sites",
@@ -105,5 +106,5 @@
 	"fileimporter-input-page-info-text": "En savoir plus en visitant notre [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons page d’aide].",
 	"fileimporter-viewdiff": "Afficher les modifications",
 	"fileimporter-to-preview": "Retour à l’aperçu",
-	"fileimporter-no-script-warning": "JavaScript n'est pas supporté ou est désactivé par votre navigateur. L'importateur de fichiers s'appuie sur JavaScript pour fonctionner."
+	"fileimporter-no-script-warning": "JavaScript n’est pas pris en charge ou est désactivé par votre navigateur. L’importateur de fichiers requiert JavaScript pour fonctionner."
 }
