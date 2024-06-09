@@ -3,6 +3,8 @@
 namespace FileImporter\Tests\Services;
 
 use FileImporter\Services\FileTextRevisionValidator;
+use MediaWiki\Content\TextContent;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -25,7 +27,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$validator = new FileTextRevisionValidator();
 		$title = Title::makeTitle( NS_FILE, __METHOD__ );
 		$user = $this->createNoOpMock( User::class );
-		$content = new \TextContent( '' );
+		$content = new TextContent( '' );
 
 		$status = $validator->validate( $title, $user, $content, '', false );
 		$this->assertStatusGood( $status );
@@ -35,7 +37,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$validator = new FileTextRevisionValidator();
 		$title = Title::makeTitle( NS_MAIN, __METHOD__ );
 		$user = $this->createNoOpMock( User::class );
-		$content = new \TextContent( '' );
+		$content = new TextContent( '' );
 
 		$status = $validator->validate( $title, $user, $content, '', false );
 		$this->assertFalse( $status->isOK() );
@@ -46,12 +48,12 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 		$validator = new FileTextRevisionValidator();
 		$expectedTitle = Title::makeTitle( NS_FILE, __METHOD__ );
 		$expectedUser = $this->createNoOpMock( User::class );
-		$expectedContent = new \TextContent( '' );
+		$expectedContent = new TextContent( '' );
 
 		$this->setTemporaryHook(
 			'EditFilterMergedContent',
 			function (
-				\IContextSource $context,
+				IContextSource $context,
 				$content,
 				\StatusValue $status,
 				$summary,

@@ -14,6 +14,7 @@ use FileImporter\Services\WikidataTemplateLookup;
 use Hamcrest\Matcher;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MediaWiki\SpecialPage\SpecialPage;
@@ -186,7 +187,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function getMockSpecialPage(): SpecialPage {
-		$context = $this->createMock( \IContextSource::class );
+		$context = $this->createMock( IContextSource::class );
 		$context->method( 'getUser' )
 			->willReturn( $this->createMock( User::class ) );
 		$context->method( 'getConfig' )

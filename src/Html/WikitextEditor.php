@@ -3,11 +3,11 @@
 namespace FileImporter\Html;
 
 use FileImporter\HookRunner;
+use MediaWiki\Context\MutableContext;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use MutableContext;
 
 /**
  * @license GPL-2.0-or-later

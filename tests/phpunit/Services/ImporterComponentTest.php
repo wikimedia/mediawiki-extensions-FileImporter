@@ -19,6 +19,7 @@ use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
+use MediaWiki\Content\TextContent;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
@@ -289,7 +290,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$revision = $this->createMock( WikiRevision::class );
 		$revision->expects( $this->once() )
 			->method( 'getContent' )
-			->willReturn( new \TextContent( '' ) );
+			->willReturn( new TextContent( '' ) );
 		return $revision;
 	}
 
