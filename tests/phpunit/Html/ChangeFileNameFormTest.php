@@ -6,11 +6,10 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Html\ChangeFileNameForm;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MessageLocalizer;
-use OOUI\BlankTheme;
-use OOUI\Theme;
 
 /**
  * @covers \FileImporter\Html\ChangeFileNameForm
@@ -24,12 +23,7 @@ class ChangeFileNameFormTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		Theme::setSingleton( new BlankTheme() );
-	}
-
-	protected function tearDown(): void {
-		Theme::setSingleton();
-		parent::tearDown();
+		OutputPage::setupOOUI();
 	}
 
 	private function getMockSpecialPage(): SpecialPage {

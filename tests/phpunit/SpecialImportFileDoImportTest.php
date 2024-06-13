@@ -22,8 +22,6 @@ use MediaWiki\Session\CsrfTokenSetProvider;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use OOUI\BlankTheme;
-use OOUI\Theme;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -36,12 +34,7 @@ class SpecialImportFileDoImportTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		Theme::setSingleton( new BlankTheme() );
-	}
-
-	protected function tearDown(): void {
-		Theme::setSingleton();
-		parent::tearDown();
+		OutputPage::setupOOUI();
 	}
 
 	/**

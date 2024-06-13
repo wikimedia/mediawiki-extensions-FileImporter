@@ -18,8 +18,6 @@ use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MessageLocalizer;
-use OOUI\BlankTheme;
-use OOUI\Theme;
 use Skin;
 
 /**
@@ -40,12 +38,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 
 		$this->clearHooks();
 		$this->setMwGlobals( 'wgHooks', [] );
-		Theme::setSingleton( new BlankTheme() );
-	}
-
-	protected function tearDown(): void {
-		Theme::setSingleton();
-		parent::tearDown();
+		OutputPage::setupOOUI();
 	}
 
 	private function getMockSpecialPage(): SpecialPage {

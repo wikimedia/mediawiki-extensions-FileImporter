@@ -12,11 +12,10 @@ use MediaWiki\Config\HashConfig;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MessageLocalizer;
-use OOUI\BlankTheme;
-use OOUI\Theme;
 
 /**
  * @covers \FileImporter\Html\FileInfoDiffPage
@@ -33,12 +32,7 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 		$this->setMwGlobals( [ 'wgFileImporterTextForPostImportRevision' => '' ] );
-		Theme::setSingleton( new BlankTheme() );
-	}
-
-	protected function tearDown(): void {
-		Theme::setSingleton();
-		parent::tearDown();
+		OutputPage::setupOOUI();
 	}
 
 	private function getMockSpecialPage(): SpecialPage {

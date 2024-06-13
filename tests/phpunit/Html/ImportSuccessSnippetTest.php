@@ -6,13 +6,12 @@ use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
 use HashBagOStuff;
 use MediaWiki\Message\Message;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use MessageLocalizer;
 use MessageSpecifier;
-use OOUI\BlankTheme;
-use OOUI\Theme;
 use StatusValue;
 
 /**
@@ -24,12 +23,7 @@ class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		Theme::setSingleton( new BlankTheme() );
-	}
-
-	protected function tearDown(): void {
-		Theme::setSingleton();
-		parent::tearDown();
+		OutputPage::setupOOUI();
 	}
 
 	public function testGetHtml_notOK() {
