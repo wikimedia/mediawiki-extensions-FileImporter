@@ -38,7 +38,6 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 
 		$this->clearHooks();
 		$this->setMwGlobals( 'wgHooks', [] );
-		OutputPage::setupOOUI();
 	}
 
 	private function getMockSpecialPage(): SpecialPage {

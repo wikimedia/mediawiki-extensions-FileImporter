@@ -6,7 +6,6 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Html\ChangeFileNameForm;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Language\RawMessage;
-use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MessageLocalizer;
@@ -20,11 +19,6 @@ use MessageLocalizer;
  */
 class ChangeFileNameFormTest extends \MediaWikiIntegrationTestCase {
 	use HamcrestPHPUnitIntegration;
-
-	protected function setUp(): void {
-		parent::setUp();
-		OutputPage::setupOOUI();
-	}
 
 	private function getMockSpecialPage(): SpecialPage {
 		$context = $this->createMock( MessageLocalizer::class );

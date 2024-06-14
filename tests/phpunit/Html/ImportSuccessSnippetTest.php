@@ -6,7 +6,6 @@ use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
 use HashBagOStuff;
 use MediaWiki\Message\Message;
-use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
@@ -20,11 +19,6 @@ use StatusValue;
  * @license GPL-2.0-or-later
  */
 class ImportSuccessSnippetTest extends MediaWikiIntegrationTestCase {
-
-	protected function setUp(): void {
-		parent::setUp();
-		OutputPage::setupOOUI();
-	}
 
 	public function testGetHtml_notOK() {
 		$title = $this->createTitleWithResult( StatusValue::newFatal( 'fileimporter-badtoken' ) );
