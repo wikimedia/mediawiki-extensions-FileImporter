@@ -21,7 +21,7 @@ class FileImporterHooksTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnUserGetReservedNames() {
-		$this->setMwGlobals( 'wgFileImporterAccountForSuppressedUsername', '<SUPPRESSED>' );
+		$this->overrideConfigValue( 'FileImporterAccountForSuppressedUsername', '<SUPPRESSED>' );
 		$reservedUsernames = [];
 		( new FileImporterHooks )->onUserGetReservedNames( $reservedUsernames );
 		$this->assertSame( [ '<SUPPRESSED>' ], $reservedUsernames );

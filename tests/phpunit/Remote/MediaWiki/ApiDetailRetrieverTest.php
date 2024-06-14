@@ -24,10 +24,10 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
-			'wgFileImporterCommonsHelperServer' => '',
-			'wgFileImporterMaxRevisions' => 4,
-			'wgFileImporterMaxAggregatedBytes' => 9,
+		$this->overrideConfigValues( [
+			'FileImporterCommonsHelperServer' => '',
+			'FileImporterMaxRevisions' => 4,
+			'FileImporterMaxAggregatedBytes' => 9,
 		] );
 	}
 
@@ -67,9 +67,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testInvalidSuppressedUser() {
-		$this->setMwGlobals( [
-			'wgFileImporterAccountForSuppressedUsername' => 'InValid#Name'
-		] );
+		$this->overrideConfigValue( 'FileImporterAccountForSuppressedUsername', 'InValid#Name' );
 		$this->expectException( ConfigException::class );
 
 		$this->newInstance();

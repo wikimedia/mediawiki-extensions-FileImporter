@@ -9,6 +9,7 @@ use FileImporter\SpecialImportFile;
 use Hamcrest\Matcher;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Content\IContentHandlerFactory;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Site\HashSiteStore;
 use MediaWiki\Site\Site;
@@ -36,12 +37,12 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		parent::setUp();
 
 		$this->setUserLang( 'qqx' );
-		$this->setMwGlobals( [
-			'wgEnableUploads' => true,
-			'wgFileImporterShowInputScreen' => true,
-			'wgFileImporterCommonsHelperServer' => '',
-			'wgFileImporterSourceWikiDeletion' => false,
-			'wgFileImporterSourceWikiTemplating' => false,
+		$this->overrideConfigValues( [
+			MainConfigNames::EnableUploads => true,
+			'FileImporterShowInputScreen' => true,
+			'FileImporterCommonsHelperServer' => '',
+			'FileImporterSourceWikiDeletion' => false,
+			'FileImporterSourceWikiTemplating' => false,
 		] );
 
 		$commonsSite = $this->getMockSite( 'commonswiki', 'commons.wikimedia.org' );
@@ -258,7 +259,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 		$this->setService( 'FileImporterHttpRequestExecutor', $httpRequestExecutorMock );
 
 		if ( $sourceSiteServicesOverride ) {
-			$this->setMwGlobals( 'wgFileImporterSourceSiteServices', $sourceSiteServicesOverride );
+			$this->overrideConfigValue( 'FileImporterSourceSiteServices', $sourceSiteServicesOverride );
 		}
 
 		if ( $expectedExceptionDetails ) {
