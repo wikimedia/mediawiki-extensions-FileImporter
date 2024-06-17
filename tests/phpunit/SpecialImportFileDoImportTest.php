@@ -32,6 +32,11 @@ use Wikimedia\TestingAccessWrapper;
  */
 class SpecialImportFileDoImportTest extends MediaWikiIntegrationTestCase {
 
+	protected function setUp(): void {
+		parent::setUp();
+		OutputPage::setupOOUI();
+	}
+
 	/**
 	 * @return SpecialImportFile
 	 */
