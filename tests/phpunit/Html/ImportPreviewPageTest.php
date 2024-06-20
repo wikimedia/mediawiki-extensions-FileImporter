@@ -76,9 +76,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	public function testGetHtml_doNotEditSourceWiki() {
-		$this->setMwGlobals( [
-			'wgFileImporterSourceWikiTemplating' => false,
-		] );
+		$this->overrideConfigValue( 'FileImporterSourceWikiTemplating', false );
 		$importPlan = new ImportPlan(
 			new ImportRequest( self::CLIENT_URL, self::NAME, self::INITIAL_TEXT ),
 			$this->getMockImportDetails( 'Bar' ),
@@ -97,9 +95,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	public function testGetHtml_canEditSourceWiki() {
 		$this->markTestSkippedIfExtensionNotLoaded( 'CentralAuth' );
 
-		$this->setMwGlobals( [
-			'wgFileImporterSourceWikiTemplating' => true,
-		] );
+		$this->overrideConfigValue( 'FileImporterSourceWikiTemplating', true );
 		$this->setService( 'FileImporterTemplateLookup', $this->getMockTemplateLookup() );
 		$api = $this->createMock( RemoteApiActionExecutor::class );
 		$api->method( 'executeTestEditActionQuery' )

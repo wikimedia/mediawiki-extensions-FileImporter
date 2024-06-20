@@ -5,6 +5,7 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Title\Title;
@@ -22,7 +23,7 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 	public function testCreateForLinkTargetSuccess() {
 		$this->clearHooks();
-		$this->setMwGlobals( 'wgHooks', [
+		$this->overrideConfigValue( MainConfigNames::Hooks, [
 			'ChangeTagsAfterUpdateTags' => [ function (
 				$tagsToAdd,
 				$tagsToRemove,

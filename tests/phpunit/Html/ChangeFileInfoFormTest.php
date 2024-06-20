@@ -12,6 +12,7 @@ use Language;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\SpecialPage\SpecialPage;
@@ -37,7 +38,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 		parent::setUp();
 
 		$this->clearHooks();
-		$this->setMwGlobals( 'wgHooks', [] );
+		$this->overrideConfigValue( MainConfigNames::Hooks, [] );
 		OutputPage::setupOOUI();
 	}
 

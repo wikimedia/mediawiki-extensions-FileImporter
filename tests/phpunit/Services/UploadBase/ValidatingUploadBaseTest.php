@@ -4,6 +4,7 @@ namespace FileImporter\Tests\Services\UploadBase;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
 use UploadBase;
 
@@ -18,9 +19,7 @@ class ValidatingUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
-			'wgFileExtensions' => [ 'jpg' ],
-		] );
+		$this->overrideConfigValue( MainConfigNames::FileExtensions, [ 'jpg' ] );
 	}
 
 	public static function provideValidateTitle() {

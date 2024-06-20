@@ -144,7 +144,7 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		string $expectedText,
 		bool $expectedChangedSignal
 	) {
-		$this->setMwGlobals( 'wgFileImporterTextForPostImportRevision', '' );
+		$this->overrideConfigValue( 'FileImporterTextForPostImportRevision', '' );
 
 		$request = new ImportRequest( '//w.invalid', null, $intendedText );
 

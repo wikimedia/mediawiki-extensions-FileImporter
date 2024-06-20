@@ -3,6 +3,7 @@
 namespace FileImporter\Tests\MediaWiki;
 
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
 use PHPUnit\Framework\Assert;
 use UploadBase;
@@ -18,7 +19,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		// For testing mark the jpg extension is disallowed
-		$this->setMwGlobals( 'wgProhibitedFileExtensions', [ 'jpg' ] );
+		$this->overrideConfigValue( MainConfigNames::ProhibitedFileExtensions, [ 'jpg' ] );
 	}
 
 	public static function providePerformTitleChecks() {
