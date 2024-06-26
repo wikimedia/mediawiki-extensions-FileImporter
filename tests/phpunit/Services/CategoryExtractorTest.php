@@ -3,8 +3,8 @@
 namespace FileImporter\Tests\Services;
 
 use FileImporter\Services\CategoryExtractor;
+use MediaWiki\Cache\LinkBatchFactory;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
@@ -24,18 +24,6 @@ use Wikimedia\TestingAccessWrapper;
  * @license GPL-2.0-or-later
  */
 class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
-
-	/** @var MediaWikiServices */
-	private $services;
-	/** @var WikiPageFactory */
-	private $wikiPageFactory;
-
-	public function setUp(): void {
-		parent::setUp();
-
-		$this->services = MediaWikiServices::getInstance();
-		$this->wikiPageFactory = $this->services->getWikiPageFactory();
-	}
 
 	public static function provideCategories() {
 		yield [
@@ -67,7 +55,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 		$extractor = new CategoryExtractor(
 			$this->buildParserFactoryMock( $allCategories ),
 			$this->buildConnectionProviderMock( $hiddenCategories ),
-			$this->services->getLinkBatchFactory()
+			$this->createMock( LinkBatchFactory::class )
 		);
 
 		$title = Title::makeTitle( NS_FILE, 'Foo' );
@@ -83,24 +71,27 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::queryHiddenCategories
 	 */
 	public function testQueryHiddenCategories() {
+		$services = MediaWikiServices::getInstance();
+		$wikiPageFactory = $services->getWikiPageFactory();
+
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
-		$categoryPageVisible = $this->wikiPageFactory->newFromTitle( $categoryTitleVisible );
+		$categoryPageVisible = $wikiPageFactory->newFromTitle( $categoryTitleVisible );
 		$categoryPageVisible->insertOn( $this->db );
 
 		$categoryTitleHidden = Title::makeTitle( NS_CATEGORY, 'CategoryPageHidden' );
-		$categoryPageHidden = $this->wikiPageFactory->newFromTitle( $categoryTitleHidden );
+		$categoryPageHidden = $wikiPageFactory->newFromTitle( $categoryTitleHidden );
 		$categoryPageHidden->insertOn( $this->db );
 		$this->setHiddencat( $categoryPageHidden->getId() );
 
 		$categoryTitleHiddenUnused = Title::makeTitle( NS_CATEGORY, 'CategoryPageHiddenUnused' );
-		$categoryPageHiddenUnused = $this->wikiPageFactory->newFromTitle( $categoryTitleHiddenUnused );
+		$categoryPageHiddenUnused = $wikiPageFactory->newFromTitle( $categoryTitleHiddenUnused );
 		$categoryPageHiddenUnused->insertOn( $this->db );
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
 			$this->createNoOpMock( ParserFactory::class ),
-			$this->services->getDBLoadBalancerFactory(),
-			$this->services->getLinkBatchFactory()
+			$services->getConnectionProvider(),
+			$services->getLinkBatchFactory()
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
 
@@ -114,19 +105,21 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::queryHiddenCategories
 	 */
 	public function testQueryHiddenCategories_empty() {
+		$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
-		$categoryPageVisible = $this->wikiPageFactory->newFromTitle( $categoryTitleVisible );
+		$categoryPageVisible = $wikiPageFactory->newFromTitle( $categoryTitleVisible );
 		$categoryPageVisible->insertOn( $this->db );
 
 		$categoryTitleHiddenUnused = Title::makeTitle( NS_CATEGORY, 'CategoryPageHiddenUnused' );
-		$categoryPageHiddenUnused = $this->wikiPageFactory->newFromTitle( $categoryTitleHiddenUnused );
+		$categoryPageHiddenUnused = $wikiPageFactory->newFromTitle( $categoryTitleHiddenUnused );
 		$categoryPageHiddenUnused->insertOn( $this->db );
 		$this->setHiddencat( $categoryPageHiddenUnused->getId() );
 
 		$extractor = new CategoryExtractor(
 			$this->createNoOpMock( ParserFactory::class ),
-			$this->services->getDBLoadBalancerFactory(),
-			$this->services->getLinkBatchFactory()
+			$this->createNoOpMock( IConnectionProvider::class ),
+			$this->createNoOpMock( LinkBatchFactory::class )
 		);
 		$openExtractor = TestingAccessWrapper::newFromObject( $extractor );
 

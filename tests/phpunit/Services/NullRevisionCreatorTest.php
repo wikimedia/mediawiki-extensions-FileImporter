@@ -9,6 +9,7 @@ use MediaWiki\MainConfigNames;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Title\Title;
+use Wikimedia\Rdbms\IConnectionProvider;
 
 /**
  * @covers \FileImporter\Services\NullRevisionCreator
@@ -75,7 +76,7 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator(
 			$revisionStore,
-			$this->getServiceContainer()->getDBLoadBalancerFactory()
+			$this->getServiceContainer()->getConnectionProvider()
 		);
 
 		$nullRevisionCreator->createForLinkTarget( $title, $fileRevision, $user, $summary );
@@ -90,7 +91,7 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 		$nullRevisionCreator = new NullRevisionCreator(
 			$revisionStore,
-			$this->getServiceContainer()->getDBLoadBalancerFactory()
+			$this->createMock( IConnectionProvider::class )
 		);
 
 		$this->expectException( \RuntimeException::class );
