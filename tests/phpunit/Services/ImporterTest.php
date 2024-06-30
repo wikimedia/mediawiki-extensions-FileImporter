@@ -226,7 +226,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function assertFileImporterTagWasAdded( int $logId, int $revId, string $expectedTag ) {
-		$this->assertSame( 1, $this->db->newSelectQueryBuilder()
+		$this->assertSame( 1, $this->getDb()->newSelectQueryBuilder()
 			->table( 'change_tag' )
 			->join( 'change_tag_def', null, 'ctd_id = ct_tag_id' )
 			->where( [
@@ -255,7 +255,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$queryInfo['conds'] += [
 			'log_page' => $pageId,
 			'log_type' => $type,
-			'log_timestamp' => $this->db->timestamp( $timestamp ),
+			'log_timestamp' => $this->getDb()->timestamp( $timestamp ),
 		];
 
 		\ChangeTags::modifyDisplayQuery(
@@ -266,7 +266,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$queryInfo['options']
 		);
 
-		$row = $this->db->newSelectQueryBuilder()
+		$row = $this->getDb()->newSelectQueryBuilder()
 			->queryInfo( $queryInfo )
 			->caller( __METHOD__ )
 			->fetchRow();

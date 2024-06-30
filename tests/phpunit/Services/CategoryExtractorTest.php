@@ -162,7 +162,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	private function setHiddencat( int $page_id ): void {
-		$this->db->newInsertQueryBuilder()
+		$this->getDb()->newInsertQueryBuilder()
 			->insertInto( 'page_props' )
 			->ignore()
 			->row( [
