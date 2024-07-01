@@ -32,7 +32,7 @@ class RemoteApiImportTitleCheckerTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideJsonResponses
 	 */
-	public function test( string $json, bool $expected, int $expectedLoggerCalls ) {
+	public function testImportAllowed( string $json, bool $expected, int $expectedLoggerCalls ) {
 		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
 
 		$apiLookup = $this->createMock( HttpApiLookup::class );
