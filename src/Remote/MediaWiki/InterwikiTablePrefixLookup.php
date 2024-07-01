@@ -22,14 +22,14 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private InterwikiLookup $interwikiLookup;
 	private HttpApiLookup $httpApiLookup;
 	private HttpRequestExecutor $httpRequestExecutor;
-	/** @var string[] Array mapping full host name to interwiki prefix */
-	private $interwikiTableMap;
+	/** @var array<string,string>|null Array mapping full host name to interwiki prefix */
+	private $interwikiTableMap = null;
 	/**
-	 * @var string[] Array mapping parent domain to a representative URL.  The idea is that, for
-	 * example, a site matching *.wiktionary.* will have interwiki links to each language version
-	 * of wiktionary.
+	 * @var array<string,string>|null Array mapping parent domain to a representative URL. The idea
+	 * is that, for example, a site matching *.wiktionary.* will have interwiki links to each
+	 * language version of Wiktionary.
 	 */
-	private $parentDomainToUrlMap;
+	private $parentDomainToUrlMap = null;
 	/** @var string[] */
 	private array $interWikiConfigMap;
 	private LoggerInterface $logger;
@@ -213,7 +213,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string,string>
 	 */
 	private function prefetchInterwikiMap(): array {
 		$map = [];
@@ -231,7 +231,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<string,string>
 	 */
 	private function prefetchParentDomainToHostMap(): array {
 		$this->interwikiTableMap ??= $this->prefetchInterwikiMap();
