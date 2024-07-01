@@ -5,7 +5,6 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Services\FileTextRevisionValidator;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Context\IContextSource;
-use MediaWiki\Language\RawMessage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 
@@ -72,8 +71,12 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 				$this->assertSame( $expectedUser, $user );
 				$this->assertTrue( $minor );
 
-				// This is the way AbuseFilter communicates with the caller
-				$status->warning( new RawMessage( '<RAW>' ) );
+				/**
+				 * AbuseFilter communicates with callers via ApiMessage objects,
+				 * {@see FilteredActionsHandler::getApiStatus}. The isOK status is meaningless,
+				 * that's why we test with a warning.
+				 */
+				$status->warning( $this->getMockMessage( '<RAW>' ) );
 			}
 		);
 
