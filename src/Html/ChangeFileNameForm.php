@@ -18,10 +18,7 @@ use OOUI\TextInputWidget;
  */
 class ChangeFileNameForm extends SpecialPageHtmlFragment {
 
-	/**
-	 * @return string
-	 */
-	public function getHtml( ImportPlan $importPlan ) {
+	public function getHtml( ImportPlan $importPlan ): string {
 		try {
 			$filenameValue = $importPlan->getFileName();
 		} catch ( MalformedTitleException $ex ) {

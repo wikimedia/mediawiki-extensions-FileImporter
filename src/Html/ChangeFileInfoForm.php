@@ -14,10 +14,7 @@ use OOUI\ButtonInputWidget;
  */
 class ChangeFileInfoForm extends SpecialPageHtmlFragment {
 
-	/**
-	 * @return string
-	 */
-	public function getHtml( ImportPlan $importPlan ) {
+	public function getHtml( ImportPlan $importPlan ): string {
 		// Try showing the user provided value first if present
 		$wikitext = $importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText();
 

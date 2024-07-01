@@ -15,10 +15,7 @@ use OOUI\TextInputWidget;
  */
 class InputFormPage extends SpecialPageHtmlFragment {
 
-	/**
-	 * @return string
-	 */
-	public function getHtml() {
+	public function getHtml(): string {
 		return Html::openElement( 'div' ) .
 			Html::openElement(
 				'form',

@@ -28,10 +28,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 	public const ACTION_SUBMIT = 'submit';
 	public const ACTION_VIEW_DIFF = 'viewdiff';
 
-	/**
-	 * @return string
-	 */
-	public function getHtml( ImportPlan $importPlan ) {
+	public function getHtml( ImportPlan $importPlan ): string {
 		// TODO: Inject
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) ) {
 			$config = $this->getContext()->getConfig();

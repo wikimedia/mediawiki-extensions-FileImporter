@@ -15,10 +15,7 @@ use OOUI\ButtonInputWidget;
  */
 class FileInfoDiffPage extends SpecialPageHtmlFragment {
 
-	/**
-	 * @return string
-	 */
-	public function getHtml( ImportPlan $importPlan, ContentHandler $contentHandler ) {
+	public function getHtml( ImportPlan $importPlan, ContentHandler $contentHandler ): string {
 		$newText = $importPlan->getRequest()->getIntendedText() ?? $importPlan->getFileInfoText();
 
 		return Html::openElement(

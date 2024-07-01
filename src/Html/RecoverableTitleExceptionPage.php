@@ -14,10 +14,7 @@ use OOUI\MessageWidget;
  */
 class RecoverableTitleExceptionPage extends SpecialPageHtmlFragment {
 
-	/**
-	 * @return string
-	 */
-	public function getHtml( RecoverableTitleException $exception ) {
+	public function getHtml( RecoverableTitleException $exception ): string {
 		$msg = $exception->getMessageObject()->inLanguage( $this->getLanguage() );
 		return new MessageWidget( [
 			'label' => new HtmlSnippet( $msg->parse() ),
