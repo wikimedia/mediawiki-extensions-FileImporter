@@ -35,7 +35,7 @@ class FileImporterUtilsTest extends \MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideHtmlSnippets
 	 */
-	public function test( string $html, string $expected ) {
+	public function testAddTargetBlankToLinks( string $html, string $expected ) {
 		$this->assertSame( $expected, FileImporterUtils::addTargetBlankToLinks( $html ) );
 	}
 
