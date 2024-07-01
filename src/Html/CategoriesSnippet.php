@@ -47,7 +47,7 @@ class CategoriesSnippet {
 	 *
 	 * @return string HTML rendering of categories box
 	 */
-	public function getHtml() {
+	public function getHtml(): string {
 		$output = '';
 
 		// TODO: Gracefully handle an empty list of categories, pending decisions about the desired

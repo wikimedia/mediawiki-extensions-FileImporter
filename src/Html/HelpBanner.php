@@ -29,10 +29,7 @@ class HelpBanner extends SpecialPageHtmlFragment {
 		return !$userOptionsLookup->getBoolOption( $this->getUser(), self::HIDE_HELP_BANNER_PREFERENCE );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getHtml() {
+	public function getHtml(): string {
 		if ( !$this->shouldHelpBannerBeShown() ) {
 			return '';
 		}

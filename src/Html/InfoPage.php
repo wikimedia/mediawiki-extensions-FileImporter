@@ -11,10 +11,7 @@ use MediaWiki\Html\Html;
  */
 class InfoPage extends SpecialPageHtmlFragment {
 
-	/**
-	 * @return string
-	 */
-	public function getHtml() {
+	public function getHtml(): string {
 		return Html::rawElement(
 			'p',
 			[],

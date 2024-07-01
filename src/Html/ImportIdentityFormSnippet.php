@@ -37,10 +37,7 @@ class ImportIdentityFormSnippet {
 		$this->identityParts = $identityParts;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getHtml() {
+	public function getHtml(): string {
 		$html = '';
 
 		foreach ( self::IDENTITY_KEYS as $identityKey ) {

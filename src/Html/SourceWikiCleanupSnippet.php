@@ -54,10 +54,7 @@ class SourceWikiCleanupSnippet {
 			'FileImporterMediaWikiRemoteApiActionExecutor' );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getHtml( ImportPlan $importPlan, User $user ) {
+	public function getHtml( ImportPlan $importPlan, User $user ): string {
 		/** @var IContextSource $context */
 		$context = RequestContext::getMain();
 		$sourceUrl = $importPlan->getRequest()->getUrl();
