@@ -25,7 +25,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
-use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\PageUpdateStatus;
 use MediaWiki\Title\TitleValue;
 use MediaWiki\User\User;
@@ -413,8 +412,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 				$this->isInstanceOf( FileRevision::class ),
 				$expectedUser,
 				self::NULL_EDIT_SUMMARY
-			)
-			->willReturn( $this->createNoOpMock( RevisionRecord::class ) );
+			);
 		return $creator;
 	}
 
