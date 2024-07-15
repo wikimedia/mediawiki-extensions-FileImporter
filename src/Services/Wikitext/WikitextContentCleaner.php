@@ -146,6 +146,9 @@ class WikitextContentCleaner {
 		$number = 0;
 
 		for ( $i = $startPosition; $i < $max; $i++ ) {
+			// Optimization: Skip over irrelevant chars without slow loop
+			$i += strcspn( $wikitext, '=[]{|}', $i );
+
 			$currentChar = $wikitext[$i];
 			$currentPair = substr( $wikitext, $i, 2 );
 
