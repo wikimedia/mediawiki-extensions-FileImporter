@@ -33,7 +33,6 @@ use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
-use MediaWiki\Extension\GlobalBlocking\GlobalBlocking;
 use MediaWiki\Html\Html;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
@@ -59,7 +58,6 @@ class SpecialImportFile extends SpecialPage {
 	private const ERROR_UPLOAD_DISABLED = 'uploadDisabled';
 	private const ERROR_USER_PERMISSIONS = 'userPermissionsError';
 	private const ERROR_LOCAL_BLOCK = 'userBlocked';
-	private const ERROR_GLOBAL_BLOCK = 'userGloballyBlocked';
 
 	private SourceSiteLocator $sourceSiteLocator;
 	private Importer $importer;
@@ -147,15 +145,6 @@ class SpecialImportFile extends SpecialPage {
 		if ( $localBlock ) {
 			$this->logErrorStats( self::ERROR_LOCAL_BLOCK, false );
 			throw new UserBlockedError( $localBlock );
-		}
-
-		// Global blocks
-		if ( ExtensionRegistry::getInstance()->isLoaded( 'GlobalBlocking' ) ) {
-			$globalBlock = GlobalBlocking::getUserBlock( $user, $this->getRequest()->getIP() );
-			if ( $globalBlock ) {
-				$this->logErrorStats( self::ERROR_GLOBAL_BLOCK, false );
-				throw new UserBlockedError( $globalBlock );
-			}
 		}
 
 		# Check whether we actually want to allow changing stuff
