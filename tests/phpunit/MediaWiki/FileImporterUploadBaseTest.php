@@ -72,8 +72,6 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		} else {
 			$this->assertStatusGood( $status );
 		}
-		// Delete the file that we created post test
-		unlink( $tempPath );
 	}
 
 	private function getGetImagePath( string $fileType ): string {
@@ -82,7 +80,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 			$this->markTestSkipped( "$saveMethod function required for this test" );
 		}
 
-		$tmpPath = tempnam( sys_get_temp_dir(), __CLASS__ );
+		$tmpPath = $this->getNewTempFile();
 		$im = imagecreate( 100, 100 );
 		imagecolorallocate( $im, 0, 0, 0 );
 		$text_color = imagecolorallocate( $im, 233, 14, 91 );
