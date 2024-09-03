@@ -15,12 +15,6 @@ use UploadBase;
  */
 class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 
-	protected function setUp(): void {
-		parent::setUp();
-		// For testing mark the jpg extension is disallowed
-		$this->overrideConfigValue( MainConfigNames::ProhibitedFileExtensions, [ 'jpg' ] );
-	}
-
 	public static function providePerformTitleChecks() {
 		return [
 			'fileNameTooLongValidJPEG' =>
@@ -34,6 +28,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	 * @dataProvider providePerformTitleChecks
 	 */
 	public function testPerformTitleChecks( string $targetTitle, int $expected ) {
+		$this->overrideConfigValue( MainConfigNames::ProhibitedFileExtensions, [ 'jpg' ] );
 		$base = new ValidatingUploadBase(
 			new TitleValue( NS_FILE, $targetTitle ),
 			''
@@ -81,10 +76,8 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		}
 
 		$tmpPath = $this->getNewTempFile();
-		$im = imagecreate( 100, 100 );
-		imagecolorallocate( $im, 0, 0, 0 );
-		$text_color = imagecolorallocate( $im, 233, 14, 91 );
-		imagestring( $im, 1, 5, 5, 'Some Text', $text_color );
+		$im = imagecreate( 16, 16 );
+		imagecolorallocate( $im, 255, 0, 255 );
 		$saveMethod( $im, $tmpPath );
 		imagedestroy( $im );
 		return $tmpPath;
