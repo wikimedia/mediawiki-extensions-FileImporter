@@ -180,6 +180,7 @@ return [
 				$postImportHandler,
 				$templateLookup,
 				$remoteApiActionExecutor,
+				$services->getUrlUtils(),
 				$logger,
 				$services->getStatsdDataFactory()
 			);
@@ -236,6 +237,7 @@ return [
 				$postImportHandler,
 				$templateLookup,
 				$remoteApiActionExecutor,
+				$services->getUrlUtils(),
 				$logger,
 				$services->getStatsdDataFactory()
 			);

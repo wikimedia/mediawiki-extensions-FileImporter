@@ -7,6 +7,7 @@ use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\User\User;
+use MediaWiki\Utils\UrlUtils;
 use NullStatsdDataFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -27,6 +28,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	private PostImportHandler $fallbackHandler;
 	private WikidataTemplateLookup $templateLookup;
 	private RemoteApiActionExecutor $remoteAction;
+	private UrlUtils $urlUtils;
 	private LoggerInterface $logger;
 	private StatsdDataFactoryInterface $statsd;
 
@@ -34,12 +36,14 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		PostImportHandler $fallbackHandler,
 		WikidataTemplateLookup $templateLookup,
 		RemoteApiActionExecutor $remoteAction,
+		UrlUtils $urlUtils,
 		LoggerInterface $logger = null,
 		StatsdDataFactoryInterface $statsd = null
 	) {
 		$this->fallbackHandler = $fallbackHandler;
 		$this->templateLookup = $templateLookup;
 		$this->remoteAction = $remoteAction;
+		$this->urlUtils = $urlUtils;
 		$this->logger = $logger ?? new NullLogger();
 		$this->statsd = $statsd ?? new NullStatsdDataFactory();
 	}
@@ -84,7 +88,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage(
 			'fileimporter-cleanup-summary',
-			wfExpandIRI( $importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL ) )
+			$this->urlUtils->expandIRI( $importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL ) ) ?? ''
 		)->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 		$text = "\n{{" . wfEscapeWikiText( $templateName ) . '|' .
 			wfEscapeWikiText( $importPlan->getTitle()->getText() ) . '}}';
@@ -116,7 +120,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		$sourceUrl = $importPlan->getDetails()->getSourceUrl();
 		$summary = wfMessage(
 			'fileimporter-delete-summary',
-			wfExpandIRI( $importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL ) )
+			$this->urlUtils->expandIRI( $importPlan->getTitle()->getFullURL( '', false, PROTO_CANONICAL ) ) ?? ''
 		)->inLanguage( $importPlan->getDetails()->getPageLanguage() )->text();
 
 		$status = $this->remoteAction->executeDeleteAction(

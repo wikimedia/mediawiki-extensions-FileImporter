@@ -12,6 +12,7 @@ use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
+use MediaWiki\Utils\UrlUtils;
 use MediaWikiIntegrationTestCase;
 use StatusValue;
 
@@ -36,7 +37,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$fallbackHandler,
 			$this->createNoOpMock( WikidataTemplateLookup::class ),
-			$this->createNoOpMock( RemoteApiActionExecutor::class )
+			$this->createNoOpMock( RemoteApiActionExecutor::class ),
+			new UrlUtils()
 		);
 
 		$url = 'http://w.invalid/w/foo' . mt_rand();
@@ -73,7 +75,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$this->createNoOpMock( PostImportHandler::class ),
 			$mockTemplateLookup,
-			$mockRemoteAction
+			$mockRemoteAction,
+			new UrlUtils()
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
@@ -101,7 +104,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$fallbackHandler,
 			$mockTemplateLookup,
-			$mockRemoteAction
+			$mockRemoteAction,
+			new UrlUtils()
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
@@ -127,7 +131,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$this->createNoOpMock( PostImportHandler::class ),
 			$this->createNoOpMock( WikidataTemplateLookup::class ),
-			$mockRemoteAction
+			$mockRemoteAction,
+			new UrlUtils()
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
@@ -147,7 +152,8 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		$postImportHandler = new RemoteSourceFileEditDeleteAction(
 			$this->createNoOpMock( PostImportHandler::class ),
 			$this->createNoOpMock( WikidataTemplateLookup::class ),
-			$mockRemoteAction
+			$mockRemoteAction,
+			new UrlUtils()
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
