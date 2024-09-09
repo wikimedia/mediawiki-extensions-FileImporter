@@ -9,13 +9,16 @@
 			"MemphisA5",
 			"SeoJeongHo",
 			"Tkwiki",
-			"Ykhwong"
+			"Ykhwong",
+			"Suleiman the Magnificent Television"
 		]
 	},
 	"fileimporter-desc": "쉽게 다른 사이트에서 파일 가져오기",
 	"fileimporter-help-banner-close-tooltip": "이 메시지를 더 이상 보지 않기",
 	"tag-fileimporter": "FileImporter에 의해 수정됨",
+	"tag-fileimporter-description": "다른 위키에서 가져온 후에 추가된 판 및 로그 메시지",
 	"tag-fileimporter-imported": "FileImporter를 통해 가져옴",
+	"tag-fileimporter-imported-description": "다른 위키에서 가져온 판",
 	"fileimporter-specialpage": "파일 가져오기",
 	"fileimporter-importfailed": "가져오기를 실패했습니다",
 	"fileimporter-mediawiki-api-notfound": "SourceUrl로부터 미디어위키 API 가져오기를 실패했습니다.",
@@ -28,7 +31,7 @@
 	"fileimporter-http-statuscode": "HTTP 상태 코드 $1.",
 	"fileimporter-cantparseurl": "지정된 URL의 구문을 분석할 수 없습니다: $1",
 	"fileimporter-cantimporturl": "주어진 URL을 가져올 수 없습니다",
-	"fileimporter-cantimportfromsharedrepo": "공유 저장소로부터 파일을 가져올 수 없습니다.",
+	"fileimporter-cantimportfromsharedrepo": "$1에 파일이 없기 때문에 공유 저장소에 호스팅된 파일을 가져올 수 없습니다.",
 	"fileimporter-cantimportmissingfile": "존재하지 않는 파일을 가져올 수 없습니다.",
 	"fileimporter-cantimportfilehidden": "파일 판 중 적어도 하나가 숨겨져 있기 때문에 파일을 가져올 수 없습니다.",
 	"fileimporter-badtoken": "세션이 더 이상 유효하지 않습니다. 가져오기를 다시 시작해 주십시오.",
