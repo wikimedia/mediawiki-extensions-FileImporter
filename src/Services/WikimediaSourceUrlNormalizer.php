@@ -3,6 +3,7 @@
 namespace FileImporter\Services;
 
 use FileImporter\Data\SourceUrl;
+use MediaWiki\Utils\UrlUtils;
 
 /**
  * A normalizer for SourceUrls that are known to point to a Wikimedia wiki. In other words: This
@@ -21,7 +22,7 @@ class WikimediaSourceUrlNormalizer extends MediaWikiSourceUrlNormalizer {
 		$parts['host'] = strtr( $parts['host'], [
 			'.m.' => '.',
 		] );
-		$url = wfAssembleUrl( $parts );
+		$url = UrlUtils::assemble( $parts );
 
 		return new SourceUrl( $url );
 	}
