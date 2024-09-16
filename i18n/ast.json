@@ -7,6 +7,7 @@
 	},
 	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Importación cenciella de ficheros dende otros sitios",
+	"fileimporter-help-banner-close-tooltip": "Nun volver amosar esti mensaxe",
 	"tag-fileimporter": "Tresformáu por FileImporter",
 	"tag-fileimporter-description": "Revisiones y mensaxes de rexistru añadíos después d'importar d'otra wiki",
 	"tag-fileimporter-imported": "Importáu con FileImporter",
