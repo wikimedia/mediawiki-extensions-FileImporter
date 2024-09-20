@@ -202,7 +202,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 
 	private static function assertErrorBox( string $html, string $text ): void {
 		self::assertStringContainsString( 'mw-importfile-error-banner', $html );
-		self::assertStringContainsString( 'mw-message-box-error', $html );
+		self::assertStringContainsString( 'cdx-message--error', $html );
 		self::assertStringContainsString( htmlspecialchars( $text, ENT_NOQUOTES ), $html );
 	}
 
