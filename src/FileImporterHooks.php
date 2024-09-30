@@ -73,8 +73,7 @@ class FileImporterHooks implements
 	 * @param string[] &$tags
 	 */
 	public function onChangeTagsListActive( &$tags ) {
-		$tags[] = 'fileimporter';
-		$tags[] = 'fileimporter-imported';
+		$this->onListDefinedTags( $tags );
 	}
 
 	/**

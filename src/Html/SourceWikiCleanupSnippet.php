@@ -148,12 +148,8 @@ class SourceWikiCleanupSnippet {
 	 *  delete pages. Also returns false if querying the user rights failed.
 	 */
 	private function isSourceDeleteAllowed( SourceUrl $sourceUrl, User $user ) {
-		if ( !$this->sourceDeletionEnabled ) {
-			return false;
-		}
-
-		return $this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user )
-			->isGood();
+		return $this->sourceDeletionEnabled &&
+			$this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user )->isGood();
 	}
 
 }
