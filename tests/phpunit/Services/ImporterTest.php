@@ -20,7 +20,6 @@ use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Content\IContentHandlerFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -61,7 +60,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		parent::tearDown();
 
 		// avoid file leftovers when repeatedly run on a local system
-		$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
+		$file = $this->getServiceContainer()->getRepoGroup()->getLocalRepo()
 			->newFile( self::TITLE );
 		if ( $file->exists() ) {
 			$reason = 'This was just from a PHPUnit test.';
@@ -70,7 +69,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public function testImport() {
-		$revisionLookup = MediaWikiServices::getInstance()->getRevisionLookup();
+		$revisionLookup = $this->getServiceContainer()->getRevisionLookup();
 		$importer = $this->newImporter();
 		$plan = $this->newImportPlan();
 		$title = $plan->getTitle();
@@ -158,7 +157,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$this->assertTextRevisionLogEntry( $nullRevision, 'upload', 'upload' );
 
 		// assert file was imported correctly
-		$latestFileRevision = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
+		$latestFileRevision = $this->getServiceContainer()->getRepoGroup()->getLocalRepo()
 			->newFile( $title );
 		$fileHistory = $latestFileRevision->getHistory();
 		$this->assertCount( 1, $fileHistory );
@@ -281,7 +280,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function newImporter(): Importer {
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 
 		$user = UserIdentityValue::newExternal( 'Imported', 'SourceUser1' );
 		$userLookup = $this->createMock( UserIdentityLookup::class );
@@ -342,7 +341,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$fileRevisions
 		);
 
-		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$config = $this->getServiceContainer()->getMainConfig();
 
 		$localizer = $this->createMock( MessageLocalizer::class );
 		$localizer->method( 'msg' )

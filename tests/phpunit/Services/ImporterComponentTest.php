@@ -21,7 +21,6 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Linker\LinkTarget;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
@@ -252,7 +251,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			new TextRevisions( [ $textRevision ] ),
 			new FileRevisions( [ $fileRevision ] )
 		);
-		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$config = $this->getServiceContainer()->getMainConfig();
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, self::PREFIX );
 		$plan->setCleanedLatestRevisionText( self::CLEANED_WIKITEXT );

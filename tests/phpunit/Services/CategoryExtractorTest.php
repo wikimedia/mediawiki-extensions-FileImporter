@@ -4,7 +4,6 @@ namespace FileImporter\Tests\Services;
 
 use FileImporter\Services\CategoryExtractor;
 use MediaWiki\Cache\LinkBatchFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
@@ -71,7 +70,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::queryHiddenCategories
 	 */
 	public function testQueryHiddenCategories() {
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 		$wikiPageFactory = $services->getWikiPageFactory();
 
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
@@ -105,7 +104,7 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 	 * @covers ::queryHiddenCategories
 	 */
 	public function testQueryHiddenCategories_empty() {
-		$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+		$wikiPageFactory = $this->getServiceContainer()->getWikiPageFactory();
 
 		$categoryTitleVisible = Title::makeTitle( NS_CATEGORY, 'CategoryPageVisible' );
 		$categoryPageVisible = $wikiPageFactory->newFromTitle( $categoryTitleVisible );

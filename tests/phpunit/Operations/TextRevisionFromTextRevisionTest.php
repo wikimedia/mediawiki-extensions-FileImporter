@@ -6,7 +6,6 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -68,7 +67,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 		$this->assertTrue( $textRevisionFromTextRevision->commit()->isOK() );
 
 		$this->assertTrue( $title->exists() );
-		$firstRevision = MediaWikiServices::getInstance()
+		$firstRevision = $this->getServiceContainer()
 			->getRevisionLookup()
 			->getFirstRevision( $title );
 
@@ -84,7 +83,7 @@ class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function newTextRevisionFromTextRevision( Title $title ) {
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 		return new TextRevisionFromTextRevision(
 			$title,
 			$this->getTestUser()->getUser(),

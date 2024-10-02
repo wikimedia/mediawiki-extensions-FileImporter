@@ -11,7 +11,6 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Content\IContentHandlerFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -103,7 +102,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$this->assertTrue( $title->exists() );
 
 		// there will be a text revision created with the upload
-		$firstRevision = MediaWikiServices::getInstance()
+		$firstRevision = $this->getServiceContainer()
 			->getRevisionLookup()
 			->getFirstRevision( $title );
 		$content = $firstRevision->getContent( SlotRecord::MAIN );
@@ -121,7 +120,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$this->assertFalse( $firstRevision->isMinor() );
 
 		// assert file was imported correctly
-		$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		$file = $this->getServiceContainer()->getRepoGroup()->findFile( $title );
 		$this->assertInstanceOf( File::class, $file );
 		$this->assertSame( self::TITLE, $file->getName() );
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
@@ -133,7 +132,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function newFileRevisionFromRemoteUrl( Title $title ) {
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 
 		$userLookup = $this->createMock( UserIdentityLookup::class );
 		$user = UserIdentityValue::newExternal( 'Imported', 'SourceUser1' );
