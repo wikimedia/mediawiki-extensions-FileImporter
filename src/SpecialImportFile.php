@@ -550,7 +550,7 @@ class SpecialImportFile extends SpecialPage {
 			Html::rawElement( 'div', [ 'id' => 'ext-fileimporter-vue-root' ] )
 		);
 
-		$showHelpBanner = !MediaWikiServices::getInstance()->getService( 'UserOptionsLookup' )
+		$showHelpBanner = !$this->userOptionsManager
 			->getBoolOption( $this->getUser(), 'userjs-fileimporter-hide-help-banner' );
 
 		$this->getOutput()->addJsConfigVars( [
