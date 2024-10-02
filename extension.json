@@ -219,7 +219,10 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "FileImporter\\FileImporterHooks"
+			"class": "FileImporter\\FileImporterHooks",
+			"services": [
+				"MainConfig"
+			]
 		},
 		"visualeditor": {
 			"class": "FileImporter\\VisualEditorHooks"

@@ -12,9 +12,15 @@ use FileImporter\FileImporterHooks;
  */
 class FileImporterHooksTest extends \MediaWikiIntegrationTestCase {
 
+	private function newFileImporterHooks() {
+		return new FileImporterHooks(
+			$this->getServiceContainer()->getMainConfig()
+		);
+	}
+
 	public function testOnListDefinedTags() {
 		$tags = [];
-		( new FileImporterHooks )->onListDefinedTags( $tags );
+		$this->newFileImporterHooks()->onListDefinedTags( $tags );
 		$this->assertSame(
 			[ 'fileimporter', 'fileimporter-imported' ],
 			$tags );
@@ -23,7 +29,7 @@ class FileImporterHooksTest extends \MediaWikiIntegrationTestCase {
 	public function testOnUserGetReservedNames() {
 		$this->overrideConfigValue( 'FileImporterAccountForSuppressedUsername', '<SUPPRESSED>' );
 		$reservedUsernames = [];
-		( new FileImporterHooks )->onUserGetReservedNames( $reservedUsernames );
+		$this->newFileImporterHooks()->onUserGetReservedNames( $reservedUsernames );
 		$this->assertSame( [ '<SUPPRESSED>' ], $reservedUsernames );
 	}
 

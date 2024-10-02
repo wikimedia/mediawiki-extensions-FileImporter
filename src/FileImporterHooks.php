@@ -6,8 +6,8 @@ use FileImporter\Html\ImportSuccessSnippet;
 use MediaWiki\Actions\ActionEntryPoint;
 use MediaWiki\ChangeTags\Hook\ChangeTagsListActiveHook;
 use MediaWiki\ChangeTags\Hook\ListDefinedTagsHook;
+use MediaWiki\Config\Config;
 use MediaWiki\Hook\BeforeInitializeHook;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Title\Title;
@@ -24,6 +24,14 @@ class FileImporterHooks implements
 	ListDefinedTagsHook,
 	UserGetReservedNamesHook
 {
+
+	private Config $config;
+
+	public function __construct(
+		Config $config
+	) {
+		$this->config = $config;
+	}
 
 	/**
 	 * Show an import success message when appropriate.
@@ -86,8 +94,7 @@ class FileImporterHooks implements
 	 * @param string[] &$reservedUsernames
 	 */
 	public function onUserGetReservedNames( &$reservedUsernames ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$reservedUsernames[] = $config->get( 'FileImporterAccountForSuppressedUsername' );
+		$reservedUsernames[] = $this->config->get( 'FileImporterAccountForSuppressedUsername' );
 	}
 
 }
