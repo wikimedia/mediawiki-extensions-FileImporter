@@ -22,6 +22,7 @@ use MediaWiki\User\User;
 class ImportPlanFactory {
 
 	private Config $config;
+	private WikiLinkParserFactory $wikiLinkParserFactory;
 	private RestrictionStore $restrictionStore;
 	private HttpRequestExecutor $httpRequestExecutor;
 	private SourceSiteLocator $sourceSiteLocator;
@@ -30,6 +31,7 @@ class ImportPlanFactory {
 
 	public function __construct(
 		Config $config,
+		WikiLinkParserFactory $wikiLinkParserFactory,
 		RestrictionStore $restrictionStore,
 		HttpRequestExecutor $httpRequestExecutor,
 		SourceSiteLocator $sourceSiteLocator,
@@ -37,6 +39,7 @@ class ImportPlanFactory {
 		UploadBaseFactory $uploadBaseFactory
 	) {
 		$this->config = $config;
+		$this->wikiLinkParserFactory = $wikiLinkParserFactory;
 		$this->restrictionStore = $restrictionStore;
 		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->sourceSiteLocator = $sourceSiteLocator;
@@ -72,7 +75,7 @@ class ImportPlanFactory {
 			$this->uploadBaseFactory,
 			$commonsHelperConfigRetriever ?? null,
 			$commonsHelperHelpPage ?? null,
-			new WikiLinkParserFactory(),
+			$this->wikiLinkParserFactory,
 			$this->restrictionStore
 		);
 		$planValidator->validate( $importPlan, $user );

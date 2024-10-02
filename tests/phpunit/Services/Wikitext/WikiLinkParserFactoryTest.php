@@ -15,21 +15,27 @@ use FileImporter\Services\Wikitext\WikiLinkParserFactory;
  */
 class WikiLinkParserFactoryTest extends \MediaWikiIntegrationTestCase {
 
+	private function newInstance(): WikiLinkParserFactory {
+		$services = $this->getServiceContainer();
+		return new WikiLinkParserFactory(
+			$services->getTitleParser(),
+			$services->getNamespaceInfo(),
+			$services->getLanguageFactory()
+		);
+	}
+
 	public function testInterwikiPrefixing() {
-		$factory = new WikiLinkParserFactory();
-		$parser = $factory->getWikiLinkParser( null, 'PREFIX' );
+		$parser = $this->newInstance()->getWikiLinkParser( null, 'PREFIX' );
 		$this->assertSame( '[[:PREFIX:Benutzer:Me]]', $parser->parse( '[[Benutzer:Me]]' ) );
 	}
 
 	public function testNamespaceUnlocalization() {
-		$factory = new WikiLinkParserFactory();
-		$parser = $factory->getWikiLinkParser( 'de', '' );
+		$parser = $this->newInstance()->getWikiLinkParser( 'de', '' );
 		$this->assertSame( '[[User:Me]]', $parser->parse( '[[Benutzer:Me]]' ) );
 	}
 
 	public function testWikiLinkNormalization() {
-		$factory = new WikiLinkParserFactory();
-		$parser = $factory->getWikiLinkParser( 'de', 'PREFIX' );
+		$parser = $this->newInstance()->getWikiLinkParser( 'de', 'PREFIX' );
 		$this->assertSame( '[[:PREFIX:User:Me]]', $parser->parse( '[[Benutzer:Me]]' ) );
 	}
 

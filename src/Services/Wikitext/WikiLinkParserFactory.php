@@ -4,7 +4,6 @@ namespace FileImporter\Services\Wikitext;
 
 use FileImporter\Remote\MediaWiki\MediaWikiSourceUrlParser;
 use MediaWiki\Languages\LanguageFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\TitleParser;
 
@@ -15,16 +14,19 @@ use MediaWiki\Title\TitleParser;
 class WikiLinkParserFactory {
 	use MediaWikiSourceUrlParser;
 
-	private TitleParser $parser;
+	private TitleParser $titleParser;
 	private NamespaceInfo $namespaceInfo;
 	private LanguageFactory $languageFactory;
 
-	public function __construct() {
-		$services = MediaWikiServices::getInstance();
+	public function __construct(
+		TitleParser $titleParser,
+		NamespaceInfo $namespaceInfo,
+		LanguageFactory $languageFactory
+	) {
 		// FIXME: This needs to be a parser in the context of the *source* wiki
-		$this->parser = $services->getTitleParser();
-		$this->namespaceInfo = $services->getNamespaceInfo();
-		$this->languageFactory = $services->getLanguageFactory();
+		$this->titleParser = $titleParser;
+		$this->namespaceInfo = $namespaceInfo;
+		$this->languageFactory = $languageFactory;
 	}
 
 	public function getWikiLinkParser( ?string $languageCode, string $interWikiPrefix ): WikiLinkParser {
@@ -41,7 +43,7 @@ class WikiLinkParserFactory {
 
 		$parser->registerWikiLinkCleaner( new WikiLinkPrefixer(
 			$interWikiPrefix,
-			$this->parser
+			$this->titleParser
 		) );
 
 		return $parser;

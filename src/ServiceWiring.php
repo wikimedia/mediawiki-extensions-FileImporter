@@ -28,6 +28,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikidataTemplateLookup;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
 use FileImporter\Services\WikiRevisionFactory;
+use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Logger\LoggerFactory;
@@ -141,6 +142,11 @@ return [
 
 		return new ImportPlanFactory(
 			$services->getMainConfig(),
+			new WikiLinkParserFactory(
+				$services->getTitleParser(),
+				$services->getNamespaceInfo(),
+				$services->getLanguageFactory()
+			),
 			$services->getRestrictionStore(),
 			$httpRequestExecutor,
 			$sourceSiteLocator,
