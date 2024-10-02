@@ -286,7 +286,7 @@ class SpecialImportFile extends SpecialPage {
 			$webRequest->getVal( 'intendedFileName' ),
 			$webRequest->getVal( 'intendedWikitext' ),
 			$webRequest->getVal( 'intendedRevisionSummary' ),
-			$webRequest->getRawVal( 'importDetailsHash', '' )
+			$webRequest->getRawVal( 'importDetailsHash' ) ?? ''
 		);
 
 		$url = $importRequest->getUrl();
@@ -374,8 +374,8 @@ class SpecialImportFile extends SpecialPage {
 		$out = $this->getOutput();
 		$importDetails = $importPlan->getDetails();
 
-		$importDetailsHash = $out->getRequest()->getRawVal( 'importDetailsHash', '' );
-		$token = $out->getRequest()->getRawVal( 'token', '' );
+		$importDetailsHash = $out->getRequest()->getRawVal( 'importDetailsHash' ) ?? '';
+		$token = $out->getRequest()->getRawVal( 'token' ) ?? '';
 
 		if ( !$this->getContext()->getCsrfTokenSet()->matchToken( $token ) ) {
 			$this->showWarningMessage( $this->msg( 'fileimporter-badtoken' )->parse() );
