@@ -31,6 +31,8 @@
 				"FileImporterSourceSiteLocator",
 				"FileImporterImporter",
 				"FileImporterImportPlanFactory",
+				"FileImporterMediaWikiRemoteApiActionExecutor",
+				"FileImporterTemplateLookup",
 				"ContentHandlerFactory",
 				"StatsdDataFactory",
 				"UserOptionsManager",

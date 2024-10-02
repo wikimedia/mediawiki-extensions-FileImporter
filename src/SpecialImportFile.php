@@ -26,16 +26,17 @@ use FileImporter\Html\InfoPage;
 use FileImporter\Html\InputFormPage;
 use FileImporter\Html\RecoverableTitleExceptionPage;
 use FileImporter\Html\SourceWikiCleanupSnippet;
+use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
+use FileImporter\Services\WikidataTemplateLookup;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\Logger\LoggerFactory;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
@@ -62,6 +63,8 @@ class SpecialImportFile extends SpecialPage {
 	private SourceSiteLocator $sourceSiteLocator;
 	private Importer $importer;
 	private ImportPlanFactory $importPlanFactory;
+	private RemoteApiActionExecutor $remoteActionApi;
+	private WikidataTemplateLookup $templateLookup;
 	private IContentHandlerFactory $contentHandlerFactory;
 	private StatsdDataFactoryInterface $stats;
 	private UserOptionsManager $userOptionsManager;
@@ -71,6 +74,8 @@ class SpecialImportFile extends SpecialPage {
 		SourceSiteLocator $sourceSiteLocator,
 		Importer $importer,
 		ImportPlanFactory $importPlanFactory,
+		RemoteApiActionExecutor $remoteActionApi,
+		WikidataTemplateLookup $templateLookup,
 		IContentHandlerFactory $contentHandlerFactory,
 		StatsdDataFactoryInterface $statsdDataFactory,
 		UserOptionsManager $userOptionsManager,
@@ -85,6 +90,8 @@ class SpecialImportFile extends SpecialPage {
 		$this->sourceSiteLocator = $sourceSiteLocator;
 		$this->importer = $importer;
 		$this->importPlanFactory = $importPlanFactory;
+		$this->remoteActionApi = $remoteActionApi;
+		$this->templateLookup = $templateLookup;
 		$this->contentHandlerFactory = $contentHandlerFactory;
 		$this->stats = $statsdDataFactory;
 		$this->userOptionsManager = $userOptionsManager;
@@ -168,7 +175,7 @@ class SpecialImportFile extends SpecialPage {
 		}
 
 		$isCodex = $webRequest->getBool( 'codex' ) &&
-			MediaWikiServices::getInstance()->getMainConfig()->get( 'FileImporterCodexMode' );
+			$this->getConfig()->get( 'FileImporterCodexMode' );
 		$isCodexSubmit = $isCodex && $this->getRequest()->wasPosted() && $action === 'submit';
 
 		if ( !$isCodexSubmit ) {
@@ -504,19 +511,15 @@ class SpecialImportFile extends SpecialPage {
 	private function getAutomatedCapabilities( ImportPlan $importPlan ) {
 		$capabilities = [];
 
-		$config = $this->getContext()->getConfig();
+		$config = $this->getConfig();
 		$isCentralAuthEnabled = ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' );
-		$lookup = MediaWikiServices::getInstance()->getService(
-			'FileImporterTemplateLookup' );
-		$remoteActionApi = MediaWikiServices::getInstance()->getService(
-			'FileImporterMediaWikiRemoteApiActionExecutor' );
 		$sourceUrl = $importPlan->getRequest()->getUrl();
 
 		$capabilities['canAutomateEdit'] =
 			$isCentralAuthEnabled &&
 			$config->get( 'FileImporterSourceWikiTemplating' ) &&
-			$lookup->fetchNowCommonsLocalTitle( $sourceUrl ) &&
-			$remoteActionApi->executeTestEditActionQuery(
+			$this->templateLookup->fetchNowCommonsLocalTitle( $sourceUrl ) &&
+			$this->remoteActionApi->executeTestEditActionQuery(
 				$sourceUrl,
 				$this->getUser(),
 				$importPlan->getTitle()
@@ -524,7 +527,7 @@ class SpecialImportFile extends SpecialPage {
 		$capabilities['canAutomateDelete'] =
 			$isCentralAuthEnabled &&
 			$config->get( 'FileImporterSourceWikiDeletion' ) &&
-			$remoteActionApi->executeUserRightsQuery( $sourceUrl, $this->getUser() )->isGood();
+			$this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $this->getUser() )->isGood();
 
 		if ( $capabilities['canAutomateDelete'] ) {
 			$capabilities['automateDeleteSelected'] = $importPlan->getAutomateSourceWikiDelete();
@@ -534,7 +537,7 @@ class SpecialImportFile extends SpecialPage {
 				$importPlan->getAutomateSourceWikiCleanUp() ||
 				$importPlan->getRequest()->getImportDetailsHash() === '';
 			$capabilities['cleanupTitle'] =
-				$lookup->fetchNowCommonsLocalTitle( $sourceUrl );
+				$this->templateLookup->fetchNowCommonsLocalTitle( $sourceUrl );
 			$this->stats->increment( 'FileImporter.specialPage.action.offeredSourceEdit' );
 		}
 
