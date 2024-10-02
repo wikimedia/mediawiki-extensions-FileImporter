@@ -130,6 +130,8 @@ return [
 	},
 
 	'FileImporterImportPlanFactory' => static function ( MediaWikiServices $services ): ImportPlanFactory {
+		/** @var HttpRequestExecutor $httpRequestExecutor */
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
 		/** @var SourceSiteLocator $sourceSiteLocator */
 		$sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
 		/** @var DuplicateFileRevisionChecker $duplicateFileChecker */
@@ -138,6 +140,9 @@ return [
 		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
 
 		return new ImportPlanFactory(
+			$services->getMainConfig(),
+			$services->getRestrictionStore(),
+			$httpRequestExecutor,
 			$sourceSiteLocator,
 			$duplicateFileChecker,
 			$uploadBaseFactory

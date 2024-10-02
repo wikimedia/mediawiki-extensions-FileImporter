@@ -7,10 +7,12 @@ use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
+use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
+use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\User\User;
 
 /**
@@ -19,15 +21,24 @@ use MediaWiki\User\User;
  */
 class ImportPlanFactory {
 
+	private Config $config;
+	private RestrictionStore $restrictionStore;
+	private HttpRequestExecutor $httpRequestExecutor;
 	private SourceSiteLocator $sourceSiteLocator;
 	private DuplicateFileRevisionChecker $duplicateFileRevisionChecker;
 	private UploadBaseFactory $uploadBaseFactory;
 
 	public function __construct(
+		Config $config,
+		RestrictionStore $restrictionStore,
+		HttpRequestExecutor $httpRequestExecutor,
 		SourceSiteLocator $sourceSiteLocator,
 		DuplicateFileRevisionChecker $duplicateFileRevisionChecker,
 		UploadBaseFactory $uploadBaseFactory
 	) {
+		$this->config = $config;
+		$this->restrictionStore = $restrictionStore;
+		$this->httpRequestExecutor = $httpRequestExecutor;
 		$this->sourceSiteLocator = $sourceSiteLocator;
 		$this->duplicateFileRevisionChecker = $duplicateFileRevisionChecker;
 		$this->uploadBaseFactory = $uploadBaseFactory;
@@ -38,24 +49,22 @@ class ImportPlanFactory {
 	 * @throws ImportException
 	 */
 	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
-		$services = MediaWikiServices::getInstance();
 		$context = RequestContext::getMain();
-		$config = $services->getMainConfig();
-		$commonsHelperServer = $config->get( 'FileImporterCommonsHelperServer' );
+		$commonsHelperServer = $this->config->get( 'FileImporterCommonsHelperServer' );
 
 		if ( $commonsHelperServer ) {
 			$commonsHelperConfigRetriever = new CommonsHelperConfigRetriever(
-				$services->getService( 'FileImporterHttpRequestExecutor' ),
+				$this->httpRequestExecutor,
 				$commonsHelperServer,
-				$config->get( 'FileImporterCommonsHelperBasePageName' )
+				$this->config->get( 'FileImporterCommonsHelperBasePageName' )
 			);
-			$commonsHelperHelpPage = $config->get( 'FileImporterCommonsHelperHelpPage' ) ?:
+			$commonsHelperHelpPage = $this->config->get( 'FileImporterCommonsHelperHelpPage' ) ?:
 				$commonsHelperServer;
 		}
 
 		$sourceSite = $this->sourceSiteLocator->getSourceSite( $importDetails->getSourceUrl() );
 		$interWikiPrefix = $sourceSite->getLinkPrefix( $importDetails->getSourceUrl() );
-		$importPlan = new ImportPlan( $importRequest, $importDetails, $config, $context, $interWikiPrefix );
+		$importPlan = new ImportPlan( $importRequest, $importDetails, $this->config, $context, $interWikiPrefix );
 
 		$planValidator = new ImportPlanValidator(
 			$this->duplicateFileRevisionChecker,
@@ -64,7 +73,7 @@ class ImportPlanFactory {
 			$commonsHelperConfigRetriever ?? null,
 			$commonsHelperHelpPage ?? null,
 			new WikiLinkParserFactory(),
-			$services->getRestrictionStore()
+			$this->restrictionStore
 		);
 		$planValidator->validate( $importPlan, $user );
 
