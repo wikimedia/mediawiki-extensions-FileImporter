@@ -14,8 +14,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
 use OOUI\CheckboxInputWidget;
 use OOUI\FieldLayout;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * @license GPL-2.0-or-later
@@ -29,16 +27,13 @@ class SourceWikiCleanupSnippet {
 	private bool $sourceDeletionEnabled;
 	private WikidataTemplateLookup $lookup;
 	private RemoteApiActionExecutor $remoteActionApi;
-	private LoggerInterface $logger;
 
 	public function __construct(
 		bool $sourceEditingEnabled = true,
-		bool $sourceDeletionEnabled = true,
-		LoggerInterface $logger = null
+		bool $sourceDeletionEnabled = true
 	) {
 		$this->sourceEditingEnabled = $sourceEditingEnabled;
 		$this->sourceDeletionEnabled = $sourceDeletionEnabled;
-		$this->logger = $logger ?? new NullLogger();
 
 		// TODO: Inject
 		$this->lookup = MediaWikiServices::getInstance()->getService(
