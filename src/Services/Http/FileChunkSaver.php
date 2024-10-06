@@ -25,8 +25,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	private int $maxBytes;
 	/** @var null|resource|bool */
 	private $handle = null;
-	/** @var int */
-	private $fileSize = 0;
+	private int $fileSize = 0;
 	private LoggerInterface $logger;
 
 	public function __construct( string $filePath, int $maxBytes ) {

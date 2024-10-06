@@ -19,9 +19,9 @@ class ImportDetails {
 	private TextRevisions $textRevisions;
 	private FileRevisions $fileRevisions;
 	/** @var string[] */
-	private $templates = [];
+	private array $templates = [];
 	/** @var string[] */
-	private $categories = [];
+	private array $categories = [];
 
 	public function __construct(
 		SourceUrl $sourceUrl,

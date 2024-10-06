@@ -32,7 +32,7 @@ class WikidataTemplateLookup {
 	private $nowCommonsEntityId;
 
 	/** @var string[][] Array mapping site id and entity id to a template title name */
-	private $templateCache = [];
+	private array $templateCache = [];
 
 	public function __construct(
 		Config $config,

@@ -13,8 +13,7 @@ class CommonsHelperConfigParser {
 
 	/** @var string */
 	private $commonsHelperConfigUrl;
-	/** @var string */
-	private $wikitext;
+	private string $wikitext;
 
 	/**
 	 * @param string $commonsHelperConfigUrl

@@ -25,22 +25,15 @@ class SourceWikiCleanupSnippet {
 	public const ACTION_OFFERED_SOURCE_DELETE = 'offeredSourceDelete';
 	public const ACTION_OFFERED_SOURCE_EDIT = 'offeredSourceEdit';
 
-	/** @var bool */
-	private $sourceEditingEnabled;
-	/** @var bool */
-	private $sourceDeletionEnabled;
+	private bool $sourceEditingEnabled;
+	private bool $sourceDeletionEnabled;
 	private WikidataTemplateLookup $lookup;
 	private RemoteApiActionExecutor $remoteActionApi;
 	private LoggerInterface $logger;
 
-	/**
-	 * @param bool $sourceEditingEnabled
-	 * @param bool $sourceDeletionEnabled
-	 * @param LoggerInterface|null $logger
-	 */
 	public function __construct(
-		$sourceEditingEnabled = true,
-		$sourceDeletionEnabled = true,
+		bool $sourceEditingEnabled = true,
+		bool $sourceDeletionEnabled = true,
 		LoggerInterface $logger = null
 	) {
 		$this->sourceEditingEnabled = $sourceEditingEnabled;

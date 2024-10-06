@@ -27,7 +27,7 @@ class TextRevisions {
 	/**
 	 * @return TextRevision[]
 	 */
-	public function toArray() {
+	public function toArray(): array {
 		return $this->textRevisions;
 	}
 

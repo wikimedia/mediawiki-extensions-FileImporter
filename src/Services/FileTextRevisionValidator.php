@@ -21,8 +21,7 @@ use StatusValue;
  */
 class FileTextRevisionValidator {
 
-	/** @var DerivativeContext */
-	private $context;
+	private DerivativeContext $context;
 
 	public function __construct() {
 		$this->context = new DerivativeContext( RequestContext::getMain() );

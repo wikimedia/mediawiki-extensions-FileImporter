@@ -32,16 +32,13 @@ class ImportPlan {
 	private $interWikiPrefix;
 	/** @var string|null */
 	private $cleanedLatestRevisionText;
-	/** @var int */
-	private $numberOfTemplateReplacements = 0;
+	private int $numberOfTemplateReplacements = 0;
 	/** @var array<string,int> */
-	private $actionStats = [];
+	private array $actionStats = [];
 	/** @var (int|string)[] */
-	private $validationWarnings = [];
-	/** @var bool */
-	private $automateSourceWikiCleanUp = false;
-	/** @var bool */
-	private $automateSourceWikiDelete = false;
+	private array $validationWarnings = [];
+	private bool $automateSourceWikiCleanUp = false;
+	private bool $automateSourceWikiDelete = false;
 
 	/**
 	 * ImportPlan constructor, should not be constructed directly in production code.

@@ -16,9 +16,9 @@ class ImportOperations implements ImportOperation {
 	private const ERROR_OUT_OF_ORDER = 'outOfOrder';
 
 	/** @var ImportOperation[] */
-	private $importOperations = [];
+	private array $importOperations = [];
 	/** @var int the state of this object, one of the class constants */
-	private $state = self::BUILDING;
+	private int $state = self::BUILDING;
 
 	private const BUILDING = 0;
 	private const PREPARE_RUN = 1;
