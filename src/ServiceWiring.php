@@ -36,128 +36,8 @@ use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use UploadBase;
 
-// TODO: Alphabetize.
+/** @phpcs-require-sorted-array */
 return [
-
-	'FileImporterSourceSiteLocator' => static function ( MediaWikiServices $services ): SourceSiteLocator {
-		$sourceSiteServices = $services->getMainConfig()->get( 'FileImporterSourceSiteServices' );
-		$sourceSites = [];
-
-		foreach ( $sourceSiteServices as $serviceName ) {
-			$sourceSites[] = $services->getService( $serviceName );
-		}
-
-		if ( $sourceSites === [] ) {
-			$sourceSites[] = $services->getService( 'FileImporter-Site-DefaultMediaWiki' );
-		}
-
-		return new SourceSiteLocator( $sourceSites );
-	},
-
-	'FileImporterHttpRequestExecutor' => static function ( MediaWikiServices $services ): HttpRequestExecutor {
-		$config = $services->getMainConfig();
-		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
-		$service = new HttpRequestExecutor(
-			$services->getHttpRequestFactory(),
-			[
-				'originalRequest' => RequestContext::getMain()->getRequest(),
-				'proxy' => $config->get( MainConfigNames::CopyUploadProxy ),
-				'timeout' => $config->get( MainConfigNames::CopyUploadTimeout ),
-			],
-			$maxFileSize
-		);
-		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
-		return $service;
-	},
-
-	'FileImporterCategoryExtractor' => static function ( MediaWikiServices $services ): CategoryExtractor {
-		return new CategoryExtractor(
-			$services->getParserFactory(),
-			$services->getConnectionProvider(),
-			$services->getLinkBatchFactory()
-		);
-	},
-
-	'FileImporterDuplicateFileRevisionChecker' => static function (
-		MediaWikiServices $services
-	): DuplicateFileRevisionChecker {
-		$localRepo = $services->getRepoGroup()->getLocalRepo();
-		return new DuplicateFileRevisionChecker( $localRepo );
-	},
-
-	'FileImporterImporter' => static function ( MediaWikiServices $services ): Importer {
-		/** @var WikiRevisionFactory $wikiRevisionFactory */
-		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
-		/** @var NullRevisionCreator $nullRevisionCreator */
-		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
-		/** @var HttpRequestExecutor $httpRequestExecutor */
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-		/** @var UploadBaseFactory $uploadBaseFactory */
-		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
-
-		$uploadRevisionImporter = $services->getUploadRevisionImporter();
-		// FIXME: Should be part of the UploadRevisionImporter interface or the import() method
-		if ( $uploadRevisionImporter instanceof ImportableUploadRevisionImporter ) {
-			$uploadRevisionImporter->setNullRevisionCreation( false );
-		}
-
-		return new Importer(
-			$services->getWikiPageFactory(),
-			$wikiRevisionFactory,
-			$nullRevisionCreator,
-			$services->getUserIdentityLookup(),
-			$httpRequestExecutor,
-			$uploadBaseFactory,
-			$services->getOldRevisionImporter(),
-			$uploadRevisionImporter,
-			new FileTextRevisionValidator(),
-			$services->getRestrictionStore(),
-			LoggerFactory::getInstance( 'FileImporter' ),
-			$services->getStatsdDataFactory()
-		);
-	},
-
-	'FileImporterWikiRevisionFactory' => static function ( MediaWikiServices $services ): WikiRevisionFactory {
-		return new WikiRevisionFactory(
-			$services->getContentHandlerFactory()
-		);
-	},
-
-	'FileImporterNullRevisionCreator' => static function ( MediaWikiServices $services ): NullRevisionCreator {
-		return new NullRevisionCreator(
-			$services->getRevisionStore(),
-			$services->getConnectionProvider()
-		);
-	},
-
-	'FileImporterImportPlanFactory' => static function ( MediaWikiServices $services ): ImportPlanFactory {
-		/** @var HttpRequestExecutor $httpRequestExecutor */
-		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
-		/** @var SourceSiteLocator $sourceSiteLocator */
-		$sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
-		/** @var DuplicateFileRevisionChecker $duplicateFileChecker */
-		$duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
-		/** @var UploadBaseFactory $uploadBaseFactory */
-		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
-
-		return new ImportPlanFactory(
-			$services->getMainConfig(),
-			new WikiLinkParserFactory(
-				$services->getTitleParser(),
-				$services->getNamespaceInfo(),
-				$services->getLanguageFactory()
-			),
-			$services->getRestrictionStore(),
-			$httpRequestExecutor,
-			$sourceSiteLocator,
-			$duplicateFileChecker,
-			$uploadBaseFactory
-		);
-	},
-
-	'FileImporterUploadBaseFactory' => static function ( MediaWikiServices $services ): UploadBaseFactory {
-		return new UploadBaseFactory( LoggerFactory::getInstance( 'FileImporter' ) );
-	},
 
 	// Sites
 
@@ -282,6 +162,123 @@ return [
 		);
 	},
 
+	'FileImporterCategoryExtractor' => static function ( MediaWikiServices $services ): CategoryExtractor {
+		return new CategoryExtractor(
+			$services->getParserFactory(),
+			$services->getConnectionProvider(),
+			$services->getLinkBatchFactory()
+		);
+	},
+
+	'FileImporterDuplicateFileRevisionChecker' => static function (
+		MediaWikiServices $services
+	): DuplicateFileRevisionChecker {
+		$localRepo = $services->getRepoGroup()->getLocalRepo();
+		return new DuplicateFileRevisionChecker( $localRepo );
+	},
+
+	'FileImporterHttpRequestExecutor' => static function ( MediaWikiServices $services ): HttpRequestExecutor {
+		$config = $services->getMainConfig();
+		$maxFileSize = UploadBase::getMaxUploadSize( 'import' );
+		$service = new HttpRequestExecutor(
+			$services->getHttpRequestFactory(),
+			[
+				'originalRequest' => RequestContext::getMain()->getRequest(),
+				'proxy' => $config->get( MainConfigNames::CopyUploadProxy ),
+				'timeout' => $config->get( MainConfigNames::CopyUploadTimeout ),
+			],
+			$maxFileSize
+		);
+		$service->setLogger( LoggerFactory::getInstance( 'FileImporter' ) );
+		return $service;
+	},
+
+	'FileImporterImporter' => static function ( MediaWikiServices $services ): Importer {
+		/** @var WikiRevisionFactory $wikiRevisionFactory */
+		$wikiRevisionFactory = $services->getService( 'FileImporterWikiRevisionFactory' );
+		/** @var NullRevisionCreator $nullRevisionCreator */
+		$nullRevisionCreator = $services->getService( 'FileImporterNullRevisionCreator' );
+		/** @var HttpRequestExecutor $httpRequestExecutor */
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+		/** @var UploadBaseFactory $uploadBaseFactory */
+		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
+
+		$uploadRevisionImporter = $services->getUploadRevisionImporter();
+		// FIXME: Should be part of the UploadRevisionImporter interface or the import() method
+		if ( $uploadRevisionImporter instanceof ImportableUploadRevisionImporter ) {
+			$uploadRevisionImporter->setNullRevisionCreation( false );
+		}
+
+		return new Importer(
+			$services->getWikiPageFactory(),
+			$wikiRevisionFactory,
+			$nullRevisionCreator,
+			$services->getUserIdentityLookup(),
+			$httpRequestExecutor,
+			$uploadBaseFactory,
+			$services->getOldRevisionImporter(),
+			$uploadRevisionImporter,
+			new FileTextRevisionValidator(),
+			$services->getRestrictionStore(),
+			LoggerFactory::getInstance( 'FileImporter' ),
+			$services->getStatsdDataFactory()
+		);
+	},
+
+	'FileImporterImportPlanFactory' => static function ( MediaWikiServices $services ): ImportPlanFactory {
+		/** @var HttpRequestExecutor $httpRequestExecutor */
+		$httpRequestExecutor = $services->getService( 'FileImporterHttpRequestExecutor' );
+		/** @var SourceSiteLocator $sourceSiteLocator */
+		$sourceSiteLocator = $services->getService( 'FileImporterSourceSiteLocator' );
+		/** @var DuplicateFileRevisionChecker $duplicateFileChecker */
+		$duplicateFileChecker = $services->getService( 'FileImporterDuplicateFileRevisionChecker' );
+		/** @var UploadBaseFactory $uploadBaseFactory */
+		$uploadBaseFactory = $services->getService( 'FileImporterUploadBaseFactory' );
+
+		return new ImportPlanFactory(
+			$services->getMainConfig(),
+			new WikiLinkParserFactory(
+				$services->getTitleParser(),
+				$services->getNamespaceInfo(),
+				$services->getLanguageFactory()
+			),
+			$services->getRestrictionStore(),
+			$httpRequestExecutor,
+			$sourceSiteLocator,
+			$duplicateFileChecker,
+			$uploadBaseFactory
+		);
+	},
+
+	'FileImporterNullRevisionCreator' => static function ( MediaWikiServices $services ): NullRevisionCreator {
+		return new NullRevisionCreator(
+			$services->getRevisionStore(),
+			$services->getConnectionProvider()
+		);
+	},
+
+	'FileImporterSourceSiteLocator' => static function ( MediaWikiServices $services ): SourceSiteLocator {
+		$sourceSiteServices = $services->getMainConfig()->get( 'FileImporterSourceSiteServices' );
+		$sourceSites = [];
+
+		foreach ( $sourceSiteServices as $serviceName ) {
+			$sourceSites[] = $services->getService( $serviceName );
+		}
+
+		if ( $sourceSites === [] ) {
+			$sourceSites[] = $services->getService( 'FileImporter-Site-DefaultMediaWiki' );
+		}
+
+		return new SourceSiteLocator( $sourceSites );
+	},
+
+	'FileImporterSuccessCache' => static function ( MediaWikiServices $services ): SuccessCache {
+		return new SuccessCache(
+			$services->getMainObjectStash(),
+			LoggerFactory::getInstance( 'FileImporter' )
+		);
+	},
+
 	'FileImporterTemplateLookup' => static function ( MediaWikiServices $services ): WikidataTemplateLookup {
 		return new WikidataTemplateLookup(
 			$services->getMainConfig(),
@@ -291,10 +288,13 @@ return [
 		);
 	},
 
-	'FileImporterSuccessCache' => static function ( MediaWikiServices $services ): SuccessCache {
-		return new SuccessCache(
-			$services->getMainObjectStash(),
-			LoggerFactory::getInstance( 'FileImporter' )
+	'FileImporterUploadBaseFactory' => static function ( MediaWikiServices $services ): UploadBaseFactory {
+		return new UploadBaseFactory( LoggerFactory::getInstance( 'FileImporter' ) );
+	},
+
+	'FileImporterWikiRevisionFactory' => static function ( MediaWikiServices $services ): WikiRevisionFactory {
+		return new WikiRevisionFactory(
+			$services->getContentHandlerFactory()
 		);
 	},
 
