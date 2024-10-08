@@ -8,6 +8,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use Hamcrest\Matcher;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Request\FauxRequest;
@@ -73,7 +74,10 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$this->createNoOpMock( IContentHandlerFactory::class ),
 			$this->createMock( StatsdDataFactoryInterface::class ),
 			$this->createNoOpMock( UserOptionsManager::class ),
-			$services->getMainConfig()
+			new HashConfig( [
+				'FileImporterRequiredRight' => '',
+				'FileImporterShowInputScreen' => true,
+			] )
 		);
 	}
 

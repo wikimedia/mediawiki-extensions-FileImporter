@@ -31,7 +31,6 @@ class FileInfoDiffPageTest extends \MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
-		$this->overrideConfigValue( 'FileImporterTextForPostImportRevision', '' );
 		OutputPage::setupOOUI();
 	}
 

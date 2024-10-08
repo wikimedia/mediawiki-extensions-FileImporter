@@ -19,6 +19,7 @@ use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Page\WikiPageFactory;
@@ -49,8 +50,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	private const TITLE = 'FilePageTitle';
 	private const PREFIX = 'interwiki-prefix';
 
-	private const COMMENT = '<!--This file was moved here using FileImporter from ' . self::URL .
-		"-->\n";
+	private const COMMENT = '<!--COMMENT-->';
 	private const CLEANED_WIKITEXT = 'Auto-cleaned wikitext.';
 	private const USER_WIKITEXT = 'User-provided wikitext.';
 
@@ -76,7 +76,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$minimalRequest = new ImportRequest( self::URL );
 		$importPlan = $this->newImportPlan( $minimalRequest, $textRevision, $fileRevision, $localizer );
 
-		$expectedWikitext = self::COMMENT . "(fileimporter-post-import-revision-annotation)\n" .
+		$expectedWikitext = self::COMMENT . "\n(fileimporter-post-import-revision-annotation)\n" .
 			self::CLEANED_WIKITEXT;
 		$importer = new Importer(
 			$this->createWikiPageFactoryMock( $user, $expectedWikitext, null ),
@@ -251,7 +251,9 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			new TextRevisions( [ $textRevision ] ),
 			new FileRevisions( [ $fileRevision ] )
 		);
-		$config = $this->getServiceContainer()->getMainConfig();
+		$config = new HashConfig( [
+			'FileImporterTextForPostImportRevision' => self::COMMENT,
+		] );
 
 		$plan = new ImportPlan( $request, $details, $config, $messageLocalizer, self::PREFIX );
 		$plan->setCleanedLatestRevisionText( self::CLEANED_WIKITEXT );

@@ -144,8 +144,6 @@ class ImportPlanTest extends \MediaWikiIntegrationTestCase {
 		string $expectedText,
 		bool $expectedChangedSignal
 	) {
-		$this->overrideConfigValue( 'FileImporterTextForPostImportRevision', '' );
-
 		$request = new ImportRequest( '//w.invalid', null, $intendedText );
 
 		$textRevision = $this->createMock( TextRevision::class );

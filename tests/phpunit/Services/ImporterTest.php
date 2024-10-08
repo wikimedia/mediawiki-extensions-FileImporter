@@ -19,6 +19,7 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\CommentStore\CommentStoreComment;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
@@ -50,7 +51,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 
 		$this->overrideConfigValues( [
 			'FileImporterCommentForPostImportRevision' => 'imported from $1',
-			'FileImporterTextForPostImportRevision' => '<!--imported from $1-->',
 		] );
 
 		$this->clearHooks();
@@ -341,8 +341,6 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$fileRevisions
 		);
 
-		$config = $this->getServiceContainer()->getMainConfig();
-
 		$localizer = $this->createMock( MessageLocalizer::class );
 		$localizer->method( 'msg' )
 			->willReturnCallback( fn ( $key ) => $this->getMockMessage( "($key)" ) );
@@ -355,7 +353,9 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 				'User import comment'
 			),
 			$importDetails,
-			$config,
+			new HashConfig( [
+				'FileImporterTextForPostImportRevision' => '<!--imported from $1-->',
+			] ),
 			$localizer,
 			'testprefix'
 		);
