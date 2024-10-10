@@ -149,7 +149,7 @@ class WikitextContentCleaner {
 			// Optimization: Skip over irrelevant chars without slow loop
 			$i += strcspn( $wikitext, '=[]{|}', $i );
 
-			$currentChar = $wikitext[$i];
+			$currentChar = $wikitext[$i] ?? null;
 			$currentPair = substr( $wikitext, $i, 2 );
 
 			if ( $currentPair === '[[' ) {

@@ -336,6 +336,14 @@ class WikitextContentCleanerTest extends \MediaWikiUnitTestCase {
 				'wikitext' => '{{Info|a=|b=[[]',
 				'expectedWikitext' => '{{Info|x=|y=[[]',
 			],
+			'T376878: Another edge-case with unterminated templates' => [
+				'replacements' => [ 'Info' => [
+					'targetTemplate' => 'Info',
+					'parameters' => [ 'x' => [ 'sourceParameters' => 'a' ] ],
+				] ],
+				'wikitext' => '{{Info|a=a',
+				'expectedWikitext' => '{{Info|x=a',
+			],
 		];
 	}
 
