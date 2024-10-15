@@ -3,7 +3,6 @@
 namespace FileImporter\Tests\Services;
 
 use Article;
-use ChangeTags;
 use DatabaseLogEntry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
@@ -103,7 +102,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$firstRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
-		$tags = ChangeTags::getTags( $this->db, null, $firstRevision->getId() );
+		$tags = $this->getServiceContainer()->getChangeTagsStore()->getTags( $this->db, null, $firstRevision->getId() );
 		$this->assertSame( [], array_diff( [ 'fileimporter-imported', 'tag1', 'tag2' ], $tags ) );
 
 		// assert import user revision was created correctly
@@ -146,7 +145,8 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			'This is my text!',
 			$secondRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
-		$tags = ChangeTags::getTags( $this->db, null, $secondRevision->getId() );
+		$tags = $this->getServiceContainer()->getChangeTagsStore()
+			->getTags( $this->db, null, $secondRevision->getId() );
 		$this->assertSame( [], array_diff( [ 'fileimporter-imported' ], $tags ) );
 
 		// assert import log entry was created correctly
@@ -257,7 +257,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			'log_timestamp' => $this->getDb()->timestamp( $timestamp ),
 		];
 
-		\ChangeTags::modifyDisplayQuery(
+		$this->getServiceContainer()->getChangeTagsStore()->modifyDisplayQuery(
 			$queryInfo['tables'],
 			$queryInfo['fields'],
 			$queryInfo['conds'],
