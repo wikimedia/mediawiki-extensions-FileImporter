@@ -27,7 +27,7 @@ class HttpApiLookup implements LoggerAwareInterface {
 	private LoggerInterface $logger;
 
 	/** @var string[] url => apiUrl */
-	private $resultCache = [];
+	private array $resultCache = [];
 
 	public function __construct( HttpRequestExecutor $httpRequestExecutor ) {
 		$this->httpRequestExecutor = $httpRequestExecutor;

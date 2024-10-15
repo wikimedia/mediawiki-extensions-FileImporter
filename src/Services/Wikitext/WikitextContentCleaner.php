@@ -10,8 +10,7 @@ use FileImporter\Data\WikitextConversions;
  */
 class WikitextContentCleaner {
 
-	/** @var int */
-	private $latestNumberOfReplacements = 0;
+	private int $latestNumberOfReplacements = 0;
 	private WikitextConversions $wikitextConversions;
 	/** @var string|null Name of a language template to wrap parameters in, e.g. "de" for the {{de|…}} template */
 	private $sourceWikiLanguageTemplate = null;

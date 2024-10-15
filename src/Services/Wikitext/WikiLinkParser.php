@@ -9,7 +9,7 @@ namespace FileImporter\Services\Wikitext;
 class WikiLinkParser {
 
 	/** @var WikiLinkCleaner[] */
-	private $cleaners = [];
+	private array $cleaners = [];
 
 	public function registerWikiLinkCleaner( WikiLinkCleaner $cleaner ): void {
 		$this->cleaners[] = $cleaner;

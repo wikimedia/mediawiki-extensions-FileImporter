@@ -19,17 +19,17 @@ class WikitextConversions {
 	public const HEADING_REPLACEMENTS = 'headingReplacements';
 
 	/** @var string[] */
-	private $headingReplacements = [];
+	private array $headingReplacements = [];
 	/** @var true[] A string => true map for performance reasons */
-	private $goodTemplates = [];
+	private array $goodTemplates = [];
 	/** @var true[] A string => true map for performance reasons */
-	private $badTemplates = [];
+	private array $badTemplates = [];
 	/** @var true[] A string => true map for performance reasons */
-	private $badCategories = [];
+	private array $badCategories = [];
 	/** @var true[] A string => true map for performance reasons */
-	private $obsoleteTemplates = [];
+	private array $obsoleteTemplates = [];
 	/** @var array[] */
-	private $transferTemplates = [];
+	private array $transferTemplates = [];
 
 	/**
 	 * @param array[] $conversions A nested array structure in the following format:

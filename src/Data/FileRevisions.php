@@ -27,7 +27,7 @@ class FileRevisions {
 	/**
 	 * @return FileRevision[]
 	 */
-	public function toArray() {
+	public function toArray(): array {
 		return $this->fileRevisions;
 	}
 

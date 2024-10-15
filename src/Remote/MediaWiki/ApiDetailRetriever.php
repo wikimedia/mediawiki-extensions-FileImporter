@@ -29,35 +29,27 @@ class ApiDetailRetriever implements DetailRetriever {
 
 	private HttpApiLookup $httpApiLookup;
 	private HttpRequestExecutor $httpRequestExecutor;
-	/** @var int */
-	private $maxBytes;
+	private int $maxBytes;
 	private LoggerInterface $logger;
 	/**
 	 * @var string Placeholder name replacing usernames that have been suppressed as part of
 	 * a steward action on the source site.
 	 */
 	private $suppressedUsername;
-	/** @var int */
-	private $maxRevisions;
-	/** @var int */
-	private $maxAggregatedBytes;
+	private int $maxRevisions;
+	private int $maxAggregatedBytes;
 
 	private const API_RESULT_LIMIT = 500;
 	private const MAX_REVISIONS = 100;
 	private const MAX_AGGREGATED_BYTES = 250000000;
 
 	/**
-	 * @param HttpApiLookup $httpApiLookup
-	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param int $maxBytes
-	 * @param LoggerInterface|null $logger
-	 *
 	 * @throws ConfigException when $wgFileImporterAccountForSuppressedUsername is invalid
 	 */
 	public function __construct(
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
-		$maxBytes,
+		int $maxBytes,
 		LoggerInterface $logger = null
 	) {
 		$this->httpApiLookup = $httpApiLookup;
