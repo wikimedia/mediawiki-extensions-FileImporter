@@ -2,8 +2,8 @@
 
 namespace FileImporter\Html;
 
-use ContentHandler;
 use FileImporter\Data\ImportPlan;
+use MediaWiki\Content\ContentHandler;
 use MediaWiki\Html\Html;
 use OOUI\ButtonInputWidget;
 

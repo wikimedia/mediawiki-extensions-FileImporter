@@ -8,10 +8,10 @@ use FileImporter\Services\WikidataTemplateLookup;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\User\User;
 use MediaWiki\Utils\UrlUtils;
-use NullStatsdDataFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
+use Wikimedia\Stats\NullStatsdDataFactory;
 
 /**
  * Delete the source file, or edit to add the {{NowCommons}} template.

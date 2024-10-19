@@ -2,7 +2,6 @@
 
 namespace FileImporter;
 
-use ExtensionRegistry;
 use FileImporter\Remote\MediaWiki\AnyMediaWikiFileUrlChecker;
 use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
@@ -34,6 +33,7 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
 use UploadBase;
 
 /** @phpcs-require-sorted-array */

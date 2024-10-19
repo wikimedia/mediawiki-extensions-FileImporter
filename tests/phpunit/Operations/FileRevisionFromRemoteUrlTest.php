@@ -17,6 +17,7 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentityLookup;
 use MediaWiki\User\UserIdentityValue;
 use Psr\Log\NullLogger;
+use Wikimedia\FileBackend\FSFile\FSFile;
 use WikiRevision;
 
 /**
@@ -128,7 +129,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( '20180624133723', $file->getTimestamp() );
 		$this->assertSame( 'image/png', $file->getMimeType() );
 		$this->assertSame( 3532, $file->getSize() );
-		$this->assertSame( \FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ), $file->getSha1() );
+		$this->assertSame( FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ), $file->getSha1() );
 	}
 
 	private function newFileRevisionFromRemoteUrl( Title $title ) {
@@ -177,7 +178,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			'description' => 'Original upload comment of Test.png',
 			'user' => 'SourceUser1',
 			'timestamp' => '2018-06-24T13:37:23Z',
-			'sha1' => \FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ),
+			'sha1' => FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ),
 			'size' => '12345',
 			'thumburl' => 'http://example.com/thumb/Test.png',
 			'url' => $url,

@@ -8,10 +8,10 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 use MessageLocalizer;
-use MessageSpecifier;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use StatusValue;
+use Wikimedia\Message\MessageSpecifier;
 
 /**
  * Informational block embedded at the top of page after a successful import.

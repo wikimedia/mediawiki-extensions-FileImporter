@@ -4,8 +4,8 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\TextRevision;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\Title;
-use ParserOptions;
 
 /**
  * Html of parsed wikitext

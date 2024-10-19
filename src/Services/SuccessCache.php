@@ -2,13 +2,13 @@
 
 namespace FileImporter\Services;
 
-use BagOStuff;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
 use Wikimedia\LightweightObjectStore\ExpirationAwareness;
+use Wikimedia\ObjectCache\BagOStuff;
 
 /**
  * Save the import results to cache so that they can be looked up from the success page.

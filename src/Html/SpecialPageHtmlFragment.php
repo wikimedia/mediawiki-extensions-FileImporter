@@ -2,15 +2,16 @@
 
 namespace FileImporter\Html;
 
-use Language;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\MutableContext;
+use MediaWiki\Language\Language;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MessageLocalizer;
+use Wikimedia\Message\MessageSpecifier;
 
 /**
  * Common framework for classes providing HTML fragments (similar to
@@ -71,7 +72,7 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	/**
 	 * @see MessageLocalizer::msg
 	 *
-	 * @param string|string[]|\MessageSpecifier $key
+	 * @param string|string[]|MessageSpecifier $key
 	 * @param mixed ...$params Any number of message parameters
 	 */
 	public function msg( $key, ...$params ): Message {

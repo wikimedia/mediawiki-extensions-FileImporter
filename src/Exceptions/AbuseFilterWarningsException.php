@@ -2,7 +2,7 @@
 
 namespace FileImporter\Exceptions;
 
-use MessageSpecifier;
+use Wikimedia\Message\MessageSpecifier;
 
 /**
  * @license GPL-2.0-or-later

@@ -4,7 +4,6 @@ namespace FileImporter;
 
 use ErrorPageError;
 use Exception;
-use ExtensionRegistry;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
 use FileImporter\Exceptions\AbuseFilterWarningsException;
@@ -37,6 +36,7 @@ use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\Logger\LoggerFactory;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;

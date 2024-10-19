@@ -3,8 +3,8 @@
 namespace FileImporter\Exceptions;
 
 use FileImporter\Data\ImportPlan;
-use MessageSpecifier;
 use Throwable;
+use Wikimedia\Message\MessageSpecifier;
 
 /**
  * Exception thrown when an import has an issue with the planned title that can be

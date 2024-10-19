@@ -2,8 +2,8 @@
 
 namespace FileImporter\Services;
 
-use Content;
 use FileImporter\HookRunner;
+use MediaWiki\Content\Content;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;

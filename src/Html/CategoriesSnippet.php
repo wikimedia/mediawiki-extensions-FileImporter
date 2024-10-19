@@ -2,10 +2,10 @@
 
 namespace FileImporter\Html;
 
-use ILanguageConverter;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
+use MediaWiki\Language\ILanguageConverter;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\SpecialPage;

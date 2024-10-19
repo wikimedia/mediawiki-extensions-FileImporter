@@ -19,8 +19,10 @@ use FileImporter\Services\NullRevisionCreator;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\TextContent;
+use MediaWiki\Content\WikitextContent;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
@@ -129,14 +131,14 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			->method( 'addValidationWarning' )
 			->with( 1 );
 
-		$apiMessage1 = \ApiMessage::create( '1', null, [
+		$apiMessage1 = ApiMessage::create( '1', null, [
 			'abusefilter' => [
 				'id' => 1,
 				'actions' => [ 'warn' ]
 			]
 		] );
 
-		$apiMessage2 = \ApiMessage::create( '2', null, [
+		$apiMessage2 = ApiMessage::create( '2', null, [
 			'abusefilter' => [
 				'id' => 2,
 				'actions' => [ 'warn' ]
@@ -181,14 +183,14 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 			->method( 'addValidationWarning' )
 			->with( 1 );
 
-		$apiMessage1 = \ApiMessage::create( '1', null, [
+		$apiMessage1 = ApiMessage::create( '1', null, [
 			'abusefilter' => [
 				'id' => 1,
 				'actions' => [ 'warn' ]
 			]
 		] );
 
-		$apiMessage2 = \ApiMessage::create( '2', null, [
+		$apiMessage2 = ApiMessage::create( '2', null, [
 			'abusefilter' => [
 				'id' => 2,
 				'actions' => [ 'disallow' ]
@@ -327,7 +329,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$page->expects( $this->once() )
 			->method( 'doUserEditContent' )
 			->with(
-				new \WikitextContent( $expectedWikitext ),
+				new WikitextContent( $expectedWikitext ),
 				$expectedUser,
 				$expectedSummary,
 				EDIT_UPDATE,

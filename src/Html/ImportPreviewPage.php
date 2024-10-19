@@ -2,13 +2,13 @@
 
 namespace FileImporter\Html;
 
-use ExtensionRegistry;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Services\CategoryExtractor;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\Linker\Linker;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
 use OOUI\ButtonInputWidget;
 use OOUI\ButtonWidget;
 use OOUI\TextInputWidget;

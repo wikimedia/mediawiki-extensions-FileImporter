@@ -2,7 +2,7 @@
 
 namespace FileImporter\Services\Wikitext;
 
-use Language;
+use MediaWiki\Language\Language;
 
 /**
  * A reverse namespace name to ID lookup that depends on MediaWiki core and does *not* recognize

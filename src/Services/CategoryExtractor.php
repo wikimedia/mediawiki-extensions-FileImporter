@@ -3,10 +3,10 @@
 namespace FileImporter\Services;
 
 use MediaWiki\Cache\LinkBatchFactory;
+use MediaWiki\Parser\ParserFactory;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
-use ParserFactory;
-use ParserOptions;
 use Wikimedia\Rdbms\IConnectionProvider;
 
 /**

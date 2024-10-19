@@ -12,9 +12,9 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
-use IApiMessage;
-use IDBAccessObject;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Api\IApiMessage;
+use MediaWiki\Content\WikitextContent;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
@@ -24,14 +24,15 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserIdentityLookup;
-use MessageSpecifier;
-use NullStatsdDataFactory;
 use OldRevisionImporter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
 use StatusValue;
 use UploadRevisionImporter;
+use Wikimedia\Message\MessageSpecifier;
+use Wikimedia\Rdbms\IDBAccessObject;
+use Wikimedia\Stats\NullStatsdDataFactory;
 use WikiPage;
 
 /**
@@ -282,7 +283,7 @@ class Importer {
 		$status = $this->textRevisionValidator->validate(
 			$importPlan->getTitle(),
 			$user,
-			new \WikitextContent( $importPlan->getFileInfoText() ),
+			new WikitextContent( $importPlan->getFileInfoText() ),
 			$importPlan->getRequest()->getIntendedSummary() ?? '',
 			false
 		);
@@ -344,7 +345,7 @@ class Importer {
 	) {
 		// TODO: Replace with $page->newPageUpdater( … )->saveRevision( … )
 		$editResult = $page->doUserEditContent(
-			new \WikitextContent( $importPlan->getFileInfoText() ),
+			new WikitextContent( $importPlan->getFileInfoText() ),
 			$user,
 			$importPlan->getRequest()->getIntendedSummary(),
 			EDIT_UPDATE,

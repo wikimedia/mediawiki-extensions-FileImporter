@@ -28,6 +28,7 @@ use MediaWiki\User\UserIdentityLookup;
 use MediaWiki\User\UserIdentityValue;
 use MessageLocalizer;
 use Psr\Log\NullLogger;
+use Wikimedia\FileBackend\FSFile\FSFile;
 use WikiRevision;
 
 /**
@@ -405,7 +406,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 				'description' => 'Changed the file.',
 				'user' => 'FileChangeUser',
 				'timestamp' => '2018-06-25T13:37:23Z',
-				'sha1' => \FSFile::getSha1Base36FromPath( self::TEST_FILE2_SRC ),
+				'sha1' => FSFile::getSha1Base36FromPath( self::TEST_FILE2_SRC ),
 				'size' => '3532',
 				'thumburl' => '',
 				'url' => 'http://example.com/Test.png',
@@ -416,7 +417,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 				'description' => 'Original upload comment of Test.png',
 				'user' => 'SourceUser1',
 				'timestamp' => '2018-06-24T13:37:23Z',
-				'sha1' => \FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ),
+				'sha1' => FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ),
 				'size' => '7317',
 				'thumburl' => '',
 				'url' => 'http://example.com/Test.png',

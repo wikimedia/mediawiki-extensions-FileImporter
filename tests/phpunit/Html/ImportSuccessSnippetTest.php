@@ -4,15 +4,15 @@ namespace FileImporter\Tests\Html;
 
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
-use HashBagOStuff;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 use MessageLocalizer;
-use MessageSpecifier;
 use StatusValue;
+use Wikimedia\Message\MessageSpecifier;
+use Wikimedia\ObjectCache\HashBagOStuff;
 
 /**
  * @covers \FileImporter\Html\ImportSuccessSnippet

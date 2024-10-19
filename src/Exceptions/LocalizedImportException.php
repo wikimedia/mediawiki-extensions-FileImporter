@@ -3,8 +3,8 @@
 namespace FileImporter\Exceptions;
 
 use MediaWiki\Message\Message;
-use MessageSpecifier;
 use Throwable;
+use Wikimedia\Message\MessageSpecifier;
 
 /**
  * Logic has been taken form core class LocalizedException
