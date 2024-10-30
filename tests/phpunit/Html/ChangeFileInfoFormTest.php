@@ -46,6 +46,9 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 		$title = Title::makeTitle( NS_MAIN, __METHOD__ );
 		$request = new FauxRequest( [ 'importDetailsHash' => 'FAKEHASH' ] );
 
+		$user = $this->createMock( User::class );
+		$user->method( 'getName' )->willReturn( 'TestUser' );
+
 		$context = $this->createMock( RequestContext::class );
 		$context->method( 'getRequest' )
 			->willReturn( $request );
@@ -54,7 +57,7 @@ class ChangeFileInfoFormTest extends \MediaWikiIntegrationTestCase {
 		$context->method( 'getOutput' )
 			->willReturn( $this->createMock( OutputPage::class ) );
 		$context->method( 'getUser' )
-			->willReturn( $this->createMock( User::class ) );
+			->willReturn( $user );
 		$context->method( 'getLanguage' )
 			->willReturn( $this->createMock( Language::class ) );
 		$context->method( 'getSkin' )

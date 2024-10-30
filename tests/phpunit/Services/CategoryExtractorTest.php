@@ -57,9 +57,12 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 			$this->createMock( LinkBatchFactory::class )
 		);
 
+		$user = $this->createMock( User::class );
+		$user->method( 'getName' )->willReturn( 'TestUser' );
+
 		$title = Title::makeTitle( NS_FILE, 'Foo' );
 		[ $outVisibleCategories, $outHiddenCategories ] =
-			$extractor->getCategoriesGrouped( '', $title, $this->createMock( User::class ) );
+			$extractor->getCategoriesGrouped( '', $title, $user );
 
 		$this->assertEquals( $visibleCategories, array_values( $outVisibleCategories ) );
 		$this->assertEquals( $hiddenCategories, array_values( $outHiddenCategories ) );

@@ -183,9 +183,12 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 	}
 
 	private function getMockSpecialPage(): SpecialPage {
+		$user = $this->createMock( User::class );
+		$user->method( 'getName' )->willReturn( 'TestUser' );
+
 		$context = $this->createMock( IContextSource::class );
 		$context->method( 'getUser' )
-			->willReturn( $this->createMock( User::class ) );
+			->willReturn( $user );
 		$context->method( 'getConfig' )
 			->willReturn( new HashConfig( [
 				'FileImporterSourceWikiTemplating' => true,
