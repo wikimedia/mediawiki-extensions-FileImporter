@@ -59,7 +59,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	public function testPerformFileChecks(
 		string $targetTitle,
 		string $actualFileType,
-		string $expectedError = null
+		?string $expectedError = null
 	) {
 		$tempPath = $this->getGetImagePath( $actualFileType );
 		$base = new ValidatingUploadBase(

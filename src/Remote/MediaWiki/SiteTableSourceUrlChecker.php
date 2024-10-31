@@ -22,7 +22,7 @@ class SiteTableSourceUrlChecker implements SourceUrlChecker {
 
 	public function __construct(
 		SiteTableSiteLookup $siteTableSiteLookup,
-		LoggerInterface $logger = null
+		?LoggerInterface $logger = null
 	) {
 		$this->siteTableSiteLookup = $siteTableSiteLookup;
 		$this->logger = $logger ?? new NullLogger();

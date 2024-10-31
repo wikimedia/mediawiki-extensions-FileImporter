@@ -33,7 +33,7 @@ class ValidatingUploadBase extends UploadBase {
 	public function __construct(
 		LinkTarget $targetTitle,
 		$tempPath,
-		LoggerInterface $logger = null
+		?LoggerInterface $logger = null
 	) {
 		$this->initializePathInfo(
 			$targetTitle->getText(),
@@ -74,7 +74,7 @@ class ValidatingUploadBase extends UploadBase {
 	 *
 	 * @return StatusValue
 	 */
-	public function validateUpload( User $user, TextRevision $textRevision = null ) {
+	public function validateUpload( User $user, ?TextRevision $textRevision = null ) {
 		$error = null;
 		$hookRunner = new HookRunner( MediaWikiServices::getInstance()->getHookContainer() );
 

@@ -50,7 +50,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		HttpApiLookup $httpApiLookup,
 		HttpRequestExecutor $httpRequestExecutor,
 		int $maxBytes,
-		LoggerInterface $logger = null
+		?LoggerInterface $logger = null
 	) {
 		$this->httpApiLookup = $httpApiLookup;
 		$this->httpRequestExecutor = $httpRequestExecutor;
@@ -387,7 +387,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * Adds to params base the properties for getting Text Revisions
 	 */
-	private function addTextRevisionsToParams( array $params, string $rvContinue = null ): array {
+	private function addTextRevisionsToParams( array $params, ?string $rvContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|revisions' : 'revisions';
 
 		if ( $rvContinue ) {
@@ -417,7 +417,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * Adds to params base the properties for getting File Revisions
 	 */
-	private function addFileRevisionsToParams( array $params, string $iiStart = null ): array {
+	private function addFileRevisionsToParams( array $params, ?string $iiStart = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|imageinfo' : 'imageinfo';
 
 		if ( $iiStart ) {
@@ -448,7 +448,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * Adds to params base the properties for getting Templates
 	 */
-	private function addTemplatesToParams( array $params, string $tlContinue = null ): array {
+	private function addTemplatesToParams( array $params, ?string $tlContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|templates' : 'templates';
 
 		if ( $tlContinue ) {
@@ -461,7 +461,7 @@ class ApiDetailRetriever implements DetailRetriever {
 	/**
 	 * Adds to params base the properties for getting Categories
 	 */
-	private function addCategoriesToParams( array $params, string $clContinue = null ): array {
+	private function addCategoriesToParams( array $params, ?string $clContinue = null ): array {
 		$params['prop'] .= ( $params['prop'] ) ? '|categories' : 'categories';
 
 		if ( $clContinue ) {

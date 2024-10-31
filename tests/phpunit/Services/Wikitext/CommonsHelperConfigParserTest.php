@@ -266,10 +266,10 @@ WIKITEXT
 	 */
 	public function testParser(
 		$wikitext,
-		array $expectedGoodTemplates = null,
-		array $expectedBadTemplates = null,
-		array $expectedBadCategories = null,
-		array $expectedObsoleteTemplates = null,
+		?array $expectedGoodTemplates = null,
+		?array $expectedBadTemplates = null,
+		?array $expectedBadCategories = null,
+		?array $expectedObsoleteTemplates = null,
 		$expectedException = null
 	) {
 		$parser = new CommonsHelperConfigParser( '', $wikitext );
