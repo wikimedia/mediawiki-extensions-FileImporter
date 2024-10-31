@@ -22,7 +22,7 @@ class LocalizedImportException extends ImportException {
 	 * @param string|array|MessageSpecifier $messageSpec See Message::newFromSpecifier
 	 * @param Throwable|null $previous The previous exception used for the exception chaining.
 	 */
-	public function __construct( $messageSpec, Throwable $previous = null ) {
+	public function __construct( $messageSpec, ?Throwable $previous = null ) {
 		$this->messageSpec = $messageSpec;
 		$msg = $this->getMessageObject();
 		$code = str_replace( 'fileimporter-', '', $msg->getKey() );

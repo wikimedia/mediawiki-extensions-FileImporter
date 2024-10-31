@@ -22,7 +22,7 @@ class SuccessCache {
 	private BagOStuff $cache;
 	private LoggerInterface $logger;
 
-	public function __construct( BagOStuff $cache, LoggerInterface $logger = null ) {
+	public function __construct( BagOStuff $cache, ?LoggerInterface $logger = null ) {
 		$this->cache = $cache;
 		$this->logger = $logger ?? new NullLogger();
 	}

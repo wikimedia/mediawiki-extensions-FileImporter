@@ -74,8 +74,8 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 */
 	private function executeHttpRequest(
 		string $url,
-		callable $callback = null,
-		array $postData = null
+		?callable $callback = null,
+		?array $postData = null
 	): MWHttpRequest {
 		$options = [
 			'logger' => $this->logger,

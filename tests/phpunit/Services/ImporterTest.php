@@ -185,7 +185,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		RevisionRecord $revision,
 		string $type,
 		string $expectedSubType,
-		string $expectedTag = null
+		?string $expectedTag = null
 	): void {
 		$logEntry = $this->getLogType(
 			$revision->getPageId(),

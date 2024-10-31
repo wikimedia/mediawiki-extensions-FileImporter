@@ -22,7 +22,7 @@ class RecoverableTitleException extends TitleException {
 	 * @param ImportPlan $importPlan ImportPlan to recover the import of.
 	 * @param Throwable|null $previous
 	 */
-	public function __construct( $messageSpec, ImportPlan $importPlan, Throwable $previous = null ) {
+	public function __construct( $messageSpec, ImportPlan $importPlan, ?Throwable $previous = null ) {
 		$this->importPlan = $importPlan;
 
 		parent::__construct( $messageSpec, $previous );

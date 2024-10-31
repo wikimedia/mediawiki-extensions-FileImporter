@@ -41,7 +41,7 @@ class TextRevisionFromTextRevision implements ImportOperation {
 		OldRevisionImporter $importer,
 		FileTextRevisionValidator $textRevisionValidator,
 		RestrictionStore $restrictionStore,
-		LoggerInterface $logger = null
+		?LoggerInterface $logger = null
 	) {
 		$this->plannedTitle = $plannedTitle;
 		$this->user = $user;

@@ -22,7 +22,7 @@ class SiteTableSiteLookup {
 	/** @var array<string,string> */
 	private array $hostGlobalIdMap = [];
 
-	public function __construct( SiteLookup $siteLookup, LoggerInterface $logger = null ) {
+	public function __construct( SiteLookup $siteLookup, ?LoggerInterface $logger = null ) {
 		$this->siteLookup = $siteLookup;
 		$this->logger = $logger ?? new NullLogger();
 	}

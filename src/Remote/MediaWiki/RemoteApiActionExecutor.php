@@ -144,7 +144,7 @@ class RemoteApiActionExecutor {
 		return $this->statusFromApiResponse( $result );
 	}
 
-	private function statusFromApiResponse( array $apiResponse = null ): StatusValue {
+	private function statusFromApiResponse( ?array $apiResponse = null ): StatusValue {
 		$status = StatusValue::newGood();
 
 		if ( !$apiResponse ) {

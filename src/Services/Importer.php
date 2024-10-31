@@ -69,8 +69,8 @@ class Importer {
 		UploadRevisionImporter $uploadRevisionImporter,
 		FileTextRevisionValidator $textRevisionValidator,
 		RestrictionStore $restrictionStore,
-		LoggerInterface $logger = null,
-		StatsdDataFactoryInterface $statsdDataFactory = null
+		?LoggerInterface $logger = null,
+		?StatsdDataFactoryInterface $statsdDataFactory = null
 	) {
 		$this->wikiPageFactory = $wikiPageFactory;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;

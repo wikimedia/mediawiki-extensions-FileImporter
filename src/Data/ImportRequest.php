@@ -35,9 +35,9 @@ class ImportRequest {
 	 */
 	public function __construct(
 		string $url,
-		string $intendedName = null,
-		string $intendedText = null,
-		string $intendedSummary = null,
+		?string $intendedName = null,
+		?string $intendedText = null,
+		?string $intendedSummary = null,
 		string $importDetailsHash = ''
 	) {
 		try {

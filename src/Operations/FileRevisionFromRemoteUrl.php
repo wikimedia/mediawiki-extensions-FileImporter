@@ -75,7 +75,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		UploadBaseFactory $uploadBaseFactory,
 		UploadRevisionImporter $importer,
 		RestrictionStore $restrictionStore,
-		LoggerInterface $logger = null
+		?LoggerInterface $logger = null
 	) {
 		$this->plannedTitle = $plannedTitle;
 		$this->user = $user;

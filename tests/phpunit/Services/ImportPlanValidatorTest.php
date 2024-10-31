@@ -96,7 +96,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 */
 	private function getMockImportPlan(
 		string $planTitle,
-		string $sourceTitle = null,
+		?string $sourceTitle = null,
 		bool $exists = false
 	): ImportPlan {
 		$linkTarget = $this->createMock( LinkTarget::class );
@@ -152,7 +152,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 */
 	private function getMockWikiLinkParserFactory(
 		$callCount = 0,
-		WikiLinkParser $wikiLinkParser = null
+		?WikiLinkParser $wikiLinkParser = null
 	): WikiLinkParserFactory {
 		$mock = $this->createMock( WikiLinkParserFactory::class );
 		$mock->expects( $this->exactly( $callCount ) )

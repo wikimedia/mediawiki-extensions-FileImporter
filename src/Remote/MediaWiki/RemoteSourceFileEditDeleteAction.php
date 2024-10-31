@@ -37,8 +37,8 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		WikidataTemplateLookup $templateLookup,
 		RemoteApiActionExecutor $remoteAction,
 		UrlUtils $urlUtils,
-		LoggerInterface $logger = null,
-		StatsdDataFactoryInterface $statsd = null
+		?LoggerInterface $logger = null,
+		?StatsdDataFactoryInterface $statsd = null
 	) {
 		$this->fallbackHandler = $fallbackHandler;
 		$this->templateLookup = $templateLookup;
@@ -65,7 +65,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 	private function manualTemplateFallback(
 		ImportPlan $importPlan,
 		User $user,
-		string $warningMsg = null
+		?string $warningMsg = null
 	): StatusValue {
 		$status = $this->fallbackHandler->execute( $importPlan, $user );
 		if ( $warningMsg ) {
