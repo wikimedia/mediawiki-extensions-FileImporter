@@ -8,7 +8,6 @@
 			"Nikosguard"
 		]
 	},
-	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Εύκολη εισαγωγή αρχείων από άλλους ιστότοπους",
 	"tag-fileimporter-description": "Αρχεία που έχουν εισαχθεί από άλλο wiki, συμπεριλαμβανομένου του ιστορικού αρχείων και σελίδων",
 	"tag-fileimporter-imported": "\nΈγινε εισαγωγή με FileImporter",

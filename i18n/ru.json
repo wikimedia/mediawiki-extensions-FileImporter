@@ -20,7 +20,6 @@
 			"WindEwriX"
 		]
 	},
-	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Лёгкое импортирование файлов с других сайтов",
 	"fileimporter-help-banner-text": "'''Импортирование из других вики'''\n#Проверьте и отредактируйте название файла и информацию ниже.\n#Выберите, хотите ли вы, чтобы FileImporter убрал исходную вики, добавив шаблон [//ru.wikipedia.org/wiki/Template:Доступно_на_Викискладе Доступно на Викискладе] в исходный файл. (Если у вас есть права администратора, у вас также есть возможность удалить исходный файл.)\n#Нажмите на '''{{int:fileimporter-import}}''', чтобы скопировать файл на {{SITENAME}}.\n\nДля получения лицензионной информации, пожалуйста, ознакомьтесь с&nbsp;[[Project:Licensing|политикой сообщества]] {{SITENAME}}.<br />Для получения подробных инструкций по использованию FileImporter, ознакомьтесь со&nbsp;[//www.mediawiki.org/wiki/Help:Extension:FileImporter страницей помощи].\n\nЕсли у вас есть какое-либо мнение по улучшению расширения FileImporter, пожалуйста, оставьте сообщение на [//www.mediawiki.org/wiki/Extension_talk:FileImporter странице обсуждения].",
 	"fileimporter-help-banner-close-tooltip": "Не показывать это сообщение повторно",

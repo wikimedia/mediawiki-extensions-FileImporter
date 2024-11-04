@@ -5,7 +5,6 @@
 			"Silraks"
 		]
 	},
-	"fileimporter": "FileImporter",
 	"fileimporter-desc": "Vienkārša failu importēšana no citām vietnēm",
 	"fileimporter-help-banner-close-tooltip": "Nerādīt vairs šo ziņojumu",
 	"tag-fileimporter": "Modificēts ar FileImporter",
