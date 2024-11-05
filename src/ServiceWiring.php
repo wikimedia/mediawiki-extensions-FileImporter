@@ -73,7 +73,7 @@ return [
 				$remoteApiActionExecutor,
 				$services->getUrlUtils(),
 				$logger,
-				$services->getStatsdDataFactory()
+				$services->getStatsFactory()
 			);
 		}
 
@@ -130,7 +130,7 @@ return [
 				$remoteApiActionExecutor,
 				$services->getUrlUtils(),
 				$logger,
-				$services->getStatsdDataFactory()
+				$services->getStatsFactory()
 			);
 		}
 
@@ -221,7 +221,7 @@ return [
 			new FileTextRevisionValidator(),
 			$services->getRestrictionStore(),
 			LoggerFactory::getInstance( 'FileImporter' ),
-			$services->getStatsdDataFactory()
+			$services->getStatsFactory()
 		);
 	},
 

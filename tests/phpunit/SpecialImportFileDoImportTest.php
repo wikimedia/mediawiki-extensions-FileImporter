@@ -11,7 +11,6 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\SourceSite;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\SpecialImportFile;
-use Liuggio\StatsdClient\Factory\StatsdDataFactory;
 use MediaWiki\Language\Language;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\Output\OutputPage;
@@ -22,6 +21,7 @@ use MediaWiki\Session\CsrfTokenSetProvider;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
+use Wikimedia\Stats\StatsFactory;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -84,7 +84,7 @@ class SpecialImportFileDoImportTest extends MediaWikiIntegrationTestCase {
 		$specialImportFileMock = TestingAccessWrapper::newFromObject( $specialImportFileMock );
 		$specialImportFileMock->importer = $importerMock;
 		$specialImportFileMock->sourceSiteLocator = $sourceSiteLocatorMock;
-		$specialImportFileMock->stats = $this->createMock( StatsdDataFactory::class );
+		$specialImportFileMock->statsFactory = StatsFactory::newNull();
 
 		return $specialImportFileMock;
 	}

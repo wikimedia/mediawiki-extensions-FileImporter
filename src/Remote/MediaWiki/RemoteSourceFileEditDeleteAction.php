@@ -5,13 +5,13 @@ namespace FileImporter\Remote\MediaWiki;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Interfaces\PostImportHandler;
 use FileImporter\Services\WikidataTemplateLookup;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\User\User;
 use MediaWiki\Utils\UrlUtils;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
-use Wikimedia\Stats\NullStatsdDataFactory;
+use Wikimedia\Stats\Metrics\CounterMetric;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * Delete the source file, or edit to add the {{NowCommons}} template.
@@ -20,17 +20,12 @@ use Wikimedia\Stats\NullStatsdDataFactory;
  */
 class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 
-	private const STATSD_SOURCE_DELETE_FAIL = 'FileImporter.import.postImport.delete.failed';
-	private const STATSD_SOURCE_DELETE_SUCCESS = 'FileImporter.import.postImport.delete.successful';
-	private const STATSD_SOURCE_EDIT_FAIL = 'FileImporter.import.postImport.edit.failed';
-	private const STATSD_SOURCE_EDIT_SUCCESS = 'FileImporter.import.postImport.edit.successful';
-
 	private PostImportHandler $fallbackHandler;
 	private WikidataTemplateLookup $templateLookup;
 	private RemoteApiActionExecutor $remoteAction;
 	private UrlUtils $urlUtils;
 	private LoggerInterface $logger;
-	private StatsdDataFactoryInterface $statsd;
+	private CounterMetric $postImportCounter;
 
 	public function __construct(
 		PostImportHandler $fallbackHandler,
@@ -38,14 +33,15 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		RemoteApiActionExecutor $remoteAction,
 		UrlUtils $urlUtils,
 		?LoggerInterface $logger = null,
-		?StatsdDataFactoryInterface $statsd = null
+		?StatsFactory $statsFactory = null
 	) {
 		$this->fallbackHandler = $fallbackHandler;
 		$this->templateLookup = $templateLookup;
 		$this->remoteAction = $remoteAction;
 		$this->urlUtils = $urlUtils;
 		$this->logger = $logger ?? new NullLogger();
-		$this->statsd = $statsd ?? new NullStatsdDataFactory();
+		$statsFactory ??= StatsFactory::newNull();
+		$this->postImportCounter = $statsFactory->getCounter( 'FileImporter_postImport_results_total' );
 	}
 
 	/**
@@ -102,11 +98,17 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		);
 
 		if ( $status->isGood() ) {
-			$this->statsd->increment( self::STATSD_SOURCE_EDIT_SUCCESS );
+			$this->postImportCounter->setLabel( 'result', 'success' )
+				->setLabel( 'action', 'edit' )
+				->copyToStatsdAt( 'FileImporter.import.postImport.edit.successful' )
+				->increment();
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import edit.' );
-			$this->statsd->increment( self::STATSD_SOURCE_EDIT_FAIL );
+			$this->postImportCounter->setLabel( 'result', 'failed' )
+				->setLabel( 'action', 'edit' )
+				->copyToStatsdAt( 'FileImporter.import.postImport.edit.failed' )
+				->increment();
 
 			return $this->manualTemplateFallback(
 				$importPlan,
@@ -131,11 +133,17 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		);
 
 		if ( $status->isGood() ) {
-			$this->statsd->increment( self::STATSD_SOURCE_DELETE_SUCCESS );
+			$this->postImportCounter->setLabel( 'result', 'success' )
+				->setLabel( 'action', 'delete' )
+				->copyToStatsdAt( 'FileImporter.import.postImport.delete.successful' )
+				->increment();
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import delete.' );
-			$this->statsd->increment( self::STATSD_SOURCE_DELETE_FAIL );
+			$this->postImportCounter->setLabel( 'result', 'failed' )
+				->setLabel( 'action', 'delete' )
+				->copyToStatsdAt( 'FileImporter.import.postImport.delete.failed' )
+				->increment();
 
 			$status = $this->successMessage();
 			$status->warning(

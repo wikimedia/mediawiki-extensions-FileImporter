@@ -7,7 +7,6 @@ use FileImporter\Remote\MediaWiki\SiteTableSiteLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\SpecialImportFile;
 use Hamcrest\Matcher;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\MainConfigNames;
@@ -21,6 +20,7 @@ use MWHttpRequest;
 use PermissionsError;
 use SpecialPageTestBase;
 use StatusValue;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * @coversNothing
@@ -72,7 +72,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			$services->getService( 'FileImporterMediaWikiRemoteApiActionExecutor' ),
 			$services->getService( 'FileImporterTemplateLookup' ),
 			$this->createNoOpMock( IContentHandlerFactory::class ),
-			$this->createMock( StatsdDataFactoryInterface::class ),
+			StatsFactory::newNull(),
 			$this->createNoOpMock( UserOptionsManager::class ),
 			new HashConfig( [
 				'FileImporterRequiredRight' => '',

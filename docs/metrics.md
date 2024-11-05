@@ -47,7 +47,6 @@
 
 * **{PREFIX}.import.details.textRevisions.{AGGREGATION}** - Number of text revisions imported.
 * **{PREFIX}.import.details.fileRevisions.{AGGREGATION}** - Number of file revisions imported.
-* **{PREFIX}.import.details.individualFileSizes.{AGGREGATION}** - Individual file revision sizes (bytes).
 * **{PREFIX}.import.details.totalFileSizes.{AGGREGATION}** - Total size of all revisions in a single import (bytes).
 
 * **{PREFIX}.import.postImport.delete.failed.{AGGREGATION}** - Post-imports where we failed to delete the remote source file.
@@ -64,3 +63,67 @@ outside of the workflow, for example being granted upload permissions.  Errors
 are broken down by type, and are catalogued on a [wiki page](https://www.mediawiki.org/wiki/Extension:FileImporter/Errors).
 
 * **{PREFIX}.error.byRecoverable.{true/false}.byType.{error-key}'
+
+
+### Prometheus
+
+#### Info
+
+##### General
+
+##### FileImporter specific
+
+* **{PREFIX}** is "MediaWiki_FileImporter"
+
+#### Metrics
+
+##### Special Page Loading
+
+* **{PREFIX}_specialPage_executions_total** - Number of special page loads.
+  * This does not include special page loads where the user was not allowed to view the page due to permissions.
+  * **parameter=fromFileExporter** - Number of special page loads that appear to come from a FileExporter extension.
+  * This should be taken with a pinch of salt as people can refresh the page or send their link to another user and multiple hits will occur here.
+  * **parameter=noClientUrl** - Number of special page loads where no client url has been provided.
+
+##### Special Page Interaction
+
+* **{PREFIX}_specialPage_actions_total**
+  * **action=edittitle** - Incremented on successful import, if the edit title screen was used at least once.
+  * **action=editinfo** - Incremented on successful import, if the edit file info screen was used at least once.
+  * **action=offeredSourceDelete** - Number of successful imports where the remote delete feature was offered.
+  * **action=offeredSourceEdit** - Number of successful imports where the remote edit feature was offered.
+
+##### Importing
+
+* **{PREFIX}_imports_total
+  * **result=success** - Imports that resulted in success
+
+* **{PREFIX}_import_duration_seconds** - Time spent processing the whole import (includes all sub times below).
+* **{PREFIX}_import_operation_duration_seconds**
+  * **operation=build** - Time spent building the operations needed for import.
+  * **operation=prepare** - Time spent preparing the content that should be imported.
+  * **operation=validate** - Time spent validating the content that should be imported.
+  * **operation=commit** - Time spent committing the operations needed for import.
+  * **operation=misc** - Time spent on other miscellaneous write actions, such as creation of further edits / revisions.
+
+* **{PREFIX}_import_details_textRevisions** - Number of text revisions imported.
+* **{PREFIX}_import_details_fileRevisions** - Number of file revisions imported.
+* **{PREFIX}_import_details_totalFileSizes_bytes** - Total size of all revisions in a single import.
+
+* **{PREFIX}_postImport_results_total**
+  * **action=delete,result=failed** - Post-imports where we failed to delete the remote source file.
+  * **action=delete,result=successful** - Post-imports where we were able to delete the remote source file.
+  * **action=edit,result=failed** - Post-imports where we failed to edit the remote source file.
+  * **action=edit,result=successful** - Post-imports where we were able to edit the remote source file.
+
+##### Errors
+
+All errors are logged this group of metrics.  A few errors are "recoverable",
+meaning that the user can complete the import by making trivial changes to the
+file title, for example.  Unrecoverable errors cannot be resolved without going
+outside of the workflow, for example being granted upload permissions.  Errors
+are broken down by type, and are catalogued on a [wiki page](https://www.mediawiki.org/wiki/Extension:FileImporter/Errors).
+
+* **{PREFIX}_errors_total**
+  * **recoverable={true/false}**
+  * **type={error-key}**

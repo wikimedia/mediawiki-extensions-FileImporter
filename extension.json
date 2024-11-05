@@ -34,7 +34,7 @@
 				"FileImporterMediaWikiRemoteApiActionExecutor",
 				"FileImporterTemplateLookup",
 				"ContentHandlerFactory",
-				"StatsdDataFactory",
+				"StatsFactory",
 				"UserOptionsManager",
 				"MainConfig"
 			]
