@@ -17,7 +17,8 @@
 			"Thibaut120094",
 			"Urhixidur",
 			"Verdy p",
-			"Wladek92"
+			"Wladek92",
+			"Mahabarata"
 		]
 	},
 	"fileimporter-desc": "Importation facile de fichiers provenant d’autres sites",
@@ -72,6 +73,8 @@
 	"fileimporter-cancel": "Annuler",
 	"fileimporter-edittitle": "Modifier le titre",
 	"fileimporter-editinfo": "Modifier les informations du fichier",
+	"fileimporter-previewtitle": "Titre de l'aperçu",
+	"fileimporter-previewinfo": "Aperçu des informations sur le fichier",
 	"fileimporter-extensionlabel": "Extension du fichier :",
 	"fileimporter-newfilename": "Nouveau nom de fichier :",
 	"fileimporter-editsummary": "Résumé des modifications :",
@@ -106,5 +109,6 @@
 	"fileimporter-input-page-info-text": "En savoir plus en visitant notre [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons page d’aide].",
 	"fileimporter-viewdiff": "Afficher les modifications",
 	"fileimporter-to-preview": "Retour à l’aperçu",
-	"fileimporter-no-script-warning": "JavaScript n’est pas pris en charge ou est désactivé par votre navigateur. L’importateur de fichiers requiert JavaScript pour fonctionner."
+	"fileimporter-no-script-warning": "JavaScript n’est pas pris en charge ou est désactivé par votre navigateur. L’importateur de fichiers requiert JavaScript pour fonctionner.",
+	"fileimporter-cdx-diff-failed": "Une erreur s'est produite lors de la récupération des modifications. Veuillez réessayer ultérieurement."
 }
