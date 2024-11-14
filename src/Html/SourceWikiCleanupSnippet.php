@@ -96,7 +96,7 @@ class SourceWikiCleanupSnippet {
 					[],
 					$context->msg(
 						'fileimporter-cleanup-text',
-						$this->lookup->fetchNowCommonsLocalTitle( $sourceUrl )
+						$this->lookup->fetchNowCommonsLocalTitle( $sourceUrl ) ?? ''
 					)->parse()
 				) .
 				new FieldLayout(
