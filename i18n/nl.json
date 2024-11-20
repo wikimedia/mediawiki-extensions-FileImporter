@@ -42,7 +42,7 @@
 	"fileimporter-filenameerror-illegal": "De bestandsnaam waaronder u momenteel probeert te importeren is niet geldig, bijvoorbeeld omdat deze verboden tekens bevat.",
 	"fileimporter-filenameerror-toolong": "De bestandsnaam van het bestand dat u probeert te importeren is te lang.",
 	"fileimporter-filenameerror-notallowed": "U probeert een bestand met de extensie <code>$1</code> te importeren. Bestanden met deze extensie zijn niet toegestaan in deze wiki. De toegestane extensies zijn: $2.",
-	"fileimporter-filenameerror-automaticchanges": "De bestandsnaam is automatisch van \"$1\" gewijzigd naar \"$2\".",
+	"fileimporter-filenameerror-automaticchanges": "De bestandsnaam is automatisch van “$1” in “$2” veranderd",
 	"fileimporter-filenameerror-nosourceextension": "De bronbestandsnaam heeft geen bestandsextensie.",
 	"fileimporter-filenameerror-noplannedextension": "De doelbestandsnaam heeft geen bestandsextensie.",
 	"fileimporter-filenameerror-missmatchextension": "De bestandsextensie van het doel komt niet overeen met de bestandsextensie van het originele bestand.",
