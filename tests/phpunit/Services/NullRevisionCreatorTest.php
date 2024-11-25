@@ -52,7 +52,7 @@ class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 		$revisionRecord->method( 'getUser' )
 			->willReturn( $user );
 		$revisionRecord->method( 'getPage' )
-			->willReturn( $title );
+			->willReturn( $title->toPageIdentity() );
 		$revisionRecord->method( 'getPageAsLinkTarget' )
 			->willReturn( $title );
 		$revisionRecord->method( 'getTimestamp' )
