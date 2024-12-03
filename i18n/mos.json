@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Matma Rex",
 			"Soumaya"
 		]
 	},
@@ -67,11 +68,11 @@
 	"fileimporter-heading-cleanup": "Pʋʋs-y sor wiki wã",
 	"fileimporter-cleanup-text": "Y tõe n wilgame tɩ b tall-a lame n tɩ yi {{SITENAME}} pʋgẽ. Woto yaa ne <code><nowiki>{{$1}}</nowiki></code> malɛk n paas f yʋʋrã sẽn be f faayã zugẽ wã.",
 	"fileimporter-cleanup-checkboxlabel": "Sõng-y n wilg wiki wã sẽn yi n wa lebg n wa n wa n kẽ {{SITENAME}}",
-	"fileimporter-cleanup-summary": "Dẽnd d sẽn dat n bãng tɩ d pa {{SITE NAME}}tõe n maan bũmb ning fãa, d segd n $1 maana bũmb ning sẽn pa zems ne d sẽn datã.",
+	"fileimporter-cleanup-summary": "Dẽnd d sẽn dat n bãng tɩ d pa {{SITENAME}}tõe n maan bũmb ning fãa, d segd n $1 maana bũmb ning sẽn pa zems ne d sẽn datã.",
 	"fileimporter-cleanup-failed": "Sẽn na yɩl n tõog n tall sorã wiki wã, pa tõe n maan woto ye.",
 	"fileimporter-delete-text": "Y tõe n basa y faayã sẽn be wiki wã pʋgẽ. Y sã n dat tɩ FileImporter wã yiis y yʋʋr faayã, yãk sor-kãngã:",
 	"fileimporter-delete-checkboxlabel": "Yãk-y n yiis wiki wã zug fɩll sẽn be m yʋʋr yĩnga",
-	"fileimporter-delete-summary": "Dẽnd d sẽn dat n bãng tɩ d pa {{SITE NAME}}tõe n maan bũmb ning fãa, d segd n $1 maana bũmb ning sẽn pa zems ne d sẽn datã.",
+	"fileimporter-delete-summary": "Dẽnd d sẽn dat n bãng tɩ d pa {{SITENAME}}tõe n maan bũmb ning fãa, d segd n $1 maana bũmb ning sẽn pa zems ne d sẽn datã.",
 	"fileimporter-delete-failed": "D pa tõe n yẽes faayã ne a meng $1 ye. D kos-y tɩ y lebg n wa [$2 sẽn yaa pipi faaylã] n yẽes-a ne nug-yoodã.",
 	"fileimporter-revision-removed-text": "Sõng sẽn pa yãtã sẽn yiisd ne FileImporter.",
 	"fileimporter-revision-removed-comment": "FileImporter sẽn yiis gom-zug sẽn pa yãtã.",
