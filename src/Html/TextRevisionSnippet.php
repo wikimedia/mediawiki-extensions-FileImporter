@@ -51,9 +51,9 @@ class TextRevisionSnippet extends SpecialPageHtmlFragment {
 			$parserOptions
 		);
 
-		return $parseResult->getText(
+		return $parseResult->runOutputPipeline( $parserOptions,
 			[ 'enableSectionEditLinks' => false ]
-		);
+		)->getContentHolderText();
 	}
 
 }
