@@ -3,7 +3,8 @@
 		"authors": [
 			"ArenaL5",
 			"Banjo",
-			"Elisardojm"
+			"Elisardojm",
+			"Toliño"
 		]
 	},
 	"fileimporter": "Importador de ficheiros",
@@ -48,5 +49,6 @@
 	"fileimporter-revision-removed-comment": "Comentario suprimido eliminado por FileImporter.",
 	"fileimporter-filemissinginrevision": "Non se pode importar o ficheiro porque polo menos a unha das súas revisións fáltalle o ficheiro de imaxe.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|O ficheiro|As $1 versións do ficheiro}} que está intentando importar {{PLURAL:$1|excede|exceden}} o límite do tamaño máximo de importacións.",
-	"fileimporter-viewdiff": "Amosar os cambios"
+	"fileimporter-viewdiff": "Amosar os cambios",
+	"fileimporter-to-preview": "Volver á vista previa"
 }
