@@ -30,7 +30,6 @@ use FileImporter\Services\Importer;
 use FileImporter\Services\ImportPlanFactory;
 use FileImporter\Services\SourceSiteLocator;
 use FileImporter\Services\WikidataTemplateLookup;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
@@ -49,6 +48,7 @@ use Psr\Log\LoggerInterface;
 use StatusValue;
 use UploadBase;
 use UserBlockedError;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * @license GPL-2.0-or-later
@@ -66,7 +66,7 @@ class SpecialImportFile extends SpecialPage {
 	private RemoteApiActionExecutor $remoteActionApi;
 	private WikidataTemplateLookup $templateLookup;
 	private IContentHandlerFactory $contentHandlerFactory;
-	private StatsdDataFactoryInterface $stats;
+	private StatsFactory $statsFactory;
 	private UserOptionsManager $userOptionsManager;
 	private LoggerInterface $logger;
 
@@ -77,7 +77,7 @@ class SpecialImportFile extends SpecialPage {
 		RemoteApiActionExecutor $remoteActionApi,
 		WikidataTemplateLookup $templateLookup,
 		IContentHandlerFactory $contentHandlerFactory,
-		StatsdDataFactoryInterface $statsdDataFactory,
+		StatsFactory $statsFactory,
 		UserOptionsManager $userOptionsManager,
 		Config $config
 	) {
@@ -93,7 +93,7 @@ class SpecialImportFile extends SpecialPage {
 		$this->remoteActionApi = $remoteActionApi;
 		$this->templateLookup = $templateLookup;
 		$this->contentHandlerFactory = $contentHandlerFactory;
-		$this->stats = $statsdDataFactory;
+		$this->statsFactory = $statsFactory->withComponent( 'FileImporter' );
 		$this->userOptionsManager = $userOptionsManager;
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
 	}
@@ -192,14 +192,17 @@ class SpecialImportFile extends SpecialPage {
 
 		// Note: executions by users that don't have the rights to view the page etc will not be
 		// shown in this metric as executeStandardChecks will have already kicked them out,
-		$this->stats->increment( 'FileImporter.specialPage.execute.total' );
+		$execTotalMetric = $this->statsFactory->getCounter( 'specialPage_executions_total' )
+			->setLabel( 'parameter', 'none' );
 		// The importSource url parameter is added to requests from the FileExporter extension.
 		if ( $webRequest->getRawVal( 'importSource' ) === 'FileExporter' ) {
-			$this->stats->increment( 'FileImporter.specialPage.execute.fromFileExporter' );
+			$execTotalMetric->setLabel( 'parameter', 'fromFileExporter' )
+				->copyToStatsdAt( 'FileImporter.specialPage.execute.fromFileExporter' );
 		}
 
 		if ( $clientUrl === '' ) {
-			$this->stats->increment( 'FileImporter.specialPage.execute.noClientUrl' );
+			$execTotalMetric->setLabel( 'parameter', 'noClientUrl' )
+				->copyToStatsdAt( 'FileImporter.specialPage.execute.noClientUrl' );
 			$this->showLandingPage();
 			return;
 		}
@@ -322,8 +325,11 @@ class SpecialImportFile extends SpecialPage {
 	}
 
 	private function logErrorStats( string $type, bool $isRecoverable ): void {
-		$this->stats->increment( 'FileImporter.error.byRecoverable.'
-			. wfBoolToStr( $isRecoverable ) . '.byType.' . $type );
+		$this->statsFactory->getCounter( 'errors_total' )
+			->setLabel( 'recoverable', wfBoolToStr( $isRecoverable ) )
+			->setLabel( 'type', $type )
+			->copyToStatsdAt( 'FileImporter.error.byRecoverable.' . wfBoolToStr( $isRecoverable ) . '.byType.' . $type )
+			->increment();
 	}
 
 	private function doCodexImport( ImportPlan $importPlan ): void {
@@ -333,7 +339,10 @@ class SpecialImportFile extends SpecialPage {
 				$this->getUser(),
 				$importPlan
 			);
-			$this->stats->increment( 'FileImporter.import.result.success' );
+			$this->statsFactory->getCounter( 'imports_total' )
+				->setLabel( 'result', 'success' )
+				->copyToStatsdAt( 'FileImporter.import.result.success' )
+				->increment();
 			$this->logActionStats( $importPlan );
 
 			$postImportResult = $this->performPostImportActions( $importPlan );
@@ -401,7 +410,10 @@ class SpecialImportFile extends SpecialPage {
 				$this->getUser(),
 				$importPlan
 			);
-			$this->stats->increment( 'FileImporter.import.result.success' );
+			$this->statsFactory->getCounter( 'imports_total' )
+				->setLabel( 'result', 'success' )
+				->copyToStatsdAt( 'FileImporter.import.result.success' )
+				->increment();
 			// TODO: inline at site of action
 			$this->logActionStats( $importPlan );
 
@@ -454,7 +466,10 @@ class SpecialImportFile extends SpecialPage {
 				$key === SourceWikiCleanupSnippet::ACTION_OFFERED_SOURCE_DELETE ||
 				$key === SourceWikiCleanupSnippet::ACTION_OFFERED_SOURCE_EDIT
 			) {
-				$this->stats->increment( 'FileImporter.specialPage.action.' . $key );
+				$this->statsFactory->getCounter( 'specialPage_actions_total' )
+					->setLabel( 'action', $key )
+					->copyToStatsdAt( 'FileImporter.specialPage.action.' . $key )
+					->increment();
 			}
 		}
 	}
@@ -531,14 +546,21 @@ class SpecialImportFile extends SpecialPage {
 
 		if ( $capabilities['canAutomateDelete'] ) {
 			$capabilities['automateDeleteSelected'] = $importPlan->getAutomateSourceWikiDelete();
-			$this->stats->increment( 'FileImporter.specialPage.action.offeredSourceDelete' );
+
+			$this->statsFactory->getCounter( 'specialPage_actions_total' )
+				->setLabel( 'action', 'offeredSourceDelete' )
+				->copyToStatsdAt( 'FileImporter.specialPage.action.offeredSourceDelete' )
+				->increment();
 		} elseif ( $capabilities['canAutomateEdit'] ) {
 			$capabilities['automateEditSelected'] =
 				$importPlan->getAutomateSourceWikiCleanUp() ||
 				$importPlan->getRequest()->getImportDetailsHash() === '';
 			$capabilities['cleanupTitle'] =
 				$this->templateLookup->fetchNowCommonsLocalTitle( $sourceUrl );
-			$this->stats->increment( 'FileImporter.specialPage.action.offeredSourceEdit' );
+			$this->statsFactory->getCounter( 'specialPage_actions_total' )
+				->setLabel( 'action', 'offeredSourceEdit' )
+				->copyToStatsdAt( 'FileImporter.specialPage.action.offeredSourceEdit' )
+				->increment();
 		}
 
 		return $capabilities;

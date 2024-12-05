@@ -12,7 +12,6 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Api\IApiMessage;
 use MediaWiki\Content\WikitextContent;
 use MediaWiki\MediaWikiServices;
@@ -32,7 +31,7 @@ use StatusValue;
 use UploadRevisionImporter;
 use Wikimedia\Message\MessageSpecifier;
 use Wikimedia\Rdbms\IDBAccessObject;
-use Wikimedia\Stats\NullStatsdDataFactory;
+use Wikimedia\Stats\StatsFactory;
 use WikiPage;
 
 /**
@@ -56,7 +55,7 @@ class Importer {
 	private FileTextRevisionValidator $textRevisionValidator;
 	private RestrictionStore $restrictionStore;
 	private LoggerInterface $logger;
-	private StatsdDataFactoryInterface $stats;
+	private StatsFactory $statsFactory;
 
 	public function __construct(
 		WikiPageFactory $wikiPageFactory,
@@ -70,7 +69,7 @@ class Importer {
 		FileTextRevisionValidator $textRevisionValidator,
 		RestrictionStore $restrictionStore,
 		?LoggerInterface $logger = null,
-		?StatsdDataFactoryInterface $statsdDataFactory = null
+		?StatsFactory $statsFactory = null
 	) {
 		$this->wikiPageFactory = $wikiPageFactory;
 		$this->wikiRevisionFactory = $wikiRevisionFactory;
@@ -83,7 +82,8 @@ class Importer {
 		$this->textRevisionValidator = $textRevisionValidator;
 		$this->restrictionStore = $restrictionStore;
 		$this->logger = $logger ?? new NullLogger();
-		$this->stats = $statsdDataFactory ?? new NullStatsdDataFactory();
+		$statsFactory ??= StatsFactory::newNull();
+		$this->statsFactory = $statsFactory->withComponent( 'FileImporter' );
 	}
 
 	/**
@@ -94,6 +94,7 @@ class Importer {
 	 */
 	public function import( User $user, ImportPlan $importPlan ) {
 		$this->wikiRevisionFactory->setInterWikiPrefix( $importPlan->getInterWikiPrefix() );
+		$metric = $this->statsFactory->getTiming( 'import_operation_duration_seconds' );
 
 		$importStart = microtime( true );
 		$this->logger->info( __METHOD__ . ' started' );
@@ -111,50 +112,44 @@ class Importer {
 			$importPlan->getTitle(),
 			$importPlan->getDetails()
 		);
-		$this->stats->timing(
-			'FileImporter.import.timing.buildOperations',
-			( microtime( true ) - $operationBuildingStart ) * 1000
-		);
+		$metric->setLabel( 'operation', 'build' )
+			->copyToStatsdAt( 'FileImporter.import.timing.buildOperations' )
+			->observeSeconds( microtime( true ) - $operationBuildingStart );
 
 		$operationPrepareStart = microtime( true );
 		$this->prepareImportOperations( $importOperations );
-		$this->stats->timing(
-			'FileImporter.import.timing.prepareOperations',
-			( microtime( true ) - $operationPrepareStart ) * 1000
-		);
+		$metric->setLabel( 'operation', 'prepare' )
+			->copyToStatsdAt( 'FileImporter.import.timing.prepareOperations' )
+			->observeSeconds( microtime( true ) - $operationPrepareStart );
 
 		$operationValidateStart = microtime( true );
 		$validationStatus->merge( $importOperations->validate() );
 		$this->validateImportOperations( $validationStatus, $importPlan );
-		$this->stats->timing(
-			'FileImporter.import.timing.validateOperations',
-			( microtime( true ) - $operationValidateStart ) * 1000
-		);
+		$metric->setLabel( 'operation', 'validate' )
+			->copyToStatsdAt( 'FileImporter.import.timing.validateOperations' )
+			->observeSeconds( microtime( true ) - $operationValidateStart );
 
 		$operationCommitStart = microtime( true );
 		$this->commitImportOperations( $importOperations );
-		$this->stats->timing(
-			'FileImporter.import.timing.commitOperations',
-			( microtime( true ) - $operationCommitStart ) * 1000
-		);
+		$metric->setLabel( 'operation', 'commit' )
+			->copyToStatsdAt( 'FileImporter.import.timing.commitOperations' )
+			->observeSeconds( microtime( true ) - $operationCommitStart );
 
 		// TODO the below should be an ImportOperation
 		$miscActionsStart = microtime( true );
 		$page = $this->getPageFromImportPlan( $importPlan );
 		$this->createPostImportNullRevision( $importPlan, $user );
 		$this->createPostImportEdit( $importPlan, $page, $user );
-		$this->stats->timing(
-			'FileImporter.import.timing.miscActions',
-			( microtime( true ) - $miscActionsStart ) * 1000
-		);
+		$metric->setLabel( 'operation', 'misc' )
+			->copyToStatsdAt( 'FileImporter.import.timing.miscActions' )
+			->observeSeconds( microtime( true ) - $miscActionsStart );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
-		$this->stats->timing(
-			'FileImporter.import.timing.wholeImport',
-			( microtime( true ) - $importStart ) * 1000
-		);
+		$this->statsFactory->getTiming( 'import_duration_seconds' )
+			->copyToStatsdAt( 'FileImporter.import.timing.wholeImport' )
+			->observeSeconds( microtime( true ) - $importStart );
 	}
 
 	/**
@@ -191,10 +186,6 @@ class Importer {
 
 		foreach ( $fileRevisions as $fileRevision ) {
 			$totalFileSizes += $fileRevision->getField( 'size' );
-			$this->stats->gauge(
-				'FileImporter.import.details.individualFileSizes',
-				$fileRevision->getField( 'size' )
-			);
 			$importOperations->add( new FileRevisionFromRemoteUrl(
 				$plannedTitle,
 				$user,
@@ -212,10 +203,16 @@ class Importer {
 			// only include the initial text revision in the first upload
 			$initialTextRevision = null;
 		}
+		$this->statsFactory->getGauge( 'import_details_textRevisions' )
+			->copyToStatsdAt( 'FileImporter.import.details.textRevisions' )
+			->set( count( $textRevisions ) );
+		$this->statsFactory->getGauge( 'import_details_fileRevisions' )
+			->copyToStatsdAt( 'FileImporter.import.details.fileRevisions' )
+			->set( count( $fileRevisions ) );
 
-		$this->stats->gauge( 'FileImporter.import.details.textRevisions', count( $textRevisions ) );
-		$this->stats->gauge( 'FileImporter.import.details.fileRevisions', count( $fileRevisions ) );
-		$this->stats->gauge( 'FileImporter.import.details.totalFileSizes', $totalFileSizes );
+		$this->statsFactory->getGauge( 'import_details_totalFileSizes_bytes' )
+			->copyToStatsdAt( 'FileImporter.import.details.totalFileSizes' )
+			->set( $totalFileSizes );
 
 		return $importOperations;
 	}
