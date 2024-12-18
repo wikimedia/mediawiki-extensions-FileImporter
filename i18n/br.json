@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fulup",
-			"Y-M D"
+			"Y-M D",
+			"Huñvreüs"
 		]
 	},
 	"tag-fileimporter": "Kemmet gant Filelmporter",
@@ -12,5 +13,7 @@
 	"fileimporter-resubmit": "Kas en-dro",
 	"fileimporter-import": "Enporzhiañ",
 	"fileimporter-cancel": "Nullañ",
-	"fileimporter-heading-filehistory": "Istor ar restr"
+	"fileimporter-heading-filehistory": "Istor ar restr",
+	"fileimporter-cleanup-summary": "Emañ ar restr-mañ war {{SITENAME}} e $1 bremañ (dilec'hiet gant FileImporter).",
+	"fileimporter-delete-summary": "Emañ ar restr-mañ war {{SITENAME}} e $1 bremañ (dilec'hiet gant FileImporter)."
 }
