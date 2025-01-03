@@ -5,7 +5,7 @@
 	},
 	"extends": [
 		"wikimedia/jquery",
-		"wikimedia/client-es6",
+		"wikimedia/client",
 		"wikimedia/vue3-es6",
 		"wikimedia/mediawiki"
 	],

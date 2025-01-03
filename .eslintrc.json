@@ -4,7 +4,6 @@
 		"commonjs": true
 	},
 	"extends": [
-		"wikimedia/mediawiki",
 		"wikimedia/server"
 	],
 	"ignorePatterns": [
