@@ -76,9 +76,6 @@ class ImportRequest {
 		return $this->intendedName;
 	}
 
-	/**
-	 * @return null|string
-	 */
 	public function getIntendedText(): ?string {
 		return $this->intendedText;
 	}
