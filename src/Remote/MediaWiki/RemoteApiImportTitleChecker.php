@@ -50,7 +50,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 				[
 					'url' => $e->getHttpRequest()->getFinalUrl(),
 					'content' => $e->getHttpRequest()->getContent(),
-					'errors' => $e->getStatusValue()->getErrors(),
+					'errors' => $e->getMessage(),
 					'apiUrl' => $api,
 					'apiParameters' => $apiParameters,
 				]

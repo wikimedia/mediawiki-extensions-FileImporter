@@ -189,14 +189,13 @@ class ImportPlanValidator {
 		$title = $importPlan->getTitle();
 
 		/**
-		 * {@see UploadBase::verifyTitlePermissions}
+		 * {@see UploadBase::authorizeUpload}
 		 */
 		$status = PermissionStatus::newEmpty();
 		$user->authorizeWrite( 'edit', $title, $status );
 		$user->authorizeWrite( 'upload', $title, $status );
 		if ( !$status->isGood() ) {
-			$permErrors = $status->toLegacyErrorArray();
-			throw new RecoverableTitleException( $permErrors[0], $importPlan );
+			throw new RecoverableTitleException( $status->getMessages()[0], $importPlan );
 		}
 
 		// Even administrators should not (accidentally) move a file to a protected file name
