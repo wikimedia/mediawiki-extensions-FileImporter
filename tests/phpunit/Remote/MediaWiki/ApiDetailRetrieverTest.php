@@ -23,7 +23,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-
+		$this->setUserLang( 'qqx' );
 		$this->overrideConfigValues( [
 			'FileImporterCommonsHelperServer' => '',
 			'FileImporterMaxRevisions' => 4,
@@ -361,19 +361,19 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		return [
 			[
 				[ 'query' => [ 'pages' => [] ] ],
-				new LocalizedImportException( 'fileimporter-api-nopagesreturned' ),
+				'fileimporter-api-nopagesreturned',
 			],
 			[
 				[ 'query' => [ 'pages' => [ [ 'missing' => '' ] ] ] ],
-				new LocalizedImportException( 'fileimporter-cantimportmissingfile' ),
+				'fileimporter-cantimportmissingfile',
 			],
 			[
 				[ 'query' => [ 'pages' => [ [ 'missing' => '', 'imagerepository' => 'shared' ] ] ] ],
-				new LocalizedImportException( [ 'fileimporter-cantimportfromsharedrepo', 'foo.bar' ] ),
+				'fileimporter-cantimportfromsharedrepo',
 			],
 			[
 				[ 'query' => [ 'pages' => [ [ 'title' => 'Test' ] ] ] ],
-				new LocalizedImportException( 'fileimporter-api-badinfo' ),
+				'fileimporter-api-badinfo',
 			],
 		];
 	}
@@ -381,15 +381,15 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideTestInvalidResponse
 	 */
-	public function testInvalidResponse( array $content, LocalizedImportException $expected ) {
+	public function testInvalidResponse( array $content, string $expected ) {
 		$service = new ApiDetailRetriever(
 			$this->getMockHttpApiLookup(),
 			$this->getMockHttpRequestExecutor( 'File:Foo.jpg', json_encode( $content ) ),
 			0
 		);
 
-		$this->expectException( get_class( $expected ) );
-		$this->expectExceptionMessage( $expected->getMessage() );
+		$this->expectException( LocalizedImportException::class );
+		$this->expectExceptionMessage( $expected );
 
 		$service->getImportDetails( new SourceUrl( 'http://foo.bar/wiki/File:Foo.jpg' ) );
 	}
