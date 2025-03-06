@@ -6,7 +6,14 @@
 			"Y-M D"
 		]
 	},
+	"fileimporter-help-banner-close-tooltip": "Arabat diskouez ar gemennadenn-mañ ken",
 	"tag-fileimporter": "Kemmet gant Filelmporter",
+	"tag-fileimporter-description": "Stummoù ha kemennadennoù marilh ouzhpennet goude enporzhiañ eus ur wiki all",
+	"tag-fileimporter-imported": "Enporzhiet gant FileImporter",
+	"tag-fileimporter-imported-description": "Stummoù enporzhiet eus ur wiki all",
+	"fileimporter-specialpage": "Enporzhiañ restr",
+	"fileimporter-importfailed": "Enporzhiadenn c’hwitet",
+	"fileimporter-api-file-notfound": "N’eo ket bet kavet ar restr: $1 .",
 	"fileimporter-cantimporturl": "Ne c'haller ket enporzhiañ an URL merket",
 	"fileimporter-exampleprefix": "Skouer",
 	"fileimporter-submit": "Kas",
@@ -15,5 +22,10 @@
 	"fileimporter-cancel": "Nullañ",
 	"fileimporter-heading-filehistory": "Istor ar restr",
 	"fileimporter-cleanup-summary": "Emañ ar restr-mañ war {{SITENAME}} e $1 bremañ (dilec'hiet gant FileImporter).",
-	"fileimporter-delete-summary": "Emañ ar restr-mañ war {{SITENAME}} e $1 bremañ (dilec'hiet gant FileImporter)."
+	"fileimporter-delete-summary": "Emañ ar restr-mañ war {{SITENAME}} e $1 bremañ (dilec'hiet gant FileImporter).",
+	"fileimporter-import-wait": "Un nebeud munutennoù a c'hall padout an enporzhiañ.",
+	"fileimporter-go-to-original-file-button": "Distreiñ d'ar restr orin",
+	"fileimporter-viewdiff": "Diskouez kemmoù",
+	"fileimporter-to-preview": "Distreiñ da rakwelet",
+	"fileimporter-no-script-warning": "N'eo ket skoret JavaScript gant ho merdeer, pe diweredekaet eo. File Importer en deus ezhomm eus JavaScript evit mont en-dro."
 }

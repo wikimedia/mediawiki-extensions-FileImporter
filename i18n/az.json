@@ -1,8 +1,31 @@
 {
 	"@metadata": {
 		"authors": [
+			"Nemoralis",
 			"Toghrul Rahimli"
 		]
 	},
-	"tag-fileimporter": "\"FileImporter\" ilə redaktə"
+	"fileimporter-desc": "Digər saytlardan faylların asanlıqla idxalı",
+	"fileimporter-help-banner-text": "'''Digər vikilərdən idxal'''\n#Aşağıda faylın başlığını və məlumatını yoxlayın və redaktə edin.\n#Mənbəyə [//en.wikipedia.org/wiki/Template:Now_Commons Now Commons] şablonunu əlavə etməklə FileImporter-in mənbə vikisini redaktə etməsini istəyib-istəmədiyinizi seçin. (inzibatçı hüquqlarınız varsa, mənbə faylını silmək seçiminiz də var.)\n#Faylı {{SITENAME}} saytına köçürmək üçün '''{{int:fileimporter-import}}''' düyməsinə klikləyin.\n\nLisenziyalaşdırma məlumatı üçün {{SITENAME}} [[Project:Licensing|siyasəti]] ilə tanış olun.<br /> FileImporter-dən necə istifadə etmək barədə daha ətraflı təlimatlar üçün [//www.mediawiki.org/wiki/Help:Extension:FileImporter kömək səhifəsinə] baxın.",
+	"fileimporter-help-banner-close-tooltip": "Bu mesajı bir daha göstərmə",
+	"tag-fileimporter": "FileImporter tərəfindən redaktə edilib",
+	"tag-fileimporter-description": "Başqa vikidən idxal edildikdən sonra əlavə edilmiş versiyalar və jurnal mesajları",
+	"tag-fileimporter-imported": "FileImporter ilə idxal edilib",
+	"tag-fileimporter-imported-description": "Digər vikidən idxal olunan versiyalar",
+	"fileimporter-specialpage": "Fayl idxal et",
+	"fileimporter-importfailed": "İdxal uğursuz oldu",
+	"fileimporter-mediawiki-api-notfound": "SourceUrl-dən MediaWiki API əldə etmək alınmadı.",
+	"fileimporter-api-badinfo": "API-dən xətalı şəkil və ya versiya məlumatı göndərildi.",
+	"fileimporter-api-failedtogetinfo": "Fayl məlumatını əldə etmək alınmadı: $1",
+	"fileimporter-api-nopagesreturned": "Remote API tərəfindən heç bir səhifə verilmədi.",
+	"fileimporter-api-toomanyrevisions": "API tərəfindən həddən çox versiya verildi, idxal edilə bilməz.",
+	"fileimporter-api-file-notfound": "Fayl tapılmadı: $1.",
+	"fileimporter-api-failedtofindapi": "API yerini tapmaq alınmadı: $1. $2 $3",
+	"fileimporter-http-statuscode": "HTTP status kodu $1.",
+	"fileimporter-cantparseurl": "Verilmiş URL-i təhlil etmək mümkün deyil: $1",
+	"fileimporter-cantimporturl": "Verilmiş URL-i idxal etmək mümkün deyil",
+	"fileimporter-cantimportfromsharedrepo": "$1 bazasında olmayan, lakin paylaşılan anbarda yerləşdirilən faylları idxal etmək mümkün deyil.",
+	"fileimporter-cantimportmissingfile": "Mövcud olmayan faylı idxal etmək mümkün deyil.",
+	"fileimporter-cantimportfilehidden": "Faylı idxal etmək mümkün deyil, çünki onun versiyalarından ən azı biri gizlədilib.",
+	"fileimporter-cantimportfileinvalid": "Bu fayl (və ya bu faylın köhnə versiyası) təhlükəsizlik səbəbi ilə qəbul edilə bilməyən elementləri ehtiva edir: $1"
 }
