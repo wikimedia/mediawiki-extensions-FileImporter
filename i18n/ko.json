@@ -83,5 +83,6 @@
 	"fileimporter-auto-replacements-summary": "자동 {{PLURAL:$1|변경사항}} $1개가 틀에 {{PLURAL:$1|적용됨}}",
 	"fileimporter-input-page-info-text": "[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 도움말 문서]에 방문하여 더 알아보세요.",
 	"fileimporter-viewdiff": "변경사항 보기",
-	"fileimporter-to-preview": "미리 보기로 돌아가기"
+	"fileimporter-to-preview": "미리 보기로 돌아가기",
+	"fileimporter-cdx-diff-failed": "변경사항을 복귀할 때 오류가 발생했습니다. 나중에 다시 시도해 보시면 되겠네요."
 }
