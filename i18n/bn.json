@@ -75,7 +75,7 @@
 	"fileimporter-file-missing-required-template": "এই ফাইলটি {{SITENAME}}-এ স্থানান্তর করা যাবে না, কারণ এটি একটি সামঞ্জস্যপূর্ণ লাইসেন্স দ্বারা চিহ্নিত করা হয়নি। {{SITENAME}} এই জাতীয় ফাইলগুলি গ্রহণ করে না। এটি মীমাংসাযোগ্য হতে পারে, কিন্তু খুব সম্ভবত এই ফাইলটি সামঞ্জস্যপূর্ণ নয়। দয়া করে [[Project:Licensing|লাইসেন্সের ব্যাপারে {{SITENAME}} সম্প্রদায়ের নীতিমালা ও আলাপ পাতাগুলি দেখুন]]।",
 	"fileimporter-category-encouragement": "{{SITENAME}}-এ থাকা ফাইলগুলি শ্রেণীবদ্ধ করা উচিত। এটি তাদের খুঁজে পেতে সহজ করে তোলে। আপনি এই পাতায় ফাইলের তথ্য সম্পাদনা করে এই ফাইলের জন্য বিষয়শ্রেণীগুলি পরিবর্তন করতে পারেন।",
 	"fileimporter-auto-replacements-summary": "টেমপ্লেটসমূহে $1টি স্বয়ংক্রিয় {{PLURAL:$1|পরিবর্তন}} {{PLURAL:$1|করা}} হয়েছে",
-	"fileimporter-input-page-info-text": "আমাদের [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons সহায়তা পৃষ্ঠায়] গিয়ে আরও জানুন।",
+	"fileimporter-input-page-info-text": "আমাদের [https://www.mediawiki.org/wiki/Help:Extension:FileImporter সহায়তা পৃষ্ঠায়] গিয়ে আরও জানুন।",
 	"fileimporter-viewdiff": "পরিবর্তনসমূহ দেখান",
 	"fileimporter-to-preview": "প্রাকদর্শনে ফিরুন",
 	"fileimporter-cdx-diff-failed": "পরিবর্তনগুলি পুনরুদ্ধার করার সময় একটি সমস্যা হয়েছে৷ অনুগ্রহ করে একটু পরে আবার চেষ্টা করুন।"

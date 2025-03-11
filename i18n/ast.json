@@ -78,7 +78,7 @@
 	"fileimporter-file-missing-required-template": "El ficheru nun puede tresferise a $1 porque nun ta marcáu con una llicencia compatible. $1 nun permite estos ficheros. Esto podría iguase, pero probablemente significa que'l ficheru nun ye compatible. Consulta [[Project:Licensing|la política de la comunidá de $1 y les páxines d'alderique sobro llicencies]].",
 	"fileimporter-category-encouragement": "Los ficheros de {{SITENAME}} tienen de tener categoríes. Esto fai más cenciello alcontralos. Puedes camudar les categoríes d'esti ficheru editando la información del ficheru nesta páxina.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Fíxose|Ficiéronse}} $1 {{PLURAL:$1|cambiu automáticu|cambios automáticos}} nes plantíes",
-	"fileimporter-input-page-info-text": "Pa saber más coses, visita la [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons páxina d'ayuda].",
+	"fileimporter-input-page-info-text": "Pa saber más coses, visita la [https://www.mediawiki.org/wiki/Help:Extension:FileImporter páxina d'ayuda].",
 	"fileimporter-viewdiff": "Amosar cambeos",
 	"fileimporter-to-preview": "Volver a la vista previa"
 }

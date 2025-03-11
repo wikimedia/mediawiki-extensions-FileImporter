@@ -48,7 +48,7 @@
 	"fileimporter-go-to-original-file-button": "Vrátit se k původnímu souboru",
 	"fileimporter-commonshelper-retrieval-failed": "Při kontrole blokovaných souborů došlo k chybě.",
 	"fileimporter-file-contains-blocked-category-template": "Soubor nelze přenést na {{grammar:4sg|{{SITENAME}}}}, protože je označen jako $1. {{SITENAME}} tyto soubory nepovoluje. Možná to lze vyřešit, ale nejčastěji to znamená, že soubor není kompatibilní. Zkuste se podívat na [[Project:Autorské právo|komunitní pravidla a diskusní stránky {{grammar:2sg|{{SITENAME}}}} týkající se licencování]].",
-	"fileimporter-input-page-info-text": "Více informací najdete na [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons této stránce nápovědy].",
+	"fileimporter-input-page-info-text": "Více informací najdete na [https://www.mediawiki.org/wiki/Help:Extension:FileImporter této stránce nápovědy].",
 	"fileimporter-viewdiff": "Zobrazit změny",
 	"fileimporter-to-preview": "Zpět na náhled"
 }

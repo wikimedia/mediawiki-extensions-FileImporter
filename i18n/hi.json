@@ -90,13 +90,13 @@
 	"fileimporter-add-specific-template": "इस फ़ाइल को आयात कर दिया गया है। यह घोषित करने के लिए कि फ़ाइल अब {{SITENAME}} पर है, कृपया [$1 मूल फ़ाइल] पर लौटें और यह साँचा जोड़ें: <code><nowiki>{{$2|$3}}</nowiki></code>।",
 	"fileimporter-go-to-original-file-button": "मूल फ़ाइल पर लौटें",
 	"fileimporter-commonshelper-retrieval-failed": "अवरोधित फ़ाइलों की जाँच करते समय त्रुटि आई।",
-	"fileimporter-commonshelper-missing-config": "बदकिस्मती से, स्रोत विकि ($1) से इस समय फ़ाइलों को आयात नहीं किया जा सकता क्योंकि [$2 कॉन्फ़िगरेशन फ़ाइल सूची] पर विकि के लिए कोई कॉन्फ़िगरेशन नहीं है। विकि के लिए कॉन्फ़िगरेशन फ़ाइल को सेटअप करने के बारे में अधिक जानकारी के लिए FileImporter के [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation कॉन्फ़िगरेशन फ़ाइल का प्रलेख पृष्ठ] पढ़ें।",
+	"fileimporter-commonshelper-missing-config": "बदकिस्मती से, स्रोत विकि ($1) से इस समय फ़ाइलों को आयात नहीं किया जा सकता क्योंकि [$2 कॉन्फ़िगरेशन फ़ाइल सूची] पर विकि के लिए कोई कॉन्फ़िगरेशन नहीं है। विकि के लिए कॉन्फ़िगरेशन फ़ाइल को सेटअप करने के बारे में अधिक जानकारी के लिए FileImporter के [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format कॉन्फ़िगरेशन फ़ाइल का प्रलेख पृष्ठ] पढ़ें।",
 	"fileimporter-commonshelper-parsing-failed": "आपके विकि के लिए कॉन्फ़िगरेशन ($1) अधूरा है। कृपया सुनिश्चित करें कि इसमें एक \"$2\" अनुभाग है।",
 	"fileimporter-file-contains-blocked-category-template": "इस फ़ाइल को {{SITENAME}} पर स्थानांतरित नहीं किया जा सकता, क्योंकि इसे $1 के रूप में चिह्नित किया गया है। {{SITENAME}} पर ऐसी फ़ाइलों को अनुमति नहीं है। इसे सुलझाना संभव हो सकता है, मगर इसका मतलब शायद यह है कि फ़ाइल अनुकूल नहीं है। कृपया [[Project:Licensing|{{SITENAME}} के लाइसेंसिंग से संबंधित सामुदायिक नीतियों और वार्ता पृष्ठों]] का सहारा लें।",
 	"fileimporter-file-missing-required-template": "इस फ़ाइल को {{SITENAME}} पर स्थानांतरित नहीं किया जा सकता, क्योंकि इसे किसी अनुकूल लाइसेंस के साथ चिह्नित नहीं किया गया है। {{SITENAME}} पर ऐसी फ़ाइलों को अनुमति नहीं है। इसे सुलझाना संभव हो सकता है, मगर इसका मतलब शायद यह है कि फ़ाइल अनुकूल नहीं है। कृपया [[Project:Licensing|{{SITENAME}} के लाइसेंसिंग से संबंधित सामुदायिक नीतियों और वार्ता पृष्ठों]] का सहारा लें।",
 	"fileimporter-category-encouragement": "{{SITENAME}} पर चित्रों को श्रेणीबद्ध करना ज़रूरी है। इससे इन्हें खोजना आसान हो जाता है। आप इस पृष्ठ पर चित्र की जानकारी को सम्पादित करके इस फ़ाइल पर श्रेणियाँ जोड़ सकते हैं।",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|साँचे|साँचों}} पर $1 स्वचालित बदलाव {{PLURAL:$1|किया गया|किए गए}}",
-	"fileimporter-input-page-info-text": "हमारे [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons सहायता पृष्ठ] पर अधिक जानकारी पाएँ।",
+	"fileimporter-input-page-info-text": "हमारे [https://www.mediawiki.org/wiki/Help:Extension:FileImporter सहायता पृष्ठ] पर अधिक जानकारी पाएँ।",
 	"fileimporter-viewdiff": "बदलाव दिखाएँ",
 	"fileimporter-to-preview": "पूर्वावलोकन पर वापस जाएँ"
 }

@@ -85,7 +85,7 @@
 	"fileimporter-file-missing-required-template": "ไฟล์นี้ไม่สามารถนำเข้ามายัง {{SITENAME}} ได้ เนื่องจากไม่ได้ทำเครื่องหมายด้วยสัญญาอนุญาตที่เข้ากันได้ {{SITENAME}} ไม่รับไฟล์นี้ ปัญหานี้อาจแก้ไขได้แต่เนื่องจากเป็นไปได้ว่าไฟล์นี้เข้ากันไม่ได้กับวิกินี้ โปรดดูที่[[Project:Licensing|นโยบายชุมชนและหน้าคุยของ {{SITENAME}} เกี่ยวกับสัญญาอนุญาต]]",
 	"fileimporter-category-encouragement": "ไฟล์บน {{SITENAME}} ควรจำแนกหมวดหมู่ ทำให้ค้นหาได้ง่ายขึ้น คุณสามารถเปลี่ยนหมวดหมู่สำหรับไฟล์นี้ได้โดยแก้ไขสนเทศไฟล์ในหน้านี้",
 	"fileimporter-auto-replacements-summary": "เปลี่ยนแปลงอัตโนมัติ $1 ครั้งต่อแม่แบบแล้ว",
-	"fileimporter-input-page-info-text": "ศึกษาเพิ่มเติมโดยเข้า [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons หน้าคำอธิบาย]",
+	"fileimporter-input-page-info-text": "ศึกษาเพิ่มเติมโดยเข้า [https://www.mediawiki.org/wiki/Help:Extension:FileImporter หน้าคำอธิบาย]",
 	"fileimporter-viewdiff": "แสดงการเปลี่ยนแปลง",
 	"fileimporter-to-preview": "กลับไปยังการแสดงตัวอย่าง"
 }

@@ -81,7 +81,7 @@
 	"fileimporter-go-to-original-file-button": "Palaa alkuperäiseen tiedostoon",
 	"fileimporter-category-encouragement": "Tiedostot {{GRAMMAR:inessive|{{SITENAME}}}} tulisi luokitella. Tämä helpottaa niiden löytämistä. Voit vaihtaa tämän tiedoston luokkia muokkaamalla tiedoston tietoja tällä sivulla.",
 	"fileimporter-auto-replacements-summary": "Mallineisiin tehtiin $1 {{PLURAL:$1|automaattinen muutos|automaattista muutosta}}",
-	"fileimporter-input-page-info-text": "Lisätietoja saatavilla [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons ohjesivulla].",
+	"fileimporter-input-page-info-text": "Lisätietoja saatavilla [https://www.mediawiki.org/wiki/Help:Extension:FileImporter ohjesivulla].",
 	"fileimporter-viewdiff": "Näytä muutokset",
 	"fileimporter-to-preview": "Takaisin esikatseluun",
 	"fileimporter-no-script-warning": "Selaimesi ei tue JavaScriptiä tai se on poistettu käytöstä. FileImporter tarvitsee JavaScriptiä.",

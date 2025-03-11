@@ -69,13 +69,13 @@
 	"fileimporter-add-specific-template": "Failas buvo importuotas. Norėdami paskelbti, kad failas dabar yra {{SITENAME}}, grįžkite į [$1 originalų failą] ir pridėkite atitinkamą šabloną, paprastai <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Grįžti į originalų failą",
 	"fileimporter-commonshelper-retrieval-failed": "Tikrinant, ar nėra užblokuotų failų, įvyko klaida.",
-	"fileimporter-commonshelper-missing-config": "Deja, importuoti failų iš šaltinio viki ($1) dar negalima, nes [$2 konfigūracijos failų sąraše] nėra viki konfigūracijos. Norėdami gauti informacijos apie viki konfigūracijos failą, peržiūrėkite FileImporter [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation konfigūracijos failo dokumentacijos puslapį].",
+	"fileimporter-commonshelper-missing-config": "Deja, importuoti failų iš šaltinio viki ($1) dar negalima, nes [$2 konfigūracijos failų sąraše] nėra viki konfigūracijos. Norėdami gauti informacijos apie viki konfigūracijos failą, peržiūrėkite FileImporter [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format konfigūracijos failo dokumentacijos puslapį].",
 	"fileimporter-commonshelper-parsing-failed": "Jūsų viki konfigūracijos puslapis ($1) neužbaigtas. Įsitikinkite, kad jame yra skyrius „$2“.",
 	"fileimporter-file-contains-blocked-category-template": "Šio failo negalima importuoti į {{SITENAME}}, nes jis pažymėtas kaip $1. {{SITENAME}} neleidžia tokių failų. Tai gali būti išspręsta, bet greičiausiai tai reiškia, kad failas nesuderinamas. Peržiūrėkite [[Project:Licensing|{{SITENAME}} bendruomenės politiką ir aptarimo puslapius apie licencijavimą]].",
 	"fileimporter-file-missing-required-template": "Šio failo negalima importuoti į {{SITENAME}}, nes jis nepažymėtas suderinama licencija. {{SITENAME}} neleidžia tokių failų. Tai gali būti išspręsta, bet greičiausiai tai reiškia, kad failas nesuderinamas. Peržiūrėkite [[Project:Licensing|{{SITENAME}} bendruomenės politiką ir aptarimo puslapius apie licencijavimą]].",
 	"fileimporter-category-encouragement": "Failai {{SITENAME}} turėtų būti suskirstyti į kategorijas. Taip juos lengviau rasti. Galite pakeisti šio failo kategorijas redaguodami failo informaciją šiame puslapyje.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Padarytas|Padaryti|}} $1 šablonų {{PLURAL:$1|automatinis pakeitimas|automatiniai pakeitimai}}",
-	"fileimporter-input-page-info-text": "Sužinokite daugiau apsilankę mūsų [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons pagalbos puslapyje].",
+	"fileimporter-input-page-info-text": "Sužinokite daugiau apsilankę mūsų [https://www.mediawiki.org/wiki/Help:Extension:FileImporter pagalbos puslapyje].",
 	"fileimporter-viewdiff": "Rodyti pakeitimus",
 	"fileimporter-to-preview": "Atgal į peržiūrą"
 }

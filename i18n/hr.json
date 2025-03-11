@@ -81,13 +81,13 @@
 	"fileimporter-add-specific-template": "Datoteka je uvezena. Da biste označili da je sada na projektu {{SITENAME}}, molimo vratite se na [$1 izvornu datoteku] i dodajte ovaj predložak: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Vrati se na izvornu datoteku",
 	"fileimporter-commonshelper-retrieval-failed": "Pogreška prilikom provjere blokiranih datoteka.",
-	"fileimporter-commonshelper-missing-config": "Nažalost, uvoz datoteka s izvornig wikija ($1) još nije moguć jer ne postoji konfiguracija za taj wiki u [$2 konfiguracijskom popisu]. Informacije o postavljanju konfiguracijske datoteke za navedeni wiki možete naći na [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation stranici s dokumentacijom] datotečnog uvoznika.",
+	"fileimporter-commonshelper-missing-config": "Nažalost, uvoz datoteka s izvornig wikija ($1) još nije moguć jer ne postoji konfiguracija za taj wiki u [$2 konfiguracijskom popisu]. Informacije o postavljanju konfiguracijske datoteke za navedeni wiki možete naći na [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format stranici s dokumentacijom] datotečnog uvoznika.",
 	"fileimporter-commonshelper-parsing-failed": "Konfiguracija stranice za vaš wiki ($1) je nepotpuna. Molimo provjerite da sadrži odlomak \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Ova datoteka ne može biti prebačena na projekt {{SITENAME}} zato jer je označena kao $1. Projekt {{SITENAME}} ne dopušta takve datoteke. To je moguće riješiti, ali najverojatnije znači da je datoteka neuskladiva. Molimo konzultirajte pravila [[Project:Licensing|projekta {{SITENAME}} i stranice za razgovor o licenciranju]].",
 	"fileimporter-file-missing-required-template": "Ova datoteka ne može biti prebačena na projekt {{SITENAME}} zato jer nije označena odgovarajućom licencijom. Projekt {{SITENAME}} ne dopušta takve datoteke. To je moguće riješiti, ali najverojatnije znači da je datoteka neuskladiva. Molimo konzultirajte pravila [[Project:Licensing|projekta {{SITENAME}} i stranice za razgovor o licenciranju]].",
 	"fileimporter-category-encouragement": "Datoteka na projektu {{SITENAME}} bi trebala biti kategorizirana. Tako je lakše moguće pronaći. Promjene kategorija na ovoj datoteci možete napraviti uređivanjem informacija na ovoj stranici.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Učinjena je|Učinjene su|Učinjeno je}} $1 {{PLURAL:$1|automatska izmjena|automatske izmjene|automatskih izmjena}} na predlošcima.",
-	"fileimporter-input-page-info-text": "Saznajte više na našoj [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons stranici za pomoć].",
+	"fileimporter-input-page-info-text": "Saznajte više na našoj [https://www.mediawiki.org/wiki/Help:Extension:FileImporter stranici za pomoć].",
 	"fileimporter-viewdiff": "Prikaži promjene",
 	"fileimporter-to-preview": "Natrag na pretpregled"
 }

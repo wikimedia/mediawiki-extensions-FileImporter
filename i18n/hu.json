@@ -82,7 +82,7 @@
 	"fileimporter-file-missing-required-template": "A fájl nem mozgatható át a(z) {{SITENAME}} wikire, mert nincs megjelölve az elvárt licencek egyikével sem. A(z) {{SITENAME}} nem fogad el ilyen fájlokat. Ez lehet, hogy megoldható, azonban valószínűleg azt jelzi, hogy a fájl nem kompatibilis. Lásd a [[Special:MyLanguage/Project:Licensing|a(z) {{SITENAME}} közösségi irányelvét és vitalapjait a licencelésről]].",
 	"fileimporter-category-encouragement": "A(z) {{SITENAME}} fájljait kategorizálni kell. Ez egyszerűbbé teszi a megtalálásukat. Módosíthatod a fájl kategóriáit a fájlinformációk szerkesztésével ezen a lapon.",
 	"fileimporter-auto-replacements-summary": "$1 automatikus változtatás történt sablonokban.",
-	"fileimporter-input-page-info-text": "Tudj meg többet a [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons súgólapunkon].",
+	"fileimporter-input-page-info-text": "Tudj meg többet a [https://www.mediawiki.org/wiki/Help:Extension:FileImporter súgólapunkon].",
 	"fileimporter-viewdiff": "Változtatások megtekintése",
 	"fileimporter-to-preview": "Visszatérés az előnézethez"
 }

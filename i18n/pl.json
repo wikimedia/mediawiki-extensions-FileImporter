@@ -91,13 +91,13 @@
 	"fileimporter-add-specific-template": "Plik został zaimportowany. Aby zaznaczyć, że znajduje się on teraz na {{GRAMMAR:C.lp|{{SITENAME}}}}, wróć do [$1 oryginalnego pliku] i dodaj ten szablon: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Powróć do oryginalnego pliku",
 	"fileimporter-commonshelper-retrieval-failed": "Podczas sprawdzania zablokowanych plików wystąpił błąd.",
-	"fileimporter-commonshelper-missing-config": "Niestety, importowanie plików ze źródłowej wiki ($1) nie jest jeszcze możliwe, ponieważ wiki nie została skonfigurowana w [$2 liście pliku konfiguracyjnego]. Informacje na temat ustawiania pliku konfiguracyjnego na wiki znajdują się w [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation dokumentacji pliku konfiguracyjnego importera plików].",
+	"fileimporter-commonshelper-missing-config": "Niestety, importowanie plików ze źródłowej wiki ($1) nie jest jeszcze możliwe, ponieważ wiki nie została skonfigurowana w [$2 liście pliku konfiguracyjnego]. Informacje na temat ustawiania pliku konfiguracyjnego na wiki znajdują się w [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format dokumentacji pliku konfiguracyjnego importera plików].",
 	"fileimporter-commonshelper-parsing-failed": "Strona konfiguracji na Twojej wiki ($1) jest niekompletna. Upewnij się, że zawiera sekcję „$2”.",
 	"fileimporter-file-contains-blocked-category-template": "Nie można zaimportować tego pliku na {{GRAMMAR:B.lp|{{SITENAME}}}}, ponieważ jest oznaczony jako $1. {{SITENAME}} nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź [[Project:Licensing|politykę społeczności {{GRAMMAR:D.lp|{{SITENAME}}}} oraz strony dyskusji dotyczące licencjonowania]].",
 	"fileimporter-file-missing-required-template": "Nie można zaimportować pliku na {{GRAMMAR:B.lp|{{SITENAME}}}}, ponieważ nie jest oznaczony kompatybilną licencją. {{SITENAME}} nie zezwala na takie pliki. Problem ten może zostać rozwiązany, lecz najprawdopodobniej błąd ten oznacza, że plik jest niekompatybilny. Sprawdź [[Project:Licensing|politykę społeczności {{GRAMMAR:D.lp|{{SITENAME}}}} oraz strony dyskusji dotyczące licencjonowania]].",
 	"fileimporter-category-encouragement": "Pliki na {{GRAMMAR:MS.lp|{{SITENAME}}}} powinny być skategoryzowane. Ułatwia to ich wyszukiwanie. Możesz zmienić kategorie tego pliku edytując jego informacje na korespondującej stronie.",
 	"fileimporter-auto-replacements-summary": "$1 {{PLURAL:$1|automatyczna zmiana|automatyczne zmiany|automatycznych zmian}} w szablonach {{PLURAL:$1|została wykonana|zostały wykonane|zostało wykonanych}}",
-	"fileimporter-input-page-info-text": "Dowiedz się więcej wchodząc na naszą [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons stronę pomocy].",
+	"fileimporter-input-page-info-text": "Dowiedz się więcej wchodząc na naszą [https://www.mediawiki.org/wiki/Help:Extension:FileImporter stronę pomocy].",
 	"fileimporter-viewdiff": "Pokaż zmiany",
 	"fileimporter-to-preview": "Wróć do podglądu"
 }

@@ -60,7 +60,7 @@
 	"fileimporter-file-contains-blocked-category-template": "匯入唔到呢版，因為呢版標記咗係$1。$2唔准有呢種檔案。",
 	"fileimporter-file-missing-required-template": "匯入唔到呢個檔案，因為佢冇任何喺許可清單入面嘅版權標籤。",
 	"fileimporter-auto-replacements-summary": "自動修訂咗$1個模。",
-	"fileimporter-input-page-info-text": "想知更多，請睇[//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons 說明書]。",
+	"fileimporter-input-page-info-text": "想知更多，請睇[https://www.mediawiki.org/wiki/Help:Extension:FileImporter 說明書]。",
 	"fileimporter-viewdiff": "睇下有乜改動",
 	"fileimporter-to-preview": "返去睇下先"
 }

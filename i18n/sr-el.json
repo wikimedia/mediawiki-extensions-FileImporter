@@ -83,13 +83,13 @@
 	"fileimporter-add-specific-template": "Datoteka je uvezena. Kako biste naznačili da je datoteka sada na projektu {{SITENAME}}, [$1 vratite se nazad] i dodajte ovaj šablon: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Nazad na izvornu datoteku",
 	"fileimporter-commonshelper-retrieval-failed": "Došlo je do greške pri proveri blokiranih datoteka.",
-	"fileimporter-commonshelper-missing-config": "Uvoženje datoteka iz izvornog vikija ($1) još nije moguće, jer ne postoji konfiguracija za projekat na [$2 spisku konfiguracionih datoteka]. [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation configuration Detaljnije o podešavanju konfiguracije].",
+	"fileimporter-commonshelper-missing-config": "Uvoženje datoteka iz izvornog vikija ($1) još nije moguće, jer ne postoji konfiguracija za projekat na [$2 spisku konfiguracionih datoteka]. [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format configuration Detaljnije o podešavanju konfiguracije].",
 	"fileimporter-commonshelper-parsing-failed": "Konfiguraciona stranica za projekat $1 nije potpuna. Uverite se da sadrži odeljak „$2”.",
 	"fileimporter-file-contains-blocked-category-template": "Datoteka ne može da bude uvezena na projekat {{SITENAME}}, jer je obeležena kao $1. Takve datoteke nisu dozvoljene na projektu {{SITENAME}}. Ovo najverovatnije znači da datoteka nije podobna za uvoz. Pročitajte [[Project:Licensing|pravila o licenciranju na projektu {{SITENAME}}]].",
 	"fileimporter-file-missing-required-template": "Datoteka ne može da bude uvezena na projekat {{SITENAME}}, jer nije obeležena podobnom licencom. Takve datoteke nisu dozvoljene na projektu {{SITENAME}}. Ovo najverovatnije znači da datoteka nije podobna za uvoz. Pročitajte [[Project:Licensing|pravila o licenciranju na projektu {{SITENAME}}]].",
 	"fileimporter-category-encouragement": "Datoteke na projektu {{SITENAME}} treba da budu kategorizovane radi lakšeg pronalaženja. Datoteci možete dodati/promeniti kategorije u informativnom delu ove stranice.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Učinjena je $1 automatska zamena|Učinjene su $1 automatske zamene|Učinjeno je $1 automatskih zamena}} u {{PLURAL:$1|šablonu|šablonima}}",
-	"fileimporter-input-page-info-text": "Saznajte više na našoj [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons stranici pomoći].",
+	"fileimporter-input-page-info-text": "Saznajte više na našoj [https://www.mediawiki.org/wiki/Help:Extension:FileImporter stranici pomoći].",
 	"fileimporter-viewdiff": "Prikaži izmene",
 	"fileimporter-to-preview": "Nazad na pretpregled"
 }

@@ -76,7 +76,7 @@
 	"fileimporter-file-contains-blocked-category-template": "Denna fil kan inte importera, eftersom den är markerad som $1. $2 tillåter inte dessa filer.",
 	"fileimporter-file-missing-required-template": "Filen kan inte importeras, eftersom den är inte markerad med en av de begärda licenserna. Lägg till en av dessa mallar om det går.",
 	"fileimporter-auto-replacements-summary": "$1 {{PLURAL:$1|automatisk ändring|automatiska ändringar}} {{PLURAL:$1|gjordes}} i mallar",
-	"fileimporter-input-page-info-text": "Lär dig mer på vår [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons hjälpsida].",
+	"fileimporter-input-page-info-text": "Lär dig mer på vår [https://www.mediawiki.org/wiki/Help:Extension:FileImporter hjälpsida].",
 	"fileimporter-viewdiff": "Visa ändringar",
 	"fileimporter-to-preview": "Tillbaka till förhandsgranskning"
 }

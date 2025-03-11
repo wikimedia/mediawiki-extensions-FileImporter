@@ -97,13 +97,13 @@
 	"fileimporter-add-specific-template": "Файл импортирован. Чтобы прописать, что файл теперь на {{SITENAME}}, вернитесь к [$1 оригинальному файлу] и добавьте шаблон: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Вернуться к оригинальному файлу",
 	"fileimporter-commonshelper-retrieval-failed": "Возникла ошибка при проверке на заблокированные файлы.",
-	"fileimporter-commonshelper-missing-config": "К сожалению, импорт файлов из исходной вики ($1) пока невозможен, потому что в [$2 списке файлов конфигурации] нет конфигурации для вики. Для получения информации о настройке файла конфигурации для вики, просмотрите [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation страницу документации файла конфигурации] FileImporter.",
+	"fileimporter-commonshelper-missing-config": "К сожалению, импорт файлов из исходной вики ($1) пока невозможен, потому что в [$2 списке файлов конфигурации] нет конфигурации для вики. Для получения информации о настройке файла конфигурации для вики, просмотрите [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format страницу документации файла конфигурации] FileImporter.",
 	"fileimporter-commonshelper-parsing-failed": "Страница конфигурации для вашей вики ($1) неполная. Пожалуйста, убедитесь, что в ней имеется раздел «$2».",
 	"fileimporter-file-contains-blocked-category-template": "Этот файл нельзя перенести на {{SITENAME}}, поскольку он помечен как $1. {{SITENAME}} не разрешает размещение таких файлов. Вероятно, можно найти выход, но с большей долей вероятности файл несовместим с политикой сайта. Пожалуйста, обратитесь к [[Project:Licensing|политике сообщества {{SITENAME}} и страницам обсуждений на тему лицензирования]].",
 	"fileimporter-file-missing-required-template": "Этот файл нельзя импортировать на {{SITENAME}}, поскольку он не помечен совместимой лицензией. {{SITENAME}} не разрешает размещение таких файлов. Вероятно, можно найти выход, но с большей долей вероятности файл несовместим с политикой сайта. Пожалуйста, обратитесь к [[Project:Licensing|политике сообщества {{SITENAME}} и страницам обсуждений на тему лицензирования]].",
 	"fileimporter-category-encouragement": "Файлы на {{SITENAME}} требуется категоризировать. Это позволит легче их найти. Вы можете изменить категории для этого файла, отредактировав файловую информацию на этой странице.",
 	"fileimporter-auto-replacements-summary": "{{PLURAL:$1|Была выполнена $1 автоматическая замена|Были выполнены $1 автоматические замены|Были выполнены $1 автоматических замен}} в шаблонах",
-	"fileimporter-input-page-info-text": "Узнайте больше на нашей [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons странице помощи].",
+	"fileimporter-input-page-info-text": "Узнайте больше на нашей [https://www.mediawiki.org/wiki/Help:Extension:FileImporter странице помощи].",
 	"fileimporter-viewdiff": "Показать изменения",
 	"fileimporter-to-preview": "Вернуться к предпросмотру"
 }

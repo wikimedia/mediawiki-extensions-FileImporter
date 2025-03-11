@@ -63,7 +63,7 @@
 	"fileimporter-imported-success-banner": "{{SITENAME}} میں فائل کو درآمد کر لیا گیا۔",
 	"fileimporter-go-to-original-file-button": "اصل فائل کی طرف واپس جائیں",
 	"fileimporter-commonshelper-retrieval-failed": "ممنوع فائلوں کی جانچ کے دوران میں کوئی نقص پیش آیا۔",
-	"fileimporter-input-page-info-text": "مزید تفصیلات کے لیے [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons اس صفحہ] سے رجوع کریں۔",
+	"fileimporter-input-page-info-text": "مزید تفصیلات کے لیے [https://www.mediawiki.org/wiki/Help:Extension:FileImporter اس صفحہ] سے رجوع کریں۔",
 	"fileimporter-viewdiff": "تبدیلیاں دکھائیں",
 	"fileimporter-to-preview": "نمائش پر واپس جائیں"
 }

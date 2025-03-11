@@ -88,13 +88,13 @@
 	"fileimporter-add-specific-template": "Tập tin này đã được xuất. Để đánh dấu tập tin này đã có trên {{SITENAME}}, vui lòng quay lại [$1 tập tin gốc] và thêm bản mẫu này: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Quay lại tập tin gốc",
 	"fileimporter-commonshelper-retrieval-failed": "Đã xảy ra lỗi khi kiểm tra các tập tin bị chặn.",
-	"fileimporter-commonshelper-missing-config": "Rất tiếc, không thể xuất tập tin từ wiki địa phương ($1) vì không có cấu hình cho wiki trong [$2 danh sách tập tin cấu hình]. Để biết thông tin về cách thiết lập tập tin cấu hình cho wiki, hãy tham khảo [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons/Configuration_file_documentation trang tài liệu] của FileImporter.",
+	"fileimporter-commonshelper-missing-config": "Rất tiếc, không thể xuất tập tin từ wiki địa phương ($1) vì không có cấu hình cho wiki trong [$2 danh sách tập tin cấu hình]. Để biết thông tin về cách thiết lập tập tin cấu hình cho wiki, hãy tham khảo [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format trang tài liệu] của FileImporter.",
 	"fileimporter-commonshelper-parsing-failed": "Trang cấu hình cho wiki của bạn ($1) chưa hoàn tất. Hãy đảm bảo rằng nó chứa một phần “$2”.",
 	"fileimporter-file-contains-blocked-category-template": "Không thể chuyển tập tin này sang {{SITENAME}} vì nó được đánh dấu là $1. {{SITENAME}} không cho phép các tập tin như vậy. Điều này có thể giải quyết được, nhưng hầu hết có thể là tập tin không đúng. Vui lòng tham khảo [[Project:Licensing|chính sách cộng đồng {{SITENAME}} và các trang thảo luận về cấp phép]].",
 	"fileimporter-file-missing-required-template": "Không thể chuyển tập tin này sang {{SITENAME}} vì tập tin không được cấp phép dưới một giấy phép tự do. {{SITENAME}} không cho phép các tập tin như vậy. Điều này có thể giải quyết được, nhưng hầu hết có thể có nghĩa là tập tin không được cấp phép dưới một giấy phép tự do. Vui lòng tham khảo [[Project:Licensing|chính sách cộng đồng {{SITENAME}} và các trang thảo luận về cấp phép]].",
 	"fileimporter-category-encouragement": "Các tập tin trên {{SITENAME}} cần phải được xếp thể loại. Điều này giúp bạn dễ dàng tìm thấy chúng hơn. Bạn có thể thay đổi thể loại cho tập tin này bằng cách sửa đổi trang miêu tả tập tin trên trang này.",
 	"fileimporter-auto-replacements-summary": "$1 tự động {{PLURAL:$1|thay đổi|các thay đổi}} thành các bản mẫu {{PLURAL:$1|này|này}} đã được tạo",
-	"fileimporter-input-page-info-text": "Tìm hiểu thêm bằng cách truy cập [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons trang trợ giúp].",
+	"fileimporter-input-page-info-text": "Tìm hiểu thêm bằng cách truy cập [https://www.mediawiki.org/wiki/Help:Extension:FileImporter trang trợ giúp].",
 	"fileimporter-viewdiff": "Xem thay đổi",
 	"fileimporter-to-preview": "Quay lại bản xem trước"
 }

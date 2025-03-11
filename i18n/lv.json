@@ -53,7 +53,7 @@
 	"fileimporter-go-to-original-file-button": "Atgriezties uz sākotnējo failu",
 	"fileimporter-file-missing-required-template": "Failu nevar importēt, jo tas nav atzīmēts ar kādu no nepieciešamajām licencēm.",
 	"fileimporter-auto-replacements-summary": "Veidnēs {{PLURAL:$1|veiktas|veikta|veiktas}} $1 {{PLURAL:$1|automātiskas izmaiņas|automātiska izmaiņa|automātiskas izmaiņas}}",
-	"fileimporter-input-page-info-text": "Uzzini vairāk, apmeklējot mūsu [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons palīdzības lapu].",
+	"fileimporter-input-page-info-text": "Uzzini vairāk, apmeklējot mūsu [https://www.mediawiki.org/wiki/Help:Extension:FileImporter palīdzības lapu].",
 	"fileimporter-viewdiff": "Rādīt izmaiņas",
 	"fileimporter-to-preview": "Atpakaļ uz priekšskatījumu"
 }
