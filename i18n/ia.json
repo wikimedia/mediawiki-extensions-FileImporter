@@ -89,7 +89,7 @@
 	"fileimporter-file-missing-required-template": "Le file non pote esser importate in {{SITENAME}} perque illo non ha essite marcate con un licentia compatibile. {{SITENAME}} non permitte tal files. Le problema pote forsan esser resolvite, ma es plus probabile que le file non es compatibile. Per favor, consulta [[Project:Licensing|le politica communitari de {{SITENAME}} e le paginas de discussion sur le licentias]].",
 	"fileimporter-category-encouragement": "Le files sur {{SITENAME}} deberea esser categorisate. Isto los rende plus facile a trovar. Tu pote cambiar le categorias de iste file modificante le information del file sur iste pagina.",
 	"fileimporter-auto-replacements-summary": "$1 cambiamento{{PLURAL:$1||s}} automatic ha essite apportate al patronos",
-	"fileimporter-input-page-info-text": "Apprende plus visitante nostre [https://www.mediawiki.org/wiki/Help:Extension:FileImporter pagina de adjuta].",
+	"fileimporter-input-page-info-text": "Pro apprender plus, visita nostre [https://www.mediawiki.org/wiki/Help:Extension:FileImporter pagina de adjuta].",
 	"fileimporter-viewdiff": "Detaliar modificationes",
 	"fileimporter-to-preview": "Retornar al previsualisation",
 	"fileimporter-no-script-warning": "JavaScript es indisponibile o disactivate in tu navigator. File Importer depende de JavaScript pro functionar.",
