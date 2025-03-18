@@ -88,7 +88,7 @@
 	"fileimporter-file-contains-blocked-category-template": "Bu fayl {{SITENAME}} saytına idxal edilə bilməz, çünki o, $1 kimi qeyd olunub. {{SITENAME}} belə fayllara icazə vermir. Bu həll edilə bilər, lakin çox güman ki, fayl uyğun deyil. Zəhmət olmasa, [[Project:Licensing|{{SITENAME}} icma siyasətinə və lisenziyalaşdırma haqqında müzakirə səhifələrinə]] müraciət edin.",
 	"fileimporter-file-missing-required-template": "Bu fayl {{SITENAME}} saytına idxal edilə bilməz, çünki o, uyğun lisenziya ilə qeyd olunmayıb. {{SITENAME}} belə fayllara icazə vermir. Bu həll edilə bilər, lakin çox güman ki, fayl uyğun deyil. Zəhmət olmasa, [[Project:Licensing|{{SITENAME}} icma siyasətinə və lisenziyalaşdırma haqqında müzakirə səhifələrinə]] müraciət edin.",
 	"fileimporter-category-encouragement": "{{SITENAME}} saytındakı fayllar kateqoriyalaşdırılmalıdır. Bu, onların tapılmasını asanlaşdırır. Bu səhifədəki fayl məlumatını redaktə etməklə bu fayl üçün kateqoriyaları dəyişə bilərsiniz.",
-	"fileimporter-auto-replacements-summary": "Şablonlarda $1 avtomatik dəyişiklik edildi",
+	"fileimporter-auto-replacements-summary": "Şablonlarda $1 avtomatik {{PLURAL:$1|dəyişiklik}} edildi",
 	"fileimporter-viewdiff": "Dəyişiklikləri göstər",
 	"fileimporter-to-preview": "Sınaq görüntüsünə qayıt",
 	"fileimporter-no-script-warning": "JavaScript brauzeriniz tərəfindən dəstəklənmir və ya deaktiv edilib. File Importer işləmək üçün JavaScript-dən istifadə edir.",
