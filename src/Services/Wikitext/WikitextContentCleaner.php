@@ -119,7 +119,7 @@ class WikitextContentCleaner {
 	 * @param string $wikitext
 	 * @param int $startPosition Must be after the opening {{, and before or exactly at the first |
 	 *
-	 * @return array Parse result in the following format:
+	 * @return array{end: int, parameters: array[]} Parse result in the following format:
 	 * [
 	 *     'parameters' => [
 	 *         [

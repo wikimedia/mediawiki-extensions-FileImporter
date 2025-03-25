@@ -18,17 +18,17 @@ class WikitextConversions {
 	public const FORBIDDEN_CATEGORIES = 'forbiddenCategories';
 	public const HEADING_REPLACEMENTS = 'headingReplacements';
 
-	/** @var string[] */
+	/** @var array<string,string> */
 	private array $headingReplacements = [];
-	/** @var true[] A string => true map for performance reasons */
+	/** @var array<string,true> A string => true map for performance reasons */
 	private array $goodTemplates = [];
-	/** @var true[] A string => true map for performance reasons */
+	/** @var array<string,true> A string => true map for performance reasons */
 	private array $badTemplates = [];
-	/** @var true[] A string => true map for performance reasons */
+	/** @var array<string,true> A string => true map for performance reasons */
 	private array $badCategories = [];
-	/** @var true[] A string => true map for performance reasons */
+	/** @var array<string,true> A string => true map for performance reasons */
 	private array $obsoleteTemplates = [];
-	/** @var array[] */
+	/** @var array<string,array{targetTemplate: string, parameters: array[]}> */
 	private array $transferTemplates = [];
 
 	/**
