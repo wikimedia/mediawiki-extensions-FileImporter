@@ -3,6 +3,7 @@
 namespace FileImporter\Data;
 
 use FileImporter\Exceptions\InvalidArgumentException;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Class representing a (possibly unnormalized) URL passed into the extension for importing. Can be
@@ -30,9 +31,7 @@ class SourceUrl {
 	 */
 	public function __construct( string $url ) {
 		$this->url = trim( $url );
-		// $urlUtils = MediaWikiServices::getInstance()->getUrlUtils();
-		// HACK: Use the deprecated wfGetUrlUtils() as PHPUnit's static providers are executed too early
-		$this->parsed = wfGetUrlUtils()->parse( $this->url ) ?? [];
+		$this->parsed = MediaWikiServices::getInstance()->getUrlUtils()->parse( $this->url ) ?? [];
 		if ( !$this->parsed ) {
 			throw new InvalidArgumentException( '$url is not parsable',
 				self::ERROR_SOURCE_URL_UNPARSEABLE );

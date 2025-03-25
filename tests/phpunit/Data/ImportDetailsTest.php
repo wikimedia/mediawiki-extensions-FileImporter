@@ -90,87 +90,68 @@ class ImportDetailsTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @dataProvider provideNotSameHashes
 	 */
-	public function testNotSameHashes( ImportDetails $original, ImportDetails $other ) {
+	public function testNotSameHashes(
+		?string $sourceUrl,
+		?string $linkTarget,
+		?TextRevisions $textRevisions,
+		?FileRevisions $fileRevisions
+	) {
+		$original = new ImportDetails(
+			new SourceUrl( '//SOURCE.URL' ),
+			new TitleValue( NS_FILE, 'FILE' ),
+			new TextRevisions( [ self::createTextRevision() ] ),
+			new FileRevisions( [ self::createFileRevision() ] )
+		);
+		$other = new ImportDetails(
+			$sourceUrl ? new SourceUrl( $sourceUrl ) : $original->getSourceUrl(),
+			$linkTarget ? new TitleValue( NS_FILE, $linkTarget ) : $original->getSourceLinkTarget(),
+			$textRevisions ?? $original->getTextRevisions(),
+			$fileRevisions ?? $original->getFileRevisions()
+		);
 		$this->assertNotSame( $original->getOriginalHash(), $other->getOriginalHash() );
 	}
 
 	public static function provideNotSameHashes() {
-		$sourceUrl = new SourceUrl( '//SOURCE.URL' );
-		$sourceLinkTarget = new TitleValue( NS_FILE, 'FILE' );
-		$textRevisions = new TextRevisions( [ self::createTextRevision() ] );
-		$fileRevisions = new FileRevisions( [ self::createFileRevision() ] );
-
-		$original = new ImportDetails(
-			$sourceUrl,
-			$sourceLinkTarget,
-			$textRevisions,
-			$fileRevisions
-		);
-
 		yield 'other sourceUrl' => [
-			$original,
-			new ImportDetails(
-				new SourceUrl( '//OTHER.URL' ),
-				$sourceLinkTarget,
-				$textRevisions,
-				$fileRevisions
-			)
+			'//OTHER.URL',
+			null,
+			null,
+			null,
 		];
 
 		yield 'other sourceLinkTarget' => [
-			$original,
-			new ImportDetails(
-				$sourceUrl,
-				new TitleValue( NS_FILE, 'OTHER' ),
-				$textRevisions,
-				$fileRevisions
-			)
+			null,
+			'OTHER',
+			null,
+			null,
 		];
 
 		yield 'other textRevisions length' => [
-			$original,
-			new ImportDetails(
-				$sourceUrl,
-				$sourceLinkTarget,
-				new TextRevisions( [
-					self::createTextRevision(),
-					self::createTextRevision(),
-				] ),
-				$fileRevisions
-			)
+			null,
+			null,
+			new TextRevisions( [ self::createTextRevision(), self::createTextRevision() ] ),
+			null,
 		];
 
 		yield 'other fileRevisions length' => [
-			$original,
-			new ImportDetails(
-				$sourceUrl,
-				$sourceLinkTarget,
-				$textRevisions,
-				new FileRevisions( [
-					self::createFileRevision(),
-					self::createFileRevision(),
-				] )
-			)
+			null,
+			null,
+			null,
+			new FileRevisions( [ self::createFileRevision(), self::createFileRevision() ] )
 		];
 
 		yield 'other textRevision sha1' => [
-			$original,
-			new ImportDetails(
-				$sourceUrl,
-				$sourceLinkTarget,
-				new TextRevisions( [ self::createTextRevision( [ 'sha1' => 'OTHER' ] ) ] ),
-				$fileRevisions
-			)
+			null,
+			null,
+			new TextRevisions( [ self::createTextRevision( [ 'sha1' => 'OTHER' ] ) ] ),
+			null,
 		];
 
 		yield 'other fileRevision sha1' => [
-			$original,
-			new ImportDetails(
-				$sourceUrl,
-				$sourceLinkTarget,
-				$textRevisions,
-				new FileRevisions( [ self::createFileRevision( [ 'sha1' => 'OTHER' ] ) ] )
-			)
+			null,
+			null,
+			null,
+			new FileRevisions( [ self::createFileRevision( [ 'sha1' => 'OTHER' ] ) ] )
 		];
 	}
 

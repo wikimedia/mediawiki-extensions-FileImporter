@@ -203,7 +203,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		return [
 			'1st request continues' => [
 				'existingData' => [
-					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/F%C3%B6o' ),
+					'sourceUrl' => '//en.wikipedia.org/wiki/F%C3%B6o',
 					'requestData' => [
 						'continue' => []
 					],
@@ -250,7 +250,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 
 			'2nd request does not continue' => [
 				'existingData' => [
-					'sourceUrl' => new SourceUrl( '//en.wikipedia.org/wiki/File:Foo.jpg' ),
+					'sourceUrl' => '//en.wikipedia.org/wiki/File:Foo.jpg',
 					'requestData' => [
 						'continue' => [
 							'rvcontinue' => 'rvContinueHere',
@@ -343,7 +343,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		call_user_func_array(
 			[ $apiRetriever, 'getMoreRevisions' ],
 			[
-				$existingData['sourceUrl'],
+				new SourceUrl( $existingData['sourceUrl'] ),
 				&$existingData['requestData'],
 				&$existingData['pageInfoData']
 			]
@@ -397,7 +397,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	public static function provideTestValidResponse() {
 		return [
 			[
-				new SourceUrl( 'http://en.wikipedia.org/wiki/File:Foo.png' ),
+				'http://en.wikipedia.org/wiki/File:Foo.png',
 				'File:Foo.png',
 				json_encode( self::getFullRequestContent( 'File:Foo.png' ) ),
 				[
@@ -407,7 +407,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 				],
 			],
 			[
-				new SourceUrl( 'http://de.wikipedia.org/wiki/Datei:Bar+%31.JPG' ),
+				'http://de.wikipedia.org/wiki/Datei:Bar+%31.JPG',
 				'Datei:Bar+1.JPG',
 				json_encode( self::getFullRequestContent( 'Datei:Bar+1.JPG' ) ),
 				[
@@ -469,7 +469,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 	 * @dataProvider provideTestValidResponse
 	 */
 	public function testValidResponse(
-		SourceUrl $sourceUrl,
+		string $sourceUrl,
 		$titleString,
 		$content,
 		array $expected
@@ -479,9 +479,9 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 			$this->getMockHttpRequestExecutor( $titleString, $content ),
 			0
 		);
-		$importDetails = $service->getImportDetails( $sourceUrl );
+		$importDetails = $service->getImportDetails( new SourceUrl( $sourceUrl ) );
 
-		$this->assertEquals( $sourceUrl, $importDetails->getSourceUrl() );
+		$this->assertSame( $sourceUrl, $importDetails->getSourceUrl()->getUrl() );
 		$this->assertSame( 'thumburl', $importDetails->getImageDisplayUrl() );
 		$this->assertSame( $expected['ext'], $importDetails->getSourceFileExtension() );
 		$this->assertSame( $expected['filename'], $importDetails->getSourceFileName() );
