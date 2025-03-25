@@ -9,6 +9,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Exceptions\LocalizedImportException;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -116,7 +117,8 @@ class HttpApiLookup implements LoggerAwareInterface {
 				$editUri = $element->getAttribute( 'href' );
 				$api = str_replace( '?action=rsd', '', $editUri );
 				// Always prefer HTTPS because of (optional) edit/delete requests, see T228851
-				return wfExpandUrl( $api, PROTO_HTTPS );
+				$services = MediaWikiServices::getInstance();
+				return $services->getUrlUtils()->expand( $api, PROTO_HTTPS );
 			}
 		}
 

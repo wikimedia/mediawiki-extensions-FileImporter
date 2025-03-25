@@ -30,7 +30,9 @@ class SourceUrl {
 	 */
 	public function __construct( string $url ) {
 		$this->url = trim( $url );
-		$this->parsed = wfParseUrl( $this->url );
+		// $urlUtils = MediaWikiServices::getInstance()->getUrlUtils();
+		// HACK: Use the deprecated wfGetUrlUtils() as PHPUnit's static providers are executed too early
+		$this->parsed = wfGetUrlUtils()->parse( $this->url ) ?? [];
 		if ( !$this->parsed ) {
 			throw new InvalidArgumentException( '$url is not parsable',
 				self::ERROR_SOURCE_URL_UNPARSEABLE );
