@@ -98,6 +98,7 @@ class SpecialImportFile extends SpecialPage {
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
 	}
 
+	/** @inheritDoc */
 	public function doesWrites() {
 		return true;
 	}

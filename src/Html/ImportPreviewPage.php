@@ -157,7 +157,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		Html::closeElement( 'form' );
 	}
 
-	private function buildShowChangesButtonHtml() {
+	private function buildShowChangesButtonHtml(): ButtonInputWidget {
 		return new ButtonInputWidget(
 			[
 				'classes' => [ 'mw-importfile-import-diff' ],
