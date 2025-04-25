@@ -15,6 +15,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use MediaWiki\Api\IApiMessage;
 use MediaWiki\Content\WikitextContent;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
@@ -32,7 +33,6 @@ use UploadRevisionImporter;
 use Wikimedia\Message\MessageSpecifier;
 use Wikimedia\Rdbms\IDBAccessObject;
 use Wikimedia\Stats\StatsFactory;
-use WikiPage;
 
 /**
  * Performs an import of a file to the local wiki based on an ImportPlan object for a given User.

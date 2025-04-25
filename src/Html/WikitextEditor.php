@@ -7,6 +7,7 @@ use MediaWiki\Context\MutableContext;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\Article;
 use MediaWiki\Title\Title;
 
 /**
@@ -40,7 +41,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 		}
 
 		$editPage = new EditPage(
-			\Article::newFromTitle( $filePage, $context )
+			Article::newFromTitle( $filePage, $context )
 		);
 		$editPage->setContextTitle( $filePage );
 

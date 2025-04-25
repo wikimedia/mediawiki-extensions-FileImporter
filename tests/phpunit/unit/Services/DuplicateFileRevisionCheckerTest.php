@@ -4,6 +4,8 @@ namespace FileImporter\Tests\Services;
 
 use FileImporter\Data\FileRevision;
 use FileImporter\Services\DuplicateFileRevisionChecker;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\FileRepo\FileRepo;
 
 /**
  * @covers \FileImporter\Services\DuplicateFileRevisionChecker
@@ -17,15 +19,15 @@ class DuplicateFileRevisionCheckerTest extends \MediaWikiUnitTestCase {
 		$fileRevision = $this->createMock( FileRevision::class );
 		$fileRevision->method( 'getField' )->willReturn( 'SHA1' );
 
-		$oldFile = $this->createMock( \File::class );
+		$oldFile = $this->createMock( File::class );
 		$oldFile->method( 'isOld' )->willReturn( true );
 
-		$deletedFile = $this->createMock( \File::class );
-		$deletedFile->method( 'isDeleted' )->with( \File::DELETED_FILE )->willReturn( true );
+		$deletedFile = $this->createMock( File::class );
+		$deletedFile->method( 'isDeleted' )->with( File::DELETED_FILE )->willReturn( true );
 
-		$wantedFile = $this->createMock( \File::class );
+		$wantedFile = $this->createMock( File::class );
 
-		$fileRepo = $this->createMock( \FileRepo::class );
+		$fileRepo = $this->createMock( FileRepo::class );
 		$fileRepo->expects( $this->once() )
 			->method( 'findBySha1' )
 			->with( 'SHA1' )
@@ -44,7 +46,7 @@ class DuplicateFileRevisionCheckerTest extends \MediaWikiUnitTestCase {
 		$fileRevision = $this->createMock( FileRevision::class );
 		$fileRevision->method( 'getField' )->willReturn( '' );
 
-		$fileRepo = $this->createMock( \FileRepo::class );
+		$fileRepo = $this->createMock( FileRepo::class );
 		$fileRepo->expects( $this->never() )->method( 'findBySha1' );
 
 		$checker = new DuplicateFileRevisionChecker( $fileRepo );

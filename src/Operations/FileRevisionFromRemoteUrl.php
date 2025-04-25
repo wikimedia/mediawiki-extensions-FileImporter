@@ -12,8 +12,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
-use ManualLogEntry;
-use MediaWiki\FileBackend\FSFile\TempFSFileFactory;
+use MediaWiki\Logging\ManualLogEntry;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
@@ -26,6 +25,7 @@ use StatusValue;
 use UnexpectedValueException;
 use UploadBase;
 use UploadRevisionImporter;
+use Wikimedia\FileBackend\FSFile\TempFSFileFactory;
 use WikiRevision;
 
 /**

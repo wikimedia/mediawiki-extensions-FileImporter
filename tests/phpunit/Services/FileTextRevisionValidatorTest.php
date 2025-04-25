@@ -5,6 +5,7 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Services\FileTextRevisionValidator;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Page\WikiFilePage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 
@@ -64,7 +65,7 @@ class FileTextRevisionValidatorTest extends \MediaWikiLangTestCase {
 				$wikiPage = $wikiPageFactory->newFromTitle( $context->getTitle() );
 				$this->assertSame( $expectedUser, $context->getUser() );
 				$this->assertSame( $expectedTitle, $context->getTitle() );
-				$this->assertInstanceOf( \WikiFilePage::class, $wikiPage );
+				$this->assertInstanceOf( WikiFilePage::class, $wikiPage );
 				$this->assertSame( $expectedTitle, $wikiPage->getTitle() );
 				$this->assertSame( $expectedContent, $content );
 				$this->assertSame( '<SUMMARY>', $summary );

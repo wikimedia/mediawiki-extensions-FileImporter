@@ -15,11 +15,11 @@ use MediaWiki\Language\RawMessage;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Skin\Skin;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MessageLocalizer;
-use Skin;
 
 /**
  * @covers \FileImporter\Html\ChangeFileInfoForm

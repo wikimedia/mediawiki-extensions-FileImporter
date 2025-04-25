@@ -2,8 +2,6 @@
 
 namespace FileImporter\Tests\Services;
 
-use Article;
-use DatabaseLogEntry;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\FileRevisions;
 use FileImporter\Data\ImportDetails;
@@ -20,6 +18,9 @@ use ImportableUploadRevisionImporter;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\IContentHandlerFactory;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\Logging\DatabaseLogEntry;
+use MediaWiki\Page\Article;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Revision\SlotRecord;
@@ -212,7 +213,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function assertFileLogEntry(
-		\File $file
+		File $file
 	) {
 		$logEntry = $this->getLogType(
 			$file->getTitle()->getArticleID(),

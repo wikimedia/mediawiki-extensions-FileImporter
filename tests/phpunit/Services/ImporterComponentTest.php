@@ -24,6 +24,7 @@ use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Content\WikitextContent;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
@@ -323,7 +324,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$expectedWikitext,
 		$expectedSummary
 	): WikiPageFactory {
-		$page = $this->createMock( \WikiPage::class );
+		$page = $this->createMock( WikiPage::class );
 		$page->expects( $this->never() )
 			->method( 'getTitle' );
 		$page->expects( $this->once() )

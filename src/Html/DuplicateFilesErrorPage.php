@@ -2,7 +2,7 @@
 
 namespace FileImporter\Html;
 
-use File;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\Html\Html;
 use OOUI\ButtonWidget;
 use OOUI\MessageWidget;

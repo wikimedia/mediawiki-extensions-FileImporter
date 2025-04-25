@@ -2,7 +2,6 @@
 
 namespace FileImporter;
 
-use ErrorPageError;
 use Exception;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Data\ImportRequest;
@@ -33,6 +32,9 @@ use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\Config\Config;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
+use MediaWiki\Exception\ErrorPageError;
+use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Exception\UserBlockedError;
 use MediaWiki\Html\Html;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\Registration\ExtensionRegistry;
@@ -43,11 +45,9 @@ use MediaWiki\User\Options\UserOptionsManager;
 use MediaWiki\User\User;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
-use PermissionsError;
 use Psr\Log\LoggerInterface;
 use StatusValue;
 use UploadBase;
-use UserBlockedError;
 use Wikimedia\Stats\StatsFactory;
 
 /**

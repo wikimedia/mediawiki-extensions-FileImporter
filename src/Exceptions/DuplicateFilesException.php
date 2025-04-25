@@ -2,7 +2,7 @@
 
 namespace FileImporter\Exceptions;
 
-use File;
+use MediaWiki\FileRepo\File\File;
 
 /**
  * @license GPL-2.0-or-later

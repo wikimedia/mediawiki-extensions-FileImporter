@@ -2,7 +2,6 @@
 
 namespace FileImporter\Tests\Operations;
 
-use File;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use FileImporter\Operations\FileRevisionFromRemoteUrl;
@@ -11,6 +10,7 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
 use ImportableUploadRevisionImporter;
 use MediaWiki\Content\IContentHandlerFactory;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;

@@ -2,9 +2,9 @@
 
 namespace FileImporter\Services;
 
-use File;
 use FileImporter\Data\FileRevision;
-use FileRepo;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\FileRepo\FileRepo;
 
 /**
  * Class that can be used to check if a FileRevision already exists on the current wiki.

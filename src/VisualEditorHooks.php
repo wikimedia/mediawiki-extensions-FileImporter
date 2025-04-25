@@ -4,8 +4,8 @@ namespace FileImporter;
 
 use MediaWiki\Extension\VisualEditor\VisualEditorBeforeEditorHook;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Skin\Skin;
 use MediaWiki\Title\Title;
-use Skin;
 
 /**
  * All hooks from the VisualEditor extension which is optional to use with this extension.
