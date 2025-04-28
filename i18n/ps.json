@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"fileimporter-desc": "له نورو وېبځايونو په اسانۍ د دوتنو راوړنه",
+	"fileimporter-help-banner-close-tooltip": "دا پيغام بيا مه راښکاره کوه",
+	"tag-fileimporter": "دوتنه‌راوړونکي له خوا بدل شوی",
+	"tag-fileimporter-description": "له بل ويکي څخه تر راوړلو وروسته بياکتنې او تگلړ پيغامونه ورگډ شوي",
+	"tag-fileimporter-imported": "دوتنه‌راوړونکي سره راوړل شوی",
+	"tag-fileimporter-imported-description": "له بل ويکي راوړل شوې بياکتنې",
+	"fileimporter-specialpage": "دوتنه راوړل",
+	"fileimporter-importfailed": "راوړنه نابريالۍ شوه",
+	"fileimporter-mediawiki-api-notfound": "له سرچينې يو‌آر‌اېل نه د مېډياويکي ای‌پي‌آی په ترلاسه کولو کې پاټې راغلی.",
+	"fileimporter-api-badinfo": "د ای‌پي‌آی له خوا بېرته راگرځول شوی خراب انځور يا بياکتنې مالومات.",
+	"fileimporter-api-failedtogetinfo": "له $1 څخه د دوتنې د مالوماتو ترلاسه کولو  پاتې راغلی",
+	"fileimporter-api-nopagesreturned": "د رېموټ ای‌پي‌آی له خوا هيڅ پاڼې راونگرځول شوې."
+}
