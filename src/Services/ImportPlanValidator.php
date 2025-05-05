@@ -81,7 +81,7 @@ class ImportPlanValidator {
 	 * @throws DuplicateFilesException When a file with the same hash is detected locally..
 	 * @throws RecoverableTitleException When there is a problem with the title that can be fixed.
 	 */
-	public function validate( ImportPlan $importPlan, Authority $user ) {
+	public function validate( ImportPlan $importPlan, Authority $user ): void {
 		// Have to run this first because other tests don't make sense without basic title sanity.
 		$this->runBasicTitleCheck( $importPlan );
 

@@ -24,7 +24,7 @@ class FileDescriptionPageValidator {
 	 *
 	 * @throws CommunityPolicyException
 	 */
-	public function validateTemplates( array $templates ) {
+	public function validateTemplates( array $templates ): void {
 		foreach ( $templates as $template ) {
 			if ( $this->wikitextConversions->isTemplateBad( $template ) ) {
 				throw new CommunityPolicyException( [
@@ -56,7 +56,7 @@ class FileDescriptionPageValidator {
 	 *
 	 * @throws CommunityPolicyException
 	 */
-	public function hasRequiredTemplate( array $templates ) {
+	public function hasRequiredTemplate( array $templates ): void {
 		if ( !$this->wikitextConversions->hasGoodTemplates() ) {
 			return;
 		}

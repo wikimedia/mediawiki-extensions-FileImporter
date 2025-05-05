@@ -31,7 +31,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 	 * @see \MediaWiki\Extension\WikiEditor\Hooks::onEditPage__showEditForm_initial
 	 * Triggering the hook means we don't have special handling for any extensions.
 	 */
-	private function runEditFormInitialHook( Title $filePage ) {
+	private function runEditFormInitialHook( Title $filePage ): void {
 		// We need to fake the context to make extensions like CodeMirror believe they are editing
 		// the actual file page.
 		$context = $this->getContext();

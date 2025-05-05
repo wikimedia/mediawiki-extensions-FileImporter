@@ -5,7 +5,6 @@ namespace FileImporter\Tests\Services;
 use FileImporter\Data\FileRevision;
 use FileImporter\Services\NullRevisionCreator;
 use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\MainConfigNames;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\RevisionStore;
 use MediaWiki\Title\Title;
@@ -23,23 +22,20 @@ use Wikimedia\Rdbms\IConnectionProvider;
 class NullRevisionCreatorTest extends \MediaWikiIntegrationTestCase {
 
 	public function testCreateForLinkTargetSuccess() {
-		$this->clearHooks();
-		$this->overrideConfigValue( MainConfigNames::Hooks, [
-			'ChangeTagsAfterUpdateTags' => [ function (
-				$tagsToAdd,
-				$tagsToRemove,
-				$prevTags,
-				$rc_id,
-				$rev_id,
-				$log_id,
-				$params,
-				$rc,
-				$user
-			) {
-				$this->assertSame( [ 'fileimporter' ], $tagsToAdd );
-				$this->assertSame( 1, $rev_id );
-			} ],
-		] );
+		$this->setTemporaryHook( 'ChangeTagsAfterUpdateTags', function (
+			$tagsToAdd,
+			$tagsToRemove,
+			$prevTags,
+			$rc_id,
+			$rev_id,
+			$log_id,
+			$params,
+			$rc,
+			$user
+		): void {
+			$this->assertSame( [ 'fileimporter' ], $tagsToAdd );
+			$this->assertSame( 1, $rev_id );
+		} );
 
 		$title = Title::makeTitle( NS_FILE, 'NullRevisionCreatorTest' );
 
