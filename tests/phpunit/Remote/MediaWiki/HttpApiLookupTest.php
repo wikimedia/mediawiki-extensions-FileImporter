@@ -16,10 +16,6 @@ use FileImporter\Services\Http\HttpRequestExecutor;
  */
 class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 
-	protected function setUp(): void {
-		parent::setUp();
-	}
-
 	public function testResultCaching() {
 		$request = $this->createMock( \MWHttpRequest::class );
 		$request->method( 'getContent' )
