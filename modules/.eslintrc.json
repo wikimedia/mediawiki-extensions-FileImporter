@@ -6,7 +6,7 @@
 	"extends": [
 		"wikimedia/jquery",
 		"wikimedia/client",
-		"wikimedia/vue3-es6",
+		"wikimedia/vue3/es6",
 		"wikimedia/mediawiki"
 	],
 	"rules": {
