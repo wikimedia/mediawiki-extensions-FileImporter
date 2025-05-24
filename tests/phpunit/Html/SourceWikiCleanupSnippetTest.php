@@ -189,7 +189,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function setupServicesAndGlobals( bool $templateKnown, bool $userCanDelete ) {
+	private function setupServicesAndGlobals( bool $templateKnown, bool $userCanDelete ): void {
 		$templateResult = $templateKnown ? 'TestNowCommons' : null;
 
 		$mockTemplateLookup = $this->createMock( WikidataTemplateLookup::class );

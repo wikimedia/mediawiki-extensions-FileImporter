@@ -92,7 +92,7 @@ class Importer {
 	 *
 	 * @throws ImportException|RuntimeException
 	 */
-	public function import( User $user, ImportPlan $importPlan ) {
+	public function import( User $user, ImportPlan $importPlan ): void {
 		$this->wikiRevisionFactory->setInterWikiPrefix( $importPlan->getInterWikiPrefix() );
 		$metric = $this->statsFactory->getTiming( 'import_operation_duration_seconds' );
 
@@ -339,7 +339,7 @@ class Importer {
 		ImportPlan $importPlan,
 		WikiPage $page,
 		Authority $user
-	) {
+	): void {
 		// TODO: Replace with $page->newPageUpdater( … )->saveRevision( … )
 		$editResult = $page->doUserEditContent(
 			new WikitextContent( $importPlan->getFileInfoText() ),

@@ -332,7 +332,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	}
 
 	public function testCommonsHelperAndWikiLinkParserIntegration() {
-		$this->setTemporaryHook( 'TitleExists', function ( LinkTarget $title, &$exists ) {
+		$this->setTemporaryHook( 'TitleExists', function ( LinkTarget $title, &$exists ): void {
 			$this->assertSame( 'De', $title->getDBkey() );
 			$exists = true;
 		} );

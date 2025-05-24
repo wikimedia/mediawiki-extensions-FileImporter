@@ -212,9 +212,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		}
 	}
 
-	private function assertFileLogEntry(
-		File $file
-	) {
+	private function assertFileLogEntry( File $file ): void {
 		$logEntry = $this->getLogType(
 			$file->getTitle()->getArticleID(),
 			'upload',
@@ -226,7 +224,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $file->getUploader()->getId(), $logEntry->getPerformerIdentity()->getId() );
 	}
 
-	private function assertFileImporterTagWasAdded( int $logId, int $revId, string $expectedTag ) {
+	private function assertFileImporterTagWasAdded( int $logId, int $revId, string $expectedTag ): void {
 		$this->assertSame( 1, $this->getDb()->newSelectQueryBuilder()
 			->table( 'change_tag' )
 			->join( 'change_tag_def', null, 'ctd_id = ct_tag_id' )

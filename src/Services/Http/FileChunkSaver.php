@@ -108,7 +108,7 @@ class FileChunkSaver implements LoggerAwareInterface {
 	/**
 	 * @return never
 	 */
-	private function closeHandleLogAndThrowException( string $message ) {
+	private function closeHandleLogAndThrowException( string $message ): void {
 		$this->closeHandle();
 		$this->logger->debug( $message );
 		throw new ImportException( $message, self::ERROR_CHUNK_SAVE );

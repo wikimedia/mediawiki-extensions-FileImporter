@@ -122,7 +122,7 @@ class SpecialImportFile extends SpecialPage {
 	 *
 	 * @throws ErrorPageError when one of the checks failed
 	 */
-	private function executeStandardChecks() {
+	private function executeStandardChecks(): void {
 		$unicodeCheck = $this->getRequest()->getText( 'wpUnicodeCheck' );
 		if ( $unicodeCheck && $unicodeCheck !== EditPage::UNICODE_CHECK ) {
 			throw new ErrorPageError( 'errorpagetitle', 'unicode-support-fail' );
