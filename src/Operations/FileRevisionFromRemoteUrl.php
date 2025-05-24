@@ -98,7 +98,7 @@ class FileRevisionFromRemoteUrl implements ImportOperation {
 		$fileUrl = $this->fileRevision->getField( 'url' );
 		if ( !MWHttpRequest::isValidURI( $fileUrl ) ) {
 			// invalid URL detected
-			return StatusValue::newFatal( 'fileimporter-cantparseurl' );
+			return StatusValue::newFatal( 'fileimporter-cantparseurl', $fileUrl );
 		}
 
 		$tmpFile = ( new TempFSFileFactory( wfTempDir() ) )->newTempFSFile( 'fileimporter_' );
