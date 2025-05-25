@@ -204,10 +204,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		);
 	}
 
-	/**
-	 * @return string
-	 */
-	private function buildImportIdentityFormSnippet( ImportPlan $importPlan ) {
+	private function buildImportIdentityFormSnippet( ImportPlan $importPlan ): string {
 		return ( new ImportIdentityFormSnippet( [
 			'clientUrl' => $importPlan->getRequest()->getUrl(),
 			'intendedFileName' => $importPlan->getFileName(),
