@@ -34,7 +34,7 @@
 	"fileimporter-filenameerror-illegal": "あなたがインポートしようとしているファイル名は不適切です。",
 	"fileimporter-filenameerror-toolong": "あなたがインポートしようとしているファイル名は長すぎます。",
 	"fileimporter-filenameerror-automaticchanges": "ファイル名は自動的に \"$1\" から \"$2\" に変更されました。",
-	"fileimporter-localtitleexists": "現在インポートしようとしているファイル名は、このWikiですでに使用されています。",
+	"fileimporter-localtitleexists": "現在インポートしようとしているファイル名は、このウィキで既に使用されています。",
 	"fileimporter-duplicatefilesdetected": "あなたがインポートしようとしているファイルが、既にこのウィキに存在します。",
 	"fileimporter-duplicatefilesdetected-prefix": "複製",
 	"fileimporter-exampleprefix": "例",
