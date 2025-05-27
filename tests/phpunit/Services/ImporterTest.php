@@ -105,7 +105,9 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		);
 		$this->assertSame( '20180624133723', $firstRevision->getTimestamp() );
 		$tags = $this->getServiceContainer()->getChangeTagsStore()->getTags( $this->db, null, $firstRevision->getId() );
-		$this->assertSame( [], array_diff( [ 'fileimporter-imported', 'tag1', 'tag2' ], $tags ) );
+		$this->assertContains( 'fileimporter-imported', $tags );
+		$this->assertContains( 'tag1', $tags );
+		$this->assertContains( 'tag2', $tags );
 
 		// assert import user revision was created correctly
 		$article = Article::newFromID( $title->getArticleID() );
@@ -149,7 +151,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		);
 		$tags = $this->getServiceContainer()->getChangeTagsStore()
 			->getTags( $this->db, null, $secondRevision->getId() );
-		$this->assertSame( [], array_diff( [ 'fileimporter-imported' ], $tags ) );
+		$this->assertContains( 'fileimporter-imported', $tags );
 
 		// assert import log entry was created correctly
 		$this->assertTextRevisionLogEntry( $nullRevision, 'import', 'interwiki', 'fileimporter' );
