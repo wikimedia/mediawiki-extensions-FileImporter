@@ -123,7 +123,7 @@ class WikiRevisionFactory {
 			return $summaryText;
 		}
 
-		/** Mostly taken from @see \MediaWiki\CommentFormatter\CommentParser::doWikiLinks */
+		/** Mostly taken from {@see CommentParser::doWikiLinks} */
 		return preg_replace(
 			'/
 				\[\[
