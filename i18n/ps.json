@@ -15,5 +15,6 @@
 	"fileimporter-mediawiki-api-notfound": "له سرچينې يو‌آر‌اېل نه د مېډياويکي ای‌پي‌آی په ترلاسه کولو کې پاټې راغلی.",
 	"fileimporter-api-badinfo": "د ای‌پي‌آی له خوا بېرته راگرځول شوی خراب انځور يا بياکتنې مالومات.",
 	"fileimporter-api-failedtogetinfo": "له $1 څخه د دوتنې د مالوماتو ترلاسه کولو  پاتې راغلی",
-	"fileimporter-api-nopagesreturned": "د رېموټ ای‌پي‌آی له خوا هيڅ پاڼې راونگرځول شوې."
+	"fileimporter-api-nopagesreturned": "د رېموټ ای‌پي‌آی له خوا هيڅ پاڼې راونگرځول شوې.",
+	"fileimporter-api-file-notfound": "دوتنه ونهٔ موندل شوه: $1."
 }
