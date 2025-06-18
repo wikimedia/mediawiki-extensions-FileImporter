@@ -124,7 +124,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 			$lastRevision->getComment()->text
 		);
 		$this->assertSame(
-			"<!--imported from http://example.com/Test.png-->\n" .
+			"<!--imported from //example.com/Test.png-->\n" .
 			"(fileimporter-post-import-revision-annotation)\nThis is my text!",
 			$lastRevision->getContent( SlotRecord::MAIN )->serialize()
 		);
@@ -134,7 +134,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$this->assertSame( $targetUser->getName(), $nullRevision->getUser()->getName() );
 		$this->assertInstanceOf( CommentStoreComment::class, $nullRevision->getComment() );
 		$this->assertSame(
-			'imported from http://example.com/Test.png',
+			'imported from //example.com/Test.png',
 			$nullRevision->getComment()->text
 		);
 
@@ -330,7 +330,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function newImportPlan(): ImportPlan {
-		$sourceUrl = new SourceUrl( 'http://example.com/Test.png' );
+		$sourceUrl = new SourceUrl( '//example.com/Test.png' );
 		$sourceLinkTarget = new TitleValue( NS_FILE, self::TITLE );
 
 		$textRevisions = $this->newTextRevisions();
@@ -349,7 +349,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 
 		return new ImportPlan(
 			new ImportRequest(
-				'http://example.com/Test.png',
+				'//example.com/Test.png',
 				null,
 				null,
 				'User import comment'

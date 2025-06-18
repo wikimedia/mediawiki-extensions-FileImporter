@@ -126,7 +126,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			],
 			'Bad domain (not in allowed sites)' => [
 				'webRequest' => [
-					'clientUrl' => 'https://test.wikimedia.org/wiki/File:AnyFile.JPG'
+					'clientUrl' => '//test.wikimedia.org/wiki/File:AnyFile.JPG'
 				],
 				'user' => true,
 				'expectedException' => null,
@@ -147,14 +147,14 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			],
 			'Bad file' => [
 				'webRequest' => [
-					'clientUrl' => 'https://commons.wikimedia.org/wiki/NotAFile'
+					'clientUrl' => '//commons.wikimedia.org/wiki/NotAFile'
 				],
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
 					self::assertErrorBox(
 						$html,
-						'(fileimporter-api-file-notfound: https://commons.wikimedia.org/wiki/NotAFile)'
+						'(fileimporter-api-file-notfound: //commons.wikimedia.org/wiki/NotAFile)'
 					);
 				},
 				'sourceSiteServices' => [],
@@ -162,14 +162,14 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			],
 			'Good file' => [
 				'webRequest' => [
-					'clientUrl' => 'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
+					'clientUrl' => '//commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 				],
 				'user' => true,
 				'expectedException' => null,
 				'htmlAssertions' => function ( string $html ): void {
 					self::assertPreviewPage(
 						$html,
-						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
+						'//commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow'
 					);
 					self::assertStringContainsString(
@@ -182,7 +182,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 			],
 			'Good file & Good target title' => [
 				'webRequest' => [
-					'clientUrl' => 'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
+					'clientUrl' => '//commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 					'intendedFileName' => 'Chicken In Snow CHANGED',
 					// XXX: This is currently not checked?
 					'importDetailsHash' => 'SomeHash',
@@ -192,7 +192,7 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 				'htmlAssertions' => function ( string $html ): void {
 					self::assertPreviewPage(
 						$html,
-						'https://commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
+						'//commons.wikimedia.org/wiki/File:Chicken_In_Snow.JPG',
 						'Chicken In Snow CHANGED'
 					);
 					self::assertStringContainsString(

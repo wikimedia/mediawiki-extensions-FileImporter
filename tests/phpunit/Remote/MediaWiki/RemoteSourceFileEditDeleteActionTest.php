@@ -41,7 +41,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 			new UrlUtils()
 		);
 
-		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$url = '//w.invalid/w/foo' . mt_rand();
 		$status = $postImportHandler->execute(
 			$this->createImportPlanMock( false, false, $url ),
 			$this->createNoOpMock( User::class )
@@ -50,7 +50,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 	}
 
 	public function testExecute_remoteEditSucceeds() {
-		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$url = '//w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( true, false, $url );
 		$mockUser = $this->createNoOpMock( User::class );
 
@@ -84,7 +84,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 	}
 
 	public function testExecute_remoteEditFails() {
-		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$url = '//w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( true, false, $url );
 		$mockUser = $this->createNoOpMock( User::class );
 
@@ -113,7 +113,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 	}
 
 	public function testExecute_remoteDeleteSucceeds() {
-		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$url = '//w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( false, true, $url );
 		$mockUser = $this->createNoOpMock( User::class );
 
@@ -141,7 +141,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 
 	public function testExecute_remoteDeleteFails() {
 		$host = 'w.' . mt_rand() . '.invalid';
-		$url = 'http://w.invalid/w/foo' . mt_rand();
+		$url = '//w.invalid/w/foo' . mt_rand();
 		$mockImportPlan = $this->createImportPlanMock( false, true, $url, $host );
 		$mockUser = $this->createNoOpMock( User::class );
 

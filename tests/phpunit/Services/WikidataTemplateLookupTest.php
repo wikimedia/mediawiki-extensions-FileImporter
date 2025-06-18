@@ -40,7 +40,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 		$mockRequestExecutor
 			->expects( $this->once() )
 			->method( 'execute' )
-			->with( 'https://wikidata.invalid/wiki/Special:EntityData/Q123' )
+			->with( '//wikidata.invalid/wiki/Special:EntityData/Q123' )
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(
@@ -51,7 +51,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 		);
 
 		$sourceUrl = new SourceUrl(
-			'https://bat-smg.wikipedia.org/wiki/Abruozdielis:Country_house_at_sunset.jpg' );
+			'//bat-smg.wikipedia.org/wiki/Abruozdielis:Country_house_at_sunset.jpg' );
 
 		// make sure API will only be hit once on multiple calls
 		$lookup->fetchNowCommonsLocalTitle( $sourceUrl );
@@ -71,7 +71,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 		);
 
 		$sourceUrl = new SourceUrl(
-			'https://bat-smg.wikipedia.org/wiki/Abruozdielis:Country_house_at_sunset.jpg' );
+			'//bat-smg.wikipedia.org/wiki/Abruozdielis:Country_house_at_sunset.jpg' );
 		$localTitle = $lookup->fetchNowCommonsLocalTitle( $sourceUrl );
 
 		$this->assertNull( $localTitle );
@@ -91,7 +91,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 			->willReturn( $content );
 		$mockRequestExecutor = $this->createMock( HttpRequestExecutor::class );
 		$mockRequestExecutor->method( 'execute' )
-			->with( 'https://wikidata.invalid/wiki/Special:EntityData/Q123' )
+			->with( '//wikidata.invalid/wiki/Special:EntityData/Q123' )
 			->willReturn( $mockResponse );
 
 		$lookup = new WikidataTemplateLookup(
@@ -102,7 +102,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 		);
 
 		$sourceUrl = new SourceUrl(
-			'https://foo.wikipedia.org/wiki/Abruozdielis:Country_house_at_sunset.jpg' );
+			'//foo.wikipedia.org/wiki/Abruozdielis:Country_house_at_sunset.jpg' );
 		$localTitle = $lookup->fetchNowCommonsLocalTitle( $sourceUrl );
 
 		$this->assertNull( $localTitle );
@@ -110,7 +110,7 @@ class WikidataTemplateLookupTest extends MediaWikiIntegrationTestCase {
 
 	private function getConfig(): Config {
 		return new HashConfig( [
-			'FileImporterWikidataEntityEndpoint' => 'https://wikidata.invalid/wiki/Special:EntityData/',
+			'FileImporterWikidataEntityEndpoint' => '//wikidata.invalid/wiki/Special:EntityData/',
 			'FileImporterWikidataNowCommonsEntity' => 'Q123',
 		] );
 	}

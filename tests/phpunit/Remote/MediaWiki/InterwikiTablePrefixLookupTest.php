@@ -68,7 +68,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'interWiki table contains host' => [
 				[
 					[
-						'iw_url' => 'https://de.wikipedia.org/wiki/$1',
+						'iw_url' => '//de.wikipedia.org/wiki/$1',
 						'iw_prefix' => 'wiki'
 					],
 				],
@@ -78,7 +78,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'interWiki table does not contain host' => [
 				[
 					[
-						'iw_url' => 'https://en.wikipedia.org/wiki/$1',
+						'iw_url' => '//en.wikipedia.org/wiki/$1',
 						'iw_prefix' => 'wiki'
 					],
 				],
@@ -88,11 +88,11 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'accept aliases with identical URLs' => [
 				[
 					[
-						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_url' => '//www.wikia.com/wiki/$1',
 						'iw_prefix' => 'wikia'
 					],
 					[
-						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_url' => '//www.wikia.com/wiki/$1',
 						'iw_prefix' => 'wikicities'
 					],
 				],
@@ -102,19 +102,19 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'prefer shortest alias' => [
 				[
 					[
-						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_url' => '//www.wikia.com/wiki/$1',
 						'iw_prefix' => '1-wikicities'
 					],
 					[
-						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_url' => '//www.wikia.com/wiki/$1',
 						'iw_prefix' => '3-wikia'
 					],
 					[
-						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_url' => '//www.wikia.com/wiki/$1',
 						'iw_prefix' => '2-wikia'
 					],
 					[
-						'iw_url' => 'http://www.wikia.com/wiki/$1',
+						'iw_url' => '//www.wikia.com/wiki/$1',
 						'iw_prefix' => '0-wikicities'
 					],
 				],
@@ -124,15 +124,15 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'be sloppy about ambiguous hosts' => [
 				[
 					[
-						'iw_url' => 'http://www.tejo.org/vikio/$1',
+						'iw_url' => '//www.tejo.org/vikio/$1',
 						'iw_prefix' => 'tejo'
 					],
 					[
-						'iw_url' => 'http://www.tejo.org/uea/$1',
+						'iw_url' => '//www.tejo.org/uea/$1',
 						'iw_prefix' => 'uea'
 					],
 					[
-						'iw_url' => 'http://www.tejo.org/3rd/$1',
+						'iw_url' => '//www.tejo.org/3rd/$1',
 						'iw_prefix' => '3rd'
 					],
 				],
@@ -163,7 +163,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 		$iwMock->expects( $this->once() )
 			->method( 'getAllPrefixes' )
 			->willReturn( [ [
-				'iw_url' => 'https://de.wikipedia.org/wiki/$1',
+				'iw_url' => '//de.wikipedia.org/wiki/$1',
 				'iw_prefix' => 'wiki'
 			] ] );
 
@@ -207,14 +207,14 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'Successful get through parent domain' => [
 				[
 					[
-						'iw_url' => 'https://en.wikisource.org/wiki/$1',
+						'iw_url' => '//en.wikisource.org/wiki/$1',
 						'iw_prefix' => 'wikisource'
 					],
 				],
 				[
 					[
 						'prefix' => 'fr',
-						'url' => 'https://fr.wikisource.org/wiki/$1'
+						'url' => '//fr.wikisource.org/wiki/$1'
 					]
 				],
 				'//fr.wikisource.org/wiki/',
@@ -223,18 +223,18 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'Successful get through parent domain, labs' => [
 				[
 					[
-						'iw_url' => 'https://en.wikisource.beta.wmflabs.org/wiki/$1',
+						'iw_url' => '//en.wikisource.beta.wmflabs.org/wiki/$1',
 						'iw_prefix' => 'wikisource'
 					],
 				],
 				[
 					[
 						'prefix' => 'fr',
-						'url' => 'https://fr.wikisource.beta.wmflabs.org/wiki/$1'
+						'url' => '//fr.wikisource.beta.wmflabs.org/wiki/$1'
 					],
 					[
 						'prefix' => 'guc',
-						'url' => 'https://tools.wmflabs.org/guc/$1'
+						'url' => '//tools.wmflabs.org/guc/$1'
 					]
 				],
 				'//fr.wikisource.beta.wmflabs.org/wiki/',
@@ -243,14 +243,14 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'fail after hop' => [
 				[
 					[
-						'iw_url' => 'https://en.wikisource.org/wiki/$1',
+						'iw_url' => '//en.wikisource.org/wiki/$1',
 						'iw_prefix' => 'wikisource'
 					],
 				],
 				[
 					[
 						'prefix' => 'fr',
-						'url' => 'https://fr.wikisource.org/wiki/$1'
+						'url' => '//fr.wikisource.org/wiki/$1'
 					]
 				],
 				'//invalid.wikisource.org/wiki/',
@@ -260,7 +260,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			'fail without hop' => [
 				[
 					[
-						'iw_url' => 'https://en.wikisource.org/wiki/$1',
+						'iw_url' => '//en.wikisource.org/wiki/$1',
 						'iw_prefix' => 'wikisource'
 					],
 				],
@@ -305,7 +305,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 		$mockLookup->method( 'getAllPrefixes' )
 			->willReturn( [
 				[
-					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_url' => '//en.wikisource.org/wiki/$1',
 					'iw_prefix' => 'wikisource'
 				],
 			] );
@@ -328,7 +328,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 			$this->createInterwikiApi( [
 				[
 					'prefix' => 'fr',
-					'url' => 'https://fr.wikisource.org/wiki/$1'
+					'url' => '//fr.wikisource.org/wiki/$1'
 				],
 			] )
 		);
@@ -347,7 +347,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 		$prefixLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, [
 				[
-					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_url' => '//en.wikisource.org/wiki/$1',
 					'iw_prefix' => 'wikisource'
 				],
 			] ),
@@ -368,7 +368,7 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 		$mockInterwikiLookup->method( 'getAllPrefixes' )
 			->willReturn( [
 				[
-					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_url' => '//en.wikisource.org/wiki/$1',
 					'iw_prefix' => 'wikisource'
 				],
 			] );
@@ -405,11 +405,11 @@ class InterwikiTablePrefixLookupTest extends \MediaWikiIntegrationTestCase {
 		$mockLookup = new InterwikiTablePrefixLookup(
 			$this->createInterWikiLookupMock( true, [
 				[
-					'iw_url' => 'https://en.wikisource.org/wiki/$1',
+					'iw_url' => '//en.wikisource.org/wiki/$1',
 					'iw_prefix' => 'wikisource'
 				],
 				[
-					'iw_url' => 'https://skipme.org/wiki/$1',
+					'iw_url' => '//skipme.org/wiki/$1',
 					'iw_prefix' => 'skipme'
 				],
 			] ),

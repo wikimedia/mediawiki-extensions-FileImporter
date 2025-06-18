@@ -36,34 +36,34 @@ class SiteTableSourceUrlCheckerTest extends \MediaWikiIntegrationTestCase {
 	public static function provideCheckSourceUrl() {
 		return [
 			'bad target & known site' => [
-				'http://en.wikipedia.org',
-				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
+				'//en.wikipedia.org',
+				[ 'enwiki' => '//en.wikipedia.org/wiki' ],
 				false,
 			],
 			'good target & no known sites' => [
-				'http://en.wikipedia.org/wiki/File:Foo',
+				'//en.wikipedia.org/wiki/File:Foo',
 				[],
 				false,
 			],
 			'good target (path) but empty title & known site' => [
-				'http://en.wikipedia.org/',
-				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
+				'//en.wikipedia.org/',
+				[ 'enwiki' => '//en.wikipedia.org/wiki' ],
 				false,
 			],
 			'good target (query) but empty title & known site' => [
-				'http://en.wikipedia.org/w/index.php?title=',
-				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
+				'//en.wikipedia.org/w/index.php?title=',
+				[ 'enwiki' => '//en.wikipedia.org/wiki' ],
 				false,
 			],
 			// CanGetImportDetails = true
 			'good target (path) & known site' => [
-				'http://en.wikipedia.org/wiki/File:Foo',
-				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
+				'//en.wikipedia.org/wiki/File:Foo',
+				[ 'enwiki' => '//en.wikipedia.org/wiki' ],
 				true,
 			],
 			'good target (query) & known site' => [
-				'http://en.wikipedia.org/w/index.php?title=File:Foo',
-				[ 'enwiki' => 'http://en.wikipedia.org/wiki' ],
+				'//en.wikipedia.org/w/index.php?title=File:Foo',
+				[ 'enwiki' => '//en.wikipedia.org/wiki' ],
 				true,
 			],
 		];

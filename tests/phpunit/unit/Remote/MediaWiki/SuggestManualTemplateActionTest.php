@@ -19,7 +19,7 @@ use StatusValue;
  */
 class SuggestManualTemplateActionTest extends \MediaWikiUnitTestCase {
 
-	private const URL = 'http://w.invalid';
+	private const URL = '//w.invalid';
 	private const TITLE = 'FilePageTitle';
 
 	public static function provideExecute() {
