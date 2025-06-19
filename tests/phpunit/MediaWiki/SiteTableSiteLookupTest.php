@@ -38,11 +38,11 @@ class SiteTableSiteLookupTest extends \MediaWikiIntegrationTestCase {
 	 */
 	public function testGetSite( string $url, ?string $expected ) {
 		$hashSiteStore = new HashSiteStore( [
-			$this->getSite( 'enwiki', 'https://en.wikipedia.org/wiki/$1' ),
-			$this->getSite( 'dewiki', 'https://de.wikipedia.org/wiki/$1' ),
-			$this->getSite( 'commonswiki', 'https://commons.wikimedia.org/wiki/$1' ),
-			$this->getSite( 'test1', 'https://example.com/test1/$1' ),
-			$this->getSite( 'test2', 'https://example.com/test2/$1' ),
+			$this->getSite( 'enwiki', '//en.wikipedia.org/wiki/$1' ),
+			$this->getSite( 'dewiki', '//de.wikipedia.org/wiki/$1' ),
+			$this->getSite( 'commonswiki', '//commons.wikimedia.org/wiki/$1' ),
+			$this->getSite( 'test1', '//example.com/test1/$1' ),
+			$this->getSite( 'test2', '//example.com/test2/$1' ),
 		] );
 
 		$lookup = new SiteTableSiteLookup( $hashSiteStore );

@@ -180,7 +180,7 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 			'timestamp' => '2018-06-24T13:37:23Z',
 			'sha1' => FSFile::getSha1Base36FromPath( self::TEST_FILE_SRC ),
 			'size' => '12345',
-			'thumburl' => 'http://example.com/thumb/Test.png',
+			'thumburl' => '//example.com/thumb/Test.png',
 			'url' => $url,
 		] );
 	}

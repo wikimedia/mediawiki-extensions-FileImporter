@@ -14,7 +14,7 @@ use FileImporter\Exceptions\LocalizedImportException;
 class ImportRequestTest extends \MediaWikiIntegrationTestCase {
 
 	public function testConstructor() {
-		$url = 'https://ar.wikipedia.org/wiki/ملف:1967+TUN.jpg';
+		$url = '//ar.wikipedia.org/wiki/ملف:1967+TUN.jpg';
 		$importRequest = new ImportRequest( $url, '<NAME>', '<TEXT>', '<SUMMARY>', '<HASH>' );
 
 		$this->assertSame( $url, $importRequest->getUrl()->getUrl() );
@@ -42,7 +42,7 @@ class ImportRequestTest extends \MediaWikiIntegrationTestCase {
 	 * @dataProvider provideTestRemoveTrailingWhitespacesInText
 	 */
 	public function testRemoveTrailingWhitespacesInText( ?string $userInput, ?string $expectedRequestObjectText ) {
-		$importRequest = new ImportRequest( 'http://foo', null, $userInput );
+		$importRequest = new ImportRequest( '//foo', null, $userInput );
 
 		$this->assertSame( $expectedRequestObjectText, $importRequest->getIntendedText() );
 	}

@@ -16,16 +16,16 @@ class AllowedDomainsFileUrlCheckerTest extends \MediaWikiIntegrationTestCase {
 	public static function provideTestCheck() {
 		return [
 			// Success
-			[ [ 'en.wikipedia.org' ], 'https://en.wikipedia.org/wiki/File:Foo.png', true ],
-			[ [ '.wikipedia.org' ], 'https://en.wikipedia.org/wiki/File:Foo.png', true ],
-			[ [ '.wikipedia.org', 'la.com' ], 'https://en.wikipedia.org/wiki/File:Foo.png', true ],
+			[ [ 'en.wikipedia.org' ], '//en.wikipedia.org/wiki/File:Foo.png', true ],
+			[ [ '.wikipedia.org' ], '//en.wikipedia.org/wiki/File:Foo.png', true ],
+			[ [ '.wikipedia.org', 'la.com' ], '//en.wikipedia.org/wiki/File:Foo.png', true ],
 			// Failures
-			[ [ 'en.wikipedia.COM' ], 'https://en.wikipedia.org/wiki/File:Foo.png', false ],
-			[ [ 'wikipedia.org' ], 'https://en.wikipedia.org/wiki/File:Foo.png', false ],
-			[ [], 'https://en.wikipedia.org/wiki/File:Foo.png', false ],
-			[ [ 'google.com' ], 'https://en.wikipedia.org/wiki/File:Foo.png', false ],
-			[ [ 'google.com' ], 'https://en.wikipedia.org/wiki/File:Foo.png', false ],
-			[ [ 'google.com', 'foo.bar' ], 'https://en.wikipedia.org/wiki/File:Foo.png', false ],
+			[ [ 'en.wikipedia.COM' ], '//en.wikipedia.org/wiki/File:Foo.png', false ],
+			[ [ 'wikipedia.org' ], '//en.wikipedia.org/wiki/File:Foo.png', false ],
+			[ [], '//en.wikipedia.org/wiki/File:Foo.png', false ],
+			[ [ 'google.com' ], '//en.wikipedia.org/wiki/File:Foo.png', false ],
+			[ [ 'google.com' ], '//en.wikipedia.org/wiki/File:Foo.png', false ],
+			[ [ 'google.com', 'foo.bar' ], '//en.wikipedia.org/wiki/File:Foo.png', false ],
 		];
 	}
 

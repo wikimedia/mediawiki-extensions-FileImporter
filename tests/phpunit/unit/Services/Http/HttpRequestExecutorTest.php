@@ -20,8 +20,8 @@ class HttpRequestExecutorTest extends \MediaWikiUnitTestCase {
 
 	public static function provideTestExecute() {
 		return [
-			[ 'http://example.com', false ],
-			[ 'http://example.com', 'Some Real Content' ],
+			[ '//example.com', false ],
+			[ '//example.com', 'Some Real Content' ],
 		];
 	}
 
@@ -67,7 +67,7 @@ class HttpRequestExecutorTest extends \MediaWikiUnitTestCase {
 	}
 
 	public function testExecutePost() {
-		$testUrl = 'https://w.invalid/';
+		$testUrl = '//w.invalid/';
 		$expectedResult = 'Some real content';
 		$postData = [ 'a' => 'foo', 'b' => 'bar' ];
 		$httpRequestFactory = $this->createMock( HttpRequestFactory::class );

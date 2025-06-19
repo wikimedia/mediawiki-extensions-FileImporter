@@ -33,27 +33,27 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 
 	public static function provideSourceUrls() {
 		return [
-			[ 'http://w.wiki', null ],
-			[ 'http://w.wiki/', null ],
-			[ 'http://w.wiki/A/', null ],
-			[ 'http://w.wiki/0', '0' ],
-			[ 'http://w.wiki/A', 'A' ],
-			[ 'http://w.wiki//B', 'B' ],
-			[ 'http://w.wiki/A/B', 'B' ],
-			[ 'http://w.wiki/A?query#fragment', 'A' ],
+			[ '//w.wiki', null ],
+			[ '//w.wiki/', null ],
+			[ '//w.wiki/A/', null ],
+			[ '//w.wiki/0', '0' ],
+			[ '//w.wiki/A', 'A' ],
+			[ '//w.wiki//B', 'B' ],
+			[ '//w.wiki/A/B', 'B' ],
+			[ '//w.wiki/A?query#fragment', 'A' ],
 
 			// title=… always has a higher priority, no matter what it contains.
-			[ 'http://w.wiki/A?title', null ],
-			[ 'http://w.wiki/A?title=', null ],
-			[ 'http://w.wiki/A?title=B', 'B' ],
+			[ '//w.wiki/A?title', null ],
+			[ '//w.wiki/A?title=', null ],
+			[ '//w.wiki/A?title=B', 'B' ],
 
 			// Yes, these different results match the behavior of MediaWiki core!
-			[ 'http://w.wiki/B+C', 'B+C' ],
-			[ 'http://w.wiki/A?title=B+C', 'B C' ],
+			[ '//w.wiki/B+C', 'B+C' ],
+			[ '//w.wiki/A?title=B+C', 'B C' ],
 
 			// Make sure %… sequences are not decoded twice.
-			[ 'http://w.wiki/100%25%32%35', '100%25' ],
-			[ 'http://w.wiki/A?title=100%25%32%35', '100%25' ],
+			[ '//w.wiki/100%25%32%35', '100%25' ],
+			[ '//w.wiki/A?title=100%25%32%35', '100%25' ],
 		];
 	}
 
@@ -391,13 +391,13 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 		$this->expectException( LocalizedImportException::class );
 		$this->expectExceptionMessage( $expected );
 
-		$service->getImportDetails( new SourceUrl( 'http://foo.bar/wiki/File:Foo.jpg' ) );
+		$service->getImportDetails( new SourceUrl( '//foo.bar/wiki/File:Foo.jpg' ) );
 	}
 
 	public static function provideTestValidResponse() {
 		return [
 			[
-				'http://en.wikipedia.org/wiki/File:Foo.png',
+				'//en.wikipedia.org/wiki/File:Foo.png',
 				'File:Foo.png',
 				json_encode( self::getFullRequestContent( 'File:Foo.png' ) ),
 				[
@@ -407,7 +407,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 				],
 			],
 			[
-				'http://de.wikipedia.org/wiki/Datei:Bar+%31.JPG',
+				'//de.wikipedia.org/wiki/Datei:Bar+%31.JPG',
 				'Datei:Bar+1.JPG',
 				json_encode( self::getFullRequestContent( 'Datei:Bar+1.JPG' ) ),
 				[

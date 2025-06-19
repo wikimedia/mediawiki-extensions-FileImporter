@@ -139,7 +139,7 @@ class SpecialImportFileDoImportTest extends MediaWikiIntegrationTestCase {
 		$importPlanMock->method( 'getDetails' )
 			->willReturn( $importDetailsMock );
 		$importPlanMock->method( 'getRequest' )
-			->willReturn( new ImportRequest( 'http://example.com' ) );
+			->willReturn( new ImportRequest( '//example.com' ) );
 		$importPlanMock->method( 'getTitle' )
 			->willReturn( Title::makeTitle( NS_MAIN, __METHOD__ ) );
 		$importPlanMock->method( 'getActionStats' )
