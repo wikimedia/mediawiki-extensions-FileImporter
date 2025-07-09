@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Winston Sung"
+			"Winston Sung",
+			"Aca"
 		]
 	},
 	"fileimporter": "Uvoznik datoteka",
@@ -82,7 +83,7 @@
 	"fileimporter-add-specific-template": "Datoteka je uvezena. Da biste označili da ona je sada na projektu {{SITENAME}}, molimo vratite se na [$1 izvornu datoteku] i dodajte ovaj predložak: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Nazad na izvornu datoteku",
 	"fileimporter-commonshelper-retrieval-failed": "Pogreška prilikom provjere blokiranih datoteka.",
-	"fileimporter-commonshelper-missing-config": "Nažalost, uvoz datoteka s izvornog wikiija ($1) još nije moguće jer ne postoji konfiguracija za taj wiki u [$2 konfiguracijskom spisku]. Informacije o postavljanju konfiguracijske datoteke možete naći na [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format stranici s dokumentacijom].",
+	"fileimporter-commonshelper-missing-config": "Uvoz datoteka s izvornog wikiija ($1) još nije moguće jer ne postoji konfiguracija za taj wiki u [$2 konfiguracijskoj listi]. Informacije o postavljanju konfiguracijske datoteke možete naći na [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format stranici s dokumentacijom].",
 	"fileimporter-commonshelper-parsing-failed": "Stranica s postavkama na vaš wiki ($1) je nepotpuna. Ne zaboravite da bi trebao sadržati odlomak \"$2\".",
 	"fileimporter-file-contains-blocked-category-template": "Ova datoteka ne može biti uvezena na projekt {{SITENAME}} zato jer je označena kao $1. Projekt {{SITENAME}} ne dopušta takve datoteke. To je moguće riješiti, ali najverojatnije znači da je datoteka neuskladiva. Molimo konzultirajte pravila [[Project:Licensing|projekta {{SITENAME}} i stranice za razgovor o licenciranju]].",
 	"fileimporter-file-missing-required-template": "Ova datoteka ne može biti uvezena na projekt {{SITENAME}} zato jer nije označena odgovarajućom licencijom. Projekt {{SITENAME}} ne dopušta takve datoteke. To je moguće riješiti, ali najverojatnije znači da je datoteka neuskladiva. Molimo konzultirajte pravila [[Project:Licensing|projekta {{SITENAME}} i stranice za razgovor o licenciranju]].",
