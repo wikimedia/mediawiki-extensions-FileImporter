@@ -39,7 +39,7 @@ class WikiLinkPrefixer implements WikiLinkCleaner {
 
 		try {
 			$title = $this->parser->parseTitle( $link );
-		} catch ( MalformedTitleException $ex ) {
+		} catch ( MalformedTitleException ) {
 			return $link;
 		}
 

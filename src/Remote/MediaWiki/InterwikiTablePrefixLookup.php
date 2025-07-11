@@ -196,7 +196,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 					}
 				}
 			}
-		} catch ( HttpRequestException $e ) {
+		} catch ( HttpRequestException ) {
 			$this->logger->warning( 'Failed to make API request to {api}.', [
 				'api' => $intermediateWikiApiUrl ] );
 		}

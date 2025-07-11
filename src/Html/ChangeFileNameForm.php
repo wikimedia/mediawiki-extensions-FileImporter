@@ -21,7 +21,7 @@ class ChangeFileNameForm extends SpecialPageHtmlFragment {
 	public function getHtml( ImportPlan $importPlan ): string {
 		try {
 			$filenameValue = $importPlan->getFileName();
-		} catch ( MalformedTitleException $ex ) {
+		} catch ( MalformedTitleException ) {
 			$filenameValue = $importPlan->getRequest()->getIntendedName();
 		}
 
