@@ -12,27 +12,19 @@ use MediaWiki\Linker\LinkTarget;
  */
 class ImportDetails {
 
-	private SourceUrl $sourceUrl;
-	private LinkTarget $sourceLinkTarget;
 	/** @var string|null */
 	private $pageLanguage;
-	private TextRevisions $textRevisions;
-	private FileRevisions $fileRevisions;
 	/** @var string[] */
 	private array $templates = [];
 	/** @var string[] */
 	private array $categories = [];
 
 	public function __construct(
-		SourceUrl $sourceUrl,
-		LinkTarget $sourceLinkTarget,
-		TextRevisions $textRevisions,
-		FileRevisions $fileRevisions
+		private readonly SourceUrl $sourceUrl,
+		private readonly LinkTarget $sourceLinkTarget,
+		private readonly TextRevisions $textRevisions,
+		private readonly FileRevisions $fileRevisions,
 	) {
-		$this->sourceUrl = $sourceUrl;
-		$this->sourceLinkTarget = $sourceLinkTarget;
-		$this->textRevisions = $textRevisions;
-		$this->fileRevisions = $fileRevisions;
 	}
 
 	public function setPageLanguage( ?string $languageCode ): void {

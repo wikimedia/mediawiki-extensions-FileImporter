@@ -23,18 +23,13 @@ class SourceWikiCleanupSnippet {
 	public const ACTION_OFFERED_SOURCE_DELETE = 'offeredSourceDelete';
 	public const ACTION_OFFERED_SOURCE_EDIT = 'offeredSourceEdit';
 
-	private bool $sourceEditingEnabled;
-	private bool $sourceDeletionEnabled;
 	private WikidataTemplateLookup $lookup;
 	private RemoteApiActionExecutor $remoteActionApi;
 
 	public function __construct(
-		bool $sourceEditingEnabled = true,
-		bool $sourceDeletionEnabled = true
+		private readonly bool $sourceEditingEnabled = true,
+		private readonly bool $sourceDeletionEnabled = true,
 	) {
-		$this->sourceEditingEnabled = $sourceEditingEnabled;
-		$this->sourceDeletionEnabled = $sourceDeletionEnabled;
-
 		// TODO: Inject
 		$this->lookup = MediaWikiServices::getInstance()->getService(
 			'FileImporterTemplateLookup' );

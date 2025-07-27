@@ -17,14 +17,13 @@ use Psr\Log\NullLogger;
  */
 class SiteTableSiteLookup {
 
-	private SiteLookup $siteLookup;
-	private LoggerInterface $logger;
 	/** @var array<string,string> */
 	private array $hostGlobalIdMap = [];
 
-	public function __construct( SiteLookup $siteLookup, ?LoggerInterface $logger = null ) {
-		$this->siteLookup = $siteLookup;
-		$this->logger = $logger ?? new NullLogger();
+	public function __construct(
+		private readonly SiteLookup $siteLookup,
+		private readonly LoggerInterface $logger = new NullLogger(),
+	) {
 	}
 
 	public function getSite( SourceUrl $sourceUrl ): ?Site {

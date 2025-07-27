@@ -27,14 +27,13 @@ class TextRevision {
 		'tags',
 	];
 
-	private array $fields;
-
 	/**
 	 * @throws InvalidArgumentException if incorrect fields are entered
 	 */
-	public function __construct( array $fields ) {
+	public function __construct(
+		private readonly array $fields,
+	) {
 		$this->throwExceptionIfMissingFields( $fields );
-		$this->fields = $fields;
 	}
 
 	private function throwExceptionIfMissingFields( array $fields ): void {

@@ -17,11 +17,6 @@ use OOUI\IconWidget;
  */
 class CategoriesSnippet {
 
-	/** @var string[] */
-	private array $visibleCategories;
-	/** @var string[] */
-	private array $hiddenCategories;
-
 	private ILanguageConverter $languageConverter;
 	private LinkRenderer $linkRenderer;
 	private IContextSource $context;
@@ -30,10 +25,10 @@ class CategoriesSnippet {
 	 * @param string[] $visibleCategories
 	 * @param string[] $hiddenCategories
 	 */
-	public function __construct( array $visibleCategories, array $hiddenCategories ) {
-		$this->visibleCategories = $visibleCategories;
-		$this->hiddenCategories = $hiddenCategories;
-
+	public function __construct(
+		private readonly array $visibleCategories,
+		private readonly array $hiddenCategories,
+	) {
 		$services = MediaWikiServices::getInstance();
 		$this->languageConverter = $services
 			->getLanguageConverterFactory()

@@ -18,9 +18,6 @@ use MediaWiki\Revision\SlotRecord;
 class CommonsHelperConfigRetriever {
 
 	private Config $mainConfig;
-	private HttpRequestExecutor $httpRequestExecutor;
-	private string $configServer;
-	private string $configBasePageName;
 
 	/** @var string|null Guaranteed to be set when {@link retrieveConfiguration} returned true */
 	private $configWikitext;
@@ -33,16 +30,12 @@ class CommonsHelperConfigRetriever {
 	 * @param string $configBasePageName Base page name, e.g. "Extension:FileImporter/Data/"
 	 */
 	public function __construct(
-		HttpRequestExecutor $httpRequestExecutor,
-		string $configServer,
-		string $configBasePageName
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+		private readonly string $configServer,
+		private readonly string $configBasePageName,
 	) {
 		// TODO: Inject?
 		$this->mainConfig = MediaWikiServices::getInstance()->getMainConfig();
-
-		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->configServer = $configServer;
-		$this->configBasePageName = $configBasePageName;
 	}
 
 	/**

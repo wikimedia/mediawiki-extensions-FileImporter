@@ -20,16 +20,10 @@ use MessageLocalizer;
  */
 class ImportPlan {
 
-	private ImportRequest $request;
-	private ImportDetails $details;
-	private Config $config;
-	private MessageLocalizer $messageLocalizer;
 	/** @var Title|null */
 	private $title = null;
 	/** @var Title|null */
 	private $originalTitle = null;
-	/** @var string */
-	private $interWikiPrefix;
 	/** @var string|null */
 	private $cleanedLatestRevisionText;
 	private int $numberOfTemplateReplacements = 0;
@@ -45,17 +39,12 @@ class ImportPlan {
 	 * Use an ImportPlanFactory instance.
 	 */
 	public function __construct(
-		ImportRequest $request,
-		ImportDetails $details,
-		Config $config,
-		MessageLocalizer $messageLocalizer,
-		string $prefix
+		private readonly ImportRequest $request,
+		private readonly ImportDetails $details,
+		private readonly Config $config,
+		private readonly MessageLocalizer $messageLocalizer,
+		private readonly string $interWikiPrefix,
 	) {
-		$this->request = $request;
-		$this->details = $details;
-		$this->config = $config;
-		$this->messageLocalizer = $messageLocalizer;
-		$this->interWikiPrefix = $prefix;
 	}
 
 	public function getRequest(): ImportRequest {

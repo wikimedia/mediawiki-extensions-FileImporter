@@ -23,26 +23,18 @@ use UploadBase;
  */
 class ValidatingUploadBase extends UploadBase {
 
-	private LoggerInterface $logger;
-
-	/**
-	 * @param LinkTarget $targetTitle
-	 * @param string $tempPath
-	 * @param LoggerInterface|null $logger
-	 */
 	public function __construct(
 		LinkTarget $targetTitle,
-		$tempPath,
-		?LoggerInterface $logger = null
+		string $tempPath,
+		private readonly LoggerInterface $logger = new NullLogger(),
 	) {
+		parent::__construct();
 		$this->initializePathInfo(
 			$targetTitle->getText(),
 			$tempPath,
 			null,
 			false
 		);
-		$this->logger = $logger ?? new NullLogger();
-		parent::__construct();
 	}
 
 	/**

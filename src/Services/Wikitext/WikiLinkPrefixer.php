@@ -17,16 +17,14 @@ use MediaWiki\Title\TitleParser;
  */
 class WikiLinkPrefixer implements WikiLinkCleaner {
 
-	private string $interWikiPrefix;
-	private TitleParser $parser;
-
 	/**
 	 * @param string $interWikiPrefix E.g. "de" for the German Wikipedia.
 	 * @param TitleParser $parser
 	 */
-	public function __construct( string $interWikiPrefix, TitleParser $parser ) {
-		$this->interWikiPrefix = $interWikiPrefix;
-		$this->parser = $parser;
+	public function __construct(
+		private readonly string $interWikiPrefix,
+		private readonly TitleParser $parser,
+	) {
 	}
 
 	public function process( string $link ): string {

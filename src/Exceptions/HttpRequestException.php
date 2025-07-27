@@ -13,13 +13,10 @@ use StatusValue;
  */
 class HttpRequestException extends ImportException {
 
-	private StatusValue $statusValue;
-	private MWHttpRequest $httpRequest;
-
-	public function __construct( StatusValue $statusValue, MWHttpRequest $httpRequest ) {
-		$this->statusValue = $statusValue;
-		$this->httpRequest = $httpRequest;
-
+	public function __construct(
+		private readonly StatusValue $statusValue,
+		private readonly MWHttpRequest $httpRequest,
+	) {
 		parent::__construct( (string)$statusValue, $httpRequest->getStatus() );
 	}
 

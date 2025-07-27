@@ -16,10 +16,9 @@ use StatusValue;
  */
 class SuggestManualTemplateAction implements PostImportHandler {
 
-	private WikidataTemplateLookup $templateLookup;
-
-	public function __construct( WikidataTemplateLookup $templateLookup ) {
-		$this->templateLookup = $templateLookup;
+	public function __construct(
+		private readonly WikidataTemplateLookup $templateLookup,
+	) {
 	}
 
 	/**

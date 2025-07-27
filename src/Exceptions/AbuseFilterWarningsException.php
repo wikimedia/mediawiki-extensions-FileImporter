@@ -9,14 +9,12 @@ use Wikimedia\Message\MessageSpecifier;
  */
 class AbuseFilterWarningsException extends LocalizedImportException {
 
-	/** @var MessageSpecifier[] */
-	private array $messages;
-
 	/**
 	 * @param MessageSpecifier[] $messages
 	 */
-	public function __construct( array $messages ) {
-		$this->messages = $messages;
+	public function __construct(
+		private readonly array $messages,
+	) {
 		parent::__construct( 'fileimporter-warningabusefilter' );
 	}
 

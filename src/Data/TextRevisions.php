@@ -10,18 +10,17 @@ use Wikimedia\Assert\Assert;
  */
 class TextRevisions {
 
-	/** @var TextRevision[] */
-	private array $textRevisions;
 	/** @var int|null */
 	private $latestKey = null;
 
 	/**
 	 * @param TextRevision[] $textRevisions
 	 */
-	public function __construct( array $textRevisions ) {
+	public function __construct(
+		private readonly array $textRevisions,
+	) {
 		Assert::parameter( $textRevisions !== [], '$textRevisions', 'cannot be empty' );
 		Assert::parameterElementType( TextRevision::class, $textRevisions, '$textRevisions' );
-		$this->textRevisions = $textRevisions;
 	}
 
 	/**

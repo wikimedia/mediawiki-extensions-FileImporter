@@ -10,14 +10,12 @@ use FileImporter\Data\SourceUrl;
  */
 class AllowedDomainsFileUrlChecker extends AnyMediaWikiFileUrlChecker {
 
-	/** @var string[] */
-	private array $allowedDomains;
-
 	/**
 	 * @param string[] $allowedDomains
 	 */
-	public function __construct( array $allowedDomains ) {
-		$this->allowedDomains = $allowedDomains;
+	public function __construct(
+		private readonly array $allowedDomains,
+	) {
 	}
 
 	/**

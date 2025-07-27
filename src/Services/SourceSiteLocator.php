@@ -13,14 +13,12 @@ use FileImporter\Exceptions\SourceUrlException;
  */
 class SourceSiteLocator {
 
-	/** @var SourceSite[] */
-	private array $sourceSites;
-
 	/**
 	 * @param SourceSite[] $sourceSites
 	 */
-	public function __construct( array $sourceSites ) {
-		$this->sourceSites = $sourceSites;
+	public function __construct(
+		private readonly array $sourceSites,
+	) {
 	}
 
 	/**

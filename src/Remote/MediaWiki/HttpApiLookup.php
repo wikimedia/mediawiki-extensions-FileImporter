@@ -24,14 +24,14 @@ use Psr\Log\NullLogger;
  */
 class HttpApiLookup implements LoggerAwareInterface {
 
-	private HttpRequestExecutor $httpRequestExecutor;
 	private LoggerInterface $logger;
 
 	/** @var string[] url => apiUrl */
 	private array $resultCache = [];
 
-	public function __construct( HttpRequestExecutor $httpRequestExecutor ) {
-		$this->httpRequestExecutor = $httpRequestExecutor;
+	public function __construct(
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+	) {
 		$this->logger = new NullLogger();
 	}
 

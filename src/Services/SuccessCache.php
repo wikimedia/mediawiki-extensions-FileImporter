@@ -19,13 +19,10 @@ class SuccessCache {
 
 	private const CACHE_KEY = 'fileImporter_result';
 
-	private readonly LoggerInterface $logger;
-
 	public function __construct(
 		private readonly BagOStuff $cache,
-		?LoggerInterface $logger = null
+		private readonly LoggerInterface $logger = new NullLogger(),
 	) {
-		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

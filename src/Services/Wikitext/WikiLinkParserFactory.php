@@ -14,15 +14,12 @@ use MediaWiki\Title\TitleParser;
 class WikiLinkParserFactory {
 	use MediaWikiSourceUrlParser;
 
-	private readonly TitleParser $titleParser;
-
 	public function __construct(
-		TitleParser $titleParser,
+		// FIXME: This needs to be a parser in the context of the *source* wiki
+		private readonly TitleParser $titleParser,
 		private readonly NamespaceInfo $namespaceInfo,
 		private readonly LanguageFactory $languageFactory,
 	) {
-		// FIXME: This needs to be a parser in the context of the *source* wiki
-		$this->titleParser = $titleParser;
 	}
 
 	public function getWikiLinkParser( ?string $languageCode, string $interWikiPrefix ): WikiLinkParser {

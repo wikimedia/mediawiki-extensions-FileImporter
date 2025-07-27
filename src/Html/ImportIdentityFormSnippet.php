@@ -13,8 +13,6 @@ use MediaWiki\Html\Html;
  */
 class ImportIdentityFormSnippet {
 
-	private array $identityParts;
-
 	private const IDENTITY_KEYS = [
 		'clientUrl',
 		'intendedFileName',
@@ -53,8 +51,9 @@ class ImportIdentityFormSnippet {
 	 *     - importDetailsHash, generated from the first import request, to ensure we know what
 	 *                          we are importing
 	 */
-	public function __construct( array $identityParts ) {
-		$this->identityParts = $identityParts;
+	public function __construct(
+		private readonly array $identityParts,
+	) {
 	}
 
 	public function getHtml(): string {

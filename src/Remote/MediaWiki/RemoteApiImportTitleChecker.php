@@ -17,18 +17,11 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 
 	private const ERROR_TITLE_STATE = 'noTitleStateFetched';
 
-	private HttpApiLookup $httpApiLookup;
-	private HttpRequestExecutor $httpRequestExecutor;
-	private LoggerInterface $logger;
-
 	public function __construct(
-		HttpApiLookup $httpApiLookup,
-		HttpRequestExecutor $httpRequestExecutor,
-		LoggerInterface $logger
+		private readonly HttpApiLookup $httpApiLookup,
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+		private readonly LoggerInterface $logger,
 	) {
-		$this->httpApiLookup = $httpApiLookup;
-		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->logger = $logger;
 	}
 
 	/**

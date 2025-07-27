@@ -20,26 +20,16 @@ use Wikimedia\Stats\StatsFactory;
  */
 class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 
-	private PostImportHandler $fallbackHandler;
-	private WikidataTemplateLookup $templateLookup;
-	private RemoteApiActionExecutor $remoteAction;
-	private UrlUtils $urlUtils;
-	private LoggerInterface $logger;
 	private CounterMetric $postImportCounter;
 
 	public function __construct(
-		PostImportHandler $fallbackHandler,
-		WikidataTemplateLookup $templateLookup,
-		RemoteApiActionExecutor $remoteAction,
-		UrlUtils $urlUtils,
-		?LoggerInterface $logger = null,
+		private readonly PostImportHandler $fallbackHandler,
+		private readonly WikidataTemplateLookup $templateLookup,
+		private readonly RemoteApiActionExecutor $remoteAction,
+		private readonly UrlUtils $urlUtils,
+		private readonly LoggerInterface $logger = new NullLogger(),
 		?StatsFactory $statsFactory = null
 	) {
-		$this->fallbackHandler = $fallbackHandler;
-		$this->templateLookup = $templateLookup;
-		$this->remoteAction = $remoteAction;
-		$this->urlUtils = $urlUtils;
-		$this->logger = $logger ?? new NullLogger();
 		$statsFactory ??= StatsFactory::newNull();
 		$this->postImportCounter = $statsFactory->getCounter( 'FileImporter_postImport_results_total' );
 	}

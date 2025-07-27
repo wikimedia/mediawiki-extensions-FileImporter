@@ -11,17 +11,10 @@ use FileImporter\Exceptions\LocalizedImportException;
  */
 class CommonsHelperConfigParser {
 
-	/** @var string */
-	private $commonsHelperConfigUrl;
-	private string $wikitext;
-
-	/**
-	 * @param string $commonsHelperConfigUrl
-	 * @param string $wikitext
-	 */
-	public function __construct( $commonsHelperConfigUrl, string $wikitext ) {
-		$this->commonsHelperConfigUrl = $commonsHelperConfigUrl;
-		$this->wikitext = $wikitext;
+	public function __construct(
+		private readonly string $commonsHelperConfigUrl,
+		private readonly string $wikitext,
+	) {
 	}
 
 	/**

@@ -27,10 +27,6 @@ use Psr\Log\NullLogger;
 class ApiDetailRetriever implements DetailRetriever {
 	use MediaWikiSourceUrlParser;
 
-	private HttpApiLookup $httpApiLookup;
-	private HttpRequestExecutor $httpRequestExecutor;
-	private int $maxBytes;
-	private LoggerInterface $logger;
 	/**
 	 * @var string Placeholder name replacing usernames that have been suppressed as part of
 	 * a steward action on the source site.
@@ -47,16 +43,11 @@ class ApiDetailRetriever implements DetailRetriever {
 	 * @throws ConfigException when $wgFileImporterAccountForSuppressedUsername is invalid
 	 */
 	public function __construct(
-		HttpApiLookup $httpApiLookup,
-		HttpRequestExecutor $httpRequestExecutor,
-		int $maxBytes,
-		?LoggerInterface $logger = null
+		private readonly HttpApiLookup $httpApiLookup,
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+		private readonly int $maxBytes,
+		private readonly LoggerInterface $logger = new NullLogger(),
 	) {
-		$this->httpApiLookup = $httpApiLookup;
-		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->maxBytes = $maxBytes;
-		$this->logger = $logger ?? new NullLogger();
-
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		$this->maxRevisions = (int)$config->get( 'FileImporterMaxRevisions' );

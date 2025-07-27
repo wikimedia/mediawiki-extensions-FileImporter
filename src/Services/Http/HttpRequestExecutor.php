@@ -15,10 +15,7 @@ use Psr\Log\NullLogger;
  */
 class HttpRequestExecutor implements LoggerAwareInterface {
 
-	private HttpRequestFactory $httpRequestFactory;
 	private LoggerInterface $logger;
-	private int $maxFileSize;
-	private array $httpOptions;
 
 	/**
 	 * @param HttpRequestFactory $httpRequestFactory
@@ -32,14 +29,11 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 	 * @param int $maxFileSize in bytes
 	 */
 	public function __construct(
-		HttpRequestFactory $httpRequestFactory,
-		array $httpOptions,
-		int $maxFileSize
+		private readonly HttpRequestFactory $httpRequestFactory,
+		private readonly array $httpOptions,
+		private readonly int $maxFileSize,
 	) {
-		$this->httpRequestFactory = $httpRequestFactory;
 		$this->logger = new NullLogger();
-		$this->maxFileSize = $maxFileSize;
-		$this->httpOptions = $httpOptions;
 	}
 
 	/**
@@ -81,6 +75,7 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 			'logger' => $this->logger,
 			'followRedirects' => true,
 		];
+		// @phan-suppress-next-line PhanAccessReadOnlyProperty
 		if ( isset( $this->httpOptions['originalRequest'] ) ) {
 			$options['originalRequest'] = $this->httpOptions['originalRequest'];
 		}

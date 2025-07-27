@@ -12,23 +12,20 @@ class DuplicateFilesException extends ImportException {
 
 	private const ERROR_CODE = 'duplicateFiles';
 
-	/** @var File[] */
-	private array $files;
-
 	/**
 	 * @param File[] $duplicateFiles
 	 */
-	public function __construct( array $duplicateFiles ) {
-		$this->files = $duplicateFiles;
-
+	public function __construct(
+		private readonly array $duplicateFiles,
+	) {
 		parent::__construct( 'File already on wiki', self::ERROR_CODE );
 	}
 
 	/**
 	 * @return File[]
 	 */
-	public function getFiles() {
-		return $this->files;
+	public function getFiles(): array {
+		return $this->duplicateFiles;
 	}
 
 }

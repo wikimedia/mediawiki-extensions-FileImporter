@@ -29,18 +29,11 @@ abstract class SpecialPageHtmlFragment implements MessageLocalizer {
 	/**
 	 * Implementations should not have a constructor, but provide whatever is needed as arguments to
 	 * their `getHtml` method.
-	 *
-	 * @param SpecialPage|self $specialPage
 	 */
-	final public function __construct( $specialPage ) {
-		if ( $specialPage instanceof self ) {
-			$specialPage = $specialPage->specialPage;
-		} elseif ( !( $specialPage instanceof SpecialPage ) ) {
-			throw new \InvalidArgumentException(
-				'$specialPage must be a SpecialPage or SpecialPageHtmlFragment' );
-		}
-
-		$this->specialPage = $specialPage;
+	final public function __construct(
+		SpecialPage|self $specialPage,
+	) {
+		$this->specialPage = $specialPage instanceof self ? $specialPage->specialPage : $specialPage;
 	}
 
 	protected function getPageTitle(): Title {

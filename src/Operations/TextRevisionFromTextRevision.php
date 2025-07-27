@@ -21,36 +21,30 @@ use WikiRevision;
  */
 class TextRevisionFromTextRevision implements ImportOperation {
 
-	private Title $plannedTitle;
-	/** @var User user performing the import */
-	private User $user;
-	private TextRevision $textRevision;
-	private WikiRevisionFactory $wikiRevisionFactory;
 	/** @var WikiRevision|null */
 	private $wikiRevision;
-	private OldRevisionImporter $importer;
-	private FileTextRevisionValidator $textRevisionValidator;
-	private RestrictionStore $restrictionStore;
-	private LoggerInterface $logger;
 
+	/**
+	 * @param Title $plannedTitle
+	 * @param User $user The user performing the import
+	 * @param TextRevision $textRevision
+	 * @param WikiRevisionFactory $wikiRevisionFactory
+	 * @param OldRevisionImporter $importer
+	 * @param FileTextRevisionValidator $textRevisionValidator
+	 * @param RestrictionStore $restrictionStore
+	 * @param LoggerInterface $logger
+	 */
 	public function __construct(
-		Title $plannedTitle,
-		User $user,
-		TextRevision $textRevision,
-		WikiRevisionFactory $wikiRevisionFactory,
-		OldRevisionImporter $importer,
-		FileTextRevisionValidator $textRevisionValidator,
-		RestrictionStore $restrictionStore,
-		?LoggerInterface $logger = null
+		private readonly Title $plannedTitle,
+		private readonly User $user,
+		private readonly TextRevision $textRevision,
+		private readonly WikiRevisionFactory $wikiRevisionFactory,
+		private readonly OldRevisionImporter $importer,
+		private readonly FileTextRevisionValidator $textRevisionValidator,
+		private readonly RestrictionStore $restrictionStore,
+		// @phan-suppress-next-line PhanTypeMismatchPropertyDefault
+		private readonly LoggerInterface $logger = new NullLogger(),
 	) {
-		$this->plannedTitle = $plannedTitle;
-		$this->user = $user;
-		$this->textRevision = $textRevision;
-		$this->wikiRevisionFactory = $wikiRevisionFactory;
-		$this->importer = $importer;
-		$this->textRevisionValidator = $textRevisionValidator;
-		$this->restrictionStore = $restrictionStore;
-		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

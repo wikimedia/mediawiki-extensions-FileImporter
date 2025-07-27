@@ -34,60 +34,24 @@ use WikiRevision;
  */
 class FileRevisionFromRemoteUrl implements ImportOperation {
 
-	private Title $plannedTitle;
-	private User $user;
-	private FileRevision $fileRevision;
-	private ?TextRevision $textRevision;
-	private UserIdentityLookup $userLookup;
-	private HttpRequestExecutor $httpRequestExecutor;
-	private WikiRevisionFactory $wikiRevisionFactory;
-	private UploadBaseFactory $uploadBaseFactory;
-	private UploadRevisionImporter $importer;
-	private RestrictionStore $restrictionStore;
-	private LoggerInterface $logger;
-
 	/** @var WikiRevision|null */
 	private $wikiRevision = null;
 	/** @var ValidatingUploadBase|null */
 	private $uploadBase = null;
 
-	/**
-	 * @param Title $plannedTitle
-	 * @param User $user user performing the import
-	 * @param FileRevision $fileRevision
-	 * @param TextRevision|null $textRevision
-	 * @param UserIdentityLookup $userLookup
-	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param WikiRevisionFactory $wikiRevisionFactory
-	 * @param UploadBaseFactory $uploadBaseFactory
-	 * @param UploadRevisionImporter $importer
-	 * @param RestrictionStore $restrictionStore
-	 * @param LoggerInterface|null $logger
-	 */
 	public function __construct(
-		Title $plannedTitle,
-		User $user,
-		FileRevision $fileRevision,
-		?TextRevision $textRevision,
-		UserIdentityLookup $userLookup,
-		HttpRequestExecutor $httpRequestExecutor,
-		WikiRevisionFactory $wikiRevisionFactory,
-		UploadBaseFactory $uploadBaseFactory,
-		UploadRevisionImporter $importer,
-		RestrictionStore $restrictionStore,
-		?LoggerInterface $logger = null
+		private readonly Title $plannedTitle,
+		private readonly User $user,
+		private readonly FileRevision $fileRevision,
+		private readonly ?TextRevision $textRevision,
+		private readonly UserIdentityLookup $userLookup,
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+		private readonly WikiRevisionFactory $wikiRevisionFactory,
+		private readonly UploadBaseFactory $uploadBaseFactory,
+		private readonly UploadRevisionImporter $importer,
+		private readonly RestrictionStore $restrictionStore,
+		private readonly LoggerInterface $logger = new NullLogger(),
 	) {
-		$this->plannedTitle = $plannedTitle;
-		$this->user = $user;
-		$this->fileRevision = $fileRevision;
-		$this->textRevision = $textRevision;
-		$this->userLookup = $userLookup;
-		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->wikiRevisionFactory = $wikiRevisionFactory;
-		$this->uploadBaseFactory = $uploadBaseFactory;
-		$this->importer = $importer;
-		$this->restrictionStore = $restrictionStore;
-		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**

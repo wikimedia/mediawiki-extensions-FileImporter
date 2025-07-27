@@ -19,9 +19,6 @@ use Psr\Log\NullLogger;
  */
 class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 
-	private InterwikiLookup $interwikiLookup;
-	private HttpApiLookup $httpApiLookup;
-	private HttpRequestExecutor $httpRequestExecutor;
 	/** @var array<string,string>|null Array mapping full host name to interwiki prefix */
 	private $interwikiTableMap = null;
 	/**
@@ -30,29 +27,22 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * language version of Wiktionary.
 	 */
 	private $parentDomainToUrlMap = null;
-	/** @var string[] */
-	private array $interWikiConfigMap;
-	private LoggerInterface $logger;
 
 	/**
 	 * @param InterwikiLookup $interwikiLookup
 	 * @param HttpApiLookup $httpApiLookup
 	 * @param HttpRequestExecutor $httpRequestExecutor
-	 * @param string[] $interWikiConfigMap
-	 * @param LoggerInterface|null $logger
+	 * @param array<string,string> $interWikiConfigMap from $wgFileImporterInterWikiMap
+	 * @param LoggerInterface $logger
 	 */
 	public function __construct(
-		InterwikiLookup $interwikiLookup,
-		HttpApiLookup $httpApiLookup,
-		HttpRequestExecutor $httpRequestExecutor,
-		array $interWikiConfigMap = [],
-		?LoggerInterface $logger = null
+		private readonly InterwikiLookup $interwikiLookup,
+		private readonly HttpApiLookup $httpApiLookup,
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+		private readonly array $interWikiConfigMap = [],
+		// @phan-suppress-next-line PhanTypeMismatchPropertyDefault
+		private readonly LoggerInterface $logger = new NullLogger(),
 	) {
-		$this->interwikiLookup = $interwikiLookup;
-		$this->httpApiLookup = $httpApiLookup;
-		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->interWikiConfigMap = $interWikiConfigMap;
-		$this->logger = $logger ?? new NullLogger();
 	}
 
 	/**
@@ -76,6 +66,7 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @deprecated This configuration will go away once dynamic lookup is in place.
 	 */
 	private function getPrefixFromLegacyConfig( string $host ): ?string {
+		// @phan-suppress-next-line PhanAccessReadOnlyProperty
 		if ( isset( $this->interWikiConfigMap[$host] ) ) {
 			$prefixes = explode( ':', $this->interWikiConfigMap[$host], 2 );
 			if ( !$this->interwikiLookup->isValidInterwiki( $prefixes[0] ) ) {

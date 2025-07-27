@@ -44,44 +44,22 @@ class Importer {
 
 	private const ERROR_NO_NEW_PAGE = 'noPageCreated';
 
-	private WikiPageFactory $wikiPageFactory;
-	private WikiRevisionFactory $wikiRevisionFactory;
-	private NullRevisionCreator $nullRevisionCreator;
-	private UserIdentityLookup $userLookup;
-	private HttpRequestExecutor $httpRequestExecutor;
-	private UploadBaseFactory $uploadBaseFactory;
-	private OldRevisionImporter $oldRevisionImporter;
-	private UploadRevisionImporter $uploadRevisionImporter;
-	private FileTextRevisionValidator $textRevisionValidator;
-	private RestrictionStore $restrictionStore;
-	private LoggerInterface $logger;
 	private StatsFactory $statsFactory;
 
 	public function __construct(
-		WikiPageFactory $wikiPageFactory,
-		WikiRevisionFactory $wikiRevisionFactory,
-		NullRevisionCreator $nullRevisionCreator,
-		UserIdentityLookup $userLookup,
-		HttpRequestExecutor $httpRequestExecutor,
-		UploadBaseFactory $uploadBaseFactory,
-		OldRevisionImporter $oldRevisionImporter,
-		UploadRevisionImporter $uploadRevisionImporter,
-		FileTextRevisionValidator $textRevisionValidator,
-		RestrictionStore $restrictionStore,
-		?LoggerInterface $logger = null,
-		?StatsFactory $statsFactory = null
+		private readonly WikiPageFactory $wikiPageFactory,
+		private readonly WikiRevisionFactory $wikiRevisionFactory,
+		private readonly NullRevisionCreator $nullRevisionCreator,
+		private readonly UserIdentityLookup $userLookup,
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+		private readonly UploadBaseFactory $uploadBaseFactory,
+		private readonly OldRevisionImporter $oldRevisionImporter,
+		private readonly UploadRevisionImporter $uploadRevisionImporter,
+		private readonly FileTextRevisionValidator $textRevisionValidator,
+		private readonly RestrictionStore $restrictionStore,
+		private readonly LoggerInterface $logger = new NullLogger(),
+		?StatsFactory $statsFactory = null,
 	) {
-		$this->wikiPageFactory = $wikiPageFactory;
-		$this->wikiRevisionFactory = $wikiRevisionFactory;
-		$this->nullRevisionCreator = $nullRevisionCreator;
-		$this->userLookup = $userLookup;
-		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->uploadBaseFactory = $uploadBaseFactory;
-		$this->oldRevisionImporter = $oldRevisionImporter;
-		$this->uploadRevisionImporter = $uploadRevisionImporter;
-		$this->textRevisionValidator = $textRevisionValidator;
-		$this->restrictionStore = $restrictionStore;
-		$this->logger = $logger ?? new NullLogger();
 		$statsFactory ??= StatsFactory::newNull();
 		$this->statsFactory = $statsFactory->withComponent( 'FileImporter' );
 	}
