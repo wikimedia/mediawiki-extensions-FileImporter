@@ -16,7 +16,7 @@ use Wikimedia\Message\MessageSpecifier;
 class LocalizedImportException extends ImportException {
 
 	/** @var string|array|MessageSpecifier */
-	protected $messageSpec;
+	private $messageSpec;
 
 	/**
 	 * @param string|array|MessageSpecifier $messageSpec See Message::newFromSpecifier

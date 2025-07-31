@@ -10,7 +10,7 @@ use Wikimedia\Message\MessageSpecifier;
 class AbuseFilterWarningsException extends LocalizedImportException {
 
 	/** @var MessageSpecifier[] */
-	protected array $messages;
+	private array $messages;
 
 	/**
 	 * @param MessageSpecifier[] $messages
