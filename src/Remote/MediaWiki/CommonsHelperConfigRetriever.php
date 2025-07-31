@@ -22,10 +22,10 @@ class CommonsHelperConfigRetriever {
 	private string $configServer;
 	private string $configBasePageName;
 
-	/** @var string|null */
-	private $configWikitext = null;
-	/** @var string|null */
-	private $configWikiUrl = null;
+	/** @var string|null Guaranteed to be set when {@link retrieveConfiguration} returned true */
+	private $configWikitext;
+	/** @var string|null Guaranteed to be set when {@link retrieveConfiguration} returned true */
+	private $configWikiUrl;
 
 	/**
 	 * @param HttpRequestExecutor $httpRequestExecutor
@@ -78,14 +78,14 @@ class CommonsHelperConfigRetriever {
 	}
 
 	/**
-	 * @return string|null
+	 * @return string
 	 */
 	public function getConfigWikitext() {
 		return $this->configWikitext;
 	}
 
 	/**
-	 * @return string|null
+	 * @return string
 	 */
 	public function getConfigWikiUrl() {
 		return $this->configWikiUrl;

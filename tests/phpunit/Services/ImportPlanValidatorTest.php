@@ -344,6 +344,8 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 		$commonsHelperConfigRetriever->expects( $this->once() )
 			->method( 'retrieveConfiguration' )
 			->willReturn( true );
+		$commonsHelperConfigRetriever->method( 'getConfigWikiUrl' )
+			->willReturn( '' );
 		$commonsHelperConfigRetriever->method( 'getConfigWikitext' )
 			->willReturn( "==Categories==\n===Bad===\n" .
 				"==Templates==\n===Good===\n===Bad===\n===Remove===\n*MOVE\n===Transfer===\n" .
