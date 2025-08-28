@@ -5,6 +5,7 @@
 		]
 	},
 	"fileimporter-desc": "Кхечу сайташкара файлаш атта импортяр",
+	"fileimporter-help-banner-text": "'''Кхечу викишкара импорт йар'''\n#Талла, хийца файлан цӀе а, лахара информаци а.\n#Харжа хьайна лаахь FileImporter йуьхьанцара вики дӀайаккхархьама, йуьхьанцара файлан «[//en.wikipedia.org/wiki/Template:Now_Commons Викилармин тӀехь тӀекхочу]» кеп тӀетохарца. (Нагахь санна хьан администраторан бакъонаш йелахь, хьан аьтто бу йуьхьанцара файл дӀайаккха а).\n#'''{{int:fileimporter-import}}''' тӀетаӀайе, файл {{SITENAME}} чу копийан.\n\nЛицензех лаьцна информаци хьажа {{SITENAME}} [[Project:Licensing|йукъараллин политика]].<br />FileImporter лелорах лаьцна кхин а инструкцеш хьажа [//www.mediawiki.org/wiki/Help:Extension:FileImporter гӀоьнан агӀонехь].\n\nНагахь санна хьайна хетарг делахь, муха тодан деза FileImporter шордар, дехар до, хаам бита [//www.mediawiki.org/wiki/Extension_talk:FileImporter дийцарийн агӀонан тӀехь].",
 	"fileimporter-help-banner-close-tooltip": "ХӀара хаам кхий ма гайта",
 	"tag-fileimporter": "FileImporter шордарца хийцина",
 	"tag-fileimporter-imported": "FileImporter гӀоьнца импортйина",
@@ -41,10 +42,10 @@
 	"fileimporter-delete-checkboxlabel": "Вики чуьра сан цӀарца дӀайаккха файл",
 	"fileimporter-import-wait": "Импорт йеш массийта минот йала мега.",
 	"fileimporter-imported-success-banner": "ХӀара файл {{SITENAME}} чуйаьккхина.",
-	"fileimporter-add-unknown-template": "Файл импортйина. Файл {{SITENAME}} чохь йу аьлла дӀайаздан, йухагӀо [$1 файлан оригинал] йолче, цига хӀоттайе кеп.",
+	"fileimporter-add-unknown-template": "Файл импортйина. Файл {{SITENAME}} чохь йу аьлла дӀайаздан, йухагӀо [$1 файлан оригинал] йолче, цига хӀоттайе кеп, дуккхачу хьолехь <code><nowiki>{{NowCommons}}</nowiki></code>.",
 	"fileimporter-add-specific-template": "Файл импортйина. Файл {{SITENAME}} чохь йу аьлла дӀайаздан, йухагӀо [$1 файлан оригинал] йолче, цига хӀоттайе кеп: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Файлан оригиналан тӀе гӀо",
-	"fileimporter-commonshelper-missing-config": "($1) вики чуьра файлаш импорт йан аьтту бац. $2 тӀехь викин конфигураци йац.",
+	"fileimporter-commonshelper-missing-config": "Халахеташ делахь а, хьостан вики тӀера файлаш чуйаха ($1) хӀинца а йиш йац, хӀунда аьлча [$2 конфигурацин файлийн могӀамехь] викина конфигураци йац. Викина конфигурацин файл хӀотторах лаьцна хаамаш лаха хьажа FileImporter [https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format конфигурацин файлан документацин агӀо].",
 	"fileimporter-viewdiff": "Гайта хийцамаш",
 	"fileimporter-to-preview": "ЙухагӀо хьалха хьажаре"
 }
