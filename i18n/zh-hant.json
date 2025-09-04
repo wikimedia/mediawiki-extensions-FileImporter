@@ -93,7 +93,7 @@
 	"fileimporter-add-specific-template": "檔案已匯入。要聲明檔案現在位於{{SITENAME}}上，請返回[$1 原始檔案]並添加這個模板：<code><nowiki>{{$2|$3}}</nowiki></code>。",
 	"fileimporter-go-to-original-file-button": "返回至原始檔案",
 	"fileimporter-commonshelper-retrieval-failed": "檢查被封鎖檔案時發生錯誤。",
-	"fileimporter-commonshelper-missing-config": "很不巧地，目前尚無法從來源 wiki（$1）匯入檔案，因為在 [$2 設置檔案清單]裡沒有用於 wiki 的設置。更多關於設定用於 wiki 設置檔案的資訊，請檢視 FileImporter 的[https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format|設置檔案文件頁面]",
+	"fileimporter-commonshelper-missing-config": "很不巧地，目前尚無法從來源 wiki（$1）匯入檔案，因為在 [$2 設置檔案清單]裡沒有用於 wiki 的設置。更多關於設定用於 wiki 設置檔案的資訊，請檢視 FileImporter 的[https://www.mediawiki.org/wiki/Extension:FileImporter/Configuration_format 設置檔案文件頁面]",
 	"fileimporter-commonshelper-parsing-failed": "您 wiki（$1）的設置頁面不完全。請確認有包含「$2」段落。",
 	"fileimporter-file-contains-blocked-category-template": "檔案無法匯入至{{SITENAME}}，因為被標記成$1。{{SITENAME}}不允許這類型檔案。這或許可以解決，但很可能意味著該檔案不兼容。請查閱[[Project:Licensing|{{SITENAME}}的社群方針及有關授權的討論頁]]。",
 	"fileimporter-file-missing-required-template": "檔案無法匯入至{{SITENAME}}，因為沒有標記有相容的授權。{{SITENAME}}不允許這類型檔案。這或許可以解決，但很可能意味著該檔案不兼容。請查閱[[Project:Licensing|{{SITENAME}}的社群方針及有關授權的討論頁]]。",
