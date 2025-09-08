@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"GilPe",
 			"Robby",
 			"Soued031",
 			"Volvox"
@@ -30,7 +31,7 @@
 	"fileimporter-editinfo": "Info vum Fichier änneren",
 	"fileimporter-extensionlabel": "Erweiderung vum Fichier:",
 	"fileimporter-newfilename": "Neien Numm vum Fichier:",
-	"fileimporter-editsummary": "Resumé vun der Ännerung:",
+	"fileimporter-editsummary": "Resümmee vun der Ännerung:",
 	"fileimporter-heading-fileinfo": "Informatioun vum Fichier",
 	"fileimporter-heading-filehistory": "Versiounen",
 	"fileimporter-delete-summary": "Dëse Fichier ass elo op {{SITENAME}} als $1 (geréckelt mat FileImporter).",
