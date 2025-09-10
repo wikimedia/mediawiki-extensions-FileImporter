@@ -4,8 +4,18 @@
 			"Song GK"
 		]
 	},
+	"fileimporter-help-banner-close-tooltip": "Anang mandangka pesan tu agi",
+	"fileimporter-specialpage": "Import fail",
+	"fileimporter-importfailed": "Import puntan",
+	"fileimporter-api-file-notfound": "Fail enda ditemu: $1",
+	"fileimporter-http-statuscode": "Kod status HTTP $1.",
+	"fileimporter-exampleprefix": "Chunto",
+	"fileimporter-import": "Import",
 	"fileimporter-cancel": "Kinsil",
 	"fileimporter-edittitle": "Edit Tajuk",
 	"fileimporter-editinfo": "Edit Info Fail",
-	"fileimporter-newfilename": "Nama baru fail:"
+	"fileimporter-newfilename": "Nama baru fail:",
+	"fileimporter-heading-fileinfo": "Penerang fail",
+	"fileimporter-heading-filehistory": "Sejarah fail",
+	"fileimporter-viewdiff": "Mandangka ubah"
 }
