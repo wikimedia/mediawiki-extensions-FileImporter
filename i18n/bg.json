@@ -5,6 +5,7 @@
 			"Ted Masters"
 		]
 	},
+	"tag-fileimporter": "Променено чрез FileImporter",
 	"fileimporter-specialpage": "Внасяне на файл",
 	"fileimporter-importfailed": "Внасянето се провали",
 	"fileimporter-filenameerror-illegal": "Името на файла, което се опитвате да внесете, не е валидно.",
