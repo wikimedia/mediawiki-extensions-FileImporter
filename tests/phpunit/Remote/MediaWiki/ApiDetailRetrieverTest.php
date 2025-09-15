@@ -443,7 +443,7 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 						],
 						'revisions' => [
 							[
-								'minor' => 'minor',
+								'minor' => false,
 								'user' => 'user',
 								'timestamp' => '201701010202',
 								'sha1' => 'sha1-rev',
@@ -488,6 +488,8 @@ class ApiDetailRetrieverTest extends \MediaWikiIntegrationTestCase {
 
 		$this->assertSame( $expected['titlestring'], $importDetails->getSourceLinkTarget()->getText() );
 		$this->assertSame( NS_FILE, $importDetails->getSourceLinkTarget()->getNamespace() );
+
+		$this->assertFalse( $importDetails->getTextRevisions()->getLatest()->getField( 'minor' ) );
 	}
 
 	/**

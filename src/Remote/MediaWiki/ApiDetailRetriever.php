@@ -366,7 +366,8 @@ class ApiDetailRetriever implements DetailRetriever {
 					wfMessage( 'fileimporter-revision-removed-comment' )->plain();
 			}
 
-			$revisionInfo['minor'] = array_key_exists( 'minor', $revisionInfo );
+			// Backwards-compatible with formatversion=1 where "" means true
+			$revisionInfo['minor'] = ( $revisionInfo['minor'] ?? false ) !== false;
 			$revisionInfo['title'] = $pageTitle;
 			$revisions[] = new TextRevision( $revisionInfo );
 		}
