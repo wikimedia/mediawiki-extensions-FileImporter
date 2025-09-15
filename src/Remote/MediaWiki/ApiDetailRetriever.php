@@ -114,11 +114,8 @@ class ApiDetailRetriever implements DetailRetriever {
 		$pageInfoData = end( $requestData['query']['pages'] );
 		'@phan-var array $pageInfoData';
 
-		if ( array_key_exists( 'missing', $pageInfoData ) ) {
-			if (
-				array_key_exists( 'imagerepository', $pageInfoData ) &&
-				$pageInfoData['imagerepository'] == 'shared'
-			) {
+		if ( ( $pageInfoData['missing'] ?? false ) !== false ) {
+			if ( ( $pageInfoData['imagerepository'] ?? null ) === 'shared' ) {
 				throw new LocalizedImportException(
 					[ 'fileimporter-cantimportfromsharedrepo', $sourceUrl->getHost() ]
 				);
@@ -307,15 +304,15 @@ class ApiDetailRetriever implements DetailRetriever {
 	private function getFileRevisionsFromImageInfo( array $imageInfo, string $pageTitle ): FileRevisions {
 		$revisions = [];
 		foreach ( $imageInfo as $revisionInfo ) {
-			if ( array_key_exists( 'filehidden', $revisionInfo ) ) {
+			if ( ( $revisionInfo['filehidden'] ?? false ) !== false ) {
 				throw new LocalizedImportException( 'fileimporter-cantimportfilehidden' );
 			}
 
-			if ( array_key_exists( 'filemissing', $revisionInfo ) ) {
+			if ( ( $revisionInfo['filemissing'] ?? false ) !== false ) {
 				throw new LocalizedImportException( 'fileimporter-filemissinginrevision' );
 			}
 
-			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
+			if ( ( $revisionInfo['userhidden'] ?? false ) !== false ) {
 				$revisionInfo['user'] ??= $this->suppressedUsername;
 			}
 
@@ -332,7 +329,7 @@ class ApiDetailRetriever implements DetailRetriever {
 				$revisionInfo['sha1'] = \Wikimedia\base_convert( $revisionInfo['sha1'], 16, 36, 31 );
 			}
 
-			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
+			if ( ( $revisionInfo['commenthidden'] ?? false ) !== false ) {
 				$revisionInfo['comment'] ??=
 					wfMessage( 'fileimporter-revision-removed-comment' )->plain();
 			}
@@ -352,16 +349,16 @@ class ApiDetailRetriever implements DetailRetriever {
 	private function getTextRevisionsFromRevisionsInfo( array $revisionsInfo, string $pageTitle ): TextRevisions {
 		$revisions = [];
 		foreach ( $revisionsInfo as $revisionInfo ) {
-			if ( array_key_exists( 'userhidden', $revisionInfo ) ) {
+			if ( ( $revisionInfo['userhidden'] ?? false ) !== false ) {
 				$revisionInfo['user'] ??= $this->suppressedUsername;
 			}
 
-			if ( array_key_exists( 'texthidden', $revisionInfo ) ) {
+			if ( ( $revisionInfo['texthidden'] ?? false ) !== false ) {
 				$revisionInfo['slots'][SlotRecord::MAIN]['content'] ??=
 					wfMessage( 'fileimporter-revision-removed-text' )->plain();
 			}
 
-			if ( array_key_exists( 'commenthidden', $revisionInfo ) ) {
+			if ( ( $revisionInfo['commenthidden'] ?? false ) !== false ) {
 				$revisionInfo['comment'] ??=
 					wfMessage( 'fileimporter-revision-removed-comment' )->plain();
 			}

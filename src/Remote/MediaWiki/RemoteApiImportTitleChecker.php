@@ -70,7 +70,7 @@ class RemoteApiImportTitleChecker implements ImportTitleChecker {
 		// { "query": { "pages": [ { "pageid": 123, … when the title exists
 		// { "query": { "pages": [ { "missing": true, … otherwise
 		// Note the legacy format uses { "missing": "" }, and -1 etc. as keys for missing pages.
-		return array_key_exists( 'missing', $requestData['query']['pages'][0] );
+		return ( $requestData['query']['pages'][0]['missing'] ?? false ) !== false;
 	}
 
 	private function getParams( string $titleString ): array {

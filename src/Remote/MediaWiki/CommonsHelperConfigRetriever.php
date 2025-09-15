@@ -58,7 +58,7 @@ class CommonsHelperConfigRetriever {
 
 		$currPage = end( $response['query']['pages'] );
 
-		if ( array_key_exists( 'missing', $currPage ) ) {
+		if ( ( $currPage['missing'] ?? false ) !== false ) {
 			return false;
 		}
 
