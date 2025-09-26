@@ -5,6 +5,7 @@
 		"minify:svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/",
 		"test": "npm run lint && npm run test:unit",
 		"test:unit": "jest",
+		"coverage": "npm run test:unit",
 		"lint": "grunt test"
 	},
 	"devDependencies": {
