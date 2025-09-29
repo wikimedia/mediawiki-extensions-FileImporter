@@ -33,6 +33,10 @@
 	"fileimporter-heading-fileinfo": "دوتنې مالومات",
 	"fileimporter-heading-filehistory": "دوتنې پېښليک",
 	"fileimporter-heading-cleanup": "سرچينې ويکي سپاکول",
+	"fileimporter-delete-checkboxlabel": "سرچينې ويکي کې زما په نوم دوتنه ړنگول",
+	"fileimporter-delete-summary": "دا دوتنه اوس په {{SITENAME}} کې په $1 کې دی (دوتنې رالېږدوونکي سره لېږدول شوی).",
+	"fileimporter-import-wait": "رالېږدول ښايي يو څو دقيقې ونيسي.",
+	"fileimporter-imported-success-banner": "دا دوتنه {{SITENAME}} ته رالېږدول شوې.",
 	"fileimporter-go-to-original-file-button": "ترې دوتنې ته راگرځېدل",
 	"fileimporter-viewdiff": "بدلونونه ښودل",
 	"fileimporter-to-preview": "بېرته مخکتنې ته"
