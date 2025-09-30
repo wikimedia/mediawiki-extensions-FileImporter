@@ -10,6 +10,7 @@
 	"fileimporter-api-file-notfound": "Fail enda ditemu: $1",
 	"fileimporter-http-statuscode": "Kod status HTTP $1.",
 	"fileimporter-exampleprefix": "Chunto",
+	"fileimporter-submit-title": "Ubah tajuk",
 	"fileimporter-import": "Import",
 	"fileimporter-cancel": "Kinsil",
 	"fileimporter-edittitle": "Edit Tajuk",
