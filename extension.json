@@ -49,86 +49,69 @@
 	],
 	"config": {
 		"FileImporterRequiredRight": {
-			"value": "upload",
-			"public": true
+			"value": "upload"
 		},
 		"FileImporterInterWikiMap": {
 			"value": [],
-			"description": "Manually maps host names to multi-hop interwiki prefixes. Deprecated.",
-			"public": true
+			"description": "Manually maps host names to multi-hop interwiki prefixes. Deprecated."
 		},
 		"FileImporterShowInputScreen": {
 			"value": false,
-			"description": "Whether or not to show the source URL input page.",
-			"public": true
+			"description": "Whether or not to show the source URL input page."
 		},
 		"FileImporterSourceSiteServices": {
-			"value": [],
-			"public": true
+			"value": []
 		},
 		"FileImporterCommonsHelperServer": {
 			"value": "",
-			"description": "Location of CommonsHelper2-compatible configuration pages to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable.",
-			"public": true
+			"description": "Location of CommonsHelper2-compatible configuration pages to use, e.g. \"https://www.mediawiki.org\". Set to an empty string to disable."
 		},
 		"FileImporterWikidataEntityEndpoint": {
 			"value": "",
-			"description": "Location of Wikidata entity endpoint for fetching localized template names, e.g. \"https://www.wikidata.org/wiki/Special:EntityData/\". Set to an empty string to disable.",
-			"public": true
+			"description": "Location of Wikidata entity endpoint for fetching localized template names, e.g. \"https://www.wikidata.org/wiki/Special:EntityData/\". Set to an empty string to disable."
 		},
 		"FileImporterWikidataNowCommonsEntity": {
 			"value": "",
-			"description": "Entity ID of the NowCommons template, e.g. \"Q5611625\".",
-			"public": true
+			"description": "Entity ID of the NowCommons template, e.g. \"Q5611625\"."
 		},
 		"FileImporterCommonsHelperBasePageName": {
 			"value": "Extension:FileImporter/Data/",
-			"description": "Base page name of CommonsHelper2-compatible configuration pages to use.",
-			"public": true
+			"description": "Base page name of CommonsHelper2-compatible configuration pages to use."
 		},
 		"FileImporterCommonsHelperHelpPage": {
 			"value": "",
-			"description": "Location of the help page for the CommonsHelper2-compatible configuration page management.",
-			"public": true
+			"description": "Location of the help page for the CommonsHelper2-compatible configuration page management."
 		},
 		"FileImporterAccountForSuppressedUsername": {
-			"value": "FileImporterSuppressed",
-			"public": true
+			"value": "FileImporterSuppressed"
 		},
 		"FileImporterCommentForPostImportRevision": {
 			"value": "Imported with FileImporter from $1",
-			"description": "Text used for the edit summary of a post import revision.",
-			"public": true
+			"description": "Text used for the edit summary of a post import revision."
 		},
 		"FileImporterTextForPostImportRevision": {
 			"value": "<!--This file was moved here using FileImporter from $1-->",
-			"description": "Text to add to the imported page's wikitext.",
-			"public": true
+			"description": "Text to add to the imported page's wikitext."
 		},
 		"FileImporterMaxRevisions": {
 			"value": 100,
-			"description": "Maximum number of revisions (file or text) a file can have in order to be imported.",
-			"public": true
+			"description": "Maximum number of revisions (file or text) a file can have in order to be imported."
 		},
 		"FileImporterMaxAggregatedBytes": {
 			"value": 250000000,
-			"description": "Maximum aggregated size of versions a file can have in order to be imported.",
-			"public": true
+			"description": "Maximum aggregated size of versions a file can have in order to be imported."
 		},
 		"FileImporterSourceWikiDeletion": {
 			"value": false,
-			"description": "When set to true, FileImporter offers an option to automatically delete the source file after a successful import. Requires the CentralAuth extension to be set up and running on both the source and target wiki.",
-			"public": true
+			"description": "When set to true, FileImporter offers an option to automatically delete the source file after a successful import. Requires the CentralAuth extension to be set up and running on both the source and target wiki."
 		},
 		"FileImporterSourceWikiTemplating": {
 			"value": false,
-			"description": "When set to true, FileImporter offers an option to automatically edit the source file after a successful import. Requires the CentralAuth extension to be set up and running on both the source and target wiki.",
-			"public": true
+			"description": "When set to true, FileImporter offers an option to automatically edit the source file after a successful import. Requires the CentralAuth extension to be set up and running on both the source and target wiki."
 		},
 		"FileImporterCodexMode": {
 			"value": false,
-			"description": "When set to true, FileImporter will allow a mode where some parts of it's interface are replaced with Codex to provide a more dynamic workflow.",
-			"public": true
+			"description": "When set to true, FileImporter will allow a mode where some parts of it's interface are replaced with Codex to provide a more dynamic workflow."
 		}
 	},
 	"ResourceModules": {
