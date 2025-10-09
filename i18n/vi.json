@@ -3,6 +3,7 @@
 		"authors": [
 			"Doraemonluonbentoi",
 			"Flyplanevn27",
+			"Hide on Rosé",
 			"Keo010122",
 			"Leduyquang753",
 			"Minh Nguyen",
@@ -97,5 +98,6 @@
 	"fileimporter-auto-replacements-summary": "$1 tự động {{PLURAL:$1|thay đổi|các thay đổi}} thành các bản mẫu {{PLURAL:$1|này|này}} đã được tạo",
 	"fileimporter-input-page-info-text": "Tìm hiểu thêm bằng cách truy cập [https://www.mediawiki.org/wiki/Help:Extension:FileImporter trang trợ giúp].",
 	"fileimporter-viewdiff": "Xem thay đổi",
-	"fileimporter-to-preview": "Quay lại bản xem trước"
+	"fileimporter-to-preview": "Quay lại bản xem trước",
+	"fileimporter-no-script-warning": "Dường như JavaScript đã bị tắt, hoặc không được trình duyệt của bạn hỗ trợ. FileImporter hoạt động dựa trên JavaScript, do đó JavaScript cần được kích hoạt để FileImporter hoạt động."
 }
