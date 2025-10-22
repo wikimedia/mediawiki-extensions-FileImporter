@@ -9,7 +9,8 @@
 			"Nghiemtrongdai VN",
 			"NguoiDungKhongDinhDanh",
 			"Tuanminh01",
-			"Nvdtn19"
+			"Nvdtn19",
+			"Hide on Rosé"
 		]
 	},
 	"fileimporter-desc": "Dễ dàng xuất tập tin sang wiki khác",
@@ -20,7 +21,7 @@
 	"tag-fileimporter-imported": "Đã xuất bởi FileImporter",
 	"tag-fileimporter-imported-description": "Lịch sử trang được nhập từ wiki khác",
 	"fileimporter-specialpage": "Xuất tập tin",
-	"fileimporter-importfailed": "Xuất thất bại",
+	"fileimporter-importfailed": "Không thể nhập",
 	"fileimporter-mediawiki-api-notfound": "Không tải được MediaWiki API từ SourceUrl.",
 	"fileimporter-api-badinfo": "Hình ảnh không tốt hoặc thông tin sửa đổi do API trả về.",
 	"fileimporter-api-failedtogetinfo": "Không truy xuất được thông tin tập tin từ: $1",
@@ -97,5 +98,6 @@
 	"fileimporter-auto-replacements-summary": "$1 tự động {{PLURAL:$1|thay đổi|các thay đổi}} thành các bản mẫu {{PLURAL:$1|này|này}} đã được tạo",
 	"fileimporter-input-page-info-text": "Tìm hiểu thêm bằng cách truy cập [https://www.mediawiki.org/wiki/Help:Extension:FileImporter trang trợ giúp].",
 	"fileimporter-viewdiff": "Xem thay đổi",
-	"fileimporter-to-preview": "Quay lại bản xem trước"
+	"fileimporter-to-preview": "Quay lại bản xem trước",
+	"fileimporter-no-script-warning": "Dường như JavaScript đã bị tắt, hoặc không được trình duyệt của bạn hỗ trợ. FileImporter hoạt động dựa trên JavaScript, do đó JavaScript cần được kích hoạt để FileImporter hoạt động."
 }
