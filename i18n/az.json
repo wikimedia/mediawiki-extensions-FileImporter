@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Toghrul Rahimli",
-			"Nemoralis"
+			"Nemoralis",
+			"Gadir"
 		]
 	},
 	"fileimporter-desc": "Digər saytlardan faylların asanlıqla idxalı",
@@ -64,11 +65,11 @@
 	"fileimporter-heading-cleanup": "Mənbə vikini təmizlə",
 	"fileimporter-cleanup-text": "Mənbə vikidə bu faylın {{SITENAME}} saytına idxal edildiyini bildirə bilərsiniz. Bu <code><nowiki>{{$1}}</nowiki></code> şablonu əlavə etməklə həyata keçirilir.",
 	"fileimporter-cleanup-checkboxlabel": "Mənbə vikidə faylı {{SITENAME}} saytına idxal edilmiş kimi işarələ",
-	"fileimporter-cleanup-summary": "Bu fayl artıq {{SITENAME}} saytında $1 ünvanında yerləşir (FileImporter ilə köçürülüb).",
+	"fileimporter-cleanup-summary": "Bu fayl artıq {{SITENAME}} saytında, $1 ünvanında yerləşir (FileImporter ilə köçürülüb).",
 	"fileimporter-cleanup-failed": "Mənbə vikini avtomatik redaktə etmək mümkün olmadı.",
 	"fileimporter-delete-text": "Mənbə vikidəki faylı silmək hüququnuz var. FileImporter-in sizin adınızdan faylı silməsini istəyirsinizsə, bunu seçin:",
 	"fileimporter-delete-checkboxlabel": "Mənbə vikidəki faylı mənim adımla sil",
-	"fileimporter-delete-summary": "Bu fayl artıq {{SITENAME}} saytında $1 ünvanında yerləşir (FileImporter ilə köçürülüb).",
+	"fileimporter-delete-summary": "Bu fayl artıq {{SITENAME}} saytında, $1 ünvanında yerləşir (FileImporter ilə köçürülüb).",
 	"fileimporter-delete-failed": "Faylı $1 vikisində avtomatik silmək mümkün olmadı. Zəhmət, [$2 orijinal fayla] qayıdın və onu əl ilə silin.",
 	"fileimporter-revision-removed-text": "Gizli mətn FileImporter tərəfindən silindi.",
 	"fileimporter-revision-removed-comment": "Gizli şərh FileImporter tərəfindən silindi.",

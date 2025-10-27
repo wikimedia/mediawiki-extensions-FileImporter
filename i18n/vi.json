@@ -21,7 +21,7 @@
 	"tag-fileimporter-imported": "Đã xuất bởi FileImporter",
 	"tag-fileimporter-imported-description": "Lịch sử trang được nhập từ wiki khác",
 	"fileimporter-specialpage": "Xuất tập tin",
-	"fileimporter-importfailed": "Xuất thất bại",
+	"fileimporter-importfailed": "Không thể nhập",
 	"fileimporter-mediawiki-api-notfound": "Không tải được MediaWiki API từ SourceUrl.",
 	"fileimporter-api-badinfo": "Hình ảnh không tốt hoặc thông tin sửa đổi do API trả về.",
 	"fileimporter-api-failedtogetinfo": "Không truy xuất được thông tin tập tin từ: $1",
