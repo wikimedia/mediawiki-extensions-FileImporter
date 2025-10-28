@@ -6,7 +6,8 @@
 			"Nike",
 			"Pyscowicz",
 			"Silvonen",
-			"Samoasambia"
+			"Samoasambia",
+			"SaldırganSincap"
 		]
 	},
 	"fileimporter-desc": "Helppo tapa tuoda tiedostoja muilta sivustoilta",
@@ -62,7 +63,7 @@
 	"fileimporter-heading-fileinfo": "Tiedoston tiedot",
 	"fileimporter-heading-filehistory": "Tiedoston historia",
 	"fileimporter-heading-cleanup": "Siivoa lähdewiki",
-	"fileimporter-cleanup-text": "Voit ilmoittaa lähdewikissä, että tämä tiedosto on viety {{GRAMMAR:illative|{{SITENAME}}}}. Tämä tapahtuu lisäämällä <nowiki>{{$1}}</nowiki></code>-malline alkuperäiselle tiedostosivulle sinun nimelläsi.",
+	"fileimporter-cleanup-text": "Voit ilmoittaa lähdewikissä, että tämä tiedosto on viety {{GRAMMAR:illative|{{SITENAME}}}}. Tämä tapahtuu lisäämällä <code><nowiki>{{$1}}</nowiki></code>-malline alkuperäiselle tiedostosivulle sinun nimelläsi.",
 	"fileimporter-cleanup-checkboxlabel": "Merkitse lähdewikin tiedosto {{GRAMMAR:illative|{{SITENAME}}}} viedyksi",
 	"fileimporter-cleanup-summary": "Tämä tiedosto on nyt {{GRAMMAR:inessive|{{SITENAME}}}} osoitteessa $1 (siirretty FileImporterilla).",
 	"fileimporter-cleanup-failed": "Lähdewikin automaattinen muokkaaminen ei ollut mahdollista.",
