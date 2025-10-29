@@ -10,7 +10,7 @@
 	"fileimporter": "Importador de ficheiros",
 	"fileimporter-desc": "Importación sinxela de ficheiros doutros sitios",
 	"fileimporter-help-banner-text": "'''Importación desde outros wikis'''\n#Comproba e edita o título e a información do ficheiro a continuación.\n#Escolle se queres que FileImporter limpe o wiki de orixe engadindo o modelo [//en.wikipedia.org/wiki/Template:Now_Commons NowCommons] ao ficheiro de orixe. (Se tes dereitos administrativos, tamén tes a opción de eliminar o ficheiro de orixe.)\n#Fai clic en «'''{{int:fileimporter-import}}'''» para copiar o ficheiro a {{SITENAME}}.\n\nPara obter información sobre as licenzas, consulta as [[Project:Licensing|regras comunitarias]] de {{SITENAME}}.<br />Para obter instrucións máis detalladas sobre como usar FileImporter, consulta a [//www.mediawiki.org/wiki/Help:Extension:FileImporter páxina de axuda].",
-	"fileimporter-help-banner-close-tooltip": "Non amosar esta mensaxe de novo.",
+	"fileimporter-help-banner-close-tooltip": "Non amosar esta mensaxe de novo",
 	"tag-fileimporter": "Modificado por FileImporter",
 	"tag-fileimporter-description": "Engadíronse revisións e mensaxes de rexistro despois de importar desde outro wiki",
 	"tag-fileimporter-imported": "Importado con FileImporter",
