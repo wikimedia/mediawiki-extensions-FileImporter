@@ -23,9 +23,6 @@ use RuntimeException;
  */
 class WikidataTemplateLookup {
 
-	private SiteTableSiteLookup $siteLookup;
-	private HttpRequestExecutor $requestExecutor;
-	private LoggerInterface $logger;
 	/** @var string */
 	private $entityEndpoint;
 	/** @var string|null */
@@ -36,14 +33,10 @@ class WikidataTemplateLookup {
 
 	public function __construct(
 		Config $config,
-		SiteTableSiteLookup $siteLookup,
-		HttpRequestExecutor $requestExecutor,
-		LoggerInterface $logger
+		private readonly SiteTableSiteLookup $siteLookup,
+		private readonly HttpRequestExecutor $requestExecutor,
+		private readonly LoggerInterface $logger,
 	) {
-		$this->siteLookup = $siteLookup;
-		$this->requestExecutor = $requestExecutor;
-		$this->logger = $logger;
-
 		$this->entityEndpoint = $config->get( 'FileImporterWikidataEntityEndpoint' );
 		$this->nowCommonsEntityId = $config->get( 'FileImporterWikidataNowCommonsEntity' ) ?: null;
 	}

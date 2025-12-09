@@ -13,10 +13,7 @@ use Psr\Log\LoggerInterface;
  */
 class UploadBaseFactory {
 
-	private LoggerInterface $logger;
-
-	public function __construct( LoggerInterface $logger ) {
-		$this->logger = $logger;
+	public function __construct( private readonly LoggerInterface $logger ) {
 	}
 
 	/**

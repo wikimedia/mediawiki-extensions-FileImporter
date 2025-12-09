@@ -20,27 +20,14 @@ use FileImporter\Interfaces\SourceUrlChecker;
  */
 class SourceSite {
 
-	private SourceUrlChecker $sourceUrlChecker;
-	private DetailRetriever $detailRetriever;
-	private ImportTitleChecker $importTitleChecker;
-	private SourceUrlNormalizer $sourceUrlNormalizer;
-	private LinkPrefixLookup $linkPrefixLookup;
-	private PostImportHandler $postImportHandler;
-
 	public function __construct(
-		SourceUrlChecker $sourceUrlChecker,
-		DetailRetriever $detailRetriever,
-		ImportTitleChecker $importTitleChecker,
-		SourceUrlNormalizer $sourceUrlNormalizer,
-		LinkPrefixLookup $linkPrefixLookup,
-		PostImportHandler $postImportHandler
+		private readonly SourceUrlChecker $sourceUrlChecker,
+		private readonly DetailRetriever $detailRetriever,
+		private readonly ImportTitleChecker $importTitleChecker,
+		private readonly SourceUrlNormalizer $sourceUrlNormalizer,
+		private readonly LinkPrefixLookup $linkPrefixLookup,
+		private readonly PostImportHandler $postImportHandler,
 	) {
-		$this->sourceUrlChecker = $sourceUrlChecker;
-		$this->detailRetriever = $detailRetriever;
-		$this->importTitleChecker = $importTitleChecker;
-		$this->sourceUrlNormalizer = $sourceUrlNormalizer;
-		$this->linkPrefixLookup = $linkPrefixLookup;
-		$this->postImportHandler = $postImportHandler;
 	}
 
 	/**

@@ -19,15 +19,10 @@ use MediaWiki\Title\NamespaceInfo;
  */
 class NamespaceUnlocalizer implements WikiLinkCleaner {
 
-	private NamespaceNameLookup $namespaceNameLookup;
-	private NamespaceInfo $namespaceInfo;
-
 	public function __construct(
-		NamespaceNameLookup $namespaceNameLookup,
-		NamespaceInfo $namespaceInfo
+		private readonly NamespaceNameLookup $namespaceNameLookup,
+		private readonly NamespaceInfo $namespaceInfo,
 	) {
-		$this->namespaceNameLookup = $namespaceNameLookup;
-		$this->namespaceInfo = $namespaceInfo;
 	}
 
 	public function process( string $link ): string {

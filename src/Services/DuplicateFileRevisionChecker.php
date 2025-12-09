@@ -15,10 +15,9 @@ use MediaWiki\FileRepo\FileRepo;
  */
 class DuplicateFileRevisionChecker {
 
-	private FileRepo $fileRepo;
-
-	public function __construct( FileRepo $fileRepo ) {
-		$this->fileRepo = $fileRepo;
+	public function __construct(
+		private readonly FileRepo $fileRepo,
+	) {
 	}
 
 	/**

@@ -14,18 +14,11 @@ use Wikimedia\Rdbms\IConnectionProvider;
  */
 class CategoryExtractor {
 
-	private ParserFactory $parserFactory;
-	private IConnectionProvider $connectionProvider;
-	private LinkBatchFactory $linkBatchFactory;
-
 	public function __construct(
-		ParserFactory $parserFactory,
-		IConnectionProvider $connectionProvider,
-		LinkBatchFactory $linkBatchFactory
+		private readonly ParserFactory $parserFactory,
+		private readonly IConnectionProvider $connectionProvider,
+		private readonly LinkBatchFactory $linkBatchFactory,
 	) {
-		$this->parserFactory = $parserFactory;
-		$this->connectionProvider = $connectionProvider;
-		$this->linkBatchFactory = $linkBatchFactory;
 	}
 
 	/**

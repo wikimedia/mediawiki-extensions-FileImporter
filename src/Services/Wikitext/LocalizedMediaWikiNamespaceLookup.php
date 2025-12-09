@@ -13,10 +13,9 @@ use MediaWiki\Language\Language;
  */
 class LocalizedMediaWikiNamespaceLookup implements NamespaceNameLookup {
 
-	private Language $language;
-
-	public function __construct( Language $language ) {
-		$this->language = $language;
+	public function __construct(
+		private readonly Language $language,
+	) {
 	}
 
 	/**

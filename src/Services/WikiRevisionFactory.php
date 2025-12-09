@@ -16,7 +16,6 @@ use WikiRevision;
  */
 class WikiRevisionFactory {
 
-	private IContentHandlerFactory $contentHandlerFactory;
 	/** @var string */
 	private $interwikiPrefix;
 	private ExternalUserNames $externalUserNames;
@@ -24,8 +23,9 @@ class WikiRevisionFactory {
 	// TODO: should be changed back to lowercase when T221235 is fixed.
 	public const DEFAULT_USERNAME_PREFIX = 'Imported';
 
-	public function __construct( IContentHandlerFactory $contentHandlerFactory ) {
-		$this->contentHandlerFactory = $contentHandlerFactory;
+	public function __construct(
+		private readonly IContentHandlerFactory $contentHandlerFactory,
+	) {
 		$this->externalUserNames = new ExternalUserNames( self::DEFAULT_USERNAME_PREFIX, true );
 	}
 

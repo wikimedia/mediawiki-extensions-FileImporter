@@ -11,12 +11,12 @@ use FileImporter\Data\WikitextConversions;
 class WikitextContentCleaner {
 
 	private int $latestNumberOfReplacements = 0;
-	private WikitextConversions $wikitextConversions;
 	/** @var string|null Name of a language template to wrap parameters in, e.g. "de" for the {{de|…}} template */
 	private $sourceWikiLanguageTemplate = null;
 
-	public function __construct( WikitextConversions $conversions ) {
-		$this->wikitextConversions = $conversions;
+	public function __construct(
+		private readonly WikitextConversions $wikitextConversions,
+	) {
 	}
 
 	public function getLatestNumberOfReplacements(): int {

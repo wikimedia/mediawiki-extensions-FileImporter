@@ -22,12 +22,10 @@ class NullRevisionCreator {
 
 	private const ERROR_REVISION_CREATE = 'noNullRevisionCreated';
 
-	private IConnectionProvider $connectionProvider;
-	private RevisionStore $revisionStore;
-
-	public function __construct( RevisionStore $revisionStore, IConnectionProvider $connectionProvider ) {
-		$this->connectionProvider = $connectionProvider;
-		$this->revisionStore = $revisionStore;
+	public function __construct(
+		private readonly RevisionStore $revisionStore,
+		private readonly IConnectionProvider $connectionProvider,
+	) {
 	}
 
 	/**

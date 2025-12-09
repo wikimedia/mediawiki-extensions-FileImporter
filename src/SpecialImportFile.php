@@ -60,25 +60,18 @@ class SpecialImportFile extends SpecialPage {
 	private const ERROR_USER_PERMISSIONS = 'userPermissionsError';
 	private const ERROR_LOCAL_BLOCK = 'userBlocked';
 
-	private SourceSiteLocator $sourceSiteLocator;
-	private Importer $importer;
-	private ImportPlanFactory $importPlanFactory;
-	private RemoteApiActionExecutor $remoteActionApi;
-	private WikidataTemplateLookup $templateLookup;
-	private IContentHandlerFactory $contentHandlerFactory;
-	private StatsFactory $statsFactory;
-	private UserOptionsManager $userOptionsManager;
-	private LoggerInterface $logger;
+	private readonly StatsFactory $statsFactory;
+	private readonly LoggerInterface $logger;
 
 	public function __construct(
-		SourceSiteLocator $sourceSiteLocator,
-		Importer $importer,
-		ImportPlanFactory $importPlanFactory,
-		RemoteApiActionExecutor $remoteActionApi,
-		WikidataTemplateLookup $templateLookup,
-		IContentHandlerFactory $contentHandlerFactory,
+		private readonly SourceSiteLocator $sourceSiteLocator,
+		private readonly Importer $importer,
+		private readonly ImportPlanFactory $importPlanFactory,
+		private readonly RemoteApiActionExecutor $remoteActionApi,
+		private readonly WikidataTemplateLookup $templateLookup,
+		private readonly IContentHandlerFactory $contentHandlerFactory,
 		StatsFactory $statsFactory,
-		UserOptionsManager $userOptionsManager,
+		private readonly UserOptionsManager $userOptionsManager,
 		Config $config
 	) {
 		parent::__construct(
@@ -87,14 +80,7 @@ class SpecialImportFile extends SpecialPage {
 			$config->get( 'FileImporterShowInputScreen' )
 		);
 
-		$this->sourceSiteLocator = $sourceSiteLocator;
-		$this->importer = $importer;
-		$this->importPlanFactory = $importPlanFactory;
-		$this->remoteActionApi = $remoteActionApi;
-		$this->templateLookup = $templateLookup;
-		$this->contentHandlerFactory = $contentHandlerFactory;
 		$this->statsFactory = $statsFactory->withComponent( 'FileImporter' );
-		$this->userOptionsManager = $userOptionsManager;
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
 	}
 

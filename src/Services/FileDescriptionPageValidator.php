@@ -13,10 +13,9 @@ use FileImporter\Exceptions\CommunityPolicyException;
  */
 class FileDescriptionPageValidator {
 
-	private WikitextConversions $wikitextConversions;
-
-	public function __construct( WikitextConversions $conversions ) {
-		$this->wikitextConversions = $conversions;
+	public function __construct(
+		private readonly WikitextConversions $wikitextConversions,
+	) {
 	}
 
 	/**

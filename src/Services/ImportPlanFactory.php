@@ -21,30 +21,15 @@ use MediaWiki\User\User;
  */
 class ImportPlanFactory {
 
-	private Config $config;
-	private WikiLinkParserFactory $wikiLinkParserFactory;
-	private RestrictionStore $restrictionStore;
-	private HttpRequestExecutor $httpRequestExecutor;
-	private SourceSiteLocator $sourceSiteLocator;
-	private DuplicateFileRevisionChecker $duplicateFileRevisionChecker;
-	private UploadBaseFactory $uploadBaseFactory;
-
 	public function __construct(
-		Config $config,
-		WikiLinkParserFactory $wikiLinkParserFactory,
-		RestrictionStore $restrictionStore,
-		HttpRequestExecutor $httpRequestExecutor,
-		SourceSiteLocator $sourceSiteLocator,
-		DuplicateFileRevisionChecker $duplicateFileRevisionChecker,
-		UploadBaseFactory $uploadBaseFactory
+		private readonly Config $config,
+		private readonly WikiLinkParserFactory $wikiLinkParserFactory,
+		private readonly RestrictionStore $restrictionStore,
+		private readonly HttpRequestExecutor $httpRequestExecutor,
+		private readonly SourceSiteLocator $sourceSiteLocator,
+		private readonly DuplicateFileRevisionChecker $duplicateFileRevisionChecker,
+		private readonly UploadBaseFactory $uploadBaseFactory,
 	) {
-		$this->config = $config;
-		$this->wikiLinkParserFactory = $wikiLinkParserFactory;
-		$this->restrictionStore = $restrictionStore;
-		$this->httpRequestExecutor = $httpRequestExecutor;
-		$this->sourceSiteLocator = $sourceSiteLocator;
-		$this->duplicateFileRevisionChecker = $duplicateFileRevisionChecker;
-		$this->uploadBaseFactory = $uploadBaseFactory;
 	}
 
 	/**

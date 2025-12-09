@@ -31,14 +31,8 @@ use UploadBase;
  */
 class ImportPlanValidator {
 
-	private DuplicateFileRevisionChecker $duplicateFileChecker;
-	private ImportTitleChecker $importTitleChecker;
-	private UploadBaseFactory $uploadBaseFactory;
-	private ?CommonsHelperConfigRetriever $commonsHelperConfigRetriever;
 	/** @var string|null */
 	private $commonsHelperHelpPage;
-	private WikiLinkParserFactory $wikiLinkParserFactory;
-	private RestrictionStore $restrictionStore;
 
 	/**
 	 * @param DuplicateFileRevisionChecker $duplicateFileChecker
@@ -50,21 +44,15 @@ class ImportPlanValidator {
 	 * @param RestrictionStore $restrictionStore
 	 */
 	public function __construct(
-		DuplicateFileRevisionChecker $duplicateFileChecker,
-		ImportTitleChecker $importTitleChecker,
-		UploadBaseFactory $uploadBaseFactory,
-		?CommonsHelperConfigRetriever $commonsHelperConfigRetriever,
+		private readonly DuplicateFileRevisionChecker $duplicateFileChecker,
+		private readonly ImportTitleChecker $importTitleChecker,
+		private readonly UploadBaseFactory $uploadBaseFactory,
+		private readonly ?CommonsHelperConfigRetriever $commonsHelperConfigRetriever,
 		$commonsHelperHelpPage,
-		WikiLinkParserFactory $wikiLinkParserFactory,
-		RestrictionStore $restrictionStore
+		private readonly WikiLinkParserFactory $wikiLinkParserFactory,
+		private readonly RestrictionStore $restrictionStore,
 	) {
-		$this->duplicateFileChecker = $duplicateFileChecker;
-		$this->importTitleChecker = $importTitleChecker;
-		$this->uploadBaseFactory = $uploadBaseFactory;
-		$this->commonsHelperConfigRetriever = $commonsHelperConfigRetriever;
 		$this->commonsHelperHelpPage = $commonsHelperHelpPage;
-		$this->wikiLinkParserFactory = $wikiLinkParserFactory;
-		$this->restrictionStore = $restrictionStore;
 	}
 
 	/**
