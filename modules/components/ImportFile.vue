@@ -176,6 +176,7 @@ const parseCategories = ( rawCategories ) => rawCategories.reduce( ( [ hiddenCat
 }, [ [], [] ] );
 
 const scrollToTop = () => {
+	// eslint-disable-next-line no-jquery/no-global-selector
 	$( 'html, body' ).animate( { scrollTop: $( '#content' ).offset().top }, 500 );
 };
 
@@ -252,7 +253,7 @@ module.exports = {
 			} );
 			// TODO: CdxTextArea should support the "focus" method.  This is
 			// fragile because it assumes the component's DOM structure.
-			$textarea.focus();
+			$textarea.trigger( 'focus' );
 		},
 		mountedFileInfoRendered() {
 			// TODO: don't refresh when unchanged. Could require an advanced
@@ -331,9 +332,9 @@ module.exports = {
 				totext: this.currentFileInfoWikitext,
 				prop: 'diff'
 			};
-			new mw.Api().get( params ).done( ( data ) => {
+			new mw.Api().get( params ).then( ( data ) => {
 				this.diffOutput = data.compare.body;
-			} ).fail( () => {
+			}, () => {
 				this.diffErrorMessage = this.$i18n( 'fileimporter-cdx-diff-failed' ).text();
 			} );
 		}

@@ -1,15 +1,17 @@
 'use strict';
 
+/* eslint-disable no-jquery/no-global-selector */
+
 const $summary = $( '.mw-importfile-import-summary' );
 if ( $summary.length ) {
 	// Submit the import form when hitting return in the edit summary
 	OO.ui.TextInputWidget.static.infuse( $summary ).on( 'enter', ( e ) => {
 		e.preventDefault();
-		OO.ui.ButtonWidget.static.infuse( $( '.mw-importfile-import-submit' ) ).$button.click();
+		OO.ui.ButtonWidget.static.infuse( $( '.mw-importfile-import-submit' ) ).$button.trigger( 'click' );
 	} );
 }
 
-$( '.mw-importfile-help-banner input[ type="checkbox" ]' ).change( function () {
+$( '.mw-importfile-help-banner input[ type="checkbox" ]' ).on( 'change', function () {
 	// When the help banner is dismissed, set a user option indicating that it should not be shown
 	// again in the future
 	if ( this.checked && mw.user.isNamed() ) {
