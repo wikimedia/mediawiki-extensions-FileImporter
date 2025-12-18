@@ -5,8 +5,5 @@
 	},
 	"extends": [
 		"wikimedia/server"
-	],
-	"ignorePatterns": [
-		"coverage"
 	]
 }
