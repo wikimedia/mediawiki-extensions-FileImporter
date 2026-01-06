@@ -66,6 +66,8 @@
 	"fileimporter-cancel": "Anuluj",
 	"fileimporter-edittitle": "Edytuj tytuł",
 	"fileimporter-editinfo": "Edytuj informacje pliku",
+	"fileimporter-previewtitle": "Podgląd tytułu",
+	"fileimporter-previewinfo": "Podgląd informacji o pliku",
 	"fileimporter-extensionlabel": "Rozszerzenie pliku:",
 	"fileimporter-newfilename": "Nowa nazwa pliku:",
 	"fileimporter-editsummary": "Opis zmian:",
@@ -99,5 +101,7 @@
 	"fileimporter-auto-replacements-summary": "$1 {{PLURAL:$1|automatyczna zmiana|automatyczne zmiany|automatycznych zmian}} w szablonach {{PLURAL:$1|została wykonana|zostały wykonane|zostało wykonanych}}",
 	"fileimporter-input-page-info-text": "Dowiedz się więcej wchodząc na naszą [//meta.wikimedia.org/wiki/WMDE_Technical_Wishes/Move_files_to_Commons stronę pomocy].",
 	"fileimporter-viewdiff": "Pokaż zmiany",
-	"fileimporter-to-preview": "Wróć do podglądu"
+	"fileimporter-to-preview": "Wróć do podglądu",
+	"fileimporter-no-script-warning": "Twoja przeglądarka nie obsługuje JavaScriptu lub jest on wyłączony. Importer plików wymaga JavaScriptu do działania.",
+	"fileimporter-cdx-diff-failed": "Coś poszło nie tak podczas pobierania zmian. Spróbuj ponownie później."
 }
