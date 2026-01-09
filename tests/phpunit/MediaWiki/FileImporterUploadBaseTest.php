@@ -86,7 +86,6 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		$text_color = imagecolorallocate( $im, 233, 14, 91 );
 		imagestring( $im, 1, 5, 5, 'Some Text', $text_color );
 		$saveMethod( $im, $tmpPath );
-		imagedestroy( $im );
 		return $tmpPath;
 	}
 
