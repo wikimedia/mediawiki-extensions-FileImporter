@@ -3,7 +3,7 @@
 namespace FileImporter\Tests\Services;
 
 use FileImporter\Services\CategoryExtractor;
-use MediaWiki\Cache\LinkBatchFactory;
+use MediaWiki\Page\LinkBatchFactory;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserFactory;
 use MediaWiki\Parser\ParserOutput;

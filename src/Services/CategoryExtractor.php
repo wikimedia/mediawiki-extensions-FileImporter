@@ -2,7 +2,7 @@
 
 namespace FileImporter\Services;
 
-use MediaWiki\Cache\LinkBatchFactory;
+use MediaWiki\Page\LinkBatchFactory;
 use MediaWiki\Parser\ParserFactory;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Title\Title;
