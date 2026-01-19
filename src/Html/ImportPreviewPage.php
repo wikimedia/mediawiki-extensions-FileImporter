@@ -123,14 +123,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 				$textRevisionsCount,
 			]
 		)->parseAsBlock() .
-		Html::element(
-			'input',
-			[
-				'type' => 'hidden',
-				'name' => 'token',
-				'value' => $this->getUser()->getEditToken()
-			]
-		) .
+		Html::hidden( 'token', $this->getUser()->getEditToken() ) .
 		new ButtonInputWidget(
 			[
 				'classes' => [ 'mw-importfile-import-submit' ],

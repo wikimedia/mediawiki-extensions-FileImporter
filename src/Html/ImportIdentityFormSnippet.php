@@ -62,14 +62,7 @@ class ImportIdentityFormSnippet {
 
 		foreach ( self::IDENTITY_KEYS as $identityKey ) {
 			if ( array_key_exists( $identityKey, $this->identityParts ) ) {
-				$html .= Html::element(
-					'input',
-					[
-						'type' => 'hidden',
-						'name' => $identityKey,
-						'value' => $this->identityParts[$identityKey],
-					]
-				);
+				$html .= Html::hidden( $identityKey, $this->identityParts[$identityKey] );
 			}
 		}
 
