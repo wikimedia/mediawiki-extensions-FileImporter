@@ -72,16 +72,20 @@ class SpecialImportFile extends SpecialPage {
 		private readonly IContentHandlerFactory $contentHandlerFactory,
 		StatsFactory $statsFactory,
 		private readonly UserOptionsManager $userOptionsManager,
-		Config $config
+		private readonly Config $config,
 	) {
 		parent::__construct(
 			'ImportFile',
-			$config->get( 'FileImporterRequiredRight' ),
-			$config->get( 'FileImporterShowInputScreen' )
+			$config->get( 'FileImporterRequiredRight' )
 		);
 
 		$this->statsFactory = $statsFactory->withComponent( 'FileImporter' );
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
+	}
+
+	/** @inheritDoc */
+	public function isListed(): bool {
+		return $this->config->get( 'FileImporterShowInputScreen' );
 	}
 
 	/** @inheritDoc */
