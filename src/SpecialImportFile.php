@@ -74,13 +74,15 @@ class SpecialImportFile extends SpecialPage {
 		private readonly UserOptionsManager $userOptionsManager,
 		private readonly Config $config,
 	) {
-		parent::__construct(
-			'ImportFile',
-			$config->get( 'FileImporterRequiredRight' )
-		);
+		parent::__construct( 'ImportFile' );
 
 		$this->statsFactory = $statsFactory->withComponent( 'FileImporter' );
 		$this->logger = LoggerFactory::getInstance( 'FileImporter' );
+	}
+
+	/** @inheritDoc */
+	public function getRestriction(): string {
+		return $this->config->get( 'FileImporterRequiredRight' );
 	}
 
 	/** @inheritDoc */
