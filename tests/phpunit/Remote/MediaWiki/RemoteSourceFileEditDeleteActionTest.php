@@ -47,7 +47,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 			$this->createImportPlanMock( false, false, $url ),
 			$this->createNoOpMock( User::class )
 		);
-		$this->assertTrue( $status->isGood() );
+		$this->assertStatusGood( $status );
 	}
 
 	public function testExecute_remoteEditSucceeds() {
@@ -81,7 +81,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
-		$this->assertTrue( $status->isGood() );
+		$this->assertStatusGood( $status );
 	}
 
 	public function testExecute_remoteEditFails() {
@@ -110,7 +110,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
-		$this->assertTrue( $status->hasMessage( 'fileimporter-cleanup-failed' ) );
+		$this->assertStatusMessage( 'fileimporter-cleanup-failed', $status );
 	}
 
 	public function testExecute_remoteDeleteSucceeds() {
@@ -137,7 +137,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
-		$this->assertTrue( $status->isGood() );
+		$this->assertStatusGood( $status );
 	}
 
 	public function testExecute_remoteDeleteFails() {
@@ -158,7 +158,7 @@ class RemoteSourceFileEditDeleteActionTest extends MediaWikiIntegrationTestCase 
 		);
 
 		$status = $postImportHandler->execute( $mockImportPlan, $mockUser );
-		$this->assertTrue( $status->hasMessage( 'fileimporter-delete-failed' ) );
+		$this->assertStatusMessage( 'fileimporter-delete-failed', $status );
 	}
 
 	private function createImportPlanMock(

@@ -67,7 +67,7 @@ class RemoteApiActionExecutorTest extends MediaWikiUnitTestCase {
 			[ 'prepend' => 'text' ],
 			'TestSummary'
 		);
-		$this->assertTrue( $status->isGood() );
+		$this->assertStatusGood( $status );
 	}
 
 }
