@@ -171,19 +171,12 @@ class ImportPlan {
 	 *
 	 * Any empty chunks are discarded before joining.
 	 *
-	 * @param string|array ...$chunks Varargs of each wikitext chunk, or a
-	 *  single parameter with the chunks as an array.
+	 * @param string ...$chunks Varargs of each wikitext chunk
 	 * @return string Result of concatenation.
 	 */
-	private function joinWikitextChunks( ...$chunks ): string {
-		if ( is_array( reset( $chunks ) ) ) {
-			$chunks = $chunks[0];
-		}
-		$chunks = array_filter(
-			$chunks,
-			static fn ( $wikitext ) => ( $wikitext ?? '' ) !== ''
-		);
-		return implode( "\n", $chunks );
+	private function joinWikitextChunks( string ...$chunks ): string {
+		// @phan-suppress-next-line PhanTypeMismatchArgumentInternal
+		return implode( "\n", array_filter( $chunks, strlen( ... ) ) );
 	}
 
 	public function setActionIsPerformed( string $actionKey ): void {
