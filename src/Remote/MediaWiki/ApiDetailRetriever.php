@@ -102,7 +102,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		}
 
 		/** @var array $pageInfoData */
-		$pageInfoData = end( $requestData['query']['pages'] );
+		$pageInfoData = array_last( $requestData['query']['pages'] );
 		'@phan-var array $pageInfoData';
 
 		if ( ( $pageInfoData['missing'] ?? false ) !== false ) {
@@ -144,8 +144,7 @@ class ApiDetailRetriever implements DetailRetriever {
 		$templates = $this->reduceTitleList( $pageInfoData['templates'] ?? [], NS_TEMPLATE );
 		$categories = $this->reduceTitleList( $pageInfoData['categories'] ?? [], NS_CATEGORY );
 
-		$splitTitle = explode( ':', $pageInfoData['title'] );
-		$titleAfterColon = end( $splitTitle );
+		$titleAfterColon = array_last( explode( ':', $pageInfoData['title'], 2 ) );
 
 		$importDetails = new ImportDetails(
 			$sourceUrl,
@@ -217,7 +216,7 @@ class ApiDetailRetriever implements DetailRetriever {
 
 		$requestData = $this->sendApiRequest( $sourceUrl, $params );
 
-		$newPageInfoData = end( $requestData['query']['pages'] );
+		$newPageInfoData = array_last( $requestData['query']['pages'] );
 
 		if ( array_key_exists( 'revisions', $newPageInfoData ) ) {
 			$pageInfoData['revisions'] =

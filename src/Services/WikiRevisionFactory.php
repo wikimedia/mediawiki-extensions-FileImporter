@@ -34,8 +34,7 @@ class WikiRevisionFactory {
 		string $timestamp,
 		?string $sha1
 	): WikiRevision {
-		$titleParts = explode( ':', $title );
-		$filename = end( $titleParts );
+		$filename = array_last( explode( ':', $title, 2 ) );
 
 		// The 3 fields rev_page, rev_timestamp, and rev_sha1 make a revision unique, see
 		// ImportableOldRevisionImporter::import()

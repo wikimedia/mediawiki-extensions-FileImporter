@@ -49,14 +49,14 @@ class CommonsHelperConfigRetriever {
 			return false;
 		}
 
-		$currPage = end( $response['query']['pages'] );
+		$currPage = array_last( $response['query']['pages'] );
 
 		if ( ( $currPage['missing'] ?? false ) !== false ) {
 			return false;
 		}
 
 		if ( array_key_exists( 'revisions', $currPage ) ) {
-			$latestRevision = end( $currPage['revisions'] );
+			$latestRevision = array_last( $currPage['revisions'] );
 			if ( array_key_exists( 'slots', $latestRevision ) &&
 				array_key_exists( SlotRecord::MAIN, $latestRevision['slots'] ) &&
 				array_key_exists( 'content', $latestRevision['slots'][SlotRecord::MAIN] )

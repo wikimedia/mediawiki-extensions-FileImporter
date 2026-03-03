@@ -90,8 +90,7 @@ class WikidataTemplateLookup {
 	 * FIXME: copied from WikitextConversions, should use Title methods instead.
 	 */
 	private function removeNamespace( string $title ): string {
-		$splitTitle = explode( ':', $title, 2 );
-		return end( $splitTitle );
+		return array_last( explode( ':', $title, 2 ) );
 	}
 
 }

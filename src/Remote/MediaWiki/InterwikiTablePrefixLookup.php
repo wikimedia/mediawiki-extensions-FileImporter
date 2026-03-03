@@ -68,8 +68,8 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	private function getPrefixFromLegacyConfig( string $host ): ?string {
 		// @phan-suppress-next-line PhanAccessReadOnlyProperty
 		if ( isset( $this->interWikiConfigMap[$host] ) ) {
-			$prefixes = explode( ':', $this->interWikiConfigMap[$host], 2 );
-			if ( !$this->interwikiLookup->isValidInterwiki( $prefixes[0] ) ) {
+			$prefix = explode( ':', $this->interWikiConfigMap[$host], 2 )[0];
+			if ( !$this->interwikiLookup->isValidInterwiki( $prefix ) ) {
 				$this->logger->warning( 'Configured prefix {prefix} not valid.', [
 					'host' => $host,
 					'prefix' => $this->interWikiConfigMap[$host]
