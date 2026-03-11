@@ -149,7 +149,9 @@ class CategoryExtractorTest extends MediaWikiIntegrationTestCase {
 
 	private function buildConnectionProviderMock( array $hiddenCategories ): IConnectionProvider {
 		$queryBuilder = $this->createMock( SelectQueryBuilder::class );
-		$queryBuilder->method( $this->logicalOr( 'select', 'from', 'join', 'where', 'caller' ) )->willReturnSelf();
+		$queryBuilder->method( $this->logicalOr( ...array_map( $this->identicalTo( ... ), [
+			'select', 'from', 'join', 'where', 'caller'
+		] ) ) )->willReturnSelf();
 		$queryBuilder->method( 'fetchFieldValues' )
 			->willReturn( $hiddenCategories );
 
