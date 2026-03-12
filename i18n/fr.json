@@ -19,7 +19,8 @@
 			"Thibaut120094",
 			"Urhixidur",
 			"Verdy p",
-			"Wladek92"
+			"Wladek92",
+			"VIGNERON"
 		]
 	},
 	"fileimporter-desc": "Importation facile de fichiers provenant d’autres sites",
@@ -82,8 +83,8 @@
 	"fileimporter-previewnote": "Ceci est un aperçu du fichier à importer. Veuillez vérifier la page en détail avant de l’importer.",
 	"fileimporter-heading-fileinfo": "Informations sur le fichier",
 	"fileimporter-heading-filehistory": "Historique du fichier",
-	"fileimporter-heading-cleanup": "Nettoyer le wiki source",
-	"fileimporter-cleanup-text": "Vous pouvez déclarer sur le wiki source que ce fichier a été importé dans {{SITENAME}}, en ajoutant un modèle <code><nowiki>{{$1}}</nowiki></code> sur la page du fichier original en votre nom.",
+	"fileimporter-heading-cleanup": "Nettoyer le wiki d’origine",
+	"fileimporter-cleanup-text": "Vous pouvez déclarer sur le wiki d’origine que ce fichier a été importé dans {{SITENAME}}, en ajoutant un modèle <code><nowiki>{{$1}}</nowiki></code> sur la page du fichier original en votre nom.",
 	"fileimporter-cleanup-checkboxlabel": "Marquer le fichier du wiki source comme importé dans {{SITENAME}}",
 	"fileimporter-cleanup-summary": "Ce fichier est maintenant sur {{SITENAME}} sous le nom $1 (déplacé avec FileImporter).",
 	"fileimporter-cleanup-failed": "La modification automatique du wiki source n’était pas possible.",
