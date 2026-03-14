@@ -136,7 +136,6 @@ class ApiDetailRetriever implements DetailRetriever {
 		$pageTitle = $pageInfoData['title'];
 		$pageLanguage = $pageInfoData['pagelanguagehtmlcode'] ?? null;
 
-		// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 		$imageInfoData = $pageInfoData['imageinfo'];
 		$revisionsData = $pageInfoData['revisions'];
 		$fileRevisions = $this->getFileRevisionsFromImageInfo( $imageInfoData, $pageTitle );

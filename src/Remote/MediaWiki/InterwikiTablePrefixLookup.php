@@ -66,7 +66,6 @@ class InterwikiTablePrefixLookup implements LinkPrefixLookup {
 	 * @deprecated This configuration will go away once dynamic lookup is in place.
 	 */
 	private function getPrefixFromLegacyConfig( string $host ): ?string {
-		// @phan-suppress-next-line PhanAccessReadOnlyProperty
 		if ( isset( $this->interWikiConfigMap[$host] ) ) {
 			$prefix = explode( ':', $this->interWikiConfigMap[$host], 2 )[0];
 			if ( !$this->interwikiLookup->isValidInterwiki( $prefix ) ) {

@@ -153,12 +153,12 @@ class ImportPlan {
 		return $this->joinWikitextChunks(
 			wfMsgReplaceArgs(
 				$this->config->get( 'FileImporterTextForPostImportRevision' ),
-				[ $this->request->getUrl() ]
+				[ (string)$this->request->getUrl() ]
 			),
 
 			$this->messageLocalizer->msg(
 				'fileimporter-post-import-revision-annotation',
-				$this->request->getUrl(),
+				(string)$this->request->getUrl(),
 				( new DateTime( 'now', new DateTimeZone( 'UTC' ) ) )->format( 'c' )
 			)->inContentLanguage()->plain(),
 

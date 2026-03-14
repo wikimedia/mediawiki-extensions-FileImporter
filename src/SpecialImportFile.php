@@ -559,7 +559,7 @@ class SpecialImportFile extends SpecialPage {
 
 	private function showCodexImportPage( ImportPlan $importPlan ): void {
 		$this->getOutput()->addHTML(
-			Html::rawElement( 'noscript', [], $this->msg( 'fileimporter-no-script-warning' ) )
+			Html::element( 'noscript', [], $this->msg( 'fileimporter-no-script-warning' )->text() )
 		);
 
 		$this->getOutput()->addHTML(

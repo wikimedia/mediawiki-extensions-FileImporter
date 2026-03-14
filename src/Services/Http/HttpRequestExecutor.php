@@ -75,7 +75,6 @@ class HttpRequestExecutor implements LoggerAwareInterface {
 			'logger' => $this->logger,
 			'followRedirects' => true,
 		];
-		// @phan-suppress-next-line PhanAccessReadOnlyProperty
 		if ( isset( $this->httpOptions['originalRequest'] ) ) {
 			$options['originalRequest'] = $this->httpOptions['originalRequest'];
 		}

@@ -51,7 +51,7 @@ class HelpBanner extends SpecialPageHtmlFragment {
 		$closeSection = Html::rawElement(
 			'label',
 			[ 'for' => self::HIDE_HELP_BANNER_CHECK_BOX ],
-			new IconWidget( [
+			(string)new IconWidget( [
 				'icon' => 'close',
 				'title' => $this->msg( 'fileimporter-help-banner-close-tooltip' )->text()
 			] )
