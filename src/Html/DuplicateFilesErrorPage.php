@@ -34,7 +34,7 @@ class DuplicateFilesErrorPage extends SpecialPageHtmlFragment {
 			$duplicateFilesList .= Html::rawElement( 'li', [], Html::element(
 				'a',
 				[ 'href' => $file->getTitle()->getInternalURL() ],
-				$file->getTitle()
+				$file->getTitle()->getPrefixedText()
 			) );
 		}
 

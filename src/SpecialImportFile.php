@@ -528,7 +528,7 @@ class SpecialImportFile extends SpecialPage {
 			$this->remoteActionApi->executeTestEditActionQuery(
 				$sourceUrl,
 				$this->getUser(),
-				$importPlan->getTitle()
+				$importPlan->getTitle()->getPrefixedText()
 			)->isGood();
 		$capabilities['canAutomateDelete'] =
 			$isCentralAuthEnabled &&
