@@ -4,6 +4,7 @@
 			"شاه زمان پټان"
 		]
 	},
+	"fileimporter": "دوتنه‌رالېږدوونکی",
 	"fileimporter-desc": "له نورو وېبځايونو په اسانۍ د دوتنو راوړنه",
 	"fileimporter-help-banner-close-tooltip": "دا پيغام بيا مه راښکاره کوه",
 	"tag-fileimporter": "دوتنه‌راوړونکي له خوا بدل شوی",
@@ -32,6 +33,7 @@
 	"fileimporter-extensionlabel": "دوتنې غځول:",
 	"fileimporter-newfilename": "د نوې دوتنې نوم:",
 	"fileimporter-editsummary": "سمون لنډيز:",
+	"fileimporter-previewnote": "دا د رالېږدېدونکي دوتنې مخکتنه ده. مهرباني وکړئ له رالېږدولو دمخه مخ سپيناوی وگورئ.",
 	"fileimporter-heading-fileinfo": "دوتنې مالومات",
 	"fileimporter-heading-filehistory": "دوتنې پېښليک",
 	"fileimporter-heading-cleanup": "سرچينې ويکي سپاکول",
