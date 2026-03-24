@@ -16,7 +16,7 @@
 	"fileimporter-specialpage": "Uvezi datoteku",
 	"fileimporter-importfailed": "Uvoz nije uspio",
 	"fileimporter-mediawiki-api-notfound": "Nije moguće dobaviti MediaWiki priložnika sa SourceUrl nije uspjelo.",
-	"fileimporter-api-badinfo": "Izvršnik je dao nepravilne informacije o slici ili reviziji.",
+	"fileimporter-api-badinfo": "API je vratio neispravne podatke o slici ili izmjeni.",
 	"fileimporter-api-failedtogetinfo": "Neuspjelo dobavljanje datotečnih informacija iz: $1",
 	"fileimporter-api-nopagesreturned": "Udaljeni API nije vratio stranice.",
 	"fileimporter-api-toomanyrevisions": "API je vratio previše izmjena. Uvoz nije moguć.",
