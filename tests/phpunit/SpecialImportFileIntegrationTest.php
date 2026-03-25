@@ -248,11 +248,11 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 	 */
 	public function testSpecialPageExecutionWithVariousInputs(
 		array $webRequest,
-		$userOrBool,
-		?array $expectedExceptionDetails,
-		callable $htmlAssertionCallable,
-		array $sourceSiteServicesOverride = [],
-		array $httpRequestMockResponses = []
+		$user,
+		?array $expectedException,
+		callable $htmlAssertions,
+		array $sourceSiteServices = [],
+		array $httpResponses = []
 	) {
 		$httpRequestExecutorMock = $this->createMock( HttpRequestExecutor::class );
 		$httpRequestExecutorMock->expects( $this->atMost( 3 ) )
@@ -262,34 +262,34 @@ class SpecialImportFileIntegrationTest extends SpecialPageTestBase {
 					return $this->throwException( $this->newHttpRequestException( $response ) );
 				}
 				return $this->getHttpRequestMock( $response );
-			}, $httpRequestMockResponses ) );
+			}, $httpResponses ) );
 		$this->setService( 'FileImporterHttpRequestExecutor', $httpRequestExecutorMock );
 
-		if ( $sourceSiteServicesOverride ) {
-			$this->overrideConfigValue( 'FileImporterSourceSiteServices', $sourceSiteServicesOverride );
+		if ( $sourceSiteServices ) {
+			$this->overrideConfigValue( 'FileImporterSourceSiteServices', $sourceSiteServices );
 		}
 
-		if ( $expectedExceptionDetails ) {
-			$this->expectException( $expectedExceptionDetails['class'] );
-			$this->expectExceptionMessage( $expectedExceptionDetails['message'] );
+		if ( $expectedException ) {
+			$this->expectException( $expectedException['class'] );
+			$this->expectExceptionMessage( $expectedException['message'] );
 		}
 
-		if ( $userOrBool instanceof User ) {
-			$user = $userOrBool;
-		} elseif ( $userOrBool ) {
-			$user = $this->getTestSysop()->getUser();
+		if ( $user instanceof User ) {
+			$userObj = $user;
+		} elseif ( $user ) {
+			$userObj = $this->getTestSysop()->getUser();
 		} else {
-			$user = $this->getTestUser()->getUser();
+			$userObj = $this->getTestUser()->getUser();
 		}
 
 		[ $html, ] = $this->executeSpecialPage(
 			'',
 			new FauxRequest( $webRequest ),
 			'qqx',
-			$user
+			$userObj
 		);
 
-		$htmlAssertionCallable( $html );
+		$htmlAssertions( $html );
 	}
 
 }

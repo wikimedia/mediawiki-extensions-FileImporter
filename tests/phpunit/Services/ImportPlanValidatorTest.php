@@ -239,7 +239,7 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 	 * @dataProvider provideValidate
 	 */
 	public function testValidate(
-		array $expectedException,
+		array $expectException,
 		array $importPlan,
 		?bool $hasDuplicates = null,
 		?bool $importAllowed = null,
@@ -258,10 +258,10 @@ class ImportPlanValidatorTest extends MediaWikiLangTestCase {
 			$this->createNoOpMock( RestrictionStore::class, [ 'isProtected' ] )
 		);
 
-		if ( $expectedException ) {
-			$this->expectException( $expectedException[0] );
-			if ( isset( $expectedException[1] ) ) {
-				$this->expectExceptionMessage( $expectedException[1] );
+		if ( $expectException ) {
+			$this->expectException( $expectException[0] );
+			if ( isset( $expectException[1] ) ) {
+				$this->expectExceptionMessage( $expectException[1] );
 			}
 		}
 

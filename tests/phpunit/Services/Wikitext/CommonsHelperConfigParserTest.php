@@ -434,7 +434,7 @@ WIKITEXT
 			],
 
 			'parameter aliases' => [
-				'wikiText' => ';Source:Target|@target_param=source_param1|target_param=source_param2',
+				'wikitext' => ';Source:Target|@target_param=source_param1|target_param=source_param2',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
@@ -445,7 +445,7 @@ WIKITEXT
 				] ],
 			],
 			'default value' => [
-				'wikiText' => ';Source:Target|target_param=source_param|+target_param=static value',
+				'wikitext' => ';Source:Target|target_param=source_param|+target_param=static value',
 				'expected' => [ 'Source' => [
 					'targetTemplate' => 'Target',
 					'parameters' => [ 'target_param' => [
