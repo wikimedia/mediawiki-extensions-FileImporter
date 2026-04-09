@@ -2,12 +2,10 @@
 
 namespace FileImporter\Remote\MediaWiki;
 
-use MediaWiki\Api\ApiMain;
-use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Context\RequestContext;
-use MediaWiki\Request\FauxRequest;
+use MediaWiki\Extension\CentralAuth\CentralAuthServices;
+use MediaWiki\Session\SessionManager;
 use MediaWiki\User\User;
-use RuntimeException;
+use MediaWiki\WikiMap\WikiMap;
 
 /**
  * @license GPL-2.0-or-later
@@ -15,25 +13,15 @@ use RuntimeException;
 class CentralAuthTokenProvider {
 
 	/**
-	 * @return string
-	 * @throws ApiUsageException e.g. when CentralAuth is not available locally
-	 * @throws RuntimeException when there is an unexpected API result
+	 * @return string CentralAuth token.
 	 */
 	public function getToken( User $user ) {
-		$context = new RequestContext;
-		$context->setRequest( new FauxRequest( [ 'action' => 'centralauthtoken' ] ) );
-		$context->setUser( $user );
-
-		$api = new ApiMain( $context );
-
-		$api->execute();
-		$token = $api->getResult()->getResultData( [ 'centralauthtoken', 'centralauthtoken' ] );
-		if ( !$token ) {
-			// This should be unreachable, because execute() takes care of all error handling
-			throw new RuntimeException( 'Unexpected return value from the centralauthtoken API' );
-		}
-
-		return $token;
+		// @phan-suppress-next-line PhanUndeclaredClassMethod This method and service exists in CentralAuth.
+		return CentralAuthServices::getApiTokenManager()->getToken(
+			$user,
+			SessionManager::getGlobalSession()->getId(),
+			WikiMap::getCurrentWikiId()
+		);
 	}
 
 }
