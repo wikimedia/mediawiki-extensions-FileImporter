@@ -111,6 +111,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			]
 		)->parseAsBlock() .
 		( new SourceWikiCleanupSnippet(
+			$this->getContext(),
 			$sourceEditingEnabled,
 			$sourceDeletionEnabled
 		) )->getHtml( $importPlan, $this->getUser() ) .
@@ -222,6 +223,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			$this->getUser()
 		);
 		return ( new CategoriesSnippet(
+			$this->getContext(),
 			$visibleCategories,
 			$hiddenCategories
 		) )->getHtml();

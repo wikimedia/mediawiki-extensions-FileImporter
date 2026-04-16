@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace FileImporter\Tests\Html;
 
 use FileImporter\Html\CategoriesSnippet;
+use MediaWiki\Context\RequestContext;
 use MediaWikiIntegrationTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
@@ -24,7 +25,7 @@ class CategoriesSnippetTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGetHtml_uncategorized() {
-		$categoriesSnippet = new CategoriesSnippet( [], [] );
+		$categoriesSnippet = new CategoriesSnippet( RequestContext::getMain(), [], [] );
 		$html = $categoriesSnippet->getHtml();
 
 		$this->assertStringContainsString( '(fileimporter-category-encouragement)', $html );
@@ -32,7 +33,7 @@ class CategoriesSnippetTest extends MediaWikiIntegrationTestCase {
 
 	public function testGetHtml_hasOneCategory() {
 		$category = 'Puppies ' . mt_rand();
-		$categoriesSnippet = new CategoriesSnippet( [ $category ], [] );
+		$categoriesSnippet = new CategoriesSnippet( RequestContext::getMain(), [ $category ], [] );
 		$html = $categoriesSnippet->getHtml();
 
 		$this->assertStringNotContainsString( '(fileimporter-category-encouragement)', $html );

@@ -299,7 +299,7 @@ class SpecialImportFile extends SpecialPage {
 		$importPlan = $this->importPlanFactory->newPlan(
 			$importRequest,
 			$importDetails,
-			$this->getUser()
+			$this->getContext()
 		);
 		$importPlan->setActionStats(
 			json_decode( $webRequest->getVal( 'actionStats', '[]' ), true )

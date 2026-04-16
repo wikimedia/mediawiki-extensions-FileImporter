@@ -7,6 +7,7 @@ use FileImporter\Data\TextRevision;
 use FileImporter\Operations\TextRevisionFromTextRevision;
 use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\WikiRevisionFactory;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -23,6 +24,11 @@ use StatusValue;
 class TextRevisionFromTextRevisionTest extends \MediaWikiIntegrationTestCase {
 
 	private const TITLE = 'Test-29e8a6ff58c5eb980fc0642a13b59cb9c5a3cf66.png';
+
+	protected function setUp(): void {
+		parent::setUp();
+		$this->overrideConfigValue( MainConfigNames::ForeignFileRepos, [] );
+	}
 
 	public function testPrepare() {
 		$title = Title::makeTitle( NS_FILE, self::TITLE );

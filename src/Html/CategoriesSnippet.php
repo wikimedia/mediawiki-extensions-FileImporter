@@ -2,10 +2,9 @@
 
 namespace FileImporter\Html;
 
-use MediaWiki\Context\IContextSource;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
 use MediaWiki\Language\ILanguageConverter;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\SpecialPage;
@@ -19,13 +18,14 @@ class CategoriesSnippet {
 
 	private ILanguageConverter $languageConverter;
 	private LinkRenderer $linkRenderer;
-	private IContextSource $context;
 
 	/**
+	 * @param MessageLocalizer $context
 	 * @param string[] $visibleCategories
 	 * @param string[] $hiddenCategories
 	 */
 	public function __construct(
+		private readonly MessageLocalizer $context,
 		private readonly array $visibleCategories,
 		private readonly array $hiddenCategories,
 	) {
@@ -34,7 +34,6 @@ class CategoriesSnippet {
 			->getLanguageConverterFactory()
 			->getLanguageConverter( $services->getContentLanguage() );
 		$this->linkRenderer = $services->getLinkRenderer();
-		$this->context = RequestContext::getMain();
 	}
 
 	/**

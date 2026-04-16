@@ -15,9 +15,9 @@ use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\CommonsHelperConfigParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use FileImporter\Services\Wikitext\WikitextContentCleaner;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Message\Message;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Permissions\RestrictionStore;
@@ -180,13 +180,11 @@ class ImportPlanValidator {
 	}
 
 	/**
-	 * @return string
+	 * @return string[]
 	 */
-	private function getAllowedFileExtensions() {
+	private function getAllowedFileExtensions(): array {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$fileExtensions = array_unique( $config->get( MainConfigNames::FileExtensions ) );
-		$language = RequestContext::getMain()->getLanguage();
-		return $language->listToText( $fileExtensions );
+		return array_unique( $config->get( MainConfigNames::FileExtensions ) );
 	}
 
 	private function runFileTitleCheck( ImportPlan $importPlan ): void {
@@ -211,7 +209,7 @@ class ImportPlanValidator {
 				throw new TitleException( [
 					'fileimporter-filenameerror-notallowed',
 					$importPlan->getFileExtension(),
-					$this->getAllowedFileExtensions()
+					Message::listParam( $this->getAllowedFileExtensions() )
 				] );
 
 			case UploadBase::ILLEGAL_FILENAME:

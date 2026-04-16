@@ -23,6 +23,7 @@ use MediaWiki\Import\ImportableUploadRevisionImporter;
 use MediaWiki\Import\WikiRevision;
 use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Logging\DatabaseLogEntry;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Page\Article;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\RevisionRecord;
@@ -52,6 +53,7 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		parent::setUp();
 
 		$this->overrideConfigValues( [
+			MainConfigNames::ForeignFileRepos => [],
 			'FileImporterCommentForPostImportRevision' => 'imported from $1',
 		] );
 

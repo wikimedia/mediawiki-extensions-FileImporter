@@ -11,9 +11,8 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MediaWiki\Config\Config;
-use MediaWiki\Context\RequestContext;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Permissions\RestrictionStore;
-use MediaWiki\User\User;
 
 /**
  * @license GPL-2.0-or-later
@@ -36,8 +35,11 @@ class ImportPlanFactory {
 	 * @return ImportPlan A valid ImportPlan
 	 * @throws ImportException
 	 */
-	public function newPlan( ImportRequest $importRequest, ImportDetails $importDetails, User $user ) {
-		$context = RequestContext::getMain();
+	public function newPlan(
+		ImportRequest $importRequest,
+		ImportDetails $importDetails,
+		IContextSource $context
+	) {
 		$commonsHelperServer = $this->config->get( 'FileImporterCommonsHelperServer' );
 
 		if ( $commonsHelperServer ) {
@@ -63,7 +65,7 @@ class ImportPlanFactory {
 			$this->wikiLinkParserFactory,
 			$this->restrictionStore
 		);
-		$planValidator->validate( $importPlan, $user );
+		$planValidator->validate( $importPlan, $context->getUser() );
 
 		return $importPlan;
 	}

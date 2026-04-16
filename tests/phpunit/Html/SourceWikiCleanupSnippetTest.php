@@ -11,6 +11,7 @@ use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\User\User;
@@ -50,7 +51,10 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	) {
 		$this->setupServicesAndGlobals( $templateKnown, $userCanDelete );
 
-		$snippet = new SourceWikiCleanupSnippet( $editEnabled, $deleteEnabled );
+		$snippet = new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+			$editEnabled, $deleteEnabled
+		);
 		$this->assertSame(
 			'',
 			$snippet->getHtml(
@@ -63,7 +67,7 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	public function testGetHtml_editPreselected() {
 		$this->setupServicesAndGlobals( true, false );
 
-		$snippet = new SourceWikiCleanupSnippet();
+		$snippet = new SourceWikiCleanupSnippet( RequestContext::getMain() );
 		$html = $snippet->getHtml(
 			$this->createImportPlan(),
 			$this->createNoOpMock( User::class )
@@ -78,7 +82,9 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	public function testIsSourceEditAllowed_lookupSucceeds() {
 		$this->setupServicesAndGlobals( true, false );
 		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+		) );
 
 		$this->assertTrue( $snippet->isSourceEditAllowed(
 			$this->createMock( SourceUrl::class ),
@@ -90,7 +96,9 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	public function testIsSourceEditAllowed_lookupFails() {
 		$this->setupServicesAndGlobals( false, false );
 		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+		) );
 
 		$this->assertFalse( $snippet->isSourceEditAllowed(
 			$this->createMock( SourceUrl::class ),
@@ -103,7 +111,10 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 		$mockLookup = $this->createNoOpMock( WikidataTemplateLookup::class );
 		$this->setService( 'FileImporterTemplateLookup', $mockLookup );
 		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet( false ) );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+			false
+		) );
 
 		$this->assertFalse( $snippet->isSourceEditAllowed(
 			$this->createMock( SourceUrl::class ),
@@ -115,7 +126,9 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	public function testIsSourceDeleteAllowed_success() {
 		$this->setupServicesAndGlobals( false, true );
 		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+		) );
 
 		$this->assertTrue(
 			$snippet->isSourceDeleteAllowed(
@@ -131,7 +144,9 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 			->willReturn( StatusValue::newFatal( '' ) );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
 		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+		) );
 
 		$this->assertFalse(
 			$snippet->isSourceDeleteAllowed(
@@ -141,7 +156,9 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 
 	public function testIsSourceDeleteAllowed_apiFailure() {
 		$this->setupServicesAndGlobals( false, false );
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+		) );
 
 		$this->assertFalse(
 			$snippet->isSourceDeleteAllowed(
@@ -153,7 +170,10 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 		$mockApi = $this->createNoOpMock( RemoteApiActionExecutor::class );
 		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
 		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet( true, false ) );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+			true, false
+		) );
 
 		$this->assertFalse(
 			$snippet->isSourceDeleteAllowed(
@@ -164,7 +184,9 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	public function testIsFreshImport_true() {
 		$request = new ImportRequest( '//w.invalid', null, null, null, '' );
 
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+		) );
 		$this->assertTrue( $snippet->isFreshImport( $request ) );
 	}
 
@@ -172,7 +194,9 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 		$request = new ImportRequest( '//w.invalid', null, null, null, 'a' );
 
 		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet() );
+		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
+			$this->createNoOpMock( MessageLocalizer::class ),
+		) );
 		$this->assertFalse( $snippet->isFreshImport( $request ) );
 	}
 

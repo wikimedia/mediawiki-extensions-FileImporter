@@ -7,9 +7,8 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
-use MediaWiki\Context\IContextSource;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
 use OOUI\CheckboxInputWidget;
@@ -27,6 +26,7 @@ class SourceWikiCleanupSnippet {
 	private RemoteApiActionExecutor $remoteActionApi;
 
 	public function __construct(
+		private readonly MessageLocalizer $messageLocalizer,
 		private readonly bool $sourceEditingEnabled = true,
 		private readonly bool $sourceDeletionEnabled = true,
 	) {
@@ -38,8 +38,7 @@ class SourceWikiCleanupSnippet {
 	}
 
 	public function getHtml( ImportPlan $importPlan, User $user ): string {
-		/** @var IContextSource $context */
-		$context = RequestContext::getMain();
+		$context = $this->messageLocalizer;
 		$sourceUrl = $importPlan->getRequest()->getUrl();
 
 		$canAutomateEdit = $this->isSourceEditAllowed(
