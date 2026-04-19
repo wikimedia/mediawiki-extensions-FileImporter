@@ -5,12 +5,12 @@ namespace FileImporter\Tests\Html;
 
 use FileImporter\Html\ImportSuccessSnippet;
 use FileImporter\Services\SuccessCache;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use MessageLocalizer;
 use StatusValue;
 use Wikimedia\Message\MessageSpecifier;
 use Wikimedia\ObjectCache\HashBagOStuff;

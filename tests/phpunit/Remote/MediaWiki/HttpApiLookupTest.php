@@ -8,6 +8,7 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Exceptions\ImportException;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Http\MWHttpRequest;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\HttpApiLookup
@@ -18,7 +19,7 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 
 	public function testResultCaching() {
-		$request = $this->createMock( \MWHttpRequest::class );
+		$request = $this->createMock( MWHttpRequest::class );
 		$request->method( 'getContent' )
 			->willReturn( '<link rel="EditURI" href="//edit.uri?action=rsd">' );
 
@@ -54,7 +55,7 @@ class HttpApiLookupTest extends \MediaWikiIntegrationTestCase {
 	public function testHttpRequestErrorHandling( int $httpStatus, string $expectedMessage ) {
 		$status = \StatusValue::newFatal( 'error-message' );
 
-		$request = $this->createMock( \MWHttpRequest::class );
+		$request = $this->createMock( MWHttpRequest::class );
 		$request->method( 'getStatus' )
 			->willReturn( $httpStatus );
 

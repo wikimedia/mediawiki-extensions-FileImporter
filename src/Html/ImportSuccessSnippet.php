@@ -4,10 +4,10 @@ namespace FileImporter\Html;
 
 use FileImporter\Services\SuccessCache;
 use MediaWiki\Html\Html;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
-use MessageLocalizer;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use StatusValue;

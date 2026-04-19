@@ -6,11 +6,11 @@ namespace FileImporter\Tests\Html;
 use FileImporter\Data\ImportPlan;
 use FileImporter\Html\ChangeFileNameForm;
 use HamcrestPHPUnitIntegration;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
-use MessageLocalizer;
 
 /**
  * @covers \FileImporter\Html\ChangeFileNameForm

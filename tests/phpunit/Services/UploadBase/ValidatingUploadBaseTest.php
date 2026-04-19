@@ -7,7 +7,7 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
-use UploadBase;
+use MediaWiki\Upload\UploadBase;
 
 /**
  * @covers \FileImporter\Services\UploadBase\ValidatingUploadBase

@@ -2,7 +2,7 @@
 
 namespace FileImporter\Exceptions;
 
-use MWHttpRequest;
+use MediaWiki\Http\MWHttpRequest;
 use StatusValue;
 
 /**

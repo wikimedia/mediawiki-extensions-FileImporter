@@ -6,7 +6,7 @@ namespace FileImporter\Tests\Services\Http;
 use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\Http\HttpRequestFactory;
-use MWHttpRequest;
+use MediaWiki\Http\MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use StatusValue;
 

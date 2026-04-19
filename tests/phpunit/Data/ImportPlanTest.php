@@ -9,8 +9,8 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\TextRevision;
 use FileImporter\Data\TextRevisions;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Title\TitleValue;
-use MessageLocalizer;
 
 /**
  * @covers \FileImporter\Data\ImportPlan

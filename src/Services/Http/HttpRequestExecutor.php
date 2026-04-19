@@ -4,7 +4,7 @@ namespace FileImporter\Services\Http;
 
 use FileImporter\Exceptions\HttpRequestException;
 use MediaWiki\Http\HttpRequestFactory;
-use MWHttpRequest;
+use MediaWiki\Http\MWHttpRequest;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

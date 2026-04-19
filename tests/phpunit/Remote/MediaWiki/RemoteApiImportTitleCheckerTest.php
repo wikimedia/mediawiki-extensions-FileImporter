@@ -7,7 +7,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\RemoteApiImportTitleChecker;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use MWHttpRequest;
+use MediaWiki\Http\MWHttpRequest;
 use Psr\Log\LoggerInterface;
 
 /**

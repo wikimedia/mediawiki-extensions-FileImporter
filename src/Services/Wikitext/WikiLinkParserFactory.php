@@ -3,7 +3,7 @@
 namespace FileImporter\Services\Wikitext;
 
 use FileImporter\Remote\MediaWiki\MediaWikiSourceUrlParser;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\TitleParser;
 

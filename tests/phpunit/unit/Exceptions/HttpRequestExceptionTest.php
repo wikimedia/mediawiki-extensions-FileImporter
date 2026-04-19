@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 namespace FileImporter\Tests\Exceptions;
 
 use FileImporter\Exceptions\HttpRequestException;
-use MWHttpRequest;
+use MediaWiki\Http\MWHttpRequest;
 use StatusValue;
 
 /**

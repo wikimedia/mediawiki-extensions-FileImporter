@@ -7,11 +7,11 @@ use FileImporter\HookRunner;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
+use MediaWiki\Upload\UploadBase;
 use MediaWiki\User\User;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
-use UploadBase;
 
 /**
  * This class extends the MediaWiki UploadBase class in order to perform validation

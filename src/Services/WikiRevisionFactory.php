@@ -5,10 +5,10 @@ namespace FileImporter\Services;
 use FileImporter\Data\FileRevision;
 use FileImporter\Data\TextRevision;
 use MediaWiki\Content\IContentHandlerFactory;
+use MediaWiki\Import\WikiRevision;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 use MediaWiki\User\ExternalUserNames;
-use WikiRevision;
 
 /**
  * @license GPL-2.0-or-later

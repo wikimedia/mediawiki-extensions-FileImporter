@@ -9,10 +9,10 @@ use FileImporter\Remote\MediaWiki\CentralAuthTokenProvider;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Http\MWHttpRequest;
 use MediaWiki\User\CentralId\CentralIdLookup;
 use MediaWiki\User\User;
 use MediaWikiUnitTestCase;
-use MWHttpRequest;
 
 /**
  * @covers \FileImporter\Remote\MediaWiki\RemoteApiRequestExecutor

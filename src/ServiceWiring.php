@@ -28,13 +28,13 @@ use FileImporter\Services\WikidataTemplateLookup;
 use FileImporter\Services\WikimediaSourceUrlNormalizer;
 use FileImporter\Services\WikiRevisionFactory;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
-use ImportableUploadRevisionImporter;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Import\ImportableUploadRevisionImporter;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Registration\ExtensionRegistry;
-use UploadBase;
+use MediaWiki\Upload\UploadBase;
 
 /** @phpcs-require-sorted-array */
 return [

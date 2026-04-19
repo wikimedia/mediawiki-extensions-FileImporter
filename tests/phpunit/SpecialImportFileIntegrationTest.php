@@ -11,15 +11,15 @@ use Hamcrest\Matcher;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Http\MWHttpRequest;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Site\HashSiteStore;
 use MediaWiki\Site\Site;
 use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\Tests\Specials\SpecialPageTestBase;
 use MediaWiki\User\Options\UserOptionsManager;
 use MediaWiki\User\User;
-use MWHttpRequest;
-use SpecialPageTestBase;
 use StatusValue;
 use Wikimedia\Stats\StatsFactory;
 

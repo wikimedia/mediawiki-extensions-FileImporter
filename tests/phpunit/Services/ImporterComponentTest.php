@@ -24,6 +24,11 @@ use MediaWiki\Api\ApiMessage;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\TextContent;
 use MediaWiki\Content\WikitextContent;
+use MediaWiki\Http\MWHttpRequest;
+use MediaWiki\Import\OldRevisionImporter;
+use MediaWiki\Import\UploadRevisionImporter;
+use MediaWiki\Import\WikiRevision;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Page\WikiPage;
 use MediaWiki\Page\WikiPageFactory;
@@ -31,15 +36,12 @@ use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Storage\PageUpdateStatus;
 use MediaWiki\Title\TitleValue;
+use MediaWiki\Upload\UploadBase;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserIdentityLookup;
-use MessageLocalizer;
-use OldRevisionImporter;
 use StatusValue;
-use UploadRevisionImporter;
 use Wikimedia\TestingAccessWrapper;
-use WikiRevision;
 
 /**
  * @covers \FileImporter\Services\Importer
@@ -349,7 +351,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function createHttpRequestExecutorMock(): HttpRequestExecutor {
-		$request = $this->createNoOpMock( \MWHttpRequest::class );
+		$request = $this->createNoOpMock( MWHttpRequest::class );
 
 		$executor = $this->createMock( HttpRequestExecutor::class );
 		$executor->expects( $this->once() )
@@ -366,7 +368,7 @@ class ImporterComponentTest extends \MediaWikiIntegrationTestCase {
 		$uploadBase = $this->createMock( ValidatingUploadBase::class );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateTitle' )
-			->willReturn( \UploadBase::OK );
+			->willReturn( UploadBase::OK );
 		$uploadBase->expects( $this->once() )
 			->method( 'validateFile' )
 			->willReturn( \StatusValue::newGood() );

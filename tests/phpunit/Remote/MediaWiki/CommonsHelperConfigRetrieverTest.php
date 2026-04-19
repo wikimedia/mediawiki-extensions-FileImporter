@@ -6,6 +6,7 @@ namespace FileImporter\Tests\Remote\MediaWiki;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\CommonsHelperConfigRetriever;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Http\MWHttpRequest;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Revision\SlotRecord;
 
@@ -114,7 +115,7 @@ class CommonsHelperConfigRetrieverTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	private function createMWHttpRequest( array $response ) {
-		$request = $this->createMock( \MWHttpRequest::class );
+		$request = $this->createMock( MWHttpRequest::class );
 		$request->method( 'getContent' )
 			->willReturn( json_encode( $response ) );
 		return $request;

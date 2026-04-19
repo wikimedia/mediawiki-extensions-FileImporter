@@ -5,6 +5,7 @@ namespace FileImporter\Remote\MediaWiki;
 use Exception;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Services\Http\HttpRequestExecutor;
+use MediaWiki\Http\MWHttpRequest;
 use MediaWiki\User\CentralId\CentralIdLookup;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
@@ -139,7 +140,7 @@ class RemoteApiRequestExecutor implements LoggerAwareInterface {
 	): ?array {
 		/** @var array|null $result */
 		$result = null;
-		/** @var \MWHttpRequest|null $request */
+		/** @var MWHttpRequest|null $request */
 		$request = null;
 
 		try {

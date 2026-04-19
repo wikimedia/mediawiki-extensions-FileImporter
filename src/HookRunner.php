@@ -4,9 +4,9 @@ namespace FileImporter;
 
 use MediaWiki\Hook\EditFilterMergedContentHook;
 use MediaWiki\Hook\EditPage__showEditForm_initialHook;
-use MediaWiki\Hook\UploadStashFileHook;
-use MediaWiki\Hook\UploadVerifyUploadHook;
 use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\Upload\Hook\UploadStashFileHook;
+use MediaWiki\Upload\Hook\UploadVerifyUploadHook;
 
 /**
  * This is a hook runner class, see docs/Hooks.md in core.

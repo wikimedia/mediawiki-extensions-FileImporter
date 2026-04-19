@@ -9,8 +9,8 @@ use FileImporter\Remote\MediaWiki\ApiDetailRetriever;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use MediaWiki\Config\ConfigException;
+use MediaWiki\Http\MWHttpRequest;
 use MediaWiki\Revision\SlotRecord;
-use MWHttpRequest;
 use Wikimedia\TestingAccessWrapper;
 
 /**

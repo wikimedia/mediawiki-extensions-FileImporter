@@ -6,7 +6,7 @@ namespace FileImporter\Tests\MediaWiki;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
-use UploadBase;
+use MediaWiki\Upload\UploadBase;
 
 /**
  * @covers \FileImporter\Services\UploadBase\ValidatingUploadBase

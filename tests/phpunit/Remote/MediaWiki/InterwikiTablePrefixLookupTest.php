@@ -8,9 +8,9 @@ use FileImporter\Exceptions\HttpRequestException;
 use FileImporter\Remote\MediaWiki\HttpApiLookup;
 use FileImporter\Remote\MediaWiki\InterwikiTablePrefixLookup;
 use FileImporter\Services\Http\HttpRequestExecutor;
-use Interwiki;
+use MediaWiki\Http\MWHttpRequest;
+use MediaWiki\Interwiki\Interwiki;
 use MediaWiki\Interwiki\InterwikiLookup;
-use MWHttpRequest;
 use Wikimedia\TestingAccessWrapper;
 
 /**

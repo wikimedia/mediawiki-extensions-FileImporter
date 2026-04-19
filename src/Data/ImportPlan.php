@@ -5,10 +5,10 @@ namespace FileImporter\Data;
 use DateTime;
 use DateTimeZone;
 use MediaWiki\Config\Config;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\Title;
-use MessageLocalizer;
 
 /**
  * Planned import.

@@ -9,9 +9,10 @@ use FileImporter\Operations\FileRevisionFromRemoteUrl;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\WikiRevisionFactory;
-use ImportableUploadRevisionImporter;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\FileRepo\File\File;
+use MediaWiki\Import\ImportableUploadRevisionImporter;
+use MediaWiki\Import\WikiRevision;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -19,7 +20,6 @@ use MediaWiki\User\UserIdentityLookup;
 use MediaWiki\User\UserIdentityValue;
 use Psr\Log\NullLogger;
 use Wikimedia\FileBackend\FSFile\FSFile;
-use WikiRevision;
 
 /**
  * @covers \FileImporter\Operations\FileRevisionFromRemoteUrl

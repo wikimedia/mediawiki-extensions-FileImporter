@@ -22,6 +22,7 @@ use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\Wikitext\WikiLinkParser;
 use FileImporter\Services\Wikitext\WikiLinkParserFactory;
 use MediaWiki\Config\HashConfig;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Permissions\PermissionStatus;
@@ -30,10 +31,9 @@ use MediaWiki\Tests\Unit\Permissions\MockAuthorityTrait;
 use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleValue;
+use MediaWiki\Upload\UploadBase;
 use MediaWikiLangTestCase;
-use MessageLocalizer;
 use MockTitleTrait;
-use UploadBase;
 
 /**
  * @covers \FileImporter\Services\ImportPlanValidator

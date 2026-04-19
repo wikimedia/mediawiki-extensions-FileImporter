@@ -15,11 +15,13 @@ use FileImporter\Services\FileTextRevisionValidator;
 use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\Importer;
 use FileImporter\Services\WikiRevisionFactory;
-use ImportableUploadRevisionImporter;
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\FileRepo\File\File;
+use MediaWiki\Import\ImportableUploadRevisionImporter;
+use MediaWiki\Import\WikiRevision;
+use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Logging\DatabaseLogEntry;
 use MediaWiki\Page\Article;
 use MediaWiki\Permissions\RestrictionStore;
@@ -28,10 +30,8 @@ use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\TitleValue;
 use MediaWiki\User\UserIdentityLookup;
 use MediaWiki\User\UserIdentityValue;
-use MessageLocalizer;
 use Psr\Log\NullLogger;
 use Wikimedia\FileBackend\FSFile\FSFile;
-use WikiRevision;
 
 /**
  * @covers \FileImporter\Services\Importer

@@ -41,13 +41,13 @@ use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
+use MediaWiki\Upload\UploadBase;
 use MediaWiki\User\Options\UserOptionsManager;
 use MediaWiki\User\User;
 use OOUI\HtmlSnippet;
 use OOUI\MessageWidget;
 use Psr\Log\LoggerInterface;
 use StatusValue;
-use UploadBase;
 use Wikimedia\Stats\StatsFactory;
 
 /**

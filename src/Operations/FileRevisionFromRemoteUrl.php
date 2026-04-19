@@ -12,21 +12,21 @@ use FileImporter\Services\Http\HttpRequestExecutor;
 use FileImporter\Services\UploadBase\UploadBaseFactory;
 use FileImporter\Services\UploadBase\ValidatingUploadBase;
 use FileImporter\Services\WikiRevisionFactory;
+use MediaWiki\Http\MWHttpRequest;
+use MediaWiki\Import\UploadRevisionImporter;
+use MediaWiki\Import\WikiRevision;
 use MediaWiki\Logging\ManualLogEntry;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+use MediaWiki\Upload\UploadBase;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentityLookup;
-use MWHttpRequest;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
 use UnexpectedValueException;
-use UploadBase;
-use UploadRevisionImporter;
 use Wikimedia\FileBackend\FSFile\TempFSFileFactory;
-use WikiRevision;
 
 /**
  * @license GPL-2.0-or-later

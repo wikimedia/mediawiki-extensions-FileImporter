@@ -23,7 +23,7 @@ use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Permissions\RestrictionStore;
 use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\Title;
-use UploadBase;
+use MediaWiki\Upload\UploadBase;
 
 /**
  * @license GPL-2.0-or-later
