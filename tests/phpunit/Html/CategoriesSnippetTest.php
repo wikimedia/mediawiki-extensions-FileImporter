@@ -4,7 +4,9 @@ declare( strict_types = 1 );
 namespace FileImporter\Tests\Html;
 
 use FileImporter\Html\CategoriesSnippet;
-use MediaWiki\Context\RequestContext;
+use MediaWiki\Language\MessageLocalizer;
+use MediaWiki\Language\RawMessage;
+use MediaWiki\SpecialPage\SpecialPage;
 use MediaWikiIntegrationTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
@@ -24,17 +26,28 @@ class CategoriesSnippetTest extends MediaWikiIntegrationTestCase {
 		Theme::setSingleton( new BlankTheme() );
 	}
 
+	private function getMockSpecialPage(): SpecialPage {
+		$messageLocalizer = $this->createMock( MessageLocalizer::class );
+		$messageLocalizer->method( 'msg' )
+			->willReturnCallback( static fn ( $key ) => new RawMessage( "($key)" ) );
+
+		$mock = $this->createNoOpMock( SpecialPage::class, [ 'getContext' ] );
+		$mock->method( 'getContext' )
+			->willReturn( $messageLocalizer );
+		return $mock;
+	}
+
 	public function testGetHtml_uncategorized() {
-		$categoriesSnippet = new CategoriesSnippet( RequestContext::getMain(), [], [] );
-		$html = $categoriesSnippet->getHtml();
+		$categoriesSnippet = new CategoriesSnippet( $this->getMockSpecialPage() );
+		$html = $categoriesSnippet->getHtml( [], [] );
 
 		$this->assertStringContainsString( '(fileimporter-category-encouragement)', $html );
 	}
 
 	public function testGetHtml_hasOneCategory() {
 		$category = 'Puppies ' . mt_rand();
-		$categoriesSnippet = new CategoriesSnippet( RequestContext::getMain(), [ $category ], [] );
-		$html = $categoriesSnippet->getHtml();
+		$categoriesSnippet = new CategoriesSnippet( $this->getMockSpecialPage() );
+		$html = $categoriesSnippet->getHtml( [ $category ], [] );
 
 		$this->assertStringNotContainsString( '(fileimporter-category-encouragement)', $html );
 		$this->assertStringContainsString( ' class="catlinks"', $html );

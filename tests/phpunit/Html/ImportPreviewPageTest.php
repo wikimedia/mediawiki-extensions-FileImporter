@@ -196,7 +196,7 @@ class ImportPreviewPageTest extends \MediaWikiLangTestCase {
 				'FileImporterSourceWikiDeletion' => true,
 			] ) );
 		$context->method( 'msg' )
-			->willReturnCallback( 'wfMessage' );
+			->willReturnCallback( wfMessage( ... ) );
 
 		$mock = $this->createNoOpMock( SpecialPage::class, [ 'getPageTitle', 'getContext' ] );
 		$mock->method( 'getPageTitle' )

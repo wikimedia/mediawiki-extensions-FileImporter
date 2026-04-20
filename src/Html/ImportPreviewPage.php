@@ -222,11 +222,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 			$importPlan->getTitle(),
 			$this->getUser()
 		);
-		return ( new CategoriesSnippet(
-			$this->getContext(),
-			$visibleCategories,
-			$hiddenCategories
-		) )->getHtml();
+		return ( new CategoriesSnippet( $this ) )->getHtml( $visibleCategories, $hiddenCategories );
 	}
 
 	/**

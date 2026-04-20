@@ -4,7 +4,6 @@ namespace FileImporter\Html;
 
 use MediaWiki\Html\Html;
 use MediaWiki\Language\ILanguageConverter;
-use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\SpecialPage;
@@ -14,21 +13,15 @@ use OOUI\IconWidget;
 /**
  * @license GPL-2.0-or-later
  */
-class CategoriesSnippet {
+class CategoriesSnippet extends SpecialPageHtmlFragment {
 
 	private ILanguageConverter $languageConverter;
 	private LinkRenderer $linkRenderer;
 
-	/**
-	 * @param MessageLocalizer $context
-	 * @param string[] $visibleCategories
-	 * @param string[] $hiddenCategories
-	 */
 	public function __construct(
-		private readonly MessageLocalizer $context,
-		private readonly array $visibleCategories,
-		private readonly array $hiddenCategories,
+		SpecialPage|SpecialPageHtmlFragment $specialPage,
 	) {
+		parent::__construct( $specialPage );
 		$services = MediaWikiServices::getInstance();
 		$this->languageConverter = $services
 			->getLanguageConverterFactory()
@@ -39,25 +32,27 @@ class CategoriesSnippet {
 	/**
 	 * Render categories in a format similar to OutputPage
 	 *
+	 * @param string[] $visibleCategories
+	 * @param string[] $hiddenCategories
 	 * @return string HTML rendering of categories box
 	 */
-	public function getHtml(): string {
+	public function getHtml( array $visibleCategories, array $hiddenCategories ): string {
 		$output = '';
 
 		// TODO: Gracefully handle an empty list of categories, pending decisions about the desired
 		// behavior.
-		if ( $this->visibleCategories === [] && $this->hiddenCategories === [] ) {
+		if ( !$visibleCategories && !$hiddenCategories ) {
 			return Html::rawElement(
 				'div',
 				[],
 				new IconWidget( [ 'icon' => 'info' ] )
 					. ' '
-					. $this->context->msg( 'fileimporter-category-encouragement' )->parse()
+					. $this->msg( 'fileimporter-category-encouragement' )->parse()
 			);
 		}
 
-		$categoryLinks = $this->buildCategoryLinks( $this->visibleCategories );
-		$hiddenCategoryLinks = $this->buildCategoryLinks( $this->hiddenCategories );
+		$categoryLinks = $this->buildCategoryLinks( $visibleCategories );
+		$hiddenCategoryLinks = $this->buildCategoryLinks( $hiddenCategories );
 
 		if ( $categoryLinks ) {
 			$output .= Html::rawElement(
@@ -65,10 +60,10 @@ class CategoriesSnippet {
 				[ 'class' => 'mw-normal-catlinks' ],
 				$this->linkRenderer->makeLink(
 					SpecialPage::getSafeTitleFor( 'Categories' ),
-					$this->context->msg( 'pagecategories' )->numParams( count( $categoryLinks ) )
+					$this->msg( 'pagecategories' )->numParams( count( $categoryLinks ) )
 						->text()
 				) .
-				$this->context->msg( 'colon-separator' )->escaped() .
+				$this->msg( 'colon-separator' )->escaped() .
 				Html::rawElement( 'ul', [], implode( '', $categoryLinks ) )
 			);
 		}
@@ -77,9 +72,9 @@ class CategoriesSnippet {
 			$output .= Html::rawElement(
 				'div',
 				[ 'class' => 'mw-hidden-catlinks' ],
-				$this->context->msg( 'hidden-categories' )
+				$this->msg( 'hidden-categories' )
 					->numParams( count( $hiddenCategoryLinks ) )->escaped() .
-				$this->context->msg( 'colon-separator' )->escaped() .
+				$this->msg( 'colon-separator' )->escaped() .
 				Html::rawElement( 'ul', [], implode( '', $hiddenCategoryLinks ) )
 			);
 		}
