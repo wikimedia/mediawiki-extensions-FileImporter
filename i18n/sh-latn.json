@@ -28,7 +28,7 @@
 	"fileimporter-cantimportfromsharedrepo": "Nije moguće uvesti datoteke koje zapravo nisu na $1, već se nalaze u dijeljenom skladištu.",
 	"fileimporter-cantimportmissingfile": "Nije moguće uvesti nepostojeću datoteku.",
 	"fileimporter-cantimportfilehidden": "Uvoz datoteke nije moguć jer bar jedna od njenih izmjena je sakrivena.",
-	"fileimporter-cantimportfileinvalid": "Ova datoteka (ili neka od njenih starijih izmjena) sadržava element koji zbog sigurnosnih razloga ne se prihvaćuje: $1",
+	"fileimporter-cantimportfileinvalid": "Ova datoteka (ili neka od njenih starijih izmjena) sadrži element koji zbog sigurnosnih razloga ne može biti prihvaćen: $1",
 	"fileimporter-warningabusefilter": "[//en.wikipedia.org/wiki/Wikipedia:Edit_filter Automatizirani filter] identificirao je možebitno nekonstruktivno uređivanje unutar historije izmjena ove datoteke. Jedna ili više izmjena mogla je dovesti do aktivacije toga filtera; svaka od njih prikazana je niže, uz odgovarajuće upozorenje. Pritisnite \"Pošalji\" kako biste zanemarili sva upozorenja i nastavili uvoz.",
 	"fileimporter-badnamespace": "Naveden je pogrešan imenski prostor.",
 	"fileimporter-badtoken": "Vaša sesija više nije važeća. Ponovo započnite uvoz.",
