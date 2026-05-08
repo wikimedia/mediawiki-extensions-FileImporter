@@ -64,6 +64,8 @@
 	"fileimporter-cancel": "취소",
 	"fileimporter-edittitle": "제목 편집",
 	"fileimporter-editinfo": "파일 정보 편집",
+	"fileimporter-previewtitle": "제목 미리보기",
+	"fileimporter-previewinfo": "파일 정보 미리보기",
 	"fileimporter-extensionlabel": "파일 확장자:",
 	"fileimporter-newfilename": "새 파일 이름:",
 	"fileimporter-editsummary": "편집 요약:",
