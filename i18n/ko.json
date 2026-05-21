@@ -80,7 +80,7 @@
 	"fileimporter-cleanup-text": "원본 위키에서 이 파일이 {{SITENAME}}으로 가져가 졌다고 선언할 수 있습니다. 이는 원본 파일 문서에 <code><nowiki>{{$1}}</nowiki></code> 틀을 당신의 이름으로 추가했기에 수행되었습니다.",
 	"fileimporter-cleanup-checkboxlabel": "원본 위키 파일을 {{SITENAME}}으로 가져가 진 것으로 것으로 표시",
 	"fileimporter-cleanup-summary": "이 파일은 현재 {{SITENAME}}의 $1에 있습니다. (FileImporter로 이동됨)",
-	"fileimporter-cleanup-failed": "출처 위키를 자동으로 편집하는 것은 불가능했습니다.",
+	"fileimporter-cleanup-failed": "원본 위키를 자동으로 편집하는 것은 불가능했습니다.",
 	"fileimporter-delete-text": "원본 위키에서 해당 파일을 삭제할 권한이 있습니다. FileImporter를 사용하여 당신의 이름으로 파일을 삭제하려면 이 옵션을 선택하세요:",
 	"fileimporter-delete-checkboxlabel": "내 이름으로 원본 위키의 파일을 삭제",
 	"fileimporter-delete-summary": "이 파일은 현재 {{SITENAME}}의 $1에 있습니다. (FileImporter로 이동됨)",
