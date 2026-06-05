@@ -8,7 +8,8 @@
 			"Mbch331",
 			"McDutchie",
 			"Nickthijssen1994",
-			"Patio"
+			"Patio",
+			"Siebrand"
 		]
 	},
 	"fileimporter-desc": "Eenvoudig bestanden van andere sites importeren",
@@ -85,7 +86,7 @@
 	"fileimporter-filemissinginrevision": "Kan het bestand niet importeren omdat er ten minste één versie van de afbeelding ontbreekt.",
 	"fileimporter-filetoolarge": "{{PLURAL:$1|Het bestand|De bestanden}} die probeert te importeren {{PLURAL:$1|overschrijdt|overschrijden}} de limiet op de bestandsgrootte.",
 	"fileimporter-import-wait": "De invoer zal enkele minuten duren.",
-	"fileimporter-imported-success-banner": "Het bestand is succesvol geïmporteerd op {{SITENAME}}.",
+	"fileimporter-imported-success-banner": "Het bestand is geïmporteerd op {{SITENAME}}.",
 	"fileimporter-add-unknown-template": "Het bestand is geïmporteerd. Om aan te geven dat het bestand nu op {{SITENAME}} staat, gaat u terug naar [$1 het originele bestand] en voegt u daar het juiste sjabloon toe, doorgaans <code><nowiki>{{NowCommons}}</nowiki></code>.",
 	"fileimporter-add-specific-template": "Het bestand is geïmporteerd. Om aan te geven dat het bestand nu op {{SITENAME}} staat, gaat u terug naar [$1 het originele bestand] en voegt u dit sjabloon toe: <code><nowiki>{{$2|$3}}</nowiki></code>.",
 	"fileimporter-go-to-original-file-button": "Terug naar het originele bestand",
