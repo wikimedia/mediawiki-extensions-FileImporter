@@ -4,7 +4,8 @@
 			"Patriccck",
 			"Patrik L.",
 			"TomášPolonec",
-			"Vlad5250"
+			"Vlad5250",
+			"Wizzard"
 		]
 	},
 	"fileimporter": "Exportér súborov",
@@ -27,7 +28,7 @@
 	"fileimporter-previewnote": "Toto je náhľad súboru, ktorý má byť exportovaný. Pred exportovaním prosím podrobne skontrolujte súbor.",
 	"fileimporter-heading-fileinfo": "Informácie o súbore",
 	"fileimporter-heading-filehistory": "História súboru",
-	"fileimporter-revision-removed-text": "Potlačený text odobratý aplikácií Exportér súborov.",
+	"fileimporter-revision-removed-text": "Skrytý text odstránený nástrojom FileImporter.",
 	"fileimporter-import-wait": "Export môže trvať niekoľko minút.",
 	"fileimporter-viewdiff": "Zobraziť zmeny"
 }

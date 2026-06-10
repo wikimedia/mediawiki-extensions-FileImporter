@@ -18,6 +18,8 @@
 	"fileimporter-api-failedtogetinfo": "له $1 څخه د دوتنې د مالوماتو ترلاسه کولو  پاتې راغلی",
 	"fileimporter-api-nopagesreturned": "د رېموټ ای‌پي‌آی له خوا هېڅ مخونه راونگرځول شول.",
 	"fileimporter-api-file-notfound": "دوتنه ونهٔ موندل شوه: $1.",
+	"fileimporter-badnamespace": "د ليک بياليدنې لپاره ناسم نوم‌تشيال ورکړل شوی",
+	"fileimporter-badtoken": "ستاسو ناسته نور د باور وړ نه ده. مهرباني وکړئ رالېږدول بيا پيل کړئ.",
 	"fileimporter-duplicatefilesdetected-prefix": "دوه‌گوني",
 	"fileimporter-exampleprefix": "بېلگه",
 	"fileimporter-submit": "سپارل",
