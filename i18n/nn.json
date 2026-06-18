@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Njardarlogar"
+			"Njardarlogar",
+			"Ranveig"
 		]
 	},
 	"fileimporter": "Filimportør",
 	"fileimporter-desc": "Enkel importering av filer frå andre nettstader",
+	"fileimporter-cantimportfileinvalid": "Denne fila (eller ein eldre versjon av fila) inneheld element som ikkje kan aksepterast av tryggingsårsaker: $1",
 	"fileimporter-duplicatefilesdetected": "Fila du prøver å importera finst alt på denne wikien.",
 	"fileimporter-duplicatefilesdetected-prefix": "Duplikat",
 	"fileimporter-go-to-original-file-button": "Attende til den opphavlege fila",
