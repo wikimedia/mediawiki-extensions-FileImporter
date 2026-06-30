@@ -5,6 +5,7 @@
 			"Omotecho",
 			"Otokoume",
 			"Shirayuki",
+			"Tensama0415",
 			"しぃ",
 			"つぶあん派",
 			"春春眠眠"
@@ -31,7 +32,7 @@
 	"fileimporter-badtoken": "あなたのセッションは現在有効ではありません。インポートを再開してください。",
 	"fileimporter-badimporthash": "インポートハッシュが一致しません。最初からやり直してみてください。",
 	"fileimporter-filenameerror-default": "ファイル名に関する不明な問題があります。",
-	"fileimporter-filenameerror-illegal": "あなたがインポートしようとしているファイル名は不適切です。",
+	"fileimporter-filenameerror-illegal": "現在インポートしようとしているファイル名は無効です。例：不正な文字が含まれています。",
 	"fileimporter-filenameerror-toolong": "あなたがインポートしようとしているファイル名は長すぎます。",
 	"fileimporter-filenameerror-automaticchanges": "ファイル名は自動的に \"$1\" から \"$2\" に変更されました。",
 	"fileimporter-localtitleexists": "現在インポートしようとしているファイル名は、このウィキで既に使用されています。",
