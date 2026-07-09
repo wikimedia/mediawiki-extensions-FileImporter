@@ -255,23 +255,20 @@ class ImporterTest extends \MediaWikiIntegrationTestCase {
 		$timestamp,
 		$expectedTag = null
 	): DatabaseLogEntry {
-		$queryInfo = DatabaseLogEntry::getSelectQueryData();
-		$queryInfo['conds'] += [
-			'log_page' => $pageId,
-			'log_type' => $type,
-			'log_timestamp' => $this->getDb()->timestamp( $timestamp ),
-		];
+		$queryBuilder = DatabaseLogEntry::newSelectQueryBuilder( $this->getDb() )
+			->where( [
+				'log_page' => $pageId,
+				'log_type' => $type,
+				'log_timestamp' => $this->getDb()->timestamp( $timestamp ),
+			] );
 
-		$this->getServiceContainer()->getChangeTagsStore()->modifyDisplayQuery(
-			$queryInfo['tables'],
-			$queryInfo['fields'],
-			$queryInfo['conds'],
-			$queryInfo['join_conds'],
-			$queryInfo['options']
+		$this->getServiceContainer()->getChangeTagsStore()->addTagsToDisplayQuery(
+			$queryBuilder,
+			'logging',
+			$this->getTestUser()->getAuthority()
 		);
 
-		$row = $this->getDb()->newSelectQueryBuilder()
-			->queryInfo( $queryInfo )
+		$row = $queryBuilder
 			->caller( __METHOD__ )
 			->fetchRow();
 
