@@ -90,14 +90,12 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		if ( $status->isGood() ) {
 			$this->postImportCounter->setLabel( 'result', 'success' )
 				->setLabel( 'action', 'edit' )
-				->copyToStatsdAt( 'FileImporter.import.postImport.edit.successful' )
 				->increment();
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import edit.' );
 			$this->postImportCounter->setLabel( 'result', 'failed' )
 				->setLabel( 'action', 'edit' )
-				->copyToStatsdAt( 'FileImporter.import.postImport.edit.failed' )
 				->increment();
 
 			return $this->manualTemplateFallback(
@@ -125,14 +123,12 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		if ( $status->isGood() ) {
 			$this->postImportCounter->setLabel( 'result', 'success' )
 				->setLabel( 'action', 'delete' )
-				->copyToStatsdAt( 'FileImporter.import.postImport.delete.successful' )
 				->increment();
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import delete.' );
 			$this->postImportCounter->setLabel( 'result', 'failed' )
 				->setLabel( 'action', 'delete' )
-				->copyToStatsdAt( 'FileImporter.import.postImport.delete.failed' )
 				->increment();
 
 			$status = $this->successMessage();

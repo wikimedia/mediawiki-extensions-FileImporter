@@ -189,13 +189,11 @@ class SpecialImportFile extends SpecialPage {
 			->setLabel( 'parameter', 'none' );
 		// The importSource url parameter is added to requests from the FileExporter extension.
 		if ( $webRequest->getRawVal( 'importSource' ) === 'FileExporter' ) {
-			$execTotalMetric->setLabel( 'parameter', 'fromFileExporter' )
-				->copyToStatsdAt( 'FileImporter.specialPage.execute.fromFileExporter' );
+			$execTotalMetric->setLabel( 'parameter', 'fromFileExporter' );
 		}
 
 		if ( $clientUrl === '' ) {
-			$execTotalMetric->setLabel( 'parameter', 'noClientUrl' )
-				->copyToStatsdAt( 'FileImporter.specialPage.execute.noClientUrl' );
+			$execTotalMetric->setLabel( 'parameter', 'noClientUrl' );
 			$this->showLandingPage();
 			return;
 		}
@@ -321,7 +319,6 @@ class SpecialImportFile extends SpecialPage {
 		$this->statsFactory->getCounter( 'errors_total' )
 			->setLabel( 'recoverable', wfBoolToStr( $isRecoverable ) )
 			->setLabel( 'type', $type )
-			->copyToStatsdAt( 'FileImporter.error.byRecoverable.' . wfBoolToStr( $isRecoverable ) . '.byType.' . $type )
 			->increment();
 	}
 
@@ -334,7 +331,6 @@ class SpecialImportFile extends SpecialPage {
 			);
 			$this->statsFactory->getCounter( 'imports_total' )
 				->setLabel( 'result', 'success' )
-				->copyToStatsdAt( 'FileImporter.import.result.success' )
 				->increment();
 			$this->logActionStats( $importPlan );
 
@@ -405,7 +401,6 @@ class SpecialImportFile extends SpecialPage {
 			);
 			$this->statsFactory->getCounter( 'imports_total' )
 				->setLabel( 'result', 'success' )
-				->copyToStatsdAt( 'FileImporter.import.result.success' )
 				->increment();
 			// TODO: inline at site of action
 			$this->logActionStats( $importPlan );
@@ -461,7 +456,6 @@ class SpecialImportFile extends SpecialPage {
 			) {
 				$this->statsFactory->getCounter( 'specialPage_actions_total' )
 					->setLabel( 'action', $key )
-					->copyToStatsdAt( 'FileImporter.specialPage.action.' . $key )
 					->increment();
 			}
 		}
@@ -542,7 +536,6 @@ class SpecialImportFile extends SpecialPage {
 
 			$this->statsFactory->getCounter( 'specialPage_actions_total' )
 				->setLabel( 'action', 'offeredSourceDelete' )
-				->copyToStatsdAt( 'FileImporter.specialPage.action.offeredSourceDelete' )
 				->increment();
 		} elseif ( $capabilities['canAutomateEdit'] ) {
 			$capabilities['automateEditSelected'] =
@@ -552,7 +545,6 @@ class SpecialImportFile extends SpecialPage {
 				$this->templateLookup->fetchNowCommonsLocalTitle( $sourceUrl );
 			$this->statsFactory->getCounter( 'specialPage_actions_total' )
 				->setLabel( 'action', 'offeredSourceEdit' )
-				->copyToStatsdAt( 'FileImporter.specialPage.action.offeredSourceEdit' )
 				->increment();
 		}
 

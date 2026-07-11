@@ -91,26 +91,22 @@ class Importer {
 			$importPlan->getDetails()
 		);
 		$metric->setLabel( 'operation', 'build' )
-			->copyToStatsdAt( 'FileImporter.import.timing.buildOperations' )
 			->observeSeconds( microtime( true ) - $operationBuildingStart );
 
 		$operationPrepareStart = microtime( true );
 		$this->prepareImportOperations( $importOperations );
 		$metric->setLabel( 'operation', 'prepare' )
-			->copyToStatsdAt( 'FileImporter.import.timing.prepareOperations' )
 			->observeSeconds( microtime( true ) - $operationPrepareStart );
 
 		$operationValidateStart = microtime( true );
 		$validationStatus->merge( $importOperations->validate() );
 		$this->validateImportOperations( $validationStatus, $importPlan );
 		$metric->setLabel( 'operation', 'validate' )
-			->copyToStatsdAt( 'FileImporter.import.timing.validateOperations' )
 			->observeSeconds( microtime( true ) - $operationValidateStart );
 
 		$operationCommitStart = microtime( true );
 		$this->commitImportOperations( $importOperations );
 		$metric->setLabel( 'operation', 'commit' )
-			->copyToStatsdAt( 'FileImporter.import.timing.commitOperations' )
 			->observeSeconds( microtime( true ) - $operationCommitStart );
 
 		// TODO the below should be an ImportOperation
@@ -119,14 +115,12 @@ class Importer {
 		$this->createPostImportNullRevision( $importPlan, $user );
 		$this->createPostImportEdit( $importPlan, $page, $user );
 		$metric->setLabel( 'operation', 'misc' )
-			->copyToStatsdAt( 'FileImporter.import.timing.miscActions' )
 			->observeSeconds( microtime( true ) - $miscActionsStart );
 
 		// TODO do we need to call WikiImporter::finishImportPage??
 		// TODO factor logic in WikiImporter::finishImportPage out so we can call it
 
 		$this->statsFactory->getTiming( 'import_duration_seconds' )
-			->copyToStatsdAt( 'FileImporter.import.timing.wholeImport' )
 			->observeSeconds( microtime( true ) - $importStart );
 	}
 
@@ -182,14 +176,11 @@ class Importer {
 			$initialTextRevision = null;
 		}
 		$this->statsFactory->getGauge( 'import_details_textRevisions' )
-			->copyToStatsdAt( 'FileImporter.import.details.textRevisions' )
 			->set( count( $textRevisions ) );
 		$this->statsFactory->getGauge( 'import_details_fileRevisions' )
-			->copyToStatsdAt( 'FileImporter.import.details.fileRevisions' )
 			->set( count( $fileRevisions ) );
 
 		$this->statsFactory->getGauge( 'import_details_totalFileSizes_bytes' )
-			->copyToStatsdAt( 'FileImporter.import.details.totalFileSizes' )
 			->set( $totalFileSizes );
 
 		return $importOperations;
