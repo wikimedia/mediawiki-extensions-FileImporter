@@ -46,7 +46,7 @@ class SourceUrl {
 	}
 
 	/**
-	 * @return string[] Parsed URL array provided by wfParseUrl
+	 * @return string[] Parsed URL array provided by UrlUtils::parse
 	 */
 	public function getParsedUrl(): array {
 		return $this->parsed;
