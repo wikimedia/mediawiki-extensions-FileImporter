@@ -48,7 +48,7 @@ class ImportOperations implements ImportOperation {
 	 * @param int $expectedState State machine must be in this state to begin processing.
 	 * @param int $nextState State machine will move to this state once processing begins.
 	 * @param bool $stopOnError when True the state machine will exit early if errors are found
-	 * @param callable $executor function( ImportOperation ): StatusValue,
+	 * @param callable(ImportOperation):StatusValue $executor
 	 *  callback to select which phase of the operation to run.
 	 * @return StatusValue isOK if all steps succeed.  Accumulates warnings and may
 	 *  include a final error explaining why not ok.
@@ -71,7 +71,13 @@ class ImportOperations implements ImportOperation {
 
 		$status = StatusValue::newGood();
 		foreach ( $this->importOperations as $importOperation ) {
-			$status->merge( $executor( $importOperation ) );
+			$nextStatus = $executor( $importOperation );
+			if ( $status->statusData !== null && $nextStatus->statusData !== null ) {
+				// SimpleCaptcha uses this field to store internal data we are not interested in.
+				// Keep only the earliest value.
+				$nextStatus->statusData = null;
+			}
+			$status->merge( $nextStatus );
 
 			if ( $stopOnError && !$status->isOK() ) {
 				break;
