@@ -38,15 +38,15 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	}
 
 	public static function providePerformFileChecks() {
-		return [
-			// File vs title checks
-			'validPNG' => [ 'Foo.png', 'png' ],
-			'validGIF' => [ 'Foo.gif', 'gif' ],
-			'validJPEG' => [ 'Foo.jpeg', 'jpeg' ],
-			'PNGwithBadExtension' => [ 'Foo.jpeg', 'png', 'filetype-mime-mismatch' ],
-			'GIFwithBadExtension' => [ 'Foo.jpeg', 'gif', 'filetype-mime-mismatch' ],
-			'JPEGwithBadExtension' => [ 'Foo.gif', 'jpeg', 'filetype-mime-mismatch' ],
-		];
+		foreach ( [ 'png', 'gif', 'jpeg' ] as $ext ) {
+			$saveMethod = "image$ext";
+			if ( function_exists( $saveMethod ) ) {
+				$filename = "Foo.$ext";
+				$mismatchingFilename = $ext === 'jpeg' ? 'Foo.gif' : 'Foo.jpeg';
+				yield [ $filename, $saveMethod ];
+				yield [ $mismatchingFilename, $saveMethod, 'filetype-mime-mismatch' ];
+			}
+		}
 	}
 
 	/**
@@ -54,10 +54,10 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 	 */
 	public function testPerformFileChecks(
 		string $targetTitle,
-		string $actualFileType,
+		callable $saveMethod,
 		?string $expectedError = null
 	) {
-		$tempPath = $this->getGetImagePath( $actualFileType );
+		$tempPath = $this->getGetImagePath( $saveMethod );
 		$base = new ValidatingUploadBase(
 			new TitleValue( NS_FILE, $targetTitle ),
 			$tempPath
@@ -70,12 +70,7 @@ class FileImporterUploadBaseTest extends \MediaWikiIntegrationTestCase {
 		}
 	}
 
-	private function getGetImagePath( string $fileType ): string {
-		$saveMethod = "image$fileType";
-		if ( !function_exists( $saveMethod ) ) {
-			$this->markTestSkipped( "$saveMethod function required for this test" );
-		}
-
+	private function getGetImagePath( callable $saveMethod ): string {
 		$tmpPath = $this->getNewTempFile();
 		$im = imagecreate( 16, 16 );
 		imagecolorallocate( $im, 255, 0, 255 );
