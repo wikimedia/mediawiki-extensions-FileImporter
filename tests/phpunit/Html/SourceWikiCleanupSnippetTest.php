@@ -10,6 +10,7 @@ use FileImporter\Data\SourceUrl;
 use FileImporter\Html\SourceWikiCleanupSnippet;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
+use MediaWiki\Config\Config;
 use MediaWiki\Config\HashConfig;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\MessageLocalizer;
@@ -53,13 +54,13 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 
 		$snippet = new SourceWikiCleanupSnippet(
 			$this->createNoOpMock( MessageLocalizer::class ),
-			$editEnabled, $deleteEnabled
 		);
 		$this->assertSame(
 			'',
 			$snippet->getHtml(
 				$this->createImportPlan(),
-				$this->createNoOpMock( User::class )
+				$this->createNoOpMock( User::class ),
+				$this->createConfig( $editEnabled, $deleteEnabled )
 			)
 		);
 	}
@@ -70,7 +71,8 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 		$snippet = new SourceWikiCleanupSnippet( RequestContext::getMain() );
 		$html = $snippet->getHtml(
 			$this->createImportPlan(),
-			$this->createNoOpMock( User::class )
+			$this->createNoOpMock( User::class ),
+			$this->createConfig()
 		);
 
 		$this->assertStringContainsString(
@@ -108,19 +110,17 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testIsSourceEditAllowed_configShortCircuits() {
-		$mockLookup = $this->createNoOpMock( WikidataTemplateLookup::class );
-		$this->setService( 'FileImporterTemplateLookup', $mockLookup );
-		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
-			$this->createNoOpMock( MessageLocalizer::class ),
-			false
-		) );
+		$this->setupServicesAndGlobals( true, true );
 
-		$this->assertFalse( $snippet->isSourceEditAllowed(
-			$this->createMock( SourceUrl::class ),
+		$snippet = new SourceWikiCleanupSnippet( RequestContext::getMain() );
+		$html = $snippet->getHtml(
+			$this->createImportPlan(),
 			$this->createNoOpMock( User::class ),
-			''
-		) );
+			$this->createConfig( false, false )
+		);
+
+		$this->assertStringNotContainsString( 'automateSourceWikiCleanup', $html );
+		$this->assertStringNotContainsString( 'automateSourceWikiDelete', $html );
 	}
 
 	public function testIsSourceDeleteAllowed_success() {
@@ -167,18 +167,17 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testIsSourceDeleteAllowed_configShortCircuits() {
-		$mockApi = $this->createNoOpMock( RemoteApiActionExecutor::class );
-		$this->setService( 'FileImporterMediaWikiRemoteApiActionExecutor', $mockApi );
-		/** @var SourceWikiCleanupSnippet $snippet */
-		$snippet = TestingAccessWrapper::newFromObject( new SourceWikiCleanupSnippet(
-			$this->createNoOpMock( MessageLocalizer::class ),
-			true, false
-		) );
+		$this->setupServicesAndGlobals( true, true );
 
-		$this->assertFalse(
-			$snippet->isSourceDeleteAllowed(
-				$this->createMock( SourceUrl::class ),
-				new User() ) );
+		$snippet = new SourceWikiCleanupSnippet( RequestContext::getMain() );
+		$html = $snippet->getHtml(
+			$this->createImportPlan(),
+			$this->createNoOpMock( User::class ),
+			$this->createConfig( true, false )
+		);
+
+		$this->assertStringContainsString( 'automateSourceWikiCleanup', $html );
+		$this->assertStringNotContainsString( 'automateSourceWikiDelete', $html );
 	}
 
 	public function testIsFreshImport_true() {
@@ -198,6 +197,13 @@ class SourceWikiCleanupSnippetTest extends MediaWikiIntegrationTestCase {
 			$this->createNoOpMock( MessageLocalizer::class ),
 		) );
 		$this->assertFalse( $snippet->isFreshImport( $request ) );
+	}
+
+	private function createConfig( bool $editEnabled = true, bool $deleteEnabled = true ): Config {
+		return new HashConfig( [
+			'FileImporterSourceWikiTemplating' => $editEnabled,
+			'FileImporterSourceWikiDeletion' => $deleteEnabled,
+		] );
 	}
 
 	private function createImportPlan() {

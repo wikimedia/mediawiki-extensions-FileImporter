@@ -25,7 +25,7 @@ class WikidataTemplateLookup {
 
 	/** @var string */
 	private $entityEndpoint;
-	/** @var string|null */
+	/** @var string|null Entity id of the NowCommons template, e.g. Q5611625 on wikidata.org */
 	private $nowCommonsEntityId;
 
 	/** @var string[][] Array mapping site id and entity id to a template title name */

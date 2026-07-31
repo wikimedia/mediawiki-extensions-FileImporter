@@ -7,6 +7,7 @@ use FileImporter\Data\ImportRequest;
 use FileImporter\Data\SourceUrl;
 use FileImporter\Remote\MediaWiki\RemoteApiActionExecutor;
 use FileImporter\Services\WikidataTemplateLookup;
+use MediaWiki\Config\Config;
 use MediaWiki\Html\Html;
 use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\MediaWikiServices;
@@ -27,8 +28,6 @@ class SourceWikiCleanupSnippet {
 
 	public function __construct(
 		private readonly MessageLocalizer $messageLocalizer,
-		private readonly bool $sourceEditingEnabled = true,
-		private readonly bool $sourceDeletionEnabled = true,
 	) {
 		// TODO: Inject
 		$this->lookup = MediaWikiServices::getInstance()->getService(
@@ -37,16 +36,22 @@ class SourceWikiCleanupSnippet {
 			'FileImporterMediaWikiRemoteApiActionExecutor' );
 	}
 
-	public function getHtml( ImportPlan $importPlan, User $user ): string {
+	public function getHtml(
+		ImportPlan $importPlan,
+		User $user,
+		Config $config,
+	): string {
 		$context = $this->messageLocalizer;
 		$sourceUrl = $importPlan->getRequest()->getUrl();
 
-		$canAutomateEdit = $this->isSourceEditAllowed(
-			$sourceUrl,
-			$user,
-			$importPlan->getOriginalTitle()->getPrefixedText()
-		);
-		$canAutomateDelete = $this->isSourceDeleteAllowed( $sourceUrl, $user );
+		$canAutomateEdit = $config->get( 'FileImporterSourceWikiTemplating' ) &&
+			$this->isSourceEditAllowed(
+				$sourceUrl,
+				$user,
+				$importPlan->getOriginalTitle()->getPrefixedText()
+			);
+		$canAutomateDelete = $config->get( 'FileImporterSourceWikiDeletion' ) &&
+			$this->isSourceDeleteAllowed( $sourceUrl, $user );
 
 		if ( !$canAutomateEdit && !$canAutomateDelete ) {
 			return '';
@@ -126,7 +131,7 @@ class SourceWikiCleanupSnippet {
 	 *  can be found.
 	 */
 	private function isSourceEditAllowed( SourceUrl $sourceUrl, User $user, string $title ) {
-		if ( !$this->sourceEditingEnabled ||
+		if (
 			// Note: This intentionally doesn't allow a template with the name "0".
 			!$this->lookup->fetchNowCommonsLocalTitle( $sourceUrl )
 		) {
@@ -142,8 +147,7 @@ class SourceWikiCleanupSnippet {
 	 *  delete pages. Also returns false if querying the user rights failed.
 	 */
 	private function isSourceDeleteAllowed( SourceUrl $sourceUrl, User $user ) {
-		return $this->sourceDeletionEnabled &&
-			$this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user )->isGood();
+		return $this->remoteActionApi->executeUserRightsQuery( $sourceUrl, $user )->isGood();
 	}
 
 }

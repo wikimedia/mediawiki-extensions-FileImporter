@@ -4,6 +4,7 @@ namespace FileImporter\Html;
 
 use FileImporter\Data\ImportPlan;
 use FileImporter\Services\CategoryExtractor;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Html\Html;
 use MediaWiki\Linker\Linker;
@@ -31,11 +32,11 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		// TODO: Inject
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'CentralAuth' ) ) {
 			$config = $this->getContext()->getConfig();
-			$sourceEditingEnabled = $config->get( 'FileImporterSourceWikiTemplating' );
-			$sourceDeletionEnabled = $config->get( 'FileImporterSourceWikiDeletion' );
 		} else {
-			$sourceEditingEnabled = false;
-			$sourceDeletionEnabled = false;
+			$config = new HashConfig( [
+				'FileImporterSourceWikiTemplating' => false,
+				'FileImporterSourceWikiDeletion' => false,
+			] );
 		}
 
 		$text = $importPlan->getFileInfoText();
@@ -112,9 +113,7 @@ class ImportPreviewPage extends SpecialPageHtmlFragment {
 		)->parseAsBlock() .
 		( new SourceWikiCleanupSnippet(
 			$this->getContext(),
-			$sourceEditingEnabled,
-			$sourceDeletionEnabled
-		) )->getHtml( $importPlan, $this->getUser() ) .
+		) )->getHtml( $importPlan, $this->getUser(), $config ) .
 		Html::openElement( 'div', [ 'class' => 'mw-importfile-importOptions' ] ) .
 		$this->buildEditSummaryHtml( $importPlan ) .
 		$this->msg(
