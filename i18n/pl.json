@@ -10,12 +10,13 @@
 			"Rail",
 			"Railfail536",
 			"Rainbow P",
-			"Woytecr"
+			"Woytecr",
+			"PanWor"
 		]
 	},
 	"fileimporter": "Importer plików",
 	"fileimporter-desc": "Łatwe importowanie plików z innych stron",
-	"fileimporter-help-banner-text": "'''Importowanie z innych wiki'''\n# Sprawdź i zmień tytuł pliku oraz informacje poniżej.\n# Wybierz czy chcesz, aby importer plików uporządkował oryginalną wiki poprzez dodanie szablonu [//pl.wikipedia.org/wiki/Szablon:NowCommons NowCommons] do pliku źródłowego (jeśli posiadasz uprawnienia administratora, posiadasz także opcję usunięcia pliku źródłowego).\n# Kliknij '''{{int:fileimporter-import}}''', aby skopiować plik na {{GRAMMAR:B.lp|{{SITENAME}}}}.\n\nSprawdź [[Project:Licensing|politykę społeczności {{GRAMMAR:D.lp|{{SITENAME}}}}]] aby uzyskać informacje na temat licencjonowania.<br />Dokładne instrukcje na temat używania importera plików znajdziesz na [//www.mediawiki.org/wiki/Help:Extension:FileImporter stronie pomocy].",
+	"fileimporter-help-banner-text": "'''Importowanie z innych wiki'''\n# Sprawdź i zmień tytuł pliku oraz informacje poniżej.\n# Wybierz, czy chcesz, aby importer plików uporządkował oryginalną wiki poprzez dodanie szablonu [//pl.wikipedia.org/wiki/Szablon:NowCommons NowCommons] do pliku źródłowego (jeśli masz uprawnienia administratora, masz także opcję usunięcia pliku źródłowego).\n# Kliknij „'''{{int:fileimporter-import}}'''”, aby skopiować plik na {{GRAMMAR:B.lp|{{SITENAME}}}}.\n\nSprawdź [[Project:Licensing|politykę społeczności {{GRAMMAR:D.lp|{{SITENAME}}}}]], aby uzyskać informacje na temat licencjonowania.<br />Dokładne instrukcje na temat używania importera plików znajdziesz na [//www.mediawiki.org/wiki/Help:Extension:FileImporter stronie pomocy].",
 	"fileimporter-help-banner-close-tooltip": "Nie pokazuj ponownie tego komunikatu",
 	"tag-fileimporter": "Zmodyfikowane importerem plików",
 	"tag-fileimporter-description": "Wersje i wpisy rejestru dodane po imporcie z innej wiki",
@@ -79,7 +80,7 @@
 	"fileimporter-cleanup-checkboxlabel": "Oznacz plik na źródłowej wiki jako zaimportowany do {{GRAMMAR:D.lp|{{SITENAME}}}}",
 	"fileimporter-cleanup-summary": "Ten plik znajduje się teraz na {{grammar:MS.lp|{{SITENAME}}}} na $1 (przeniesiony importerem plików)",
 	"fileimporter-cleanup-failed": "Automatyczne edytowanie źródłowej wiki nie było możliwe.",
-	"fileimporter-delete-text": "Posiadasz uprawnienia do usuwania pliku na źródłowej wiki. Jeśli chcesz, aby importer polików usunął plik w Twoim imieniu, zaznacz tę opcję:",
+	"fileimporter-delete-text": "Masz uprawnienia do usuwania pliku na źródłowej wiki. Jeśli chcesz, aby importer polików usunął plik w Twoim imieniu, zaznacz tę opcję:",
 	"fileimporter-delete-checkboxlabel": "Usuń w moim imieniu plik na źródłowej wiki",
 	"fileimporter-delete-summary": "Ten plik znajduje się teraz na {{grammar:MS.lp|{{SITENAME}}}} na $1 (przeniesiony importerem plików)",
 	"fileimporter-delete-failed": "Nie udało się automatycznie usunąć pliku na {{GRAMMAR:MS.lp|$1}}. Wróć na [$2 oryginalną stronę pliku] i usuń go ręcznie.",
