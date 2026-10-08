@@ -10,7 +10,6 @@ use MediaWiki\Utils\UrlUtils;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use StatusValue;
-use Wikimedia\Stats\Metrics\CounterMetric;
 use Wikimedia\Stats\StatsFactory;
 
 /**
@@ -20,7 +19,9 @@ use Wikimedia\Stats\StatsFactory;
  */
 class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 
-	private CounterMetric $postImportCounter;
+	private const COUNTER_NAME = 'FileImporter_postImport_results_total';
+
+	private readonly StatsFactory $statsFactory;
 
 	public function __construct(
 		private readonly PostImportHandler $fallbackHandler,
@@ -30,8 +31,7 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		private readonly LoggerInterface $logger = new NullLogger(),
 		?StatsFactory $statsFactory = null
 	) {
-		$statsFactory ??= StatsFactory::newNull();
-		$this->postImportCounter = $statsFactory->getCounter( 'FileImporter_postImport_results_total' );
+		$this->statsFactory ??= StatsFactory::newNull();
 	}
 
 	/**
@@ -88,13 +88,15 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		);
 
 		if ( $status->isGood() ) {
-			$this->postImportCounter->setLabel( 'result', 'success' )
+			$this->statsFactory->getCounter( self::COUNTER_NAME )
+				->setLabel( 'result', 'success' )
 				->setLabel( 'action', 'edit' )
 				->increment();
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import edit.' );
-			$this->postImportCounter->setLabel( 'result', 'failed' )
+			$this->statsFactory->getCounter( self::COUNTER_NAME )
+				->setLabel( 'result', 'failed' )
 				->setLabel( 'action', 'edit' )
 				->increment();
 
@@ -121,13 +123,15 @@ class RemoteSourceFileEditDeleteAction implements PostImportHandler {
 		);
 
 		if ( $status->isGood() ) {
-			$this->postImportCounter->setLabel( 'result', 'success' )
+			$this->statsFactory->getCounter( self::COUNTER_NAME )
+				->setLabel( 'result', 'success' )
 				->setLabel( 'action', 'delete' )
 				->increment();
 			return $this->successMessage();
 		} else {
 			$this->logger->error( __METHOD__ . ' failed to do post import delete.' );
-			$this->postImportCounter->setLabel( 'result', 'failed' )
+			$this->statsFactory->getCounter( self::COUNTER_NAME )
+				->setLabel( 'result', 'failed' )
 				->setLabel( 'action', 'delete' )
 				->increment();
 
