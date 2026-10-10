@@ -122,7 +122,11 @@ class FileRevisionFromRemoteUrlTest extends \MediaWikiIntegrationTestCase {
 		$this->assertFalse( $firstRevision->isMinor() );
 
 		// assert file was imported correctly
-		$file = $this->getServiceContainer()->getRepoGroup()->findFile( $title );
+		$repoGroup = $this->getServiceContainer()->getRepoGroup();
+		// A hook can render the file description page before the upload. Parsoid then asks for
+		// the file, and RepoGroup caches that the file is missing. Clear this false negative.
+		$repoGroup->clearCache( $title );
+		$file = $repoGroup->findFile( $title );
 		$this->assertInstanceOf( File::class, $file );
 		$this->assertSame( self::TITLE, $file->getName() );
 		$this->assertSame( 'Original upload comment of Test.png', $file->getDescription() );
