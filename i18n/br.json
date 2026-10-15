@@ -3,10 +3,11 @@
 		"authors": [
 			"Fulup",
 			"Huñvreüs",
-			"Y-M D"
+			"Y-M D",
+			"Ar choler"
 		]
 	},
-	"fileimporter-help-banner-close-tooltip": "Arabat diskouez ar gemennadenn-mañ ken",
+	"fileimporter-help-banner-close-tooltip": "Arabat eo diskouez ar c'hemenn-mañ ken",
 	"tag-fileimporter": "Kemmet gant Filelmporter",
 	"tag-fileimporter-description": "Stummoù ha kemennadennoù marilh ouzhpennet goude enporzhiañ eus ur wiki all",
 	"tag-fileimporter-imported": "Enporzhiet gant FileImporter",
