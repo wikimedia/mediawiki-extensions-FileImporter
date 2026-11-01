@@ -22,8 +22,7 @@ class WikitextEditor extends SpecialPageHtmlFragment {
 		$outputPage->addModuleStyles( 'mediawiki.action.edit.styles' );
 		$this->runEditFormInitialHook( $filePage );
 
-		return EditPage::getEditToolbar() .
-			$this->buildEditor( $wikitext );
+		return $this->buildEditor( $wikitext );
 	}
 
 	/**
